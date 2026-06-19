@@ -28,25 +28,25 @@
 ### Инфраструктура
 - **OpenClaw** на VPS (vm-f13581), Linux x64
 - **Хостинг сайта:** GitHub Pages — https://nasledstvo2026.github.io/nasledstvo/
-- **Репозиторий:** https://github.com/nasledstvo2026/nasledstvo
+- **Репозиторий:** https://github.com/nasledstvo2026/nasledstvo (SSH: git@github.com:nasledstvo2026/nasledstvo.git)
 - **Домен:** nasledstvo2026.github.io/nasledstvo (без кастомного домена)
 - **Отказались от:** Timeweb Cloud (19.06.2026 — лёг, 20.06.2026 — переехали)
 - **Скрипты публикации:** `publish-report.sh`, `upload-to-github.sh` — всё через git push
+- **SSH ключ GitHub:** `~/.ssh/id_ed25519` (добавлен на аккаунт nasledstvo2026)
+- **Ключ Timeweb удалён:** `~/.ssh/timeweb` не используется
 
 ### Модели LLM
 - **deepseek/deepseek-v4-flash** — primary модель (чат в Telegram + новые сессии) с 19.06.2026
-- **deepseek/deepseek-chat** — fallback для чата
-- **deepseek/deepseek-chat** — ВСЕ cron-задачи (дёшево, изолированно)
+- **deepseek/deepseek-chat** — fallback для чата + ВСЕ cron-задачи (дёшево, изолированно)
 - GLM-5.1 убрана из primary по указанию Кирилла (19.06.2026)
-- **deepseek/deepseek-chat** — все cron-задачи (дёшево, изолированно)
-- Катя: cron через deepseek-chat, чат в Telegram через v4-flash + fallback deepseek-chat
 
 ### Дизайн сайта
-- Единый `theme.css` — glass-morphism dark theme (`#0a0e14` фон, `#161b22` карточки, `#21262d` бордеры)
-- Все отчёты подключают `<link rel="stylesheet" href="theme.css">`
-- **НЕ** использовать inline CSS в отчётах — только классы из theme.css
-- Классы: `.container`, `.back`, `.hero`, `.section`, `.tag`, `.item`, `.title`, `.meta`, `.body`, `.highlight`, `.sentiment`, `.stats-row`, `.stat-box`, `.footer`
-- **Правило для карточек:** не использовать `<span class="card-tag">` нигде на сайте. Надписи-ярлыки на плашках не ставить никогда.
+- `theme.css` — glass-morphism dark theme (#0a0e14 фон, #161b22 карточки, #21262d бордеры), DESKTOP-FIRST
+- `theme.v2.css` — новая версия, используется на index.html
+- `style.css` — единый стандарт для плашек на всех страницах (карточки-плашки на главной)
+- **Все отчёты** подключают `theme.css` (через `<link rel="stylesheet" href="theme.css">`), без inline CSS
+- Классы отчётов: `.container`, `.back`, `.hero`, `.section`, `.tag`, `.item`, `.title`, `.meta`, `.body`, `.highlight`, `.footer`, `.stats-row`, `.stat-box`, `.note`, `.essence`, `.for-citizens`
+- Индексная страница (**index.html**) использует `theme.v2.css` + `style.css`
 
 ---
 
@@ -76,26 +76,28 @@
 
 ---
 
-## ⏰ Cron-задачи (9 штук)
+## ⏰ Cron-задачи (8 штук)
 
 | # | Задача | Расписание | Модель | Кому |
 |---|--------|-----------|--------|------|
-| 1 | 📋 Катя: сводка жалоб | ежедневно 08:00 | zai/glm-5.1 (fallback deepseek-v4-flash) | Катя |
-| 2 | 📰 Лена: дайджест новостей (категории + Суть/Для граждан, защита от дублей, приоритет 48ч) | ежедневно 09:00 | deepseek | Лена |
-| 3 | 📊 Данил: вклады 1991 (пн) | понедельник 10:00 | deepseek/deepseek-v4-flash | Данил |
-| 4 | 📊 Данил: вклады 1991 (чт) | четверг 10:00 | deepseek/deepseek-v4-flash | Данил |
-
-Данил: обновлено 17.06.2026 — анти-галлюцинация (запрет выдумывать), HTML строго в ```html, раздельные файлы (report-danil-mon.html / report-danil-thu.html), упрощена фильтрация дат (просто последние 7 дней).
-| 5 | 💰 РЖД 1Р-37R итоги торгов | будни 23:55 | deepseek | Лена |
-| 6 | 💾 Бэкап инкремент | ежедневно 22:00 | deepseek (fallback v4-flash) | — |
-| 7 | 💾 Бэкап полный | воскресенье 03:00 | deepseek | Кирилл |
-| 8 | 📊 Отчёт по токенам (bash) | ежедневно 03:30 | deepseek (минимум) | tokens.html |
-| 9 | 📊 Активность пользователей | ежедневно 23:50 | deepseek-chat | activity.html |
+| 1 | 📋 Катя: сводка жалоб | ежедневно 08:00 | deepseek-chat | Катя |
+| 2 | 📊 Статистика жалоб (stats-inheritance) | ежедневно 08:10 | deepseek-chat | — |
+| 3 | 📰 Лена: дайджест новостей | ежедневно 09:00 | deepseek-chat | Лена |
+| 4 | 💰 РЖД 1Р-37R итоги торгов | будни 23:55 | deepseek-chat | Лена |
+| 5 | 📊 Данил: вклады 1991 (пн) | понедельник 10:00 | deepseek-chat | Данил |
+| 6 | 📊 Данил: вклады 1991 (чт) | четверг 10:00 | deepseek-chat | Данил |
+| 7 | 💾 Бэкап (git push) | ежедневно 22:00 | deepseek-chat | — |
+| 8 | 💾 Бэкап полный (git push) | воскресенье 03:00 | deepseek-chat | Кирилл |
+|  | 📊 Активность пользователей | ежедневно 23:50 | deepseek-chat | activity.html |
+|  | 📋 Роза: пособия | понедельник 09:03 | deepseek-chat | Роза |
+|  | 📋 Ирина: НПА | понедельник 09:06 | deepseek-chat | Ирина |
+  | 🔘 Отчёт по токенам (bash) | ежедневно 03:30 | — | tokens.html (локально) |
 
 ### Конфигурация задач
-- **failureAlert:** после 2 ошибок → Кириллу в Telegram (cooldown 1 час)
-- **sessionTarget:** Катя/Данил = `isolated`, Лена/РЖД = её сессия, бэкапы = `isolated`
-- **timeout:** 60–300 сек в зависимости от задачи
+- **Публикация:** все отчёты через `publish-report.sh` (git add → commit → push → GitHub Pages)
+- **failureAlert:** после 2 ошибок → Кириллу (cooldown 1 час)
+- **sessionTarget:** Катя/Данил/Роза/Ирина = `isolated`, Лена/РЖД = её сессия, бэкапы = `isolated`
+- **timeout:** 60–300 сек
 
 ---
 
@@ -151,13 +153,14 @@
 - `SOUL.md` — персона/стиль
 - `USER.md` — пользователи и роли
 - `IDENTITY.md` — кто я
-- `TOOLS.md` — заметки об инструментах (SSH, Timeweb)
-- `HEARTBEAT.md` — задачи для heartbeat (пока пусто)
+- `TOOLS.md` — заметки об инструментах
+- `HEARTBEAT.md` — задачи для heartbeat
 - `MEMORY.md` — этот файл
-- `theme.css` → на Timeweb, единый дизайн
-- `upload-to-timeweb.sh` — загрузка файлов на сайт
-- `update-index-timeweb.sh` — обновление дат на главной
-- `generate-stats-dashboard.sh` — скрипт дашборда (удалён из cron, файл остался)
+- `theme.css`, `theme.v2.css`, `style.css` — CSS для сайта
+- `publish-report.sh` — публикация отчёта через git push
+- `upload-to-github.sh` — загрузка файла через git push
+- `update-index-github.sh` — обновление дат на nasledstvo.html
+- `generate-activity-report.sh` — генерация activity.html
 - `backup/backup-incremental.sh` — инкрементальный бэкап
 - `backup/backup-full.sh` — полный бэкап
 
@@ -203,41 +206,6 @@
 
 Общие улучшения: time_range, чистый JSON, стоп-слова, текстовые маркеры дат, deepseek-chat модель.
 
-### На Timeweb (`~/public_html/`)
-- `index.html` — главная страница
-- `report-katya.html` — отчёт Кати
-- `report-lena.html` — отчёт Лены
-- `report-danil.html` — отчёт Данила
-- `tokens.html` — отчёт по токенам (bash-скрипт, 7-дневный график)
-- `tokens-data.json` — данные за 7 дней для графиков
-- `service_main.html` — сервисная страница (архитектура, проекты, активность)
-- `activity.html` — статистика запросов пользователей на изменение промптов
-- `theme.css` — единый dark theme
-
----
-
-## 🛠️ Инфраструктурные улучшения (18.06.2026)
-
-### Сделано по рекомендациям Кирилла:
-
-**✅ Выполнено:**
-1. **Переменные окружения** — создан `.env.timeweb` с `TIMEWEB_HOST`, `TIMEWEB_SSH_KEY`, `TIMEWEB_WEBROOT`, `TIMEWEB_CONNECT_TIMEOUT`. Скрипты теперь source его и используют переменные вместо хардкода.
-2. **ConnectTimeout=10** — добавлен во все scp/ssh команды в `upload-to-timeweb.sh`, `update-index-timeweb.sh`, `publish-report.sh`. Cron не зависнет при потере связи.
-3. **Pug/Jade → чистый HTML5** — во всех 9 промптах заменён синтаксис `.back(href=...)` на `<a href="index.html" class="back">`.
-4. **Динамический год** — во все задачи (Роза, Лена, Данил пн/чт, Ирина) добавлен шаг: перед поиском выполнить `date +%Y` и подставить в URL вместо хардкоженого «2026».
-5. **Роза: scp → upload-to-timeweb.sh** — убрана ручная scp с хардкожеными кредами, заменена на вызов скрипта.
-
-**❌ Отклонено:**
-- **Telegram через curl** — встроенная delivery OpenClaw надёжнее, логирует доставку, failureAlert работают. curl к API Telegram — шаг назад.
-- **Полный silent-режим** — модели уже в isolated-сессиях, вывод идёт только в announce. Запрет рассуждений сломает отладку.
-
-### Затронутые файлы:
-- `upload-to-timeweb.sh` — env vars + ConnectTimeout
-- `update-index-timeweb.sh` — env vars + ConnectTimeout + report-danil-thu в case
-- `publish-report.sh` — env vars + ConnectTimeout
-- `.env.timeweb` — новый файл с кредами
-- Cron-задачи: Катя (2), Лена, Роза, Данил (2), Ирина — обновлены промпты
-
 ## 📊 Система логирования активности (18.06.2026)
 
 Отслеживает запросы пользователей на изменение промптов.
@@ -246,18 +214,18 @@
 - **`prompt-activity.json`** — структурированный лог (массив entries: date, time, user, request, task, change)
 - **`prompt-changelog.md`** — человекочитаемая хронология (ведётся параллельно)
 - **`log-activity.sh`** — скрипт для добавления записи: `./log-activity.sh <user> "<request>" "<task>" ["<change>"]`
-- **`generate-activity-report.sh`** — читает JSON, генерирует activity.html со статистикой и лентой. Флаг `--upload` заливает на Timeweb
-- **`activity.html`** — страница на сайте (4 счётчика: сегодня/7д/30д/всего, таблицы по пользователям, по задачам, лента последних 20 запросов)
-- **Cron #9** — 23:50 ежедневно: генерация + upload на Timeweb
+- **`generate-activity-report.sh`** — читает JSON, генерирует activity.html
+- **`activity.html`** — страница на GitHub Pages (4 счётчика: сегодня/7д/30д/всего, таблицы по пользователям, по задачам, лента последних 20 запросов)
+- **Cron** — 23:50 ежедневно: генерация + публикация через `publish-report.sh`
 
 ### Использование:
 1. Когда пользователь просит изменить промпт → запустить `log-activity.sh`
 2. Cron сам перегенерирует activity.html в 23:50
-3. При необходимости — ручной запуск: `bash generate-activity-report.sh --upload`
+3. При необходимости — ручной запуск: `bash generate-activity-report.sh && ./publish-report.sh /home/user1/.openclaw/workspace/activity.html activity.html`
 
 ### На сайте:
 - Карточка «📊 Мониторинг · Активность пользователей» в разделе Сервис
-- https://nasledstvo.net.ru/activity.html
+- https://nasledstvo2026.github.io/nasledstvo/activity.html
 
 ## 📝 История ключевых решений
 
@@ -276,3 +244,10 @@
 - Оптимизация токенов: 14 → 7 задач, -94% расход
 - Добавлены failureAlert
 - Создан MEMORY.md
+
+### 20.06.2026 — GitHub Pages
+- Полный отказ от Timeweb Cloud
+- Переезд на https://nasledstvo2026.github.io/nasledstvo/
+- SSH-ключ для GitHub
+- Все скрипты и cron-задачи переведены на git push
+- MEMORY.md актуализирована
