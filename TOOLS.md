@@ -2,17 +2,14 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
-## Timeweb (nasledstvo.net.ru)
+## GitHub Pages (текущий хостинг)
 
-- **Хостинг:** Timeweb Cloud
-- **IP:** 87.249.38.179
-- **SSH пользователь:** `cq832843`
-- **SSH ключ:** `~/.ssh/timeweb`
-- **Webroot:** `~/public_html`
-- **Команда:** `ssh -i ~/.ssh/timeweb cq832843@87.249.38.179`
-- **SCP загрузка:** `scp -i ~/.ssh/timeweb <file> cq832843@87.249.38.179:~/public_html/`
-- **Скрипты:** `upload-to-timeweb.sh`, `update-index-timeweb.sh`
-- **Сайт:** https://nasledstvo.net.ru
+- **Сайт:** https://nasledstvo2026.github.io/nasledstvo/
+- **Репозиторий:** git@github.com:nasledstvo2026/nasledstvo.git
+- **SSH ключ:** `~/.ssh/id_ed25519` (добавлен на GitHub)
+- **Публикация:** `./publish-report.sh <local-file> <filename>`
+- **Загрузка:** `./upload-to-github.sh <local-file> <filename>`
+- **Обновление дат:** `./update-index-github.sh <report-filename> <timestamp>`
 
 ## What Goes Here
 

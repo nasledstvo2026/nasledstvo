@@ -2,21 +2,19 @@
 
 ## ⚠️ Правила поведения
 
-### Публикация на Timeweb
-- **После загрузки файлов** — обязательная верификация через SSH (`grep` ключевых фрагментов на сервере)
-- **Не полагаться** на exit-код `scp` или `web_fetch` — они не гарантируют, что контент обновился
-- Если SSH недоступен — честно сказать «не могу проверить», а не утверждать что всё ок
-- **19.06.2026:** Timeweb блокирует IP при множественных SSH-соединениях. Исправлено:
-  - Создан `~/.ssh/config` с блоком `Host timeweb` + ControlMaster auto
-  - Все скрипты переведены на алиас `timeweb` вместо raw host
-  - ControlPersist 600 — соединение живёт 10 мин после последнего использования
-  - **Ретрай-циклы в скриптах убраны** — больше не долбить сериями
-  - Затронутые скрипты: upload-to-timeweb.sh, publish-report.sh, update-index-timeweb.sh, backup-*.sh, generate-activity-report.sh
-- SSH на Timeweb часто отваливается (`Connection reset`) — делать паузы 10-15 сек между файлами, ретрай до 5 раз
+### Публикация через GitHub
+- **20.06.2026:** Полный переход на GitHub Pages. Timeweb отключён.
+- Сайт: https://nasledstvo2026.github.io/nasledstvo/
+- Публикация отчётов: скрипт `publish-report.sh` (git add + commit + push)
+- Загрузка файлов: скрипт `upload-to-github.sh`
+- Бэкап: git push (задачи cron #6, #7)
+- Все cron-задачи больше не используют scp/SSH к Timeweb — только git push
+- SSH к Timeweb больше не используется; ключ ~/.ssh/timeweb не нужен
 
 ### Ошибки
 - Мало признать — сделать вывод и изменить поведение
 - Если спорил с пользователем и оказался неправ — зафиксировать урок
+- **20.06.2026:** Не сохранил актуальные файлы с Timeweb при первом пушe на GitHub — пришлось перезаливать. Урок: всегда бери свежий снэпшот
 
 ### Редактирование файлов на проде
 - **Никогда не переписывать файлы целиком** (write) если меняется только часть — использовать edit (точечные замены)
@@ -29,10 +27,11 @@
 
 ### Инфраструктура
 - **OpenClaw** на VPS (vm-f13581), Linux x64
-- **Хостинг сайта:** Timeweb Cloud, IP 87.249.38.179, SSH `cq832843@87.249.38.179` (ключ `~/.ssh/timeweb`)
-- **Сайт:** https://nasledstvo.net.ru
-- **Webroot:** `~/public_html` на Timeweb
-- **Домен:** nasledstvo.net.ru
+- **Хостинг сайта:** GitHub Pages — https://nasledstvo2026.github.io/nasledstvo/
+- **Репозиторий:** https://github.com/nasledstvo2026/nasledstvo
+- **Домен:** nasledstvo2026.github.io/nasledstvo (без кастомного домена)
+- **Отказались от:** Timeweb Cloud (19.06.2026 — лёг, 20.06.2026 — переехали)
+- **Скрипты публикации:** `publish-report.sh`, `upload-to-github.sh` — всё через git push
 
 ### Модели LLM
 - **deepseek/deepseek-v4-flash** — primary модель (чат в Telegram + новые сессии) с 19.06.2026
