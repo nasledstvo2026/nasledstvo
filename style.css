@@ -190,6 +190,7 @@
 .hero .page-title {
   font-size: 26px;
   font-weight: 800;
+  color: transparent;
   background: linear-gradient(90deg, #58a6ff, #bc8cff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
