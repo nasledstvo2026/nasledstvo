@@ -186,6 +186,13 @@
 .cards .card-footer .person { font-weight: 600; }
 .cards .card-footer .updated { color: var(--text-dim); }
 
+/* ─── Card update date (из data-атрибута) ─── */
+.cards .card-footer[data-updated]::after {
+  content: attr(data-updated);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
 /* ─── Page title (заголовок страницы, hero h1) ─── */
 .hero .page-title {
   font-size: 26px;
