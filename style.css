@@ -186,10 +186,22 @@
 .cards .card-footer .person { font-weight: 600; }
 .cards .card-footer .updated { color: var(--text-dim); }
 
+/* ─── Page title (заголовок страницы, hero h1) ─── */
+.hero .page-title {
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #58a6ff, #bc8cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 600px) {
   .hero { padding: 24px 16px 20px; }
-  .hero h1 { font-size: 22px; }
+  .hero .page-title { font-size: 22px; }
   .cards { padding: 12px 16px 32px; gap: 16px; }
   .container { padding: 16px 16px 32px; }
   .hide-mobile { display: none; }
