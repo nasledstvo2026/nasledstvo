@@ -1,0 +1,49 @@
+use_default_settings: true
+
+general:
+  instance_name: "OpenClaw SearXNG"
+  debug: false
+
+server:
+  secret_key: "dd8d633ba7c00e76127ecf067a7af03915f0c0380e03277c865d39564b9719c5"
+  bind_address: "0.0.0.0"
+  port: 8080
+  limiter: false
+  image_proxy: false
+  method: "GET"
+
+search:
+  safe_search: 0
+  formats:
+    - html
+    - json
+
+ui:
+  static_use_hash: true
+  default_locale: ""
+
+outgoing:
+  request_timeout: 10.0
+  max_request_timeout: 15.0
+
+engines:
+  - name: google
+    engine: google
+    shortcut: g
+    disabled: false
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    disabled: false
+  - name: bing
+    engine: bing
+    shortcut: bi
+    disabled: false
+  - name: startpage
+    engine: startpage
+    shortcut: sp
+    disabled: false
+  - name: google news
+    engine: google_news
+    shortcut: gn
+    disabled: false

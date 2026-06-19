@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дайджест — nasledstvo.net.ru</title>
+<style>
+:root {
+  --glass-bg: rgba(22, 27, 34, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.12);
+  --glass-shine: rgba(255, 255, 255, 0.03);
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --text-faint: #484f58;
+  --blue: #58a6ff;
+  --green: #7ee787;
+  --purple: #bc8cff;
+  --orange: #ff9000;
+  --red: #f85149;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: #0a0e14;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(88,166,255,.08), transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(188,140,255,.06), transparent 50%);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.hero { text-align: center; padding: 56px 24px 40px; }
+.hero h1 { font-size: 30px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; margin-bottom: 8px; }
+.hero .sub { font-size: 14px; color: var(--text-dim); }
+.hero .domain { font-size: 13px; color: var(--blue); margin-top: 6px; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  padding: 12px 24px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
+  position: relative;
+}
+.card::before {
+  content: '';
+  position: absolute; inset: 0; border-radius: 16px;
+  background: linear-gradient(135deg, var(--glass-shine), transparent 50%);
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--glass-hover);
+  box-shadow: 0 8px 32px rgba(0,0,0,.4);
+}
+.card a { display: block; color: inherit; text-decoration: none; }
+.card-header { padding: 22px 22px 0; position: relative; }
+.card-tag {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  display: inline-block; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px;
+}
+.card-tag.blue   { background: rgba(88,166,255,.12);  color: var(--blue);   border: 1px solid rgba(88,166,255,.2); }
+.card-tag.purple { background: rgba(188,140,255,.12); color: var(--purple); border: 1px solid rgba(188,140,255,.2); }
+.card-tag.orange { background: rgba(255,144,0,.12);   color: var(--orange); border: 1px solid rgba(255,144,0,.2); }
+.card-tag.green  { background: rgba(126,231,135,.12); color: var(--green);  border: 1px solid rgba(126,231,135,.2); }
+.card h2 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
+.card .desc { font-size: 13px; color: var(--text-dim); line-height: 1.55; padding: 0 22px 18px; position: relative; }
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 22px;
+  border-top: 1px solid rgba(255,255,255,.05);
+  font-size: 12px; color: var(--text-faint);
+}
+.card-footer .person { font-weight: 600; }
+.card-footer .updated { color: var(--text-dim); }
+.footer { text-align: center; padding: 32px 24px; border-top: 1px solid var(--glass-border); font-size: 12px; color: var(--text-faint); }
+.footer strong { color: var(--text-dim); }
+.footer a { color: var(--blue); }
+@media (max-width: 600px) {
+  .hero { padding: 36px 16px 28px; }
+  .hero h1 { font-size: 24px; }
+  .cards { padding: 12px 16px 32px; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>📰 Дайджест</h1>
+  <p class="sub">Мониторинг наследования вкладов и компенсаций в банках РФ</p>
+  <p class="domain">nasledstvo.net.ru</p>
+</div>
+
+<div class="cards">
+
+  <div class="card">
+    <a href="report-katya.html">
+      <div class="card-header">
+        <span class="card-tag blue">📋 Жалобы · ежедневно 08:00</span>
+        <h2>Сводка жалоб: Сбербанк + наследство</h2>
+      </div>
+      <p class="desc">Мониторинг banki.ru, otzovik, irecommend, pikabu, дзен. Свежие жалобы, тренды, ключевые проблемы клиентов.</p>
+      <div class="card-footer">
+        <span class="person">👤 Катя</span>
+        <span class="updated">Обновлено: <span id="ud-katya">—</span></span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="report-lena.html">
+      <div class="card-header">
+        <span class="card-tag purple">📰 Новости · ежедневно 09:00</span>
+        <h2>Дайджест новостей: наследство и банки</h2>
+      </div>
+      <p class="desc">Постановления КС РФ, ВС, изменения законодательства, реформы. Источники: РБК, Коммерсантъ, ТАСС, РИА, Дзен.</p>
+      <div class="card-footer">
+        <span class="person">👤 Лена</span>
+        <span class="updated">Обновлено: <span id="ud-lena">—</span></span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="report-danil.html">
+      <div class="card-header">
+        <span class="card-tag orange">📊 Анализ · пн / чт 10:00</span>
+        <h2>Компенсации по вкладам СССР 1991</h2>
+      </div>
+      <p class="desc">Постановления Правительства, бюджетные назначения, публикации СМИ. Прогноз обращений по компенсациям.</p>
+      <div class="card-footer">
+        <span class="person">👤 Данил</span>
+        <span class="updated">Обновлено: <span id="ud-danil">—</span></span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="report-irina.html">
+      <div class="card-header">
+        <span class="card-tag green">⚖️ НПА · еженедельно пн 09:00</span>
+        <h2>Обзор НПА: Социальные меры поддержки</h2>
+      </div>
+      <p class="desc">Федеральные и региональные НПА: инвалидность, ветераны, участники СВО и их семьи.</p>
+      <div class="card-footer">
+        <span class="person">👤 Ирина</span>
+        <span class="updated">Обновлено: <span id="ud-irina">—</span></span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="report-roza.html">
+      <div class="card-header">
+        <span class="card-tag blue">⚖️ Законодательство · еженедельно пн</span>
+        <h2>Изменения в законах по пособиям</h2>
+      </div>
+      <p class="desc">Еженедельная сводка изменений: детские пособия, пенсии, маткапитал, социальные выплаты.</p>
+      <div class="card-footer">
+        <span class="person">👤 Роза</span>
+        <span class="updated">Обновлено: <span id="ud-roza">—</span></span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="tokens.html">
+      <div class="card-header">
+        <span class="card-tag green">📊 Токены · ежечасно 08–23</span>
+        <h2>Расход по моделям</h2>
+      </div>
+      <p class="desc">DeepSeek и GLM: потраченные токены и стоимость за сегодня и 7 дней.</p>
+      <div class="card-footer">
+        <span class="person">⚙️ Инфраструктура</span>
+        <span class="updated">Обновлено: <span id="ud-tokens">—</span></span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="projects.html">
+      <div class="card-header">
+        <span class="card-tag purple">📐 Проекты · Ганта</span>
+        <h2>Планы-графики и задачи</h2>
+      </div>
+      <p class="desc">Управление проектами: диаграммы Ганта, отслеживание сроков, отклонения от плана.</p>
+      <div class="card-footer">
+        <span class="person">👤 Кирилл</span>
+        <span class="updated">Обновлено: <span id="ud-projects">—</span></span>
+      </div>
+    </a>
+  </div>
+
+  <div class="card">
+    <a href="architecture.html">
+      <div class="card-header">
+        <span class="card-tag green">🏢 Система</span>
+        <h2>Архитектура системы</h2>
+      </div>
+      <p class="desc">OpenClaw Gateway, VPS Cloud.ru, Timeweb, Telegram, cron-задачи, маршрут доставки данных.</p>
+      <div class="card-footer">
+        <span class="person">⚙️ Инфраструктура</span>
+        <span class="updated">Обновлено: <span id="ud-arch">—</span></span>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>☽ ЛУНТ</strong> · OpenClaw + GLM-5.1 · <a href="https://nasledstvo.net.ru">nasledstvo.net.ru</a>
+</div>
+
+<script>
+const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+async function checkUpdated(url, elId) {
+  try {
+    const r = await fetch(url, { method:'HEAD' });
+    const lm = r.headers.get('Last-Modified');
+    if (lm) {
+      const d = new Date(lm);
+      document.getElementById(elId).textContent =
+        d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear()+', '+
+        String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+    } else { document.getElementById(elId).textContent = 'недоступно'; }
+  } catch(e) { document.getElementById(elId).textContent = '—'; }
+}
+checkUpdated('report-katya.html','ud-katya');
+checkUpdated('report-lena.html','ud-lena');
+checkUpdated('report-danil.html','ud-danil');
+checkUpdated('architecture.html','ud-arch');
+checkUpdated('tokens.html','ud-tokens');
+checkUpdated('projects.html','ud-projects');
+checkUpdated('report-roza.html','ud-roza');
+checkUpdated('report-irina.html','ud-irina');
+</script>
+
+</body>
+</html>

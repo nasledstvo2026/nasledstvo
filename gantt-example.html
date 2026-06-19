@@ -1,0 +1,223 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Диаграмма Ганта — Миграция в облако</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f8fafc;
+    --fg: #172033;
+    --muted: #5b6475;
+    --line: #cbd5e1;
+    --bar1: #3b82f6;
+    --bar2: #8b5cf6;
+    --bar3: #06b6d4;
+    --bar4: #f59e0b;
+    --bar5: #ef4444;
+    --bar6: #10b981;
+    --bar7: #ec4899;
+    --today: #ef4444;
+    --weekend: #f1f5f9;
+    --row-alt: #f8fafc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f172a;
+      --fg: #e2e7ef;
+      --muted: #8899aa;
+      --line: #1e293b;
+      --bar1: #2563eb;
+      --bar2: #7c3aed;
+      --bar3: #0891b2;
+      --bar4: #d97706;
+      --bar5: #dc2626;
+      --bar6: #059669;
+      --bar7: #db2777;
+      --today: #ef4444;
+      --weekend: #1a2332;
+      --row-alt: #141e2e;
+    }
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 13px/1.4 ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+  main {
+    max-width: 1060px;
+    margin: 32px auto;
+    padding: 0 20px;
+  }
+  h1 { font-size: 20px; font-weight: 700; margin: 0 0 4px; }
+  .subtitle { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  svg { width: 100%; height: auto; display: block; }
+  .title { font-size: 15px; font-weight: 650; fill: var(--fg); }
+  .label { font-size: 12px; font-weight: 500; fill: var(--fg); }
+  .small { font-size: 11px; fill: var(--muted); }
+  .muted { font-size: 11px; fill: var(--muted); }
+  .bar-text { font-size: 11px; font-weight: 600; fill: #fff; }
+  .grid-line { stroke: var(--line); stroke-width: 1; }
+  .weekend-bg { fill: var(--weekend); }
+  .today-line { stroke: var(--today); stroke-width: 2; stroke-dasharray: 4 3; }
+  .milestone { fill: var(--bar5); }
+  .footer { margin-top: 16px; font-size: 12px; color: var(--muted); }
+</style>
+<main>
+  <h1>📋 Миграция сервиса в облако</h1>
+  <p class="subtitle">Проектный план · 4 недели · 7 задач · Сегодня 15 июня</p>
+
+  <svg viewBox="0 0 1000 440" xmlns="http://www.w3.org/2000/svg">
+    <!-- Definitions -->
+    <defs>
+      <filter id="shadow" x="-2%" y="-10%" width="104%" height="130%">
+        <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-opacity="0.15"/>
+      </filter>
+    </defs>
+
+    <!-- Column layout: labels 0-220, chart 220-980 -->
+    <!-- Header row -->
+    <text x="110" y="22" class="title" text-anchor="middle">Задача</text>
+
+    <!-- Week headers -->
+    <text x="290" y="22" class="title" text-anchor="middle">Неделя 1</text>
+    <text x="480" y="22" class="title" text-anchor="middle">Неделя 2</text>
+    <text x="670" y="22" class="title" text-anchor="middle">Неделя 3</text>
+    <text x="860" y="22" class="title" text-anchor="middle">Неделя 4</text>
+
+    <!-- Day sub-headers: 5 work days per week, each day = 38px -->
+    <!-- Week 1: days 1-5 -->
+    <text x="238" y="42" class="small" text-anchor="middle">Пн</text>
+    <text x="276" y="42" class="small" text-anchor="middle">Вт</text>
+    <text x="314" y="42" class="small" text-anchor="middle">Ср</text>
+    <text x="352" y="42" class="small" text-anchor="middle">Чт</text>
+    <text x="390" y="42" class="small" text-anchor="middle">Пт</text>
+    <!-- Week 2 -->
+    <text x="428" y="42" class="small" text-anchor="middle">Пн</text>
+    <text x="466" y="42" class="small" text-anchor="middle">Вт</text>
+    <text x="504" y="42" class="small" text-anchor="middle">Ср</text>
+    <text x="542" y="42" class="small" text-anchor="middle">Чт</text>
+    <text x="580" y="42" class="small" text-anchor="middle">Пт</text>
+    <!-- Week 3 -->
+    <text x="618" y="42" class="small" text-anchor="middle">Пн</text>
+    <text x="656" y="42" class="small" text-anchor="middle">Вт</text>
+    <text x="694" y="42" class="small" text-anchor="middle">Ср</text>
+    <text x="732" y="42" class="small" text-anchor="middle">Чт</text>
+    <text x="770" y="42" class="small" text-anchor="middle">Пт</text>
+    <!-- Week 4 -->
+    <text x="808" y="42" class="small" text-anchor="middle">Пн</text>
+    <text x="846" y="42" class="small" text-anchor="middle">Вт</text>
+    <text x="884" y="42" class="small" text-anchor="middle">Ср</text>
+    <text x="922" y="42" class="small" text-anchor="middle">Чт</text>
+    <text x="960" y="42" class="small" text-anchor="middle">Пт</text>
+
+    <!-- Header separator -->
+    <line x1="0" y1="50" x2="1000" y2="50" class="grid-line" stroke-width="2"/>
+
+    <!-- Alternating row backgrounds -->
+    <rect x="0" y="50" width="1000" height="52" fill="var(--row-alt)" opacity="0.5"/>
+    <rect x="0" y="154" width="1000" height="52" fill="var(--row-alt)" opacity="0.5"/>
+    <rect x="0" y="258" width="1000" height="52" fill="var(--row-alt)" opacity="0.5"/>
+    <rect x="0" y="362" width="1000" height="52" fill="var(--row-alt)" opacity="0.5"/>
+
+    <!-- Vertical grid lines (each day) -->
+    <line x1="220" y1="50" x2="220" y2="414" class="grid-line"/>
+    <line x1="257" y1="50" x2="257" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="295" y1="50" x2="295" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="333" y1="50" x2="333" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="371" y1="50" x2="371" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="409" y1="50" x2="409" y2="414" class="grid-line"/>
+    <line x1="447" y1="50" x2="447" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="485" y1="50" x2="485" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="523" y1="50" x2="523" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="561" y1="50" x2="561" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="599" y1="50" x2="599" y2="414" class="grid-line"/>
+    <line x1="637" y1="50" x2="637" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="675" y1="50" x2="675" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="713" y1="50" x2="713" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="751" y1="50" x2="751" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="789" y1="50" x2="789" y2="414" class="grid-line"/>
+    <line x1="827" y1="50" x2="827" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="865" y1="50" x2="865" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="903" y1="50" x2="903" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="941" y1="50" x2="941" y2="414" class="grid-line" opacity="0.3"/>
+    <line x1="979" y1="50" x2="979" y2="414" class="grid-line"/>
+
+    <!-- TODAY line (Wednesday week 3 = day 13 = x=220 + 12*38 = 676) -->
+    <line x1="694" y1="48" x2="694" y2="414" class="today-line"/>
+    <text x="694" y="46" class="small" text-anchor="middle" fill="var(--today)" font-weight="600">▼ Сегодня</text>
+
+    <!-- Row 1: Аудит архитектуры — week 1 Mon-Fri -->
+    <text x="12" y="74" class="label">🔍 Аудит архитектуры</text>
+    <text x="12" y="90" class="muted">Алексей</text>
+    <rect x="220" y="60" width="189" height="30" rx="6" fill="var(--bar1)" filter="url(#shadow)"/>
+    <text x="314" y="80" class="bar-text" text-anchor="middle">5 дней</text>
+
+    <!-- Row 2: Выбор облачного провайдера — week 1 Wed - week 2 Tue -->
+    <text x="12" y="126" class="label">☁️ Выбор провайдера</text>
+    <text x="12" y="142" class="muted">Мария</text>
+    <rect x="295" y="112" width="152" height="30" rx="6" fill="var(--bar2)" filter="url(#shadow)"/>
+    <text x="371" y="132" class="bar-text" text-anchor="middle">4 дня</text>
+
+    <!-- Row 3: Настройка инфраструктуры — week 2 Mon - week 3 Wed -->
+    <text x="12" y="178" class="label">🔧 Настройка инфры</text>
+    <text x="12" y="194" class="muted">Дмитрий</text>
+    <rect x="409" y="164" width="265" height="30" rx="6" fill="var(--bar3)" filter="url(#shadow)"/>
+    <text x="541" y="184" class="bar-text" text-anchor="middle">7 дней</text>
+
+    <!-- Row 4: Миграция данных — week 2 Thu - week 3 Fri -->
+    <text x="12" y="230" class="label">💾 Миграция данных</text>
+    <text x="12" y="246" class="muted">Алексей + Дмитрий</text>
+    <rect x="523" y="216" width="228" height="30" rx="6" fill="var(--bar4)" filter="url(#shadow)"/>
+    <text x="637" y="236" class="bar-text" text-anchor="middle">6 дней</text>
+
+    <!-- Row 5: Тестирование — week 3 Wed - week 4 Tue -->
+    <text x="12" y="282" class="label">🧪 Тестирование</text>
+    <text x="12" y="298" class="muted">QA-команда</text>
+    <rect x="675" y="268" width="152" height="30" rx="6" fill="var(--bar5)" filter="url(#shadow)"/>
+    <text x="751" y="288" class="bar-text" text-anchor="middle">4 дня</text>
+
+    <!-- Row 6: Нагрузочное тестирование — week 3 Thu - week 4 Thu -->
+    <text x="12" y="334" class="label">⚡ Нагрузочное тест.</text>
+    <text x="12" y="350" class="muted">Дмитрий</text>
+    <rect x="713" y="320" width="190" height="30" rx="6" fill="var(--bar6)" filter="url(#shadow)"/>
+    <text x="808" y="340" class="bar-text" text-anchor="middle">5 дней</text>
+
+    <!-- Row 7: Запуск в прод — week 4 Fri -->
+    <text x="12" y="386" class="label">🚀 Запуск в прод</text>
+    <text x="12" y="402" class="muted">Вся команда</text>
+    <!-- Milestone diamond -->
+    <polygon points="960,378 976,394 960,410 944,394" fill="var(--bar7)" filter="url(#shadow)"/>
+    <text x="960" y="398" class="bar-text" text-anchor="middle" font-size="10">🚀</text>
+
+    <!-- Dependency arrows -->
+    <!-- Аудит → Выбор провайдера -->
+    <path d="M409,75 L409,80 Q409,90 400,90 L310,90 Q295,90 295,100 L295,112" 
+          stroke="var(--muted)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"
+          marker-end="url(#arrowhead)"/>
+    <!-- Настройка инфры → Миграция данных -->
+    <path d="M675,179 L675,185 Q675,195 660,195 L540,195 Q523,195 523,205 L523,216"
+          stroke="var(--muted)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+    <!-- Тестирование → Нагрузочное -->
+    <path d="M713,283 L713,290 Q713,300 713,310 L713,320"
+          stroke="var(--muted)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+    <!-- Миграция → Тестирование -->
+    <path d="M751,246 L751,255 Q751,265 740,265 L690,265 Q675,265 675,275 L675,268"
+          stroke="var(--muted)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+
+    <!-- Bottom line -->
+    <line x1="0" y1="414" x2="1000" y2="414" class="grid-line" stroke-width="2"/>
+
+    <!-- Legend -->
+    <rect x="12" y="424" width="12" height="12" rx="3" fill="var(--bar1)"/>
+    <text x="28" y="434" class="small">Параллельные задачи</text>
+    <rect x="140" y="424" width="12" height="12" rx="3" fill="var(--bar5)"/>
+    <text x="156" y="434" class="small">Критический путь</text>
+    <polygon points="275,424 281,430 275,436 269,430" fill="var(--bar7)"/>
+    <text x="288" y="434" class="small">Milestone</text>
+    <line x1="350" y1="430" x2="375" y2="430" stroke="var(--today)" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="380" y="434" class="small">Сегодня</text>
+  </svg>
+
+  <p class="footer">Пример: диаграмма Ганта для ИТ-проекта «Миграция в облако» · Данные условные</p>
+</main>

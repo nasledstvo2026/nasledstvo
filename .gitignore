@@ -1,0 +1,15 @@
+*.pptx
+*.pdf
+*.tar.gz
+*.docx
+__pycache__/
+node_modules/
+.env*
+.openclaw/
+.clawhub/
+backup/full/
+backup/incremental/
+myenv/
+venv/
+.DS_Store
+memory/
