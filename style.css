@@ -193,6 +193,14 @@
   color: var(--text-dim);
 }
 
+/* ─── Footer version info (OpenClaw + LLM) ─── */
+.footer .tech[data-openclaw]::before {
+  content: " · " attr(data-openclaw);
+}
+.footer .tech[data-openclaw][data-llm]::after {
+  content: " · " attr(data-llm);
+}
+
 /* ─── Page title (заголовок страницы, hero h1) ─── */
 .hero .page-title {
   font-size: 26px;
