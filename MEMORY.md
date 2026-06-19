@@ -30,7 +30,8 @@
 - **Хостинг сайта:** GitHub Pages — https://nasledstvo2026.github.io/nasledstvo/
 - **Репозиторий:** https://github.com/nasledstvo2026/nasledstvo (SSH: git@github.com:nasledstvo2026/nasledstvo.git)
 - **Домен:** nasledstvo2026.github.io/nasledstvo (без кастомного домена)
-- **Отказались от:** Timeweb Cloud (19.06.2026 — лёг, 20.06.2026 — переехали)
+- **Отказались от:** Timeweb Cloud + домен nasledstvo.net.ru (19.06.2026 — Timeweb лёг, 20.06.2026 — переехали на GitHub Pages)
+- **⚠️ Домен nasledstvo.net.ru больше НЕ СУЩЕСТВУЕТ — не упоминать**
 - **Скрипты публикации:** `publish-report.sh`, `upload-to-github.sh` — всё через git push
 - **SSH ключ GitHub:** `~/.ssh/id_ed25519` (добавлен на аккаунт nasledstvo2026)
 - **Ключ Timeweb удалён:** `~/.ssh/timeweb` не используется
