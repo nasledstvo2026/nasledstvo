@@ -13,3 +13,4 @@ myenv/
 venv/
 .DS_Store
 memory/
+.env.timeweb

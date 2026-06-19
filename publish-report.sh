@@ -1,5 +1,5 @@
 #!/bin/bash
-# Publish report: upload to Timeweb + update timestamp on index pages
+# Publish report: copy to repo + git commit & push to GitHub Pages
 # Usage: publish-report.sh <local-file> <remote-filename>
 # Example: publish-report.sh /tmp/report-katya.html report-katya.html
 
@@ -10,38 +10,42 @@ if [ -z "$1" ] || [ -z "$2" ]; then
   exit 1
 fi
 
-# Source credentials
-[ -f "$(dirname "$0")/.env.timeweb" ] && . "$(dirname "$0")/.env.timeweb"
-
 LOCAL="$1"
 REMOTE="$2"
-HOST="${TIMEWEB_HOST:-timeweb}"
+REPO_DIR="/home/user1/.openclaw/workspace"
 TIMESTAMP="$(TZ=Europe/Moscow date '+%d.%m.%Y %H:%M')"
 
-# Upload report
-scp "$LOCAL" "$HOST:~/public_html/$REMOTE"
-echo "Uploaded: $REMOTE"
+cd "$REPO_DIR"
+
+# Copy report to workspace
+cp "$LOCAL" "$REMOTE"
+
+# Map to element id for nasledstvo.html
+case "$REMOTE" in
+  report-katya.html)   ID="ud-katya" ;;
+  report-lena.html)    ID="ud-lena" ;;
+  report-danil.html)   ID="ud-danil" ;;
+  report-danil-thu.html) ID="ud-danil-thu" ;;
+  *) ID="" ;;
+esac
 
 # Update timestamp on nasledstvo.html
-TMPFILE=$(mktemp)
-scp "$HOST:~/public_html/nasledstvo.html" "$TMPFILE" 2>/dev/null || true
-if [ -s "$TMPFILE" ]; then
+if [ -n "$ID" ]; then
   python3 -c "
-import re, sys
-with open('$TMPFILE', 'r') as f:
+import re
+with open('nasledstvo.html', 'r') as f:
     c = f.read()
-report = '$REMOTE'
-if 'katya' in report: eid = 'ud-katya'
-elif 'lena' in report: eid = 'ud-lena'
-elif 'danil' in report: eid = 'ud-danil'
-else: sys.exit(0)
-c = re.sub(r'(<span id=\"' + eid + r'\">)[^<]*(</span>)', r'\g<1>$TIMESTAMP\2', c)
-with open('$TMPFILE', 'w') as f:
+c = re.sub(r'(<span id=\"$ID\">)[^<]*(</span>)', r'\g<1>$TIMESTAMP\g<2>', c)
+with open('nasledstvo.html', 'w') as f:
     f.write(c)
 " 2>/dev/null || true
-  scp "$TMPFILE" "$HOST:~/public_html/nasledstvo.html" 2>/dev/null || true
-  echo "Timestamp updated on nasledstvo.html"
+  echo "Timestamp updated on nasledstvo.html ($ID)"
 fi
-rm -f "$TMPFILE"
+
+# Commit & push
+git add -A
+git commit -m "Report: $REMOTE — $TIMESTAMP" 2>/dev/null || echo "Nothing new to commit"
+git push 2>&1
 
 echo "Done: $REMOTE published at $TIMESTAMP"
+echo "   Site: https://nasledstvo2026.github.io/nasledstvo/"
