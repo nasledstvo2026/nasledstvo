@@ -17,6 +17,15 @@
     <div class="meta">10 активных · 2 отключённые · 20.06.2026</div>
   </div>
 
+  <!-- ═══ Легенда светофоров ═══ -->
+  <div class="section" style="padding:12px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
+    <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim,#8b949e);">
+      <span><span class="tl tl-green"></span> 🟢 Оптимально</span>
+      <span><span class="tl tl-yellow"></span> 🟡 Требует внимания</span>
+      <span><span class="tl tl-red"></span> 🔴 Проблема</span>
+    </div>
+  </div>
+
   <div class="section">
     <div class="table-wrapper">
       <table class="task-table">
@@ -24,126 +33,137 @@
           <tr>
             <th>Задача</th>
             <th>Кому</th>
-            <th>Session target</th>
             <th>Cron</th>
             <th>Расписание</th>
-            <th>Модель</th>
             <th>Таймаут</th>
-            <th>Статус</th>
-            <th>Последний успешный запуск</th>
+            <th>Длительность</th>
+            <th class="col-metric">⏱ Duration/Timeout</th>
+            <th class="col-metric">📈 Success rate</th>
+            <th class="col-metric">📬 Latency</th>
+            <th>Последний запуск</th>
           </tr>
         </thead>
         <tbody>
           <!-- ════ Активные ════ -->
-          <tr class="row-ok">
-            <td><span class="status-dot ok"></span> Сводка жалоб — наследство в банках</td>
+          <tr>
+            <td><span class="status-dot ok"></span> Сводка жалоб — наследство</td>
             <td><span class="recipient katya"></span> Катя</td>
-            <td>isolated</td>
             <td><code>0 8 * * *</code></td>
             <td>Ежедневно 08:00</td>
-            <td>deepseek-chat</td>
             <td>300 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>20.06.2026 08:05</td>
+            <td>40 с</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 13%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> +5 мин</span></td>
+            <td>20.06 08:05</td>
           </tr>
-          <tr class="row-ok">
-            <td><span class="status-dot ok"></span> Обновление статистики жалоб</td>
+          <tr>
+            <td><span class="status-dot ok"></span> Обновление статистики</td>
             <td><span class="recipient system"></span> —</td>
-            <td>isolated</td>
             <td><code>10 8 * * *</code></td>
             <td>Ежедневно 08:10</td>
-            <td>deepseek-chat</td>
             <td>300 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>20.06.2026 08:10</td>
+            <td>55 с</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 18%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
+            <td>20.06 08:10</td>
           </tr>
-          <tr class="row-ok">
+          <tr>
             <td><span class="status-dot ok"></span> Дайджест новостей</td>
             <td><span class="recipient lena"></span> Лена</td>
-            <td>isolated</td>
             <td><code>0 9 * * *</code></td>
             <td>Ежедневно 09:00</td>
-            <td>deepseek-chat</td>
             <td>300 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>20.06.2026 10:41</td>
+            <td>53 с</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 18%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +101 мин</span></td>
+            <td>20.06 10:41</td>
           </tr>
-          <tr class="row-ok">
+          <tr>
             <td><span class="status-dot ok"></span> Роза — пособия</td>
             <td><span class="recipient roza"></span> Роза</td>
-            <td>isolated</td>
             <td><code>3 9 * * 1</code></td>
             <td>Пн 09:03</td>
-            <td>deepseek-chat</td>
             <td>300 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>15.06.2026 09:14</td>
+            <td>64 с</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 21%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> +11 мин</span></td>
+            <td>15.06 09:14</td>
           </tr>
-          <tr class="row-ok">
+          <tr>
             <td><span class="status-dot ok"></span> Ирина — НПА</td>
             <td><span class="recipient irina"></span> Ирина</td>
-            <td>isolated</td>
             <td><code>6 9 * * 1</code></td>
             <td>Пн 09:06</td>
-            <td>deepseek-chat</td>
             <td>300 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>15.06.2026 09:15</td>
+            <td>245 с</td>
+            <td><span class="metric"><span class="tl tl-red"></span> 82%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> +9 мин</span></td>
+            <td>15.06 09:15</td>
           </tr>
-          <tr class="row-ok">
+          <tr>
             <td><span class="status-dot ok"></span> Данил — вклады 1991 (пн)</td>
             <td><span class="recipient danil"></span> Данил</td>
-            <td>isolated</td>
             <td><code>0 10 * * 1</code></td>
             <td>Пн 10:00</td>
-            <td>deepseek-chat</td>
             <td>300 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>17.06.2026 14:37</td>
+            <td>75 с</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 25%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +277 мин</span></td>
+            <td>17.06 14:37</td>
           </tr>
-          <tr class="row-ok">
+          <tr>
             <td><span class="status-dot ok"></span> Данил — вклады 1991 (чт)</td>
             <td><span class="recipient danil"></span> Данил</td>
-            <td>isolated</td>
             <td><code>0 10 * * 4</code></td>
             <td>Чт 10:00</td>
-            <td>deepseek-chat</td>
             <td>300 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>18.06.2026 10:06</td>
+            <td>77 с</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 26%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> +6 мин</span></td>
+            <td>18.06 10:06</td>
           </tr>
-          <tr class="row-ok">
-            <td><span class="status-dot ok"></span> РЖД 1Р-37R — итоги торгов</td>
+          <tr>
+            <td><span class="status-dot ok"></span> РЖД 1Р-37R — итоги</td>
             <td><span class="recipient lena"></span> Лена</td>
-            <td>isolated</td>
             <td><code>55 23 * * 1-5</code></td>
             <td>Пн–Пт 23:55</td>
-            <td>deepseek-chat</td>
             <td>60 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>19.06.2026 23:55</td>
+            <td>35 с</td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 58%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
+            <td>19.06 23:55</td>
           </tr>
-          <tr class="row-ok">
+          <tr>
             <td><span class="status-dot ok"></span> Бэкап: полный</td>
             <td><span class="recipient kirill"></span> Кирилл</td>
-            <td>isolated</td>
             <td><code>0 3 * * 0</code></td>
             <td>Вс 03:00</td>
-            <td>deepseek-chat</td>
             <td>120 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>14.06.2026 03:00</td>
+            <td>98 с</td>
+            <td><span class="metric"><span class="tl tl-red"></span> 82%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
+            <td>14.06 03:00</td>
           </tr>
-          <tr class="row-ok">
+          <tr>
             <td><span class="status-dot ok"></span> Активность пользователей</td>
             <td><span class="recipient system"></span> —</td>
-            <td>isolated</td>
             <td><code>50 23 * * *</code></td>
             <td>Ежедневно 23:50</td>
-            <td>deepseek-chat</td>
             <td>60 с</td>
-            <td><span class="badge badge-ok">✅ Ок</span></td>
-            <td>19.06.2026 23:51</td>
+            <td>45 с</td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 75%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> +1 мин</span></td>
+            <td>19.06 23:51</td>
           </tr>
         </tbody>
       </table>
@@ -156,37 +176,36 @@
           <tr>
             <th>Задача</th>
             <th>Кому</th>
-            <th>Session target</th>
             <th>Cron</th>
             <th>Расписание</th>
-            <th>Модель</th>
             <th>Таймаут</th>
-            <th>Статус</th>
-            <th>Последний успешный запуск</th>
+            <th>Длительность</th>
+            <th class="col-metric">⏱ Duration/Timeout</th>
+            <th class="col-metric">📈 Success rate</th>
+            <th class="col-metric">📬 Latency</th>
+            <th>Последний запуск</th>
           </tr>
         </thead>
         <tbody>
           <tr class="row-disabled">
             <td><span class="status-dot disabled"></span> Статистика жалоб по месяцам</td>
             <td>Катя</td>
-            <td>isolated</td>
             <td><code>0 9 1 * *</code></td>
-            <td><del>1-го числа 09:00</del></td>
-            <td>deepseek-chat</td>
+            <td><del>1-го 09:00</del></td>
             <td>120 с</td>
-            <td><span class="badge badge-disabled">⏸ Отключена</span></td>
-            <td>16.06.2026 09:28</td>
+            <td>176 с <span class="tl tl-red" title="Превысила таймаут"></span></td>
+            <td colspan="3" style="text-align:center;color:#8b949e;">Задача отключена</td>
+            <td>16.06 09:28</td>
           </tr>
           <tr class="row-disabled">
             <td><span class="status-dot disabled"></span> Сводка жалоб (кроме Сбера)</td>
             <td>Катя</td>
-            <td>isolated</td>
             <td><code>30 8 * * *</code></td>
             <td><del>Ежедневно 08:30</del></td>
-            <td>deepseek-chat</td>
             <td>300 с</td>
-            <td><span class="badge badge-disabled">⏸ Отключена</span></td>
-            <td>17.06.2026 08:35</td>
+            <td>112 с</td>
+            <td colspan="3" style="text-align:center;color:#8b949e;">Задача отключена</td>
+            <td>17.06 08:35</td>
           </tr>
         </tbody>
       </table>
@@ -198,99 +217,80 @@
 
 <style>
 /* ── Таблица ── */
-.table-wrapper {
-  overflow-x: auto;
-  margin: 10px 0;
-}
+.table-wrapper { overflow-x: auto; margin: 10px 0; }
 
 .task-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  line-height: 1.5;
-  min-width: 960px;
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; line-height: 1.5;
+  min-width: 1060px;
 }
 
 .task-table thead th {
-  text-align: left;
-  padding: 10px 12px;
-  background: rgba(33, 38, 45, 0.6);
-  border-bottom: 1px solid var(--glass-border, #21262d);
-  color: var(--text-dim, #8b949e);
-  font-weight: 600;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-align: left; padding: 10px 10px;
+  background: rgba(33,38,45,.6);
+  border-bottom: 1px solid var(--glass-border,#21262d);
+  color: var(--text-dim,#8b949e);
+  font-weight: 600; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .5px;
   white-space: nowrap;
 }
-
 .task-table thead th:first-child { border-radius: 8px 0 0 0; }
 .task-table thead th:last-child  { border-radius: 0 8px 0 0; }
+.col-metric { text-align: center !important; }
 
 .task-table tbody tr {
-  border-bottom: 1px solid rgba(33, 38, 45, 0.4);
-  transition: background 0.15s ease;
+  border-bottom: 1px solid rgba(33,38,45,.4);
+  transition: background .15s ease;
 }
-
-.task-table tbody tr:hover {
-  background: rgba(88, 166, 255, 0.04);
-}
+.task-table tbody tr:hover { background: rgba(88,166,255,.04); }
 
 .task-table tbody td {
-  padding: 11px 12px;
-  vertical-align: middle;
+  padding: 10px 10px; vertical-align: middle;
   font-size: 13px;
 }
-
-.task-table tbody td:first-child {
-  font-weight: 500;
-  white-space: nowrap;
-}
+.task-table tbody td:first-child { font-weight: 500; white-space: nowrap; }
 
 .task-table code {
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: 'SF Mono','Fira Code','Consolas',monospace;
   font-size: 12px;
-  background: rgba(33, 38, 45, 0.6);
-  padding: 2px 7px;
-  border-radius: 4px;
-  color: var(--green, #3fb950);
+  background: rgba(33,38,45,.6); padding: 2px 7px;
+  border-radius: 4px; color: var(--green,#3fb950);
 }
 
 /* ── Статус-точка ── */
 .status-dot {
-  display: inline-block;
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  margin-right: 7px;
-  vertical-align: middle;
-  position: relative; top: -1px;
+  display: inline-block; width: 7px; height: 7px;
+  border-radius: 50%; margin-right: 7px;
+  vertical-align: middle; position: relative; top: -1px;
 }
 .status-dot.ok   { background: #3fb950; box-shadow: 0 0 5px rgba(63,185,80,.5); }
-.status-dot.err  { background: #f85149; box-shadow: 0 0 5px rgba(248,81,73,.5); }
 .status-dot.disabled { background: #484f58; }
 
-/* ── Бейджи статуса ── */
-.badge {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 5px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.badge-ok   { background: rgba(63,185,80,.15); color: #3fb950; }
-.badge-err  { background: rgba(248,81,73,.15); color: #f85149; }
-.badge-disabled { background: rgba(72,79,88,.2);  color: #8b949e; }
-
-/* ── Аватарки получателей ── */
-.recipient {
-  display: inline-block;
-  width: 18px; height: 18px;
-  border-radius: 50%;
+/* ── Светофор ── */
+.tl {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; margin-right: 4px;
   vertical-align: middle;
-  margin-right: 5px;
-  background-size: cover;
-  background-position: center;
+}
+.tl-green  { background: #3fb950; box-shadow: 0 0 4px rgba(63,185,80,.5); }
+.tl-yellow { background: #d29922; box-shadow: 0 0 4px rgba(210,153,34,.5); }
+.tl-red    { background: #f85149; box-shadow: 0 0 4px rgba(248,81,73,.5); }
+
+/* ── Метрика ── */
+.metric {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.task-table td { text-align: left; }
+.task-table td:nth-child(7),
+.task-table td:nth-child(8),
+.task-table td:nth-child(9) { text-align: center; }
+
+/* ── Получатели ── */
+.recipient {
+  display: inline-block; width: 18px; height: 18px;
+  border-radius: 50%; vertical-align: middle;
+  margin-right: 5px; background-size: cover; background-position: center;
 }
 .recipient.katya  { background: #f778ba; }
 .recipient.lena   { background: #58a6ff; }
@@ -300,17 +300,14 @@
 .recipient.kirill { background: #f0f6fc; }
 .recipient.system { background: transparent; width: 0; margin: 0; }
 
-/* ── Отключённые строки ── */
+/* ── Отключённые ── */
 .row-disabled td { color: #8b949e; }
-.row-disabled td:first-child { opacity: 0.7; }
-
-/* ── Строка с ошибкой ── */
-.row-err td:first-child { color: #f85149; }
+.row-disabled td:first-child { opacity: .7; }
 
 /* ── Адаптив ── */
-@media (max-width: 1024px) {
-  .task-table { font-size: 12px; min-width: 800px; }
-  .task-table tbody td { padding: 9px 8px; }
+@media (max-width: 1100px) {
+  .task-table { font-size: 12px; min-width: 900px; }
+  .task-table tbody td { padding: 8px 6px; }
 }
 </style>
 
