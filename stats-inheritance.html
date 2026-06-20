@@ -66,7 +66,7 @@
     <a href="index.html" class="back">← Назад</a>
 
     <div class="hero">
-      <h1><span style="font-size:11px;color:var(--text-faint);font-weight:400;margin-right:6px;vertical-align:middle">v10</span> Статистика жалоб по наследству в банках</h1>
+      <h1><span style="font-size:11px;color:var(--text-faint);font-weight:400;margin-right:6px;vertical-align:middle">v11</span> Статистика жалоб по наследству в банках</h1>
     </div>
 
     <div class="section">
@@ -171,130 +171,160 @@
     <div class="section">
       <div class="item">
         <h2>📅 Помесячная разбивка</h2>
-      <div style="overflow-x:auto">
-      <table>
+      <div style="max-width:100%;overflow-x:auto">
+      <table class="striped-table" style="min-width:580px">
         <thead>
           <tr>
             <th>Месяц</th>
             <th>Сбер</th>
-            <th>Другие</th>
+            <th>Другие банки</th>
             <th>Всего</th>
+            <th style="min-width:160px">Банк</th>
           </tr>
         </thead>
         <tbody>
+          <!-- 2026 total first (top) -->
+          <tr style="background:rgba(37,99,235,0.08)">
+            <td><strong style="color:var(--accent)">2026</strong></td>
+            <td><strong style="color:var(--accent)">10</strong></td>
+            <td><strong style="color:var(--accent)">4</strong></td>
+            <td><strong style="color:var(--accent)">14</strong></td>
+            <td><strong style="color:var(--accent)"></strong></td>
+          </tr>
+          <!-- 2026 months -->
           <tr>
-            <td>Июнь 2026</td>
-            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
-            <td>4 <span class="mini-bar other" style="width:24px"></span></td>
+            <td>Июн</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--red)">4</td>
             <td><strong>5</strong></td>
+            <td style="white-space:nowrap">ВТБ(2), Газпромбанк, Т-Банк</td>
           </tr>
           <tr>
-            <td>Май 2026</td>
-            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
-            <td>0</td>
+            <td>Май</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--text-faint)">0</td>
             <td><strong>1</strong></td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Апрель 2026</td>
-            <td>2 <span class="mini-bar sber" style="width:12px"></span></td>
-            <td>0</td>
+            <td>Апр</td>
+            <td style="color:var(--red)">2</td>
+            <td style="color:var(--text-faint)">0</td>
             <td><strong>2</strong></td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Март 2026</td>
-            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
-            <td>0</td>
+            <td>Мар</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--text-faint)">0</td>
             <td><strong>1</strong></td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Февраль 2026</td>
-            <td>2 <span class="mini-bar sber" style="width:12px"></span></td>
-            <td>0</td>
+            <td>Фев</td>
+            <td style="color:var(--red)">2</td>
+            <td style="color:var(--text-faint)">0</td>
             <td><strong>2</strong></td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Январь 2026</td>
-            <td>3 <span class="mini-bar sber" style="width:18px"></span></td>
-            <td>0</td>
+            <td>Янв</td>
+            <td style="color:var(--red)">3</td>
+            <td style="color:var(--text-faint)">0</td>
             <td><strong>3</strong></td>
+            <td>—</td>
+          </tr>
+          <!-- 2025 total first (top) -->
+          <tr style="background:rgba(234,88,12,0.1)">
+            <td><strong style="color:var(--orange)">2025</strong></td>
+            <td><strong style="color:var(--orange)">13</strong></td>
+            <td><strong style="color:var(--orange)">8</strong></td>
+            <td><strong style="color:var(--orange)">21</strong></td>
+            <td><strong style="color:var(--orange)"></strong></td>
           </tr>
           <tr>
-            <td>Декабрь 2025</td>
-            <td>3 <span class="mini-bar sber" style="width:18px"></span></td>
-            <td>1 <span class="mini-bar other" style="width:6px"></span></td>
+            <td>Дек</td>
+            <td style="color:var(--red)">3</td>
+            <td style="color:var(--red)">1</td>
             <td><strong>4</strong></td>
+            <td style="white-space:nowrap">ПСБ</td>
           </tr>
           <tr>
-            <td>Ноябрь 2025</td>
-            <td>3 <span class="mini-bar sber" style="width:18px"></span></td>
-            <td>1 <span class="mini-bar other" style="width:6px"></span></td>
+            <td>Ноя</td>
+            <td style="color:var(--red)">3</td>
+            <td style="color:var(--red)">1</td>
             <td><strong>4</strong></td>
+            <td style="white-space:nowrap">ПСБ</td>
           </tr>
           <tr>
-            <td>Октябрь 2025</td>
-            <td>2 <span class="mini-bar sber" style="width:12px"></span></td>
-            <td>0</td>
+            <td>Окт</td>
+            <td style="color:var(--red)">2</td>
+            <td style="color:var(--text-faint)">0</td>
             <td><strong>2</strong></td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Сентябрь 2025</td>
-            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
-            <td>2 <span class="mini-bar other" style="width:12px"></span></td>
+            <td>Сен</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--red)">2</td>
             <td><strong>3</strong></td>
+            <td style="white-space:nowrap">ПСБ, ВТБ</td>
           </tr>
           <tr>
-            <td>Август 2025</td>
-            <td>2 <span class="mini-bar sber" style="width:12px"></span></td>
-            <td>1 <span class="mini-bar other" style="width:6px"></span></td>
+            <td>Авг</td>
+            <td style="color:var(--red)">2</td>
+            <td style="color:var(--red)">1</td>
             <td><strong>3</strong></td>
+            <td style="white-space:nowrap">ПСБ</td>
           </tr>
           <tr>
-            <td>Июль 2025</td>
-            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
-            <td>2 <span class="mini-bar other" style="width:12px"></span></td>
+            <td>Июл</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--red)">2</td>
             <td><strong>3</strong></td>
+            <td style="white-space:nowrap">Совкомбанк, ВТБ</td>
           </tr>
           <tr>
-            <td>Июнь 2025</td>
-            <td>0</td>
-            <td>0</td>
-            <td><strong>0</strong></td>
+            <td>Июн</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Май 2025</td>
-            <td>0</td>
-            <td>1 <span class="mini-bar other" style="width:6px"></span></td>
+            <td>Май</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--red)">1</td>
             <td><strong>1</strong></td>
+            <td style="white-space:nowrap">ВТБ</td>
           </tr>
           <tr>
-            <td>Апрель 2025</td>
-            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
-            <td>0</td>
+            <td>Апр</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--text-faint)">0</td>
             <td><strong>1</strong></td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Март 2025</td>
-            <td>0</td>
-            <td>0</td>
-            <td><strong>0</strong></td>
+            <td>Мар</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Февраль 2025</td>
-            <td>0</td>
-            <td>0</td>
-            <td><strong>0</strong></td>
+            <td>Фев</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td>—</td>
           </tr>
           <tr>
-            <td>Январь 2025</td>
-            <td>0</td>
-            <td>0</td>
-            <td><strong>0</strong></td>
-          </tr>
-          <tr class="total">
-            <td>ИТОГО</td>
-            <td>23</td>
-            <td>12</td>
-            <td>35</td>
+            <td>Янв</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td style="color:var(--text-faint)">0</td>
+            <td>—</td>
           </tr>
         </tbody>
       </table>
