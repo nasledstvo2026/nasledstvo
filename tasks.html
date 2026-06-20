@@ -14,7 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных задач · 20.06.2026 15:31</div>
+    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 20.06.2026 15:31</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -48,6 +48,11 @@
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- БИЗНЕС-ЗАДАЧИ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <h2 style="font-size:18px;margin:24px 0 12px;color:var(--text,#c9d1d9);">📋 Бизнес-задачи</h2>
+
   <div class="section">
     <div class="table-wrapper">
       <table class="task-table">
@@ -60,30 +65,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><span class="status-dot ok"></span> Активность пользователей</td>
-            <td>—</td>
-            <td>Ежедневно 23:50</td>
-            <td><span class="metric"><span class="tl tl-yellow"></span> 75%</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
-            <td><span class="metric"><span class="tl tl-yellow"></span> +2 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 99%</span></td>
-            <td><$0.0090</td>
-            <td>19.06 23:51</td>
-            <td class="rec">Увеличить таймаут с 60 до 90&nbsp;с.</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> Бэкап: полный</td>
-            <td>Кирилл</td>
-            <td>Вс 03:00</td>
-            <td><span class="metric"><span class="tl tl-red"></span> 82%</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 98%</span></td>
-            <td><$0.0022</td>
-            <td>14.06 03:00</td>
-            <td class="rec">Увеличить таймаут со 120 до 180&nbsp;с.</td>
-          </tr>
           <tr>
             <td><span class="status-dot ok"></span> Сводка жалоб — наследство</td>
             <td>Катя</td>
@@ -179,6 +160,52 @@
             <td>$0.022</td>
             <td>18.06 10:06</td>
             <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- СЕРВИСНЫЕ ЗАДАЧИ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <h2 style="font-size:18px;margin:28px 0 12px;color:var(--text,#c9d1d9);">⚙️ Сервисные задачи</h2>
+
+  <div class="section">
+    <div class="table-wrapper">
+      <table class="task-table">
+        <thead>
+          <tr>
+            <th>Задача</th><th>Автор</th><th>Расписание</th>
+            <th class="col-metric">⏱ Duration/Timeout</th><th class="col-metric">📈 Success rate</th><th class="col-metric">📬 Latency</th>
+            <th class="col-metric">💎 Cache Hit</th><th class="col-metric">💰 Cost/Run</th>
+            <th>Последний запуск</th><th class="col-rec">💡 Рекомендация по оптимизации</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="status-dot ok"></span> Активность пользователей</td>
+            <td>—</td>
+            <td>Ежедневно 23:50</td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 75%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> +2 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 99%</span></td>
+            <td><$0.0090</td>
+            <td>19.06 23:51</td>
+            <td class="rec">Увеличить таймаут с 60 до 90&nbsp;с.</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> Бэкап: полный</td>
+            <td>Кирилл</td>
+            <td>Вс 03:00</td>
+            <td><span class="metric"><span class="tl tl-red"></span> 82%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 98%</span></td>
+            <td><$0.0022</td>
+            <td>14.06 03:00</td>
+            <td class="rec">Увеличить таймаут со 120 до 180&nbsp;с.</td>
           </tr>
         </tbody>
       </table>
