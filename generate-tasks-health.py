@@ -387,7 +387,7 @@ def gen_tasks_html(tasks):
             <th class="col-metric">💎 Cache</th><th class="col-metric">💰 Cost</th>
             <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
             <th class="col-metric col-opt">📋 Проработка</th>
-            <th class="col-metric">🩺 Health</th>
+            <th class="col-metric">🩺 System Health</th>
           </tr>
         </thead>
         <tbody>
@@ -412,7 +412,7 @@ def gen_tasks_html(tasks):
             <th class="col-metric">💎 Cache</th><th class="col-metric">💰 Cost</th>
             <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
             <th class="col-metric col-opt">📋 Проработка</th>
-            <th class="col-metric">🩺 Health</th>
+            <th class="col-metric">🩺 System Health</th>
           </tr>
         </thead>
         <tbody>
