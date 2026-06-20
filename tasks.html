@@ -14,7 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 20.06.2026 18:15</div>
+    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 20.06.2026 18:50</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -112,7 +112,7 @@
             <td><span class="metric-na">—</span></td>
             <td>20.06 10:41</td>
             <td class="rec">Перевести на sessionTarget=main или выделить sessionKey. Уменьшить таймаут с 300 до 120 с.</td>
-            <td style="text-align:center;"><span class="opt-pending">⏳</span></td>
+            <td style="text-align:center;"><span class="opt-seen">⏳ 1→2</span></td>
             <td style="text-align:center;"><span class="health-badge health-yellow">🟡 55</span></td>
           </tr>
           <tr>
@@ -140,7 +140,7 @@
             <td><span class="metric-na">—</span></td>
             <td>15.06 09:15</td>
             <td class="rec">Увеличить таймаут с 300 до 400 с. Сократить поисковые запросы с 3 до 2. Перенести на 09:30.</td>
-            <td style="text-align:center;"><span class="opt-pending">⏳</span></td>
+            <td style="text-align:center;"><span class="opt-decided">✅ решено</span></td>
             <td style="text-align:center;"><span class="health-badge health-red">🔴 40</span></td>
           </tr>
           <tr>
@@ -154,7 +154,7 @@
             <td>$0.050</td>
             <td>17.06 14:37</td>
             <td class="rec">Перевести на sessionTarget=main. Уменьшить таймаут с 300 до 120 с.</td>
-            <td style="text-align:center;"><span class="opt-pending">⏳</span></td>
+            <td style="text-align:center;"><span class="opt-seen">⏳ 1→2</span></td>
             <td style="text-align:center;"><span class="health-badge health-yellow">🟡 76</span></td>
           </tr>
           <tr>
@@ -168,7 +168,7 @@
             <td>$0.034</td>
             <td>19.06 23:55</td>
             <td class="rec">Увеличить таймаут с 60 до 90 с.</td>
-            <td style="text-align:center;"><span class="opt-pending">⏳</span></td>
+            <td style="text-align:center;"><span class="opt-seen">⏳ 1→2</span></td>
             <td style="text-align:center;"><span class="health-badge health-yellow">🟡 76</span></td>
           </tr>
           <tr>
@@ -242,7 +242,7 @@
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 20.06.2026 18:15</div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 20.06.2026 18:50</div>
 </div>
 
 <style>
@@ -255,6 +255,8 @@
 .col-rec { min-width: 220px; }
 .col-opt { min-width: 80px; }
 .opt-pending { color: var(--text-dim,#8b949e); font-size: 16px; }
+.opt-seen { color: #d29922; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.opt-decided { color: #58a6ff; font-size: 12px; font-weight: 600; white-space: nowrap; }
 .opt-done { color: #3fb950; font-size: 12px; font-weight: 600; white-space: nowrap; }
 .stat-na { color: var(--text-dim,#8b949e); font-size: 12px; }
 .task-table tbody tr { border-bottom: 1px solid rgba(33,38,45,.4); transition: background .15s ease; }
