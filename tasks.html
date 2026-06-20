@@ -29,17 +29,17 @@
         <div class="legend-item">
           <span class="tl tl-green"></span>
           <div><strong>🟢 < 50%</strong> — задача выполняется быстро, большой запас по времени.</div>
-          <div class="legend-rec">→ Можно уменьшить таймаут для ускорения реакции при ошибках модели.</div>
+          <div class="legend-rec">Катя, Лена, Данил, Роза: уменьшить таймаут с 300 до 120 с — ускорение реакции при ошибках модели.</div>
         </div>
         <div class="legend-item">
           <span class="tl tl-yellow"></span>
-          <div><strong>🟡 50–80%</strong> — умеренная загрузка, но запас невелик.</div>
-          <div class="legend-rec">→ Следить за трендом. При росте — увеличить таймаут или сократить промпт задачи.</div>
+          <div><strong>🟡 50–80%</strong> — умеренная загрузка, запас <25%.</div>
+          <div class="legend-rec">РЖД, Активность: увеличить таймаут с 60 до 90 с — текущий запас меньше четверти.</div>
         </div>
         <div class="legend-item">
           <span class="tl tl-red"></span>
-          <div><strong>🔴 > 80%</strong> — риск таймаута. При малейшем замедлении модели задача упадёт.</div>
-          <div class="legend-rec">→ Увеличить таймаут, сократить число поисковых запросов, упростить промпт.</div>
+          <div><strong>🔴 > 80%</strong> — риск таймаута. Любое замедление модели уронит задачу.</div>
+          <div class="legend-rec">Ирина: увеличить таймаут с 300 до 400 с, сократить число поисковых запросов с 3 до 2.<br>Бэкап: увеличить таймаут со 120 до 180 с.</div>
         </div>
       </div>
     </div>
@@ -51,18 +51,18 @@
       <div class="legend-items">
         <div class="legend-item">
           <span class="tl tl-green"></span>
-          <div><strong>🟢 100%</strong> — все запуски отработали без ошибок.</div>
-          <div class="legend-rec">→ Действий не требуется.</div>
+          <div><strong>🟢 100%</strong> — все запуски отработали без ошибок. Все 10 активных задач.</div>
+          <div class="legend-rec">Действий не требуется.</div>
         </div>
         <div class="legend-item">
           <span class="tl tl-yellow"></span>
           <div><strong>🟡 < 100%</strong> — единичные сбои.</div>
-          <div class="legend-rec">→ Проверить логи последних ошибок, выявить причину (модель, API, таймаут).</div>
+          <div class="legend-rec">Проверить логи последних ошибок, выявить причину (модель, API, таймаут).</div>
         </div>
         <div class="legend-item">
           <span class="tl tl-red"></span>
           <div><strong>🔴 < 90%</strong> — систематические ошибки.</div>
-          <div class="legend-rec">→ Сменить модель на fallback, проверить API-ключи, увеличить таймаут, упростить промпт.</div>
+          <div class="legend-rec">Сменить модель на fallback (deepseek-v4-flash), проверить API-ключи z.ai, увеличить таймаут, убрать лишние поисковые запросы из промпта.</div>
         </div>
       </div>
     </div>
@@ -70,22 +70,22 @@
     <!-- ─── Latency ─── -->
     <div class="legend-metric">
       <div class="legend-title">📬 Latency</div>
-      <div class="legend-desc">Разница между запланированным временем запуска и фактическим стартом задачи. Для isolated-сессий зависит от загруженности очереди.</div>
+      <div class="legend-desc">Разница между запланированным временем запуска и фактическим стартом задачи. Для isolated-сессий зависит от загруженности очереди OpenClaw.</div>
       <div class="legend-items">
         <div class="legend-item">
           <span class="tl tl-green"></span>
-          <div><strong>🟢 ≤ 1 мин</strong> — задача запускается вовремя.</div>
-          <div class="legend-rec">→ Действий не требуется.</div>
+          <div><strong>🟢 ≤ 1 мин</strong> — задача запускается вовремя. Статистика, РЖД, Бэкап, Активность.</div>
+          <div class="legend-rec">Действий не требуется.</div>
         </div>
         <div class="legend-item">
           <span class="tl tl-yellow"></span>
-          <div><strong>🟡 2–15 мин</strong> — небольшая задержка, очередь isolated загружена.</div>
-          <div class="legend-rec">→ Разнести время запуска тяжёлых задач, перенести на main если не критична изоляция.</div>
+          <div><strong>🟡 2–15 мин</strong> — небольшая задержка, очередь isolated загружена. Катя (+5), Роза (+11), Ирина (+9), Данил чт (+6).</div>
+          <div class="legend-rec">Разнести старты: Катя 08:00 → Роза 09:03 → Ирина 09:06 — идут подряд, забивают очередь. Сдвинуть Ирину на 09:30 или Розу на 08:30.</div>
         </div>
         <div class="legend-item">
           <span class="tl tl-red"></span>
-          <div><strong>🔴 > 15 мин</strong> — критическая задержка. Пользователь получает отчёт с опозданием.</div>
-          <div class="legend-rec">→ Перевести на sessionTarget=main или выделить отдельный sessionKey для приоритетной задачи. Уменьшить таймаут задачи, чтобы не занимала очередь.</div>
+          <div><strong>🔴 > 15 мин</strong> — критическая задержка. Пользователь получает отчёт с опозданием. Лена (+101 мин), Данил пн (+277 мин).</div>
+          <div class="legend-rec">Лена: isolated очередь перегружена в 09:00 — перевести на sessionTarget=main или выделить sessionKey agent:main:telegram:direct:254785028.<br>Данил (пн): задержка >4ч — перевести на sessionTarget=main, уменьшить таймаут с 300 до 120 с, чтобы задача быстрее освобождала очередь.</div>
         </div>
       </div>
     </div>
