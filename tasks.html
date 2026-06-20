@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Задачи — Лунт</title>
-  <link rel="stylesheet" href="theme.css?v=20260620">
-  <link rel="stylesheet" href="style.css?v=20260620">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
@@ -13,101 +13,214 @@
   <a href="service_main.html" class="back">← Назад</a>
 
   <div class="hero">
-    <h1 class="page-title">Задачи и планы</h1>
-    <div class="meta">Текущие и запланированные работы</div>
+    <h1 class="page-title">Список задач</h1>
+    <div class="meta">Все cron-задачи системы · 20.06.2026</div>
   </div>
 
-  <!-- ═══════════════════════ Раздел 1 ═══════════════════════ -->
   <div class="section">
-    <span class="tag" style="color:var(--pink);border-color:rgba(247,120,186,.2);background:rgba(247,120,186,.12);">📋 Текущие задачи</span>
-    <h2>Ежедневные отчёты</h2>
-
-    <div class="item">
-      <div class="title">📋 Катя — жалобы по наследству</div>
-      <div class="meta">08:00 ежедневно · SearXNG · report-katya.html</div>
-      <div class="body">Мониторинг жалоб по наследству в банках РФ (banki.ru, otzovik.com, pikabu, dzen). <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-
-    <div class="item">
-      <div class="title">📊 Статистика жалоб</div>
-      <div class="meta">08:10 ежедневно · stats-inheritance.html</div>
-      <div class="body">Помесячный подсчёт жалоб из katya-stats-data.md, автообновление диаграмм. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-
-    <div class="item">
-      <div class="title">📰 Лена — дайджест новостей</div>
-      <div class="meta">09:00 ежедневно · SearXNG · report-lena.html</div>
-      <div class="body">Мониторинг новостей и законодательства по наследству. Дедупликация через lena-news-seen.md. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-
-    <div class="item">
-      <div class="title">💰 РЖД 1Р-37R — итоги торгов</div>
-      <div class="meta">23:55 будни · isolated сессия</div>
-      <div class="body">Итоги биржевых торгов облигациями РЖД 1Р-37R. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-
-    <div class="item">
-      <div class="title">💾 Бэкап — git push</div>
-      <div class="meta">22:00 ежедневно + вс 03:00</div>
-      <div class="body">Автоматический push всех изменений на GitHub. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-
-    <div class="item">
-      <div class="title">🔘 Отчёт по токенам</div>
-      <div class="meta">03:30 ежедневно · bash · tokens.html</div>
-      <div class="body">Статистика расхода токенов по моделям за день и неделю. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-
-    <div class="item">
-      <div class="title">📊 Активность пользователей</div>
-      <div class="meta">23:50 ежедневно · activity.html</div>
-      <div class="body">Логирование запросов на изменение промптов и генерация activity.html. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
+    <div class="table-wrapper">
+      <table class="task-table">
+        <thead>
+          <tr>
+            <th>Задача</th>
+            <th>Session target</th>
+            <th>Cron</th>
+            <th>Расписание запуска</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ════ Активные задачи ════ -->
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Сводка жалоб: наследство в банках (Катя)</td>
+            <td>isolated → Катя</td>
+            <td><code>0 8 * * *</code></td>
+            <td>Ежедневно, 08:00 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Обновление статистики жалоб (stats-inheritance)</td>
+            <td>isolated</td>
+            <td><code>10 8 * * *</code></td>
+            <td>Ежедневно, 08:10 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Ежедневная сводка: наследство и банки (Лена)</td>
+            <td>isolated → Лена</td>
+            <td><code>0 9 * * *</code></td>
+            <td>Ежедневно, 09:00 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Роза: сводка изменений в законах по пособиям</td>
+            <td>isolated → Роза</td>
+            <td><code>3 9 * * 1</code></td>
+            <td>Понедельник, 09:03 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Ирина: еженедельный обзор НПА</td>
+            <td>isolated → Ирина</td>
+            <td><code>6 9 * * 1</code></td>
+            <td>Понедельник, 09:06 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Анализ вкладов 1991 — понедельник (Данил)</td>
+            <td>isolated → Данил</td>
+            <td><code>0 10 * * 1</code></td>
+            <td>Понедельник, 10:00 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Анализ вкладов 1991 — четверг (Данил)</td>
+            <td>isolated → Данил</td>
+            <td><code>0 10 * * 4</code></td>
+            <td>Четверг, 10:00 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> РЖД 1Р-37R — итоги торгов (Лена)</td>
+            <td>isolated → Лена</td>
+            <td><code>55 23 * * 1-5</code></td>
+            <td>Пн–Пт, 23:55 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Бэкап: инкремент</td>
+            <td>isolated</td>
+            <td><code>0 22 * * *</code></td>
+            <td>Ежедневно, 22:00 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Бэкап: полный (раз в неделю)</td>
+            <td>isolated → Кирилл</td>
+            <td><code>0 3 * * 0</code></td>
+            <td>Воскресенье, 03:00 МСК</td>
+          </tr>
+          <tr class="row-active">
+            <td><span class="status-dot active"></span> Активность пользователей</td>
+            <td>isolated</td>
+            <td><code>50 23 * * *</code></td>
+            <td>Ежедневно, 23:50 МСК</td>
+          </tr>
+          <!-- ════ Отключённые задачи ════ -->
+          <tr class="row-disabled">
+            <td><span class="status-dot disabled"></span> Статистика жалоб по месяцам: Сбер vs другие</td>
+            <td>isolated → Катя</td>
+            <td><code>0 9 1 * *</code></td>
+            <td><del>1-го числа, 09:00</del> 🔴 Отключена</td>
+          </tr>
+          <tr class="row-disabled">
+            <td><span class="status-dot disabled"></span> Сводка жалоб: наследство в банках (кроме Сбера)</td>
+            <td>isolated → Катя</td>
+            <td><code>30 8 * * *</code></td>
+            <td><del>Ежедневно, 08:30</del> 🔴 Отключена</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- ═══════════════════════ Раздел 2 ═══════════════════════ -->
-  <div class="section">
-    <span class="tag" style="color:var(--blue);border-color:rgba(88,166,255,.2);background:rgba(88,166,255,.12);">📅 По расписанию</span>
-    <h2>Еженедельные отчёты</h2>
-
-    <div class="item">
-      <div class="title">📊 Данил — вклады СССР 1991</div>
-      <div class="meta">Пн/Чт 10:00 · SearXNG · report-danil.html</div>
-      <div class="body">Анализ новостей по компенсациям вкладов 1991 года. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-
-    <div class="item">
-      <div class="title">📋 Роза — пособия</div>
-      <div class="meta">Пн 09:03 · SearXNG · report-roza.html</div>
-      <div class="body">Мониторинг пособий и мер социальной поддержки. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-
-    <div class="item">
-      <div class="title">📋 Ирина — НПА</div>
-      <div class="meta">Пн 09:06 · SearXNG · report-irina.html</div>
-      <div class="body">Мониторинг нормативно-правовых актов. <span class="highlight" style="color:var(--green)">✓ Активно</span></div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════ Раздел 3 ═══════════════════════ -->
-  <div class="section">
-    <span class="tag" style="color:var(--orange);border-color:rgba(255,144,0,.2);background:rgba(255,144,0,.12);">🚧 В планах</span>
-    <h2>Ближайшие доработки</h2>
-
-    <p class="body" style="padding:20px;text-align:center;">Пока ничего не запланировано</p>
-  </div>
-
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Обновлено 20.06.2026<span class="tech" data-openclaw="OpenClaw 2026.6.8" data-llm="deepseek/deepseek-v4-flash"></span></div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Обновлено 20.06.2026</div>
 </div>
 
-<script>
-  const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-  const now=new Date();
-  const footers=document.querySelectorAll('.footer');
-  if(footers.length) {
-    const last=footers[footers.length-1];
-    last.innerHTML=last.innerHTML.replace(/Обновлено \d+\.\d+\.\d+/, 'Обновлено '+now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear());
+<style>
+/* ── Таблица задач ── */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.task-table thead th {
+  text-align: left;
+  padding: 12px 16px;
+  background: rgba(33, 38, 45, 0.6);
+  border-bottom: 1px solid var(--glass-border, #21262d);
+  color: var(--text-dim, #8b949e);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.task-table thead th:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+.task-table thead th:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+.task-table tbody tr {
+  border-bottom: 1px solid rgba(33, 38, 45, 0.4);
+  transition: background 0.15s ease;
+}
+
+.task-table tbody tr:hover {
+  background: rgba(88, 166, 255, 0.04);
+}
+
+.task-table tbody td {
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+.task-table tbody td:first-child {
+  font-weight: 500;
+}
+
+.task-table code {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 13px;
+  background: rgba(33, 38, 45, 0.6);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--green, #3fb950);
+}
+
+/* ── Статус-точка ── */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.status-dot.active {
+  background: #3fb950;
+  box-shadow: 0 0 6px rgba(63, 185, 80, 0.5);
+}
+
+.status-dot.disabled {
+  background: #484f58;
+}
+
+/* ── Отключённые строки ── */
+.row-disabled td {
+  color: var(--text-dim, #8b949e);
+}
+
+.row-disabled td:first-child {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* ── Адаптивность ── */
+@media (max-width: 720px) {
+  .task-table {
+    font-size: 13px;
   }
-</script>
+
+  .task-table thead th,
+  .task-table tbody td {
+    padding: 10px 12px;
+  }
+}
+</style>
+
 </body>
 </html>
