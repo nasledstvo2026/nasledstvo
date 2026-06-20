@@ -145,6 +145,8 @@
 .cards .card-badge.daily    { background: rgba(126,231,135,.1); border-color: rgba(126,231,135,.2); color: #7ee787; }
 .cards .card-badge.weekly   { background: rgba(88,166,255,.1);  border-color: rgba(88,166,255,.2);  color: #58a6ff; }
 .cards .card-badge.ondemand { background: rgba(188,140,255,.1); border-color: rgba(188,140,255,.2);  color: #bc8cff; }
+.cards .card-badge.mvp { background: rgba(255,144,0,.1); border-color: rgba(255,144,0,.2); color: #ff9000; }
+.cards .card-badge.mvp::before { background: #ff9000; box-shadow: 0 0 6px rgba(255,144,0,.5); }
 
 /* ─── Card header row (название + бейдж) ─── */
 .cards .card-header-row {
