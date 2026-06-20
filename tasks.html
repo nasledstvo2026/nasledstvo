@@ -14,7 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 20.06.2026 18:52</div>
+    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 20.06.2026 18:54</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -51,6 +51,17 @@
       <div class="legend-title">🩺 Health Index</div>
       <div class="legend-desc">Композитная метрика 0–100: SR×30% + Duration×25% + Latency×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0.</div>
       <div class="legend-items"><span><span class="tl tl-green"></span> ≥80</span><span><span class="tl tl-yellow"></span> 50–79</span><span><span class="tl tl-red"></span> &lt;50</span></div>
+    </div>
+    <div class="legend-sep"></div>
+    <div class="legend-metric" style="border:none;margin:0;padding:0;">
+      <div class="legend-title">📋 Проработка рекомендаций</div>
+      <div class="legend-desc">Статус обработки рекомендаций агентом-оптимизатором (автоматически, каждый 3ч)</div>
+      <div class="legend-items">
+        <span><span class="opt-status-dot" style="background:transparent;border:1px solid #8b949e;color:#8b949e;width:auto;height:auto;padding:0 4px;font-size:11px;border-radius:3px;">—</span> не требуется</span>
+        <span><span class="opt-status-dot opt-dot-seen">⏳</span> ждём 2/2 циклов</span>
+        <span><span class="opt-status-dot opt-dot-decided">✅</span> зафиксировано</span>
+        <span><span class="opt-status-dot opt-dot-done">✅</span> применено + дата</span>
+      </div>
     </div>
   </div>
 
@@ -242,7 +253,7 @@
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 20.06.2026 18:52</div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 20.06.2026 18:54</div>
 </div>
 
 <style>
@@ -259,6 +270,7 @@
 .opt-decided { color: #58a6ff; font-size: 12px; font-weight: 600; white-space: nowrap; }
 .opt-done { color: #3fb950; font-size: 12px; font-weight: 600; white-space: nowrap; }
 .stat-na { color: var(--text-dim,#8b949e); font-size: 12px; }
+.legend-items .opt-status-dot { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 3px; margin-right: 4px; font-size: 11px; vertical-align: middle; background: rgba(33,38,45,.3); }
 .task-table tbody tr { border-bottom: 1px solid rgba(33,38,45,.4); transition: background .15s ease; }
 .task-table tbody tr:hover { background: rgba(88,166,255,.04); }
 .task-table tbody td { padding: 9px 8px; vertical-align: middle; font-size: 12.5px; }
