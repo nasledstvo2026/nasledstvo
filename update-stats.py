@@ -9,7 +9,9 @@ import re, subprocess, sys
 from datetime import datetime as dt, timedelta
 
 TEMPLATE = '/home/user1/.openclaw/workspace/stats-inheritance-template.html'
+LAST_FILE = '/home/user1/.openclaw/workspace/stats-inheritance.html'
 DATA = '/home/user1/.openclaw/workspace/memory/katya-stats-data.md'
+JSON_DATA = '/home/user1/.openclaw/workspace/memory/katya-data.json'
 OUT = '/tmp/stats-inheritance.html'
 PUBLISH = '/home/user1/.openclaw/workspace/publish-report.sh'
 
@@ -44,10 +46,21 @@ def main():
     with open(TEMPLATE) as f:
         html = f.read()
     
-    # 1. Increment version
-    m = re.search(r'v(\d+)', html)
+    # 1. Increment version from LAST PUBLISHED file, not template
+    try:
+        with open(LAST_FILE) as f:
+            last = f.read()
+        m = re.search(r'v(\d+)', last)
+    except:
+        m = None
+    if not m:
+        m = re.search(r'v(\d+)', html)  # fallback to template
     if m:
-        html = html.replace(f'v{m.group(1)}', f'v{int(m.group(1))+1}', 1)
+        old_v = m.group(1)
+        new_v = int(old_v) + 1
+        # Replace in template (which has the baseline version)
+        # Find the version tag in the output html and increment
+        html = re.sub(r'v\d+', f'v{new_v}', html, count=1)
     
     # 2. Update section 2 date
     yesterday_ru = f'{day} {month_ru} {year}'
