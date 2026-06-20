@@ -50,11 +50,12 @@
     .mini-bar.sber { background: #1a9e5c; }
     .mini-bar.other { background: #009fdf; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th, td { padding: 0.5rem 0.75rem; text-align: left; border: 1px solid var(--border); }
     th { color: var(--text-secondary); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; background: var(--bg-secondary); }
     tr:last-child td { border-bottom: none; }
     tr.total td { font-weight: 700; color: var(--text); border-top: 2px solid var(--accent); }
     .trend-note { color: var(--text-secondary); font-size: 0.85rem; }
+    table.striped-table th, table.striped-table td { border: 1px solid var(--border); }
     .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: var(--accent); color: #fff; border-radius: 6px; text-decoration: none; font-size: 0.9rem; transition: background 0.2s; }
     .btn:hover { background: var(--accent-hover); }
     .yesterday-block { background: var(--bg-secondary); border-radius: 8px; padding: 1rem; margin: 1rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
@@ -66,7 +67,7 @@
     <a href="index.html" class="back">← Назад</a>
 
     <div class="hero">
-      <h1><span style="font-size:11px;color:var(--text-faint);font-weight:400;margin-right:6px;vertical-align:middle">v11</span> Статистика жалоб по наследству в банках</h1>
+      <h1><span style="font-size:11px;color:var(--text-faint);font-weight:400;margin-right:6px;vertical-align:middle">v12</span> Статистика жалоб по наследству в банках</h1>
     </div>
 
     <div class="section">
@@ -170,14 +171,14 @@
 
     <div class="section">
       <div class="item">
-        <h2>📅 Помесячная разбивка</h2>
+        <h2>📅 Статистика</h2>
       <div style="max-width:100%;overflow-x:auto">
       <table class="striped-table" style="min-width:580px">
         <thead>
           <tr>
             <th>Месяц</th>
             <th>Сбер</th>
-            <th>Другие банки</th>
+            <th>Другие</th>
             <th>Всего</th>
             <th style="min-width:160px">Банк</th>
           </tr>
