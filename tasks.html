@@ -13,8 +13,8 @@
   <a href="service_main.html" class="back">← Назад</a>
 
   <div class="hero">
-    <h1 class="page-title">Список задач</h1>
-    <div class="meta">Все cron-задачи системы · 20.06.2026</div>
+    <h1 class="page-title">Все cron-задачи</h1>
+    <div class="meta">11 активных · 2 отключённые · 20.06.2026</div>
   </div>
 
   <div class="section">
@@ -23,91 +23,181 @@
         <thead>
           <tr>
             <th>Задача</th>
+            <th>Кому</th>
             <th>Session target</th>
             <th>Cron</th>
-            <th>Расписание запуска</th>
+            <th>Расписание</th>
+            <th>Модель</th>
+            <th>Таймаут</th>
+            <th>Статус</th>
+            <th>Последний успешный запуск</th>
           </tr>
         </thead>
         <tbody>
-          <!-- ════ Активные задачи ════ -->
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Сводка жалоб: наследство в банках (Катя)</td>
-            <td>isolated → Катя</td>
+          <!-- ════ Активные ════ -->
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Сводка жалоб — наследство в банках</td>
+            <td><span class="recipient katya"></span> Катя</td>
+            <td>isolated</td>
             <td><code>0 8 * * *</code></td>
-            <td>Ежедневно, 08:00 МСК</td>
+            <td>Ежедневно 08:00</td>
+            <td>deepseek-chat</td>
+            <td>300 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>20.06.2026 08:05</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Обновление статистики жалоб (stats-inheritance)</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Обновление статистики жалоб</td>
+            <td><span class="recipient system"></span> —</td>
             <td>isolated</td>
             <td><code>10 8 * * *</code></td>
-            <td>Ежедневно, 08:10 МСК</td>
+            <td>Ежедневно 08:10</td>
+            <td>deepseek-chat</td>
+            <td>300 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>20.06.2026 08:10</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Ежедневная сводка: наследство и банки (Лена)</td>
-            <td>isolated → Лена</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Дайджест новостей</td>
+            <td><span class="recipient lena"></span> Лена</td>
+            <td>isolated</td>
             <td><code>0 9 * * *</code></td>
-            <td>Ежедневно, 09:00 МСК</td>
+            <td>Ежедневно 09:00</td>
+            <td>deepseek-chat</td>
+            <td>300 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>20.06.2026 10:41</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Роза: сводка изменений в законах по пособиям</td>
-            <td>isolated → Роза</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Роза — пособия</td>
+            <td><span class="recipient roza"></span> Роза</td>
+            <td>isolated</td>
             <td><code>3 9 * * 1</code></td>
-            <td>Понедельник, 09:03 МСК</td>
+            <td>Пн 09:03</td>
+            <td>deepseek-chat</td>
+            <td>300 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>15.06.2026 09:14</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Ирина: еженедельный обзор НПА</td>
-            <td>isolated → Ирина</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Ирина — НПА</td>
+            <td><span class="recipient irina"></span> Ирина</td>
+            <td>isolated</td>
             <td><code>6 9 * * 1</code></td>
-            <td>Понедельник, 09:06 МСК</td>
+            <td>Пн 09:06</td>
+            <td>deepseek-chat</td>
+            <td>300 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>15.06.2026 09:15</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Анализ вкладов 1991 — понедельник (Данил)</td>
-            <td>isolated → Данил</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Данил — вклады 1991 (пн)</td>
+            <td><span class="recipient danil"></span> Данил</td>
+            <td>isolated</td>
             <td><code>0 10 * * 1</code></td>
-            <td>Понедельник, 10:00 МСК</td>
+            <td>Пн 10:00</td>
+            <td>deepseek-chat</td>
+            <td>300 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>17.06.2026 14:37</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Анализ вкладов 1991 — четверг (Данил)</td>
-            <td>isolated → Данил</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Данил — вклады 1991 (чт)</td>
+            <td><span class="recipient danil"></span> Данил</td>
+            <td>isolated</td>
             <td><code>0 10 * * 4</code></td>
-            <td>Четверг, 10:00 МСК</td>
+            <td>Чт 10:00</td>
+            <td>deepseek-chat</td>
+            <td>300 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>18.06.2026 10:06</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> РЖД 1Р-37R — итоги торгов (Лена)</td>
-            <td>isolated → Лена</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> РЖД 1Р-37R — итоги торгов</td>
+            <td><span class="recipient lena"></span> Лена</td>
+            <td>isolated</td>
             <td><code>55 23 * * 1-5</code></td>
-            <td>Пн–Пт, 23:55 МСК</td>
+            <td>Пн–Пт 23:55</td>
+            <td>deepseek-chat</td>
+            <td>60 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>19.06.2026 23:55</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Бэкап: инкремент</td>
+          <tr class="row-err">
+            <td><span class="status-dot err"></span> Бэкап: инкремент</td>
+            <td><span class="recipient system"></span> —</td>
             <td>isolated</td>
             <td><code>0 22 * * *</code></td>
-            <td>Ежедневно, 22:00 МСК</td>
+            <td>Ежедневно 22:00</td>
+            <td>deepseek-chat</td>
+            <td>180 с</td>
+            <td><span class="badge badge-err">❌ 9 ошибок</span></td>
+            <td>19.06.2026 22:00</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Бэкап: полный (раз в неделю)</td>
-            <td>isolated → Кирилл</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Бэкап: полный</td>
+            <td><span class="recipient kirill"></span> Кирилл</td>
+            <td>isolated</td>
             <td><code>0 3 * * 0</code></td>
-            <td>Воскресенье, 03:00 МСК</td>
+            <td>Вс 03:00</td>
+            <td>deepseek-chat</td>
+            <td>120 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>14.06.2026 03:00</td>
           </tr>
-          <tr class="row-active">
-            <td><span class="status-dot active"></span> Активность пользователей</td>
+          <tr class="row-ok">
+            <td><span class="status-dot ok"></span> Активность пользователей</td>
+            <td><span class="recipient system"></span> —</td>
             <td>isolated</td>
             <td><code>50 23 * * *</code></td>
-            <td>Ежедневно, 23:50 МСК</td>
+            <td>Ежедневно 23:50</td>
+            <td>deepseek-chat</td>
+            <td>60 с</td>
+            <td><span class="badge badge-ok">✅ Ок</span></td>
+            <td>19.06.2026 23:51</td>
           </tr>
-          <!-- ════ Отключённые задачи ════ -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-wrapper" style="margin-top:40px;">
+      <h2 style="margin-bottom:12px;font-size:18px;">🔴 Отключённые</h2>
+      <table class="task-table">
+        <thead>
+          <tr>
+            <th>Задача</th>
+            <th>Кому</th>
+            <th>Session target</th>
+            <th>Cron</th>
+            <th>Расписание</th>
+            <th>Модель</th>
+            <th>Таймаут</th>
+            <th>Статус</th>
+            <th>Последний успешный запуск</th>
+          </tr>
+        </thead>
+        <tbody>
           <tr class="row-disabled">
-            <td><span class="status-dot disabled"></span> Статистика жалоб по месяцам: Сбер vs другие</td>
-            <td>isolated → Катя</td>
+            <td><span class="status-dot disabled"></span> Статистика жалоб по месяцам</td>
+            <td>Катя</td>
+            <td>isolated</td>
             <td><code>0 9 1 * *</code></td>
-            <td><del>1-го числа, 09:00</del> 🔴 Отключена</td>
+            <td><del>1-го числа 09:00</del></td>
+            <td>deepseek-chat</td>
+            <td>120 с</td>
+            <td><span class="badge badge-disabled">⏸ Отключена</span></td>
+            <td>16.06.2026 09:28</td>
           </tr>
           <tr class="row-disabled">
-            <td><span class="status-dot disabled"></span> Сводка жалоб: наследство в банках (кроме Сбера)</td>
-            <td>isolated → Катя</td>
+            <td><span class="status-dot disabled"></span> Сводка жалоб (кроме Сбера)</td>
+            <td>Катя</td>
+            <td>isolated</td>
             <td><code>30 8 * * *</code></td>
-            <td><del>Ежедневно, 08:30</del> 🔴 Отключена</td>
+            <td><del>Ежедневно 08:30</del></td>
+            <td>deepseek-chat</td>
+            <td>300 с</td>
+            <td><span class="badge badge-disabled">⏸ Отключена</span></td>
+            <td>17.06.2026 08:35</td>
           </tr>
         </tbody>
       </table>
@@ -118,38 +208,35 @@
 </div>
 
 <style>
-/* ── Таблица задач ── */
+/* ── Таблица ── */
 .table-wrapper {
   overflow-x: auto;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .task-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
+  min-width: 960px;
 }
 
 .task-table thead th {
   text-align: left;
-  padding: 12px 16px;
+  padding: 10px 12px;
   background: rgba(33, 38, 45, 0.6);
   border-bottom: 1px solid var(--glass-border, #21262d);
   color: var(--text-dim, #8b949e);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
-.task-table thead th:first-child {
-  border-radius: 8px 0 0 0;
-}
-
-.task-table thead th:last-child {
-  border-radius: 0 8px 0 0;
-}
+.task-table thead th:first-child { border-radius: 8px 0 0 0; }
+.task-table thead th:last-child  { border-radius: 0 8px 0 0; }
 
 .task-table tbody tr {
   border-bottom: 1px solid rgba(33, 38, 45, 0.4);
@@ -161,19 +248,21 @@
 }
 
 .task-table tbody td {
-  padding: 14px 16px;
+  padding: 11px 12px;
   vertical-align: middle;
+  font-size: 13px;
 }
 
 .task-table tbody td:first-child {
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .task-table code {
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 13px;
+  font-size: 12px;
   background: rgba(33, 38, 45, 0.6);
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: 4px;
   color: var(--green, #3fb950);
 }
@@ -181,44 +270,58 @@
 /* ── Статус-точка ── */
 .status-dot {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 7px; height: 7px;
   border-radius: 50%;
-  margin-right: 8px;
+  margin-right: 7px;
   vertical-align: middle;
-  position: relative;
-  top: -1px;
+  position: relative; top: -1px;
 }
+.status-dot.ok   { background: #3fb950; box-shadow: 0 0 5px rgba(63,185,80,.5); }
+.status-dot.err  { background: #f85149; box-shadow: 0 0 5px rgba(248,81,73,.5); }
+.status-dot.disabled { background: #484f58; }
 
-.status-dot.active {
-  background: #3fb950;
-  box-shadow: 0 0 6px rgba(63, 185, 80, 0.5);
+/* ── Бейджи статуса ── */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
 }
+.badge-ok   { background: rgba(63,185,80,.15); color: #3fb950; }
+.badge-err  { background: rgba(248,81,73,.15); color: #f85149; }
+.badge-disabled { background: rgba(72,79,88,.2);  color: #8b949e; }
 
-.status-dot.disabled {
-  background: #484f58;
+/* ── Аватарки получателей ── */
+.recipient {
+  display: inline-block;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 5px;
+  background-size: cover;
+  background-position: center;
 }
+.recipient.katya  { background: #f778ba; }
+.recipient.lena   { background: #58a6ff; }
+.recipient.danil  { background: #d2a8ff; }
+.recipient.roza   { background: #ffa657; }
+.recipient.irina  { background: #7ee787; }
+.recipient.kirill { background: #f0f6fc; }
+.recipient.system { background: transparent; width: 0; margin: 0; }
 
 /* ── Отключённые строки ── */
-.row-disabled td {
-  color: var(--text-dim, #8b949e);
-}
+.row-disabled td { color: #8b949e; }
+.row-disabled td:first-child { opacity: 0.7; }
 
-.row-disabled td:first-child {
-  text-decoration: line-through;
-  opacity: 0.6;
-}
+/* ── Строка с ошибкой ── */
+.row-err td:first-child { color: #f85149; }
 
-/* ── Адаптивность ── */
-@media (max-width: 720px) {
-  .task-table {
-    font-size: 13px;
-  }
-
-  .task-table thead th,
-  .task-table tbody td {
-    padding: 10px 12px;
-  }
+/* ── Адаптив ── */
+@media (max-width: 1024px) {
+  .task-table { font-size: 12px; min-width: 800px; }
+  .task-table tbody td { padding: 9px 8px; }
 }
 </style>
 
