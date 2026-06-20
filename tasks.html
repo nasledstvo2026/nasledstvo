@@ -14,7 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 20.06.2026 15:31</div>
+    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 20.06.2026 16:11</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -46,6 +46,12 @@
       <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code> — тарифы deepseek-chat из openclaw.json.</div>
       <div class="legend-items"><span><span class="tl tl-green"></span> &lt;$0.01</span><span><span class="tl tl-yellow"></span> $0.01–0.05</span><span><span class="tl tl-red"></span> &gt;$0.05</span></div>
     </div>
+    <div class="legend-sep"></div>
+    <div class="legend-metric" style="border:none;margin:0;padding:0;">
+      <div class="legend-title">🩺 Health Index</div>
+      <div class="legend-desc">Композитная метрика 0–100: SR×30% + Duration×25% + Latency×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0.</div>
+      <div class="legend-items"><span><span class="tl tl-green"></span> ≥80</span><span><span class="tl tl-yellow"></span> 50–79</span><span><span class="tl tl-red"></span> &lt;50</span></div>
+    </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════ -->
@@ -59,9 +65,10 @@
         <thead>
           <tr>
             <th>Задача</th><th>Автор</th><th>Расписание</th>
-            <th class="col-metric">⏱ Duration/Timeout</th><th class="col-metric">📈 Success rate</th><th class="col-metric">📬 Latency</th>
-            <th class="col-metric">💎 Cache Hit</th><th class="col-metric">💰 Cost/Run</th>
-            <th>Последний запуск</th><th class="col-rec">💡 Рекомендация по оптимизации</th>
+            <th class="col-metric">⏱ Duration</th><th class="col-metric">📈 Success</th><th class="col-metric">📬 Latency</th>
+            <th class="col-metric">💎 Cache</th><th class="col-metric">💰 Cost</th>
+            <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
+            <th class="col-metric">🩺 Health</th>
           </tr>
         </thead>
         <tbody>
@@ -72,10 +79,11 @@
             <td><span class="metric"><span class="tl tl-green"></span> 13%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +6 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 82%</span></td>
+            <td>82%</td>
             <td>$0.032</td>
             <td>20.06 08:05</td>
-            <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с. Перенести на 08:30 — разгрузить очередь 08:00.</td>
+            <td class="rec">Уменьшить таймаут с 300 до 120 с. Перенести на 08:30 — разгрузить очередь 08:00.</td>
+            <td style="text-align:center;"><span class="health-badge health-green">🟢 86</span></td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Обновление статистики</td>
@@ -84,10 +92,11 @@
             <td><span class="metric"><span class="tl tl-green"></span> 18%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 82%</span></td>
+            <td>82%</td>
             <td>$0.018</td>
             <td>20.06 08:10</td>
-            <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с.</td>
+            <td class="rec">Уменьшить таймаут с 300 до 120 с.</td>
+            <td style="text-align:center;"><span class="health-badge health-green">🟢 96</span></td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Дайджест новостей</td>
@@ -99,7 +108,8 @@
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
             <td>20.06 10:41</td>
-            <td class="rec">Перевести на sessionTarget=main или выделить sessionKey. Уменьшить таймаут с 300 до 120&nbsp;с.</td>
+            <td class="rec">Перевести на sessionTarget=main или выделить sessionKey. Уменьшить таймаут с 300 до 120 с.</td>
+            <td style="text-align:center;"><span class="health-badge health-yellow">🟡 55</span></td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Изменения в законах по пособиям</td>
@@ -108,10 +118,11 @@
             <td><span class="metric"><span class="tl tl-green"></span> 21%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +11 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 89%</span></td>
+            <td>89%</td>
             <td>$0.022</td>
             <td>15.06 09:14</td>
-            <td class="rec">Перенести на 08:30 пн — разгрузить очередь 09:00. Уменьшить таймаут с 300 до 120&nbsp;с.</td>
+            <td class="rec">Перенести на 08:30 пн — разгрузить очередь 09:00. Уменьшить таймаут с 300 до 120 с.</td>
+            <td style="text-align:center;"><span class="health-badge health-green">🟢 86</span></td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Обзор НПА</td>
@@ -123,7 +134,8 @@
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
             <td>15.06 09:15</td>
-            <td class="rec">Увеличить таймаут с 300 до 400&nbsp;с. Сократить поисковые запросы с 3 до 2. Перенести на 09:30.</td>
+            <td class="rec">Увеличить таймаут с 300 до 400 с. Сократить поисковые запросы с 3 до 2. Перенести на 09:30.</td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 40</span></td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Вклады 1991 — понедельник</td>
@@ -132,10 +144,11 @@
             <td><span class="metric"><span class="tl tl-green"></span> 25%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-red"></span> +277 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 96%</span></td>
+            <td>96%</td>
             <td>$0.050</td>
             <td>17.06 14:37</td>
-            <td class="rec">Перевести на sessionTarget=main. Уменьшить таймаут с 300 до 120&nbsp;с.</td>
+            <td class="rec">Перевести на sessionTarget=main. Уменьшить таймаут с 300 до 120 с.</td>
+            <td style="text-align:center;"><span class="health-badge health-yellow">🟡 76</span></td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> РЖД 1Р-37R — итоги</td>
@@ -144,10 +157,11 @@
             <td><span class="metric"><span class="tl tl-yellow"></span> 59%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
-            <td><span class="metric"><span class="tl tl-yellow"></span> 73%</span></td>
+            <td>73%</td>
             <td>$0.034</td>
             <td>19.06 23:55</td>
-            <td class="rec">Увеличить таймаут с 60 до 90&nbsp;с.</td>
+            <td class="rec">Увеличить таймаут с 60 до 90 с.</td>
+            <td style="text-align:center;"><span class="health-badge health-yellow">🟡 76</span></td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Вклады 1991 — четверг</td>
@@ -156,10 +170,11 @@
             <td><span class="metric"><span class="tl tl-green"></span> 26%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +6 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 97%</span></td>
+            <td>97%</td>
             <td>$0.022</td>
             <td>18.06 10:06</td>
-            <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с.</td>
+            <td class="rec">Уменьшить таймаут с 300 до 120 с.</td>
+            <td style="text-align:center;"><span class="health-badge health-green">🟢 86</span></td>
           </tr>
         </tbody>
       </table>
@@ -177,9 +192,10 @@
         <thead>
           <tr>
             <th>Задача</th><th>Автор</th><th>Расписание</th>
-            <th class="col-metric">⏱ Duration/Timeout</th><th class="col-metric">📈 Success rate</th><th class="col-metric">📬 Latency</th>
-            <th class="col-metric">💎 Cache Hit</th><th class="col-metric">💰 Cost/Run</th>
-            <th>Последний запуск</th><th class="col-rec">💡 Рекомендация по оптимизации</th>
+            <th class="col-metric">⏱ Duration</th><th class="col-metric">📈 Success</th><th class="col-metric">📬 Latency</th>
+            <th class="col-metric">💎 Cache</th><th class="col-metric">💰 Cost</th>
+            <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
+            <th class="col-metric">🩺 Health</th>
           </tr>
         </thead>
         <tbody>
@@ -190,10 +206,11 @@
             <td><span class="metric"><span class="tl tl-yellow"></span> 75%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +2 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 99%</span></td>
+            <td>99%</td>
             <td><$0.0090</td>
             <td>19.06 23:51</td>
-            <td class="rec">Увеличить таймаут с 60 до 90&nbsp;с.</td>
+            <td class="rec">Увеличить таймаут с 60 до 90 с.</td>
+            <td style="text-align:center;"><span class="health-badge health-yellow">🟡 77</span></td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Бэкап: полный</td>
@@ -202,17 +219,18 @@
             <td><span class="metric"><span class="tl tl-red"></span> 82%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 98%</span></td>
+            <td>98%</td>
             <td><$0.0022</td>
             <td>14.06 03:00</td>
-            <td class="rec">Увеличить таймаут со 120 до 180&nbsp;с.</td>
+            <td class="rec">Увеличить таймаут со 120 до 180 с.</td>
+            <td style="text-align:center;"><span class="health-badge health-yellow">🟡 75</span></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 20.06.2026 15:31</div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 20.06.2026 16:11</div>
 </div>
 
 <style>
@@ -228,7 +246,7 @@
 .task-table tbody td { padding: 9px 8px; vertical-align: middle; font-size: 12.5px; }
 .task-table tbody td:first-child { font-weight: 500; white-space: nowrap; }
 .task-table tbody td:nth-child(4),.task-table tbody td:nth-child(5),.task-table tbody td:nth-child(6),
-.task-table tbody td:nth-child(7) { text-align: center; }
+.task-table tbody td:nth-child(7),.task-table tbody td:nth-child(8) { text-align: center; }
 .rec { font-size: 12px; color: var(--text,#c9d1d9); line-height: 1.45; }
 .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: middle; position: relative; top: -1px; }
 .status-dot.ok   { background: #3fb950; box-shadow: 0 0 5px rgba(63,185,80,.5); }
@@ -238,6 +256,10 @@
 .tl-red    { background: #f85149; box-shadow: 0 0 4px rgba(248,81,73,.5); }
 .metric { display: inline-flex; align-items: center; gap: 4px; font-variant-numeric: tabular-nums; }
 .metric-na { text-align: center; color: var(--text-dim,#8b949e); font-size: 12px; }
+.health-badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.health-green  { background: rgba(63,185,80,.15); color: #3fb950; }
+.health-yellow { background: rgba(210,153,34,.15); color: #d29922; }
+.health-red    { background: rgba(248,81,73,.15); color: #f85149; }
 .legend-sep { height: 1px; background: rgba(33,38,45,.5); margin: 12px 0; }
 .legend-metric { margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(33,38,45,.5); }
 .legend-metric:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }

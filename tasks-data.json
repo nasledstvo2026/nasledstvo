@@ -1,0 +1,122 @@
+[
+  {
+    "task": "Активность пользователей",
+    "author": "—",
+    "schedule": "Ежедневно 23:50",
+    "success_rate": 100,
+    "duration_pct": 75,
+    "latency_min": 2,
+    "cache_hit_pct": 99,
+    "cost_per_run": 0.0090,
+    "last_run": "19.06 23:51",
+    "tip": "Увеличить таймаут с 60 до 90 с."
+  },
+  {
+    "task": "Бэкап: полный",
+    "author": "Кирилл",
+    "schedule": "Вс 03:00",
+    "success_rate": 100,
+    "duration_pct": 82,
+    "latency_min": 0,
+    "cache_hit_pct": 98,
+    "cost_per_run": 0.0022,
+    "last_run": "14.06 03:00",
+    "tip": "Увеличить таймаут со 120 до 180 с."
+  },
+  {
+    "task": "Сводка жалоб — наследство",
+    "author": "Катя",
+    "schedule": "Ежедневно 08:00",
+    "success_rate": 100,
+    "duration_pct": 13,
+    "latency_min": 6,
+    "cache_hit_pct": 82,
+    "cost_per_run": 0.032,
+    "last_run": "20.06 08:05",
+    "tip": "Уменьшить таймаут с 300 до 120 с. Перенести на 08:30 — разгрузить очередь 08:00."
+  },
+  {
+    "task": "Обновление статистики",
+    "author": "Катя",
+    "schedule": "Ежедневно 08:10",
+    "success_rate": 100,
+    "duration_pct": 18,
+    "latency_min": 0,
+    "cache_hit_pct": 82,
+    "cost_per_run": 0.018,
+    "last_run": "20.06 08:10",
+    "tip": "Уменьшить таймаут с 300 до 120 с."
+  },
+  {
+    "task": "Дайджест новостей",
+    "author": "Лена",
+    "schedule": "Ежедневно 09:00",
+    "success_rate": 100,
+    "duration_pct": 18,
+    "latency_min": 102,
+    "cache_hit_pct": null,
+    "cost_per_run": null,
+    "last_run": "20.06 10:41",
+    "tip": "Перевести на sessionTarget=main или выделить sessionKey. Уменьшить таймаут с 300 до 120 с."
+  },
+  {
+    "task": "Изменения в законах по пособиям",
+    "author": "Роза",
+    "schedule": "Пн 09:03",
+    "success_rate": 100,
+    "duration_pct": 21,
+    "latency_min": 11,
+    "cache_hit_pct": 89,
+    "cost_per_run": 0.022,
+    "last_run": "15.06 09:14",
+    "tip": "Перенести на 08:30 пн — разгрузить очередь 09:00. Уменьшить таймаут с 300 до 120 с."
+  },
+  {
+    "task": "Обзор НПА",
+    "author": "Ирина",
+    "schedule": "Пн 09:06",
+    "success_rate": 100,
+    "duration_pct": 82,
+    "latency_min": 9,
+    "cache_hit_pct": null,
+    "cost_per_run": null,
+    "last_run": "15.06 09:15",
+    "tip": "Увеличить таймаут с 300 до 400 с. Сократить поисковые запросы с 3 до 2. Перенести на 09:30."
+  },
+  {
+    "task": "Вклады 1991 — понедельник",
+    "author": "Данил",
+    "schedule": "Пн 10:00",
+    "success_rate": 100,
+    "duration_pct": 25,
+    "latency_min": 277,
+    "cache_hit_pct": 96,
+    "cost_per_run": 0.050,
+    "last_run": "17.06 14:37",
+    "tip": "Перевести на sessionTarget=main. Уменьшить таймаут с 300 до 120 с."
+  },
+  {
+    "task": "РЖД 1Р-37R — итоги",
+    "author": "Лена",
+    "schedule": "Пн–Пт 23:55",
+    "success_rate": 100,
+    "duration_pct": 59,
+    "latency_min": 0,
+    "cache_hit_pct": 73,
+    "cost_per_run": 0.034,
+    "last_run": "19.06 23:55",
+    "tip": "Увеличить таймаут с 60 до 90 с."
+  },
+  {
+    "task": "Вклады 1991 — четверг",
+    "author": "Данил",
+    "schedule": "Чт 10:00",
+    "success_rate": 100,
+    "duration_pct": 26,
+    "latency_min": 6,
+    "cache_hit_pct": 97,
+    "cost_per_run": 0.022,
+    "last_run": "18.06 10:06",
+    "tip": "Уменьшить таймаут с 300 до 120 с."
+  }
+]
