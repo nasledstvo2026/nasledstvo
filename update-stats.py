@@ -87,11 +87,7 @@ def main():
             html
         )
     
-    # 4. Clean any comment artifacts
-    html = html.replace('\n<!--', '')
-    html = re.sub(r'-->\n', '\n', html)
-    
-    # Write output
+    # 4. Write output
     with open(OUT, 'w') as f:
         f.write(html)
     
