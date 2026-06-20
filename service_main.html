@@ -15,46 +15,98 @@
       <div class="meta">Сервисные инструменты и утилиты</div>
     </div>
 
-    <!-- Архитектура -->
-    <div class="section">
-      <span class="tag green">🏢 Инфраструктура</span>
-      <h2>Архитектура системы</h2>
-      <p>OpenClaw Gateway, VPS Cloud.ru, Timeweb, Telegram, cron-задачи, маршрут доставки данных. Интерактивная SVG-схема.</p>
-      <a href="architecture.html" class="back" style="margin-bottom:0;">→ Открыть схему</a>
-    </div>
+    <div class="cards" style="max-width:900px;margin:0 auto;">
 
-    <!-- Токены -->
-    <div class="section">
-      <span class="tag blue">📊 Аналитика · 6 раз/день</span>
-      <h2>Расход по моделям</h2>
-      <p>DeepSeek и GLM: потраченные токены и стоимость за сегодня и 7 дней. Круговые диаграммы по моделям и пользователям.</p>
-      <a href="tokens.html" class="back" style="margin-bottom:0;">→ Открыть статистику</a>
-    </div>
+      <!-- Архитектура -->
+      <div class="card green">
+        <a href="architecture.html">
+          <div class="card-header">
+            <div class="card-header-row">
+              <h2>Архитектура системы</h2>
+              <span class="card-badge ondemand">по запросу</span>
+            </div>
+          </div>
+          <div class="desc">
+            OpenClaw Gateway, VPS Cloud.ru, Telegram, cron-задачи, SearXNG, GitHub Pages. Интерактивная SVG-схема всей инфраструктуры.
+          </div>
+          <div class="card-footer" data-updated="20.06.2026">
+            <span class="person">Лунт · Система</span>
+          </div>
+        </a>
+      </div>
 
-    <!-- Проекты -->
-    <div class="section">
-      <span class="tag purple">📐 Управление</span>
-      <h2>Планы-графики и задачи</h2>
-      <p>Диаграммы Ганта, отслеживание сроков, отклонения от плана. Визуализация прогресса проектов.</p>
-      <a href="projects.html" class="back" style="margin-bottom:0;">→ Открыть диаграммы</a>
-    </div>
+      <!-- Токены -->
+      <div class="card blue">
+        <a href="tokens.html">
+          <div class="card-header">
+            <div class="card-header-row">
+              <h2>Расход по моделям</h2>
+              <span class="card-badge daily">6 раз/день</span>
+            </div>
+          </div>
+          <div class="desc">
+            DeepSeek и GLM: потраченные токены и стоимость за сегодня и 7 дней. Круговые диаграммы по моделям и пользователям.
+          </div>
+          <div class="card-footer" data-updated="20.06.2026">
+            <span class="person">Лунт · Система</span>
+          </div>
+        </a>
+      </div>
 
-    <!-- Активность -->
-    <div class="section">
-      <span class="tag orange">📊 Мониторинг</span>
-      <h2>Активность пользователей</h2>
-      <p>Запросы на изменение промптов, история доработок, статистика по пользователям и задачам.</p>
-      <p>👤 Все пользователи</p>
-      <a href="activity.html" class="back" style="margin-bottom:0;">→ Открыть активность</a>
-    </div>
+      <!-- Проекты -->
+      <div class="card purple">
+        <a href="projects.html">
+          <div class="card-header">
+            <div class="card-header-row">
+              <h2>Планы-графики и задачи</h2>
+              <span class="card-badge ondemand">по запросу</span>
+            </div>
+          </div>
+          <div class="desc">
+            Диаграммы Ганта, отслеживание сроков, отклонения от плана. Визуализация прогресса проектов.
+          </div>
+          <div class="card-footer" data-updated="20.06.2026">
+            <span class="person">Лунт · Система</span>
+          </div>
+        </a>
+      </div>
 
-    <!-- Задачи -->
-    <div class="section">
-      <span class="tag" style="color:var(--pink);border-color:rgba(247,120,186,.3);background:rgba(247,120,186,.12);">📋 Управление</span>
-      <h2>Задачи и планы</h2>
-      <p>Список всех активных cron-задач, еженедельных отчётов и ближайших доработок. Текущий статус и расписание.</p>
-      <p>📌 8 cron-задач + 3 еженедельных</p>
-      <a href="tasks.html" class="back" style="margin-bottom:0;">→ Открыть задачи</a>
+      <!-- Активность -->
+      <div class="card orange">
+        <a href="activity.html">
+          <div class="card-header">
+            <div class="card-header-row">
+              <h2>Активность пользователей</h2>
+              <span class="card-badge daily">ежедневно</span>
+            </div>
+          </div>
+          <div class="desc">
+            Запросы на изменение промптов, история доработок, статистика по пользователям и задачам.
+          </div>
+          <div class="card-footer" data-updated="20.06.2026">
+            <span class="person">Все пользователи</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Задачи -->
+      <div class="card pink">
+        <a href="tasks.html">
+          <div class="card-header">
+            <div class="card-header-row">
+              <h2>Задачи и планы</h2>
+              <span class="card-badge ondemand">по запросу</span>
+            </div>
+          </div>
+          <div class="desc">
+            Список всех активных cron-задач, еженедельных отчётов. Текущий статус и расписание.
+          </div>
+          <div class="card-footer" data-updated="20.06.2026">
+            <span class="person">Лунт · Система</span>
+          </div>
+        </a>
+      </div>
+
     </div>
 
     <div class="footer">☽ Лунт · <a href="index.html">nasledstvo.net.ru</a><span class="tech" data-openclaw="OpenClaw 2026.6.8" data-llm="deepseek/deepseek-v4-flash"></span></div>
