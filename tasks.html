@@ -14,7 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных задач · 20.06.2026 13:34</div>
+    <div class="meta">10 активных задач · 20.06.2026 13:42</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -23,57 +23,33 @@
     <div class="legend-metric">
       <div class="legend-title">⏱ Duration / Timeout</div>
       <div class="legend-desc">Доля времени выполнения от таймаута</div>
-      <div class="legend-items">
-        <span><span class="tl tl-green"></span> &lt;50%</span>
-        <span><span class="tl tl-yellow"></span> 50–80%</span>
-        <span><span class="tl tl-red"></span> &gt;80%</span>
-      </div>
+      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;50%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &gt;80%</span></div>
     </div>
     <div class="legend-metric">
       <div class="legend-title">📈 Success Rate</div>
       <div class="legend-desc">Процент успешных запусков</div>
-      <div class="legend-items">
-        <span><span class="tl tl-green"></span> 100%</span>
-        <span><span class="tl tl-yellow"></span> &lt;100%</span>
-        <span><span class="tl tl-red"></span> &lt;90%</span>
-      </div>
+      <div class="legend-items"><span><span class="tl tl-green"></span> 100%</span><span><span class="tl tl-yellow"></span> &lt;100%</span><span><span class="tl tl-red"></span> &lt;90%</span></div>
     </div>
     <div class="legend-metric">
       <div class="legend-title">📬 Latency</div>
       <div class="legend-desc">Задержка старта относительно расписания</div>
-      <div class="legend-items">
-        <span><span class="tl tl-green"></span> ≤1 мин</span>
-        <span><span class="tl tl-yellow"></span> 2–15 мин</span>
-        <span><span class="tl tl-red"></span> &gt;15 мин</span>
-      </div>
+      <div class="legend-items"><span><span class="tl tl-green"></span> ≤1 мин</span><span><span class="tl tl-yellow"></span> 2–15 мин</span><span><span class="tl tl-red"></span> &gt;15 мин</span></div>
     </div>
     <div class="legend-sep"></div>
     <div class="legend-metric">
       <div class="legend-title">💎 Cache Hit %</div>
-      <div class="legend-desc"><code>(cached_tokens / prompt_tokens) × 100</code> — эффективность системного промпта.</div>
-      <div class="legend-items">
-        <span><span class="tl tl-green"></span> &gt;80%</span>
-        <span><span class="tl tl-yellow"></span> 50–80%</span>
-        <span><span class="tl tl-red"></span> &lt;50%</span>
-      </div>
+      <div class="legend-desc"><code>cacheRead / (input + cacheRead) × 100</code> — эффективность системного промпта. Данные из trajectory сессии (сырой ответ DeepSeek API).</div>
+      <div class="legend-items"><span><span class="tl tl-green"></span> &gt;80%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &lt;50%</span></div>
     </div>
     <div class="legend-metric">
       <div class="legend-title">🧠 Reasoning %</div>
-      <div class="legend-desc"><code>(reasoning_tokens / completion_tokens) × 100</code> — доля «мышления» модели.</div>
-      <div class="legend-items">
-        <span><span class="tl tl-green"></span> &lt;20%</span>
-        <span><span class="tl tl-yellow"></span> 20–40%</span>
-        <span><span class="tl tl-red"></span> &gt;40%</span>
-      </div>
+      <div class="legend-desc"><code>reasoningTokens / output × 100</code> — доля «мышления» модели. Для deepseek-chat всегда «—» (модель без reasoning). Для v4-flash показывает избыточность.</div>
+      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;20%</span><span><span class="tl tl-yellow"></span> 20–40%</span><span><span class="tl tl-red"></span> &gt;40%</span></div>
     </div>
     <div class="legend-metric" style="border:none;margin:0;padding:0;">
       <div class="legend-title">💰 Cost / Run</div>
-      <div class="legend-desc"><code>токены × тарифы OpenClaw Gateway V4 / 1M</code>. Input: $0.15, Output: $0.60, Cache: $0.075 за 1M токенов.</div>
-      <div class="legend-items">
-        <span><span class="tl tl-green"></span> &lt;$0.01</span>
-        <span><span class="tl tl-yellow"></span> $0.01–0.05</span>
-        <span><span class="tl tl-red"></span> &gt;$0.05</span>
-      </div>
+      <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code> — тарифы deepseek-chat из openclaw.json.</div>
+      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;$0.01</span><span><span class="tl tl-yellow"></span> $0.01–0.05</span><span><span class="tl tl-red"></span> &gt;$0.05</span></div>
     </div>
   </div>
 
@@ -82,20 +58,10 @@
       <table class="task-table">
         <thead>
           <tr>
-            <th>Задача</th>
-            <th>Автор</th>
-            <th>Cron</th>
-            <th>Расписание</th>
-            <th>Таймаут</th>
-            <th>Длительность</th>
-            <th class="col-metric">⏱ Duration/Timeout</th>
-            <th class="col-metric">📈 Success rate</th>
-            <th class="col-metric">📬 Latency</th>
-            <th class="col-metric">💎 Cache Hit</th>
-            <th class="col-metric">🧠 Reasoning</th>
-            <th class="col-metric">💰 Cost/Run</th>
-            <th>Последний запуск</th>
-            <th class="col-rec">💡 Рекомендация по оптимизации</th>
+            <th>Задача</th><th>Автор</th><th>Cron</th><th>Расписание</th><th>Таймаут</th><th>Длительность</th>
+            <th class="col-metric">⏱ Duration/Timeout</th><th class="col-metric">📈 Success rate</th><th class="col-metric">📬 Latency</th>
+            <th class="col-metric">💎 Cache Hit</th><th class="col-metric">🧠 Reasoning</th><th class="col-metric">💰 Cost/Run</th>
+            <th>Последний запуск</th><th class="col-rec">💡 Рекомендация по оптимизации</th>
           </tr>
         </thead>
         <tbody>
@@ -109,9 +75,9 @@
             <td><span class="metric"><span class="tl tl-yellow"></span> 75%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +2 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 99%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><$0.0006</td>
+            <td><$0.0090</td>
             <td>19.06 23:51</td>
             <td class="rec">Увеличить таймаут с 60 до 90&nbsp;с.</td>
           </tr>
@@ -125,9 +91,9 @@
             <td><span class="metric"><span class="tl tl-red"></span> 82%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 98%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><$0.0002</td>
+            <td><$0.0022</td>
             <td>14.06 03:00</td>
             <td class="rec">Увеличить таймаут со 120 до 180&nbsp;с.</td>
           </tr>
@@ -141,9 +107,9 @@
             <td><span class="metric"><span class="tl tl-green"></span> 13%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +6 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 82%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><$0.0093</td>
+            <td>$0.032</td>
             <td>20.06 08:05</td>
             <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с. Перенести на 08:30 — разгрузить очередь 08:00.</td>
           </tr>
@@ -157,9 +123,9 @@
             <td><span class="metric"><span class="tl tl-green"></span> 18%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 82%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><$0.0069</td>
+            <td>$0.018</td>
             <td>20.06 08:10</td>
             <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
@@ -174,8 +140,8 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-red"></span> +102 мин</span></td>
             <td><span class="metric-na">—</span></td>
+            <td>—</td>
             <td><span class="metric-na">—</span></td>
-            <td>$0.012</td>
             <td>20.06 10:41</td>
             <td class="rec">Перевести на sessionTarget=main или выделить sessionKey. Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
@@ -189,9 +155,9 @@
             <td><span class="metric"><span class="tl tl-green"></span> 21%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +11 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 89%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><$0.0060</td>
+            <td>$0.022</td>
             <td>15.06 09:14</td>
             <td class="rec">Перенести на 08:30 пн — разгрузить очередь 09:00. Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
@@ -206,8 +172,8 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +9 мин</span></td>
             <td><span class="metric-na">—</span></td>
+            <td>—</td>
             <td><span class="metric-na">—</span></td>
-            <td>$0.076</td>
             <td>15.06 09:15</td>
             <td class="rec">Увеличить таймаут с 300 до 400&nbsp;с. Сократить поисковые запросы с 3 до 2. Перенести на 09:30.</td>
           </tr>
@@ -221,9 +187,9 @@
             <td><span class="metric"><span class="tl tl-green"></span> 25%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-red"></span> +277 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 96%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><$0.0069</td>
+            <td>$0.050</td>
             <td>17.06 14:37</td>
             <td class="rec">Перевести на sessionTarget=main. Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
@@ -237,9 +203,9 @@
             <td><span class="metric"><span class="tl tl-yellow"></span> 59%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 73%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>$0.038</td>
+            <td>$0.034</td>
             <td>19.06 23:55</td>
             <td class="rec">Увеличить таймаут с 60 до 90&nbsp;с.</td>
           </tr>
@@ -253,9 +219,9 @@
             <td><span class="metric"><span class="tl tl-green"></span> 26%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +6 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 97%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><$0.0030</td>
+            <td>$0.022</td>
             <td>18.06 10:06</td>
             <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
@@ -264,107 +230,40 @@
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 20.06.2026 13:34</div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 20.06.2026 13:42</div>
 </div>
 
 <style>
 .table-wrapper { overflow-x: auto; margin: 10px 0; }
-
-.task-table {
-  width: 100%; border-collapse: collapse;
-  font-size: 12.5px; line-height: 1.5;
-  min-width: 1450px;
-}
-
-.task-table thead th {
-  text-align: left; padding: 10px 8px;
-  background: rgba(33,38,45,.6);
-  border-bottom: 1px solid var(--glass-border,#21262d);
-  color: var(--text-dim,#8b949e);
-  font-weight: 600; font-size: 11px;
-  text-transform: uppercase; letter-spacing: .5px;
-  white-space: nowrap;
-}
+.task-table { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.5; min-width: 1450px; }
+.task-table thead th { text-align: left; padding: 10px 8px; background: rgba(33,38,45,.6); border-bottom: 1px solid var(--glass-border,#21262d); color: var(--text-dim,#8b949e); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
 .task-table thead th:first-child { border-radius: 8px 0 0 0; }
 .task-table thead th:last-child  { border-radius: 0 8px 0 0; }
 .col-metric { text-align: center !important; }
 .col-rec { min-width: 220px; }
-
-.task-table tbody tr {
-  border-bottom: 1px solid rgba(33,38,45,.4);
-  transition: background .15s ease;
-}
+.task-table tbody tr { border-bottom: 1px solid rgba(33,38,45,.4); transition: background .15s ease; }
 .task-table tbody tr:hover { background: rgba(88,166,255,.04); }
-
-.task-table tbody td {
-  padding: 9px 8px; vertical-align: middle;
-  font-size: 12.5px;
-}
+.task-table tbody td { padding: 9px 8px; vertical-align: middle; font-size: 12.5px; }
 .task-table tbody td:first-child { font-weight: 500; white-space: nowrap; }
-
-.task-table tbody td:nth-child(7),
-.task-table tbody td:nth-child(8),
-.task-table tbody td:nth-child(9),
-.task-table tbody td:nth-child(10),
-.task-table tbody td:nth-child(11),
-.task-table tbody td:nth-child(12) { text-align: center; }
-
-.rec {
-  font-size: 12px;
-  color: var(--text,#c9d1d9);
-  line-height: 1.45;
-}
-
-.status-dot {
-  display: inline-block; width: 7px; height: 7px;
-  border-radius: 50%; margin-right: 7px;
-  vertical-align: middle; position: relative; top: -1px;
-}
+.task-table tbody td:nth-child(7),.task-table tbody td:nth-child(8),.task-table tbody td:nth-child(9),
+.task-table tbody td:nth-child(10),.task-table tbody td:nth-child(11),.task-table tbody td:nth-child(12) { text-align: center; }
+.rec { font-size: 12px; color: var(--text,#c9d1d9); line-height: 1.45; }
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: middle; position: relative; top: -1px; }
 .status-dot.ok   { background: #3fb950; box-shadow: 0 0 5px rgba(63,185,80,.5); }
-
-.tl {
-  display: inline-block; width: 8px; height: 8px;
-  border-radius: 50%; margin-right: 4px;
-  vertical-align: middle;
-}
+.tl { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
 .tl-green  { background: #3fb950; box-shadow: 0 0 4px rgba(63,185,80,.5); }
 .tl-yellow { background: #d29922; box-shadow: 0 0 4px rgba(210,153,34,.5); }
 .tl-red    { background: #f85149; box-shadow: 0 0 4px rgba(248,81,73,.5); }
-
-.metric {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-variant-numeric: tabular-nums;
-}
-
-.metric-na {
-  text-align: center;
-  color: var(--text-dim,#8b949e);
-  font-size: 12px;
-}
-
-.legend-sep {
-  height: 1px;
-  background: rgba(33,38,45,.5);
-  margin: 12px 0;
-}
-
-.legend-metric {
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(33,38,45,.5);
-}
+.metric { display: inline-flex; align-items: center; gap: 4px; font-variant-numeric: tabular-nums; }
+.metric-na { text-align: center; color: var(--text-dim,#8b949e); font-size: 12px; }
+.legend-sep { height: 1px; background: rgba(33,38,45,.5); margin: 12px 0; }
+.legend-metric { margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(33,38,45,.5); }
 .legend-metric:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .legend-title { font-size: 13px; font-weight: 600; color: var(--text,#c9d1d9); margin-bottom: 2px; }
 .legend-desc { font-size: 12px; color: var(--text-dim,#8b949e); margin-bottom: 6px; }
 .legend-items { display: flex; gap: 14px; flex-wrap: wrap; }
 .legend-items span { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-dim,#8b949e); }
-
-@media (max-width: 1450px) {
-  .task-table { font-size: 12px; min-width: 1100px; }
-  .task-table tbody td { padding: 7px 6px; }
-  .col-rec { min-width: 180px; }
-}
+@media (max-width: 1450px) { .task-table { font-size: 12px; min-width: 1100px; } .task-table tbody td { padding: 7px 6px; } .col-rec { min-width: 180px; } }
 </style>
-
 </body>
 </html>
