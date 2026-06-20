@@ -1,539 +1,463 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Статистика жалоб по наследству в банках — nasledstvo.net.ru</title>
-<link rel="stylesheet" href="theme.css">
-<style>
-  .bar-container { display:flex; flex-direction:column; gap:12px; margin:12px 0; }
-  .bar-item { display:flex; align-items:center; gap:12px; }
-  .bar-label { min-width:110px; font-size:14px; color:var(--text); flex-shrink:0; }
-  .bar-track { flex:1; height:22px; background:rgba(255,255,255,0.06); border-radius:6px; overflow:hidden; }
-  .bar-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:10px; font-size:11px; font-weight:700; color:#fff; transition:width .5s ease; }
-  .bar-val { min-width:36px; font-size:13px; font-weight:700; color:var(--text); text-align:right; }
-  .year-sep td { padding:10px 14px !important; background:rgba(255,255,255,0.05) !important; font-weight:700; font-size:15px; letter-spacing:1px; color:var(--text-dim); border-top:2px solid var(--glass-border); border-bottom:2px solid var(--glass-border); }
-  .year-sep td { text-align:center !important; }
-  .num-mon { white-space:nowrap; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Статистика жалоб по наследству в банках РФ</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .stats-row { gap: 1rem; }
+    .bar-chart { margin: 0.5rem 0; }
+    .bar { display: flex; align-items: center; gap: 0.5rem; margin: 0.25rem 0; }
+    .bar-label { min-width: 80px; font-size: 0.9rem; color: var(--text); }
+    .bar-fill { height: 22px; border-radius: 4px; min-width: 4px; transition: width 0.3s; }
+    .bar-fill.sber { background: #1a9e5c; }
+    .bar-fill.vtb { background: #009fdf; }
+    .bar-fill.psb { background: #f15a24; }
+    .bar-fill.tbank { background: #ffdd3c; }
+    .bar-fill.gpb { background: #003a70; }
+    .bar-fill.sovcombank { background: #d42027; }
+    .bar-val { font-size: 0.85rem; color: var(--text-secondary); white-space: nowrap; }
+    .mini-bar { display: inline-block; height: 10px; border-radius: 3px; margin-left: 0.5rem; vertical-align: middle; }
+    .mini-bar.sber { background: #1a9e5c; }
+    .mini-bar.other { background: #009fdf; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--text-secondary); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; background: var(--bg-secondary); }
+    tr:last-child td { border-bottom: none; }
+    tr.total td { font-weight: 700; color: var(--text); border-top: 2px solid var(--accent); }
+    .trend-note { color: var(--text-secondary); font-size: 0.85rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: var(--accent); color: #fff; border-radius: 6px; text-decoration: none; font-size: 0.9rem; transition: background 0.2s; }
+    .btn:hover { background: var(--accent-hover); }
+    .yesterday-block { background: var(--bg-secondary); border-radius: 8px; padding: 1rem; margin: 1rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+    .item small { color: var(--text-secondary); font-size: 0.85rem; display: block; margin-top: 0.2rem; }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <a href="index.html" class="back">← Назад</a>
 
-<div class="container">
-
-<a href="index.html" class="back">← На главную</a>
-
-<!-- ====== 1. Hero ====== -->
-<div class="hero">
-  <span class="tag">📊 СТАТИСТИКА</span>
-  <h1 class="page-title">Статистика жалоб по наследству в банках</h1>
-</div>
-
-<!-- ====== 2. Блок 18 июня 2026 ====== -->
-<div class="section">
-  <div class="tag" style="background:rgba(88,166,255,.12);color:var(--blue);border:1px solid rgba(88,166,255,.2)">📅 18 июня 2026</div>
-  <div class="stats-row" style="margin-bottom:12px">
-    <div class="stat-box">
-      <div class="label">Сбербанк</div>
-      <div class="value" style="color:var(--text-faint)">0</div>
+    <div class="hero">
+      <h1>📊 Статистика жалоб по наследству в банках</h1>
+      <p class="subtitle">Мониторинг жалоб на отказ в выдаче наследственных вкладов<br>Январь 2025 — Июнь 2026</p>
     </div>
-    <div class="stat-box">
-      <div class="label">Другие банки</div>
-      <div class="value" style="color:var(--red)">3</div>
+
+    <div class="yesterday-block">
+      <div>
+        <strong>Вчера (19.06.2026)</strong> —
+        Сбер: <strong>1</strong>,
+        Другие банки: <strong>1</strong>
+      </div>
+      <a href="report-katya.html" class="btn">📄 Посмотреть сводку</a>
+    </div>
+
+    <div class="section">
+      <h2>📋 Общая картина</h2>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-value">23</div>
+          <div class="stat-label">Сбербанк</div>
+          <div class="stat-sub">65.7% всех жалоб</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">12</div>
+          <div class="stat-label">Другие банки</div>
+          <div class="stat-sub">34.3% всех жалоб</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">35</div>
+          <div class="stat-label">Всего жалоб</div>
+          <div class="stat-sub">за 18 месяцев</div>
+        </div>
+        <div class="stat-box highlight">
+          <div class="stat-value">≈1.9</div>
+          <div class="stat-label">В среднем в месяц</div>
+          <div class="stat-sub">~25% месяцев без жалоб</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📅 Помесячная разбивка</h2>
+      <p class="trend-note">⬆️ Рост числа жалоб к концу 2025, снижение в 2026. Сбербанк — основной ответчик.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Месяц</th>
+            <th>Сбербанк</th>
+            <th>Другие</th>
+            <th>Всего</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Июнь 2026</td>
+            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
+            <td>4 <span class="mini-bar other" style="width:24px"></span></td>
+            <td><strong>5</strong></td>
+          </tr>
+          <tr>
+            <td>Май 2026</td>
+            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
+            <td>0</td>
+            <td><strong>1</strong></td>
+          </tr>
+          <tr>
+            <td>Апрель 2026</td>
+            <td>2 <span class="mini-bar sber" style="width:12px"></span></td>
+            <td>0</td>
+            <td><strong>2</strong></td>
+          </tr>
+          <tr>
+            <td>Март 2026</td>
+            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
+            <td>0</td>
+            <td><strong>1</strong></td>
+          </tr>
+          <tr>
+            <td>Февраль 2026</td>
+            <td>2 <span class="mini-bar sber" style="width:12px"></span></td>
+            <td>0</td>
+            <td><strong>2</strong></td>
+          </tr>
+          <tr>
+            <td>Январь 2026</td>
+            <td>3 <span class="mini-bar sber" style="width:18px"></span></td>
+            <td>0</td>
+            <td><strong>3</strong></td>
+          </tr>
+          <tr>
+            <td>Декабрь 2025</td>
+            <td>3 <span class="mini-bar sber" style="width:18px"></span></td>
+            <td>1 <span class="mini-bar other" style="width:6px"></span></td>
+            <td><strong>4</strong></td>
+          </tr>
+          <tr>
+            <td>Ноябрь 2025</td>
+            <td>3 <span class="mini-bar sber" style="width:18px"></span></td>
+            <td>1 <span class="mini-bar other" style="width:6px"></span></td>
+            <td><strong>4</strong></td>
+          </tr>
+          <tr>
+            <td>Октябрь 2025</td>
+            <td>2 <span class="mini-bar sber" style="width:12px"></span></td>
+            <td>0</td>
+            <td><strong>2</strong></td>
+          </tr>
+          <tr>
+            <td>Сентябрь 2025</td>
+            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
+            <td>2 <span class="mini-bar other" style="width:12px"></span></td>
+            <td><strong>3</strong></td>
+          </tr>
+          <tr>
+            <td>Август 2025</td>
+            <td>2 <span class="mini-bar sber" style="width:12px"></span></td>
+            <td>1 <span class="mini-bar other" style="width:6px"></span></td>
+            <td><strong>3</strong></td>
+          </tr>
+          <tr>
+            <td>Июль 2025</td>
+            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
+            <td>2 <span class="mini-bar other" style="width:12px"></span></td>
+            <td><strong>3</strong></td>
+          </tr>
+          <tr>
+            <td>Июнь 2025</td>
+            <td>0</td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+          </tr>
+          <tr>
+            <td>Май 2025</td>
+            <td>0</td>
+            <td>1 <span class="mini-bar other" style="width:6px"></span></td>
+            <td><strong>1</strong></td>
+          </tr>
+          <tr>
+            <td>Апрель 2025</td>
+            <td>1 <span class="mini-bar sber" style="width:6px"></span></td>
+            <td>0</td>
+            <td><strong>1</strong></td>
+          </tr>
+          <tr>
+            <td>Март 2025</td>
+            <td>0</td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+          </tr>
+          <tr>
+            <td>Февраль 2025</td>
+            <td>0</td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+          </tr>
+          <tr>
+            <td>Январь 2025</td>
+            <td>0</td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+          </tr>
+          <tr class="total">
+            <td>ИТОГО</td>
+            <td>23</td>
+            <td>12</td>
+            <td>35</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note">📌 Пик жалоб пришёлся на ноябрь–декабрь 2025 (по 4 в месяц). В 2026 году Сбербанк остаётся основным объектом жалоб. В июне 2026 резкий всплеск по другим банкам (Газпромбанк, ВТБ).</p>
+    </div>
+
+    <div class="section">
+      <h2>⚠️ Хронология жалоб</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Дата</th>
+            <th>Банк</th>
+            <th>Суть</th>
+            <th>Источник</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>19.06.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ по наследственному вкладу</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>18.06.2026</td>
+            <td><span class="tag" style="background:#003a70">Газпромбанк</span></td>
+            <td>Отказ по вкладу наследникам</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>17.06.2026</td>
+            <td><span class="tag" style="background:#009fdf">ВТБ</span></td>
+            <td>Отказ в выдаче вклада умершего</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>17.06.2026</td>
+            <td><span class="tag" style="background:#003a70">Газпромбанк</span></td>
+            <td>Проблемы с оформлением наследства</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>12.05.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ по доверенности</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>17.04.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ наследнику</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>10.04.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ в выдаче вклада</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>12.03.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ по наследству</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>05.02.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Проблемы с выдачей вклада</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>02.02.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ наследнику</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>27.01.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ в доступе к вкладу</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>23.01.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ по наследству</td>
+            <td>banki.ru + pikabu</td>
+          </tr>
+          <tr>
+            <td>11.01.2026</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Проблемы с оформлением</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>15.12.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ наследнику</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>03.12.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ по вкладу (×2)</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>03.12.2025</td>
+            <td><span class="tag" style="background:#f15a24">ПСБ</span></td>
+            <td>Проблемы с выплатой</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>17.11.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ по вкладу</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>05.11.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ наследникам (×2)</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>07.10.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ по доверенности</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>06.10.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Жалоба праправнучки</td>
+            <td>pikabu</td>
+          </tr>
+          <tr>
+            <td>29.09.2025</td>
+            <td><span class="tag" style="background:#f15a24">ПСБ</span> + <span class="tag" style="background:#009fdf">ВТБ</span></td>
+            <td>Сложности с наследством</td>
+            <td>pikabu</td>
+          </tr>
+          <tr>
+            <td>Сен 2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ по доверенности</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>27.08.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Отказ в выдаче вклада</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>12.08.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Сложности с оформлением</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>Авг 2025</td>
+            <td><span class="tag" style="background:#f15a24">ПСБ</span></td>
+            <td>Отказ по вкладу</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>31.07.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Жалоба на отказ</td>
+            <td>banki.ru</td>
+          </tr>
+          <tr>
+            <td>Июл 2025</td>
+            <td><span class="tag" style="background:#d42027">Совкомбанк</span> + <span class="tag" style="background:#009fdf">ВТБ</span></td>
+            <td>Отказы наследникам</td>
+            <td>pikabu</td>
+          </tr>
+          <tr>
+            <td>15.05.2025</td>
+            <td><span class="tag" style="background:#009fdf">ВТБ</span></td>
+            <td>Суд обязал выдать вклад</td>
+            <td>pikabu</td>
+          </tr>
+          <tr>
+            <td>07.04.2025</td>
+            <td><span class="tag" style="background:var(--accent)">Сбер</span></td>
+            <td>Наследники проучили банк через суд</td>
+            <td>pikabu</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>🏦 Распределение по банкам</h2>
+      <div class="bar-chart">
+        <div class="bar">
+          <span class="bar-label">Сбербанк</span>
+          <span class="bar-fill sber" style="width:230px"></span>
+          <span class="bar-val">23 жалобы (65.7%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">ВТБ</span>
+          <span class="bar-fill vtb" style="width:50px"></span>
+          <span class="bar-val">4 (11.4%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">ПСБ</span>
+          <span class="bar-fill psb" style="width:30px"></span>
+          <span class="bar-val">3 (8.6%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Газпромбанк</span>
+          <span class="bar-fill gpb" style="width:20px"></span>
+          <span class="bar-val">2 (5.7%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Т-Банк</span>
+          <span class="bar-fill tbank" style="width:0px"></span>
+          <span class="bar-val">0</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Совкомбанк</span>
+          <span class="bar-fill sovcombank" style="width:10px"></span>
+          <span class="bar-val">1 (2.9%)</span>
+        </div>
+      </div>
+      <p class="note">🏦 Всего упомянуто банков: 5. ВТБ — 3 жалобы + 1 упоминание в 2025. Газпромбанк — 2 жалобы за июнь 2026.</p>
+    </div>
+
+    <div class="section">
+      <h2>📝 Примечание</h2>
+      <p class="body">
+        Данные собраны из открытых источников через поисковый запрос. Охвачены сайты banki.ru, pikabu.ru, otzovik.com.
+        Поисковый движок Google в SearXNG был заблокирован после ~30 запросов, поэтому данные за январь–июнь 2025 и отдельные периоды могут быть неполными.
+        Данные не являются официальной статистикой ЦБ РФ или банков.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>🔗 Источники</h2>
+      <ul>
+        <li><a href="https://www.banki.ru/services/responses/" target="_blank">banki.ru — Отзывы о банках</a></li>
+        <li><a href="https://pikabu.ru/tag/наследство" target="_blank">pikabu.ru — Наследство</a></li>
+        <li><a href="https://otzovik.com/" target="_blank">otzovik.com — Отзывы</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <p>Обновлено: 20.06.2026 08:10 МСК</p>
+      <p>Данные из открытых источников • nasledstvo.net.ru</p>
     </div>
   </div>
-  <a href="https://www.banki.ru/services/responses/bank/response/13168492/" target="_blank" style="color:var(--blue);font-size:13px">🔗 banki.ru — Газпромбанк, наследница с долгом по кредитной карте →</a>
-</div>
-
-<!-- ====== 3. Июнь 2026 ====== -->
-<div class="section">
-  <h2>📊 Июнь 2026</h2>
-  <div class="stats-row">
-    <div class="stat-box">
-      <div class="label">Всего жалоб</div>
-      <div class="value" style="color:var(--orange)">3</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">Сбер · Другие</div>
-      <div class="value" style="color:var(--text-faint);display:inline">0</div>
-      <span style="font-size:28px;font-weight:700;color:var(--text-dim)"> · </span>
-      <div class="value" style="color:var(--red);display:inline">3</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">Динамика к маю</div>
-      <div style="font-size:16px;font-weight:600;color:var(--green)">Сбер −1</div>
-      <div style="font-size:16px;font-weight:600;color:var(--red)">Другие +3</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">По банкам</div>
-      <div style="font-size:14px;font-weight:600;color:var(--text);line-height:1.6">ВТБ 2</div>
-      <div style="font-size:14px;font-weight:600;color:var(--text);line-height:1.6">Газпромбанк 1</div>
-    </div>
-  </div>
-</div>
-
-<!-- ====== 4. Распределение по банкам · 2026 ====== -->
-<div class="section">
-  <h2>🏦 Распределение по банкам · 2026</h2>
-  <div class="item">
-    <div class="bar-container">
-      <div class="bar-item">
-        <div class="bar-label">Сбербанк</div>
-        <div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#ff9000,#f85149)">9</div></div>
-        <div class="bar-val">9</div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-label">ВТБ</div>
-        <div class="bar-track"><div class="bar-fill" style="width:22%;background:linear-gradient(90deg,#7ee787,#56d4dd)">2</div></div>
-        <div class="bar-val">2</div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-label">Газпромбанк</div>
-        <div class="bar-track"><div class="bar-fill" style="width:11%;background:linear-gradient(90deg,#ff9000,#e3b341)">1</div></div>
-        <div class="bar-val">1</div>
-      </div>
-    </div>
-    <div style="font-size:13px;color:var(--text-dim);margin-top:8px">Всего за 2026: <strong style="color:var(--text)">12</strong> жалоб.</div>
-  </div>
-</div>
-
-<!-- ====== 5. Статистика за год ====== -->
-<div class="section">
-<h2 style="margin:28px 0 16px">📊 Статистика за год</h2>
-<div style="max-width:100%;overflow-x:auto">
-<table class="striped-table" style="min-width:580px">
-  <thead>
-    <tr>
-      <th>Месяц</th>
-      <th>Сбербанк</th>
-      <th>Другие банки</th>
-      <th>Всего</th>
-      <th style="min-width:200px">Банк</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- 2026 months -->
-    <tr>
-      <td>Июн 2026</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--red)">3</td>
-      <td>3</td>
-      <td style="white-space:nowrap">ВТБ<br>Газпромбанк</td>
-    </tr>
-    <tr>
-      <td>Май 2026</td>
-      <td>1</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>1</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Апр 2026</td>
-      <td>2</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>2</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Мар 2026</td>
-      <td>1</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>1</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Фев 2026</td>
-      <td>2</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>2</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Янв 2026</td>
-      <td>3</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>3</td>
-      <td>—</td>
-    </tr>
-    <!-- 2026 total -->
-    <tr style="background:rgba(88,166,255,0.08)">
-      <td><strong style="color:var(--blue)">2026</strong></td>
-      <td><strong style="color:var(--blue)">9</strong></td>
-      <td><strong style="color:var(--blue)">3</strong></td>
-      <td><strong style="color:var(--blue)">12</strong></td>
-      <td><strong style="color:var(--blue)"></strong></td>
-    </tr>
-    <!-- 2025 months -->
-    <tr>
-      <td>Дек 2025</td>
-      <td>3</td>
-      <td>1</td>
-      <td>4</td>
-      <td style="white-space:nowrap">ПСБ</td>
-    </tr>
-    <tr>
-      <td>Ноя 2025</td>
-      <td>3</td>
-      <td>1</td>
-      <td>4</td>
-      <td style="white-space:nowrap">ПСБ</td>
-    </tr>
-    <tr>
-      <td>Окт 2025</td>
-      <td>2</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>2</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Сен 2025</td>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
-      <td style="white-space:nowrap">ПСБ<br>ВТБ</td>
-    </tr>
-    <tr>
-      <td>Авг 2025</td>
-      <td>2</td>
-      <td>1</td>
-      <td>3</td>
-      <td style="white-space:nowrap">ПСБ</td>
-    </tr>
-    <tr>
-      <td>Июл 2025</td>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
-      <td style="white-space:nowrap">Совкомбанк<br>ВТБ</td>
-    </tr>
-    <tr>
-      <td>Июн 2025</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Май 2025</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>1</td>
-      <td>1</td>
-      <td style="white-space:nowrap">ВТБ</td>
-    </tr>
-    <tr>
-      <td>Апр 2025</td>
-      <td>1</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>1</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Мар 2025</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Фев 2025</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>Янв 2025</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td style="color:var(--text-faint)">0</td>
-      <td>—</td>
-    </tr>
-    <!-- 2025 total -->
-    <tr style="background:rgba(255,144,0,0.1)">
-      <td><strong style="color:var(--orange)">2025</strong></td>
-      <td><strong style="color:var(--orange)">13</strong></td>
-      <td><strong style="color:var(--orange)">8</strong></td>
-      <td><strong style="color:var(--orange)">21</strong></td>
-      <td><strong style="color:var(--orange)"></strong></td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-<!-- ====== 6. Хронология ====== -->
-<div class="section">
-  <h2>⚠️ Хронология</h2>
-  <div class="table-wrap">
-  <table class="striped-table">
-    <thead>
-      <tr>
-        <th>Дата</th>
-        <th>Банк</th>
-        <th>Описание</th>
-        <th>Ссылка</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- 2026 -->
-      <tr class="year-sep"><td colspan="4">2026</td></tr>
-      <tr>
-        <td class="num-mon">18.06</td>
-        <td>Газпромбанк</td>
-        <td>Наследница с долгом по кредитной карте</td>
-        <td><a href="https://www.banki.ru/services/responses/bank/response/13168492/" target="_blank">Читать</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">17.06</td>
-        <td>ВТБ</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">17.06</td>
-        <td>ВТБ</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Май</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">17.04</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">10.04</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">12.03</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">05.02</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">02.02</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">27.01</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">23.01</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">23.01</td>
-        <td>Сбер</td>
-        <td>pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">22.01</td>
-        <td>Сбер</td>
-        <td>pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">11.01</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <!-- 2025 -->
-      <tr class="year-sep"><td colspan="4">2025</td></tr>
-      <tr>
-        <td class="num-mon">Дек</td>
-        <td>Сбер</td>
-        <td>Отказ наследнику, banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Дек</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Дек</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Дек</td>
-        <td>ПСБ</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Ноя</td>
-        <td>ПСБ</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">17.11</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">05.11</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">05.11</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">07.10</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">06.10</td>
-        <td>Сбер</td>
-        <td>Праправнучка, pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">29.09</td>
-        <td>ВТБ</td>
-        <td>pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">29.09</td>
-        <td>ПСБ</td>
-        <td>pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Сен</td>
-        <td>Сбер</td>
-        <td>Отказ по доверенности, banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">27.08</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">12.08</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Авг</td>
-        <td>ПСБ</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">31.07</td>
-        <td>Сбер</td>
-        <td>banki.ru</td>
-        <td><a href="https://www.banki.ru/" target="_blank">banki.ru</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Июл</td>
-        <td>Совкомбанк</td>
-        <td>pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">Июл</td>
-        <td>ВТБ</td>
-        <td>pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">15.05</td>
-        <td>ВТБ</td>
-        <td>Суд заставил отдать вклад дочерям, pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-      <tr>
-        <td class="num-mon">07.04</td>
-        <td>—</td>
-        <td>Наследники проучили банк, pikabu</td>
-        <td><a href="https://pikabu.ru/" target="_blank">pikabu</a></td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-</div>
-
-<!-- ====== 7. Распределение по банкам (общее) ====== -->
-<div class="section">
-  <h2>🏦 Распределение по банкам (общее)</h2>
-  <div class="item">
-    <div class="bar-container">
-      <div class="bar-item">
-        <div class="bar-label">Сбербанк</div>
-        <div class="bar-track"><div class="bar-fill bar-sber" style="width:100%">22</div></div>
-        <div class="bar-val">22</div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-label">ВТБ</div>
-        <div class="bar-track"><div class="bar-fill bar-other" style="width:27%">6</div></div>
-        <div class="bar-val">6</div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-label">ПСБ</div>
-        <div class="bar-track"><div class="bar-fill" style="width:18%;background:linear-gradient(90deg,#58a6ff,#bc8cff)">4</div></div>
-        <div class="bar-val">4</div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-label">Совкомбанк</div>
-        <div class="bar-track"><div class="bar-fill" style="width:5%;background:linear-gradient(90deg,#e3b341,#ff9000)">1</div></div>
-        <div class="bar-val">1</div>
-      </div>
-    </div>
-    <div style="font-size:13px;color:var(--text-dim);margin-top:8px">Всего собрано <strong style="color:var(--text)">33</strong> жалобы за 2025–2026. Сбербанк — <strong style="color:var(--text)">67%</strong> (22 из 33).</div>
-  </div>
-</div>
-
-<!-- ====== 8. Примечание ====== -->
-<div class="section">
-  <div class="note">Данные собраны из открытых источников: banki.ru, pikabu.ru, otzovik.com. Поисковый сбор выполнен 19 июня 2026 года через SearXNG. Google был заблокирован после ~30 запросов, поэтому статистика за январь–июнь 2025 и март–июнь 2026 может быть неполной.</div>
-</div>
-
-<!-- ====== 9. Footer ====== -->
-<div class="footer">
-  <strong>nasledstvo.net.ru</strong> &nbsp;·&nbsp; Данные из открытых источников &nbsp;·&nbsp; <a href="https://github.com/tarasyarema/nasledstvo">GitHub</a>
-</div>
-
-</div><!-- /.container -->
 </body>
 </html>
