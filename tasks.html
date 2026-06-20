@@ -18,11 +18,76 @@
   </div>
 
   <!-- ═══ Легенда светофоров ═══ -->
-  <div class="section" style="padding:12px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
-    <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim,#8b949e);">
-      <span><span class="tl tl-green"></span> 🟢 Оптимально</span>
-      <span><span class="tl tl-yellow"></span> 🟡 Требует внимания</span>
-      <span><span class="tl tl-red"></span> 🔴 Проблема</span>
+  <div class="section" style="padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
+    <h2 style="font-size:14px;margin-bottom:12px;color:var(--text,#c9d1d9);">💡 Легенда светофоров</h2>
+
+    <!-- ─── Duration / Timeout ─── -->
+    <div class="legend-metric">
+      <div class="legend-title">⏱ Duration / Timeout</div>
+      <div class="legend-desc">Доля фактического времени выполнения задачи от установленного таймаута. Показывает, насколько эффективно задача укладывается в отведённое время.</div>
+      <div class="legend-items">
+        <div class="legend-item">
+          <span class="tl tl-green"></span>
+          <div><strong>🟢 < 50%</strong> — задача выполняется быстро, большой запас по времени.</div>
+          <div class="legend-rec">→ Можно уменьшить таймаут для ускорения реакции при ошибках модели.</div>
+        </div>
+        <div class="legend-item">
+          <span class="tl tl-yellow"></span>
+          <div><strong>🟡 50–80%</strong> — умеренная загрузка, но запас невелик.</div>
+          <div class="legend-rec">→ Следить за трендом. При росте — увеличить таймаут или сократить промпт задачи.</div>
+        </div>
+        <div class="legend-item">
+          <span class="tl tl-red"></span>
+          <div><strong>🔴 > 80%</strong> — риск таймаута. При малейшем замедлении модели задача упадёт.</div>
+          <div class="legend-rec">→ Увеличить таймаут, сократить число поисковых запросов, упростить промпт.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Success Rate ─── -->
+    <div class="legend-metric">
+      <div class="legend-title">📈 Success Rate</div>
+      <div class="legend-desc">Процент успешных запусков за всю историю задачи. Отражает стабильность работы (модель, API, таймауты).</div>
+      <div class="legend-items">
+        <div class="legend-item">
+          <span class="tl tl-green"></span>
+          <div><strong>🟢 100%</strong> — все запуски отработали без ошибок.</div>
+          <div class="legend-rec">→ Действий не требуется.</div>
+        </div>
+        <div class="legend-item">
+          <span class="tl tl-yellow"></span>
+          <div><strong>🟡 < 100%</strong> — единичные сбои.</div>
+          <div class="legend-rec">→ Проверить логи последних ошибок, выявить причину (модель, API, таймаут).</div>
+        </div>
+        <div class="legend-item">
+          <span class="tl tl-red"></span>
+          <div><strong>🔴 < 90%</strong> — систематические ошибки.</div>
+          <div class="legend-rec">→ Сменить модель на fallback, проверить API-ключи, увеличить таймаут, упростить промпт.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Latency ─── -->
+    <div class="legend-metric">
+      <div class="legend-title">📬 Latency</div>
+      <div class="legend-desc">Разница между запланированным временем запуска и фактическим стартом задачи. Для isolated-сессий зависит от загруженности очереди.</div>
+      <div class="legend-items">
+        <div class="legend-item">
+          <span class="tl tl-green"></span>
+          <div><strong>🟢 ≤ 1 мин</strong> — задача запускается вовремя.</div>
+          <div class="legend-rec">→ Действий не требуется.</div>
+        </div>
+        <div class="legend-item">
+          <span class="tl tl-yellow"></span>
+          <div><strong>🟡 2–15 мин</strong> — небольшая задержка, очередь isolated загружена.</div>
+          <div class="legend-rec">→ Разнести время запуска тяжёлых задач, перенести на main если не критична изоляция.</div>
+        </div>
+        <div class="legend-item">
+          <span class="tl tl-red"></span>
+          <div><strong>🔴 > 15 мин</strong> — критическая задержка. Пользователь получает отчёт с опозданием.</div>
+          <div class="legend-rec">→ Перевести на sessionTarget=main или выделить отдельный sessionKey для приоритетной задачи. Уменьшить таймаут задачи, чтобы не занимала очередь.</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -303,6 +368,56 @@
 /* ── Отключённые ── */
 .row-disabled td { color: #8b949e; }
 .row-disabled td:first-child { opacity: .7; }
+
+/* ── Легенда ── */
+.legend-metric {
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(33,38,45,.5);
+}
+.legend-metric:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.legend-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text,#c9d1d9);
+  margin-bottom: 3px;
+}
+
+.legend-desc {
+  font-size: 12px;
+  color: var(--text-dim,#8b949e);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dim,#8b949e);
+}
+
+.legend-item .tl {
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.legend-rec {
+  font-size: 12px;
+  color: var(--text,#c9d1d9);
+  margin-top: 1px;
+}
+
+.legend-rec::before { content: ''; }
 
 /* ── Адаптив ── */
 @media (max-width: 1100px) {
