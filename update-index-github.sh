@@ -1,7 +1,7 @@
 #!/bin/bash
 # Update nasledstvo.html timestamp and push to GitHub Pages
 # Usage: update-index-github.sh <report-filename> <timestamp>
-# Example: update-index-github.sh report-katya.html "17.06.2026 12:44"
+# Example: update-index-github.sh report-lena.html "17.06.2026 12:44"
 
 set -e
 
@@ -17,7 +17,6 @@ fi
 cd "$REPO_DIR"
 
 case "$REPORT" in
-  report-katya.html)   ID="ud-katya" ;;
   report-lena.html)    ID="ud-lena" ;;
   report-danil.html)   ID="ud-danil" ;;
   report-danil-thu.html) ID="ud-danil-thu" ;;

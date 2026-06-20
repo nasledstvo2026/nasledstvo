@@ -1,7 +1,7 @@
 #!/bin/bash
 # Upload file to the GitHub Pages repo (replaces old upload-to-timeweb.sh)
 # Usage: upload-to-github.sh <local-file> <remote-filename>
-# Example: upload-to-github.sh ./report.html report-katya.html
+# Example: upload-to-github.sh ./report.html report-lena.html
 
 set -e
 

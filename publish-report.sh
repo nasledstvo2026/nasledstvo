@@ -1,7 +1,7 @@
 #!/bin/bash
 # Publish report: copy to repo + git commit & push to GitHub Pages
 # Usage: publish-report.sh <local-file> <remote-filename>
-# Example: publish-report.sh /tmp/report-katya.html report-katya.html
+# Example: publish-report.sh /tmp/report-lena.html report-lena.html
 
 set -e
 
@@ -22,7 +22,6 @@ cp "$LOCAL" "$REMOTE"
 
 # Map to element id for nasledstvo.html
 case "$REMOTE" in
-  report-katya.html)   ID="ud-katya" ;;
   report-lena.html)    ID="ud-lena" ;;
   report-danil.html)   ID="ud-danil" ;;
   report-danil-thu.html) ID="ud-danil-thu" ;;

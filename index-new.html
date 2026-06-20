@@ -108,19 +108,7 @@ a:hover { text-decoration: underline; }
 
 <div class="cards">
 
-  <div class="card">
-    <a href="report-katya.html">
-      <div class="card-header">
-        <span class="card-tag blue">📋 Жалобы · ежедневно 08:00</span>
-        <h2>Сводка жалоб: Сбербанк + наследство</h2>
-      </div>
-      <p class="desc">Мониторинг banki.ru, otzovik, irecommend, pikabu, дзен. Свежие жалобы, тренды, ключевые проблемы клиентов.</p>
-      <div class="card-footer">
-        <span class="person">👤 Катя</span>
-        <span class="updated">Обновлено: <span id="ud-katya">—</span></span>
-      </div>
-    </a>
-  </div>
+  <!-- Катя: жалобы перенесены в Кластер Наследство (inheritance.html) -->
 
   <div class="card">
     <a href="report-lena.html">
@@ -240,7 +228,7 @@ async function checkUpdated(url, elId) {
     } else { document.getElementById(elId).textContent = 'недоступно'; }
   } catch(e) { document.getElementById(elId).textContent = '—'; }
 }
-checkUpdated('report-katya.html','ud-katya');
+// Катя: жалобы перенесены в Кластер Наследство
 checkUpdated('report-lena.html','ud-lena');
 checkUpdated('report-danil.html','ud-danil');
 checkUpdated('architecture.html','ud-arch');
