@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI DJ — инициатива</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .bt-item { background: rgba(22,27,34,0.8); border: 1px solid #21262d; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+    .bt-item .bt-num { color: #58a6ff; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.05em; }
+    .bt-item .bt-title { color: #f0f6fc; font-size: 1.1em; font-weight: 600; margin: 6px 0; }
+    .bt-item .bt-body { color: #8b949e; font-size: 0.95em; line-height: 1.6; }
+    .status-box { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; }
+    .status-planned { background: rgba(88,166,255,0.15); color: #58a6ff; }
+    .status-done { background: rgba(63,185,80,0.15); color: #3fb950; }
+    .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+    .arch-card { background: rgba(22,27,34,0.8); border: 1px solid #21262d; border-radius: 12px; padding: 18px; }
+    .arch-card h4 { margin: 0 0 8px; color: #f0f6fc; font-size: 1em; }
+    .arch-card p { margin: 0; color: #8b949e; font-size: 0.9em; line-height: 1.5; }
+    .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 20px 0; }
+    .flow-step { background: #1f2937; border: 1px solid #30363d; border-radius: 8px; padding: 8px 16px; font-size: 0.85em; color: #c9d1d9; }
+    .flow-arrow { color: #58a6ff; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <a class="back" href="index.html">← На главную</a>
+
+  <div class="hero">
+    <div class="title">🎧 AI DJ</div>
+    <div class="meta">Инициатива · MVP · Июнь 2026</div>
+  </div>
+
+  <!-- Суть -->
+  <div class="section">
+    <h2>О проекте</h2>
+    <p style="color:#8b949e; line-height:1.7;">
+      AI DJ — автономный модуль сведения аудиотреков. Пользователь загружает два трека,
+      AI DJ выравнивает темп (BPM) и выполняет бесшовный переход (crossfade 12–15 с).
+      Результат — готовый микс для воспроизведения.
+    </p>
+  </div>
+
+  <!-- Бизнес-требования -->
+  <div class="section">
+    <h2>Бизнес-требования (БТ)</h2>
+
+    <div class="bt-item">
+      <div class="bt-num">БТ-1</div>
+      <div class="bt-title">Приём и сведение двух треков</div>
+      <div class="bt-body">
+        AI DJ принимает на вход 2 аудиофайла, определяет BPM каждого,
+        выравнивает темп и выполняет плавный переход (crossfade 12–15 секунд).
+        На выходе — единый аудиофайл.
+      </div>
+    </div>
+
+    <div class="bt-item">
+      <div class="bt-num">БТ-2</div>
+      <div class="bt-title">Пользователь — селектор</div>
+      <div class="bt-body">
+        Пользователь управляет настроением и порядком треков (с iOS-устройства).
+        AI DJ — исключительно технический исполнитель сведения.
+      </div>
+    </div>
+
+    <div class="bt-item">
+      <div class="bt-num">БТ-3</div>
+      <div class="bt-title">Локальное хранение (MVP)</div>
+      <div class="bt-body">
+        Интеграция стилей разных DJ и облачное хранение — за рамками MVP.
+        Файлы хранятся локально во временной папке на сервере.
+      </div>
+    </div>
+
+    <div class="bt-item">
+      <div class="bt-num">БТ-4</div>
+      <div class="bt-title">Изоляция от основного бота</div>
+      <div class="bt-body">
+        Основная задача (новостные дайджесты) не должна пострадать.
+        Музыкальный движок полностью изолирован — отдельный subprocess,
+        не влияющий на память и время выполнения основного бота.
+      </div>
+    </div>
+
+    <div class="bt-item">
+      <div class="bt-num">БТ-5</div>
+      <div class="bt-title">Публикация результата</div>
+      <div class="bt-body">
+        Готовый микс публикуется в директорию веб-страницы для последующего
+        воспроизведения. Пользователь получает ссылку на скачивание/прослушивание.
+      </div>
+    </div>
+  </div>
+
+  <!-- Статус реализации -->
+  <div class="section">
+    <h2>Статус реализации</h2>
+    <table style="width:100%; border-collapse: collapse; color:#8b949e; font-size:0.9em;">
+      <tr style="border-bottom:1px solid #21262d;">
+        <th style="text-align:left; padding:8px;">Компонент</th>
+        <th style="text-align:left; padding:8px;">Файл</th>
+        <th style="text-align:left; padding:8px;">Статус</th>
+      </tr>
+      <tr style="border-bottom:1px solid #161b22;">
+        <td style="padding:8px;">Лендинг с БТ</td>
+        <td style="padding:8px;"><code>aidj.html</code></td>
+        <td style="padding:8px;"><span class="status-box status-done">✅ готово</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid #161b22;">
+        <td style="padding:8px;">Архитектура</td>
+        <td style="padding:8px;"><code>aidj/ARCHITECTURE.md</code></td>
+        <td style="padding:8px;"><span class="status-box status-done">✅ готово</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid #161b22;">
+        <td style="padding:8px;">Движок сведения (BPM + crossfade)</td>
+        <td style="padding:8px;"><code>aidj/aidj-engine.py</code></td>
+        <td style="padding:8px;"><span class="status-box status-planned">📝 план</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid #161b22;">
+        <td style="padding:8px;">Хэндлер команды /dj</td>
+        <td style="padding:8px;"><code>aidj/aidj-handler.py</code></td>
+        <td style="padding:8px;"><span class="status-box status-planned">📝 план</span></td>
+      </tr>
+      <tr>
+        <td style="padding:8px;">Веб-сервер для аудио</td>
+        <td style="padding:8px;"><code>aidj/static/</code></td>
+        <td style="padding:8px;"><span class="status-box status-planned">📝 план</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Архитектура -->
+  <div class="section">
+    <h2>Архитектура</h2>
+
+    <div class="flow">
+      <span class="flow-step">📱 iOS → /dj</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">📥 Track A + B</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">⚙️ aidj-engine.py (subprocess)</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">🎵 mix.mp3 → static/</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">🔗 ссылка в Telegram</span>
+    </div>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <h4>📦 Изоляция</h4>
+        <p>Отдельный subprocess, таймаут 120с, не влияет на память и время выполнения основного бота. Новостные дайджесты под защитой.</p>
+      </div>
+      <div class="arch-card">
+        <h4>🎚️ Обработка</h4>
+        <p>ffmpeg (atempo + acrossfade) + aubio (BPM-детекция). Crossfade 12–15 секунд. Выравнивание темпа до BPM более быстрого трека.</p>
+      </div>
+      <div class="arch-card">
+        <h4>🌐 Веб-доступ</h4>
+        <p>Python3 HTTP-сервер на порту 8765 раздаёт файлы из static/. Микс доступен по прямой ссылке для скачивания/прослушивания.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Команды -->
+  <div class="section">
+    <h2>Использование</h2>
+    <div style="background:#161b22; border:1px solid #21262d; border-radius:12px; padding:16px;">
+      <code style="color:#f0f6fc;">
+        /dj — начать сессию сведения<br>
+        &nbsp;&nbsp;→ загрузите Track A (аудиофайл)<br>
+        &nbsp;&nbsp;→ загрузите Track B (аудиофайл)<br>
+        &nbsp;&nbsp;→ обработка...<br>
+        &nbsp;&nbsp;→ ссылка на готовый микс
+      </code>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>nasledstvo2026.github.io — AI DJ Initiative · MVP · 2026</p>
+  </div>
+
+</div>
+</body>
+</html>
