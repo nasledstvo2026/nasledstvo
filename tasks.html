@@ -17,76 +17,34 @@
     <div class="meta">10 активных · 2 отключённые · 20.06.2026</div>
   </div>
 
-  <!-- ═══ Легенда светофоров ═══ -->
+  <!-- ═══ Легенда светофоров (без рекомендаций) ═══ -->
   <div class="section" style="padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
-    <h2 style="font-size:14px;margin-bottom:12px;color:var(--text,#c9d1d9);">💡 Легенда светофоров</h2>
-
-    <!-- ─── Duration / Timeout ─── -->
+    <h2 style="font-size:14px;margin-bottom:12px;color:var(--text,#c9d1d9);">💡 Легенда</h2>
     <div class="legend-metric">
       <div class="legend-title">⏱ Duration / Timeout</div>
-      <div class="legend-desc">Доля фактического времени выполнения задачи от установленного таймаута. Показывает, насколько эффективно задача укладывается в отведённое время.</div>
+      <div class="legend-desc">Доля времени выполнения от таймаута</div>
       <div class="legend-items">
-        <div class="legend-item">
-          <span class="tl tl-green"></span>
-          <div><strong>🟢 < 50%</strong> — задача выполняется быстро, большой запас по времени.</div>
-          <div class="legend-rec">Катя, Лена, Данил, Роза: уменьшить таймаут с 300 до 120 с — ускорение реакции при ошибках модели.</div>
-        </div>
-        <div class="legend-item">
-          <span class="tl tl-yellow"></span>
-          <div><strong>🟡 50–80%</strong> — умеренная загрузка, запас <25%.</div>
-          <div class="legend-rec">РЖД, Активность: увеличить таймаут с 60 до 90 с — текущий запас меньше четверти.</div>
-        </div>
-        <div class="legend-item">
-          <span class="tl tl-red"></span>
-          <div><strong>🔴 > 80%</strong> — риск таймаута. Любое замедление модели уронит задачу.</div>
-          <div class="legend-rec">Ирина: увеличить таймаут с 300 до 400 с, сократить число поисковых запросов с 3 до 2.<br>Бэкап: увеличить таймаут со 120 до 180 с.</div>
-        </div>
+        <span><span class="tl tl-green"></span> &lt;50%</span>
+        <span><span class="tl tl-yellow"></span> 50–80%</span>
+        <span><span class="tl tl-red"></span> &gt;80%</span>
       </div>
     </div>
-
-    <!-- ─── Success Rate ─── -->
     <div class="legend-metric">
       <div class="legend-title">📈 Success Rate</div>
-      <div class="legend-desc">Процент успешных запусков за всю историю задачи. Отражает стабильность работы (модель, API, таймауты).</div>
+      <div class="legend-desc">Процент успешных запусков</div>
       <div class="legend-items">
-        <div class="legend-item">
-          <span class="tl tl-green"></span>
-          <div><strong>🟢 100%</strong> — все запуски отработали без ошибок. Все 10 активных задач.</div>
-          <div class="legend-rec">Действий не требуется.</div>
-        </div>
-        <div class="legend-item">
-          <span class="tl tl-yellow"></span>
-          <div><strong>🟡 < 100%</strong> — единичные сбои.</div>
-          <div class="legend-rec">Проверить логи последних ошибок, выявить причину (модель, API, таймаут).</div>
-        </div>
-        <div class="legend-item">
-          <span class="tl tl-red"></span>
-          <div><strong>🔴 < 90%</strong> — систематические ошибки.</div>
-          <div class="legend-rec">Сменить модель на fallback (deepseek-v4-flash), проверить API-ключи z.ai, увеличить таймаут, убрать лишние поисковые запросы из промпта.</div>
-        </div>
+        <span><span class="tl tl-green"></span> 100%</span>
+        <span><span class="tl tl-yellow"></span> &lt;100%</span>
+        <span><span class="tl tl-red"></span> &lt;90%</span>
       </div>
     </div>
-
-    <!-- ─── Latency ─── -->
-    <div class="legend-metric">
+    <div class="legend-metric" style="border:none;margin:0;padding:0;">
       <div class="legend-title">📬 Latency</div>
-      <div class="legend-desc">Разница между запланированным временем запуска и фактическим стартом задачи. Для isolated-сессий зависит от загруженности очереди OpenClaw.</div>
+      <div class="legend-desc">Задержка старта относительно расписания</div>
       <div class="legend-items">
-        <div class="legend-item">
-          <span class="tl tl-green"></span>
-          <div><strong>🟢 ≤ 1 мин</strong> — задача запускается вовремя. Статистика, РЖД, Бэкап, Активность.</div>
-          <div class="legend-rec">Действий не требуется.</div>
-        </div>
-        <div class="legend-item">
-          <span class="tl tl-yellow"></span>
-          <div><strong>🟡 2–15 мин</strong> — небольшая задержка, очередь isolated загружена. Катя (+5), Роза (+11), Ирина (+9), Данил чт (+6).</div>
-          <div class="legend-rec">Разнести старты: Катя 08:00 → Роза 09:03 → Ирина 09:06 — идут подряд, забивают очередь. Сдвинуть Ирину на 09:30 или Розу на 08:30.</div>
-        </div>
-        <div class="legend-item">
-          <span class="tl tl-red"></span>
-          <div><strong>🔴 > 15 мин</strong> — критическая задержка. Пользователь получает отчёт с опозданием. Лена (+101 мин), Данил пн (+277 мин).</div>
-          <div class="legend-rec">Лена: isolated очередь перегружена в 09:00 — перевести на sessionTarget=main или выделить sessionKey agent:main:telegram:direct:254785028.<br>Данил (пн): задержка >4ч — перевести на sessionTarget=main, уменьшить таймаут с 300 до 120 с, чтобы задача быстрее освобождала очередь.</div>
-        </div>
+        <span><span class="tl tl-green"></span> ≤1 мин</span>
+        <span><span class="tl tl-yellow"></span> 2–15 мин</span>
+        <span><span class="tl tl-red"></span> &gt;15 мин</span>
       </div>
     </div>
   </div>
@@ -106,6 +64,7 @@
             <th class="col-metric">📈 Success rate</th>
             <th class="col-metric">📬 Latency</th>
             <th>Последний запуск</th>
+            <th class="col-rec">💡 Рекомендация по оптимизации</th>
           </tr>
         </thead>
         <tbody>
@@ -121,6 +80,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +5 мин</span></td>
             <td>20.06 08:05</td>
+            <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с. Перенести на 08:30 — разгрузить очередь 08:00.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Обновление статистики</td>
@@ -133,6 +93,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
             <td>20.06 08:10</td>
+            <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Дайджест новостей</td>
@@ -145,6 +106,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-red"></span> +101 мин</span></td>
             <td>20.06 10:41</td>
+            <td class="rec">Перевести на sessionTarget=main или выделить sessionKey. Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Роза — пособия</td>
@@ -157,6 +119,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +11 мин</span></td>
             <td>15.06 09:14</td>
+            <td class="rec">Перенести на 08:30 пн — разгрузить очередь 09:00 (Катя→Роза→Ирина идут подряд). Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Ирина — НПА</td>
@@ -169,6 +132,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +9 мин</span></td>
             <td>15.06 09:15</td>
+            <td class="rec">Увеличить таймаут с 300 до 400&nbsp;с — риск таймаута. Сократить поисковые запросы с 3 до 2. Перенести на 09:30.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Данил — вклады 1991 (пн)</td>
@@ -181,6 +145,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-red"></span> +277 мин</span></td>
             <td>17.06 14:37</td>
+            <td class="rec">Перевести на sessionTarget=main — очередь isolated перегружена в понедельник утром. Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Данил — вклады 1991 (чт)</td>
@@ -193,6 +158,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +6 мин</span></td>
             <td>18.06 10:06</td>
+            <td class="rec">Уменьшить таймаут с 300 до 120&nbsp;с.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> РЖД 1Р-37R — итоги</td>
@@ -205,6 +171,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
             <td>19.06 23:55</td>
+            <td class="rec">Увеличить таймаут с 60 до 90&nbsp;с — запас по времени меньше четверти.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Бэкап: полный</td>
@@ -217,6 +184,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
             <td>14.06 03:00</td>
+            <td class="rec">Увеличить таймаут со 120 до 180&nbsp;с — риск таймаута при замедлении git push.</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Активность пользователей</td>
@@ -229,6 +197,7 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> +1 мин</span></td>
             <td>19.06 23:51</td>
+            <td class="rec">Увеличить таймаут с 60 до 90&nbsp;с — запас по времени меньше четверти.</td>
           </tr>
         </tbody>
       </table>
@@ -249,6 +218,7 @@
             <th class="col-metric">📈 Success rate</th>
             <th class="col-metric">📬 Latency</th>
             <th>Последний запуск</th>
+            <th class="col-rec">💡 Рекомендация по оптимизации</th>
           </tr>
         </thead>
         <tbody>
@@ -261,6 +231,7 @@
             <td>176 с <span class="tl tl-red" title="Превысила таймаут"></span></td>
             <td colspan="3" style="text-align:center;color:#8b949e;">Задача отключена</td>
             <td>16.06 09:28</td>
+            <td class="rec" style="color:#8b949e;">Заменена на stats-inheritance (ежедневно 08:10, таймаут 300&nbsp;с)</td>
           </tr>
           <tr class="row-disabled">
             <td><span class="status-dot disabled"></span> Сводка жалоб (кроме Сбера)</td>
@@ -271,6 +242,7 @@
             <td>112 с</td>
             <td colspan="3" style="text-align:center;color:#8b949e;">Задача отключена</td>
             <td>17.06 08:35</td>
+            <td class="rec" style="color:#8b949e;">Объединена с осн. сводкой жалоб (08:00, один общий поиск)</td>
           </tr>
         </tbody>
       </table>
@@ -281,17 +253,16 @@
 </div>
 
 <style>
-/* ── Таблица ── */
 .table-wrapper { overflow-x: auto; margin: 10px 0; }
 
 .task-table {
   width: 100%; border-collapse: collapse;
-  font-size: 13px; line-height: 1.5;
-  min-width: 1060px;
+  font-size: 12.5px; line-height: 1.5;
+  min-width: 1200px;
 }
 
 .task-table thead th {
-  text-align: left; padding: 10px 10px;
+  text-align: left; padding: 10px 8px;
   background: rgba(33,38,45,.6);
   border-bottom: 1px solid var(--glass-border,#21262d);
   color: var(--text-dim,#8b949e);
@@ -302,6 +273,7 @@
 .task-table thead th:first-child { border-radius: 8px 0 0 0; }
 .task-table thead th:last-child  { border-radius: 0 8px 0 0; }
 .col-metric { text-align: center !important; }
+.col-rec { min-width: 220px; }
 
 .task-table tbody tr {
   border-bottom: 1px solid rgba(33,38,45,.4);
@@ -310,16 +282,26 @@
 .task-table tbody tr:hover { background: rgba(88,166,255,.04); }
 
 .task-table tbody td {
-  padding: 10px 10px; vertical-align: middle;
-  font-size: 13px;
+  padding: 9px 8px; vertical-align: middle;
+  font-size: 12.5px;
 }
 .task-table tbody td:first-child { font-weight: 500; white-space: nowrap; }
+
+.task-table tbody td:nth-child(7),
+.task-table tbody td:nth-child(8),
+.task-table tbody td:nth-child(9) { text-align: center; }
 
 .task-table code {
   font-family: 'SF Mono','Fira Code','Consolas',monospace;
   font-size: 12px;
-  background: rgba(33,38,45,.6); padding: 2px 7px;
+  background: rgba(33,38,45,.6); padding: 2px 6px;
   border-radius: 4px; color: var(--green,#3fb950);
+}
+
+.rec {
+  font-size: 12px;
+  color: var(--text,#c9d1d9);
+  line-height: 1.45;
 }
 
 /* ── Статус-точка ── */
@@ -341,88 +323,31 @@
 .tl-yellow { background: #d29922; box-shadow: 0 0 4px rgba(210,153,34,.5); }
 .tl-red    { background: #f85149; box-shadow: 0 0 4px rgba(248,81,73,.5); }
 
-/* ── Метрика ── */
 .metric {
   display: inline-flex; align-items: center; gap: 4px;
   font-variant-numeric: tabular-nums;
 }
-.task-table td { text-align: left; }
-.task-table td:nth-child(7),
-.task-table td:nth-child(8),
-.task-table td:nth-child(9) { text-align: center; }
 
-/* ── Получатели ── */
-.recipient {
-  display: inline-block; width: 18px; height: 18px;
-  border-radius: 50%; vertical-align: middle;
-  margin-right: 5px; background-size: cover; background-position: center;
+/* ── Легенда ── */
+.legend-metric {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(33,38,45,.5);
 }
-.recipient.katya  { background: #f778ba; }
-.recipient.lena   { background: #58a6ff; }
-.recipient.danil  { background: #d2a8ff; }
-.recipient.roza   { background: #ffa657; }
-.recipient.irina  { background: #7ee787; }
-.recipient.kirill { background: #f0f6fc; }
-.recipient.system { background: transparent; width: 0; margin: 0; }
+.legend-metric:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.legend-title { font-size: 13px; font-weight: 600; color: var(--text,#c9d1d9); margin-bottom: 2px; }
+.legend-desc { font-size: 12px; color: var(--text-dim,#8b949e); margin-bottom: 6px; }
+.legend-items { display: flex; gap: 14px; flex-wrap: wrap; }
+.legend-items span { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-dim,#8b949e); }
 
 /* ── Отключённые ── */
 .row-disabled td { color: #8b949e; }
 .row-disabled td:first-child { opacity: .7; }
 
-/* ── Легенда ── */
-.legend-metric {
-  margin-bottom: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(33,38,45,.5);
-}
-.legend-metric:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-.legend-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text,#c9d1d9);
-  margin-bottom: 3px;
-}
-
-.legend-desc {
-  font-size: 12px;
-  color: var(--text-dim,#8b949e);
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-
-.legend-items {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text-dim,#8b949e);
-}
-
-.legend-item .tl {
-  flex-shrink: 0;
-  margin-top: 5px;
-}
-
-.legend-rec {
-  font-size: 12px;
-  color: var(--text,#c9d1d9);
-  margin-top: 1px;
-}
-
-.legend-rec::before { content: ''; }
-
-/* ── Адаптив ── */
-@media (max-width: 1100px) {
-  .task-table { font-size: 12px; min-width: 900px; }
-  .task-table tbody td { padding: 8px 6px; }
+@media (max-width: 1250px) {
+  .task-table { font-size: 12px; min-width: 1000px; }
+  .task-table tbody td { padding: 7px 6px; }
+  .col-rec { min-width: 180px; }
 }
 </style>
 
