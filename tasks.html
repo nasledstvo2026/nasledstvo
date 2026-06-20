@@ -14,7 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных · 2 отключённые · 20.06.2026</div>
+    <div class="meta">10 активных задач · 20.06.2026</div>
   </div>
 
   <!-- ═══ Легенда светофоров (без рекомендаций) ═══ -->
@@ -203,50 +203,7 @@
       </table>
     </div>
 
-    <div class="table-wrapper" style="margin-top:40px;">
-      <h2 style="margin-bottom:12px;font-size:18px;">🔴 Отключённые</h2>
-      <table class="task-table">
-        <thead>
-          <tr>
-            <th>Задача</th>
-            <th>Кому</th>
-            <th>Cron</th>
-            <th>Расписание</th>
-            <th>Таймаут</th>
-            <th>Длительность</th>
-            <th class="col-metric">⏱ Duration/Timeout</th>
-            <th class="col-metric">📈 Success rate</th>
-            <th class="col-metric">📬 Latency</th>
-            <th>Последний запуск</th>
-            <th class="col-rec">💡 Рекомендация по оптимизации</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="row-disabled">
-            <td><span class="status-dot disabled"></span> Статистика жалоб по месяцам</td>
-            <td>Катя</td>
-            <td><code>0 9 1 * *</code></td>
-            <td><del>1-го 09:00</del></td>
-            <td>120 с</td>
-            <td>176 с <span class="tl tl-red" title="Превысила таймаут"></span></td>
-            <td colspan="3" style="text-align:center;color:#8b949e;">Задача отключена</td>
-            <td>16.06 09:28</td>
-            <td class="rec" style="color:#8b949e;">Заменена на stats-inheritance (ежедневно 08:10, таймаут 300&nbsp;с)</td>
-          </tr>
-          <tr class="row-disabled">
-            <td><span class="status-dot disabled"></span> Сводка жалоб (кроме Сбера)</td>
-            <td>Катя</td>
-            <td><code>30 8 * * *</code></td>
-            <td><del>Ежедневно 08:30</del></td>
-            <td>300 с</td>
-            <td>112 с</td>
-            <td colspan="3" style="text-align:center;color:#8b949e;">Задача отключена</td>
-            <td>17.06 08:35</td>
-            <td class="rec" style="color:#8b949e;">Объединена с осн. сводкой жалоб (08:00, один общий поиск)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
   </div>
 
   <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Обновлено 20.06.2026</div>
