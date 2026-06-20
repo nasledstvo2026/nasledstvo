@@ -3,42 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Сбор жалоб — январь 2025</title>
+  <title>Сбор жалоб — январь–февраль 2025</title>
   <link rel="stylesheet" href="theme.css">
 </head>
 <body>
   <div class="container">
     <a class="back" href="index.html">← Главная</a>
     <div class="hero">
-      <div class="title">Сбор жалоб: январь 2025</div>
+      <div class="title">Сбор жалоб: 2025</div>
       <div class="meta">Дата сбора: 20.06.2026 · 9 поисковых запросов SearXNG</div>
     </div>
 
     <div class="section">
-      <h2>📊 Раздел 1 — katya-stats-data.md</h2>
+      <h2>📊 katya-stats-data.md</h2>
       <div class="item">
-        <div class="title">Строка для января 2025</div>
         <div class="body">
-          <p class="essence"><code>2025-01 | Сбер: 0 | Другие: 2</code></p>
-          <p>Всего за январь 2025 — <strong>2 жалобы</strong> на банки (не Сбер).</p>
-          <p>Источники: banki.ru (Газпромбанк) + pikabu.ru (два банка).</p>
+          <pre style="background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.6;">2025-01 | Сбер: 0 | Другие: 2 | Газпромбанк (banki.ru) + 2 банка (pikabu 31.01)
+2025-02 | Сбер: 1 | Другие: 1 | Сбер (banki.ru 10.02 — задержка 66 дней); Почта Банк (banki.ru 18.02 — отказ в выдаче)</pre>
         </div>
       </div>
     </div>
 
     <div class="section">
-      <h2>📦 Раздел 2 — katya-data.json</h2>
+      <h2>📦 katya-data.json</h2>
 
       <div class="item">
         <div class="title">1. Газпромбанк — начисление процентов на кредит умершего</div>
-        <div class="meta">banki.ru · январь 2025 (вступление в наследство)</div>
+        <div class="meta">banki.ru · январь 2025</div>
         <div class="body">
-          <p class="essence">Несовершеннолетний ребенок вступил в наследство, получив кредит отца в Газпромбанке. Банк продолжал начислять проценты, несмотря на документы о смерти, отправленные нотариусом ещё в июне 2024.</p>
           <pre>{
   "date": "2025-01-??",
   "bank": "Газпромбанк",
   "title": "Начисление процентов на кредит умершего",
-  "description": "Несовершеннолетний ребенок-наследник получил кредит отца. Банк начислял проценты, игнорируя документы о смерти, отправленные нотариусом.",
+  "description": "Несовершеннолетний ребенок-наследник получил кредит отца. Банк начислял проценты, игнорируя документы о смерти.",
   "url": "https://www.banki.ru/services/responses/bank/response/12117602/",
   "source": "banki.ru"
 }</pre>
@@ -49,36 +46,51 @@
         <div class="title">2. Два банка — наследство и кредитная карта умершего</div>
         <div class="meta">pikabu.ru · 31 января 2025</div>
         <div class="body">
-          <p class="essence">Наследник вступил в наследство 15.01.2025. Обратился в офисы двух банков, где у умершего были счета и кредитная карта. Вопросы по страховке и долгам.</p>
           <pre>{
   "date": "2025-01-31",
   "bank": "Неизвестно",
-  "title": "Наследство и кредитная карта умершего, вопрос по страховке",
-  "description": "Наследник обращался в два банка по счетам и кредитной карте умершего. Вопросы по погашению долгов и страховке.",
+  "title": "Наследство и кредитная карта умершего",
+  "description": "Наследник обращался в два банка по счетам и кредитной карте умершего. Вопросы по страховке и долгам.",
   "url": "https://pikabu.ru/story/nasledstvo_i_kreditnaya_karta_umershego_vopros_po_strakhovke_12319103",
   "source": "pikabu.ru"
 }</pre>
         </div>
       </div>
 
-    </div>
-
-    <div class="section">
-      <h2>📝 Текущее состояние katya-stats-data.md</h2>
       <div class="item">
-        <pre style="background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.6;">(пусто — сбор начинается заново)</pre>
+        <div class="title">3. Сбербанк — задержка выплаты наследства 66 дней</div>
+        <div class="meta">banki.ru · 10 февраля 2025</div>
+        <div class="body">
+          <pre>{
+  "date": "2025-02-10",
+  "bank": "Сбербанк",
+  "title": "Задержка выплаты наследства",
+  "description": "Задержка выплаты наследства свыше 66 дней (с 6 декабря 2024 по 10 февраля 2025).",
+  "url": "https://www.banki.ru/services/responses/bank/response/12138482/",
+  "source": "banki.ru"
+}</pre>
+        </div>
       </div>
-    </div>
 
-    <div class="section">
-      <h2>📝 Текущее состояние katya-data.json</h2>
       <div class="item">
-        <pre style="background: #161b22; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.6;">[](пустой массив)</pre>
+        <div class="title">4. Почта Банк — отказ в выдаче денежных средств по наследству</div>
+        <div class="meta">banki.ru · 18 февраля 2025</div>
+        <div class="body">
+          <pre>{
+  "date": "2025-02-18",
+  "bank": "Почта Банк",
+  "title": "Отказ в выдаче денежных средств по наследству",
+  "description": "Банк отказал в выдаче денежных средств по наследству, потребовал дополнительные документы.",
+  "url": "https://www.banki.ru/services/responses/bank/response/12141454/",
+  "source": "banki.ru"
+}</pre>
+        </div>
       </div>
+
     </div>
 
     <div class="footer">
-      <p>nasledstvo2026.github.io — временная страница, будет удалена</p>
+      <p>nasledstvo2026.github.io — временная страница, обновлено 20.06.2026 19:18</p>
     </div>
   </div>
 </body>
