@@ -1,0 +1,45 @@
+# Архитектура системы — Лунт
+
+telegram: "📱 Telegram" {
+  kirill: "Кирилл\nвладелец" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#f85149"; style.stroke-width: 2; style.font-color: "#f85149" }
+  katya: "Катя\nжалобы" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#58a6ff"; style.stroke-width: 2; style.font-color: "#58a6ff" }
+  lena: "Лена\nновости" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#7ee787"; style.stroke-width: 2; style.font-color: "#7ee787" }
+  danil: "Данил\nвклады" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#d29922"; style.stroke-width: 2; style.font-color: "#d29922" }
+  roman: "Роман\nрук. Кати" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#bc8cff"; style.stroke-width: 2; style.font-color: "#bc8cff" }
+  roza: "Роза\nпособия" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#db6d28"; style.stroke-width: 2; style.font-color: "#db6d28" }
+  irina: "Ирина\nНПА" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#3fb950"; style.stroke-width: 2; style.font-color: "#3fb950" }
+  bot: "🤖 Telegram Bot" { shape: rectangle; style.fill: "#1a1a3e"; style.stroke: "#bc8cff"; style.stroke-width: 2; style.font-color: "#bc8cff" }
+  kirill -> bot; katya -> bot; lena -> bot; danil -> bot; roman -> bot; roza -> irina -> bot
+}
+
+vps: "🖥 VPS" {
+  gateway: "🤖 OpenClaw\nGateway" { shape: rectangle; style.fill: "#0d1117"; style.stroke: "#58a6ff"; style.font-color: "#58a6ff"; style.stroke-width: 3 }
+  v4flash: "DeepSeek\nv4-flash" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#db6d28"; style.stroke-width: 2; style.font-color: "#db6d28" }
+  chat: "DeepSeek\nChat" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#d29922"; style.stroke-width: 2; style.font-color: "#d29922" }
+  cron: "⏰ Cron\n8 задач" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#d29922"; style.stroke-width: 2; style.font-color: "#d29922" }
+  searxng: "🔍 SearXNG" { shape: rectangle; style.fill: "#0d1117"; style.stroke: "#58a6ff"; style.stroke-width: 2; style.font-color: "#58a6ff" }
+  memory: "💾 Memory" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#7ee787"; style.stroke-width: 2; style.font-color: "#7ee787" }
+  gateway -> v4flash: "primary"
+  gateway -> chat: "fallback"
+  cron -> searxng
+  cron -> memory
+}
+
+dropbox: "📁 Dropbox" {
+  dbx: "OAuth 2\nrefresh token" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#db6d28"; style.stroke-width: 2; style.font-color: "#db6d28" }
+}
+
+github: "🌐 GitHub Pages" {
+  pages: "📄 Pages\nnasledstvo2026" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#7ee787"; style.stroke-width: 2; style.font-color: "#7ee787" }
+  repo: "📦 git\nSSH key" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#58a6ff"; style.stroke-width: 2; style.font-color: "#58a6ff" }
+  design: "🎨 CSS\ntheme.css" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#d29922"; style.stroke-width: 2; style.font-color: "#d29922" }
+  scripts: "📜 Скрипты\npublish.sh" { shape: rectangle; style.fill: "#161b22"; style.stroke: "#bc8cff"; style.stroke-width: 2; style.font-color: "#bc8cff" }
+  pages -> repo
+  pages -> design
+  pages -> scripts
+}
+
+telegram.bot -> vps.gateway: "сообщения"
+vps.cron -> vps.gateway: "запуск"
+vps.gateway -> dropbox.dbx: "скачивание"
+vps.cron -> github.pages: "git push"
