@@ -2,6 +2,19 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
+## Dropbox
+
+- **SDK:** Python dropbox 12.0.2 (`pip3 install dropbox --break-system-packages`)
+- **Скрипт скачивания:** `scripts/dropbox-get.py`
+- **Требуется:** OAuth 2 access token в `~/.dropbox_token`, либо shared link
+- **Режимы:**
+  - По пути в Dropbox (с refresh token — рекомендуется): `--path "/folder/file.ext" --output ./file.ext`
+  - С явным access token: `--token TOKEN --path "/folder/file.ext" --output ./file.ext`
+  - По shared link: `--shared-link "https://www.dropbox.com/s/xxx/file?dl=0" --output ./file.ext`
+- **Refresh token** (бессрочный): `~/.dropbox_refresh_token`
+- **App creds:** `~/.dropbox_app_creds` (app_key + app_secret)
+- **Владелец:** 9215691@inbox.ru (Kirill)
+
 ## GitHub Pages (текущий хостинг)
 
 - **Сайт:** https://nasledstvo2026.github.io/nasledstvo/

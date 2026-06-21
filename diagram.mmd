@@ -1,0 +1,103 @@
+graph TB
+    %% Node styles
+    classDef user fill:#161b22,stroke:#58a6ff,color:#58a6ff
+    classDef owner fill:#161b22,stroke:#f85149,color:#f85149
+    classDef bot fill:#1a1a3e,stroke:#bc8cff,color:#bc8cff
+    classDef gateway fill:#0d1117,stroke:#58a6ff,color:#58a6ff
+    classDef primary fill:#161b22,stroke:#db6d28,color:#db6d28
+    classDef fallback fill:#161b22,stroke:#d29922,color:#d29922
+    classDef cron fill:#161b22,stroke:#d29922,color:#d29922
+    classDef search fill:#0d1117,stroke:#58a6ff,color:#58a6ff
+    classDef memory fill:#161b22,stroke:#7ee787,color:#7ee787
+    classDef pages fill:#161b22,stroke:#7ee787,color:#7ee787
+    classDef script fill:#161b22,stroke:#bc8cff,color:#bc8cff
+    classDef repo fill:#161b22,stroke:#58a6ff,color:#58a6ff
+    classDef design fill:#161b22,stroke:#d29922,color:#d29922
+    classDef deliver fill:#161b22,stroke:#58a6ff,color:#58a6ff
+    classDef cloud fill:#161b22,stroke:#db6d28,color:#db6d28
+
+    subgraph TL["📱 Telegram — 7 пользователей + бот"]
+        K["Кирилл<br/>владелец • алерты"]:::owner
+        Kat["Катя<br/>жалобы • 08:00"]:::user
+        L["Лена<br/>новости + РЖД"]:::user
+        D["Данил<br/>вклады 1991 • пн/чт"]:::user
+        R["Роман<br/>рук. Кати • ИТ Лидер"]:::user
+        Rz["Роза<br/>пособия • пн 09:03"]:::user
+        I["Ирина<br/>НПА • пн 09:06"]:::user
+        TB["🤖 Telegram Bot<br/>plugin • все чаты"]:::bot
+    end
+
+    K --> TB
+    Kat --> TB
+    L --> TB
+    D --> TB
+    R --> TB
+    Rz --> TB
+    I --> TB
+
+    subgraph VPS["🖥 VPS vm-f13581 • OpenStack • Linux x64 • Docker"]
+
+        GW["🤖 OpenClaw Gateway<br/>port 18789 • loopback • auth: token"]:::gateway
+
+        subgraph LLM["🧠 Модели LLM"]
+            V4["🧠 DeepSeek v4-flash<br/>▶ primary: чат + все сессии<br/>с 19.06.2026"]:::primary
+            DC["🧠 DeepSeek Chat<br/>cron: 8 задач"]:::fallback
+        end
+
+        subgraph CR["⏰ Cron — 8 задач"]
+            direction TB
+            C1["📋 08:00 — Катя<br/>📊 08:10 — Статистика"]:::cron
+            C2["📰 09:00 — Лена<br/>💰 23:55 будни — РЖД"]:::cron
+            C3["📊 пн/чт 10:00 — Данил<br/>📋 пн 09:03 — Роза<br/>📋 пн 09:06 — Ирина"]:::cron
+            C4["💾 22:00 + вс — Бэкап git push"]:::cron
+        end
+
+        SX["🔍 SearXNG<br/>Docker • localhost:8888<br/>Google • Bing • DuckDuckGo • Wikipedia"]:::search
+        MEM["💾 Memory Files<br/>MEMORY.md • katya-stats-data.md<br/>lena-news-daily.md • danil-vklady-*.md<br/>katya-data.json • lena-news-seen.md"]:::memory
+    end
+
+    TB -->|"сообщения"| GW
+    GW -->|"primary"| V4
+    GW -.->|"fallback"| DC
+    V4 -.->|"fallback"| DC
+    CR -.->|"выполнение"| DC
+    CR -->|"поиск"| SX
+    CR -->|"запись"| MEM
+
+    subgraph DB["📁 Dropbox — облако"]
+        DR["OAuth 2 refresh token • dropbox-get.py<br/>download / upload"]:::cloud
+    end
+
+    GW -.->|"скачивание"| DR
+
+    subgraph GH["🌐 GitHub Pages — хостинг (с 20.06.2026)"]
+        GP["🌐 GitHub Pages<br/>nasledstvo2026.github.io/nasledstvo"]:::pages
+        
+        GR["📦 git-репозиторий<br/>github.com/nasledstvo2026/nasledstvo<br/>SSH • ed25519 key"]:::repo
+        CS["🎨 Дизайн<br/>theme.css • theme.v2.css • style.css"]:::design
+        SC["📜 Скрипты<br/>publish-report.sh • upload-to-github.sh<br/>update-index-github.sh"]:::script
+    end
+
+    CR -->|"git add → commit → push"| GP
+    GP --> GR
+    GP --> CS
+    GP --> SC
+
+    subgraph Flow["📊 Маршрут доставки отчёта"]
+        direction LR
+        F1["⏰ Cron<br/>по расписанию"]:::deliver
+        F2["🔍 SearXNG<br/>мета-поиск"]:::deliver
+        F3["🌐 web_fetch<br/>сайты/API"]:::deliver
+        F4["🧠 LLM<br/>анализ + HTML"]:::deliver
+        F5["💾 Memory<br/>.md файл"]:::deliver
+        F6["📦 git push<br/>→ GitHub Pages"]:::deliver
+        F7["💬 Telegram<br/>аналитик + ссылка"]:::deliver
+        F1 --> F2 --> F3 --> F4 --> F5 --> F6 --> F7
+    end
+
+    subgraph Stats["📊 Метрики"]
+        S1["~250k токенов/день • 12 задач"]:::cron
+        S2["SearXNG • GitHub Pages"]:::search
+        S3["-94% токенов с 10.06"]:::cron
+        S4["failureAlert → Кириллу"]:::owner
+    end
