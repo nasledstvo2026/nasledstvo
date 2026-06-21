@@ -20,27 +20,6 @@ cd "$REPO_DIR"
 # Copy report to workspace
 cp "$LOCAL" "$REMOTE"
 
-# Map to element id for nasledstvo.html
-case "$REMOTE" in
-  report-lena.html)    ID="ud-lena" ;;
-  report-danil.html)   ID="ud-danil" ;;
-  report-danil-thu.html) ID="ud-danil-thu" ;;
-  *) ID="" ;;
-esac
-
-# Update timestamp on nasledstvo.html
-if [ -n "$ID" ]; then
-  python3 -c "
-import re
-with open('nasledstvo.html', 'r') as f:
-    c = f.read()
-c = re.sub(r'(<span id=\"$ID\">)[^<]*(</span>)', r'\g<1>$TIMESTAMP\g<2>', c)
-with open('nasledstvo.html', 'w') as f:
-    f.write(c)
-" 2>/dev/null || true
-  echo "Timestamp updated on nasledstvo.html ($ID)"
-fi
-
 # Commit & push
 git add -A
 git commit -m "Report: $REMOTE — $TIMESTAMP" 2>/dev/null || echo "Nothing new to commit"
