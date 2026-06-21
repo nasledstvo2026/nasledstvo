@@ -34,7 +34,7 @@ engines:
   - name: duckduckgo
     engine: duckduckgo
     shortcut: ddg
-    disabled: false
+    disabled: true
   - name: bing
     engine: bing
     shortcut: bi
@@ -42,8 +42,16 @@ engines:
   - name: startpage
     engine: startpage
     shortcut: sp
-    disabled: false
+    disabled: true
   - name: google news
     engine: google_news
     shortcut: gn
     disabled: false
+  - name: brave
+    engine: brave
+    shortcut: br
+    disabled: true
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+    disabled: true
