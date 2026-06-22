@@ -42,7 +42,7 @@ for q in "${QUERIES[@]}"; do
   label="${LABELS[$idx]}"
   echo -n "[$((idx+1))/10] $label ... "
   
-  RESULT=$(curl -s "$SEARXNG?q=$q&format=json&time_range=year&language=ru-RU" --max-time 15 2>/dev/null)
+  RESULT=$(curl -s "$SEARXNG?q=$q&format=json&time_range=year&language=ru-RU&_=$RANDOM" --max-time 15 2>/dev/null)
   HIT_COUNT=$(echo "$RESULT" | python3 -c "import sys,json; d=json.loads(sys.stdin.read()); print(len(d.get('results',[])))" 2>/dev/null || echo "0")
   
   if [ "$HIT_COUNT" != "0" ] && [ "$HIT_COUNT" != "0" ]; then
