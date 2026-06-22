@@ -278,6 +278,13 @@
   cursor: pointer;
   outline: none;
   transition: border-color .2s, background .2s;
+  color: inherit;
+}
+.action-btn:visited,
+.action-btn:active {
+  color: inherit;
+  background: linear-gradient(135deg, #1a1f2e, #21262d);
+  border-color: #30363d;
 }
 .action-btn:hover {
   border-color: #58a6ff;
@@ -288,8 +295,7 @@
   box-shadow: none;
 }
 .action-btn:focus-visible {
-  outline: 2px solid #58a6ff;
-  outline-offset: 3px;
+  outline: none;
 }
 .action-btn-icon {
   display: inline-flex;
@@ -304,9 +310,18 @@
   font-weight: 700;
   flex-shrink: 0;
 }
+.action-btn:visited .action-btn-icon,
+.action-btn:active .action-btn-icon {
+  background: linear-gradient(135deg, #238636, #2ea043);
+  color: #fff;
+}
 .action-btn-label {
   color: #c9d1d9;
   font-size: 0.9em;
   font-weight: 500;
   white-space: nowrap;
+}
+.action-btn:visited .action-btn-label,
+.action-btn:active .action-btn-label {
+  color: #c9d1d9;
 }
