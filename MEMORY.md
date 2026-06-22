@@ -36,6 +36,16 @@
 - **SSH ключ GitHub:** `~/.ssh/id_ed25519` (добавлен на аккаунт nasledstvo2026)
 - **Ключ Timeweb удалён:** `~/.ssh/timeweb` не используется
 
+### AI DJ — проект (22.06.2026)
+- **Фича 1:** Поиск треков по названию (Яндекс.Музыка) → скачивание mp3 → Dropbox `/ai-dj/files/`
+  - Скрипт: `ai-dj-search.py` (yandex-music API + OAuth токен Кирилла)
+  - Интерактивный интерфейс: чат в Telegram (Лунт показывает варианты, Кирилл выбирает номер)
+  - Dropbox upload: `scripts/dropbox-upload.py` (через refresh token)
+- **Фича 2:** Веб-плеер треков из Dropbox
+  - Скрипт: `ai-dj-player.py` — получает список mp3 из `/ai-dj/files/`, генерирует `aidj-player.html`
+  - Ссылки: временные (4ч), через `files_get_temporary_link`
+  - Страница: `https://nasledstvo2026.github.io/nasledstvo/aidj-player.html`
+
 ### Модели LLM
 - **deepseek/deepseek-v4-flash** — primary модель (чат в Telegram + новые сессии) с 19.06.2026
 - **deepseek/deepseek-chat** — fallback для чата + ВСЕ cron-задачи (дёшево, изолированно)
