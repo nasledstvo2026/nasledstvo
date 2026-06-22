@@ -244,3 +244,23 @@
   border-color: rgba(255,182,193,0.5);
   color: #ffb6c1;
 }
+
+/* ─── Back link (единый стандарт для всех страниц) ─── */
+.back {
+  display: inline-block;
+  color: var(--text-dim);
+  font-size: 13px;
+  margin: 24px 24px 0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  transition: color .2s, border-color .2s;
+}
+.back:hover {
+  color: var(--text);
+  border-color: var(--glass-hover);
+  text-decoration: none;
+}

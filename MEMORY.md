@@ -159,6 +159,19 @@
 - **Glass-card** — термин для UI-стиля плашек (card blue/green/cyan с glass-morphism). Оформление: `.card-header-row` с `<h2>` + `.card-badge`, плоский `.desc`, `.card-footer` с `.person`, без эмодзи в заголовках.
 - `theme.css` — единый glass-morphism, все отчёты подключают его.
 
+### Кнопка «назад» — единый стандарт (22.06.2026)
+- Класс `.back` — единый для ВСЕХ страниц
+- Расположение: левый верхний угол страницы
+- Ссылка ведёт на страницу выше по иерархии:
+  - `index.html` ← корень (без back)
+  - `inheritance.html` ← index.html
+  - `social.html` ← index.html
+  - `report-*.html` ← соответствующая родительская страница (inheritance.html или social.html)
+  - `activity.html`, `tasks.html` ← index.html
+- Единый стиль определён в `style.css` (`.back`) для страниц, подключающих style.css
+- Для страниц с `theme.css` — стиль .back определён в theme.css (аналогичный glass-morphism)
+- `report-irina.html` — стиль .back берётся из style.css (inline-стили удалены 22.06.2026)
+
 ## 📁 Структура файлов
 
 ### Workspace (`/home/user1/.openclaw/workspace/`)
