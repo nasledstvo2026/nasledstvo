@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI DJ — инициатива</title>
   <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
   <style>
     .bt-item { background: rgba(22,27,34,0.8); border: 1px solid #21262d; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
     .bt-item .bt-num { color: #58a6ff; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -20,11 +21,6 @@
     .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 20px 0; }
     .flow-step { background: #1f2937; border: 1px solid #30363d; border-radius: 8px; padding: 8px 16px; font-size: 0.85em; color: #c9d1d9; }
     .flow-arrow { color: #58a6ff; font-size: 1.2em; }
-    .add-track-btn { display: inline-flex; align-items: center; gap: 10px; margin: 16px 0 4px; padding: 0 24px 0 0; background: linear-gradient(135deg, #1a1f2e, #21262d); border: 1px solid #30363d; border-radius: 50px; text-decoration: none; transition: all 0.2s; cursor: pointer; outline: none; }
-    .add-track-btn:focus { outline: none; box-shadow: none; }
-    .add-track-btn:hover { border-color: #58a6ff; background: linear-gradient(135deg, #21262d, #1c2333); }
-    .add-track-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #238636, #2ea043); color: #fff; font-size: 1.5em; font-weight: 700; flex-shrink: 0; }
-    .add-track-label { color: #c9d1d9; font-size: 0.9em; font-weight: 500; white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -34,9 +30,9 @@
 
   <div class="hero">
     <div class="title">🎧 AI DJ</div>
-    <a href="#" class="add-track-btn" onclick="alert('Режим добавления — через Telegram: отправьте название трека Лунту'); return false;">
-      <span class="add-track-icon">+</span>
-      <span class="add-track-label">Добавить новый трек</span>
+    <a href="#" class="action-btn" onclick="alert('Режим добавления — через Telegram: отправьте название трека Лунту'); return false;">
+      <span class="action-btn-icon">+</span>
+      <span class="action-btn-label">Добавить новый трек</span>
     </a>
     <div class="meta">Инициатива · Июнь 2026 · <a href="aidj-player.html" style="color:#7ee787; text-decoration:none;">🎵 Слушать треки</a></div>
     <div class="essence" style="margin-top:20px; padding:20px; background:rgba(88,166,255,0.06); border:1px solid rgba(88,166,255,0.15); border-radius:12px;">

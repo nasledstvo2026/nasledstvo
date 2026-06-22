@@ -264,3 +264,49 @@
   border-color: var(--glass-hover);
   text-decoration: none;
 }
+
+/* ─── Action button (круглая кнопка + подпись) ─── */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px 0 0;
+  background: linear-gradient(135deg, #1a1f2e, #21262d);
+  border: 1px solid #30363d;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.action-btn:hover {
+  border-color: #58a6ff;
+  background: linear-gradient(135deg, #21262d, #1c2333);
+}
+.action-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.action-btn:focus-visible {
+  outline: 2px solid #58a6ff;
+  outline-offset: 3px;
+}
+.action-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #238636, #2ea043);
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.action-btn-label {
+  color: #c9d1d9;
+  font-size: 0.9em;
+  font-weight: 500;
+  white-space: nowrap;
+}
