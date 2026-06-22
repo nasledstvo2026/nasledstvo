@@ -237,7 +237,8 @@
 
 <script>
 // ─── Config ───
-const API_BASE = ''; // Пусто = использовать относительные пути
+const API_BASE = 'http://176.123.162.12:8766';
+function api(path) { return API_BASE + path; }
 let editingId = null;  // ID сета, который редактируется (null = создание)
 let allDropboxTracks = []; // Кеш треков из Dropbox
 let allSets = [];          // Кеш сетов
@@ -261,7 +262,7 @@ const deleteName = $('deleteName');
 async function fetchDropboxTracks() {
   // Пробуем реальный API, если сервер запущен
   try {
-    const res = await fetch('/api/sets/tracklist');
+    const res = await fetch(api('/api/sets/tracklist'));
     if (res.ok) return await res.json();
   } catch(_) {}
 
@@ -283,7 +284,7 @@ async function fetchDropboxTracks() {
 // ─── Fetch sets from API or fallback ───
 async function fetchSets() {
   try {
-    const res = await fetch('/api/sets');
+    const res = await fetch(api('/api/sets'));
     if (res.ok) return await res.json();
   } catch(_) {}
   return [];
@@ -413,7 +414,7 @@ function renderTrackCheckboxes(selectedIndices) {
 async function editSet(id) {
   let set;
   try {
-    const res = await fetch(`/api/sets/${id}`);
+    const res = await fetch(api(`/api/sets/${id}`));
     if (res.ok) set = await res.json();
   } catch(_) {}
   if (!set) {
@@ -493,7 +494,7 @@ modalSave.addEventListener('click', async () => {
   const payload = { name, tracks, id: editingId };
 
   try {
-    const url = editingId ? `/api/sets/${editingId}/update` : '/api/sets/create';
+    const url = editingId ? api(`/api/sets/${editingId}/update`) : api('/api/sets/create');
     const method = editingId ? 'PUT' : 'POST';
     const res = await fetch(url, {
       method,
@@ -557,7 +558,7 @@ document.getElementById('deleteCancel').addEventListener('click', () => deleteOv
 document.getElementById('deleteConfirm').addEventListener('click', async () => {
   if (!deleteTargetId) return;
   try {
-    const res = await fetch(`/api/sets/${deleteTargetId}/delete`, { method: 'DELETE' });
+    const res = await fetch(api(`/api/sets/${deleteTargetId}/delete`), { method: 'DELETE' });
     if (res.ok) {
       deleteOverlay.classList.remove('active');
       loadAllSets();
@@ -578,7 +579,7 @@ document.getElementById('deleteConfirm').addEventListener('click', async () => {
 // ─── Play set ───
 async function playSet(id) {
   try {
-    const res = await fetch(`/api/sets/${id}/play`, { method: 'POST' });
+    const res = await fetch(api(`/api/sets/${id}/play`), { method: 'POST' });
     if (res.ok) {
       const data = await res.json();
       alert(`⏳ Сведение запущено! Ожидаемое время: ${data.eta || '~30 сек'}`);
@@ -607,7 +608,7 @@ async function loadAllSets() {
   for (const set of allSets) {
     if (!set.tracks || set.tracks.length === 0) {
       try {
-        const res = await fetch(`/api/sets/${set.id}`);
+        const res = await fetch(api(`/api/sets/${set.id}`));
         if (res.ok) {
           const detail = await res.json();
           set.tracks = detail.tracks || [];
