@@ -14,7 +14,7 @@ import json
 import os
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 # ═══════════════════════════════════════════
 # КОНФИГУРАЦИЯ
@@ -22,6 +22,25 @@ from datetime import datetime
 DATA_FILE = os.path.join(os.path.dirname(__file__), "tasks-data.json")
 OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "tasks.html")
 WORKSPACE = os.path.dirname(__file__)
+
+# Маппинг: имя cron-задачи (из openclaw cron list) → имя в tasks-data.json
+CRON_TO_TASK = {
+    "Сводка жалоб: наследство в банках (5 площадок)": "Сводка жалоб — наследство",
+    "📊 Обновление статистики жалоб (stats-inheritance)": "Обновление статистики",
+    "Ежедневная сводка: наследство и банки": "Дайджест новостей",
+    "📋 Роза: сводка изменений в законах по пособиям": "Изменения в законах по пособиям",
+    "Ирина: еженедельный обзор НПА": "Обзор НПА",
+    "Анализ новостей по вкладам 1991 — понедельник": "Вклады 1991 — понедельник",
+    "РЖД 1Р-37R — итоги торгов": "РЖД 1Р-37R — итоги",
+    "Анализ новостей по вкладам 1991 — четверг": "Вклады 1991 — четверг",
+    "📊 Активность пользователей": "Активность пользователей",
+    "Бэкап: полный (раз в неделю)": "Бэкап: полный",
+}
+
+# Обратный маппинг: task_name → cron_name
+TASK_TO_CRON = {v: k for k, v in CRON_TO_TASK.items()}
+
+MSK_TZ = timezone(timedelta(hours=3))
 
 WEIGHTS = {
     "success_rate": 0.30,
@@ -201,6 +220,45 @@ def health_badge(health_idx, color):
 # ГЕНЕРАЦИЯ HTML
 # ═══════════════════════════════════════════
 
+def fetch_last_runs():
+    """
+    Запрашивает openclaw cron list --json, извлекает lastRunAtMs для каждой задачи,
+    конвертирует в MSK (DD.MM HH:MM), возвращает dict {task_name: last_run_str}.
+    Если запрос не удался — пустой dict (продолжаем со старыми данными).
+    """
+    try:
+        r = subprocess.run(
+            ["openclaw", "cron", "list", "--json"],
+            capture_output=True, text=True, timeout=15
+        )
+        if r.returncode != 0:
+            print(f"⚠️ openclaw cron list вернул код {r.returncode}: {r.stderr[:200]}")
+            return {}
+        data = json.loads(r.stdout)
+        result = {}
+        for job in data.get("jobs", []):
+            cron_name = job.get("name", "")
+            # Убираем эмодзи из имени для поиска в маппинге
+            clean_name = cron_name.strip()
+            task_name = CRON_TO_TASK.get(clean_name)
+            if not task_name:
+                continue
+            last_ms = job.get("state", {}).get("lastRunAtMs")
+            if not last_ms:
+                print(f"  ⚠️ {clean_name}: нет lastRunAtMs")
+                continue
+            dt = datetime.fromtimestamp(last_ms / 1000, tz=timezone.utc).astimezone(MSK_TZ)
+            result[task_name] = dt.strftime("%d.%m %H:%M")
+            print(f"  ✓ {task_name}: {result[task_name]}")
+        return result
+    except FileNotFoundError:
+        print("⚠️ openclaw CLI не найден — пропускаю автообновление last_run")
+        return {}
+    except (json.JSONDecodeError, KeyError, subprocess.TimeoutExpired) as e:
+        print(f"⚠️ Ошибка при получении lastRunAtMs: {e}")
+        return {}
+
+
 def load_opt_status():
     """Читает optimizer-applied.json, возвращает dict {task_name: status}"""
     opt_file = os.path.join(WORKSPACE, "memory", "optimizer-applied.json")
@@ -224,7 +282,11 @@ def load_opt_status():
             status[task] = {"type": "decided"}
         elif action == "seen":
             status[task] = {"type": "seen", "cycle": entry.get("cycle", 1)}
-    # Решения текущего цикла — перезаписывают seen
+        elif action == "noop":
+            status[task] = {"type": "analyzed", "cycle": entry.get("cycle", 1)}
+        elif action == "skip":
+            status[task] = {"type": "skipped", "cycle": entry.get("cycle", 1)}
+    # Решения текущего цикла — перезаписывают seen/analyzed/skipped
     for dec in data.get("decisions", []):
         task = dec.get("task", "")
         if task:
@@ -249,6 +311,10 @@ def fmt_opt_status(opt_status, task_name, health_idx):
             return '<span class="opt-seen">⏳ ждём 2/2</span>'
         else:
             return '<span class="opt-seen">⏳ готово к решению</span>'
+    if tp == "analyzed":
+        return f'<span class="opt-analyzed">🔍 проанализировано (цикл #{st.get("cycle", 1)})</span>'
+    if tp == "skipped":
+        return f'<span class="opt-skipped">⏭️ пропущено (цикл #{st.get("cycle", 1)})</span>'
     return '<span class="opt-pending">⏳ не рассматривалось</span>'
 
 
@@ -366,6 +432,7 @@ def gen_tasks_html(tasks):
       <div class="legend-items">
         <span><span class="opt-status-dot" style="background:transparent;border:1px solid #8b949e;color:#8b949e;width:auto;height:auto;padding:0 4px;font-size:11px;border-radius:3px;">—</span> не требуется</span>
         <span><span class="opt-status-dot opt-dot-seen">⏳</span> ждём 2/2 циклов</span>
+        <span><span class="opt-status-dot opt-dot-analyzed">🔍</span> проанализировано</span>
         <span><span class="opt-status-dot opt-dot-decided">✅</span> зафиксировано</span>
         <span><span class="opt-status-dot opt-dot-done">✅</span> применено + дата</span>
       </div>
@@ -436,6 +503,8 @@ def gen_tasks_html(tasks):
 .col-opt {{ min-width: 80px; }}
 .opt-pending {{ color: var(--text-dim,#8b949e); font-size: 16px; }}
 .opt-seen {{ color: #d29922; font-size: 12px; font-weight: 600; white-space: nowrap; }}
+.opt-analyzed {{ color: #bc8cff; font-size: 12px; font-weight: 500; white-space: nowrap; }}
+.opt-skipped {{ color: var(--text-dim,#8b949e); font-size: 12px; font-weight: 500; white-space: nowrap; }}
 .opt-decided {{ color: #58a6ff; font-size: 12px; font-weight: 600; white-space: nowrap; }}
 .opt-done {{ color: #3fb950; font-size: 12px; font-weight: 600; white-space: nowrap; }}
 .stat-na {{ color: var(--text-dim,#8b949e); font-size: 12px; }}
@@ -476,6 +545,24 @@ def gen_tasks_html(tasks):
 # MAIN
 # ═══════════════════════════════════════════
 
+def update_last_runs(tasks):
+    """
+    Обновляет поле last_run в задачах, используя данные из Gateway.
+    Возвращает обновлённый список задач.
+    """
+    last_runs = fetch_last_runs()
+    if not last_runs:
+        return tasks
+
+    updated = []
+    for t in tasks:
+        name = t.get("task", "")
+        if name in last_runs:
+            t["last_run"] = last_runs[name]
+        updated.append(t)
+    return updated
+
+
 def main():
     if not os.path.exists(DATA_FILE):
         print(f"❌ Не найден {DATA_FILE}")
@@ -483,6 +570,14 @@ def main():
 
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         tasks = json.load(f)
+
+    print("📡 Получаю lastRunAtMs из Gateway...")
+    tasks = update_last_runs(tasks)
+
+    # Сохраняем обновлённые last_run обратно в JSON
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(tasks, f, ensure_ascii=False, indent=2)
+    print("💾 tasks-data.json сохранён с актуальными last_run")
 
     html = gen_tasks_html(tasks)
 

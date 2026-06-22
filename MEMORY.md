@@ -99,7 +99,7 @@
 |  | 📋 Роза: пособия | понедельник 09:03 | deepseek-chat | Роза |
 |  | 📋 Ирина: НПА | понедельник 09:06 | deepseek-chat | Ирина |
   | 🔘 Отчёт по токенам (bash) | ежедневно 03:30 | — | tokens.html (локально) |
-  | 🔄 Обновление tasks.html (Health Index) | каждые 3 часа | deepseek-chat 60s | tasks.html (через generate-tasks-health.py) |
+  | 🔄 Обновление tasks.html (Health Index) | каждые 3 часа | deepseek-chat 120s | tasks.html (авто: last_run из Gateway + Health Index) |
 
 ### Удалённые задачи (20.06.2026)
 - ~~Инкрементальный бэкап~~ (удалён)
