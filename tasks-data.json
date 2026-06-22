@@ -7,8 +7,8 @@
     "duration_pct": 75,
     "latency_min": 2,
     "cache_hit_pct": 99,
-    "cost_per_run": 0.0090,
-    "last_run": "19.06 23:51",
+    "cost_per_run": 0.009,
+    "last_run": "21.06 23:50",
     "tip": "Увеличить таймаут с 60 до 90 с."
   },
   {
@@ -20,7 +20,7 @@
     "latency_min": 0,
     "cache_hit_pct": 98,
     "cost_per_run": 0.0022,
-    "last_run": "14.06 03:00",
+    "last_run": "21.06 03:05",
     "tip": "Увеличить таймаут со 120 до 180 с."
   },
   {
@@ -32,7 +32,7 @@
     "latency_min": 6,
     "cache_hit_pct": 82,
     "cost_per_run": 0.032,
-    "last_run": "20.06 08:05",
+    "last_run": "22.06 08:05",
     "tip": "Уменьшить таймаут с 300 до 120 с. Перенести на 08:30 — разгрузить очередь 08:00."
   },
   {
@@ -44,7 +44,7 @@
     "latency_min": 0,
     "cache_hit_pct": 82,
     "cost_per_run": 0.018,
-    "last_run": "20.06 08:10",
+    "last_run": "22.06 08:15",
     "tip": "Уменьшить таймаут с 300 до 120 с."
   },
   {
@@ -56,7 +56,7 @@
     "latency_min": 102,
     "cache_hit_pct": null,
     "cost_per_run": null,
-    "last_run": "20.06 10:41",
+    "last_run": "22.06 09:10",
     "tip": "Перевести на sessionTarget=main или выделить sessionKey. Уменьшить таймаут с 300 до 120 с."
   },
   {
@@ -68,7 +68,7 @@
     "latency_min": 11,
     "cache_hit_pct": 89,
     "cost_per_run": 0.022,
-    "last_run": "15.06 09:14",
+    "last_run": "22.06 09:11",
     "tip": "Перенести на 08:30 пн — разгрузить очередь 09:00. Уменьшить таймаут с 300 до 120 с."
   },
   {
@@ -80,7 +80,7 @@
     "latency_min": 9,
     "cache_hit_pct": null,
     "cost_per_run": null,
-    "last_run": "15.06 09:15",
+    "last_run": "22.06 09:30",
     "tip": "Увеличить таймаут с 300 до 400 с. Сократить поисковые запросы с 3 до 2. Перенести на 09:30."
   },
   {
@@ -91,7 +91,7 @@
     "duration_pct": 25,
     "latency_min": 277,
     "cache_hit_pct": 96,
-    "cost_per_run": 0.050,
+    "cost_per_run": 0.05,
     "last_run": "17.06 14:37",
     "tip": "Перевести на sessionTarget=main. Уменьшить таймаут с 300 до 120 с."
   },
