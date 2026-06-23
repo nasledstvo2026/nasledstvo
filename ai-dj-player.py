@@ -1,49 +1,15 @@
 #!/usr/bin/env python3
-"""AI DJ Player — генерирует футуристичную страницу с плеером для треков из Dropbox"""
+"""AI DJ Player — генерирует страницу плеера с локальными mp3 из aidj/"""
 
 import os
-import dropbox
+import glob
 
-DROPBOX_FOLDER = "/ai-dj/files"
-OUTPUT_FILE = "/home/user1/.openclaw/workspace/aidj-player.html"
-
-REFRESH_TOKEN_FILE = os.path.expanduser("~/.dropbox_refresh_token")
-APP_CREDS_FILE = os.path.expanduser("~/.dropbox_app_creds")
-
-
-def get_db():
-    with open(REFRESH_TOKEN_FILE) as f:
-        refresh_token = f.read().strip()
-    with open(APP_CREDS_FILE) as f:
-        lines = [l.strip() for l in f if l.strip()]
-        app_key, app_secret = lines[0], lines[1]
-    return dropbox.Dropbox(
-        oauth2_refresh_token=refresh_token,
-        app_key=app_key,
-        app_secret=app_secret,
-    )
-
-
-def list_files(db):
-    """Получает список mp3-файлов в /ai-dj/files/"""
-    try:
-        result = db.files_list_folder(DROPBOX_FOLDER)
-    except dropbox.exceptions.ApiError:
-        return []
-    files = [e for e in result.entries
-             if isinstance(e, dropbox.files.FileMetadata)
-             and e.name.lower().endswith(".mp3")]
-    return sorted(files, key=lambda f: f.name.lower())
-
-
-def get_temp_link(db, path):
-    """Получает временную прямую ссылку на файл (живёт ~4ч)"""
-    link = db.files_get_temporary_link(path)
-    return link.link
+AIDJ_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aidj")
+OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aidj-player.html")
 
 
 def generate_player_html(tracks, now):
-    """Генерирует страницу плеера в футуристичном дизайне"""
+    """Генерирует страницу плеера"""
     
     size_mb = round(sum(t["size"] for t in tracks) / (1024 * 1024), 1) if tracks else 0
     
@@ -93,7 +59,7 @@ def generate_player_html(tracks, now):
         empty_html = f"""
     <div class="empty">
       <div class="empty-icon">📂</div>
-      <div class="empty-text">В Dropbox пока нет треков.<br>Загрузите через AI DJ в /ai-dj/files/</div>
+      <div class="empty-text">В папке aidj/ пока нет треков.<br>Загрузите mp3 и перезапустите генерацию</div>
     </div>"""
     
     html = f"""<!DOCTYPE html>
@@ -139,7 +105,6 @@ def generate_player_html(tracks, now):
       position: relative;
     }}
 
-    /* ─── Animated Background ─── */
     .bg-grid {{
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -183,7 +148,6 @@ def generate_player_html(tracks, now):
       100% {{ transform: translate(5%, 5%) scale(1.1); }}
     }}
 
-    /* ─── Particles (CSS only) ─── */
     .particles {{
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -224,7 +188,6 @@ def generate_player_html(tracks, now):
       100% {{ transform: translateY(-10vh) scale(1); opacity: 0; }}
     }}
 
-    /* ─── Layout ─── */
     .container {{
       position: relative;
       z-index: 2;
@@ -233,7 +196,6 @@ def generate_player_html(tracks, now):
       padding: 24px 24px 48px;
     }}
 
-    /* ─── Back Button (futuristic) ─── */
     .back {{
       display: inline-flex;
       align-items: center;
@@ -271,7 +233,6 @@ def generate_player_html(tracks, now):
     }}
     .back:hover::before {{ opacity: 1; }}
 
-    /* ─── Hero ─── */
     .hero {{
       text-align: center;
       padding: 40px 24px 32px;
@@ -329,7 +290,6 @@ def generate_player_html(tracks, now):
       font-family: 'JetBrains Mono', monospace;
     }}
 
-    /* ─── Stats bar ─── */
     .stats-bar {{
       display: flex;
       justify-content: center;
@@ -368,12 +328,10 @@ def generate_player_html(tracks, now):
       margin-top: 2px;
     }}
 
-    /* ─── Track List ─── */
     .player-list {{
       margin-top: 8px;
     }}
 
-    /* ─── Track Card ─── */
     .track {{
       background: var(--bg-card);
       backdrop-filter: blur(16px) saturate(1.5);
@@ -472,7 +430,6 @@ def generate_player_html(tracks, now):
       font-family: 'JetBrains Mono', monospace;
     }}
 
-    /* ─── Neon Equalizer (playing indicator) ─── */
     .equalizer {{
       display: none;
       align-items: center;
@@ -498,7 +455,6 @@ def generate_player_html(tracks, now):
       100% {{ transform: scaleY(1); }}
     }}
 
-    /* ─── Custom Audio Player ─── */
     .player-wrap {{
       flex-shrink: 0;
       width: 100%;
@@ -516,7 +472,6 @@ def generate_player_html(tracks, now):
       backdrop-filter: blur(8px);
     }}
 
-    /* Play/Pause Button */
     .play-btn {{
       width: 38px;
       height: 38px;
@@ -556,7 +511,6 @@ def generate_player_html(tracks, now):
     .play-btn:not(.paused) .icon-play {{ display: none; }}
     .play-btn:not(.paused) .icon-pause {{ display: inline; }}
 
-    /* Progress Bar */
     .progress-wrap {{
       flex: 1;
       display: flex;
@@ -607,7 +561,6 @@ def generate_player_html(tracks, now):
       text-align: center;
     }}
 
-    /* Volume Button */
     .vol-btn {{
       background: none;
       border: 1px solid var(--border-subtle);
@@ -629,7 +582,6 @@ def generate_player_html(tracks, now):
       box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
     }}
 
-    /* ─── Empty State ─── */
     .empty {{
       text-align: center;
       padding: 64px 24px;
@@ -646,21 +598,6 @@ def generate_player_html(tracks, now):
       line-height: 1.6;
     }}
 
-    /* ─── Refresh Note ─── */
-    .refresh-note {{
-      color: var(--text-faint);
-      font-size: 0.78em;
-      margin-top: 12px;
-      text-align: right;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 8px 16px;
-      background: var(--bg-card);
-      backdrop-filter: blur(8px);
-      border-radius: 8px;
-      border: 1px solid var(--border-subtle);
-    }}
-
-    /* ─── Footer ─── */
     .footer {{
       text-align: center;
       padding: 32px 24px;
@@ -681,7 +618,6 @@ def generate_player_html(tracks, now):
     }}
     .footer strong {{ color: var(--text-dim); }}
 
-    /* ─── Responsive ─── */
     @media (max-width: 640px) {{
       .container {{ padding: 16px 16px 32px; }}
       .hero {{ padding: 24px 16px 24px; }}
@@ -698,7 +634,6 @@ def generate_player_html(tracks, now):
 </head>
 <body>
 
-  <!-- Animated Background -->
   <div class="bg-grid"></div>
   <div class="bg-glow"></div>
   <div class="particles">
@@ -727,7 +662,7 @@ def generate_player_html(tracks, now):
     <span class="icon">🎧</span>
     <div class="subtitle">N E U R O &nbsp; P L A Y E R</div>
     <div class="title">AI DJ</div>
-    <div class="meta">Треки из Dropbox · Обновлено {now}</div>
+    <div class="meta">Треки в репозитории · Обновлено {now}</div>
   </div>
 
   <div class="stats-bar">
@@ -741,7 +676,7 @@ def generate_player_html(tracks, now):
     </div>
     <div class="stat-item">
       <div class="stat-value">∞</div>
-      <div class="stat-label">Воспроизведений</div>
+      <div class="stat-label">Не протухают</div>
     </div>
   </div>
 
@@ -750,19 +685,13 @@ def generate_player_html(tracks, now):
     {empty_html}
   </div>
 
-  <div class="refresh-note">⟳ Ссылки обновляются раз в 4 часа · если трек не играет — попроси Лунта обновить</div>
-
   <div class="footer">
-    <strong>AI DJ Player</strong> · nasledstvo2026.github.io · 2026
+    <strong>AI DJ Player</strong> · nasledstvo2026.github.io · mp3 в репозитории · 2026
   </div>
 
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-// Custom Audio Player — Controller
-// ═══════════════════════════════════════════════════════════════
-
 function getPlayers() {{
   return document.querySelectorAll('.track');
 }}
@@ -794,7 +723,6 @@ function formatTime(sec) {{
   return m + ':' + (s < 10 ? '0' : '') + s;
 }}
 
-// Stop all other tracks when playing one
 function stopAllExcept(exceptTrack) {{
   document.querySelectorAll('.track.playing').forEach(function(el) {{
     if (el !== exceptTrack) {{
@@ -809,7 +737,6 @@ function stopAllExcept(exceptTrack) {{
   }});
 }}
 
-// Toggle play
 function togglePlay(btn) {{
   var track = btn.closest('.track');
   var audio = getAudio(track);
@@ -827,7 +754,6 @@ function togglePlay(btn) {{
   }}
 }}
 
-// Seek
 function seek(event, bar) {{
   var track = bar.closest('.track');
   var audio = getAudio(track);
@@ -838,7 +764,6 @@ function seek(event, bar) {{
   }}
 }}
 
-// Toggle Mute
 function toggleMute(btn) {{
   var track = btn.closest('.track');
   var audio = getAudio(track);
@@ -847,7 +772,6 @@ function toggleMute(btn) {{
   btn.title = audio.muted ? 'Unmute' : 'Mute';
 }}
 
-// ─── Time updates (single RAF loop) ───
 function updateAll() {{
   document.querySelectorAll('.track.playing').forEach(function(track) {{
     var audio = getAudio(track);
@@ -861,7 +785,6 @@ function updateAll() {{
   requestAnimationFrame(updateAll);
 }}
 
-// ─── Load metadata for all tracks ───
 document.addEventListener('DOMContentLoaded', function() {{
   getPlayers().forEach(function(track) {{
     var audio = getAudio(track);
@@ -886,22 +809,20 @@ document.addEventListener('DOMContentLoaded', function() {{
 
 
 def main():
-    print("AI DJ Player — генерация страницы (futuristic)")
-    print(f"Папка: {DROPBOX_FOLDER}")
+    print("AI DJ Player — генерация страницы (локальные файлы)")
+    print(f"Папка: {AIDJ_DIR}")
     print()
     
-    db = get_db()
-    print("✅ Dropbox авторизован")
-    
-    files = list_files(db)
-    print(f"Найдено mp3: {len(files)}")
+    mp3_files = sorted(glob.glob(os.path.join(AIDJ_DIR, "*.mp3")))
     
     tracks = []
-    for f in files:
-        print(f"  📄 {f.name} ({f.size / 1024:.1f} KB)", end=" ")
-        link = get_temp_link(db, f.path_lower)
-        print("→ ссылка получена")
-        tracks.append({"name": f.name, "url": link, "size": f.size})
+    for fpath in mp3_files:
+        name = os.path.basename(fpath)
+        size = os.path.getsize(fpath)
+        # относительный URL для GitHub Pages
+        url = "aidj/" + name
+        print(f"  📄 {name} ({size / 1024:.1f} KB)")
+        tracks.append({"name": name, "url": url, "size": size})
     
     print()
     now = os.popen("TZ=Europe/Moscow date '+%d.%m.%Y %H:%M'").read().strip()
@@ -913,7 +834,7 @@ def main():
     
     # Публикация
     os.chdir(os.path.dirname(OUTPUT_FILE))
-    os.system("git add -A && git commit -m 'AI DJ Player — страница с плеером' 2>/dev/null")
+    os.system("git add -A && git commit -m 'AI DJ Player — mp3 в репозитории' 2>/dev/null")
     os.system("git push 2>&1")
     print("✅ Опубликовано на GitHub Pages")
 

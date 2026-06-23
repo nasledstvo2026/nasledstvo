@@ -41,7 +41,6 @@
       position: relative;
     }
 
-    /* ─── Animated Background ─── */
     .bg-grid {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -85,7 +84,6 @@
       100% { transform: translate(5%, 5%) scale(1.1); }
     }
 
-    /* ─── Particles (CSS only) ─── */
     .particles {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -126,7 +124,6 @@
       100% { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
 
-    /* ─── Layout ─── */
     .container {
       position: relative;
       z-index: 2;
@@ -135,7 +132,6 @@
       padding: 24px 24px 48px;
     }
 
-    /* ─── Back Button (futuristic) ─── */
     .back {
       display: inline-flex;
       align-items: center;
@@ -173,7 +169,6 @@
     }
     .back:hover::before { opacity: 1; }
 
-    /* ─── Hero ─── */
     .hero {
       text-align: center;
       padding: 40px 24px 32px;
@@ -231,7 +226,6 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* ─── Stats bar ─── */
     .stats-bar {
       display: flex;
       justify-content: center;
@@ -270,12 +264,10 @@
       margin-top: 2px;
     }
 
-    /* ─── Track List ─── */
     .player-list {
       margin-top: 8px;
     }
 
-    /* ─── Track Card ─── */
     .track {
       background: var(--bg-card);
       backdrop-filter: blur(16px) saturate(1.5);
@@ -374,7 +366,6 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* ─── Neon Equalizer (playing indicator) ─── */
     .equalizer {
       display: none;
       align-items: center;
@@ -400,7 +391,6 @@
       100% { transform: scaleY(1); }
     }
 
-    /* ─── Custom Audio Player ─── */
     .player-wrap {
       flex-shrink: 0;
       width: 100%;
@@ -418,7 +408,6 @@
       backdrop-filter: blur(8px);
     }
 
-    /* Play/Pause Button */
     .play-btn {
       width: 38px;
       height: 38px;
@@ -458,7 +447,6 @@
     .play-btn:not(.paused) .icon-play { display: none; }
     .play-btn:not(.paused) .icon-pause { display: inline; }
 
-    /* Progress Bar */
     .progress-wrap {
       flex: 1;
       display: flex;
@@ -509,7 +497,6 @@
       text-align: center;
     }
 
-    /* Volume Button */
     .vol-btn {
       background: none;
       border: 1px solid var(--border-subtle);
@@ -531,7 +518,6 @@
       box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
     }
 
-    /* ─── Empty State ─── */
     .empty {
       text-align: center;
       padding: 64px 24px;
@@ -548,21 +534,6 @@
       line-height: 1.6;
     }
 
-    /* ─── Refresh Note ─── */
-    .refresh-note {
-      color: var(--text-faint);
-      font-size: 0.78em;
-      margin-top: 12px;
-      text-align: right;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 8px 16px;
-      background: var(--bg-card);
-      backdrop-filter: blur(8px);
-      border-radius: 8px;
-      border: 1px solid var(--border-subtle);
-    }
-
-    /* ─── Footer ─── */
     .footer {
       text-align: center;
       padding: 32px 24px;
@@ -583,7 +554,6 @@
     }
     .footer strong { color: var(--text-dim); }
 
-    /* ─── Responsive ─── */
     @media (max-width: 640px) {
       .container { padding: 16px 16px 32px; }
       .hero { padding: 24px 16px 24px; }
@@ -600,7 +570,6 @@
 </head>
 <body>
 
-  <!-- Animated Background -->
   <div class="bg-grid"></div>
   <div class="bg-glow"></div>
   <div class="particles">
@@ -629,7 +598,7 @@
     <span class="icon">🎧</span>
     <div class="subtitle">N E U R O &nbsp; P L A Y E R</div>
     <div class="title">AI DJ</div>
-    <div class="meta">Треки из Dropbox · Обновлено 23.06.2026 01:26</div>
+    <div class="meta">Треки в репозитории · Обновлено 23.06.2026 17:41</div>
   </div>
 
   <div class="stats-bar">
@@ -643,7 +612,7 @@
     </div>
     <div class="stat-item">
       <div class="stat-value">∞</div>
-      <div class="stat-label">Воспроизведений</div>
+      <div class="stat-label">Не протухают</div>
     </div>
   </div>
 
@@ -678,7 +647,7 @@
           <button class="vol-btn" onclick="toggleMute(this)" title="Mute">🔊</button>
         </div>
         <audio preload="none" style="display:none">
-          <source src="https://uc9ba8aeb05ad4da82f9a8154c24.dl.dropboxusercontent.com/cd/0/get/DC52W6HDWbxXZYIZrUacqT5kKiNcBuj4jae1m4I2oGXwGA61tH0wxyVqB6kcoyug9Q9oBaql_w54JeVzIvMD06K_AO-MCs5y4CM4E1Ot7FZwBuDsKWfvD0BDxA5-8gUhYlif1FHQTO1hUfmjqWeh6FXB-yvwToBdhkBmxoXltEUZIg/file" type="audio/mpeg">
+          <source src="aidj/Paul Oakenfold - Hypnotized.mp3" type="audio/mpeg">
         </audio>
       </div>
     </div>
@@ -711,7 +680,7 @@
           <button class="vol-btn" onclick="toggleMute(this)" title="Mute">🔊</button>
         </div>
         <audio preload="none" style="display:none">
-          <source src="https://uc4a530a3bb5ae9abab6706bc93f.dl.dropboxusercontent.com/cd/0/get/DC7kofYZiDKJwuT9dELV28VkkUZ3AlyUR-ml5UepYfAhv5CnvKL2ZDx2YeJUjo6q-Chu1cpgSI0-MZhODN1LJ4FSADEOrqUi67-on4-h5T7NLa7tEmD5MyxrOgktEmdogune0gq1as9kOlJDp7HE0x2CKrhCcVsUZVn2jza9rgmUlQ/file" type="audio/mpeg">
+          <source src="aidj/Сенатор - Эй, дискжокей.mp3" type="audio/mpeg">
         </audio>
       </div>
     </div>
@@ -744,26 +713,20 @@
           <button class="vol-btn" onclick="toggleMute(this)" title="Mute">🔊</button>
         </div>
         <audio preload="none" style="display:none">
-          <source src="https://uc93f720eb48dc01f5003ab01182.dl.dropboxusercontent.com/cd/0/get/DC7zXSQI4Irc_I3hDhzDuUn1dWLmFiUvPlpufyBYCDI0TvFfhoVZByxTEbLng9OR1V4YAF3sLvKV7nOPOzXRYPFK0fYno9hzyl0IOUaf5PAfr-0TomE_B8vUaUA5S99KcXFaNUybEHjV44jifNn2c4xk-QMP4ei4z0_NGq4SZQjN1A/file" type="audio/mpeg">
+          <source src="aidj/Сплин - Маяк.mp3" type="audio/mpeg">
         </audio>
       </div>
     </div>
     
   </div>
 
-  <div class="refresh-note">⟳ Ссылки обновляются раз в 4 часа · если трек не играет — попроси Лунта обновить</div>
-
   <div class="footer">
-    <strong>AI DJ Player</strong> · nasledstvo2026.github.io · 2026
+    <strong>AI DJ Player</strong> · nasledstvo2026.github.io · mp3 в репозитории · 2026
   </div>
 
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-// Custom Audio Player — Controller
-// ═══════════════════════════════════════════════════════════════
-
 function getPlayers() {
   return document.querySelectorAll('.track');
 }
@@ -795,7 +758,6 @@ function formatTime(sec) {
   return m + ':' + (s < 10 ? '0' : '') + s;
 }
 
-// Stop all other tracks when playing one
 function stopAllExcept(exceptTrack) {
   document.querySelectorAll('.track.playing').forEach(function(el) {
     if (el !== exceptTrack) {
@@ -810,7 +772,6 @@ function stopAllExcept(exceptTrack) {
   });
 }
 
-// Toggle play
 function togglePlay(btn) {
   var track = btn.closest('.track');
   var audio = getAudio(track);
@@ -828,7 +789,6 @@ function togglePlay(btn) {
   }
 }
 
-// Seek
 function seek(event, bar) {
   var track = bar.closest('.track');
   var audio = getAudio(track);
@@ -839,7 +799,6 @@ function seek(event, bar) {
   }
 }
 
-// Toggle Mute
 function toggleMute(btn) {
   var track = btn.closest('.track');
   var audio = getAudio(track);
@@ -848,7 +807,6 @@ function toggleMute(btn) {
   btn.title = audio.muted ? 'Unmute' : 'Mute';
 }
 
-// ─── Time updates (single RAF loop) ───
 function updateAll() {
   document.querySelectorAll('.track.playing').forEach(function(track) {
     var audio = getAudio(track);
@@ -862,7 +820,6 @@ function updateAll() {
   requestAnimationFrame(updateAll);
 }
 
-// ─── Load metadata for all tracks ───
 document.addEventListener('DOMContentLoaded', function() {
   getPlayers().forEach(function(track) {
     var audio = getAudio(track);
