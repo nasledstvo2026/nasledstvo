@@ -14,7 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 23.06.2026 12:08</div>
+    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 23.06.2026 12:10</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -52,18 +52,21 @@
       <div class="legend-desc">Композитная метрика 0–100: SR×30% + Duration×25% + Latency×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0.</div>
       <div class="legend-items"><span><span class="tl tl-green"></span> ≥80</span><span><span class="tl tl-yellow"></span> 50–79</span><span><span class="tl tl-red"></span> &lt;50</span></div>
     </div>
-    <div class="legend-sep"></div>
-    <div class="legend-metric" style="border:none;margin:0;padding:0;">
-      <div class="legend-title">📋 Проработка рекомендаций</div>
-      <div class="legend-desc">Статус обработки рекомендаций агентом-оптимизатором (автоматически, каждый 3ч)</div>
-      <div class="legend-items">
-        <span><span class="opt-status-dot" style="background:transparent;border:1px solid #8b949e;color:#8b949e;width:auto;height:auto;padding:0 4px;font-size:11px;border-radius:3px;">—</span> не требуется</span>
-        <span><span class="opt-status-dot opt-dot-seen">⏳</span> ждём 2/2 циклов</span>
-        <span><span class="opt-status-dot opt-dot-analyzed">🔍</span> проанализировано</span>
-        <span><span class="opt-status-dot opt-dot-decided">✅</span> зафиксировано</span>
-        <span><span class="opt-status-dot opt-dot-done">✅</span> применено + дата</span>
-      </div>
-    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- ОПИСАНИЕ СИСТЕМЫ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section" style="padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
+    <h2 style="font-size:14px;margin-bottom:10px;color:var(--text,#c9d1d9);">🔧 Как это работает</h2>
+    <ul style="margin:0;padding:0 0 0 18px;font-size:12.5px;line-height:1.7;color:var(--text-dim,#8b949e);">
+      <li><b style="color:var(--text,#c9d1d9);">Метрики</b> — все значения (Duration, Latency, Cache, Cost, SR) рассчитываются автоматически из Gateway при каждом обновлении (каждые 3ч)</li>
+      <li><b style="color:var(--text,#c9d1d9);">🩺 Health Index</b> — SR×30% + Duration×25% + Latency×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0</li>
+      <li><b style="color:var(--text,#c9d1d9);">💡 Рекомендации</b> — генерируются автоматически по текущим метрикам. Если SR &lt; 90% — рекомендация только про ошибки. Если SR в порядке — анализируются остальные метрики</li>
+      <li><b style="color:var(--text,#c9d1d9);">⚙️ Авто-применение</b> — если рекомендация повторяется 2 цикла подряд (6ч), скрипт сам меняет конфигурацию: увеличивает/уменьшает таймаут при перегрузке/недогрузке, переключает дорогие задачи на flash-модель</li>
+      <li><b style="color:var(--text,#c9d1d9);">🔒 Безопасность</b> — задачи с SR &lt; 90% исключены из авто-применения. Сначала стабильность, потом оптимизация</li>
+      <li><b style="color:var(--text,#c9d1d9);">💡 Колонка «Проработка»</b> — наследие старого оптимизатора (отключён). Не используется</li>
+    </ul>
   </div>
 
   <!-- ═══════════════════════════════════════════════════ -->
@@ -254,7 +257,7 @@
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 23.06.2026 12:08</div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 23.06.2026 12:10</div>
 </div>
 
 <style>
