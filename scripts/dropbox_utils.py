@@ -6,6 +6,7 @@ Uses refresh token auth (set in ~/.dropbox_refresh_token and ~/.dropbox_app_cred
 import json
 import os
 from pathlib import Path
+import dropbox
 
 DROPBOX_TOKEN_FILE = Path.home() / '.dropbox_token'
 DROPBOX_REFRESH_FILE = Path.home() / '.dropbox_refresh_token'
@@ -25,9 +26,17 @@ def _get_dbx():
         refresh_token = DROPBOX_REFRESH_FILE.read_text().strip()
 
     if DROPBOX_CREDS_FILE.exists():
-        creds = json.loads(DROPBOX_CREDS_FILE.read_text())
-        app_key = creds.get('app_key')
-        app_secret = creds.get('app_secret')
+        raw = DROPBOX_CREDS_FILE.read_text().strip()
+        try:
+            creds = json.loads(raw)
+            app_key = creds.get('app_key')
+            app_secret = creds.get('app_secret')
+        except json.JSONDecodeError:
+            # fallback: plain text lines (one per line)
+            lines = [l.strip() for l in raw.split('\n') if l.strip()]
+            if len(lines) >= 2:
+                app_key = lines[0]
+                app_secret = lines[1]
 
     if refresh_token and app_key:
         dbx = dropbox.Dropbox(
