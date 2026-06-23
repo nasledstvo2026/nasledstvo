@@ -53,6 +53,12 @@
     .hero .title { font-size:38px; font-weight:900; letter-spacing:-1px; background:linear-gradient(135deg,var(--cyan),var(--purple),var(--magenta)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:8px; text-transform:uppercase; }
     .hero .subtitle { font-size:14px; color:var(--text-dim); font-weight:400; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
     .hero .meta { font-size:13px; color:var(--text-faint); margin-top:6px; font-family:'JetBrains Mono',monospace; }
+    .hero-image { margin:24px auto 12px; max-width:600px; border-radius:16px; overflow:hidden; position:relative; background:var(--bg-card); backdrop-filter:blur(16px) saturate(1.5); -webkit-backdrop-filter:blur(16px) saturate(1.5); border:1px solid var(--border-subtle); box-shadow:0 4px 40px rgba(0,0,0,0.5),0 0 60px rgba(168,85,247,0.08); transition:border-color 0.3s,box-shadow 0.3s; }
+    .hero-image::before { content:''; position:absolute; inset:0; border-radius:16px; padding:1px; background:linear-gradient(135deg,rgba(0,212,255,0.15),transparent 40%,rgba(168,85,247,0.15)); -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; z-index:2; }
+    .hero-image:hover { border-color:transparent; box-shadow:0 4px 40px rgba(0,0,0,0.5),0 0 60px rgba(0,212,255,0.12); }
+    .hero-image img { display:block; width:100%; height:auto; aspect-ratio:16/11; object-fit:cover; border-radius:15px; transition:transform 0.5s ease,filter 0.5s ease; filter:saturate(1.1) contrast(1.05); }
+    .hero-image:hover img { transform:scale(1.02); filter:saturate(1.2) contrast(1.1) brightness(1.05); }
+    .hero-image .image-glow { position:absolute; bottom:-30%; left:-10%; width:120%; height:60%; background:radial-gradient(ellipse,rgba(0,212,255,0.12),transparent 70%); pointer-events:none; z-index:1; }
     .stats-bar { display:flex; justify-content:center; gap:32px; margin:24px 0 32px; flex-wrap:wrap; }
     .stat-item { text-align:center; padding:12px 24px; background:var(--bg-card); backdrop-filter:blur(12px) saturate(1.4); -webkit-backdrop-filter:blur(12px) saturate(1.4); border:1px solid var(--border-subtle); border-radius:12px; min-width:120px; transition:border-color 0.3s,box-shadow 0.3s; }
     .stat-item:hover { border-color:var(--border-glow); box-shadow:var(--glow-cyan); }
@@ -129,6 +135,15 @@
     <div class="title">AI DJ</div>
     <div class="meta">Треки в репозитории · Обновлено 23.06.2026 17:51</div>
   </div>
+
+  <!-- Hero Image -->
+  <div class="hero-image">
+    <div class="image-glow"></div>
+    <img src="https://errorrcrew.org/wp-content/uploads/2025/05/pexels-paggiarofrancesco-2111014-750x430.jpg"
+         alt="DJ-пульт"
+         loading="lazy">
+  </div>
+
   <div class="stats-bar">
     <div class="stat-item"><div class="stat-value">3</div><div class="stat-label">Треков</div></div>
     <div class="stat-item"><div class="stat-value">18.0</div><div class="stat-label">MB всего</div></div>
