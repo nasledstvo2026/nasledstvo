@@ -14,7 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 23.06.2026 12:21</div>
+    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 23.06.2026 12:39</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -66,6 +66,7 @@
             <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
             <th class="col-metric col-apply">⚙️ Авто-прим.</th>
             <th class="col-metric">🩺 System Health</th>
+            <th class="col-desc-header">🧠 Описание результата</th>
           </tr>
         </thead>
         <tbody>
@@ -82,6 +83,7 @@
             <td class="rec">⚠️ SR 67% — есть ошибки, проверить стабильность</td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 67% — стабильность нарушена</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Обновление статистики</td>
@@ -96,6 +98,7 @@
             <td class="rec">⚠️ SR 33% — есть ошибки, проверить стабильность</td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 33% — стабильность нарушена</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Дайджест новостей</td>
@@ -110,6 +113,7 @@
             <td class="rec">⚠️ SR 33% — есть ошибки, проверить стабильность</td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 33% — стабильность нарушена</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Изменения в законах по пособиям</td>
@@ -124,6 +128,7 @@
             <td class="rec">⚠️ SR 67% — есть ошибки, проверить стабильность</td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 67% — стабильность нарушена</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Обзор НПА</td>
@@ -138,6 +143,7 @@
             <td class="rec"><span style="color:var(--text-dim,#8b949e);">✅ Всё ОК</span></td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-green">🟢 92</span></td>
+            <td class="col-desc">✅ SR идеален, таймаут свободен, без задержек</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Вклады 1991 — понедельник</td>
@@ -152,6 +158,7 @@
             <td class="rec">⚠️ SR 67% — есть ошибки, проверить стабильность</td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 67% — стабильность нарушена</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> РЖД 1Р-37R — итоги</td>
@@ -166,6 +173,7 @@
             <td class="rec"><span style="color:var(--text-dim,#8b949e);">✅ Всё ОК</span></td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-green">🟢 92</span></td>
+            <td class="col-desc">✅ SR идеален, таймаут свободен, без задержек</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Вклады 1991 — четверг</td>
@@ -180,6 +188,7 @@
             <td class="rec">⚠️ SR 33% — есть ошибки, проверить стабильность</td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 33% — стабильность нарушена</td>
           </tr>
         </tbody>
       </table>
@@ -202,6 +211,7 @@
             <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
             <th class="col-metric col-apply">⚙️ Авто-прим.</th>
             <th class="col-metric">🩺 System Health</th>
+            <th class="col-desc-header">🧠 Описание результата</th>
           </tr>
         </thead>
         <tbody>
@@ -218,6 +228,7 @@
             <td class="rec"><span style="color:var(--text-dim,#8b949e);">✅ Всё ОК</span></td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-green">🟢 100</span></td>
+            <td class="col-desc">💎 Эталон — все метрики идеальны</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> Бэкап: полный</td>
@@ -232,24 +243,27 @@
             <td class="rec">⚠️ SR 33% — есть ошибки, проверить стабильность</td>
             <td style="text-align:center;"><span class="stat-na">—</span></td>
             <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 33% — стабильность нарушена</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 23.06.2026 12:21</div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 23.06.2026 12:39</div>
 </div>
 
 <style>
 .table-wrapper { overflow-x: auto; margin: 10px 0; }
-.task-table { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.5; min-width: 1100px; }
+.task-table { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.5; min-width: 1300px; }
 .task-table thead th { text-align: left; padding: 10px 8px; background: rgba(33,38,45,.6); border-bottom: 1px solid var(--glass-border,#21262d); color: var(--text-dim,#8b949e); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
 .task-table thead th:first-child { border-radius: 8px 0 0 0; }
 .task-table thead th:last-child  { border-radius: 0 8px 0 0; }
 .col-metric { text-align: center !important; }
 .col-rec { min-width: 220px; }
 .col-apply { min-width: 80px; }
+.col-desc { max-width: 220px; font-size: 11.5px; color: var(--text-dim,#8b949e); padding-left: 4px; padding-right: 4px; white-space: normal; line-height: 1.4; }
+.col-desc-header { min-width: 140px; }
 .stat-na { color: var(--text-dim,#8b949e); font-size: 12px; }
 .task-table tbody tr { border-bottom: 1px solid rgba(33,38,45,.4); transition: background .15s ease; }
 .task-table tbody tr:hover { background: rgba(88,166,255,.04); }
@@ -257,6 +271,7 @@
 .task-table tbody td:first-child { font-weight: 500; white-space: nowrap; }
 .task-table tbody td:nth-child(4),.task-table tbody td:nth-child(5),.task-table tbody td:nth-child(6),
 .task-table tbody td:nth-child(7),.task-table tbody td:nth-child(8) { text-align: center; }
+.task-table tbody td:nth-child(12) { text-align: center; }
 .rec { font-size: 12px; color: var(--text,#c9d1d9); line-height: 1.45; }
 .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: middle; position: relative; top: -1px; }
 .status-dot.ok   { background: #3fb950; box-shadow: 0 0 5px rgba(63,185,80,.5); }
@@ -275,7 +290,7 @@
 .legend-table td { padding: 5px 8px; border-bottom: 1px solid rgba(33,38,45,.3); color: var(--text-dim,#8b949e); font-size: 12px; }
 .legend-table td:first-child { color: var(--text,#c9d1d9); font-weight: 500; white-space: nowrap; }
 .legend-table td:last-child { font-size: 11.5px; color: var(--text-dim-dim,#6e7681); }
-@media (max-width: 1100px) { .task-table { font-size: 12px; min-width: 800px; } .task-table tbody td { padding: 7px 6px; } .col-rec { min-width: 180px; } }
+@media (max-width: 1300px) { .task-table { font-size: 12px; min-width: 1000px; } .task-table tbody td { padding: 7px 6px; } .col-rec { min-width: 180px; } .col-desc { display: none; } } }
 </style>
 </body>
 </html>
