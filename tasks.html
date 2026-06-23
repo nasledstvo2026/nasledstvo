@@ -14,44 +14,25 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 23.06.2026 12:10</div>
+    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 23.06.2026 12:14</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
   <div class="section" style="padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
-    <h2 style="font-size:14px;margin-bottom:12px;color:var(--text,#c9d1d9);">💡 Легенда</h2>
-    <div class="legend-metric">
-      <div class="legend-title">⏱ Duration / Timeout</div>
-      <div class="legend-desc">Доля времени выполнения от таймаута</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;50%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &gt;80%</span></div>
-    </div>
-    <div class="legend-metric">
-      <div class="legend-title">📈 Success Rate</div>
-      <div class="legend-desc">Процент успешных запусков</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> 100%</span><span><span class="tl tl-yellow"></span> &lt;100%</span><span><span class="tl tl-red"></span> &lt;90%</span></div>
-    </div>
-    <div class="legend-metric">
-      <div class="legend-title">📬 Latency</div>
-      <div class="legend-desc">Задержка старта относительно расписания</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> ≤1 мин</span><span><span class="tl tl-yellow"></span> 2–15 мин</span><span><span class="tl tl-red"></span> &gt;15 мин</span></div>
-    </div>
-    <div class="legend-sep"></div>
-    <div class="legend-metric">
-      <div class="legend-title">💎 Cache Hit %</div>
-      <div class="legend-desc"><code>cacheRead / (input + cacheRead) × 100</code> — эффективность системного промпта. Данные из trajectory сессии (сырой ответ DeepSeek API).</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &gt;80%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &lt;50%</span></div>
-    </div>
-    <div class="legend-metric" style="border:none;margin:0;padding:0;">
-      <div class="legend-title">💰 Cost / Run</div>
-      <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code> — тарифы deepseek-chat из openclaw.json.</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;$0.01</span><span><span class="tl tl-yellow"></span> $0.01–0.05</span><span><span class="tl tl-red"></span> &gt;$0.05</span></div>
-    </div>
-    <div class="legend-sep"></div>
-    <div class="legend-metric" style="border:none;margin:0;padding:0;">
-      <div class="legend-title">🩺 Health Index</div>
-      <div class="legend-desc">Композитная метрика 0–100: SR×30% + Duration×25% + Latency×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0.</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> ≥80</span><span><span class="tl tl-yellow"></span> 50–79</span><span><span class="tl tl-red"></span> &lt;50</span></div>
-    </div>
+    <h2 style="font-size:14px;margin-bottom:10px;color:var(--text,#c9d1d9);">💡 Легенда</h2>
+    <table class="legend-table">
+      <thead>
+        <tr><th>Метрика</th><th style="text-align:center;"><span class="tl tl-green"></span> 🟢</th><th style="text-align:center;"><span class="tl tl-yellow"></span> 🟡</th><th style="text-align:center;"><span class="tl tl-red"></span> 🔴</th><th>Описание</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>⏱ Duration</td><td style="text-align:center;">&lt;50%</td><td style="text-align:center;">50–80%</td><td style="text-align:center;">&gt;80%</td><td>Доля времени от таймаута</td></tr>
+        <tr><td>📈 Success Rate</td><td style="text-align:center;">100%</td><td style="text-align:center;">&lt;100%</td><td style="text-align:center;">&lt;90%</td><td>Процент успешных запусков</td></tr>
+        <tr><td>📬 Latency</td><td style="text-align:center;">≤1 мин</td><td style="text-align:center;">2–15 мин</td><td style="text-align:center;">&gt;15 мин</td><td>Задержка старта относительно расписания</td></tr>
+        <tr><td>💎 Cache Hit</td><td style="text-align:center;">&gt;80%</td><td style="text-align:center;">50–80%</td><td style="text-align:center;">&lt;50%</td><td>cacheRead / (input + cacheRead) × 100</td></tr>
+        <tr><td>💰 Cost / Run</td><td style="text-align:center;">&lt;$0.01</td><td style="text-align:center;">$0.01–0.05</td><td style="text-align:center;">&gt;$0.05</td><td>По тарифам модели из openclaw.json</td></tr>
+        <tr><td>🩺 Health Index</td><td style="text-align:center;">≥80</td><td style="text-align:center;">50–79</td><td style="text-align:center;">&lt;50</td><td>SR×30% + Dur×25% + Lat×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- ═══════════════════════════════════════════════════ -->
@@ -257,7 +238,7 @@
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 23.06.2026 12:10</div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 23.06.2026 12:14</div>
 </div>
 
 <style>
@@ -296,13 +277,11 @@
 .health-green  { background: rgba(63,185,80,.15); color: #3fb950; }
 .health-yellow { background: rgba(210,153,34,.15); color: #d29922; }
 .health-red    { background: rgba(248,81,73,.15); color: #f85149; }
-.legend-sep { height: 1px; background: rgba(33,38,45,.5); margin: 12px 0; }
-.legend-metric { margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(33,38,45,.5); }
-.legend-metric:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.legend-title { font-size: 13px; font-weight: 600; color: var(--text,#c9d1d9); margin-bottom: 2px; }
-.legend-desc { font-size: 12px; color: var(--text-dim,#8b949e); margin-bottom: 6px; }
-.legend-items { display: flex; gap: 14px; flex-wrap: wrap; }
-.legend-items span { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-dim,#8b949e); }
+.legend-table { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.6; }
+.legend-table th { text-align: left; padding: 6px 8px; background: rgba(33,38,45,.5); border-bottom: 1px solid var(--glass-border,#21262d); color: var(--text-dim,#8b949e); font-weight: 600; font-size: 11px; white-space: nowrap; }
+.legend-table td { padding: 5px 8px; border-bottom: 1px solid rgba(33,38,45,.3); color: var(--text-dim,#8b949e); font-size: 12px; }
+.legend-table td:first-child { color: var(--text,#c9d1d9); font-weight: 500; white-space: nowrap; }
+.legend-table td:last-child { font-size: 11.5px; color: var(--text-dim-dim,#6e7681); }
 @media (max-width: 1100px) { .task-table { font-size: 12px; min-width: 800px; } .task-table tbody td { padding: 7px 6px; } .col-rec { min-width: 180px; } }
 </style>
 </body>
