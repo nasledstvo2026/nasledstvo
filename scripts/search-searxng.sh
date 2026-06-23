@@ -21,6 +21,7 @@ QUERIES=(
   "%D0%B7%D0%B0%D0%B2%D0%B5%D1%89%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5+%D1%80%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%8F%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5+%D0%B6%D0%B0%D0%BB%D0%BE%D0%B1%D0%B0"
   "%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA+%D0%B1%D0%B0%D0%BD%D0%BA"
   "site%3Abanki.ru+%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D1%81%D1%82%D0%B2%D0%BE+%D0%BE%D1%82%D0%B7%D1%8B%D0%B2+%D0%B1%D0%B0%D0%BD%D0%BA"
+  "site%3Abanki.ru+%D0%BE%D1%82%D0%B7%D1%8B%D0%B2+%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D1%81%D1%82%D0%B2%D0%BE+%D0%B1%D0%B0%D0%BD%D0%BA"
 )
 
 LABELS=(
@@ -35,6 +36,7 @@ LABELS=(
   "завещательное распоряжение"
   "наследник банк"
   "banki.ru наследство отзыв"
+  "banki.ru отзыв наследство"
 )
 
 echo "=== ШАГ 1: ПОИСК ЧЕРЕЗ SearXNG ==="
@@ -42,7 +44,7 @@ echo "=== ШАГ 1: ПОИСК ЧЕРЕЗ SearXNG ==="
 idx=0
 for q in "${QUERIES[@]}"; do
   label="${LABELS[$idx]}"
-  echo -n "[$((idx+1))/11] $label ... "
+  echo -n "[$((idx+1))/12] $label ... "
   
   RESULT=$(curl -s "$SEARXNG?q=$q&format=json&time_range=year&language=ru-RU&_=$RANDOM" --max-time 15 2>/dev/null)
   HIT_COUNT=$(echo "$RESULT" | python3 -c "import sys,json; d=json.loads(sys.stdin.read()); print(len(d.get('results',[])))" 2>/dev/null || echo "0")
