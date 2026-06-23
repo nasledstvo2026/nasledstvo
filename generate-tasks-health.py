@@ -374,63 +374,23 @@ def merge_gateway_metrics(tasks, gw_metrics):
     return updated
 
 
-def load_opt_status():
-    """Читает optimizer-applied.json, возвращает dict {task_name: status}"""
-    opt_file = os.path.join(WORKSPACE, "memory", "optimizer-applied.json")
-    if not os.path.exists(opt_file):
-        return {}
-    try:
-        with open(opt_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
-    except (json.JSONDecodeError, Exception):
-        return {}
-    status = {}
-    # Собираем все записи из history
-    for entry in data.get("history", []):
-        task = entry.get("task", "")
-        if not task:
-            continue
-        action = entry.get("action")
-        if action and isinstance(action, dict) and action.get("date"):
-            status[task] = {"type": "done", "date": action["date"]}
-        elif action == "decided":
-            status[task] = {"type": "decided"}
-        elif action == "seen":
-            status[task] = {"type": "seen", "cycle": entry.get("cycle", 1)}
-        elif action == "noop":
-            status[task] = {"type": "analyzed", "cycle": entry.get("cycle", 1)}
-        elif action == "skip":
-            status[task] = {"type": "skipped", "cycle": entry.get("cycle", 1)}
-    # Решения текущего цикла — перезаписывают seen/analyzed/skipped
-    for dec in data.get("decisions", []):
-        task = dec.get("task", "")
-        if task:
-            status[task] = {"type": "decided"}
-    return status
-
-
-def fmt_opt_status(opt_status, task_name, health_idx):
-    """Форматирует HTML для колонки Проработка"""
+def fmt_apply_status(task_name, health_idx):
+    """Форматирует статус авто-применения для колонки"""
     if health_idx >= 80:
         return '<span class="stat-na">—</span>'
-    st = opt_status.get(task_name, {})
-    tp = st.get("type", "")
-    if tp == "done":
-        date_str = st.get("date", "")[:10]
-        return f'<span class="opt-done">✅ {date_str}</span>'
-    if tp == "decided":
-        return '<span class="opt-decided">✅ зафиксировано</span>'
-    if tp == "seen":
-        cyc = st.get("cycle", 1)
-        if cyc == 1:
-            return '<span class="opt-seen">⏳ ждём 2/2</span>'
-        else:
-            return '<span class="opt-seen">⏳ готово к решению</span>'
-    if tp == "analyzed":
-        return f'<span class="opt-analyzed">🔍 проанализировано (цикл #{st.get("cycle", 1)})</span>'
-    if tp == "skipped":
-        return f'<span class="opt-skipped">⏭️ пропущено (цикл #{st.get("cycle", 1)})</span>'
-    return '<span class="opt-pending">⏳ не рассматривалось</span>'
+    try:
+        tr = load_tracker()
+        entry = tr.get("cycle", {}).get(task_name)
+        if not entry or "count" not in entry:
+            return '<span class="stat-na">—</span>'
+        c = entry["count"]
+        if c == 1:
+            return '<span style="color:#d29922;font-size:12px;">⏳ 1/2 циклов</span>'
+        elif c >= 2:
+            return '<span style="color:#58a6ff;font-size:12px;">⚙️ готово к применению</span>'
+    except Exception:
+        pass
+    return '<span class="stat-na">—</span>'
 
 
 def load_job_map():
@@ -614,10 +574,8 @@ def generate_recommendation(metrics, health_idx):
     return "⚠️ " + ". ".join(parts)
 
 
-def gen_task_row(t, biz=True, opt_status=None):
+def gen_task_row(t, biz=True):
     """Генерирует строку <tr> для задачи"""
-    if opt_status is None:
-        opt_status = {}
     health_idx, health_color = calc_health(t)
     sr = t["success_rate"]
     dur = t["duration_pct"]
@@ -627,8 +585,7 @@ def gen_task_row(t, biz=True, opt_status=None):
 
     # Рекомендация на основе метрик
     tip_html = generate_recommendation(t, health_idx)
-
-    opt_html = fmt_opt_status(opt_status, t["task"], health_idx)
+    apply_html = fmt_apply_status(t["task"], health_idx)
 
     return f"""          <tr>
             <td><span class="status-dot ok"></span> {t["task"]}</td>
@@ -641,20 +598,19 @@ def gen_task_row(t, biz=True, opt_status=None):
             <td>{fmt_cost(cost)}</td>
             <td>{t["last_run"]}</td>
             <td class="rec">{tip_html}</td>
-            <td style="text-align:center;">{opt_html}</td>
+            <td style="text-align:center;">{apply_html}</td>
             <td style="text-align:center;">{health_badge(health_idx, health_color)}</td>
           </tr>"""
 
 
 def gen_tasks_html(tasks):
-    opt_status = load_opt_status()
     biz_rows = []
     srv_rows = []
     for t in tasks:
         if t["task"] in BIZ_TASKS:
-            biz_rows.append(gen_task_row(t, biz=True, opt_status=opt_status))
+            biz_rows.append(gen_task_row(t, biz=True))
         else:
-            srv_rows.append(gen_task_row(t, biz=False, opt_status=opt_status))
+            srv_rows.append(gen_task_row(t, biz=False))
 
     biz_count = len(biz_rows)
     srv_count = len(srv_rows)
@@ -730,7 +686,7 @@ def gen_tasks_html(tasks):
             <th class="col-metric">⏱ Duration</th><th class="col-metric">📈 Success</th><th class="col-metric">📬 Latency</th>
             <th class="col-metric">💎 Cache</th><th class="col-metric">💰 Cost</th>
             <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
-            <th class="col-metric col-opt">📋 Проработка</th>
+            <th class="col-metric col-apply">⚙️ Авто-прим.</th>
             <th class="col-metric">🩺 System Health</th>
           </tr>
         </thead>
@@ -755,7 +711,7 @@ def gen_tasks_html(tasks):
             <th class="col-metric">⏱ Duration</th><th class="col-metric">📈 Success</th><th class="col-metric">📬 Latency</th>
             <th class="col-metric">💎 Cache</th><th class="col-metric">💰 Cost</th>
             <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
-            <th class="col-metric col-opt">📋 Проработка</th>
+            <th class="col-metric col-apply">⚙️ Авто-прим.</th>
             <th class="col-metric">🩺 System Health</th>
           </tr>
         </thead>
@@ -777,15 +733,8 @@ def gen_tasks_html(tasks):
 .task-table thead th:last-child  {{ border-radius: 0 8px 0 0; }}
 .col-metric {{ text-align: center !important; }}
 .col-rec {{ min-width: 220px; }}
-.col-opt {{ min-width: 80px; }}
-.opt-pending {{ color: var(--text-dim,#8b949e); font-size: 16px; }}
-.opt-seen {{ color: #d29922; font-size: 12px; font-weight: 600; white-space: nowrap; }}
-.opt-analyzed {{ color: #bc8cff; font-size: 12px; font-weight: 500; white-space: nowrap; }}
-.opt-skipped {{ color: var(--text-dim,#8b949e); font-size: 12px; font-weight: 500; white-space: nowrap; }}
-.opt-decided {{ color: #58a6ff; font-size: 12px; font-weight: 600; white-space: nowrap; }}
-.opt-done {{ color: #3fb950; font-size: 12px; font-weight: 600; white-space: nowrap; }}
+.col-apply {{ min-width: 80px; }}
 .stat-na {{ color: var(--text-dim,#8b949e); font-size: 12px; }}
-.legend-items .opt-status-dot {{ display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 3px; margin-right: 4px; font-size: 11px; vertical-align: middle; background: rgba(33,38,45,.3); }}
 .task-table tbody tr {{ border-bottom: 1px solid rgba(33,38,45,.4); transition: background .15s ease; }}
 .task-table tbody tr:hover {{ background: rgba(88,166,255,.04); }}
 .task-table tbody td {{ padding: 9px 8px; vertical-align: middle; font-size: 12.5px; }}
