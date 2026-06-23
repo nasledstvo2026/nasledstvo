@@ -176,6 +176,21 @@ def trigger_sync():
     return RESULT_PAGE, 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
+@app.route('/', methods=['GET'])
+def index():
+    """Корень — простая страница."""
+    return '''<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="UTF-8"><title>Photo Sync API</title>
+<style>body{font-family:sans-serif;background:#0a0e14;color:#eaf0f6;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}.card{background:#161b22;border:1px solid #21262d;border-radius:16px;padding:32px;text-align:center}h2{margin:0 0 8px;background:linear-gradient(135deg,#00d4ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}p{color:#8892a0;margin:4px 0}code{color:#00d4ff;font-size:13px}</style></head>
+<body><div class="card">
+<h2>Photo Sync Server</h2>
+<p>POST <code>/sync</code> — запустить синхронизацию</p>
+<p>GET <code>/status</code> — статус последнего запуска</p>
+</div></body></html>
+''', 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
 @app.route('/status', methods=['GET'])
 def get_status():
     """\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u0441\u0442\u0430\u0442\u0443\u0441."""

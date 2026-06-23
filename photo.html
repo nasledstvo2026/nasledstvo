@@ -398,9 +398,8 @@
 
 <script>
 // Photo Sync Button
-// Открывает страницу синхронизации на VPS в новой вкладке
-const VPS_IP = '176.123.162.12';
-const SYNC_URL = 'http://' + VPS_IP + ':8767/sync';
+// HTTPS через Tailscale Funnel
+const SYNC_URL = 'https://vm-f13581.tail31d188.ts.net/sync';
 
 let syncing = false;
 
@@ -410,19 +409,17 @@ function syncPhotos() {
 
   const btn = document.getElementById('syncBtn');
   const status = document.getElementById('syncStatus');
-  const icon = btn.querySelector('.icon');
 
   btn.disabled = true;
   btn.classList.add('spinning');
-  status.textContent = 'Запускаю синхронизацию...';
+  status.textContent = 'Синхронизирую...';
   status.className = 'sync-status';
 
-  // Открываем в новой вкладке (обходит mixed-content блокировку)
-  const syncWindow = window.open(SYNC_URL, '_blank', 'width=500,height=400,menubar=no,toolbar=no,location=no');
+  // Открываем в новом окне (HTTPS, без mixed-content проблем)
+  const win = window.open(SYNC_URL, 'photoSync', 'width=520,height=480,menubar=no,toolbar=no,location=no');
 
-  if (!syncWindow) {
-    // Если блокировщик всплывающих окон, пробуем через fetch
-    status.textContent = 'Разреши всплывающие окна, или нажми снова';
+  if (!win) {
+    status.textContent = '☝️ Разреши всплывающие окна для этого сайта';
     status.className = 'sync-status error';
     syncing = false;
     btn.disabled = false;
@@ -430,14 +427,50 @@ function syncPhotos() {
     return;
   }
 
-  // Сбрасываем состояние спустя 3 секунды
-  setTimeout(() => {
-    status.textContent = '✅ Синхронизация запущена. Проверь новую вкладку';
-    status.className = 'sync-status success';
-    syncing = false;
-    btn.disabled = false;
-    btn.classList.remove('spinning');
+  // Раз в 3 секунды проверяем статус (если окно не закрылось)
+  const pollTimer = setInterval(async () => {
+    try {
+      if (win.closed) {
+        clearInterval(pollTimer);
+        status.textContent = '✅ Готово! Обнови страницу';
+        status.className = 'sync-status success';
+        syncing = false;
+        btn.disabled = false;
+        btn.classList.remove('spinning');
+        return;
+      }
+      // Пробуем дёрнуть статус напрямую
+      const resp = await fetch(SYNC_URL.replace('/sync', '/status'));
+      const data = await resp.json();
+      if (!data.running) {
+        clearInterval(pollTimer);
+        const n = data.last_result?.new || 0;
+        if (n > 0) {
+          status.textContent = '✅ Добавлено ' + n + ' фото. Обнови страницу';
+        } else {
+          status.textContent = '✅ Новых фото нет';
+        }
+        status.className = 'sync-status success';
+        syncing = false;
+        btn.disabled = false;
+        btn.classList.remove('spinning');
+      }
+    } catch(e) {
+      // Игнорируем ошибки при опросе
+    }
   }, 3000);
+
+  // Таймаут опроса — 30 секунд
+  setTimeout(() => {
+    clearInterval(pollTimer);
+    if (syncing) {
+      status.textContent = '✅ Задача запущена. Проверь окно синхронизации';
+      status.className = 'sync-status success';
+      syncing = false;
+      btn.disabled = false;
+      btn.classList.remove('spinning');
+    }
+  }, 35000);
 }
 </script>
 
