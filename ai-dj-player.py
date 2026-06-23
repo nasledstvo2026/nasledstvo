@@ -1,11 +1,46 @@
 #!/usr/bin/env python3
-"""AI DJ Player — генерирует страницу плеера с локальными mp3 из aidj/"""
+"""AI DJ Player — скачивает mp3 из Dropbox и генерирует страницу плеера"""
 
 import os
-import glob
+import sys
+import dropbox
 
+DROPBOX_FOLDER = "/ai-dj/files"
 AIDJ_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aidj")
 OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aidj-player.html")
+TOKEN_FILE = os.path.expanduser("~/.dropbox_access_token")
+
+def get_db():
+    with open(TOKEN_FILE) as f:
+        token = f.read().strip()
+    return dropbox.Dropbox(oauth2_access_token=token)
+
+
+def sync_from_dropbox(db):
+    """Скачивает все mp3 из Dropbox в aidj/"""
+    try:
+        result = db.files_list_folder(DROPBOX_FOLDER)
+    except dropbox.exceptions.ApiError:
+        print("❌ Не удалось получить список файлов из Dropbox")
+        return False
+    
+    files = [e for e in result.entries
+             if isinstance(e, dropbox.files.FileMetadata)
+             and e.name.lower().endswith(".mp3")]
+    
+    if not files:
+        print("⚠️  В Dropbox нет mp3-файлов")
+        return False
+    
+    os.makedirs(AIDJ_DIR, exist_ok=True)
+    
+    for f in files:
+        dest = os.path.join(AIDJ_DIR, f.name)
+        print(f"  📥 {f.name} ({f.size / 1024:.0f} KB)", end=" ", flush=True)
+        db.files_download_to_file(dest, f.path_lower)
+        print("✅")
+    
+    return True
 
 
 def generate_player_html(tracks, now):
@@ -69,739 +104,158 @@ def generate_player_html(tracks, now):
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI DJ — нейроплеер</title>
   <style>
-    /* ═══════════════════════════════════════════════
-       AI DJ — Futuristic Neon Theme
-       ═══════════════════════════════════════════════ */
-
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
-
     :root {{
-      --bg-deep: #070b12;
-      --bg-card: rgba(14, 22, 36, 0.75);
-      --border-subtle: rgba(0, 200, 255, 0.08);
-      --border-glow: rgba(0, 200, 255, 0.25);
-      --cyan: #00d4ff;
-      --cyan-dim: rgba(0, 212, 255, 0.15);
-      --magenta: #f0f;
-      --purple: #a855f7;
-      --purple-dim: rgba(168, 85, 247, 0.15);
-      --pink: #ff3bc3;
-      --text: #eaf0f6;
-      --text-dim: #8892a0;
-      --text-faint: #4a5464;
-      --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);
-      --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.3);
-      --glow-purple: 0 0 20px rgba(168, 85, 247, 0.3);
+      --bg-deep: #070b12; --bg-card: rgba(14,22,36,0.75);
+      --border-subtle: rgba(0,200,255,0.08); --border-glow: rgba(0,200,255,0.25);
+      --cyan: #00d4ff; --cyan-dim: rgba(0,212,255,0.15);
+      --magenta: #f0f; --purple: #a855f7; --purple-dim: rgba(168,85,247,0.15);
+      --pink: #ff3bc3; --text: #eaf0f6; --text-dim: #8892a0; --text-faint: #4a5464;
+      --glow-cyan: 0 0 20px rgba(0,212,255,0.3);
+      --glow-magenta: 0 0 20px rgba(255,0,255,0.3);
+      --glow-purple: 0 0 20px rgba(168,85,247,0.3);
     }}
-
-    * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-
-    body {{
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-deep);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }}
-
-    .bg-grid {{
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      background-image:
-        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-      background-size: 80px 80px;
-    }}
-
-    .bg-glow {{
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }}
-    .bg-glow::before {{
-      content: '';
-      position: absolute;
-      top: -30%;
-      left: -10%;
-      width: 60%;
-      height: 80%;
-      background: radial-gradient(ellipse, rgba(0, 212, 255, 0.06), transparent 60%);
-      animation: glow-drift 12s ease-in-out infinite alternate;
-    }}
-    .bg-glow::after {{
-      content: '';
-      position: absolute;
-      bottom: -20%;
-      right: -10%;
-      width: 60%;
-      height: 80%;
-      background: radial-gradient(ellipse, rgba(168, 85, 247, 0.05), transparent 60%);
-      animation: glow-drift 12s ease-in-out infinite alternate-reverse;
-    }}
-
-    @keyframes glow-drift {{
-      0% {{ transform: translate(0, 0) scale(1); }}
-      100% {{ transform: translate(5%, 5%) scale(1.1); }}
-    }}
-
-    .particles {{
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }}
-    .particle {{
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: var(--cyan);
-      border-radius: 50%;
-      opacity: 0;
-      animation: particle-float 8s infinite;
-      box-shadow: 0 0 6px var(--cyan);
-    }}
-    .particle:nth-child(1) {{ left: 10%; animation-delay: 0s; animation-duration: 7s; }}
-    .particle:nth-child(2) {{ left: 25%; animation-delay: 1.2s; animation-duration: 9s; width: 2px; height: 2px; }}
-    .particle:nth-child(3) {{ left: 40%; animation-delay: 2.5s; animation-duration: 6s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }}
-    .particle:nth-child(4) {{ left: 55%; animation-delay: 0.8s; animation-duration: 8s; width: 4px; height: 4px; }}
-    .particle:nth-child(5) {{ left: 70%; animation-delay: 3.1s; animation-duration: 7.5s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }}
-    .particle:nth-child(6) {{ left: 85%; animation-delay: 1.8s; animation-duration: 9.5s; width: 2px; height: 2px; }}
-    .particle:nth-child(7) {{ left: 50%; animation-delay: 4.2s; animation-duration: 6.5s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }}
-    .particle:nth-child(8) {{ left: 15%; animation-delay: 5.0s; animation-duration: 8.2s; width: 3px; height: 3px; }}
-    .particle:nth-child(9) {{ left: 65%; animation-delay: 3.8s; animation-duration: 7.2s; }}
-    .particle:nth-child(10) {{ left: 35%; animation-delay: 6.0s; animation-duration: 8.8s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }}
-    .particle:nth-child(11) {{ left: 5%; animation-delay: 0.5s; animation-duration: 9.2s; width: 2px; height: 2px; }}
-    .particle:nth-child(12) {{ left: 75%; animation-delay: 2.2s; animation-duration: 7.8s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }}
-    .particle:nth-child(13) {{ left: 90%; animation-delay: 4.8s; animation-duration: 6.2s; }}
-    .particle:nth-child(14) {{ left: 30%; animation-delay: 5.5s; animation-duration: 8.5s; width: 3px; height: 3px; }}
-    .particle:nth-child(15) {{ left: 45%; animation-delay: 1.5s; animation-duration: 7.0s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }}
-
-    @keyframes particle-float {{
-      0% {{ transform: translateY(100vh) scale(0); opacity: 0; }}
-      10% {{ opacity: 0.8; }}
-      90% {{ opacity: 0.8; }}
-      100% {{ transform: translateY(-10vh) scale(1); opacity: 0; }}
-    }}
-
-    .container {{
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px 24px 48px;
-    }}
-
-    .back {{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-dim);
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 24px;
-      padding: 8px 18px;
-      border-radius: 10px;
-      background: var(--bg-card);
-      backdrop-filter: blur(16px) saturate(1.5);
-      -webkit-backdrop-filter: blur(16px) saturate(1.5);
-      border: 1px solid var(--border-subtle);
-      transition: all 0.3s ease;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-    }}
-    .back::before {{
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
-    }}
-    .back:hover {{
-      color: var(--text);
-      border-color: transparent;
-      box-shadow: var(--glow-cyan);
-      transform: translateX(-2px);
-    }}
-    .back:hover::before {{ opacity: 1; }}
-
-    .hero {{
-      text-align: center;
-      padding: 40px 24px 32px;
-      position: relative;
-    }}
-    .hero::after {{
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
-      border-radius: 2px;
-    }}
-
-    .hero .icon {{
-      font-size: 52px;
-      margin-bottom: 12px;
-      display: block;
-      filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.4));
-      animation: icon-pulse 3s ease-in-out infinite;
-    }}
-    @keyframes icon-pulse {{
-      0%, 100% {{ transform: scale(1); filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.4)); }}
-      50% {{ transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.6)); }}
-    }}
-
-    .hero .title {{
-      font-size: 38px;
-      font-weight: 900;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }}
-
-    .hero .subtitle {{
-      font-size: 14px;
-      color: var(--text-dim);
-      font-weight: 400;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }}
-
-    .hero .meta {{
-      font-size: 13px;
-      color: var(--text-faint);
-      margin-top: 6px;
-      font-family: 'JetBrains Mono', monospace;
-    }}
-
-    .stats-bar {{
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      margin: 24px 0 32px;
-      flex-wrap: wrap;
-    }}
-    .stat-item {{
-      text-align: center;
-      padding: 12px 24px;
-      background: var(--bg-card);
-      backdrop-filter: blur(12px) saturate(1.4);
-      -webkit-backdrop-filter: blur(12px) saturate(1.4);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      min-width: 120px;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }}
-    .stat-item:hover {{
-      border-color: var(--border-glow);
-      box-shadow: var(--glow-cyan);
-    }}
-    .stat-value {{
-      font-size: 28px;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }}
-    .stat-label {{
-      font-size: 11px;
-      color: var(--text-faint);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 2px;
-    }}
-
-    .player-list {{
-      margin-top: 8px;
-    }}
-
-    .track {{
-      background: var(--bg-card);
-      backdrop-filter: blur(16px) saturate(1.5);
-      -webkit-backdrop-filter: blur(16px) saturate(1.5);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }}
-    .track::before {{
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      padding: 1px;
-      background: linear-gradient(135deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }}
-    .track:hover {{
-      border-color: transparent;
-      box-shadow: var(--glow-cyan), inset 0 0 40px rgba(0, 212, 255, 0.03);
-      transform: translateY(-1px);
-    }}
-    .track:hover::before {{ opacity: 1; }}
-    .track.playing {{
-      border-color: transparent;
-      box-shadow: 0 0 30px rgba(0, 212, 255, 0.15), inset 0 0 40px rgba(0, 212, 255, 0.05);
-    }}
-    .track.playing::before {{
-      opacity: 1;
-      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--cyan));
-      animation: border-rotate 3s linear infinite;
-    }}
-    @keyframes border-rotate {{
-      0% {{ filter: hue-rotate(0deg); }}
-      100% {{ filter: hue-rotate(360deg); }}
-    }}
-
-    .track-info {{
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex: 1;
-      min-width: 200px;
-    }}
-
-    .track-num {{
-      background: linear-gradient(135deg, var(--cyan-dim), var(--purple-dim));
-      color: var(--cyan);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8em;
-      font-weight: 700;
-      flex-shrink: 0;
-      border: 1px solid rgba(0, 212, 255, 0.15);
-      transition: all 0.3s ease;
-    }}
-    .track:hover .track-num {{
-      box-shadow: 0 0 14px rgba(0, 212, 255, 0.3);
-      border-color: rgba(0, 212, 255, 0.4);
-    }}
-    .track.playing .track-num {{
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-      border-color: var(--cyan);
-    }}
-
-    .track-name {{
-      color: var(--text);
-      font-size: 0.95em;
-      font-weight: 500;
-      word-break: break-word;
-      transition: color 0.3s;
-    }}
-    .track:hover .track-name {{ color: #fff; }}
-
-    .track-size {{
-      color: var(--text-faint);
-      font-size: 0.78em;
-      white-space: nowrap;
-      font-family: 'JetBrains Mono', monospace;
-    }}
-
-    .equalizer {{
-      display: none;
-      align-items: center;
-      gap: 3px;
-      height: 24px;
-      margin-left: auto;
-      flex-shrink: 0;
-    }}
-    .track.playing .equalizer {{ display: flex; }}
-    .eq-bar {{
-      width: 3px;
-      background: linear-gradient(to top, var(--cyan), var(--purple));
-      border-radius: 2px;
-      animation: eq-wave 0.8s ease-in-out infinite alternate;
-    }}
-    .eq-bar:nth-child(1) {{ height: 12px; animation-delay: 0s; }}
-    .eq-bar:nth-child(2) {{ height: 20px; animation-delay: 0.15s; }}
-    .eq-bar:nth-child(3) {{ height: 8px; animation-delay: 0.3s; }}
-    .eq-bar:nth-child(4) {{ height: 24px; animation-delay: 0.1s; }}
-    .eq-bar:nth-child(5) {{ height: 14px; animation-delay: 0.4s; }}
-    @keyframes eq-wave {{
-      0% {{ transform: scaleY(0.4); }}
-      100% {{ transform: scaleY(1); }}
-    }}
-
-    .player-wrap {{
-      flex-shrink: 0;
-      width: 100%;
-      max-width: 420px;
-    }}
-
-    .custom-player {{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      backdrop-filter: blur(8px);
-    }}
-
-    .play-btn {{
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: none;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: var(--bg-deep);
-      font-size: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s ease;
-      flex-shrink: 0;
-      position: relative;
-      overflow: hidden;
-    }}
-    .play-btn::before {{
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta));
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: -1;
-      filter: blur(4px);
-    }}
-    .play-btn:hover {{
-      transform: scale(1.08);
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-    }}
-    .play-btn:hover::before {{ opacity: 1; }}
-    .play-btn:active {{ transform: scale(0.95); }}
-    .play-btn.paused .icon-pause {{ display: none; }}
-    .play-btn.paused .icon-play {{ display: inline; }}
-    .play-btn:not(.paused) .icon-play {{ display: none; }}
-    .play-btn:not(.paused) .icon-pause {{ display: inline; }}
-
-    .progress-wrap {{
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-width: 0;
-    }}
-    .progress-bar {{
-      flex: 1;
-      height: 4px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 3px;
-      cursor: pointer;
-      position: relative;
-      transition: height 0.2s;
-    }}
-    .progress-bar:hover {{ height: 6px; }}
-    .progress-fill {{
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      border-radius: 3px;
-      width: 0%;
-      position: relative;
-      transition: width 0.1s linear;
-    }}
-    .progress-fill::after {{
-      content: '';
-      position: absolute;
-      right: -4px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 10px var(--cyan);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }}
-    .progress-bar:hover .progress-fill::after {{ opacity: 1; }}
-
-    .time {{
-      font-size: 11px;
-      color: var(--text-faint);
-      font-family: 'JetBrains Mono', monospace;
-      white-space: nowrap;
-      min-width: 36px;
-      text-align: center;
-    }}
-
-    .vol-btn {{
-      background: none;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-dim);
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s;
-      flex-shrink: 0;
-    }}
-    .vol-btn:hover {{
-      color: var(--cyan);
-      border-color: var(--border-glow);
-      box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
-    }}
-
-    .empty {{
-      text-align: center;
-      padding: 64px 24px;
-    }}
-    .empty-icon {{
-      font-size: 64px;
-      margin-bottom: 16px;
-      opacity: 0.4;
-      filter: grayscale(0.5);
-    }}
-    .empty-text {{
-      color: var(--text-dim);
-      font-size: 15px;
-      line-height: 1.6;
-    }}
-
-    .footer {{
-      text-align: center;
-      padding: 32px 24px;
-      margin-top: 48px;
-      font-size: 12px;
-      color: var(--text-faint);
-      position: relative;
-    }}
-    .footer::before {{
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
-    }}
-    .footer strong {{ color: var(--text-dim); }}
-
-    @media (max-width: 640px) {{
-      .container {{ padding: 16px 16px 32px; }}
-      .hero {{ padding: 24px 16px 24px; }}
-      .hero .title {{ font-size: 26px; }}
-      .hero .icon {{ font-size: 40px; }}
-      .track {{ padding: 14px; }}
-      .stats-bar {{ gap: 12px; }}
-      .stat-item {{ min-width: 90px; padding: 10px 16px; }}
-      .stat-value {{ font-size: 22px; }}
-      .player-wrap {{ max-width: 100%; }}
-      .custom-player {{ padding: 8px 12px; }}
-    }}
+    * {{ margin:0; padding:0; box-sizing:border-box; }}
+    body {{ font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg-deep); color:var(--text); min-height:100vh; overflow-x:hidden; position:relative; }}
+    .bg-grid {{ position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px); background-size:80px 80px; }}
+    .bg-glow {{ position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }}
+    .bg-glow::before {{ content:''; position:absolute; top:-30%; left:-10%; width:60%; height:80%; background:radial-gradient(ellipse,rgba(0,212,255,0.06),transparent 60%); animation:glow-drift 12s ease-in-out infinite alternate; }}
+    .bg-glow::after {{ content:''; position:absolute; bottom:-20%; right:-10%; width:60%; height:80%; background:radial-gradient(ellipse,rgba(168,85,247,0.05),transparent 60%); animation:glow-drift 12s ease-in-out infinite alternate-reverse; }}
+    @keyframes glow-drift {{ 0% {{ transform:translate(0,0) scale(1); }} 100% {{ transform:translate(5%,5%) scale(1.1); }} }}
+    .particles {{ position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; overflow:hidden; }}
+    .particle {{ position:absolute; width:3px; height:3px; background:var(--cyan); border-radius:50%; opacity:0; animation:particle-float 8s infinite; box-shadow:0 0 6px var(--cyan); }}
+    .particle:nth-child(1) {{ left:10%; animation-delay:0s; animation-duration:7s; }}
+    .particle:nth-child(2) {{ left:25%; animation-delay:1.2s; animation-duration:9s; width:2px; height:2px; }}
+    .particle:nth-child(3) {{ left:40%; animation-delay:2.5s; animation-duration:6s; background:var(--purple); box-shadow:0 0 6px var(--purple); }}
+    .particle:nth-child(4) {{ left:55%; animation-delay:0.8s; animation-duration:8s; width:4px; height:4px; }}
+    .particle:nth-child(5) {{ left:70%; animation-delay:3.1s; animation-duration:7.5s; background:var(--magenta); box-shadow:0 0 6px var(--magenta); }}
+    .particle:nth-child(6) {{ left:85%; animation-delay:1.8s; animation-duration:9.5s; width:2px; height:2px; }}
+    .particle:nth-child(7) {{ left:50%; animation-delay:4.2s; animation-duration:6.5s; background:var(--purple); box-shadow:0 0 6px var(--purple); }}
+    .particle:nth-child(8) {{ left:15%; animation-delay:5.0s; animation-duration:8.2s; width:3px; height:3px; }}
+    .particle:nth-child(9) {{ left:65%; animation-delay:3.8s; animation-duration:7.2s; }}
+    .particle:nth-child(10) {{ left:35%; animation-delay:6.0s; animation-duration:8.8s; background:var(--magenta); box-shadow:0 0 6px var(--magenta); }}
+    .particle:nth-child(11) {{ left:5%; animation-delay:0.5s; animation-duration:9.2s; width:2px; height:2px; }}
+    .particle:nth-child(12) {{ left:75%; animation-delay:2.2s; animation-duration:7.8s; background:var(--purple); box-shadow:0 0 6px var(--purple); }}
+    .particle:nth-child(13) {{ left:90%; animation-delay:4.8s; animation-duration:6.2s; }}
+    .particle:nth-child(14) {{ left:30%; animation-delay:5.5s; animation-duration:8.5s; width:3px; height:3px; }}
+    .particle:nth-child(15) {{ left:45%; animation-delay:1.5s; animation-duration:7.0s; background:var(--magenta); box-shadow:0 0 6px var(--magenta); }}
+    @keyframes particle-float {{ 0% {{ transform:translateY(100vh) scale(0); opacity:0; }} 10% {{ opacity:0.8; }} 90% {{ opacity:0.8; }} 100% {{ transform:translateY(-10vh) scale(1); opacity:0; }} }}
+    .container {{ position:relative; z-index:2; max-width:900px; margin:0 auto; padding:24px 24px 48px; }}
+    .back {{ display:inline-flex; align-items:center; gap:8px; color:var(--text-dim); font-size:13px; font-weight:500; margin-bottom:24px; padding:8px 18px; border-radius:10px; background:var(--bg-card); backdrop-filter:blur(16px) saturate(1.5); -webkit-backdrop-filter:blur(16px) saturate(1.5); border:1px solid var(--border-subtle); transition:all 0.3s ease; text-decoration:none; position:relative; overflow:hidden; }}
+    .back::before {{ content:''; position:absolute; inset:-1px; border-radius:10px; background:linear-gradient(135deg,var(--cyan),transparent,var(--purple)); opacity:0; transition:opacity 0.3s ease; z-index:-1; }}
+    .back:hover {{ color:var(--text); border-color:transparent; box-shadow:var(--glow-cyan); transform:translateX(-2px); }}
+    .back:hover::before {{ opacity:1; }}
+    .hero {{ text-align:center; padding:40px 24px 32px; position:relative; }}
+    .hero::after {{ content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:120px; height:2px; background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent); border-radius:2px; }}
+    .hero .icon {{ font-size:52px; margin-bottom:12px; display:block; filter:drop-shadow(0 0 20px rgba(0,212,255,0.4)); animation:icon-pulse 3s ease-in-out infinite; }}
+    @keyframes icon-pulse {{ 0%,100% {{ transform:scale(1); filter:drop-shadow(0 0 20px rgba(0,212,255,0.4)); }} 50% {{ transform:scale(1.05); filter:drop-shadow(0 0 30px rgba(0,212,255,0.6)); }} }}
+    .hero .title {{ font-size:38px; font-weight:900; letter-spacing:-1px; background:linear-gradient(135deg,var(--cyan),var(--purple),var(--magenta)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:8px; text-transform:uppercase; }}
+    .hero .subtitle {{ font-size:14px; color:var(--text-dim); font-weight:400; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }}
+    .hero .meta {{ font-size:13px; color:var(--text-faint); margin-top:6px; font-family:'JetBrains Mono',monospace; }}
+    .stats-bar {{ display:flex; justify-content:center; gap:32px; margin:24px 0 32px; flex-wrap:wrap; }}
+    .stat-item {{ text-align:center; padding:12px 24px; background:var(--bg-card); backdrop-filter:blur(12px) saturate(1.4); -webkit-backdrop-filter:blur(12px) saturate(1.4); border:1px solid var(--border-subtle); border-radius:12px; min-width:120px; transition:border-color 0.3s,box-shadow 0.3s; }}
+    .stat-item:hover {{ border-color:var(--border-glow); box-shadow:var(--glow-cyan); }}
+    .stat-value {{ font-size:28px; font-weight:800; background:linear-gradient(135deg,var(--cyan),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }}
+    .stat-label {{ font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:1px; margin-top:2px; }}
+    .player-list {{ margin-top:8px; }}
+    .track {{ background:var(--bg-card); backdrop-filter:blur(16px) saturate(1.5); -webkit-backdrop-filter:blur(16px) saturate(1.5); border:1px solid var(--border-subtle); border-radius:16px; padding:20px; margin-bottom:14px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; transition:all 0.3s ease; position:relative; overflow:hidden; }}
+    .track::before {{ content:''; position:absolute; inset:0; border-radius:16px; padding:1px; background:linear-gradient(135deg,transparent,rgba(0,212,255,0.1),transparent); -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; opacity:0; transition:opacity 0.4s ease; }}
+    .track:hover {{ border-color:transparent; box-shadow:var(--glow-cyan),inset 0 0 40px rgba(0,212,255,0.03); transform:translateY(-1px); }}
+    .track:hover::before {{ opacity:1; }}
+    .track.playing {{ border-color:transparent; box-shadow:0 0 30px rgba(0,212,255,0.15),inset 0 0 40px rgba(0,212,255,0.05); }}
+    .track.playing::before {{ opacity:1; background:linear-gradient(135deg,var(--cyan),var(--purple),var(--cyan)); animation:border-rotate 3s linear infinite; }}
+    @keyframes border-rotate {{ 0% {{ filter:hue-rotate(0deg); }} 100% {{ filter:hue-rotate(360deg); }} }}
+    .track-info {{ display:flex; align-items:center; gap:14px; flex:1; min-width:200px; }}
+    .track-num {{ background:linear-gradient(135deg,var(--cyan-dim),var(--purple-dim)); color:var(--cyan); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8em; font-weight:700; flex-shrink:0; border:1px solid rgba(0,212,255,0.15); transition:all 0.3s ease; }}
+    .track:hover .track-num {{ box-shadow:0 0 14px rgba(0,212,255,0.3); border-color:rgba(0,212,255,0.4); }}
+    .track.playing .track-num {{ box-shadow:0 0 20px rgba(0,212,255,0.5); border-color:var(--cyan); }}
+    .track-name {{ color:var(--text); font-size:0.95em; font-weight:500; word-break:break-word; transition:color 0.3s; }}
+    .track:hover .track-name {{ color:#fff; }}
+    .track-size {{ color:var(--text-faint); font-size:0.78em; white-space:nowrap; font-family:'JetBrains Mono',monospace; }}
+    .equalizer {{ display:none; align-items:center; gap:3px; height:24px; margin-left:auto; flex-shrink:0; }}
+    .track.playing .equalizer {{ display:flex; }}
+    .eq-bar {{ width:3px; background:linear-gradient(to top,var(--cyan),var(--purple)); border-radius:2px; animation:eq-wave 0.8s ease-in-out infinite alternate; }}
+    .eq-bar:nth-child(1) {{ height:12px; animation-delay:0s; }}
+    .eq-bar:nth-child(2) {{ height:20px; animation-delay:0.15s; }}
+    .eq-bar:nth-child(3) {{ height:8px; animation-delay:0.3s; }}
+    .eq-bar:nth-child(4) {{ height:24px; animation-delay:0.1s; }}
+    .eq-bar:nth-child(5) {{ height:14px; animation-delay:0.4s; }}
+    @keyframes eq-wave {{ 0% {{ transform:scaleY(0.4); }} 100% {{ transform:scaleY(1); }} }}
+    .player-wrap {{ flex-shrink:0; width:100%; max-width:420px; }}
+    .custom-player {{ display:flex; align-items:center; gap:10px; padding:10px 14px; background:rgba(0,0,0,0.4); border-radius:12px; border:1px solid var(--border-subtle); backdrop-filter:blur(8px); }}
+    .play-btn {{ width:38px; height:38px; border-radius:50%; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:var(--bg-deep); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.25s ease; flex-shrink:0; position:relative; overflow:hidden; }}
+    .play-btn::before {{ content:''; position:absolute; inset:-3px; border-radius:50%; background:linear-gradient(135deg,var(--cyan),var(--purple),var(--magenta)); opacity:0; transition:opacity 0.3s; z-index:-1; filter:blur(4px); }}
+    .play-btn:hover {{ transform:scale(1.08); box-shadow:0 0 20px rgba(0,212,255,0.5); }}
+    .play-btn:hover::before {{ opacity:1; }}
+    .play-btn:active {{ transform:scale(0.95); }}
+    .play-btn.paused .icon-pause {{ display:none; }}
+    .play-btn.paused .icon-play {{ display:inline; }}
+    .play-btn:not(.paused) .icon-play {{ display:none; }}
+    .play-btn:not(.paused) .icon-pause {{ display:inline; }}
+    .progress-wrap {{ flex:1; display:flex; align-items:center; gap:8px; min-width:0; }}
+    .progress-bar {{ flex:1; height:4px; background:rgba(255,255,255,0.08); border-radius:3px; cursor:pointer; position:relative; transition:height 0.2s; }}
+    .progress-bar:hover {{ height:6px; }}
+    .progress-fill {{ height:100%; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:3px; width:0%; position:relative; transition:width 0.1s linear; }}
+    .progress-fill::after {{ content:''; position:absolute; right:-4px; top:50%; transform:translateY(-50%); width:8px; height:8px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); opacity:0; transition:opacity 0.2s; }}
+    .progress-bar:hover .progress-fill::after {{ opacity:1; }}
+    .time {{ font-size:11px; color:var(--text-faint); font-family:'JetBrains Mono',monospace; white-space:nowrap; min-width:36px; text-align:center; }}
+    .vol-btn {{ background:none; border:1px solid var(--border-subtle); color:var(--text-dim); width:30px; height:30px; border-radius:8px; cursor:pointer; font-size:13px; display:flex; align-items:center; justify-content:center; transition:all 0.25s; flex-shrink:0; }}
+    .vol-btn:hover {{ color:var(--cyan); border-color:var(--border-glow); box-shadow:0 0 12px rgba(0,212,255,0.2); }}
+    .empty {{ text-align:center; padding:64px 24px; }}
+    .empty-icon {{ font-size:64px; margin-bottom:16px; opacity:0.4; filter:grayscale(0.5); }}
+    .empty-text {{ color:var(--text-dim); font-size:15px; line-height:1.6; }}
+    .footer {{ text-align:center; padding:32px 24px; margin-top:48px; font-size:12px; color:var(--text-faint); position:relative; }}
+    .footer::before {{ content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:60%; height:1px; background:linear-gradient(90deg,transparent,var(--border-glow),transparent); }}
+    .footer strong {{ color:var(--text-dim); }}
+    @media (max-width:640px) {{ .container {{ padding:16px 16px 32px; }} .hero {{ padding:24px 16px 24px; }} .hero .title {{ font-size:26px; }} .hero .icon {{ font-size:40px; }} .track {{ padding:14px; }} .stats-bar {{ gap:12px; }} .stat-item {{ min-width:90px; padding:10px 16px; }} .stat-value {{ font-size:22px; }} .player-wrap {{ max-width:100%; }} .custom-player {{ padding:8px 12px; }} }}
   </style>
 </head>
 <body>
-
   <div class="bg-grid"></div>
   <div class="bg-glow"></div>
   <div class="particles">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
   </div>
-
 <div class="container">
-
   <a class="back" href="aidj.html">← Вернуться в AI DJ</a>
-
   <div class="hero">
     <span class="icon">🎧</span>
     <div class="subtitle">N E U R O &nbsp; P L A Y E R</div>
     <div class="title">AI DJ</div>
     <div class="meta">Треки в репозитории · Обновлено {now}</div>
   </div>
-
   <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-value">{count}</div>
-      <div class="stat-label">Треков</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">{size_mb}</div>
-      <div class="stat-label">MB всего</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">∞</div>
-      <div class="stat-label">Не протухают</div>
-    </div>
+    <div class="stat-item"><div class="stat-value">{count}</div><div class="stat-label">Треков</div></div>
+    <div class="stat-item"><div class="stat-value">{size_mb}</div><div class="stat-label">MB всего</div></div>
+    <div class="stat-item"><div class="stat-value">∞</div><div class="stat-label">Не протухают</div></div>
   </div>
-
   <div class="player-list">
     {tracks_html if tracks_html else ''}
     {empty_html}
   </div>
-
   <div class="footer">
     <strong>AI DJ Player</strong> · nasledstvo2026.github.io · mp3 в репозитории · 2026
   </div>
-
 </div>
-
 <script>
-function getPlayers() {{
-  return document.querySelectorAll('.track');
-}}
-
-function getAudio(trackEl) {{
-  return trackEl.querySelector('audio');
-}}
-
-function getPlayBtn(trackEl) {{
-  return trackEl.querySelector('.play-btn');
-}}
-
-function getProgressFill(trackEl) {{
-  return trackEl.querySelector('.progress-fill');
-}}
-
-function getCurrentTime(trackEl) {{
-  return trackEl.querySelector('.time.current');
-}}
-
-function getTotalTime(trackEl) {{
-  return trackEl.querySelector('.time.total');
-}}
-
-function formatTime(sec) {{
-  if (!sec || isNaN(sec)) return '0:00';
-  const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60);
-  return m + ':' + (s < 10 ? '0' : '') + s;
-}}
-
-function stopAllExcept(exceptTrack) {{
-  document.querySelectorAll('.track.playing').forEach(function(el) {{
-    if (el !== exceptTrack) {{
-      el.classList.remove('playing');
-      var a = getAudio(el);
-      a.pause();
-      a.currentTime = 0;
-      getPlayBtn(el).classList.add('paused');
-      getProgressFill(el).style.width = '0%';
-      getCurrentTime(el).textContent = '0:00';
-    }}
-  }});
-}}
-
-function togglePlay(btn) {{
-  var track = btn.closest('.track');
-  var audio = getAudio(track);
-
-  if (audio.paused) {{
-    stopAllExcept(track);
-    audio.play().then(function() {{
-      track.classList.add('playing');
-      btn.classList.remove('paused');
-    }}).catch(function() {{}});
-  }} else {{
-    audio.pause();
-    track.classList.remove('playing');
-    btn.classList.add('paused');
-  }}
-}}
-
-function seek(event, bar) {{
-  var track = bar.closest('.track');
-  var audio = getAudio(track);
-  var rect = bar.getBoundingClientRect();
-  var pct = (event.clientX - rect.left) / rect.width;
-  if (audio.duration) {{
-    audio.currentTime = pct * audio.duration;
-  }}
-}}
-
-function toggleMute(btn) {{
-  var track = btn.closest('.track');
-  var audio = getAudio(track);
-  audio.muted = !audio.muted;
-  btn.textContent = audio.muted ? '🔇' : '🔊';
-  btn.title = audio.muted ? 'Unmute' : 'Mute';
-}}
-
-function updateAll() {{
-  document.querySelectorAll('.track.playing').forEach(function(track) {{
-    var audio = getAudio(track);
-    if (audio.duration) {{
-      var pct = audio.currentTime / audio.duration;
-      getProgressFill(track).style.width = (pct * 100) + '%';
-    }}
-    getCurrentTime(track).textContent = formatTime(audio.currentTime);
-    getTotalTime(track).textContent = formatTime(audio.duration);
-  }});
-  requestAnimationFrame(updateAll);
-}}
-
-document.addEventListener('DOMContentLoaded', function() {{
-  getPlayers().forEach(function(track) {{
-    var audio = getAudio(track);
-    audio.addEventListener('loadedmetadata', function() {{
-      getTotalTime(track).textContent = formatTime(audio.duration);
-    }});
-    audio.addEventListener('ended', function() {{
-      track.classList.remove('playing');
-      getPlayBtn(track).classList.add('paused');
-      getProgressFill(track).style.width = '0%';
-      getCurrentTime(track).textContent = '0:00';
-    }});
-  }});
-  updateAll();
-}});
+function getPlayers() {{ return document.querySelectorAll('.track'); }}
+function getAudio(t) {{ return t.querySelector('audio'); }}
+function getPlayBtn(t) {{ return t.querySelector('.play-btn'); }}
+function getProgressFill(t) {{ return t.querySelector('.progress-fill'); }}
+function getCurrentTime(t) {{ return t.querySelector('.time.current'); }}
+function getTotalTime(t) {{ return t.querySelector('.time.total'); }}
+function formatTime(s) {{ if(!s||isNaN(s)) return '0:00'; const m=Math.floor(s/60); const sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }}
+function stopAllExcept(e) {{ document.querySelectorAll('.track.playing').forEach(function(t) {{ if(t!==e) {{ t.classList.remove('playing'); var a=getAudio(t); a.pause(); a.currentTime=0; getPlayBtn(t).classList.add('paused'); getProgressFill(t).style.width='0%'; getCurrentTime(t).textContent='0:00'; }} }}); }}
+function togglePlay(btn) {{ var t=btn.closest('.track'); var a=getAudio(t); if(a.paused) {{ stopAllExcept(t); a.play().then(function(){{ t.classList.add('playing'); btn.classList.remove('paused'); }}).catch(function(){{}}); }} else {{ a.pause(); t.classList.remove('playing'); btn.classList.add('paused'); }} }}
+function seek(e,bar) {{ var t=bar.closest('.track'); var a=getAudio(t); var r=bar.getBoundingClientRect(); var p=(e.clientX-r.left)/r.width; if(a.duration) a.currentTime=p*a.duration; }}
+function toggleMute(btn) {{ var t=btn.closest('.track'); var a=getAudio(t); a.muted=!a.muted; btn.textContent=a.muted?'🔇':'🔊'; btn.title=a.muted?'Unmute':'Mute'; }}
+function updateAll() {{ document.querySelectorAll('.track.playing').forEach(function(t){{ var a=getAudio(t); if(a.duration){{ var p=a.currentTime/a.duration; getProgressFill(t).style.width=(p*100)+'%'; }} getCurrentTime(t).textContent=formatTime(a.currentTime); getTotalTime(t).textContent=formatTime(a.duration); }}); requestAnimationFrame(updateAll); }}
+document.addEventListener('DOMContentLoaded',function(){{ getPlayers().forEach(function(t){{ var a=getAudio(t); a.addEventListener('loadedmetadata',function(){{ getTotalTime(t).textContent=formatTime(a.duration); }}); a.addEventListener('ended',function(){{ t.classList.remove('playing'); getPlayBtn(t).classList.add('paused'); getProgressFill(t).style.width='0%'; getCurrentTime(t).textContent='0:00'; }}); }}); updateAll(); }});
 </script>
-
 </body>
 </html>
 """
@@ -809,35 +263,63 @@ document.addEventListener('DOMContentLoaded', function() {{
 
 
 def main():
-    print("AI DJ Player — генерация страницы (локальные файлы)")
-    print(f"Папка: {AIDJ_DIR}")
-    print()
+    print("🎧 AI DJ Player — синхронизация с Dropbox и публикация")
     
-    mp3_files = sorted(glob.glob(os.path.join(AIDJ_DIR, "*.mp3")))
+    # Шаг 1: проверить access token
+    if not os.path.exists(TOKEN_FILE):
+        print("❌ Нет файла с access token. Попроси Кирилла сгенерировать в App Console.")
+        sys.exit(1)
+    
+    # Шаг 2: скачать mp3 из Dropbox
+    db = get_db()
+    print("✅ Dropbox авторизован")
+    print("📥 Синхронизация из Dropbox...")
+    sync_from_dropbox(db)
+    
+    # Шаг 3: сгенерировать HTML
+    print("\n📄 Генерация страницы...")
+    mp3_files = sorted(glob.glob(os.path.join(AIDJ_DIR, "*.mp3"))) if glob_available() else sorted([f for f in os.listdir(AIDJ_DIR) if f.lower().endswith('.mp3')])
     
     tracks = []
-    for fpath in mp3_files:
+    for fname in mp3_files:
+        if os.path.isdir(fname):
+            continue
+        fpath = os.path.join(AIDJ_DIR, fname) if not fname.startswith(AIDJ_DIR) else fname
         name = os.path.basename(fpath)
         size = os.path.getsize(fpath)
-        # относительный URL для GitHub Pages
         url = "aidj/" + name
-        print(f"  📄 {name} ({size / 1024:.1f} KB)")
+        print(f"  🎵 {name} ({size / 1024:.0f} KB)")
         tracks.append({"name": name, "url": url, "size": size})
     
-    print()
-    now = os.popen("TZ=Europe/Moscow date '+%d.%m.%Y %H:%M'").read().strip()
+    now = None
+    try:
+        import subprocess
+        now = subprocess.check_output(["TZ=Europe/Moscow date '+%d.%m.%Y %H:%M'"], shell=True).decode().strip()
+    except:
+        now = "23.06.2026"
+    
     html = generate_player_html(tracks, now)
     
     with open(OUTPUT_FILE, "w") as f:
         f.write(html)
     print(f"✅ Страница: {OUTPUT_FILE}")
     
-    # Публикация
+    # Шаг 4: опубликовать
     os.chdir(os.path.dirname(OUTPUT_FILE))
-    os.system("git add -A && git commit -m 'AI DJ Player — mp3 в репозитории' 2>/dev/null")
+    os.system("git add -A && git commit -m 'AI DJ Player — обновление' 2>/dev/null")
     os.system("git push 2>&1")
     print("✅ Опубликовано на GitHub Pages")
 
 
+def glob_available():
+    try:
+        import glob
+        glob.glob
+        return True
+    except:
+        return False
+
+
 if __name__ == "__main__":
+    import glob
     main()
