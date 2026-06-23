@@ -154,11 +154,27 @@ function openAuraModal() {
   // Body
   var body = document.createElement('div');
   body.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;';
-  body.innerHTML = '🔒 Доступ в систему строго ограничен. Пожалуйста, введи свой персональный <strong style="color:#ff9000;letter-spacing:3px;text-transform:uppercase;">VIP PASS</strong>.';
+  body.innerHTML = '🔒 Доступ в систему строго ограничен. Пожалуйста, введи свой персональный';
+
+  // VIP PASS label
+  var passLabel = document.createElement('div');
+  passLabel.textContent = 'VIP PASS';
+  passLabel.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:16px;font-weight:700;color:#ff9000;letter-spacing:6px;text-transform:uppercase;margin-top:16px;margin-bottom:14px;text-shadow:0 0 20px rgba(255,144,0,0.25);';
+
+  // Input
+  var input = document.createElement('input');
+  input.type = 'text';
+  input.maxLength = 15;
+  input.placeholder = '•••••••••••••••';
+  input.style.cssText = 'background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,144,0,0.3);border-radius:10px;padding:10px 14px;font-family:Georgia,serif;font-size:16px;color:#fff;text-align:center;letter-spacing:6px;outline:none;width:200px;transition:border-color .2s;';
+  input.onfocus = function() { this.style.borderColor = 'rgba(255,144,0,0.7)'; };
+  input.onblur = function() { this.style.borderColor = 'rgba(255,144,0,0.3)'; };
 
   modal.appendChild(title);
   modal.appendChild(sub);
   modal.appendChild(body);
+  modal.appendChild(passLabel);
+  modal.appendChild(input);
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
   document.body.style.overflow = 'hidden';
