@@ -164,13 +164,13 @@ function openAuraModal() {
   // Input
   var input = document.createElement('input');
   input.type = 'text';
-  input.maxLength = 15;
-  input.placeholder = '•••••••••••••••';
+  input.maxLength = 5;
+  input.placeholder = '•••••';
   input.style.cssText = 'background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,144,0,0.3);border-radius:10px;padding:10px 14px;font-family:Georgia,serif;font-size:16px;color:#fff;text-align:center;letter-spacing:6px;outline:none;width:200px;transition:border-color .2s;';
   input.onfocus = function() { this.style.borderColor = 'rgba(255,144,0,0.7)'; };
   input.onblur = function() { this.style.borderColor = 'rgba(255,144,0,0.3)'; };
   input.oninput = function() {
-    if (this.value.length === 15) {
+    if (this.value.length === 5) {
       // Hide input, show message
       passLabel.style.display = 'none';
       this.style.display = 'none';
