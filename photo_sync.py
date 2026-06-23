@@ -89,14 +89,31 @@ def update_photo_html(webp_files):
     html = PHOTO_HTML.read_text(encoding='utf-8')
     grid_html = generate_photo_html(webp_files)
 
-    # Заменяем содержимое <div class="photo-grid"> ... </div>
-    import re
-    new_html = re.sub(
-        r'<div class="photo-grid">.*?</div>\s*',
-        f'<div class="photo-grid">\n{grid_html}\n  </div>\n',
-        html,
-        flags=re.DOTALL
-    )
+    # Находим блок .photo-grid по позициям (устойчивее регекспа для вложенных div)
+    start_tag = '<div class="photo-grid">'
+    start_idx = html.find(start_tag)
+    if start_idx == -1:
+        print("  ❌ .photo-grid не найден в шаблоне", file=sys.stderr)
+        return False
+
+    # Ищем закрывающий </div> (с учётом вложенности)
+    depth = 1
+    i = start_idx + len(start_tag)
+    while i < len(html) and depth > 0:
+        next_open = html.find('<div ', i)
+        next_close = html.find('</div>', i)
+        if next_close == -1:
+            break
+        if next_open != -1 and next_open < next_close:
+            depth += 1
+            i = next_open + 5
+        else:
+            depth -= 1
+            i = next_close + 6
+
+    end_idx = i  # позиция после закрывающего </div>
+
+    new_html = html[:start_idx] + f'<div class="photo-grid">\n{grid_html}\n  </div>' + html[end_idx:]
 
     if new_html == html:
         print("  ℹ️  Ничего не изменилось", file=sys.stderr)

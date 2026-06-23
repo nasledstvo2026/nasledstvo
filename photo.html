@@ -201,6 +201,74 @@
       margin-top: 6px;
     }
 
+    /* Кнопка обновления */
+    .btn-sync {
+      display: block;
+      margin: 24px auto 0;
+      padding: 12px 32px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
+      overflow: hidden;
+    }
+    .btn-sync::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--purple));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .btn-sync:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(0, 212, 255, 0.4);
+    }
+    .btn-sync:hover::before { opacity: 1; }
+    .btn-sync:active {
+      transform: translateY(0);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
+    }
+    .btn-sync:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-sync .icon {
+      display: inline-block;
+      transition: transform 0.6s ease;
+    }
+    .btn-sync.spinning .icon {
+      animation: spin 1.2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Статус-бар */
+    .sync-status {
+      text-align: center;
+      margin: 12px auto 0;
+      font-size: 12px;
+      color: var(--text-dim);
+      min-height: 18px;
+      transition: all 0.3s ease;
+    }
+    .sync-status.success { color: #4ade80; }
+    .sync-status.error { color: #f87171; }
+
     .photo-grid {
       max-width: 800px;
       margin: 32px auto 0;
@@ -273,6 +341,7 @@
       .hero h1 { font-size: 26px; }
       .photo-grid { gap: 20px; }
       .photo-card { padding: 8px; }
+      .btn-sync { padding: 10px 24px; font-size: 13px; }
     }
   </style>
 </head>
@@ -297,6 +366,12 @@
     <div class="subtitle">Автоматическая публикация из телефона</div>
   </div>
 
+  <!-- Кнопка синхронизации -->
+  <button class="btn-sync" onclick="syncPhotos()" id="syncBtn">
+    <span class="icon">⟳</span>&nbsp; Обновить
+  </button>
+  <div class="sync-status" id="syncStatus"></div>
+
   <div class="photo-grid">
     <div class="photo-card">
       <img src="photo_files/IMG_0757.webp" alt="IMG_0757">
@@ -311,18 +386,57 @@
       <img src="photo_files/IMG_0844.webp" alt="IMG_0844">
     </div>
   </div>
-<div class="photo-card">
-      <img src="img_0790.webp" alt="IMG_0790">
-    </div>
-    <div class="photo-card">
-      <img src="img_0786.webp" alt="IMG_0786">
-    </div>
-  </div>
 
   <div class="footer">
     <strong>☽ ЛУНТ</strong> · nasledstvo2026.github.io · 2026
   </div>
 
 </div>
+
+<script>
+// Photo Sync Button
+// Открывает страницу синхронизации на VPS в новой вкладке
+const VPS_IP = '176.123.162.12';
+const SYNC_URL = 'http://' + VPS_IP + ':8767/sync';
+
+let syncing = false;
+
+function syncPhotos() {
+  if (syncing) return;
+  syncing = true;
+
+  const btn = document.getElementById('syncBtn');
+  const status = document.getElementById('syncStatus');
+  const icon = btn.querySelector('.icon');
+
+  btn.disabled = true;
+  btn.classList.add('spinning');
+  status.textContent = 'Запускаю синхронизацию...';
+  status.className = 'sync-status';
+
+  // Открываем в новой вкладке (обходит mixed-content блокировку)
+  const syncWindow = window.open(SYNC_URL, '_blank', 'width=500,height=400,menubar=no,toolbar=no,location=no');
+
+  if (!syncWindow) {
+    // Если блокировщик всплывающих окон, пробуем через fetch
+    status.textContent = 'Разреши всплывающие окна, или нажми снова';
+    status.className = 'sync-status error';
+    syncing = false;
+    btn.disabled = false;
+    btn.classList.remove('spinning');
+    return;
+  }
+
+  // Сбрасываем состояние спустя 3 секунды
+  setTimeout(() => {
+    status.textContent = '✅ Синхронизация запущена. Проверь новую вкладку';
+    status.className = 'sync-status success';
+    syncing = false;
+    btn.disabled = false;
+    btn.classList.remove('spinning');
+  }, 3000);
+}
+</script>
+
 </body>
 </html>
