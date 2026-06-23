@@ -574,6 +574,47 @@ def generate_recommendation(metrics, health_idx):
     return "⚠️ " + ". ".join(parts)
 
 
+def fmt_health_desc(t, health_idx, health_color):
+    """Тезисная трактовка значения Health Index"""
+    sr = t.get("success_rate")
+    dur = t.get("duration_pct", 0)
+    lat = t.get("latency_min", 0)
+    cache = t.get("cache_hit_pct")
+    cost = t.get("cost_per_run")
+
+    if health_color == "green":
+        if health_idx == 100:
+            return "💎 Эталон — все метрики идеальны"
+        bits = []
+        if sr is not None and sr >= 100: bits.append("SR идеален")
+        else: bits.append(f"SR {sr}%")
+        if dur < 50: bits.append(f"таймаут свободен")
+        if lat <= 1: bits.append("без задержек")
+        return "✅ " + ", ".join(bits)
+
+    if health_color == "yellow":
+        issues = []
+        if dur >= 50: issues.append(f"Duration {dur}%")
+        if lat > 1: issues.append(f"Latency {lat}м")
+        if cost is not None and cost > 0.05: issues.append(f"Cost ${cost:.4f}")
+        if cache is not None and cache < 50: issues.append(f"Cache {cache}%")
+        if issues:
+            return "⚠️ " + ", ".join(issues)
+        return "⚠️ Требуется внимание"
+
+    # red
+    if sr is not None and sr < 90:
+        return f"🔴 SR {sr}% — стабильность нарушена"
+    reasons = []
+    if dur > 80: reasons.append(f"Duration {dur}%")
+    if lat > 15: reasons.append(f"Latency {lat}м")
+    if cache is not None and cache < 50: reasons.append(f"Cache {cache}%")
+    if cost is not None and cost > 0.05: reasons.append(f"Cost ${cost:.4f}")
+    if reasons:
+        return "🔴 " + ", ".join(reasons)
+    return "🔴 Критическое состояние"
+
+
 def gen_task_row(t, biz=True):
     """Генерирует строку <tr> для задачи"""
     health_idx, health_color = calc_health(t)
@@ -586,6 +627,7 @@ def gen_task_row(t, biz=True):
     # Рекомендация на основе метрик
     tip_html = generate_recommendation(t, health_idx)
     apply_html = fmt_apply_status(t["task"], health_idx)
+    desc_html = fmt_health_desc(t, health_idx, health_color)
 
     return f"""          <tr>
             <td><span class="status-dot ok"></span> {t["task"]}</td>
@@ -600,6 +642,7 @@ def gen_task_row(t, biz=True):
             <td class="rec">{tip_html}</td>
             <td style="text-align:center;">{apply_html}</td>
             <td style="text-align:center;">{health_badge(health_idx, health_color)}</td>
+            <td class="col-desc">{desc_html}</td>
           </tr>"""
 
 
@@ -688,6 +731,7 @@ def gen_tasks_html(tasks):
             <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
             <th class="col-metric col-apply">⚙️ Авто-прим.</th>
             <th class="col-metric">🩺 System Health</th>
+            <th class="col-desc-header">🧠 Описание результата</th>
           </tr>
         </thead>
         <tbody>
@@ -713,6 +757,7 @@ def gen_tasks_html(tasks):
             <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
             <th class="col-metric col-apply">⚙️ Авто-прим.</th>
             <th class="col-metric">🩺 System Health</th>
+            <th class="col-desc-header">🧠 Описание результата</th>
           </tr>
         </thead>
         <tbody>
@@ -727,13 +772,15 @@ def gen_tasks_html(tasks):
 
 <style>
 .table-wrapper {{ overflow-x: auto; margin: 10px 0; }}
-.task-table {{ width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.5; min-width: 1100px; }}
+.task-table {{ width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.5; min-width: 1300px; }}
 .task-table thead th {{ text-align: left; padding: 10px 8px; background: rgba(33,38,45,.6); border-bottom: 1px solid var(--glass-border,#21262d); color: var(--text-dim,#8b949e); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }}
 .task-table thead th:first-child {{ border-radius: 8px 0 0 0; }}
 .task-table thead th:last-child  {{ border-radius: 0 8px 0 0; }}
 .col-metric {{ text-align: center !important; }}
 .col-rec {{ min-width: 220px; }}
 .col-apply {{ min-width: 80px; }}
+.col-desc {{ max-width: 220px; font-size: 11.5px; color: var(--text-dim,#8b949e); padding-left: 4px; padding-right: 4px; white-space: normal; line-height: 1.4; }}
+.col-desc-header {{ min-width: 140px; }}
 .stat-na {{ color: var(--text-dim,#8b949e); font-size: 12px; }}
 .task-table tbody tr {{ border-bottom: 1px solid rgba(33,38,45,.4); transition: background .15s ease; }}
 .task-table tbody tr:hover {{ background: rgba(88,166,255,.04); }}
@@ -741,6 +788,7 @@ def gen_tasks_html(tasks):
 .task-table tbody td:first-child {{ font-weight: 500; white-space: nowrap; }}
 .task-table tbody td:nth-child(4),.task-table tbody td:nth-child(5),.task-table tbody td:nth-child(6),
 .task-table tbody td:nth-child(7),.task-table tbody td:nth-child(8) {{ text-align: center; }}
+.task-table tbody td:nth-child(12) {{ text-align: center; }}
 .rec {{ font-size: 12px; color: var(--text,#c9d1d9); line-height: 1.45; }}
 .status-dot {{ display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: middle; position: relative; top: -1px; }}
 .status-dot.ok   {{ background: #3fb950; box-shadow: 0 0 5px rgba(63,185,80,.5); }}
@@ -759,7 +807,7 @@ def gen_tasks_html(tasks):
 .legend-table td {{ padding: 5px 8px; border-bottom: 1px solid rgba(33,38,45,.3); color: var(--text-dim,#8b949e); font-size: 12px; }}
 .legend-table td:first-child {{ color: var(--text,#c9d1d9); font-weight: 500; white-space: nowrap; }}
 .legend-table td:last-child {{ font-size: 11.5px; color: var(--text-dim-dim,#6e7681); }}
-@media (max-width: 1100px) {{ .task-table {{ font-size: 12px; min-width: 800px; }} .task-table tbody td {{ padding: 7px 6px; }} .col-rec {{ min-width: 180px; }} }}
+@media (max-width: 1300px) {{ .task-table {{ font-size: 12px; min-width: 1000px; }} .task-table tbody td {{ padding: 7px 6px; }} .col-rec {{ min-width: 180px; }} }} }}
 </style>
 </body>
 </html>"""
