@@ -125,7 +125,7 @@
 
 </div>
 <!-- AURA modal -->
-<div id="auraOverlay" class="aura-overlay" onclick="closeAuraModal(event)">
+<div id="auraOverlay" class="aura-overlay" onclick="closeAuraModal(event)" style="display:none;">
   <div class="aura-modal">
     <div class="aura-modal-title">A U R A</div>
     <div class="aura-modal-sub">Девочки не плачут. Девочки выбирают, кто сегодня платит.</div>
@@ -137,12 +137,14 @@
 
 <script>
 function openAuraModal() {
-  document.getElementById('auraOverlay').classList.add('active');
+  var el = document.getElementById('auraOverlay');
+  el.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 function closeAuraModal(e) {
   if (e.target === e.currentTarget) {
-    document.getElementById('auraOverlay').classList.remove('active');
+    var el = document.getElementById('auraOverlay');
+    el.style.display = 'none';
     document.body.style.overflow = '';
   }
 }
