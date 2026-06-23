@@ -1,46 +1,11 @@
 #!/usr/bin/env python3
-"""AI DJ Player — скачивает mp3 из Dropbox и генерирует страницу плеера"""
+"""AI DJ Player — генерирует страницу плеера из mp3 в aidj/"""
 
 import os
-import sys
-import dropbox
+import glob
 
-DROPBOX_FOLDER = "/ai-dj/files"
 AIDJ_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aidj")
 OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aidj-player.html")
-TOKEN_FILE = os.path.expanduser("~/.dropbox_access_token")
-
-def get_db():
-    with open(TOKEN_FILE) as f:
-        token = f.read().strip()
-    return dropbox.Dropbox(oauth2_access_token=token)
-
-
-def sync_from_dropbox(db):
-    """Скачивает все mp3 из Dropbox в aidj/"""
-    try:
-        result = db.files_list_folder(DROPBOX_FOLDER)
-    except dropbox.exceptions.ApiError:
-        print("❌ Не удалось получить список файлов из Dropbox")
-        return False
-    
-    files = [e for e in result.entries
-             if isinstance(e, dropbox.files.FileMetadata)
-             and e.name.lower().endswith(".mp3")]
-    
-    if not files:
-        print("⚠️  В Dropbox нет mp3-файлов")
-        return False
-    
-    os.makedirs(AIDJ_DIR, exist_ok=True)
-    
-    for f in files:
-        dest = os.path.join(AIDJ_DIR, f.name)
-        print(f"  📥 {f.name} ({f.size / 1024:.0f} KB)", end=" ", flush=True)
-        db.files_download_to_file(dest, f.path_lower)
-        print("✅")
-    
-    return True
 
 
 def generate_player_html(tracks, now):
@@ -94,7 +59,7 @@ def generate_player_html(tracks, now):
         empty_html = f"""
     <div class="empty">
       <div class="empty-icon">📂</div>
-      <div class="empty-text">В папке aidj/ пока нет треков.<br>Загрузите mp3 и перезапустите генерацию</div>
+      <div class="empty-text">В папке aidj/ пока нет треков.<br>Попроси Лунта добавить через Telegram</div>
     </div>"""
     
     html = f"""<!DOCTYPE html>
@@ -263,37 +228,20 @@ document.addEventListener('DOMContentLoaded',function(){{ getPlayers().forEach(f
 
 
 def main():
-    print("🎧 AI DJ Player — синхронизация с Dropbox и публикация")
+    print("🎧 AI DJ Player — генерация страницы из локальных mp3")
     
-    # Шаг 1: проверить access token
-    if not os.path.exists(TOKEN_FILE):
-        print("❌ Нет файла с access token. Попроси Кирилла сгенерировать в App Console.")
-        sys.exit(1)
-    
-    # Шаг 2: скачать mp3 из Dropbox
-    db = get_db()
-    print("✅ Dropbox авторизован")
-    print("📥 Синхронизация из Dropbox...")
-    sync_from_dropbox(db)
-    
-    # Шаг 3: сгенерировать HTML
-    print("\n📄 Генерация страницы...")
-    mp3_files = sorted(glob.glob(os.path.join(AIDJ_DIR, "*.mp3"))) if glob_available() else sorted([f for f in os.listdir(AIDJ_DIR) if f.lower().endswith('.mp3')])
+    mp3_files = sorted(glob.glob(os.path.join(AIDJ_DIR, "*.mp3")))
     
     tracks = []
-    for fname in mp3_files:
-        if os.path.isdir(fname):
-            continue
-        fpath = os.path.join(AIDJ_DIR, fname) if not fname.startswith(AIDJ_DIR) else fname
+    for fpath in mp3_files:
         name = os.path.basename(fpath)
         size = os.path.getsize(fpath)
         url = "aidj/" + name
         print(f"  🎵 {name} ({size / 1024:.0f} KB)")
         tracks.append({"name": name, "url": url, "size": size})
     
-    now = None
+    import subprocess
     try:
-        import subprocess
         now = subprocess.check_output(["TZ=Europe/Moscow date '+%d.%m.%Y %H:%M'"], shell=True).decode().strip()
     except:
         now = "23.06.2026"
@@ -304,22 +252,11 @@ def main():
         f.write(html)
     print(f"✅ Страница: {OUTPUT_FILE}")
     
-    # Шаг 4: опубликовать
     os.chdir(os.path.dirname(OUTPUT_FILE))
     os.system("git add -A && git commit -m 'AI DJ Player — обновление' 2>/dev/null")
     os.system("git push 2>&1")
     print("✅ Опубликовано на GitHub Pages")
 
 
-def glob_available():
-    try:
-        import glob
-        glob.glob
-        return True
-    except:
-        return False
-
-
 if __name__ == "__main__":
-    import glob
     main()

@@ -7,7 +7,7 @@ import os
 from yandex_music import Client
 
 TOKEN = "y0__wgBEPPn3YsEGN74BiDwh9eCGL_6nXwTFWHkstdqAq7ZL6Og6y71"
-DOWNLOAD_DIR = "/home/user1/.openclaw/workspace/downloads"
+DOWNLOAD_DIR = "/home/user1/.openclaw/workspace/aidj"
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 client = Client(TOKEN).init()
@@ -34,16 +34,26 @@ def search_tracks(query, limit=10):
 
 
 def download_track(track_id, filename=None):
-    """Скачивает трек по ID"""
+    """Скачивает трек по ID, сохраняет в aidj/ с именем Артист - Название.mp3"""
     track = client.tracks(track_id)[0]
     artists = ', '.join(a.name for a in track.artists)
+    title = track.title
     
     if not filename:
-        safe = f"{artists} - {track.title}"
-        safe = "".join(c for c in safe if c.isalnum() or c in ' -_.,()')
-        filename = f"{track_id} - {safe}.mp3"
+        safe_artists = "".join(c for c in artists if c.isalnum() or c in ' -_')
+        safe_title = "".join(c for c in title if c.isalnum() or c in ' -_')
+        filename = f"{safe_artists} - {safe_title}.mp3"
+    elif not filename.endswith('.mp3'):
+        filename += '.mp3'
     
     filepath = os.path.join(DOWNLOAD_DIR, filename)
+    
+    # Если файл уже существует — не перекачиваем
+    if os.path.exists(filepath):
+        size = os.path.getsize(filepath)
+        if size > 0:
+            return filepath, size
+    
     track.download(filepath)
     
     if os.path.exists(filepath) and os.path.getsize(filepath) > 0:
