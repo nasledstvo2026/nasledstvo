@@ -15,6 +15,7 @@ import os
 import subprocess
 import sys
 from datetime import datetime, timezone, timedelta
+from croniter import croniter
 
 # ═══════════════════════════════════════════
 # КОНФИГУРАЦИЯ
@@ -62,6 +63,14 @@ BIZ_TASKS = {
     "Вклады 1991 — четверг",
 }
 
+
+# Цены моделей из openclaw.json (per 1M tokens)
+COST_MODELS = {
+    "deepseek-chat":      {"input": 0.27, "output": 1.10, "cacheRead": 0.07},
+    "deepseek-v4-flash":   {"input": 0.14, "output": 0.28, "cacheRead": 0.028},
+    "deepseek-v4-pro":     {"input": 1.74, "output": 3.48, "cacheRead": 0.145},
+    "deepseek-reasoner":   {"input": 0.28, "output": 0.42, "cacheRead": 0.028},
+}
 
 # ═══════════════════════════════════════════
 # ЯДРО: расчёт Health Index
@@ -220,43 +229,149 @@ def health_badge(health_idx, color):
 # ГЕНЕРАЦИЯ HTML
 # ═══════════════════════════════════════════
 
-def fetch_last_runs():
-    """
-    Запрашивает openclaw cron list --json, извлекает lastRunAtMs для каждой задачи,
-    конвертирует в MSK (DD.MM HH:MM), возвращает dict {task_name: last_run_str}.
-    Если запрос не удался — пустой dict (продолжаем со старыми данными).
-    """
+def compute_period_ms(schedule):
+    """Вычисляет период cron-расписания в мс через croniter"""
+    expr = schedule.get("expr", "")
+    tz_str = schedule.get("tz", "Europe/Moscow")
+    if not expr:
+        return None
     try:
-        r = subprocess.run(
-            ["openclaw", "cron", "list", "--json"],
-            capture_output=True, text=True, timeout=15
-        )
+        from pytz import timezone as pytz_tz
+        tz = pytz_tz(tz_str)
+    except Exception:
+        tz = timezone.utc
+    try:
+        base = datetime(2026, 1, 1, 0, 0, 0, tzinfo=tz)
+        cron = croniter(expr, base)
+        t1 = cron.get_next(datetime)
+        t2 = cron.get_next(datetime)
+        return int((t2 - t1).total_seconds() * 1000)
+    except Exception as e:
+        print(f"  ⚠️ croniter: {e} для expr={expr}")
+        return None
+
+
+def extract_data_from_stdout(cmd_list):
+    """Выполняет команду, вырезает JSON из stdout (до первой '{') и парсит"""
+    try:
+        r = subprocess.run(cmd_list, capture_output=True, text=True, timeout=30)
         if r.returncode != 0:
-            print(f"⚠️ openclaw cron list вернул код {r.returncode}: {r.stderr[:200]}")
-            return {}
-        data = json.loads(r.stdout)
-        result = {}
-        for job in data.get("jobs", []):
-            cron_name = job.get("name", "")
-            # Убираем эмодзи из имени для поиска в маппинге
-            clean_name = cron_name.strip()
-            task_name = CRON_TO_TASK.get(clean_name)
-            if not task_name:
-                continue
-            last_ms = job.get("state", {}).get("lastRunAtMs")
-            if not last_ms:
-                print(f"  ⚠️ {clean_name}: нет lastRunAtMs")
-                continue
-            dt = datetime.fromtimestamp(last_ms / 1000, tz=timezone.utc).astimezone(MSK_TZ)
-            result[task_name] = dt.strftime("%d.%m %H:%M")
-            print(f"  ✓ {task_name}: {result[task_name]}")
-        return result
-    except FileNotFoundError:
-        print("⚠️ openclaw CLI не найден — пропускаю автообновление last_run")
+            return None
+        out = r.stdout
+        idx = out.find('{')
+        if idx < 0:
+            return None
+        return json.loads(out[idx:])
+    except Exception:
+        return None
+
+
+def fetch_gateway_metrics():
+    """
+    Получает из Gateway актуальные метрики (duration, latency, cache, cost, last_run)
+    для всех задач. Возвращает dict {task_name: {key: val}}.
+    """
+    jobs_data = extract_data_from_stdout(["openclaw", "cron", "list", "--json"])
+    if not jobs_data:
+        print("⚠️ Не удалось получить список задач из Gateway")
         return {}
-    except (json.JSONDecodeError, KeyError, subprocess.TimeoutExpired) as e:
-        print(f"⚠️ Ошибка при получении lastRunAtMs: {e}")
-        return {}
+
+    jobs = jobs_data.get("jobs", [])
+    cron_map = {j["name"]: j for j in jobs}
+    result = {}
+
+    for cron_name, task_name in CRON_TO_TASK.items():
+        job = cron_map.get(cron_name)
+        if not job:
+            print(f"  ⚠️ {cron_name}: задача не найдена в Gateway")
+            continue
+
+        state = job.get("state", {})
+        payload = job.get("payload", {})
+        schedule = job.get("schedule", {})
+        job_id = job.get("id", "")
+
+        last_run_ms = state.get("lastRunAtMs")
+        last_dur_ms = state.get("lastDurationMs")
+        timeout_s = payload.get("timeoutSeconds")
+        next_run_ms = state.get("nextRunAtMs")
+
+        metrics = {}
+
+        # ── last_run ──
+        if last_run_ms:
+            dt = datetime.fromtimestamp(last_run_ms / 1000, tz=timezone.utc).astimezone(MSK_TZ)
+            metrics["last_run"] = dt.strftime("%d.%m %H:%M")
+
+        # ── duration_pct ──
+        if last_dur_ms is not None and timeout_s and timeout_s > 0:
+            metrics["duration_pct"] = round(last_dur_ms / (timeout_s * 1000) * 100)
+
+        # ── latency_min (через croniter) ──
+        if last_run_ms and next_run_ms and schedule:
+            period_ms = compute_period_ms(schedule)
+            if period_ms:
+                expected_ms = next_run_ms - period_ms
+                lat_min = max(0, (last_run_ms - expected_ms) / 60000)
+                metrics["latency_min"] = round(lat_min, 1)
+
+        # ── success_rate (последние 3 запуска) + cache/cost ──
+        if job_id:
+            runs_data = extract_data_from_stdout(
+                ["openclaw", "cron", "runs", "--id", job_id, "--limit", "5"]
+            )
+            if runs_data:
+                entries = runs_data.get("entries", [])
+                # SR считаем по последним 3 запускам (любым, не только успешным)
+                last_3 = entries[:3]
+                if len(last_3) > 0:
+                    ok_count = sum(1 for e in last_3 if e.get("status") == "ok")
+                    metrics["success_rate"] = round(ok_count / len(last_3) * 100)
+
+                # cache_hit_pct + cost_per_run из последнего успешного run
+                for entry in entries:
+                    if entry.get("status") != "ok":
+                        continue
+                    usage = entry.get("usage", {})
+                    inp = usage.get("input_tokens", 0)
+                    out = usage.get("output_tokens", 0)
+                    total = usage.get("total_tokens", 0)
+                    if not inp or not total or total < (inp + out):
+                        continue  # данные некорректны
+
+                    cache_read = total - inp - out
+                    if inp + cache_read > 0:
+                        metrics["cache_hit_pct"] = round(cache_read / (inp + cache_read) * 100)
+
+                    # Стоимость: берём модель из run или fallback
+                    model = entry.get("model", "deepseek-chat")
+                    model_key = model.replace("deepseek/", "")
+                    price = COST_MODELS.get(model_key, COST_MODELS["deepseek-chat"])
+                    cost = (inp * price["input"] + cache_read * price["cacheRead"] + out * price["output"]) / 1_000_000
+                    metrics["cost_per_run"] = round(cost, 4)
+                    break  # берём только последний успешный
+
+        print(f"  ✓ {task_name}: SR={metrics.get('success_rate','?')}% dur={metrics.get('duration_pct','?')}% "
+              f"lat={metrics.get('latency_min','?')}м "
+              f"cache={metrics.get('cache_hit_pct','?')}% "
+              f"cost=${metrics.get('cost_per_run','?')} "
+              f"last={metrics.get('last_run','?')}")
+        result[task_name] = metrics
+
+    return result
+
+
+def merge_gateway_metrics(tasks, gw_metrics):
+    """Обновляет метрики задач из Gateway, сохраняя статичные поля"""
+    updated = []
+    for t in tasks:
+        name = t.get("task", "")
+        gw = gw_metrics.get(name, {})
+        for key in ("success_rate", "duration_pct", "latency_min", "cache_hit_pct", "cost_per_run", "last_run"):
+            if key in gw:
+                t[key] = gw[key]
+        updated.append(t)
+    return updated
 
 
 def load_opt_status():
@@ -318,6 +433,187 @@ def fmt_opt_status(opt_status, task_name, health_idx):
     return '<span class="opt-pending">⏳ не рассматривалось</span>'
 
 
+def load_job_map():
+    """Загружает маппинг task_name → job_id из Gateway"""
+    data = extract_data_from_stdout(["openclaw", "cron", "list", "--json"])
+    if not data:
+        return {}
+    result = {}
+    for job in data.get("jobs", []):
+        name = job.get("name", "")
+        task = CRON_TO_TASK.get(name)
+        if task:
+            result[task] = job.get("id", "")
+    return result
+
+
+TRACKER_FILE = os.path.join(WORKSPACE, "memory", "rec-tracker.json")
+
+
+def load_tracker():
+    """Загружает трекер повторяющихся рекомендаций"""
+    if not os.path.exists(TRACKER_FILE):
+        return {"cycle": {}}
+    try:
+        with open(TRACKER_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {"cycle": {}}
+
+
+def save_tracker(tracker):
+    """Сохраняет трекер"""
+    os.makedirs(os.path.dirname(TRACKER_FILE), exist_ok=True)
+    with open(TRACKER_FILE, "w", encoding="utf-8") as f:
+        json.dump(tracker, f, ensure_ascii=False, indent=2)
+
+
+def make_rec_key(metrics):
+    """Формирует ключ рекомендации для отслеживания"""
+    sr = metrics.get("success_rate", 100)
+    dur = metrics.get("duration_pct", 0)
+    cost = metrics.get("cost_per_run", None)
+    if sr is not None and sr < 90:
+        return f"sr-{sr}"
+    if dur > 80:
+        return f"dur-{dur}"
+    if dur < 20:
+        return f"dur-low-{dur}"
+    if cost is not None and cost > 0.05:
+        return f"cost-{cost}"
+    return ""
+
+
+def apply_one_recommendation(task_name, job_map, metrics):
+    """Применяет изменение через openclaw cron edit"""
+    job_id = job_map.get(task_name)
+    if not job_id:
+        return None
+
+    sr = metrics.get("success_rate", 100)
+    dur = metrics.get("duration_pct", 0)
+    cost = metrics.get("cost_per_run", None)
+    changes = []
+
+    # 1. Duration > 80% → увеличить таймаут
+    if sr is not None and sr >= 90 and dur > 80:
+        timeout_s = round(400 * 1.5)  # увеличиваем на 50%
+        timeout_s = min(timeout_s, 600)
+        cmd = ["openclaw", "cron", "edit", "--id", job_id, "--timeout-seconds", str(timeout_s)]
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+        if r.returncode == 0:
+            changes.append(f"timeout→{timeout_s}с")
+            print(f"  ⚙️ {task_name}: таймаут увеличен до {timeout_s}с")
+
+    # 2. Duration < 20% → уменьшить таймаут
+    if sr is not None and sr >= 90 and dur < 20:
+        timeout_s = 120  # уменьшаем до разумного минимума
+        cmd = ["openclaw", "cron", "edit", "--id", job_id, "--timeout-seconds", str(timeout_s)]
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+        if r.returncode == 0:
+            changes.append(f"timeout→{timeout_s}с")
+            print(f"  ⚙️ {task_name}: таймаут уменьшен до {timeout_s}с")
+
+    # 3. Cost > $0.05 со SR >= 90 → flash
+    if sr is not None and sr >= 90 and cost is not None and cost > 0.05:
+        cmd = ["openclaw", "cron", "edit", "--id", job_id, "--model", "deepseek/deepseek-v4-flash"]
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+        if r.returncode == 0:
+            changes.append("model→flash")
+            print(f"  ⚙️ {task_name}: модель переключена на flash (было ${cost}/run)")
+
+    return changes if changes else None
+
+
+def apply_recommendations(tasks, job_map):
+    """Проверяет повторяющиеся рекомендации и применяет изменения"""
+    tracker = load_tracker()
+    cycle_data = tracker.get("cycle", {})
+    now = datetime.now().strftime("%H:%M")
+    changes_made = []
+
+    for t in tasks:
+        name = t["task"]
+        health_idx, _ = calc_health(t)
+        if health_idx >= 80:
+            # Задача зелёная — очищаем трекер
+            if name in cycle_data:
+                del cycle_data[name]
+            continue
+
+        # SR < 90 — не применяем автоизменения
+        sr = t.get("success_rate")
+        if sr is not None and sr < 90:
+            if name in cycle_data:
+                del cycle_data[name]
+            continue
+
+        key = make_rec_key(t)
+        if not key:
+            if name in cycle_data:
+                del cycle_data[name]
+            continue
+
+        prev = cycle_data.get(name, {})
+        if prev.get("key") == key:
+            count = prev.get("count", 1) + 1
+        else:
+            count = 1
+
+        cycle_data[name] = {"key": key, "count": count, "updated": now}
+
+        # Применяем на 2-м цикле
+        if count >= 2:
+            result = apply_one_recommendation(name, job_map, t)
+            if result:
+                changes_made.append((name, result))
+                del cycle_data[name]  # сбрасываем после применения
+
+    tracker["cycle"] = cycle_data
+    save_tracker(tracker)
+    return changes_made
+
+
+def generate_recommendation(metrics, health_idx):
+    """Генерирует рекомендацию на основе метрик"""
+    if health_idx >= 80:
+        return '<span style="color:var(--text-dim,#8b949e);">✅ Всё ОК</span>'
+
+    sr = metrics.get("success_rate", 100)
+    dur = metrics.get("duration_pct", 0)
+    lat = metrics.get("latency_min", 0)
+    cache = metrics.get("cache_hit_pct", None)
+    cost = metrics.get("cost_per_run", None)
+
+    parts = []
+
+    # Приоритет 1: SR < 90% — главная проблема
+    if sr is not None and sr < 90:
+        parts.append(f"SR {sr}% — есть ошибки, проверить стабильность")
+
+    # Приоритет 2: остальные метрики (только критичное, если SR в порядке)
+    if sr is None or sr >= 90:
+        if dur > 80:
+            parts.append(f"Duration {dur}% — увеличить таймаут")
+        elif dur >= 50:
+            parts.append(f"Duration {dur}% — близко к лимиту")
+        elif dur < 20:
+            parts.append(f"Duration {dur}% — можно уменьшить таймаут")
+
+        if lat > 15:
+            parts.append(f"Latency {lat} мин — перенести расписание")
+
+        if cache is not None and cache < 50:
+            parts.append(f"Cache {cache}% — низкая эффективность промпта")
+
+        if cost is not None and cost > 0.05:
+            parts.append(f"Cost ${cost:.4f} — дорого, рассмотреть Flash")
+
+    if not parts:
+        return '<span style="color:var(--text-dim,#8b949e);">✅ Всё ОК</span>'
+    return "⚠️ " + ". ".join(parts)
+
+
 def gen_task_row(t, biz=True, opt_status=None):
     """Генерирует строку <tr> для задачи"""
     if opt_status is None:
@@ -329,11 +625,8 @@ def gen_task_row(t, biz=True, opt_status=None):
     cache = t["cache_hit_pct"]
     cost = t["cost_per_run"]
 
-    # Правило: для зелёных задач (>=80) скрываем рекомендацию
-    if health_idx >= 80:
-        tip_html = '<span style="color:var(--text-dim,#8b949e);">✅ Всё ОК</span>'
-    else:
-        tip_html = t["tip"]
+    # Рекомендация на основе метрик
+    tip_html = generate_recommendation(t, health_idx)
 
     opt_html = fmt_opt_status(opt_status, t["task"], health_idx)
 
@@ -392,51 +685,35 @@ def gen_tasks_html(tasks):
 
   <!-- ═══ Легенда ═══ -->
   <div class="section" style="padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
-    <h2 style="font-size:14px;margin-bottom:12px;color:var(--text,#c9d1d9);">💡 Легенда</h2>
-    <div class="legend-metric">
-      <div class="legend-title">⏱ Duration / Timeout</div>
-      <div class="legend-desc">Доля времени выполнения от таймаута</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;50%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &gt;80%</span></div>
-    </div>
-    <div class="legend-metric">
-      <div class="legend-title">📈 Success Rate</div>
-      <div class="legend-desc">Процент успешных запусков</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> 100%</span><span><span class="tl tl-yellow"></span> &lt;100%</span><span><span class="tl tl-red"></span> &lt;90%</span></div>
-    </div>
-    <div class="legend-metric">
-      <div class="legend-title">📬 Latency</div>
-      <div class="legend-desc">Задержка старта относительно расписания</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> ≤1 мин</span><span><span class="tl tl-yellow"></span> 2–15 мин</span><span><span class="tl tl-red"></span> &gt;15 мин</span></div>
-    </div>
-    <div class="legend-sep"></div>
-    <div class="legend-metric">
-      <div class="legend-title">💎 Cache Hit %</div>
-      <div class="legend-desc"><code>cacheRead / (input + cacheRead) × 100</code> — эффективность системного промпта. Данные из trajectory сессии (сырой ответ DeepSeek API).</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &gt;80%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &lt;50%</span></div>
-    </div>
-    <div class="legend-metric" style="border:none;margin:0;padding:0;">
-      <div class="legend-title">💰 Cost / Run</div>
-      <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code> — тарифы deepseek-chat из openclaw.json.</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;$0.01</span><span><span class="tl tl-yellow"></span> $0.01–0.05</span><span><span class="tl tl-red"></span> &gt;$0.05</span></div>
-    </div>
-    <div class="legend-sep"></div>
-    <div class="legend-metric" style="border:none;margin:0;padding:0;">
-      <div class="legend-title">🩺 Health Index</div>
-      <div class="legend-desc">Композитная метрика 0–100: SR×30% + Duration×25% + Latency×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0.</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> ≥80</span><span><span class="tl tl-yellow"></span> 50–79</span><span><span class="tl tl-red"></span> &lt;50</span></div>
-    </div>
-    <div class="legend-sep"></div>
-    <div class="legend-metric" style="border:none;margin:0;padding:0;">
-      <div class="legend-title">📋 Проработка рекомендаций</div>
-      <div class="legend-desc">Статус обработки рекомендаций агентом-оптимизатором (автоматически, каждый 3ч)</div>
-      <div class="legend-items">
-        <span><span class="opt-status-dot" style="background:transparent;border:1px solid #8b949e;color:#8b949e;width:auto;height:auto;padding:0 4px;font-size:11px;border-radius:3px;">—</span> не требуется</span>
-        <span><span class="opt-status-dot opt-dot-seen">⏳</span> ждём 2/2 циклов</span>
-        <span><span class="opt-status-dot opt-dot-analyzed">🔍</span> проанализировано</span>
-        <span><span class="opt-status-dot opt-dot-decided">✅</span> зафиксировано</span>
-        <span><span class="opt-status-dot opt-dot-done">✅</span> применено + дата</span>
-      </div>
-    </div>
+    <h2 style="font-size:14px;margin-bottom:10px;color:var(--text,#c9d1d9);">💡 Легенда</h2>
+    <table class="legend-table">
+      <thead>
+        <tr><th>Метрика</th><th style="text-align:center;"><span class="tl tl-green"></span> 🟢</th><th style="text-align:center;"><span class="tl tl-yellow"></span> 🟡</th><th style="text-align:center;"><span class="tl tl-red"></span> 🔴</th><th>Описание</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>⏱ Duration</td><td style="text-align:center;">&lt;50%</td><td style="text-align:center;">50–80%</td><td style="text-align:center;">&gt;80%</td><td>Доля времени от таймаута</td></tr>
+        <tr><td>📈 Success Rate</td><td style="text-align:center;">100%</td><td style="text-align:center;">&lt;100%</td><td style="text-align:center;">&lt;90%</td><td>Процент успешных запусков</td></tr>
+        <tr><td>📬 Latency</td><td style="text-align:center;">≤1 мин</td><td style="text-align:center;">2–15 мин</td><td style="text-align:center;">&gt;15 мин</td><td>Задержка старта относительно расписания</td></tr>
+        <tr><td>💎 Cache Hit</td><td style="text-align:center;">&gt;80%</td><td style="text-align:center;">50–80%</td><td style="text-align:center;">&lt;50%</td><td>cacheRead / (input + cacheRead) × 100</td></tr>
+        <tr><td>💰 Cost / Run</td><td style="text-align:center;">&lt;$0.01</td><td style="text-align:center;">$0.01–0.05</td><td style="text-align:center;">&gt;$0.05</td><td>По тарифам модели из openclaw.json</td></tr>
+        <tr><td>🩺 Health Index</td><td style="text-align:center;">≥80</td><td style="text-align:center;">50–79</td><td style="text-align:center;">&lt;50</td><td>SR×30% + Dur×25% + Lat×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- ОПИСАНИЕ СИСТЕМЫ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section" style="padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
+    <h2 style="font-size:14px;margin-bottom:10px;color:var(--text,#c9d1d9);">🔧 Как это работает</h2>
+    <ul style="margin:0;padding:0 0 0 18px;font-size:12.5px;line-height:1.7;color:var(--text-dim,#8b949e);">
+      <li><b style="color:var(--text,#c9d1d9);">Метрики</b> — все значения (Duration, Latency, Cache, Cost, SR) рассчитываются автоматически из Gateway при каждом обновлении (каждые 3ч)</li>
+      <li><b style="color:var(--text,#c9d1d9);">🩺 Health Index</b> — SR×30% + Duration×25% + Latency×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0</li>
+      <li><b style="color:var(--text,#c9d1d9);">💡 Рекомендации</b> — генерируются автоматически по текущим метрикам. Если SR &lt; 90% — рекомендация только про ошибки. Если SR в порядке — анализируются остальные метрики</li>
+      <li><b style="color:var(--text,#c9d1d9);">⚙️ Авто-применение</b> — если рекомендация повторяется 2 цикла подряд (6ч), скрипт сам меняет конфигурацию: увеличивает/уменьшает таймаут при перегрузке/недогрузке, переключает дорогие задачи на flash-модель</li>
+      <li><b style="color:var(--text,#c9d1d9);">🔒 Безопасность</b> — задачи с SR &lt; 90% исключены из авто-применения. Сначала стабильность, потом оптимизация</li>
+      <li><b style="color:var(--text,#c9d1d9);">💡 Колонка «Проработка»</b> — наследие старого оптимизатора (отключён). Не используется</li>
+    </ul>
   </div>
 
   <!-- ═══════════════════════════════════════════════════ -->
@@ -528,13 +805,11 @@ def gen_tasks_html(tasks):
 .health-green  {{ background: rgba(63,185,80,.15); color: #3fb950; }}
 .health-yellow {{ background: rgba(210,153,34,.15); color: #d29922; }}
 .health-red    {{ background: rgba(248,81,73,.15); color: #f85149; }}
-.legend-sep {{ height: 1px; background: rgba(33,38,45,.5); margin: 12px 0; }}
-.legend-metric {{ margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(33,38,45,.5); }}
-.legend-metric:last-child {{ border-bottom: none; margin-bottom: 0; padding-bottom: 0; }}
-.legend-title {{ font-size: 13px; font-weight: 600; color: var(--text,#c9d1d9); margin-bottom: 2px; }}
-.legend-desc {{ font-size: 12px; color: var(--text-dim,#8b949e); margin-bottom: 6px; }}
-.legend-items {{ display: flex; gap: 14px; flex-wrap: wrap; }}
-.legend-items span {{ display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-dim,#8b949e); }}
+.legend-table {{ width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.6; }}
+.legend-table th {{ text-align: left; padding: 6px 8px; background: rgba(33,38,45,.5); border-bottom: 1px solid var(--glass-border,#21262d); color: var(--text-dim,#8b949e); font-weight: 600; font-size: 11px; white-space: nowrap; }}
+.legend-table td {{ padding: 5px 8px; border-bottom: 1px solid rgba(33,38,45,.3); color: var(--text-dim,#8b949e); font-size: 12px; }}
+.legend-table td:first-child {{ color: var(--text,#c9d1d9); font-weight: 500; white-space: nowrap; }}
+.legend-table td:last-child {{ font-size: 11.5px; color: var(--text-dim-dim,#6e7681); }}
 @media (max-width: 1100px) {{ .task-table {{ font-size: 12px; min-width: 800px; }} .task-table tbody td {{ padding: 7px 6px; }} .col-rec {{ min-width: 180px; }} }}
 </style>
 </body>
@@ -545,24 +820,6 @@ def gen_tasks_html(tasks):
 # MAIN
 # ═══════════════════════════════════════════
 
-def update_last_runs(tasks):
-    """
-    Обновляет поле last_run в задачах, используя данные из Gateway.
-    Возвращает обновлённый список задач.
-    """
-    last_runs = fetch_last_runs()
-    if not last_runs:
-        return tasks
-
-    updated = []
-    for t in tasks:
-        name = t.get("task", "")
-        if name in last_runs:
-            t["last_run"] = last_runs[name]
-        updated.append(t)
-    return updated
-
-
 def main():
     if not os.path.exists(DATA_FILE):
         print(f"❌ Не найден {DATA_FILE}")
@@ -571,13 +828,18 @@ def main():
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         tasks = json.load(f)
 
-    print("📡 Получаю lastRunAtMs из Gateway...")
-    tasks = update_last_runs(tasks)
+    print("📡 Получаю метрики из Gateway (duration, latency, cache, cost)...")
+    gw_metrics = fetch_gateway_metrics()
+    if gw_metrics:
+        tasks = merge_gateway_metrics(tasks, gw_metrics)
+        print(f"✅ Обновлено {len(gw_metrics)} задач из Gateway")
+    else:
+        print("⚠️ Gateway недоступен — метрики остаются из tasks-data.json")
 
-    # Сохраняем обновлённые last_run обратно в JSON
+    # Сохраняем обновлённые данные обратно в JSON
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(tasks, f, ensure_ascii=False, indent=2)
-    print("💾 tasks-data.json сохранён с актуальными last_run")
+    print("💾 tasks-data.json сохранён с актуальными метриками")
 
     html = gen_tasks_html(tasks)
 
@@ -585,6 +847,19 @@ def main():
         f.write(html)
 
     print(f"✅ tasks.html сгенерирован — {len(tasks)} задач")
+
+    # Применение рекомендаций (по 2+ циклам)
+    print("🔧 Проверяю рекомендации для авто-применения...")
+    job_map = load_job_map()
+    if job_map:
+        changes = apply_recommendations(tasks, job_map)
+        if changes:
+            for name, chgs in changes:
+                print(f"  ✓ {name}: применено {', '.join(chgs)}")
+        else:
+            print("  Нет изменений")
+    else:
+        print("  ⚠️ Не удалось загрузить job_map")
 
     # Публикация на GitHub
     os.chdir(WORKSPACE)
