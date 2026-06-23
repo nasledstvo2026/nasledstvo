@@ -117,23 +117,24 @@
 .cards .card-tag.pink   { background: rgba(248,81,73,.12);   color: var(--pink);   border: 1px solid rgba(255,107,157,.2); }
 
 /* ─── AURA card — строгий uppercase serif ─── */
+.cards .card.aura {
+  min-height: 150px;
+  cursor: pointer;
+}
+.cards .card.aura .card-header {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 22px;
+}
+.cards .card.aura .card-header-row {
+  margin-bottom: 0;
+}
 .cards .card.aura h2 {
   text-transform: uppercase;
   font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
   letter-spacing: 2px;
-}
-.cards .card.aura .desc {
-  text-transform: uppercase;
-  font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  opacity: 0.85;
-}
-.cards .card.aura .card-footer {
-  text-transform: uppercase;
-  font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  letter-spacing: 1px;
-  font-size: 10px;
 }
 
 /* ─── Card badges (статус в заголовке) ─── */
