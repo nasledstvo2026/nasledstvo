@@ -45,65 +45,17 @@
       font-size: 14px;
       margin-bottom: 20px;
     }
-    .status-box {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .status-box.online {
-      background: rgba(126, 231, 135, 0.15);
-      border: 1px solid rgba(126, 231, 135, 0.3);
-      color: var(--green);
-    }
-    .status-box.offline {
-      background: rgba(248, 81, 73, 0.15);
-      border: 1px solid rgba(248, 81, 73, 0.3);
-      color: var(--red);
-    }
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .status-box.online .status-dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
-    .status-box.offline .status-dot { background: var(--red); box-shadow: 0 0 6px var(--red); }
-    .status-meta {
-      color: var(--text-faint);
-      font-size: 12px;
-      margin-left: 28px;
-      margin-bottom: 24px;
-    }
   </style>
 </head>
 <body>
-
 <div class="container" style="max-width: 960px; margin: 0 auto; padding: 40px 20px;">
-
   <div class="back"><a href="index.html">← На главную</a></div>
-
-  <div class="notice">
-    ⚠️ Временная страница. Будет удалена по команде.
-  </div>
-
-  <div class="section">
-    <h2 style="margin-bottom: 12px; font-size: 18px;">🌐 Доступность Google (РКН)</h2>
-    <div id="google-status" class="status-box online">
-      <span class="status-dot"></span>
-      Google доступен
-    </div>
-    <div class="status-meta">Проверка: curl google.com — OK (код 200) · последний сбор: февраль 2025</div>
-  </div>
+  <div class="notice">⚠️ Временная страница. Будет удалена по команде.</div>
 
   <div class="section">
     <span class="file-label">katya-stats-data_1.md</span>
     <h2 style="margin-bottom: 4px;">Статистика (новая)</h2>
-    <div class="desc" style="margin-bottom: 12px;">Содержимое файла katya-stats-data_1.md · katya-data_1.json: 30 записей</div>
+    <div class="desc" style="margin-bottom: 12px;">katya-stats-data_1.md · katya-data_1.json: 30 записей</div>
     <div class="code-block md"># Статистика жалоб по месяцам — НОВАЯ (katya-stats-data_1.md)
 # Формат: ГГГГ-ММ | Сбер | Другие банки | Всего | Источник
 # Строки с данными за день: ГГГГ-ММ-ДД | Сбер: X | Другие: X
@@ -123,7 +75,7 @@
   <div class="section">
     <span class="file-label">katya-data_1.json</span>
     <h2 style="margin-bottom: 4px;">Данные (новая)</h2>
-    <div class="desc" style="margin-bottom: 12px;">Содержимое файла katya-data_1.json (30 записей)</div>
+    <div class="desc" style="margin-bottom: 12px;">30 записей</div>
     <div class="code-block json">[
   {
     "date": "2025-08-20",
@@ -369,10 +321,8 @@
   </div>
 
   <div class="footer" style="margin-top: 60px; text-align: center; color: var(--text-faint); font-size: 13px;">
-    Временная страница · Сбор статистики · обновлено 23.06.2026
+    Временная страница · обновлено 23.06.2026
   </div>
-
 </div>
-
 </body>
 </html>
