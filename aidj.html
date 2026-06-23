@@ -288,6 +288,62 @@
       font-weight: 500;
     }
 
+    /* ─── Hero Image ─── */
+    .hero-image {
+      margin: 24px auto 12px;
+      max-width: 600px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(168, 85, 247, 0.08);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), transparent 40%, rgba(168, 85, 247, 0.15));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-image:hover {
+      border-color: transparent;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 212, 255, 0.12);
+    }
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 11;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: transform 0.5s ease, filter 0.5s ease;
+      filter: saturate(1.1) contrast(1.05);
+    }
+    .hero-image:hover img {
+      transform: scale(1.02);
+      filter: saturate(1.2) contrast(1.1) brightness(1.05);
+    }
+    .hero-image .image-glow {
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 120%;
+      height: 60%;
+      background: radial-gradient(ellipse, rgba(0, 212, 255, 0.12), transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
     /* ─── Neon Essence / Cards ─── */
     .essence {
       padding: 20px;
@@ -641,6 +697,14 @@
     <div class="subtitle">P R O J E C T &nbsp; I N I T I A T I V E</div>
     <div class="title">AI DJ</div>
     <div class="meta">Автономный модуль сведения аудиотреков</div>
+  </div>
+
+  <!-- Hero Image -->
+  <div class="hero-image">
+    <div class="image-glow"></div>
+    <img src="https://www.jplightandsound.com.au/wp-content/uploads/2020/08/Technics-1210MK2-Hire-JP-Light-Sound-Adelaide.jpg"
+         alt="Technics 1210 MK2 — культовые вертушки"
+         loading="lazy">
   </div>
 
   <!-- Action Buttons -->
