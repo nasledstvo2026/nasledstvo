@@ -169,6 +169,17 @@ function openAuraModal() {
   input.style.cssText = 'background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,144,0,0.3);border-radius:10px;padding:10px 14px;font-family:Georgia,serif;font-size:16px;color:#fff;text-align:center;letter-spacing:6px;outline:none;width:200px;transition:border-color .2s;';
   input.onfocus = function() { this.style.borderColor = 'rgba(255,144,0,0.7)'; };
   input.onblur = function() { this.style.borderColor = 'rgba(255,144,0,0.3)'; };
+  input.onkeydown = function(e) {
+    if (e.key === 'Enter' && this.value.trim().length > 0) {
+      // Hide input, show message
+      passLabel.style.display = 'none';
+      this.style.display = 'none';
+      var result = document.createElement('div');
+      result.textContent = 'Вход закрыт. Найдите свой VIP PASS';
+      result.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:14px;color:rgba(255,100,100,0.8);line-height:1.6;margin-top:12px;padding:16px;border:1px solid rgba(255,100,100,0.25);border-radius:10px;background:rgba(255,50,50,0.08);';
+      modal.appendChild(result);
+    }
+  };
 
   modal.appendChild(title);
   modal.appendChild(sub);
