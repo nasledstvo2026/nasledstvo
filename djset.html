@@ -4,183 +4,648 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI DJ — DJ Set'ы</title>
-  <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="style.css">
   <style>
-    /* ─── Page layout ─── */
-    .ds-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:24px; }
-    .ds-header h1 { margin:0; font-size:1.5em; color:#f0f6fc; }
+    /* ═══════════════════════════════════════════════
+       AI DJ — Futuristic Neon Theme
+       ═══════════════════════════════════════════════ */
 
-    /* ─── Set cards ─── */
-    .ds-grid { display:flex; flex-direction:column; gap:12px; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    :root {
+      --bg-deep: #070b12;
+      --bg-card: rgba(14, 22, 36, 0.75);
+      --border-subtle: rgba(0, 200, 255, 0.08);
+      --border-glow: rgba(0, 200, 255, 0.25);
+      --cyan: #00d4ff;
+      --cyan-dim: rgba(0, 212, 255, 0.15);
+      --magenta: #f0f;
+      --purple: #a855f7;
+      --purple-dim: rgba(168, 85, 247, 0.15);
+      --pink: #ff3bc3;
+      --text: #eaf0f6;
+      --text-dim: #8892a0;
+      --text-faint: #4a5464;
+      --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);
+      --glow-purple: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ─── Animated Background ─── */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .bg-glow {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(0, 212, 255, 0.06), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate;
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      right: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(168, 85, 247, 0.05), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes glow-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 5%) scale(1.1); }
+    }
+
+    /* ─── Particles ─── */
+    .particles {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particle-float 8s infinite;
+      box-shadow: 0 0 6px var(--cyan);
+    }
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+    .particle:nth-child(2) { left: 25%; animation-delay: 1.2s; animation-duration: 9s; width: 2px; height: 2px; }
+    .particle:nth-child(3) { left: 40%; animation-delay: 2.5s; animation-duration: 6s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(4) { left: 55%; animation-delay: 0.8s; animation-duration: 8s; width: 4px; height: 4px; }
+    .particle:nth-child(5) { left: 70%; animation-delay: 3.1s; animation-duration: 7.5s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(6) { left: 85%; animation-delay: 1.8s; animation-duration: 9.5s; width: 2px; height: 2px; }
+    .particle:nth-child(7) { left: 50%; animation-delay: 4.2s; animation-duration: 6.5s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(8) { left: 15%; animation-delay: 5.0s; animation-duration: 8.2s; width: 3px; height: 3px; }
+    .particle:nth-child(9) { left: 65%; animation-delay: 3.8s; animation-duration: 7.2s; }
+    .particle:nth-child(10) { left: 35%; animation-delay: 6.0s; animation-duration: 8.8s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(11) { left: 5%; animation-delay: 0.5s; animation-duration: 9.2s; width: 2px; height: 2px; }
+    .particle:nth-child(12) { left: 75%; animation-delay: 2.2s; animation-duration: 7.8s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(13) { left: 90%; animation-delay: 4.8s; animation-duration: 6.2s; }
+    .particle:nth-child(14) { left: 30%; animation-delay: 5.5s; animation-duration: 8.5s; width: 3px; height: 3px; }
+    .particle:nth-child(15) { left: 45%; animation-delay: 1.5s; animation-duration: 7.0s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+
+    @keyframes particle-float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* ─── Layout ─── */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+    }
+
+    /* ─── Back Button ─── */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .back::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .back:hover {
+      color: var(--text);
+      border-color: transparent;
+      box-shadow: var(--glow-cyan);
+      transform: translateX(-2px);
+    }
+    .back:hover::before { opacity: 1; }
+
+    /* ─── Header ─── */
+    .ds-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .ds-header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Neon Buttons ─── */
+    .ds-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      line-height: 1.4;
+      position: relative;
+      overflow: hidden;
+    }
+    .ds-btn::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .ds-btn:hover {
+      color: var(--text);
+      border-color: transparent;
+      transform: translateY(-1px);
+      box-shadow: var(--glow-cyan);
+    }
+    .ds-btn:hover::before { opacity: 1; }
+
+    .ds-btn-primary {
+      background: linear-gradient(135deg, var(--cyan-dim), var(--purple-dim));
+      color: var(--cyan);
+    }
+    .ds-btn-primary:hover {
+      color: var(--text);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .ds-btn-play {
+      color: #3fb950;
+    }
+    .ds-btn-play:hover {
+      color: #7ee787;
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.3);
+    }
+    .ds-btn-play::before {
+      background: linear-gradient(135deg, #3fb950, transparent, #7ee787);
+    }
+
+    .ds-btn-danger {
+      color: #f85149;
+    }
+    .ds-btn-danger:hover {
+      color: #ff7b72;
+      box-shadow: 0 0 20px rgba(248, 81, 73, 0.3);
+    }
+    .ds-btn-danger::before {
+      background: linear-gradient(135deg, #f85149, transparent, #ff7b72);
+    }
+
+    .ds-btn-create {
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #a78bfa;
+    }
+    .ds-btn-create::before {
+      background: linear-gradient(135deg, #7c3aed, transparent, #a78bfa);
+    }
+    .ds-btn-create:hover {
+      color: #c4b5fd;
+      box-shadow: var(--glow-purple);
+    }
+
+    /* ─── Set Cards ─── */
+    .ds-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
     .ds-card {
-      background: rgba(22,27,34,0.85);
-      border: 1px solid #21262d;
-      border-radius: 12px;
-      padding:20px 24px;
-      transition: border-color .2s;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .ds-card:hover { border-color: #30363d; }
+    .ds-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .ds-card:hover {
+      border-color: transparent;
+      box-shadow: var(--glow-cyan), inset 0 0 40px rgba(0, 212, 255, 0.03);
+      transform: translateY(-1px);
+    }
+    .ds-card:hover::before { opacity: 1; }
 
     .ds-card-row {
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-    .ds-card-info { flex:1; min-width:200px; }
-    .ds-card-name { color:#f0f6fc; font-size:1.1em; font-weight:600; margin-bottom:4px; }
-    .ds-card-meta { color:#8b949e; font-size:0.85em; }
-    .ds-card-meta span { margin-right:16px; }
+    .ds-card-info { flex: 1; min-width: 200px; }
+    .ds-card-name {
+      color: var(--text);
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .ds-card-meta { color: var(--text-faint); font-size: 0.85em; }
+    .ds-card-meta span { margin-right: 16px; }
 
-    .ds-card-actions { display:flex; gap:6px; flex-wrap:wrap; }
+    .ds-card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
-    /* ─── Buttons on cards ─── */
-    .ds-btn {
-      display:inline-flex; align-items:center; gap:4px;
-      padding:6px 14px; border-radius:8px; border:1px solid #30363d;
-      background:rgba(48,54,61,0.3); color:#c9d1d9;
-      font-size:0.82em; font-weight:500; cursor:pointer;
-      transition: all .15s; text-decoration:none; line-height:1.4;
+    /* ─── Track detail toggle ─── */
+    .ds-track-detail {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
     }
-    .ds-btn:hover { background:rgba(48,54,61,0.7); color:#f0f6fc; }
-    .ds-btn-primary {
-      background:rgba(88,166,255,0.15); border-color:#58a6ff; color:#58a6ff;
+    .ds-track-detail.open { display: block; }
+
+    .ds-track-detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      color: var(--text-dim);
+      font-size: 0.85em;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
     }
-    .ds-btn-primary:hover { background:rgba(88,166,255,0.25); }
-    .ds-btn-play {
-      background:rgba(63,185,80,0.15); border-color:#3fb950; color:#3fb950;
+    .ds-track-detail-item:last-child { border-bottom: none; }
+    .ds-track-detail-item .td-num { color: var(--text-faint); min-width: 24px; }
+    .ds-track-detail-item .td-title { flex: 1; }
+    .ds-track-detail-item .td-bpm { color: var(--cyan); font-size: 0.82em; }
+
+    /* ─── Playing badge ─── */
+    .ds-playing {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 600;
+      border: 1px solid rgba(63, 185, 80, 0.2);
     }
-    .ds-btn-play:hover { background:rgba(63,185,80,0.25); }
-    .ds-btn-danger {
-      background:rgba(248,81,73,0.1); border-color:#f85149; color:#f85149;
+    .ds-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(63, 185, 80, 0.3);
+      border-top-color: #3fb950;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
     }
-    .ds-btn-danger:hover { background:rgba(248,81,73,0.2); }
-    .ds-btn-create {
-      padding:8px 20px; font-size:0.9em; font-weight:600;
-      background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(167,139,250,0.15));
-      border-color:#7c3aed; color:#a78bfa;
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Empty State ─── */
+    .ds-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-dim);
     }
-    .ds-btn-create:hover { background:linear-gradient(135deg,rgba(124,58,237,0.5),rgba(167,139,250,0.3)); }
+    .ds-empty-icon {
+      font-size: 52px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3));
+      display: block;
+    }
+    .ds-empty p { margin: 4px 0; font-size: 0.95em; }
 
     /* ─── Modal ─── */
     .ds-overlay {
-      display:none; position:fixed; inset:0; z-index:1000;
-      background:rgba(0,0,0,0.7); backdrop-filter:blur(4px);
-      justify-content:center; align-items:center; padding:20px;
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(7, 11, 18, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
-    .ds-overlay.active { display:flex; }
+    .ds-overlay.active { display: flex; }
 
     .ds-modal {
-      background:#0d1117; border:1px solid #30363d; border-radius:16px;
-      width:100%; max-width:620px; max-height:90vh; overflow-y:auto;
-      padding:28px; animation:fadeUp .2s ease;
+      background: #0a0f1a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.05);
+      animation: fadeUp .2s ease;
     }
-    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .ds-modal-header {
-      display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
     }
-    .ds-modal-header h2 { margin:0; font-size:1.2em; color:#f0f6fc; }
+    .ds-modal-header h2 {
+      margin: 0;
+      font-size: 1.2em;
+      font-weight: 700;
+      color: var(--text);
+    }
     .ds-modal-close {
-      width:32px; height:32px; border-radius:8px; border:1px solid #30363d;
-      background:transparent; color:#8b949e; font-size:1.2em; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-faint);
+      font-size: 1.2em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
     }
-    .ds-modal-close:hover { background:#161b22; color:#f0f6fc; }
+    .ds-modal-close:hover {
+      background: var(--bg-card);
+      color: var(--text);
+      border-color: var(--border-glow);
+    }
 
-    .ds-field { margin-bottom:16px; }
-    .ds-field label { display:block; color:#c9d1d9; font-size:0.85em; font-weight:600; margin-bottom:6px; }
-    .ds-field input[type="text"] {
-      width:100%; padding:10px 14px; border-radius:8px; border:1px solid #30363d;
-      background:#161b22; color:#f0f6fc; font-size:0.95em; outline:none; box-sizing:border-box;
+    .ds-field { margin-bottom: 16px; }
+    .ds-field label {
+      display: block;
+      color: var(--text-dim);
+      font-size: 0.85em;
+      font-weight: 600;
+      margin-bottom: 6px;
     }
-    .ds-field input[type="text"]:focus { border-color:#58a6ff; }
+    .ds-field input[type="text"] {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 0.95em;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .ds-field input[type="text"]:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+    }
 
     /* ─── Track list in modal ─── */
-    .ds-tracklist { border:1px solid #21262d; border-radius:10px; max-height:280px; overflow-y:auto; }
-    .ds-track-item {
-      display:flex; align-items:center; gap:10px; padding:10px 14px;
-      border-bottom:1px solid #21262d; cursor:pointer; transition:background .15s;
+    .ds-tracklist {
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      max-height: 280px;
+      overflow-y: auto;
     }
-    .ds-track-item:last-child { border-bottom:none; }
-    .ds-track-item:hover { background:rgba(48,54,61,0.3); }
-    .ds-track-item.selected { background:rgba(88,166,255,0.08); }
+    .ds-track-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .ds-track-item:last-child { border-bottom: none; }
+    .ds-track-item:hover { background: rgba(0, 212, 255, 0.03); }
+    .ds-track-item.selected { background: rgba(0, 212, 255, 0.06); }
 
     .ds-track-item input[type="checkbox"] {
-      width:18px; height:18px; accent-color:#58a6ff; flex-shrink:0;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--cyan);
+      flex-shrink: 0;
     }
-    .ds-track-item .ds-track-num { color:#8b949e; font-size:0.85em; min-width:24px; }
-    .ds-track-item .ds-track-title { flex:1; color:#c9d1d9; font-size:0.9em; }
-    .ds-track-item .ds-track-dur { color:#8b949e; font-size:0.8em; }
+    .ds-track-item .ds-track-num {
+      color: var(--text-faint);
+      font-size: 0.85em;
+      min-width: 24px;
+    }
+    .ds-track-item .ds-track-title {
+      flex: 1;
+      color: var(--text-dim);
+      font-size: 0.9em;
+    }
+    .ds-track-item .ds-track-dur {
+      color: var(--text-faint);
+      font-size: 0.8em;
+    }
 
     .ds-order-field {
-      display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
     .ds-order-field input {
-      flex:1; min-width:120px; padding:8px 12px; border-radius:8px; border:1px solid #30363d;
-      background:#161b22; color:#f0f6fc; font-size:0.9em; outline:none;
+      flex: 1;
+      min-width: 120px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 0.9em;
+      outline: none;
     }
-    .ds-order-field input:focus { border-color:#58a6ff; }
-    .ds-order-hint { color:#8b949e; font-size:0.78em; }
+    .ds-order-field input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+    }
+    .ds-order-hint { color: var(--text-faint); font-size: 0.78em; }
 
     .ds-modal-footer {
-      display:flex; justify-content:flex-end; gap:8px; margin-top:20px; padding-top:16px;
-      border-top:1px solid #21262d;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
     }
 
-    /* ─── Empty state ─── */
-    .ds-empty {
-      text-align:center; padding:60px 20px; color:#8b949e;
+    /* ─── Delete prompt ─── */
+    .ds-delete-prompt {
+      color: var(--text-dim);
+      line-height: 1.6;
     }
-    .ds-empty-icon { font-size:3em; margin-bottom:12px; }
-    .ds-empty p { margin:4px 0; font-size:0.95em; }
 
-    /* ─── Status badge ─── */
-    .ds-playing {
-      display:inline-flex; align-items:center; gap:6px;
-      background:rgba(63,185,80,0.12); color:#3fb950;
-      padding:4px 10px; border-radius:20px; font-size:0.8em; font-weight:600;
+    /* ─── Loader ─── */
+    .ds-loader {
+      display: none;
+      text-align: center;
+      padding: 40px;
     }
-    .ds-spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(63,185,80,0.3); border-top-color:#3fb950; border-radius:50%; animation:spin .8s linear infinite; }
-    @keyframes spin { to { transform:rotate(360deg); } }
+    .ds-loader-inner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(0, 212, 255, 0.15);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
 
-    /* ─── Track details in card ─── */
-    .ds-track-detail {
-      display:none; margin-top:12px; padding-top:12px; border-top:1px solid #21262d;
+    /* ─── Footer ─── */
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      margin-top: 48px;
+      font-size: 12px;
+      color: var(--text-faint);
+      position: relative;
     }
-    .ds-track-detail.open { display:block; }
-    .ds-track-detail-item {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:6px 0; color:#c9d1d9; font-size:0.85em; border-bottom:1px solid #161b22;
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
     }
-    .ds-track-detail-item:last-child { border-bottom:none; }
-    .ds-track-detail-item .td-num { color:#8b949e; min-width:24px; }
-    .ds-track-detail-item .td-title { flex:1; }
-    .ds-track-detail-item .td-bpm { color:#58a6ff; font-size:0.82em; }
+    .footer strong { color: var(--text-dim); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 640px) {
+      .container { padding: 16px 16px 32px; }
+      .ds-header h1 { font-size: 22px; }
+      .ds-header { flex-direction: column; align-items: flex-start; }
+      .ds-card { padding: 16px; }
+      .ds-card-row { flex-direction: column; align-items: flex-start; }
+      .ds-card-actions { width: 100%; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="particles">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  </div>
+
 <div class="container">
 
-  <a class="back" href="aidj.html">← Назад</a>
+  <a class="back" href="aidj.html">← Вернуться в AI DJ</a>
 
   <div class="ds-header">
-    <h1>🎛 DJ Set'ы</h1>
+    <h1>DJ Set'ы</h1>
     <button class="ds-btn ds-btn-create" id="btnCreateSet">+ Создать новый</button>
   </div>
 
   <!-- Список сетов -->
   <div id="dsList" class="ds-grid"></div>
 
-  <!-- Пустое состояние (показывается когда нет сетов) -->
+  <!-- Пустое состояние -->
   <div id="dsEmpty" class="ds-empty" style="display:none;">
-    <div class="ds-empty-icon">🎧</div>
+    <span class="ds-empty-icon">🎧</span>
     <p>У тебя пока нет ни одного DJ Set'а</p>
     <p style="font-size:0.85em;">Нажми «+ Создать новый», чтобы собрать плейлист из твоих треков</p>
   </div>
 
   <!-- Loader -->
-  <div id="dsLoader" style="display:none; text-align:center; padding:40px;">
-    <div style="display:inline-block; width:32px; height:32px; border:3px solid rgba(88,166,255,0.2); border-top-color:#58a6ff; border-radius:50%; animation:spin .8s linear infinite;"></div>
+  <div id="dsLoader" class="ds-loader">
+    <div class="ds-loader-inner"></div>
   </div>
 
 </div>
@@ -201,7 +666,7 @@
     <div class="ds-field">
       <label>Доступные треки из Dropbox</label>
       <div id="trackListContainer" class="ds-tracklist">
-        <div style="padding:20px; text-align:center; color:#8b949e;">Загрузка треков...</div>
+        <div style="padding:20px; text-align:center; color:var(--text-faint);">Загрузка треков...</div>
       </div>
     </div>
 
@@ -227,7 +692,7 @@
       <h2>Удалить DJ Set</h2>
       <button class="ds-modal-close" id="deleteClose">✕</button>
     </div>
-    <p style="color:#c9d1d9; line-height:1.6;" id="deletePrompt">Удалить сет «<span id="deleteName"></span>»? Это действие необратимо.</p>
+    <p class="ds-delete-prompt" id="deletePrompt">Удалить сет «<span id="deleteName"></span>»? Это действие необратимо.</p>
     <div class="ds-modal-footer">
       <button class="ds-btn" id="deleteCancel">Нет</button>
       <button class="ds-btn ds-btn-danger" id="deleteConfirm">🗑 Да, удалить</button>
@@ -239,11 +704,10 @@
 // ─── Config ───
 const API_BASE = 'http://176.123.162.12:8766';
 function api(path) { return API_BASE + path; }
-let editingId = null;  // ID сета, который редактируется (null = создание)
-let allDropboxTracks = []; // Кеш треков из Dropbox
-let allSets = [];          // Кеш сетов
+let editingId = null;
+let allDropboxTracks = [];
+let allSets = [];
 
-// ─── DOM refs ───
 const $ = id => document.getElementById(id);
 const dsList = $('dsList');
 const dsEmpty = $('dsEmpty');
@@ -258,15 +722,11 @@ const modalSave = $('modalSave');
 const deletePrompt = $('deletePrompt');
 const deleteName = $('deleteName');
 
-// ─── Dropbox track list (заглушка возвращает фейковые данные для теста) ───
 async function fetchDropboxTracks() {
-  // Пробуем реальный API, если сервер запущен
   try {
     const res = await fetch(api('/api/sets/tracklist'));
     if (res.ok) return await res.json();
   } catch(_) {}
-
-  // Фолбек — заглушка. При реальной работе заменится ответом сервера
   return [
     { title: 'Midnight City', artist: 'M83', dropbox_path: '/ai-dj/files/midnight_city.mp3', duration: '4:03' },
     { title: 'Strobe', artist: 'Deadmau5', dropbox_path: '/ai-dj/files/strobe.mp3', duration: '6:38' },
@@ -281,7 +741,6 @@ async function fetchDropboxTracks() {
   ];
 }
 
-// ─── Fetch sets from API or fallback ───
 async function fetchSets() {
   try {
     const res = await fetch(api('/api/sets'));
@@ -290,7 +749,13 @@ async function fetchSets() {
   return [];
 }
 
-// ─── Render main list ───
+function escapeHtml(s) {
+  if (!s) return '';
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
 function renderSets(sets) {
   if (!sets || sets.length === 0) {
     dsList.innerHTML = '';
@@ -333,14 +798,6 @@ function renderSets(sets) {
   }).join('');
 }
 
-function escapeHtml(s) {
-  if (!s) return '';
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
-
-// ─── Toggle track details ───
 function toggleTracks(id) {
   const el = document.getElementById('td-' + id);
   if (el) {
@@ -350,7 +807,6 @@ function toggleTracks(id) {
   }
 }
 
-// ─── Modal: create ───
 document.getElementById('btnCreateSet').addEventListener('click', () => openCreateModal());
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalCancel').addEventListener('click', closeModal);
@@ -367,14 +823,14 @@ function openCreateModal() {
 }
 
 async function loadDropboxTracks() {
-  trackListContainer.innerHTML = '<div style="padding:20px;text-align:center;color:#8b949e;">⏳ Загрузка треков...</div>';
+  trackListContainer.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-faint);">⏳ Загрузка треков...</div>';
   allDropboxTracks = await fetchDropboxTracks();
   renderTrackCheckboxes([]);
 }
 
 function renderTrackCheckboxes(selectedIndices) {
   if (!allDropboxTracks || allDropboxTracks.length === 0) {
-    trackListContainer.innerHTML = '<div style="padding:20px;text-align:center;color:#8b949e;">Нет доступных треков. Сначала загрузи музыку через Telegram.</div>';
+    trackListContainer.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-faint);">Нет доступных треков. Сначала загрузи музыку через Telegram.</div>';
     return;
   }
   trackListContainer.innerHTML = allDropboxTracks.map((t, i) => {
@@ -388,20 +844,17 @@ function renderTrackCheckboxes(selectedIndices) {
       </div>`;
   }).join('');
 
-  // Клик по строке = чекбокс
   document.querySelectorAll('.ds-track-item').forEach(el => {
     el.addEventListener('click', (e) => {
-      if (e.target.tagName === 'INPUT') return; // сам чекбокс уже сработает
+      if (e.target.tagName === 'INPUT') return;
       const cb = el.querySelector('input[type="checkbox"]');
       if (cb) {
         cb.checked = !cb.checked;
-        el.classList.toggle('selected', cb.checked);
         el.classList.toggle('selected', cb.checked);
       }
     });
   });
 
-  // При изменении чекбокса — меняем класс
   document.querySelectorAll('.ds-track-item input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', () => {
       const item = cb.closest('.ds-track-item');
@@ -410,16 +863,13 @@ function renderTrackCheckboxes(selectedIndices) {
   });
 }
 
-// ─── Modal: edit ───
 async function editSet(id) {
   let set;
   try {
     const res = await fetch(api(`/api/sets/${id}`));
     if (res.ok) set = await res.json();
   } catch(_) {}
-  if (!set) {
-    set = allSets.find(s => s.id === id);
-  }
+  if (!set) set = allSets.find(s => s.id === id);
   if (!set) return;
 
   editingId = id;
@@ -427,7 +877,6 @@ async function editSet(id) {
   modalSave.textContent = '💾 Сохранить изменения';
   setName.value = set.name;
 
-  // Определяем какие треки из Dropbox выбраны
   const selected = [];
   if (set.tracks && allDropboxTracks.length > 0) {
     set.tracks.forEach(t => {
@@ -436,7 +885,6 @@ async function editSet(id) {
     });
   }
 
-  // Порядок: если треки есть, показываем их номера
   const orderStr = set.tracks ? set.tracks.map((t, i) => {
     const idx = allDropboxTracks.findIndex(dt => dt.dropbox_path === t.dropbox_path);
     return idx >= 0 ? idx + 1 : (i + 1);
@@ -444,14 +892,11 @@ async function editSet(id) {
 
   trackOrder.value = orderStr;
 
-  await loadDropboxTracks(); // загрузит и вызовет renderTrackCheckboxes([])
-  // После загрузки — проставим выбранные
+  await loadDropboxTracks();
   renderTrackCheckboxes(selected);
-
   modalOverlay.classList.add('active');
 }
 
-// ─── Modal: save ───
 modalSave.addEventListener('click', async () => {
   const name = setName.value.trim();
   if (!name) {
@@ -467,12 +912,10 @@ modalSave.addEventListener('click', async () => {
     return;
   }
 
-  // Порядок
   let orderStr = trackOrder.value.trim();
   let orderIndices;
   if (orderStr) {
     orderIndices = orderStr.split(/[,\s]+/).map(s => parseInt(s) - 1).filter(n => !isNaN(n) && n >= 0);
-    // Проверяем что все индексы из selectedIndices
     const valid = orderIndices.every(i => selectedIndices.includes(i));
     if (!valid || orderIndices.length !== selectedIndices.length) {
       alert('Порядок треков не совпадает с выбранными треками. Убедись что использованы те же номера.');
@@ -482,7 +925,6 @@ modalSave.addEventListener('click', async () => {
     orderIndices = [...selectedIndices];
   }
 
-  // Собираем треки в нужном порядке
   const tracks = orderIndices.map(i => ({
     title: allDropboxTracks[i].title,
     artist: allDropboxTracks[i].artist,
@@ -509,14 +951,12 @@ modalSave.addEventListener('click', async () => {
       alert('Ошибка сохранения: ' + err);
     }
   } catch(e) {
-    // Если нет сервера — сохраняем локально (localStorage для демо)
     saveSetLocal(payload);
     closeModal();
     loadAllSets();
   }
 });
 
-// ─── Save local fallback ───
 function saveSetLocal(payload) {
   let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
   if (payload.id) {
@@ -536,14 +976,12 @@ function saveSetLocal(payload) {
   localStorage.setItem('dj_sets', JSON.stringify(sets));
 }
 
-// ─── Modal close ───
 function closeModal() {
   modalOverlay.classList.remove('active');
   deleteOverlay.classList.remove('active');
   editingId = null;
 }
 
-// ─── Delete ───
 let deleteTargetId = null;
 
 function confirmDelete(id, name) {
@@ -566,7 +1004,6 @@ document.getElementById('deleteConfirm').addEventListener('click', async () => {
       alert('Ошибка удаления');
     }
   } catch(_) {
-    // Fallback: удаляем из localStorage
     let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
     sets = sets.filter(s => s.id !== deleteTargetId);
     localStorage.setItem('dj_sets', JSON.stringify(sets));
@@ -576,7 +1013,6 @@ document.getElementById('deleteConfirm').addEventListener('click', async () => {
   deleteTargetId = null;
 });
 
-// ─── Play set ───
 async function playSet(id) {
   try {
     const res = await fetch(api(`/api/sets/${id}/play`), { method: 'POST' });
@@ -589,7 +1025,6 @@ async function playSet(id) {
   alert('▶ Запуск сведения: сервер пока не подключён. Режим демо.');
 }
 
-// ─── Load all sets ───
 async function loadAllSets() {
   dsLoader.style.display = 'block';
   dsList.innerHTML = '';
@@ -597,14 +1032,12 @@ async function loadAllSets() {
   try {
     allSets = await fetchSets();
   } catch(_) {}
-  // fallback: localStorage
   if (!allSets || allSets.length === 0) {
     try {
       allSets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
     } catch(_) { allSets = []; }
   }
 
-  // Дозагружаем треки для отображения в карточках
   for (const set of allSets) {
     if (!set.tracks || set.tracks.length === 0) {
       try {
@@ -621,17 +1054,12 @@ async function loadAllSets() {
   renderSets(allSets);
 }
 
-// ─── Init ───
 loadAllSets();
-loadDropboxTracks(); // preload for modal
+loadDropboxTracks();
 
-// Закрытие модалок по Escape
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeModal();
-  }
+  if (e.key === 'Escape') closeModal();
 });
-// Закрытие по клику на оверлей
 modalOverlay.addEventListener('click', (e) => {
   if (e.target === modalOverlay) closeModal();
 });
@@ -639,5 +1067,6 @@ deleteOverlay.addEventListener('click', (e) => {
   if (e.target === deleteOverlay) deleteOverlay.classList.remove('active');
 });
 </script>
+
 </body>
 </html>

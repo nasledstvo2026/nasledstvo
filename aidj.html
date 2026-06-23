@@ -4,80 +4,696 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI DJ — инициатива</title>
-  <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="style.css">
   <style>
-    .bt-item { background: rgba(22,27,34,0.8); border: 1px solid #21262d; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-    .bt-item .bt-num { color: #58a6ff; font-weight: 700; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.05em; }
-    .bt-item .bt-title { color: #f0f6fc; font-size: 1.1em; font-weight: 600; margin: 6px 0; }
-    .bt-item .bt-body { color: #8b949e; font-size: 0.95em; line-height: 1.6; }
-    .status-box { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; }
-    .status-planned { background: rgba(88,166,255,0.15); color: #58a6ff; }
-    .status-done { background: rgba(63,185,80,0.15); color: #3fb950; }
-    .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
-    .arch-card { background: rgba(22,27,34,0.8); border: 1px solid #21262d; border-radius: 12px; padding: 18px; }
-    .arch-card h4 { margin: 0 0 8px; color: #f0f6fc; font-size: 1em; }
-    .arch-card p { margin: 0; color: #8b949e; font-size: 0.9em; line-height: 1.5; }
-    .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 20px 0; }
-    .flow-step { background: #1f2937; border: 1px solid #30363d; border-radius: 8px; padding: 8px 16px; font-size: 0.85em; color: #c9d1d9; }
-    .flow-arrow { color: #58a6ff; font-size: 1.2em; }
+    /* ═══════════════════════════════════════════════
+       AI DJ — Futuristic Neon Theme
+       ═══════════════════════════════════════════════ */
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    :root {
+      --bg-deep: #070b12;
+      --bg-card: rgba(14, 22, 36, 0.75);
+      --border-subtle: rgba(0, 200, 255, 0.08);
+      --border-glow: rgba(0, 200, 255, 0.25);
+      --cyan: #00d4ff;
+      --cyan-dim: rgba(0, 212, 255, 0.15);
+      --magenta: #f0f;
+      --purple: #a855f7;
+      --purple-dim: rgba(168, 85, 247, 0.15);
+      --pink: #ff3bc3;
+      --text: #eaf0f6;
+      --text-dim: #8892a0;
+      --text-faint: #4a5464;
+      --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);
+      --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.3);
+      --glow-purple: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ─── Animated Background ─── */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .bg-glow {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(0, 212, 255, 0.06), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate;
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      right: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(168, 85, 247, 0.05), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes glow-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 5%) scale(1.1); }
+    }
+
+    /* ─── Particles (CSS only) ─── */
+    .particles {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particle-float 8s infinite;
+      box-shadow: 0 0 6px var(--cyan);
+    }
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+    .particle:nth-child(2) { left: 25%; animation-delay: 1.2s; animation-duration: 9s; width: 2px; height: 2px; }
+    .particle:nth-child(3) { left: 40%; animation-delay: 2.5s; animation-duration: 6s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(4) { left: 55%; animation-delay: 0.8s; animation-duration: 8s; width: 4px; height: 4px; }
+    .particle:nth-child(5) { left: 70%; animation-delay: 3.1s; animation-duration: 7.5s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(6) { left: 85%; animation-delay: 1.8s; animation-duration: 9.5s; width: 2px; height: 2px; }
+    .particle:nth-child(7) { left: 50%; animation-delay: 4.2s; animation-duration: 6.5s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(8) { left: 15%; animation-delay: 5.0s; animation-duration: 8.2s; width: 3px; height: 3px; }
+    .particle:nth-child(9) { left: 65%; animation-delay: 3.8s; animation-duration: 7.2s; }
+    .particle:nth-child(10) { left: 35%; animation-delay: 6.0s; animation-duration: 8.8s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(11) { left: 5%; animation-delay: 0.5s; animation-duration: 9.2s; width: 2px; height: 2px; }
+    .particle:nth-child(12) { left: 75%; animation-delay: 2.2s; animation-duration: 7.8s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(13) { left: 90%; animation-delay: 4.8s; animation-duration: 6.2s; }
+    .particle:nth-child(14) { left: 30%; animation-delay: 5.5s; animation-duration: 8.5s; width: 3px; height: 3px; }
+    .particle:nth-child(15) { left: 45%; animation-delay: 1.5s; animation-duration: 7.0s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+
+    @keyframes particle-float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* ─── Layout ─── */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+    }
+
+    /* ─── Back Button (futuristic) ─── */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .back::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .back:hover {
+      color: var(--text);
+      border-color: transparent;
+      box-shadow: var(--glow-cyan);
+      transform: translateX(-2px);
+    }
+    .back:hover::before { opacity: 1; }
+
+    /* ─── Hero ─── */
+    .hero {
+      text-align: center;
+      padding: 32px 24px 28px;
+      position: relative;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
+      border-radius: 2px;
+    }
+
+    .hero .title {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+
+    .hero .subtitle {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .hero .meta {
+      font-size: 13px;
+      color: var(--text-faint);
+      margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ─── Action Buttons ─── */
+    .action-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0 4px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .action-btn:hover {
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: var(--glow-cyan);
+    }
+    .action-btn:hover::before { opacity: 1; }
+
+    .action-btn-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 15px;
+    }
+    .action-btn-icon.blue {
+      background: linear-gradient(135deg, #1e64dc, #58a6ff);
+    }
+    .action-btn-icon.purple {
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+    }
+    .action-btn-icon.cyan {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+    }
+
+    .action-btn-label {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ─── Neon Essence / Cards ─── */
+    .essence {
+      padding: 20px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      margin-top: 12px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .essence::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .essence:hover {
+      border-color: transparent;
+      box-shadow: var(--glow-cyan), inset 0 0 40px rgba(0, 212, 255, 0.03);
+      transform: translateY(-1px);
+    }
+    .essence:hover::before { opacity: 1; }
+
+    .essence .essence-label {
+      font-size: 0.85em;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .essence .essence-label.blue { color: #58a6ff; }
+    .essence .essence-label.green { color: #7ee787; }
+
+    .essence .essence-body {
+      color: #eaf0f6;
+      font-size: 1.05em;
+      line-height: 1.6;
+    }
+    .essence .essence-body code {
+      background: rgba(14, 22, 36, 0.8);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #e6edf3;
+      font-size: 0.9em;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .badge {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.8em;
+      font-weight: 600;
+      border: 1px solid rgba(0, 212, 255, 0.15);
+    }
+    .badge.green {
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
+      border-color: rgba(63, 185, 80, 0.15);
+    }
+
+    /* ─── Section Titles ─── */
+    .section {
+      margin-top: 40px;
+    }
+    .section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text);
+      letter-spacing: -0.3px;
+      position: relative;
+    }
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      border-radius: 2px;
+    }
+    .section p {
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* ─── BT Items ─── */
+    .bt-item {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 14px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .bt-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent, rgba(0, 212, 255, 0.06), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .bt-item:hover {
+      border-color: transparent;
+      box-shadow: var(--glow-cyan);
+    }
+    .bt-item:hover::before { opacity: 1; }
+
+    .bt-item .bt-num {
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: 0.85em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .bt-item .bt-title {
+      color: var(--text);
+      font-size: 1.05em;
+      font-weight: 600;
+      margin: 6px 0;
+    }
+    .bt-item .bt-body {
+      color: var(--text-dim);
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+
+    /* ─── Table ─── */
+    .status-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--text-dim);
+      font-size: 0.9em;
+    }
+    .status-table th {
+      text-align: left;
+      padding: 10px 8px;
+      color: var(--text);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.82em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .status-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .status-table tr:last-child td { border-bottom: none; }
+    .status-table code {
+      background: rgba(14, 22, 36, 0.8);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--cyan);
+      font-size: 0.9em;
+    }
+    .status-table .status-box {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.78em;
+      font-weight: 600;
+    }
+    .status-box.ready {
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
+      border: 1px solid rgba(63, 185, 80, 0.2);
+    }
+    .status-box.plan {
+      background: rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
+      border: 1px solid rgba(88, 166, 255, 0.2);
+    }
+
+    /* ─── Flow ─── */
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .flow-step {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 0.85em;
+      color: var(--text);
+      transition: border-color 0.3s;
+    }
+    .flow-step:hover {
+      border-color: var(--border-glow);
+      box-shadow: var(--glow-cyan);
+    }
+    .flow-arrow {
+      color: var(--cyan);
+      font-size: 1.2em;
+      font-weight: 300;
+    }
+
+    /* ─── Arch Grid ─── */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .arch-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 20px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .arch-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent, rgba(168, 85, 247, 0.08), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .arch-card:hover {
+      border-color: transparent;
+      box-shadow: var(--glow-purple);
+    }
+    .arch-card:hover::before { opacity: 1; }
+
+    .arch-card h4 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 1em;
+    }
+    .arch-card p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+
+    /* ─── Usage Box ─── */
+    .usage-box {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .usage-box code {
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+      line-height: 1.8;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      margin-top: 48px;
+      font-size: 12px;
+      color: var(--text-faint);
+      position: relative;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+    }
+    .footer strong { color: var(--text-dim); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 640px) {
+      .container { padding: 16px 16px 32px; }
+      .hero { padding: 20px 16px 24px; }
+      .hero .title { font-size: 26px; }
+      .action-btn { width: 100%; justify-content: center; }
+      .arch-grid { grid-template-columns: 1fr; }
+      .flow { flex-direction: column; align-items: stretch; }
+      .flow-arrow { transform: rotate(90deg); text-align: center; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="particles">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  </div>
+
 <div class="container">
 
   <a class="back" href="index.html">← Назад</a>
 
   <div class="hero">
-    <div class="title">🎧 AI DJ</div>
-    <div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0 4px;">
+    <div class="subtitle">P R O J E C T &nbsp; I N I T I A T I V E</div>
+    <div class="title">AI DJ</div>
+    <div class="meta">Автономный модуль сведения аудиотреков</div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-bar">
     <a href="#" class="action-btn" onclick="alert('Режим добавления — через Telegram: отправьте название трека Лунту'); return false;">
-      <span class="action-btn-icon">+</span>
+      <span class="action-btn-icon cyan">+</span>
       <span class="action-btn-label">Добавить новый трек</span>
     </a>
     <a href="aidj-player.html" class="action-btn">
-      <span class="action-btn-icon" style="background:linear-gradient(135deg,#1e64dc,#58a6ff);">▶</span>
+      <span class="action-btn-icon blue">▶</span>
       <span class="action-btn-label">Слушать все треки</span>
     </a>
     <a href="djset.html" class="action-btn">
-      <span class="action-btn-icon" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);">🎛</span>
+      <span class="action-btn-icon purple">🎛</span>
       <span class="action-btn-label">Создать DJ Set</span>
     </a>
+  </div>
+
+  <!-- Essence: Feature 1 -->
+  <div class="essence">
+    <div class="essence-label blue">✅ Первая фича реализована</div>
+    <div class="essence-body">
+      <strong>Поиск и скачивание треков</strong> — пользователь отправляет название композиции,
+      AI DJ ищет на Яндекс.Музыке, выводит варианты, по выбору скачивает mp3
+      и загружает в Dropbox (<code>/ai-dj/files/</code>).
     </div>
-    <div class="essence" style="margin-top:20px; padding:20px; background:rgba(88,166,255,0.06); border:1px solid rgba(88,166,255,0.15); border-radius:12px;">
-      <div style="color:#58a6ff; font-size:0.85em; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px;">✅ Первая фича реализована</div>
-      <div style="color:#f0f6fc; font-size:1.05em; line-height:1.6;">
-        <strong>Поиск и скачивание треков</strong> — пользователь отправляет название композиции,
-        AI DJ ищет на Яндекс.Музыке, выводит варианты, по выбору скачивает mp3
-        и загружает в Dropbox (<code style="color:#e6edf3; background:rgba(22,27,34,0.8); padding:2px 6px; border-radius:4px;">/ai-dj/files/</code>).
-      </div>
+    <div class="badge-row">
+      <span class="badge green">✅ Поиск по Яндекс.Музыке</span>
+      <span class="badge green">✅ Скачивание mp3</span>
+      <span class="badge green">✅ Dropbox — /ai-dj/files/</span>
+      <span class="badge green">✅ Telegram — интерактивный выбор</span>
     </div>
-    <div class="essence" style="margin-top:12px; padding:20px; background:rgba(126,231,135,0.06); border:1px solid rgba(126,231,135,0.15); border-radius:12px;">
-      <div style="color:#7ee787; font-size:0.85em; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px;">✅ Вторая фича реализована</div>
-      <div style="color:#f0f6fc; font-size:1.05em; line-height:1.6;">
-        <strong>Веб-плеер</strong> — треки из Dropbox стримятся прямо в браузер.
-        Страница генерируется автоматически, ссылки обновляются раз в 4 часа.
-        Открыл — слушаешь.
-      </div>
-      <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
-        <span style="background:rgba(63,185,80,0.15); color:#3fb950; border-radius:20px; padding:4px 12px; font-size:0.8em; font-weight:600;">✅ Автосписок из Dropbox</span>
-        <span style="background:rgba(63,185,80,0.15); color:#3fb950; border-radius:20px; padding:4px 12px; font-size:0.8em; font-weight:600;">✅ Встроенный audio-плеер</span>
-        <span style="background:rgba(63,185,80,0.15); color:#3fb950; border-radius:20px; padding:4px 12px; font-size:0.8em; font-weight:600;">✅ Стриминг через Dropbox</span>
-      </div>
+  </div>
+
+  <!-- Essence: Feature 2 -->
+  <div class="essence">
+    <div class="essence-label green">✅ Вторая фича реализована</div>
+    <div class="essence-body">
+      <strong>Веб-плеер</strong> — треки из Dropbox стримятся прямо в браузер.
+      Страница генерируется автоматически, ссылки обновляются раз в 4 часа.
+      Открыл — слушаешь.
     </div>
-      <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
-        <span style="background:rgba(63,185,80,0.15); color:#3fb950; border-radius:20px; padding:4px 12px; font-size:0.8em; font-weight:600;">✅ Поиск по Яндекс.Музыке</span>
-        <span style="background:rgba(63,185,80,0.15); color:#3fb950; border-radius:20px; padding:4px 12px; font-size:0.8em; font-weight:600;">✅ Скачивание mp3</span>
-        <span style="background:rgba(63,185,80,0.15); color:#3fb950; border-radius:20px; padding:4px 12px; font-size:0.8em; font-weight:600;">✅ Dropbox — /ai-dj/files/</span>
-        <span style="background:rgba(63,185,80,0.15); color:#3fb950; border-radius:20px; padding:4px 12px; font-size:0.8em; font-weight:600;">✅ Telegram — интерактивный выбор</span>
-      </div>
+    <div class="badge-row">
+      <span class="badge green">✅ Автосписок из Dropbox</span>
+      <span class="badge green">✅ Встроенный audio-плеер</span>
+      <span class="badge green">✅ Стриминг через Dropbox</span>
     </div>
   </div>
 
   <!-- Суть -->
   <div class="section">
     <h2>О проекте</h2>
-    <p style="color:#8b949e; line-height:1.7;">
+    <p>
       AI DJ — автономный модуль сведения аудиотреков. Пользователь загружает два трека,
       AI DJ выравнивает темп (BPM) и выполняет бесшовный переход (crossfade 12–15 с).
       Результат — готовый микс для воспроизведения.
@@ -139,51 +755,51 @@
   <!-- Статус реализации -->
   <div class="section">
     <h2>Статус реализации</h2>
-    <table style="width:100%; border-collapse: collapse; color:#8b949e; font-size:0.9em;">
-      <tr style="border-bottom:1px solid #21262d;">
-        <th style="text-align:left; padding:8px;">Компонент</th>
-        <th style="text-align:left; padding:8px;">Файл</th>
-        <th style="text-align:left; padding:8px;">Статус</th>
-      </tr>
-      <tr style="border-bottom:1px solid #161b22;">
-        <td style="padding:8px;">Лендинг с БТ</td>
-        <td style="padding:8px;"><code>aidj.html</code></td>
-        <td style="padding:8px;"><span class="status-box status-done">✅ готово</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid #161b22;">
-        <td style="padding:8px;">Поиск треков (Яндекс.Музыка)</td>
-        <td style="padding:8px;"><code>ai-dj-search.py</code></td>
-        <td style="padding:8px;"><span class="status-box status-done">✅ готово</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid #161b22;">
-        <td style="padding:8px;">Скачивание mp3 + Dropbox</td>
-        <td style="padding:8px;"><code>ai-dj-search.py</code> + <code>scripts/dropbox-upload.py</code></td>
-        <td style="padding:8px;"><span class="status-box status-done">✅ готово</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid #161b22;">
-        <td style="padding:8px;">Веб-плеер треков из Dropbox</td>
-        <td style="padding:8px;"><code>ai-dj-player.py</code> + <code>aidj-player.html</code></td>
-        <td style="padding:8px;"><span class="status-box status-done">✅ готово</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid #161b22;">
-        <td style="padding:8px;">Архитектура</td>
-        <td style="padding:8px;"><code>aidj/ARCHITECTURE.md</code></td>
-        <td style="padding:8px;"><span class="status-box status-done">✅ готово</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid #161b22;">
-        <td style="padding:8px;">Движок сведения (BPM + crossfade)</td>
-        <td style="padding:8px;"><code>aidj/aidj-engine.py</code></td>
-        <td style="padding:8px;"><span class="status-box status-planned">📝 план</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid #161b22;">
-        <td style="padding:8px;">Хэндлер команды /dj</td>
-        <td style="padding:8px;"><code>aidj/aidj-handler.py</code></td>
-        <td style="padding:8px;"><span class="status-box status-planned">📝 план</span></td>
+    <table class="status-table">
+      <tr>
+        <th>Компонент</th>
+        <th>Файл</th>
+        <th>Статус</th>
       </tr>
       <tr>
-        <td style="padding:8px;">Веб-сервер для аудио</td>
-        <td style="padding:8px;"><code>aidj/static/</code></td>
-        <td style="padding:8px;"><span class="status-box status-planned">📝 план</span></td>
+        <td>Лендинг с БТ</td>
+        <td><code>aidj.html</code></td>
+        <td><span class="status-box ready">✅ готово</span></td>
+      </tr>
+      <tr>
+        <td>Поиск треков (Яндекс.Музыка)</td>
+        <td><code>ai-dj-search.py</code></td>
+        <td><span class="status-box ready">✅ готово</span></td>
+      </tr>
+      <tr>
+        <td>Скачивание mp3 + Dropbox</td>
+        <td><code>ai-dj-search.py</code> + <code>scripts/dropbox-upload.py</code></td>
+        <td><span class="status-box ready">✅ готово</span></td>
+      </tr>
+      <tr>
+        <td>Веб-плеер треков из Dropbox</td>
+        <td><code>ai-dj-player.py</code> + <code>aidj-player.html</code></td>
+        <td><span class="status-box ready">✅ готово</span></td>
+      </tr>
+      <tr>
+        <td>Архитектура</td>
+        <td><code>aidj/ARCHITECTURE.md</code></td>
+        <td><span class="status-box ready">✅ готово</span></td>
+      </tr>
+      <tr>
+        <td>Движок сведения (BPM + crossfade)</td>
+        <td><code>aidj/aidj-engine.py</code></td>
+        <td><span class="status-box plan">📝 план</span></td>
+      </tr>
+      <tr>
+        <td>Хэндлер команды /dj</td>
+        <td><code>aidj/aidj-handler.py</code></td>
+        <td><span class="status-box plan">📝 план</span></td>
+      </tr>
+      <tr>
+        <td>Веб-сервер для аудио</td>
+        <td><code>aidj/static/</code></td>
+        <td><span class="status-box plan">📝 план</span></td>
       </tr>
     </table>
   </div>
@@ -223,8 +839,8 @@
   <!-- Команды -->
   <div class="section">
     <h2>Использование</h2>
-    <div style="background:#161b22; border:1px solid #21262d; border-radius:12px; padding:16px;">
-      <code style="color:#f0f6fc;">
+    <div class="usage-box">
+      <code>
         /dj — начать сессию сведения<br>
         &nbsp;&nbsp;→ загрузите Track A (аудиофайл)<br>
         &nbsp;&nbsp;→ загрузите Track B (аудиофайл)<br>
@@ -235,7 +851,7 @@
   </div>
 
   <div class="footer">
-    <p>nasledstvo2026.github.io — AI DJ Initiative · MVP · 2026</p>
+    <strong>AI DJ Initiative</strong> · nasledstvo2026.github.io · MVP · 2026
   </div>
 
 </div>
