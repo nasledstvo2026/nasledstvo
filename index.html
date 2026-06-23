@@ -109,7 +109,7 @@
     </div>
 
     <!-- AURA -->
-    <div class="card orange aura">
+    <div class="card orange aura" onclick="openAuraModal()">
       <div class="card-header">
         <div class="card-header-row">
           <h2>AURA</h2>
@@ -124,5 +124,29 @@
   </div>
 
 </div>
+<!-- AURA modal -->
+<div id="auraOverlay" class="aura-overlay" onclick="closeAuraModal(event)">
+  <div class="aura-modal">
+    <div class="aura-modal-title">A U R A</div>
+    <div class="aura-modal-sub">Девочки не плачут. Девочки выбирают, кто сегодня платит.</div>
+    <div class="aura-modal-body">
+      🔒 Доступ в систему строго ограничен. Пожалуйста, введи свой персональный <strong>VIP PASS</strong>.
+    </div>
+  </div>
+</div>
+
+<script>
+function openAuraModal() {
+  document.getElementById('auraOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeAuraModal(e) {
+  if (e.target === e.currentTarget) {
+    document.getElementById('auraOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+</script>
+
 </body>
 </html>
