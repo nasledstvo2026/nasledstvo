@@ -290,8 +290,9 @@ def api_status_set(set_id):
         return jsonify({'status': 'idle'})
     return jsonify(job)
 
-# ─── GET /aidj/static/<path> — раздача миксов ───
+# ─── GET /static/<path> — раздача миксов (nginx отрезает /aidj/) ───
 @app.route('/aidj/static/<path:filename>')
+@app.route('/static/<path:filename>')
 def serve_mix(filename):
     return send_from_directory(str(STATIC_DIR), filename)
 
