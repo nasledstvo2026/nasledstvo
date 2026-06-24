@@ -251,7 +251,9 @@ def api_play_set(set_id):
                         final_output = engine_data.get('output', '')
                         # Extract filename for URL
                         fname = os.path.basename(final_output)
-                        mix_url = f'http://{HOST}:{PORT}/aidj/static/{fname}'
+                        use_https = os.environ.get('USE_HTTPS', '').lower() in ('true', '1', 'yes')
+                        scheme = 'https' if use_https else 'http'
+                        mix_url = f'{scheme}://{HOST}:{PORT}/aidj/static/{fname}'
                         mixing_jobs[sid] = {
                             'status': 'done',
                             'output': engine_data,
@@ -299,8 +301,23 @@ def serve_mix(filename):
 # ══════════════════════════════════════════
 
 if __name__ == '__main__':
+    import ssl
     p = int(os.environ.get('PORT', PORT))
-    print(f"[AI DJ Server] Starting on http://{HOST}:{p}")
+    use_https = os.environ.get('USE_HTTPS', '').lower() in ('true', '1', 'yes')
+
+    ssl_ctx = None
+    scheme = 'http'
+    if use_https:
+        ssl_dir = BASE_DIR.parent / 'ssl'
+        cert = ssl_dir / 'cert.pem'
+        key = ssl_dir / 'key.pem'
+        if cert.exists() and key.exists():
+            ssl_ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            ssl_ctx.load_cert_chain(str(cert), str(key))
+            scheme = 'https'
+            print(f"[AI DJ Server] SSL enabled: {cert}")
+
+    print(f"[AI DJ Server] Starting on {scheme}://{HOST}:{p}")
     print(f"[AI DJ Server] Sets dir: {SETS_DIR}")
     print(f"[AI DJ Server] Static dir: {STATIC_DIR}")
-    app.run(host='0.0.0.0', port=p, debug=False)
+    app.run(host='0.0.0.0', port=p, ssl_context=ssl_ctx, debug=False)
