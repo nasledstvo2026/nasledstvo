@@ -251,9 +251,7 @@ def api_play_set(set_id):
                         final_output = engine_data.get('output', '')
                         # Extract filename for URL
                         fname = os.path.basename(final_output)
-                        use_https = os.environ.get('USE_HTTPS', '').lower() in ('true', '1', 'yes')
-                        scheme = 'https' if use_https else 'http'
-                        mix_url = f'{scheme}://{HOST}:{PORT}/aidj/static/{fname}'
+                        mix_url = f'http://{HOST}:{PORT}/aidj/static/{fname}'
                         mixing_jobs[sid] = {
                             'status': 'done',
                             'output': engine_data,
