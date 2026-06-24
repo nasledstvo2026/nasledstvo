@@ -101,8 +101,9 @@ def format_message(result: dict) -> str:
     lines = [
         f"🎧 Микс готов",
         f"",
-        f"Трек A: {result.get('bpm_a', '?')} BPM",
-        f"Трек B: {result.get('bpm_b', '?')} BPM",
+        f"A: {result.get('bpm_a', '?')} BPM | {result.get('key_a', '?')} ({result.get('camelot_a', '?')})",
+        f"B: {result.get('bpm_b', '?')} BPM | {result.get('key_b', '?')} ({result.get('camelot_b', '?')})",
+        f"Гармония: {result.get('harmonic_label', '?')}",
         f"Длительность: {result.get('duration', '?')}с",
         f"Crossfade: {result.get('crossfade', 15)}с",
         f"",
