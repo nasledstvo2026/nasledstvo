@@ -309,6 +309,43 @@
     }
     .photo-card:hover::before { opacity: 1; }
 
+    .photo-card.featured {
+      max-width: 100%;
+      padding: 16px;
+      border: 1px solid transparent;
+      background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                  linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta), var(--cyan)) border-box;
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.15), 0 0 80px rgba(168, 85, 247, 0.08);
+      transform: none !important;
+    }
+    .photo-card.featured::before { display: none; }
+    .photo-card.featured:hover {
+      box-shadow: 0 0 60px rgba(0, 212, 255, 0.25), 0 0 100px rgba(168, 85, 247, 0.12);
+      transform: none !important;
+      border-color: transparent;
+    }
+    .photo-card.featured .featured-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: rgba(7, 11, 18, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .photo-card.featured img {
+      border-radius: 10px;
+    }
+
     .photo-card img {
       width: 100%;
       border-radius: 12px;
@@ -373,8 +410,9 @@
   <div class="sync-status" id="syncStatus"></div>
 
   <div class="photo-grid">
-    <div class="photo-card">
-      <img src="photo_files/telegram_20260624.webp" alt="telegram_20260624">
+    <div class="photo-card featured">
+      <span class="featured-badge">✦ AI DJ</span>
+      <img src="photo_files/telegram_20260624.webp" alt="AI DJ Product">
     </div>
     <div class="photo-card">
       <img src="photo_files/IMG_0757.webp" alt="IMG_0757">
