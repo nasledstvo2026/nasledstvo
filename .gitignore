@@ -20,3 +20,4 @@ aidj/*.mp3
 aidj/*.py
 aidj/__pycache__/
 .env.timeweb
+scripts/aidj-nginx.conf
