@@ -36,15 +36,16 @@
 - **SSH ключ GitHub:** `~/.ssh/id_ed25519` (добавлен на аккаунт nasledstvo2026)
 - **Ключ Timeweb удалён:** `~/.ssh/timeweb` не используется
 
-### AI DJ — проект (22.06.2026)
-- **Фича 1:** Поиск треков по названию (Яндекс.Музыка) → скачивание mp3 → Dropbox `/ai-dj/files/`
-  - Скрипт: `ai-dj-search.py` (yandex-music API + OAuth токен Кирилла)
-  - Интерактивный интерфейс: чат в Telegram (Лунт показывает варианты, Кирилл выбирает номер)
-  - Dropbox upload: `scripts/dropbox-upload.py` (через refresh token)
-- **Фича 2:** Веб-плеер треков из Dropbox
-  - Скрипт: `ai-dj-player.py` — получает список mp3 из `/ai-dj/files/`, генерирует `aidj-player.html`
-  - Ссылки: временные (4ч), через `files_get_temporary_link`
-  - Страница: `https://nasledstvo2026.github.io/nasledstvo/aidj-player.html`
+### AI DJ — проект (24.06.2026)
+- **Сервер:** Flask (`aidj-server.py`) на порт 8766, проброшен через nginx `/aidj/` → `localhost:8766`
+- **Доступ:** `https://176.123.162.12/aidj/` (self-signed cert, принять 1 раз)
+- **Engine:** `aidj-engine.py` (librosa + ffmpeg) — BPM/key detection, beat-synced crossfade
+- **DJ Set'ы:** CRUD в `aidj/sets/set-*.json`, создание/редактирование через веб-интерфейс
+- **Track list:** единый `aidj/tracks.json` — обновляется Лунтом при добавлении трека
+- **Dropbox:** отключён из продукта AI DJ (24.06.2026)
+- **Cloudflare Tunnel:** отключён (24.06.2026) — работает напрямую через nginx
+- **GitHub Pages:** `djset.html` — редирект на VPS
+- **В репозитории:** только `aidj/tracks.json` и `aidj/djset.html` (редирект). Серверные файлы, mp3, ssl — в `.gitignore`
 
 ### Модели LLM
 - **deepseek/deepseek-v4-flash** — primary модель (чат в Telegram + новые сессии) с 19.06.2026
