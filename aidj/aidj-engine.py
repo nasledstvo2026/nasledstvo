@@ -395,6 +395,21 @@ def mix_tracks_v2(track_a, track_b, output,
     return result
 
 
+def resolve_path(filepath):
+    """Resolve a track path relative to workspace root."""
+    if os.path.isabs(filepath):
+        return filepath
+    # Try relative to workspace (parent of aidj/)
+    ws_path = BASE_DIR.parent / filepath
+    if ws_path.exists():
+        return str(ws_path)
+    # Try relative to aidj/
+    aidj_path = BASE_DIR / filepath
+    if aidj_path.exists():
+        return str(aidj_path)
+    return str(ws_path)
+
+
 def mix_set_tracks(tracks, output_dir=None):
     """
     Сведение всех треков из сета последовательно.
@@ -411,16 +426,15 @@ def mix_set_tracks(tracks, output_dir=None):
         return {'status': 'error', 'error': 'Need at least 2 tracks'}
 
     # Mix sequentially: track[0]+track[1] → mix1, then mix1+track[2] → mix2, etc.
-    current_file = tracks[0].get('url', tracks[0].get('filepath', ''))
-    absolute = lambda f: f if os.path.isabs(f) else str(BASE_DIR / f)
+    current_file = resolve_path(tracks[0].get('url', tracks[0].get('filepath', '')))
 
     for i in range(1, len(tracks)):
-        next_file = tracks[i].get('url', tracks[i].get('filepath', ''))
+        next_file = resolve_path(tracks[i].get('url', tracks[i].get('filepath', '')))
         output_file = str(output_dir / f'mix_seg_{timestamp}_{i}.mp3')
 
         seg_result = mix_tracks_v2(
-            absolute(current_file),
-            absolute(next_file),
+            resolve_path(current_file),
+            next_file,
             output_file,
             crossfade_sec=15,
             verbose=True

@@ -28,7 +28,7 @@ SETS_INDEX = SETS_DIR / 'sets-index.json'
 # ─── Network ───
 HOST = '176.123.162.12'
 PORT = 8766
-NGINX_BASE = os.environ.get('NGINX_BASE', 'https://distributions-veterinary-basis-protest.trycloudflare.com')
+NGINX_BASE = os.environ.get('NGINX_BASE', 'https://176.123.162.12/aidj')
 
 # Moscow TZ
 MOSCOW_OFFSET = timedelta(hours=3)
@@ -51,43 +51,26 @@ mixing_jobs = {}
 
 
 # ══════════════════════════════════════════
-#   Dropbox треки
+#   Локальный список треков (tracks.json)
 # ══════════════════════════════════════════
 
-def get_dropbox_tracks():
-    """
-    Получает список mp3 из Dropbox /ai-dj/files/
-    Возвращает список dict: {title, artist, dropbox_path, duration, bpm}
-    """
-    try:
-        sys.path.insert(0, str(BASE_DIR.parent / 'scripts'))
-        from dropbox_utils import list_files
-        files = list_files('/ai-dj/files/')
-        tracks = []
-        for f in files:
-            name = f.get('name', '')
-            if not name.lower().endswith('.mp3'):
-                continue
-            # Парсим название: "Artist — Title.mp3" или "Title.mp3"
-            stem = name.rsplit('.', 1)[0]
-            if ' — ' in stem:
-                artist, title = stem.split(' — ', 1)
-            elif ' - ' in stem:
-                artist, title = stem.split(' - ', 1)
-            else:
-                artist = 'Unknown'
-                title = stem
-            tracks.append({
-                'title': title.strip(),
-                'artist': artist.strip(),
-                'dropbox_path': f['path_display'] if 'path_display' in f else f'/ai-dj/files/{name}',
-                'duration': None,
-                'bpm': None,
-            })
-        return tracks
-    except Exception as e:
-        print(f"[WARN] Dropbox list failed: {e}", file=sys.stderr)
-        return []
+TRACKS_FILE = BASE_DIR / 'tracks.json'
+
+
+def read_tracks_json():
+    """Читает tracks.json с локальной ФС."""
+    if TRACKS_FILE.exists():
+        try:
+            return json.loads(TRACKS_FILE.read_text(encoding='utf-8'))
+        except Exception as e:
+            print(f"[WARN] tracks.json parse failed: {e}", file=sys.stderr)
+    return []
+
+
+# ─── GET /tracks.json — список треков ───
+@app.route('/tracks.json', methods=['GET'])
+def api_tracks_json():
+    return jsonify(read_tracks_json())
 
 
 # ══════════════════════════════════════════
@@ -118,12 +101,6 @@ def generate_set_id():
 def api_list_sets():
     index = load_index()
     return jsonify(index)
-
-# ─── GET /api/sets/tracklist — треки из Dropbox ───
-@app.route('/api/sets/tracklist', methods=['GET'])
-def api_tracklist():
-    tracks = get_dropbox_tracks()
-    return jsonify(tracks)
 
 # ─── GET /api/sets/<set_id> — детали сета ───
 @app.route('/api/sets/<set_id>', methods=['GET'])
@@ -295,6 +272,18 @@ def api_status_set(set_id):
 @app.route('/static/<path:filename>')
 def serve_mix(filename):
     return send_from_directory(str(STATIC_DIR), filename)
+
+
+# ─── GET /djset.html — страница DJ Set ───
+@app.route('/djset.html', methods=['GET'])
+def serve_djset_page():
+    return send_from_directory(str(BASE_DIR), 'djset.html')
+
+
+# ─── GET / → redirect to djset.html ───
+@app.route('/', methods=['GET'])
+def serve_root():
+    return send_from_directory(str(BASE_DIR), 'djset.html')
 
 
 # ══════════════════════════════════════════
