@@ -167,38 +167,8 @@
 
     .hero {
       text-align: center;
-      padding: 32px 24px 28px;
+      padding: 12px 24px 8px;
       position: relative;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
-      border-radius: 2px;
-    }
-
-    .hero h1 {
-      font-size: 38px;
-      font-weight: 900;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero .subtitle {
-      font-size: 13px;
-      color: var(--text-dim);
-      font-weight: 400;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-top: 6px;
     }
 
     /* Кнопка обновления */
@@ -309,18 +279,7 @@
     }
     .photo-card:hover::before { opacity: 1; }
 
-    /* Wallpaper — титульное изображение на всю ширину */
-    .wallpaper {
-      width: calc(100% + 48px);
-      margin: 28px -24px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .wallpaper img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+
 
     .photo-card img {
       width: 100%;
@@ -354,7 +313,7 @@
       .hero h1 { font-size: 26px; }
       .photo-grid { gap: 20px; }
       .photo-card { padding: 8px; }
-      .wallpaper { width: calc(100% + 32px); margin: 20px -16px 0; }
+
       .btn-sync { padding: 10px 24px; font-size: 13px; }
     }
   </style>
@@ -376,14 +335,10 @@
   <a class="back" href="index.html">← Назад</a>
 
   <div class="hero">
-    <h1>Фото</h1>
-    <div class="subtitle">Автоматическая публикация из телефона</div>
+    &nbsp;
   </div>
 
-  <!-- Wallpaper -->
-  <div class="wallpaper">
-    <img src="photo_files/telegram_20260624.webp" alt="AI DJ">
-  </div>
+
 
   <!-- Кнопка синхронизации -->
   <button class="btn-sync" onclick="syncPhotos()" id="syncBtn">
