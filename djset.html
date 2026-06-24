@@ -1022,16 +1022,154 @@ document.getElementById('deleteConfirm').addEventListener('click', async () => {
   deleteTargetId = null;
 });
 
+// ─── Play / Progress / Result ───
+let playPollTimer = null;
+
+function showMixStatus(msg) {
+  const statusDiv = document.getElementById('mixStatus');
+  if (statusDiv) statusDiv.textContent = msg;
+}
+
+function showMixProgress() {
+  const el = document.getElementById('mixProgress');
+  if (el) {
+    el.classList.add('active');
+    el.querySelector('.ds-mix-progress').style.display = 'block';
+    el.querySelector('.ds-mix-result').style.display = 'none';
+    el.querySelector('.ds-mix-error').style.display = 'none';
+    showMixStatus('⏳ Анализирую треки...');
+  }
+}
+
+function hideMixProgress() {
+  const el = document.getElementById('mixProgress');
+  if (el) el.classList.remove('active');
+}
+
+function showMixResult(data) {
+  const el = document.getElementById('mixProgress');
+  if (!el) return;
+  el.classList.add('active');
+  el.querySelector('.ds-mix-progress').style.display = 'none';
+  el.querySelector('.ds-mix-error').style.display = 'none';
+
+  const resultDiv = el.querySelector('.ds-mix-result');
+  resultDiv.style.display = 'block';
+
+  const url = data.url || '';
+  const bpmA = data.output?.bpm_a || data.bpm_a || '?';
+  const bpmB = data.output?.bpm_b || data.bpm_b || '?';
+  const keyA = data.output?.key_a || data.key_a || '?';
+  const keyB = data.output?.key_b || data.key_b || '?';
+  const harm = data.output?.harmonic_label || data.harmonic_label || '?';
+  const dur = data.output?.duration || data.duration || '?';
+
+  resultDiv.querySelector('.ds-mix-info').innerHTML = `
+    <div class="mix-info-row">${bpmA} BPM · ${keyA} → ${bpmB} BPM · ${keyB}</div>
+    <div class="mix-info-row">Гармония: ${harm}</div>
+    <div class="mix-info-row">Длительность: ${dur}с</div>
+  `;
+
+  const player = resultDiv.querySelector('audio');
+  if (player) {
+    player.src = url;
+    player.load();
+  }
+}
+
+function showMixError(msg) {
+  const el = document.getElementById('mixProgress');
+  if (!el) return;
+  el.classList.add('active');
+  el.querySelector('.ds-mix-progress').style.display = 'none';
+  el.querySelector('.ds-mix-result').style.display = 'none';
+  const err = el.querySelector('.ds-mix-error');
+  err.style.display = 'block';
+  err.textContent = '❌ ' + (msg || 'Неизвестная ошибка');
+}
+
 async function playSet(id) {
+  // Find set name for display
+  const set = allSets.find(s => s.id === id);
+  const setName = set ? set.name : id;
+
   try {
     const res = await fetch(api(`/api/sets/${id}/play`), { method: 'POST' });
-    if (res.ok) {
-      const data = await res.json();
-      alert(`⏳ Сведение запущено! Ожидаемое время: ${data.eta || '~30 сек'}`);
+    if (!res.ok) {
+      showMixError('Сервер ответил: ' + res.status);
       return;
     }
-  } catch(_) {}
-  alert('▶ Запуск сведения: сервер пока не подключён. Режим демо.');
+    const data = await res.json();
+    if (data.status === 'already_processing') {
+      showMixError('Уже сводится');
+      return;
+    }
+
+    showMixProgress();
+    showMixStatus('⏳ Сведение... Ожидаемое время: ' + (data.eta || '~30 сек'));
+
+    // Poll for status
+    if (playPollTimer) clearInterval(playPollTimer);
+    let attempts = 0;
+    const maxAttempts = 60; // 60 * 2s = 120s timeout
+
+    playPollTimer = setInterval(async () => {
+      attempts++;
+      try {
+        const statusRes = await fetch(api(`/api/sets/${id}/status`));
+        if (!statusRes.ok) {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError('Ошибка статуса');
+          return;
+        }
+        const statusData = await statusRes.json();
+
+        if (statusData.status === 'done') {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixResult(statusData);
+        } else if (statusData.status === 'error') {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError(statusData.error || 'Ошибка сведения');
+        } else if (attempts >= maxAttempts) {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError('Таймаут');
+        } else {
+          showMixStatus('⏳ Сведение... (' + (attempts * 2) + 'с прошло)');
+        }
+      } catch(e) {
+        clearInterval(playPollTimer);
+        playPollTimer = null;
+        showMixError('Ошибка соединения');
+      }
+    }, 2000);
+
+  } catch(_) {
+    // Server not available — demo stub
+    showMixProgress();
+    showMixStatus('⏳ Сервер не подключён, эмулирую...');
+    setTimeout(() => {
+      showMixResult({
+        url: '/aidj/player/index.html',
+        bpm_a: '120',
+        bpm_b: '128',
+        key_a: 'C',
+        key_b: 'Am',
+        harmonic_label: '🔥 Perfect',
+        duration: '~5:00'
+      });
+    }, 3000);
+  }
+}
+
+// Close mix result
+function closeMixResult() {
+  hideMixProgress();
+  const player = document.querySelector('#mixResult audio');
+  if (player) { player.pause(); player.src = ''; }
 }
 
 async function loadAllSets() {
@@ -1076,6 +1214,35 @@ deleteOverlay.addEventListener('click', (e) => {
   if (e.target === deleteOverlay) deleteOverlay.classList.remove('active');
 });
 </script>
+
+<!-- ─── Оверлей: прогресс / результат сведения ─── -->
+<div id="mixProgress" class="ds-overlay">
+  <div class="ds-modal" style="max-width:500px;">
+
+    <!-- Progress -->
+    <div class="ds-mix-progress" style="text-align:center;padding:20px 0;">
+      <div class="ds-loader-inner" style="display:block;margin:0 auto 16px;"></div>
+      <p style="color:var(--cyan);font-weight:600;" id="mixStatus">⏳ Сведение...</p>
+    </div>
+
+    <!-- Result -->
+    <div class="ds-mix-result" style="display:none;">
+      <div class="ds-modal-header">
+        <h2 style="font-size:1em;">🎧 Микс готов</h2>
+        <button class="ds-modal-close" onclick="closeMixResult()">✕</button>
+      </div>
+      <div class="ds-mix-info" style="padding:12px 0;color:var(--text-dim);font-size:0.9em;line-height:1.8;"></div>
+      <audio controls style="width:100%;margin:10px 0;" id="mixResult"></audio>
+      <div class="ds-modal-footer">
+        <button class="ds-btn" onclick="closeMixResult()">Закрыть</button>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="ds-mix-error" style="display:none;padding:20px 0;text-align:center;color:#f85149;font-weight:600;"></div>
+
+  </div>
+</div>
 
 </body>
 </html>

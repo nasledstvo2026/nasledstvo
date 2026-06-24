@@ -25,6 +25,10 @@ SETS_DIR = BASE_DIR / 'sets'
 STATIC_DIR = BASE_DIR / 'static'
 SETS_INDEX = SETS_DIR / 'sets-index.json'
 
+# ─── Network ───
+HOST = '176.123.162.12'
+PORT = 8766
+
 # Moscow TZ
 MOSCOW_OFFSET = timedelta(hours=3)
 
@@ -232,21 +236,35 @@ def api_play_set(set_id):
         return jsonify({'status': 'already_processing', 'eta': mixing_jobs[set_id].get('eta', '~30 сек')})
 
     def run_mix(sid, tracks):
-        mixing_jobs[sid] = {'status': 'downloading', 'eta': '~15 сек', 'started': moscow_now().isoformat()}
+        mixing_jobs[sid] = {'status': 'processing', 'eta': '~30 сек', 'started': moscow_now().isoformat()}
         try:
             engine = BASE_DIR / 'aidj-engine.py'
             if engine.exists():
                 config_json = json.dumps({'id': sid, 'tracks': tracks})
-                result = subprocess.run(
+                engine_result = subprocess.run(
                     [sys.executable, str(engine), '--config', config_json],
-                    capture_output=True, text=True, timeout=120
+                    capture_output=True, text=True, timeout=180
                 )
-                if result.returncode == 0:
-                    mixing_jobs[sid] = {'status': 'done', 'output': result.stdout.strip(), 'completed': moscow_now().isoformat()}
+                if engine_result.returncode == 0:
+                    try:
+                        engine_data = json.loads(engine_result.stdout.strip())
+                        final_output = engine_data.get('output', '')
+                        # Extract filename for URL
+                        fname = os.path.basename(final_output)
+                        mix_url = f'http://{HOST}:{PORT}/aidj/static/{fname}'
+                        mixing_jobs[sid] = {
+                            'status': 'done',
+                            'output': engine_data,
+                            'url': mix_url,
+                            'filename': fname,
+                            'completed': moscow_now().isoformat()
+                        }
+                    except (json.JSONDecodeError, KeyError) as e:
+                        mixing_jobs[sid] = {'status': 'error', 'error': f'Engine parse: {e}'}
                 else:
-                    mixing_jobs[sid] = {'status': 'error', 'error': result.stderr.strip()}
+                    mixing_jobs[sid] = {'status': 'error', 'error': engine_result.stderr.strip()[:500]}
             else:
-                # Engine not ready yet — stub
+                # Engine not ready — stub
                 time.sleep(3)
                 mixing_jobs[sid] = {
                     'status': 'done',
@@ -281,8 +299,8 @@ def serve_mix(filename):
 # ══════════════════════════════════════════
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8766))
-    print(f"[AI DJ Server] Starting on port {port}")
+    p = int(os.environ.get('PORT', PORT))
+    print(f"[AI DJ Server] Starting on http://{HOST}:{p}")
     print(f"[AI DJ Server] Sets dir: {SETS_DIR}")
     print(f"[AI DJ Server] Static dir: {STATIC_DIR}")
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=p, debug=False)
