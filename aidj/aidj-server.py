@@ -28,6 +28,7 @@ SETS_INDEX = SETS_DIR / 'sets-index.json'
 # ─── Network ───
 HOST = '176.123.162.12'
 PORT = 8766
+CF_TUNNEL_URL = os.environ.get('CF_TUNNEL_URL', '')
 
 # Moscow TZ
 MOSCOW_OFFSET = timedelta(hours=3)
@@ -251,7 +252,11 @@ def api_play_set(set_id):
                         final_output = engine_data.get('output', '')
                         # Extract filename for URL
                         fname = os.path.basename(final_output)
-                        mix_url = f'http://{HOST}:{PORT}/aidj/static/{fname}'
+                        tunnel_base = CF_TUNNEL_URL.rstrip('/') if CF_TUNNEL_URL else ''
+                        if tunnel_base:
+                            mix_url = f'{tunnel_base}/aidj/static/{fname}'
+                        else:
+                            mix_url = f'http://{HOST}:{PORT}/aidj/static/{fname}'
                         mixing_jobs[sid] = {
                             'status': 'done',
                             'output': engine_data,
