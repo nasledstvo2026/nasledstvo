@@ -1,0 +1,36 @@
+{
+  "id": "default",
+  "name": "Стандартный",
+  "description": "Базовый crossfade, выравнивание по быстрому треку, линейная кривая",
+  "dj": "AI Default",
+  "genre": "Универсальный",
+  "status": "ready",
+
+  "parameters": {
+    "crossfade": {
+      "type": "crossfade",
+      "duration_seconds": [12, 15],
+      "description": "Короткий crossfade 12–15 секунд"
+    },
+    "tempo": {
+      "mode": "follow_fastest",
+      "description": "Выравнивание по более быстрому треку"
+    },
+    "eq": {
+      "mode": "none",
+      "description": "Без дополнительной EQ-обработки"
+    },
+    "curve": {
+      "type": "linear",
+      "curve1": "tri",
+      "curve2": "tri",
+      "description": "Линейная кривая громкости"
+    },
+    "harmonic": {
+      "mode": "ignore",
+      "description": "Гармония не учитывается"
+    }
+  },
+
+  "requirements": []
+}

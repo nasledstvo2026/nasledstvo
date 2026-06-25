@@ -351,7 +351,7 @@ def api_mix_tracks():
         except Exception as e:
             mixing_jobs[mid] = {'status': 'error', 'error': str(e)}
 
-    thread = threading.Thread(target=run_direct, args=(mix_id, tracks), daemon=True)
+    thread = threading.Thread(target=run_direct, args=(mix_id, tracks), daemon=True, name=f'mix-{mix_id}')
     thread.start()
 
     return jsonify({'status': 'processing', 'mix_id': mix_id, 'eta': '~30 сек'}), 202

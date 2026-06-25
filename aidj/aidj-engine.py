@@ -229,10 +229,13 @@ def format_time(seconds):
 
 
 def mix_tracks_v2(track_a, track_b, output,
-                  crossfade_sec=15.0, verbose=False):
+                  crossfade_sec=15.0, verbose=False,
+                  preset_params=None):
     """
     Mix two tracks with harmonic analysis, BPM alignment, and beat-synced crossfade.
+    Supports preset parameters for different mixing styles.
     """
+    preset_params = preset_params or {}
     result = OrderedDict([
         ('status', 'processing'),
         ('track_a', track_a),
@@ -248,6 +251,8 @@ def mix_tracks_v2(track_a, track_b, output,
         ('harmonic_label', '?'),
         ('crossfade', crossfade_sec),
         ('duration', 0),
+        ('preset', preset_params.get('preset', 'default')),
+        ('preset_name', preset_params.get('preset_name', 'Standard')),
     ])
 
     log = lambda msg: print(f'[AI DJ] {msg}', file=sys.stderr) if verbose else None
@@ -278,10 +283,20 @@ def mix_tracks_v2(track_a, track_b, output,
         print(f'[AI DJ] Track B: {info_b["bpm"]} BPM | {info_b["key"]} ({info_b["camelot"]}) | {format_time(info_b["duration"])}', file=sys.stderr)
         print(f'[AI DJ] Harmonic match: {result["harmonic_label"]} ({harm_score:.2f})', file=sys.stderr)
 
-    # ── Step 2: BPM alignment ──
-    target_bpm = max(info_a['bpm'], info_b['bpm'])
+    # ── Step 2: BPM alignment (with preset override) ──
+    preset_tempo_mode = preset_params.get('tempo_mode', 'follow_fastest')
+    if preset_tempo_mode == 'lock_tight':
+        # Lock tight: keep original BPMs, warn if difference > tolerance
+        tolerance = preset_params.get('tempo_tolerance', 0.5)
+        target_bpm = info_a['bpm']  # follow first track
+        bpm_diff = abs(info_a['bpm'] - info_b['bpm'])
+        if bpm_diff > tolerance and verbose:
+            print(f'[AI DJ] ⚠️ BPM diff {bpm_diff:.1f} exceeds preset tolerance ±{tolerance}', file=sys.stderr)
+    else:
+        target_bpm = max(info_a['bpm'], info_b['bpm'])
+    
     if verbose:
-        print(f'[AI DJ] Target BPM: {target_bpm}', file=sys.stderr)
+        print(f'[AI DJ] Target BPM: {target_bpm} (mode: {preset_tempo_mode})', file=sys.stderr)
 
     dur_a = info_a['duration']
     dur_b = info_b['duration']
@@ -342,23 +357,43 @@ def mix_tracks_v2(track_a, track_b, output,
             if verbose:
                 print(f'[AI DJ] Track {label} aligned', file=sys.stderr)
 
-        # ── Crossfade ──
-        # Use acrossfade with cubic/tri curves for smoother transition
-        if verbose:
-            print(f'[AI DJ] Crossfade {cf:.1f}s (curve: equal power)...', file=sys.stderr)
+        # ── Blend / Crossfade (preset-aware) ──
+        blend_type = preset_params.get('blend_type', 'crossfade')
+        curve1 = preset_params.get('curve1', 'tri')
+        curve2 = preset_params.get('curve2', 'tri')
 
-        # Better curve: 'equ' is equal power (sounds smoother than tri)
-        cmd = [
-            'ffmpeg', '-y',
-            '-i', str(aligned_a),
-            '-i', str(aligned_b),
-            '-filter_complex',
-            f'acrossfade=d={cf}:curve1=tri:curve2=tri',
-            '-ac', '2', '-ar', '44100',
-            '-b:a', '192k',
-            str(output)
-        ]
-        subprocess.run(cmd, check=True, capture_output=True, timeout=120)
+        if blend_type == 'layering' and cf > 60:
+            # Long blend: use acrossfade with full track overlay
+            if verbose:
+                print(f'[AI DJ] Long blend {cf:.0f}s (preset: {preset_params.get("preset", "?")})', file=sys.stderr)
+            # Use acrossfade with the full track as overlay
+            # For long blends, we want the incoming track to layer on top
+            # Almost like a concat with controlled fade
+            cmd = [
+                'ffmpeg', '-y',
+                '-i', str(aligned_a),
+                '-i', str(aligned_b),
+                '-filter_complex',
+                f'acrossfade=d={cf}:curve1={curve1}:curve2={curve2}',
+                '-ac', '2', '-ar', '44100',
+                '-b:a', '192k',
+                str(output)
+            ]
+        else:
+            # Standard crossfade
+            if verbose:
+                print(f'[AI DJ] Crossfade {cf:.1f}s (curve: {curve1}/{curve2})...', file=sys.stderr)
+            cmd = [
+                'ffmpeg', '-y',
+                '-i', str(aligned_a),
+                '-i', str(aligned_b),
+                '-filter_complex',
+                f'acrossfade=d={cf}:curve1={curve1}:curve2={curve2}',
+                '-ac', '2', '-ar', '44100',
+                '-b:a', '192k',
+                str(output)
+            ]
+        subprocess.run(cmd, check=True, capture_output=True, timeout=180)
 
         # ── Verify output ──
         out_dur = 0
@@ -410,11 +445,13 @@ def resolve_path(filepath):
     return str(ws_path)
 
 
-def mix_set_tracks(tracks, output_dir=None):
+def mix_set_tracks(tracks, output_dir=None, preset_params=None):
     """
     Сведение всех треков из сета последовательно.
     tracks: список [{title, artist, url, ...}]
+    preset_params: параметры пресета (из presets/engine.py)
     """
+    preset_params = preset_params or {}
     static_dir = BASE_DIR / 'static'
     output_dir = Path(output_dir or static_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -436,8 +473,9 @@ def mix_set_tracks(tracks, output_dir=None):
             resolve_path(current_file),
             next_file,
             output_file,
-            crossfade_sec=15,
-            verbose=True
+            crossfade_sec=preset_params.get('crossfade_seconds', 15),
+            verbose=True,
+            preset_params=preset_params,
         )
 
         seg_result['seg_index'] = i
@@ -458,6 +496,8 @@ def mix_set_tracks(tracks, output_dir=None):
         'output': final_output,
         'segments': results,
         'track_count': len(tracks),
+        'preset': preset_params.get('preset', 'default'),
+        'preset_name': preset_params.get('preset_name', 'Standard'),
     }
 
 
@@ -497,7 +537,8 @@ def main():
             print(json.dumps({'status': 'error', 'error': 'Need at least 2 tracks in config'}))
             sys.exit(1)
 
-        result = mix_set_tracks(tracks)
+        preset_params = config_data.get('preset', {}) or {}
+        result = mix_set_tracks(tracks, preset_params=preset_params)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0 if result.get('status') == 'ok' else 1
 

@@ -1,0 +1,22 @@
+{
+  "presets": [
+    {
+      "id": "default",
+      "name": "Стандартный",
+      "description": "Базовый crossfade, выравнивание по быстрому треку, линейная кривая",
+      "dj": "AI Default",
+      "genre": "Универсальный",
+      "status": "ready",
+      "file": "default-preset.json"
+    },
+    {
+      "id": "oakenfold",
+      "name": "Paul Oakenfold — Perfecto Fluidity",
+      "description": "Кинематографичное сведение: long blends, bass-подмена, breakdown mixing",
+      "dj": "Paul Oakenfold",
+      "genre": "Trance · Progressive · Goa",
+      "status": "draft",
+      "file": "oakenfold-preset.json"
+    }
+  ]
+}
