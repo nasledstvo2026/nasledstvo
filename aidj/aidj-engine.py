@@ -362,13 +362,34 @@ def mix_tracks_v2(track_a, track_b, output,
         curve1 = preset_params.get('curve1', 'tri')
         curve2 = preset_params.get('curve2', 'tri')
 
-        if blend_type == 'layering' and cf > 60:
-            # Long blend: use acrossfade with full track overlay
+        if blend_type == 'layering' and preset_params.get('eq_phases'):
+            # Phase-based layering with per-segment EQ + bass swap
             if verbose:
-                print(f'[AI DJ] Long blend {cf:.0f}s (preset: {preset_params.get("preset", "?")})', file=sys.stderr)
-            # Use acrossfade with the full track as overlay
-            # For long blends, we want the incoming track to layer on top
-            # Almost like a concat with controlled fade
+                print(f'[AI DJ] Phase layering: {preset_params.get("preset_name", "?")}', file=sys.stderr)
+
+            from mixers.phase_mixer import phase_mix
+            out_dur = phase_mix(
+                str(aligned_a), str(aligned_b), str(output),
+                preset_params, verbose=verbose
+            )
+
+            # ── Verify output ──
+            out_dur = 0
+            try:
+                res = subprocess.run(
+                    ['ffprobe', '-v', 'error', '-show_entries',
+                     'format=duration', '-of', 'json', str(output)],
+                    capture_output=True, text=True, timeout=10
+                )
+                data = json.loads(res.stdout)
+                out_dur = round(float(data['format']['duration']), 1)
+            except Exception:
+                pass
+
+        elif blend_type == 'layering' and cf > 60:
+            # Long blend fallback: acrossfade with full track overlay
+            if verbose:
+                print(f'[AI DJ] Long blend {cf:.0f}s (crossfade fallback)', file=sys.stderr)
             cmd = [
                 'ffmpeg', '-y',
                 '-i', str(aligned_a),
@@ -379,6 +400,7 @@ def mix_tracks_v2(track_a, track_b, output,
                 '-b:a', '192k',
                 str(output)
             ]
+            subprocess.run(cmd, check=True, capture_output=True, timeout=180)
         else:
             # Standard crossfade
             if verbose:
@@ -393,7 +415,7 @@ def mix_tracks_v2(track_a, track_b, output,
                 '-b:a', '192k',
                 str(output)
             ]
-        subprocess.run(cmd, check=True, capture_output=True, timeout=180)
+            subprocess.run(cmd, check=True, capture_output=True, timeout=180)
 
         # ── Verify output ──
         out_dur = 0
@@ -526,8 +548,12 @@ def main():
             config_data = json.loads(set_path.read_text())
         else:
             # Try as raw JSON
+            raw = args.config
+            # If config starts with '{' but might be too long for cmd line, try stdin
+            if raw == '-':
+                raw = sys.stdin.read()
             try:
-                config_data = json.loads(args.config)
+                config_data = json.loads(raw)
             except json.JSONDecodeError:
                 print(json.dumps({'status': 'error', 'error': f'Config not found: {args.config}'}))
                 sys.exit(1)
