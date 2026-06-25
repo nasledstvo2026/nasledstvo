@@ -1069,7 +1069,7 @@ function showMixResult(data, setId) {
     player.load();
   }
 
-  // Save mix URL to the set in localStorage
+  // Save mix URL to the set in localStorage and update UI
   if (setId) {
     let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
     const idx = sets.findIndex(s => s.id === setId);
@@ -1079,6 +1079,9 @@ function showMixResult(data, setId) {
       sets[idx].mixMeta = { bpmA, bpmB, keyA, keyB, harm };
       localStorage.setItem('dj_sets', JSON.stringify(sets));
     }
+    // Reload from localStorage so the listen button appears
+    allSets = sets;
+    renderSets(allSets);
   }
 }
 
