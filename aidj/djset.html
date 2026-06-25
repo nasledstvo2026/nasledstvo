@@ -718,9 +718,9 @@
 
 <script>
 // ─── Config ───
-const VPS_BASE = 'http://176.123.162.12';
+const VPS_BASE = 'https://enhance-workflow-rounds-knock.trycloudflare.com';
 const GH_BASE = '/nasledstvo';
-function api(path) { return VPS_BASE + '/aidj' + path; }
+function api(path) { return VPS_BASE + path; }
 let editingId = null;
 let allTracks = [];
 let allSets = [];
@@ -741,7 +741,7 @@ const deleteName = $('deleteName');
 
 function absTrackUrl(url) {
   if (!url || url.startsWith('http')) return url;
-  return VPS_BASE + '/' + url.replace(/^\/+/, '');
+  return VPS_BASE + '/aidj/' + url.replace(/^aidj\/|^\//g, '');
 }
 
 async function fetchGitTracks() {
@@ -806,7 +806,7 @@ function renderSets(sets) {
             </div>
           </div>
           <div class="ds-card-actions">
-            <button class="ds-btn ds-btn-play" onclick="mixSet('${set.id}')">◆ Создать Mix</button>
+            <button class="ds-btn ds-btn-play" onclick="playSet('${set.id}')">◆ Создать Mix</button>
             <button class="ds-btn ds-btn-primary" onclick="editSet('${set.id}')">✏️</button>
             <button class="ds-btn ds-btn-danger" onclick="confirmDelete('${set.id}','${escapeHtml(set.name)}')">🗑</button>
           </div>
@@ -1075,9 +1075,77 @@ function showMixError(msg) {
   err.textContent = '❌ ' + (msg || 'Неизвестная ошибка');
 }
 
-function mixSet(id) {
-  const vpsUrl = 'https://176.123.162.12/aidj/';
-  window.open(vpsUrl, '_blank');
+async function playSet(id) {
+  const set = allSets.find(s => s.id === id);
+  const setName = set ? set.name : id;
+
+  try {
+    const res = await fetch(api('/api/sets/' + id + '/play'), { method: 'POST' });
+    if (!res.ok) {
+      showMixError('Сервер ответил: ' + res.status);
+      return;
+    }
+    const data = await res.json();
+    if (data.status === 'already_processing') {
+      showMixError('Уже сводится');
+      return;
+    }
+
+    showMixProgress();
+    showMixStatus('⏳ Сведение... Ожидаемое время: ' + (data.eta || '~30 сек'));
+
+    if (playPollTimer) clearInterval(playPollTimer);
+    let attempts = 0;
+    const maxAttempts = 60;
+
+    playPollTimer = setInterval(async () => {
+      attempts++;
+      try {
+        const statusRes = await fetch(api('/api/sets/' + id + '/status'));
+        if (!statusRes.ok) {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError('Ошибка статуса');
+          return;
+        }
+        const statusData = await statusRes.json();
+
+        if (statusData.status === 'done') {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixResult(statusData);
+        } else if (statusData.status === 'error') {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError(statusData.error || 'Ошибка сведения');
+        } else if (attempts >= maxAttempts) {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError('Таймаут');
+        } else {
+          showMixStatus('⏳ Сведение... (' + (attempts * 2) + 'с прошло)');
+        }
+      } catch(e) {
+        clearInterval(playPollTimer);
+        playPollTimer = null;
+        showMixError('Ошибка соединения');
+      }
+    }, 2000);
+  } catch(_) {
+    showMixProgress();
+    showMixStatus('⏳ Сервер не подключён, эмулирую...');
+    setTimeout(() => {
+      showMixResult({
+        url: 'https://enhance-workflow-rounds-knock.trycloudflare.com/static/mix_demo.mp3',
+        bpm_a: '120',
+        bpm_b: '128',
+        key_a: 'C',
+        key_b: 'Am',
+        harmonic_label: 'Perfect',
+        duration: '~5:00'
+      });
+    }, 3000);
+  }
 }
 
 // Close mix result
