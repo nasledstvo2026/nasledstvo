@@ -426,10 +426,10 @@ def mix_set_tracks(tracks, output_dir=None):
         return {'status': 'error', 'error': 'Need at least 2 tracks'}
 
     # Mix sequentially: track[0]+track[1] → mix1, then mix1+track[2] → mix2, etc.
-    current_file = resolve_path(tracks[0].get('url', tracks[0].get('filepath', '')))
+    current_file = resolve_path(tracks[0].get('filepath', tracks[0].get('url', '')))
 
     for i in range(1, len(tracks)):
-        next_file = resolve_path(tracks[i].get('url', tracks[i].get('filepath', '')))
+        next_file = resolve_path(tracks[i].get('filepath', tracks[i].get('url', '')))
         output_file = str(output_dir / f'mix_seg_{timestamp}_{i}.mp3')
 
         seg_result = mix_tracks_v2(

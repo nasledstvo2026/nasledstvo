@@ -269,9 +269,57 @@ def api_mix_tracks():
 
     mix_id = 'mix_' + uuid.uuid4().hex[:8]
 
+    def lookup_track_path(track):
+        """Convert track URL/name to local file path"""
+        from urllib.parse import unquote
+
+        url = track.get('url', '')
+        name = track.get('title', '')
+        artist = track.get('artist', '')
+
+        # Priority 1: If url contains trycloudflare, extract filename and decode
+        if 'trycloudflare.com' in url:
+            fname = os.path.basename(url.split('?')[0])
+            fname = unquote(fname)
+            print(f'[RESOLVE] Cloudflare URL -> {repr(fname)}', file=sys.stderr, flush=True)
+            local = BASE_DIR / fname
+            if local.exists():
+                print(f'[RESOLVE] Found: {local}', file=sys.stderr, flush=True)
+                return str(local)
+            # Try without base_dir
+            if Path(fname).exists():
+                return str(Path(fname).resolve())
+
+        # Priority 2: Direct URL path relative to aidj/
+        if url:
+            stripped = url.replace('/aidj/', '/').lstrip('/')
+            # Try each path component
+            parts = stripped.split('/')
+            for part in parts:
+                part = unquote(part)
+                local = BASE_DIR / part
+                if local.exists():
+                    return str(local)
+
+        # Priority 3: Search by filename match in BASEDIR
+        for f in sorted(BASE_DIR.iterdir()):
+            if f.suffix.lower() in ('.mp3', '.wav', '.flac', '.ogg', '.m4a'):
+                fstem = str(f.stem).lower()
+                nlow = name.lower()
+                alow = artist.lower()
+                if (nlow and nlow in fstem) or (alow and alow in fstem):
+                    return str(f)
+
+        print(f'[RESOLVE] NOT FOUND: url={url} name={name} artist={artist}', file=sys.stderr, flush=True)
+        return url
+
     def run_direct(mid, tlist):
         mixing_jobs[mid] = {'status': 'processing', 'eta': '~30 сек', 'started': moscow_now().isoformat()}
         try:
+            # Resolve local paths for tracks
+            for t in tlist:
+                t['filepath'] = lookup_track_path(t)
+
             engine = BASE_DIR / 'aidj-engine.py'
             if engine.exists():
                 config_json = json.dumps({'id': mid, 'tracks': tlist})
