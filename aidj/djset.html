@@ -269,6 +269,16 @@
     .ds-btn-danger::before {
       background: linear-gradient(135deg, #f85149, transparent, #ff7b72);
     }
+    .ds-btn-listen {
+      color: #00d4ff;
+    }
+    .ds-btn-listen:hover {
+      color: #66e0ff;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+    .ds-btn-listen::before {
+      background: linear-gradient(135deg, #00d4ff, transparent, #66e0ff);
+    }
 
     .ds-btn-create {
       padding: 10px 22px;
@@ -807,6 +817,7 @@ function renderSets(sets) {
           </div>
           <div class="ds-card-actions">
             <button class="ds-btn ds-btn-play" onclick="playSet('${set.id}')">◆ Создать Mix</button>
+            ${set.mixUrl ? `<button class="ds-btn ds-btn-listen" onclick="playSavedMix('${set.id}')">🎧 Послушать mix</button>` : ''}
             <button class="ds-btn ds-btn-primary" onclick="editSet('${set.id}')">✏️</button>
             <button class="ds-btn ds-btn-danger" onclick="confirmDelete('${set.id}','${escapeHtml(set.name)}')">🗑</button>
           </div>
@@ -1032,7 +1043,7 @@ function hideMixProgress() {
   if (el) el.classList.remove('active');
 }
 
-function showMixResult(data) {
+function showMixResult(data, setId) {
   const el = document.getElementById('mixProgress');
   if (!el) return;
   el.classList.add('active');
@@ -1061,6 +1072,18 @@ function showMixResult(data) {
   if (player) {
     player.src = url;
     player.load();
+  }
+
+  // Save mix URL to the set in localStorage
+  if (setId) {
+    let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
+    const idx = sets.findIndex(s => s.id === setId);
+    if (idx >= 0) {
+      sets[idx].mixUrl = url;
+      sets[idx].mixDuration = dur;
+      sets[idx].mixMeta = { bpmA, bpmB, keyA, keyB, harm };
+      localStorage.setItem('dj_sets', JSON.stringify(sets));
+    }
   }
 }
 
@@ -1130,7 +1153,7 @@ async function playSet(id) {
         if (statusData.status === 'done') {
           clearInterval(playPollTimer);
           playPollTimer = null;
-          showMixResult(statusData);
+          showMixResult(statusData, id);
         } else if (statusData.status === 'error') {
           clearInterval(playPollTimer);
           playPollTimer = null;
@@ -1154,6 +1177,7 @@ async function playSet(id) {
     setTimeout(() => {
       showMixResult({
         url: VPS_BASE + '/static/mix_demo.mp3',
+      }, id);
         bpm_a: '120',
         bpm_b: '128',
         key_a: 'C',
@@ -1163,6 +1187,22 @@ async function playSet(id) {
       });
     }, 3000);
   }
+}
+
+// Play a saved mix
+function playSavedMix(id) {
+  const set = allSets.find(s => s.id === id);
+  if (!set || !set.mixUrl) return;
+  const meta = set.mixMeta || {};
+  showMixResult({
+    url: set.mixUrl,
+    duration: set.mixDuration || '?',
+    bpm_a: meta.bpmA || '?',
+    bpm_b: meta.bpmB || '?',
+    key_a: meta.keyA || '?',
+    key_b: meta.keyB || '?',
+    harmonic_label: meta.harm || '?'
+  }, id);
 }
 
 // Close mix result
