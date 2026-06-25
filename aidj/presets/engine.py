@@ -77,13 +77,22 @@ def apply_preset(tracks, preset_id='default', track_info=None):
     cf_type = cf.get('type', 'crossfade')
     cf_range = cf.get('duration_seconds', [12, 15])
 
-    if cf_type == 'long_blend':
+    if cf_type == 'smart_variable':
+        # Variable blend: smart crossfade with structure analysis
+        result['params']['blend_type'] = 'layering'
+        result['params']['crossfade_seconds'] = sum(cf_range) / 2 if cf_range else 60
+        result['params']['crossfade_range'] = [cf.get('min_seconds', 15), cf.get('max_seconds', 120)]
+        result['params']['layering'] = True
+        result['params']['breakdown_matching'] = cf.get('type', '') == 'smart_variable'
+    elif cf_type == 'long_blend':
         # Long layout: треки накладываются на 1.5–3 мин
         result['params']['blend_type'] = 'layering'
-        # Берём среднее между min и max
         result['params']['crossfade_seconds'] = sum(cf_range) / 2
-        result['params']['pre_start_offset'] = 0  # incoming стартует с 0
         result['params']['layering'] = True
+    elif cf_type == 'fixed':
+        result['params']['blend_type'] = 'crossfade'
+        result['params']['crossfade_seconds'] = sum(cf_range) / 2 if cf_range else 35
+        result['params']['layering'] = False
     elif cf_type == 'crossfade':
         result['params']['blend_type'] = 'crossfade'
         # Берём среднее
@@ -157,6 +166,19 @@ def apply_preset(tracks, preset_id='default', track_info=None):
                     f'Harmonic mismatch: {ck_prev} → {ck_curr}'
                 )
 
+    # ─── Blend options (smart crossfade) ───
+    blend = params.get('blend', {})
+    if blend.get('breakdown_matching'):
+        result['params']['breakdown_matching'] = True
+        result['params']['blend_type'] = 'layering'
+    if blend.get('intro_scan'):
+        result['params']['intro_scan'] = True
+
+    # ─── Style metadata ───
+    style = params.get('style', {})
+    if style:
+        result['params']['style'] = style
+
     # ─── Curve type for ffmpeg acrossfade ───
     curve = params.get('curve', {})
     result['params']['curve_type'] = curve.get('type', 'linear')
@@ -197,7 +219,17 @@ def preset_to_mix_params(tracks, preset_id='default', track_info=None):
         'eq_mode': p.get('eq_mode', 'none'),
         'harmonic_mode': p.get('harmonic_mode', 'ignore'),
         'warnings': result.get('warnings', []),
+        # Smart mixing flags
+        'breakdown_matching': p.get('breakdown_matching', False),
+        'intro_scan': p.get('intro_scan', False),
+        'style': p.get('style', {}).get('type', 'standard'),
     }
+
+    # Dynamic crossfade range (Tranceport-style: 15-120s)
+    crossfade_range = p.get('crossfade_range', None)
+    if crossfade_range:
+        params['crossfade_min'] = crossfade_range[0]
+        params['crossfade_max'] = crossfade_range[1]
 
     # EQ phases (для layering-пресетов)
     if p.get('eq_phases'):

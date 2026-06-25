@@ -1,0 +1,49 @@
+{
+  "name": "Oakenfold Fantazia (1997)",
+  "version": "1.0",
+  "based_on": "Paul Oakenfold — Fantazia The House Collection Vol.6 CD1 (1997)",
+  "source": "Анализ RMS/BPM живого микса, 72:19 мин, 13 треков",
+  "verified": {
+    "date": "2026-06-25",
+    "method": "librosa RMS, BPM beat tracking (11025 Hz)",
+    "confirmed": [
+      "tight_crossfade — переходы 30-60 с, плотные",
+      "unified_bpm — все треки под 129 BPM",
+      "smooth_transitions — без Bass Swap и breakdown"
+    ],
+    "refuted": [
+      "Long blends — только короткие плотные переходы",
+      "Breakdown mixing — не обнаружен"
+    ]
+  },
+  "parameters": {
+    "crossfade": {
+      "type": "fixed",
+      "duration_seconds": [25, 45]
+    },
+    "tempo": {
+      "mode": "lock_tight",
+      "tolerance_bpm": 1.0,
+      "target_bpm": 129
+    },
+    "blend": {
+      "type": "crossfade",
+      "breakdown_matching": false,
+      "tight": true
+    },
+    "harmonic": {
+      "mode": "ignore",
+      "description": "В Fantazia Oakenfold не использовал гармоническое сведение — микс гладкий, тональности не анализировались"
+    },
+    "curve": {
+      "type": "tri",
+      "curve1": "tri",
+      "curve2": "tri",
+      "description": "Стандартная треугольная кривая для плотных переходов"
+    },
+    "style": {
+      "type": "tight_house",
+      "description": "Плотный хаус-микс: треки сменяют друг друга гладко и быстро. Никаких драматических пауз."
+    }
+  }
+}

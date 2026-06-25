@@ -1,0 +1,61 @@
+{
+  "name": "Oakenfold Tranceport (1998)",
+  "version": "1.0",
+  "based_on": "Paul Oakenfold — Tranceport (1998)",
+  "source": "Анализ 11 треков FLAC + склейка. BPM 136, 73:30 мин",
+  "verified": {
+    "date": "2026-06-25",
+    "method": "librosa RMS, chroma CQT, BPM beat tracking",
+    "confirmed": [
+      "breakdown_matching — глубокие минимумы (3-8%) на стыках треков",
+      "variable_crossfade — от 15 с до 2 мин в зависимости от трека",
+      "tonal_blocks — треки сгруппированы по тональностям (не +1 лифт)",
+      "smooth_energy_rise — энергия растёт плавно, без резких Bass Swap"
+    ],
+    "refuted": [
+      "Bass Swap — нет, вопреки книгам",
+      "Camelot +1 лифт — блочная структура, не ступенчатая",
+      "Фиксированные long blends 1.5-3 мин — длина переменная"
+    ]
+  },
+  "parameters": {
+    "crossfade": {
+      "type": "smart_variable",
+      "min_seconds": 15,
+      "max_seconds": 120
+    },
+    "tempo": {
+      "mode": "lock_tight",
+      "tolerance_bpm": 0.5,
+      "target_bpm": 136
+    },
+    "blend": {
+      "type": "layering",
+      "breakdown_matching": true,
+      "intro_scan": true
+    },
+    "harmonic": {
+      "mode": "camelot_blocks",
+      "allowed_transitions": [
+        "same",
+        "+1_up",
+        "+1_down",
+        "+2_up",
+        "+2_down"
+      ],
+      "preferred": "tonal_block"
+    },
+    "curve": {
+      "type": "exp",
+      "curve1": "exp",
+      "curve2": "log",
+      "description": "Plasвная замена — первый трек затухает экспоненциально, второй нарастает логарифмически"
+    },
+    "style": {
+      "type": "dramatic_trance",
+      "structure": "tonal_blocks",
+      "blend_length": "variable_by_structure",
+      "description": "Старт нового трека на breakdown предыдущего. Переменная длина в зависимости от структуры треков."
+    }
+  }
+}

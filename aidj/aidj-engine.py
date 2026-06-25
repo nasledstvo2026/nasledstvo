@@ -30,6 +30,12 @@ except ImportError:
 
 BASE_DIR = Path(__file__).resolve().parent
 
+# Import smart modules
+sys.path.insert(0, str(BASE_DIR))
+from analyzers.track_structure import analyze_track_structure, find_crossfade_points
+
+HAS_SMART_MIXING = True
+
 
 # ═══════════════════════════════════════════════
 #  Camelot Wheel — стандарт DJ для harmonic mixing
@@ -326,16 +332,16 @@ def mix_tracks_v2(track_a, track_b, output,
     if verbose:
         print(f'[AI DJ] Crossfade start (beat-aligned): {format_time(beat_crossfade_start)}', file=sys.stderr)
 
-    # ── Step 3: Process with ffmpeg ──
+    # ── Step 3: Structure-aware Smart Crossfade ──
     tmp_dir = Path(tempfile.mkdtemp(prefix='aidj_'))
     aligned_a = tmp_dir / 'aligned_a.wav'
     aligned_b = tmp_dir / 'aligned_b.wav'
 
     try:
         # Align BPM
-        for track_path, aligned_path, bpm_orig, label, info in [
-            (track_a, aligned_a, info_a['bpm'], 'A', info_a),
-            (track_b, aligned_b, info_b['bpm'], 'B', info_b)
+        for track_path, aligned_path, bpm_orig, label in [
+            (track_a, aligned_a, info_a['bpm'], 'A'),
+            (track_b, aligned_b, info_b['bpm'], 'B')
         ]:
             tempo_ratio = target_bpm / bpm_orig
             if abs(tempo_ratio - 1.0) > 0.02:
@@ -357,65 +363,54 @@ def mix_tracks_v2(track_a, track_b, output,
             if verbose:
                 print(f'[AI DJ] Track {label} aligned', file=sys.stderr)
 
-        # ── Blend / Crossfade (preset-aware) ──
+        # ── Smart: analyze track structure ──
         blend_type = preset_params.get('blend_type', 'crossfade')
         curve1 = preset_params.get('curve1', 'tri')
         curve2 = preset_params.get('curve2', 'tri')
 
-        if blend_type == 'layering' and preset_params.get('eq_phases'):
-            # Phase-based layering with per-segment EQ + bass swap
+        do_smart = blend_type == 'layering' or preset_params.get('breakdown_matching')
+
+        if do_smart and HAS_SMART_MIXING:
             if verbose:
-                print(f'[AI DJ] Phase layering: {preset_params.get("preset_name", "?")}', file=sys.stderr)
+                print(f'[AI DJ] Smart structure analysis ({preset_params.get("preset_name", "?")})...', file=sys.stderr)
 
-            from mixers.phase_mixer import phase_mix
-            out_dur = phase_mix(
-                str(aligned_a), str(aligned_b), str(output),
-                preset_params, verbose=verbose
-            )
+            struct_a = analyze_track_structure(str(aligned_a), verbose=False)
+            struct_b = analyze_track_structure(str(aligned_b), verbose=False)
 
-            # ── Verify output ──
-            out_dur = 0
-            try:
-                res = subprocess.run(
-                    ['ffprobe', '-v', 'error', '-show_entries',
-                     'format=duration', '-of', 'json', str(output)],
-                    capture_output=True, text=True, timeout=10
-                )
-                data = json.loads(res.stdout)
-                out_dur = round(float(data['format']['duration']), 1)
-            except Exception:
-                pass
-
-        elif blend_type == 'layering' and cf > 60:
-            # Long blend fallback: acrossfade with full track overlay
             if verbose:
-                print(f'[AI DJ] Long blend {cf:.0f}s (crossfade fallback)', file=sys.stderr)
-            cmd = [
-                'ffmpeg', '-y',
-                '-i', str(aligned_a),
-                '-i', str(aligned_b),
-                '-filter_complex',
-                f'acrossfade=d={cf}:curve1={curve1}:curve2={curve2}',
-                '-ac', '2', '-ar', '44100',
-                '-b:a', '192k',
-                str(output)
-            ]
-            subprocess.run(cmd, check=True, capture_output=True, timeout=180)
+                print(f'[AI DJ] A: intro={struct_a["intro_duration"]:.0f}s, breakdowns={struct_a["breakdown_count"]} (main at {struct_a.get("main_breakdown_sec",0):.0f}s)', file=sys.stderr)
+                print(f'[AI DJ] B: intro={struct_b["intro_duration"]:.0f}s, breakdowns={struct_b["breakdown_count"]}', file=sys.stderr)
+
+            # Find optimal crossfade points
+            xfade_pts = find_crossfade_points(struct_a, struct_b, preset_params)
+            cf = xfade_pts['crossfade_duration']
+            result['crossfade'] = round(cf, 1)
+            result['crossfade_method'] = xfade_pts['method']
+
+            if verbose:
+                print(f'[AI DJ] Crossfade: {cf:.0f}s (method: {xfade_pts["method"]})', file=sys.stderr)
         else:
-            # Standard crossfade
-            if verbose:
-                print(f'[AI DJ] Crossfade {cf:.1f}s (curve: {curve1}/{curve2})...', file=sys.stderr)
-            cmd = [
-                'ffmpeg', '-y',
-                '-i', str(aligned_a),
-                '-i', str(aligned_b),
-                '-filter_complex',
-                f'acrossfade=d={cf}:curve1={curve1}:curve2={curve2}',
-                '-ac', '2', '-ar', '44100',
-                '-b:a', '192k',
-                str(output)
-            ]
-            subprocess.run(cmd, check=True, capture_output=True, timeout=180)
+            # Standard fixed crossfade
+            cf = min(crossfade_sec, dur_a - 5, dur_b - 5)
+            if cf < 3:
+                cf = min(dur_a, dur_b) / 3
+            result['crossfade'] = round(cf, 1)
+
+        # ── Apply crossfade ──
+        if verbose:
+            print(f'[AI DJ] Applying acrossfade (d={cf:.0f}s, curve={curve1}/{curve2})...', file=sys.stderr)
+
+        cmd = [
+            'ffmpeg', '-y',
+            '-i', str(aligned_a),
+            '-i', str(aligned_b),
+            '-filter_complex',
+            f'acrossfade=d={cf}:curve1={curve1}:curve2={curve2}',
+            '-ac', '2', '-ar', '44100',
+            '-b:a', '192k',
+            str(output)
+        ]
+        subprocess.run(cmd, check=True, capture_output=True, timeout=300)
 
         # ── Verify output ──
         out_dur = 0
@@ -563,7 +558,18 @@ def main():
             print(json.dumps({'status': 'error', 'error': 'Need at least 2 tracks in config'}))
             sys.exit(1)
 
-        preset_params = config_data.get('preset', {}) or {}
+        raw_preset = config_data.get('preset', {}) or {}
+        if isinstance(raw_preset, dict) and 'preset' in raw_preset:
+            # Resolve through preset engine
+            from presets.engine import preset_to_mix_params
+            track_info = {}
+            preset_params = preset_to_mix_params(tracks, raw_preset['preset'], track_info)
+        elif isinstance(raw_preset, str):
+            from presets.engine import preset_to_mix_params
+            preset_params = preset_to_mix_params(tracks, raw_preset, {})
+        else:
+            preset_params = raw_preset
+
         result = mix_set_tracks(tracks, preset_params=preset_params)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0 if result.get('status') == 'ok' else 1

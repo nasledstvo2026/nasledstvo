@@ -1,69 +1,1399 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI DJ — DJ Set'ы</title>
   <style>
+    /* ═══════════════════════════════════════════════
+       AI DJ — Futuristic Neon Theme
+       ═══════════════════════════════════════════════ */
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    :root {
+      --bg-deep: #070b12;
+      --bg-card: rgba(14, 22, 36, 0.75);
+      --border-subtle: rgba(0, 200, 255, 0.08);
+      --border-glow: rgba(0, 200, 255, 0.25);
+      --cyan: #00d4ff;
+      --cyan-dim: rgba(0, 212, 255, 0.15);
+      --magenta: #f0f;
+      --purple: #a855f7;
+      --purple-dim: rgba(168, 85, 247, 0.15);
+      --pink: #ff3bc3;
+      --text: #eaf0f6;
+      --text-dim: #8892a0;
+      --text-faint: #4a5464;
+      --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);
+      --glow-purple: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #070b12;
-      color: #eaf0f6;
+      background: var(--bg-deep);
+      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ─── Animated Background ─── */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .bg-glow {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(0, 212, 255, 0.06), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate;
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      right: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(168, 85, 247, 0.05), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes glow-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 5%) scale(1.1); }
+    }
+
+    /* ─── Particles ─── */
+    .particles {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particle-float 8s infinite;
+      box-shadow: 0 0 6px var(--cyan);
+    }
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+    .particle:nth-child(2) { left: 25%; animation-delay: 1.2s; animation-duration: 9s; width: 2px; height: 2px; }
+    .particle:nth-child(3) { left: 40%; animation-delay: 2.5s; animation-duration: 6s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(4) { left: 55%; animation-delay: 0.8s; animation-duration: 8s; width: 4px; height: 4px; }
+    .particle:nth-child(5) { left: 70%; animation-delay: 3.1s; animation-duration: 7.5s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(6) { left: 85%; animation-delay: 1.8s; animation-duration: 9.5s; width: 2px; height: 2px; }
+    .particle:nth-child(7) { left: 50%; animation-delay: 4.2s; animation-duration: 6.5s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(8) { left: 15%; animation-delay: 5.0s; animation-duration: 8.2s; width: 3px; height: 3px; }
+    .particle:nth-child(9) { left: 65%; animation-delay: 3.8s; animation-duration: 7.2s; }
+    .particle:nth-child(10) { left: 35%; animation-delay: 6.0s; animation-duration: 8.8s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(11) { left: 5%; animation-delay: 0.5s; animation-duration: 9.2s; width: 2px; height: 2px; }
+    .particle:nth-child(12) { left: 75%; animation-delay: 2.2s; animation-duration: 7.8s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(13) { left: 90%; animation-delay: 4.8s; animation-duration: 6.2s; }
+    .particle:nth-child(14) { left: 30%; animation-delay: 5.5s; animation-duration: 8.5s; width: 3px; height: 3px; }
+    .particle:nth-child(15) { left: 45%; animation-delay: 1.5s; animation-duration: 7.0s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+
+    @keyframes particle-float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* ─── Layout ─── */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+    }
+
+    /* ─── Back Button ─── */
+    .back {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .back::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .back:hover {
+      color: var(--text);
+      border-color: transparent;
+      box-shadow: var(--glow-cyan);
+      transform: translateX(-2px);
+    }
+    .back:hover::before { opacity: 1; }
+
+    /* ─── Hero Image ─── */
+    .hero-image { margin:0 auto 28px; max-width:600px; border-radius:16px; overflow:hidden; position:relative; background:var(--bg-card); backdrop-filter:blur(16px) saturate(1.5); -webkit-backdrop-filter:blur(16px) saturate(1.5); border:1px solid var(--border-subtle); box-shadow:0 4px 40px rgba(0,0,0,0.5),0 0 60px rgba(168,85,247,0.08); transition:border-color 0.3s,box-shadow 0.3s; }
+    .hero-image::before { content:''; position:absolute; inset:0; border-radius:16px; padding:1px; background:linear-gradient(135deg,rgba(0,212,255,0.15),transparent 40%,rgba(168,85,247,0.15)); -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; z-index:2; }
+    .hero-image:hover { border-color:transparent; box-shadow:0 4px 40px rgba(0,0,0,0.5),0 0 60px rgba(0,212,255,0.12); }
+    .hero-image img { display:block; width:100%; height:auto; aspect-ratio:16/11; object-fit:cover; border-radius:15px; transition:transform 0.5s ease,filter 0.5s ease; filter:saturate(1.1) contrast(1.05); }
+    .hero-image:hover img { transform:scale(1.02); filter:saturate(1.2) contrast(1.1) brightness(1.05); }
+    .hero-image .image-glow { position:absolute; bottom:-30%; left:-10%; width:120%; height:60%; background:radial-gradient(ellipse,rgba(0,212,255,0.12),transparent 70%); pointer-events:none; z-index:1; }
+
+    /* ─── Header ─── */
+    .ds-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .ds-header h1 {
       margin: 0;
-      padding: 24px;
-    }
-    .card {
-      background: rgba(14,22,36,0.75);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(0,200,255,0.08);
-      border-radius: 18px;
-      padding: 40px 48px;
-      max-width: 480px;
-      text-align: center;
-    }
-    h1 {
-      margin: 0 0 8px;
-      font-size: 24px;
-      font-weight: 800;
-      background: linear-gradient(135deg,#00d4ff,#a855f7,#f0f);
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    p { color: #8892a0; margin: 8px 0; font-size: 15px; line-height: 1.6; }
-    .btn {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 12px 28px;
-      background: linear-gradient(135deg,rgba(0,212,255,0.15),rgba(168,85,247,0.15));
-      border: 1px solid rgba(0,200,255,0.1);
-      border-radius: 12px;
-      color: #00d4ff;
-      font-size: 15px;
-      font-weight: 600;
+
+    /* ─── Neon Buttons ─── */
+    .ds-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
       text-decoration: none;
-      transition: all .25s;
+      line-height: 1.4;
+      position: relative;
+      overflow: hidden;
     }
-    .btn:hover {
+    .ds-btn::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .ds-btn:hover {
+      color: var(--text);
       border-color: transparent;
-      box-shadow: 0 0 20px rgba(0,212,255,0.3);
-      color: #eaf0f6;
+      transform: translateY(-1px);
+      box-shadow: var(--glow-cyan);
+    }
+    .ds-btn:hover::before { opacity: 1; }
+
+    .ds-btn-primary {
+      background: linear-gradient(135deg, var(--cyan-dim), var(--purple-dim));
+      color: var(--cyan);
+    }
+    .ds-btn-primary:hover {
+      color: var(--text);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .ds-btn-play {
+      color: #3fb950;
+    }
+    .ds-btn-play:hover {
+      color: #7ee787;
+      box-shadow: 0 0 20px rgba(63, 185, 80, 0.3);
+    }
+    .ds-btn-play::before {
+      background: linear-gradient(135deg, #3fb950, transparent, #7ee787);
+    }
+
+    .ds-btn-danger {
+      color: #f85149;
+    }
+    .ds-btn-danger:hover {
+      color: #ff7b72;
+      box-shadow: 0 0 20px rgba(248, 81, 73, 0.3);
+    }
+    .ds-btn-danger::before {
+      background: linear-gradient(135deg, #f85149, transparent, #ff7b72);
+    }
+    .ds-btn-listen {
+      color: #00d4ff;
+    }
+    .ds-btn-listen:hover {
+      color: #66e0ff;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+    .ds-btn-listen::before {
+      background: linear-gradient(135deg, #00d4ff, transparent, #66e0ff);
+    }
+
+    .ds-btn-create {
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #a78bfa;
+    }
+    .ds-btn-create::before {
+      background: linear-gradient(135deg, #7c3aed, transparent, #a78bfa);
+    }
+    .ds-btn-create:hover {
+      color: #c4b5fd;
+      box-shadow: var(--glow-purple);
+    }
+
+    /* ─── Set Cards ─── */
+    .ds-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ds-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .ds-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .ds-card:hover {
+      border-color: transparent;
+      box-shadow: var(--glow-cyan), inset 0 0 40px rgba(0, 212, 255, 0.03);
       transform: translateY(-1px);
     }
-    .info { font-size: 13px; color: #4a5464; margin-top: 20px; }
+    .ds-card:hover::before { opacity: 1; }
+
+    .ds-card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .ds-card-info { flex: 1; min-width: 200px; }
+    .ds-card-name {
+      color: var(--text);
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .ds-card-meta { color: var(--text-faint); font-size: 0.85em; }
+    .ds-card-meta span { margin-right: 16px; }
+
+    .ds-card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* ─── Track detail toggle ─── */
+    .ds-track-detail {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .ds-track-detail.open { display: block; }
+
+    .ds-track-detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      color: var(--text-dim);
+      font-size: 0.85em;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .ds-track-detail-item:last-child { border-bottom: none; }
+    .ds-track-detail-item .td-num { color: var(--text-faint); min-width: 24px; }
+    .ds-track-detail-item .td-title { flex: 1; }
+    .ds-track-detail-item .td-bpm { color: var(--cyan); font-size: 0.82em; }
+
+    /* ─── Playing badge ─── */
+    .ds-playing {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 600;
+      border: 1px solid rgba(63, 185, 80, 0.2);
+    }
+    .ds-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(63, 185, 80, 0.3);
+      border-top-color: #3fb950;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Empty State ─── */
+    .ds-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-dim);
+    }
+    .ds-empty-icon {
+      font-size: 52px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3));
+      display: block;
+    }
+    .ds-empty p { margin: 4px 0; font-size: 0.95em; }
+
+    /* ─── Modal ─── */
+    .ds-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(7, 11, 18, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .ds-overlay.active { display: flex; }
+
+    .ds-modal {
+      background: #0a0f1a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.05);
+      animation: fadeUp .2s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ds-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .ds-modal-header h2 {
+      margin: 0;
+      font-size: 1.2em;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .ds-modal-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-faint);
+      font-size: 1.2em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .ds-modal-close:hover {
+      background: var(--bg-card);
+      color: var(--text);
+      border-color: var(--border-glow);
+    }
+
+    .ds-field { margin-bottom: 16px; }
+    .ds-field label {
+      display: block;
+      color: var(--text-dim);
+      font-size: 0.85em;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .ds-field input[type="text"] {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 0.95em;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .ds-field input[type="text"]:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+    }
+
+    /* ─── Track list in modal ─── */
+    .ds-tracklist {
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .ds-track-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .ds-track-item:last-child { border-bottom: none; }
+    .ds-track-item:hover { background: rgba(0, 212, 255, 0.03); }
+    .ds-track-item.selected { background: rgba(0, 212, 255, 0.06); }
+
+    .ds-track-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .ds-track-item .ds-track-num {
+      color: var(--text-faint);
+      font-size: 0.85em;
+      min-width: 24px;
+    }
+    .ds-track-item .ds-track-title {
+      flex: 1;
+      color: var(--text-dim);
+      font-size: 0.9em;
+    }
+    .ds-track-item .ds-track-dur {
+      color: var(--text-faint);
+      font-size: 0.8em;
+    }
+
+    .ds-order-field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ds-order-field input {
+      flex: 1;
+      min-width: 120px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 0.9em;
+      outline: none;
+    }
+    .ds-order-field input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+    }
+    .ds-order-hint { color: var(--text-faint); font-size: 0.78em; }
+
+    .ds-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* ─── Delete prompt ─── */
+    .ds-delete-prompt {
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ─── Loader ─── */
+    .ds-loader {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+    .ds-loader-inner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(0, 212, 255, 0.15);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      margin-top: 48px;
+      font-size: 12px;
+      color: var(--text-faint);
+      position: relative;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+    }
+    .footer strong { color: var(--text-dim); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 640px) {
+      .container { padding: 16px 16px 32px; }
+      .ds-header h1 { font-size: 22px; }
+      .ds-header { flex-direction: column; align-items: flex-start; }
+      .ds-card { padding: 16px; }
+      .ds-card-row { flex-direction: column; align-items: flex-start; }
+      .ds-card-actions { width: 100%; }
+    }
+
+    /* ─── Custom Player (aidj-player style) ─── */
+    .mix-player-wrap .custom-player {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(8px);
+    }
+    .mix-player-wrap .play-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: none;
+      background: linear-gradient(135deg,var(--cyan),var(--purple));
+      color: var(--bg-deep); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.25s ease; flex-shrink: 0; position: relative; overflow: hidden;
+    }
+    .mix-player-wrap .play-btn:hover { transform: scale(1.08); box-shadow: 0 0 20px rgba(0,212,255,0.5); }
+    .mix-player-wrap .play-btn.paused .icon-pause { display: none; }
+    .mix-player-wrap .play-btn.paused .icon-play { display: inline; }
+    .mix-player-wrap .play-btn:not(.paused) .icon-play { display: none; }
+    .mix-player-wrap .play-btn:not(.paused) .icon-pause { display: inline; }
+    .mix-player-wrap .progress-wrap { flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .mix-player-wrap .progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.08); border-radius: 3px; cursor: pointer; position: relative; transition: height 0.2s; }
+    .mix-player-wrap .progress-bar:hover { height: 6px; }
+    .mix-player-wrap .progress-fill { height: 100%; background: linear-gradient(90deg,var(--cyan),var(--purple)); border-radius: 3px; width: 0%; transition: width 0.1s linear; }
+    .mix-player-wrap .time { font-size: 11px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; white-space: nowrap; min-width: 36px; text-align: center; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>🎛 AI DJ</h1>
-    <p>Страница управляется с сервера, а не из этого репозитория.</p>
-    <a class="btn" href="http://176.123.162.12/aidj/">Перейти к DJ Set'ам →</a>
-    <div class="info">Работает без HTTPS — открывай напрямую, никаких предупреждений.</div>
+
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="particles">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
   </div>
+
+<div class="container">
+
+  <a class="back" href="../aidj.html">← Вернуться в AI DJ</a>
+
+  <!-- Hero Image -->
+  <div class="hero-image">
+    <div class="image-glow"></div>
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e51877116537139.6063eeae87ddb.jpg"
+         alt="Roland TB-303"
+         loading="lazy">
+  </div>
+
+  <div class="ds-header">
+    <h1>DJ Set'ы</h1>
+    <button class="ds-btn ds-btn-create" id="btnCreateSet">+ Создать новый</button>
+  </div>
+
+  <!-- Список сетов -->
+  <div class="ds-toolbar" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+    <label style="font-size:13px;color:var(--text-dim);font-weight:500;">Стиль сведения:</label>
+    <select id="presetSelect" style="background:rgba(14,22,36,0.8);color:var(--text);border:1px solid var(--border-subtle);border-radius:8px;padding:6px 12px;font-size:13px;outline:none;cursor:pointer;">
+      <option value="default">🎛 Стандартный</option>
+      <option value="oakenfold_1998">🌀 Oakenfold — Tranceport (1998)</option>
+      <option value="oakenfold_1997">🔥 Oakenfold — Fantazia (1997)</option>
+    </select>
+  </div>
+  <div id="dsList" class="ds-grid"></div>
+
+  <!-- Пустое состояние -->
+  <div id="dsEmpty" class="ds-empty" style="display:none;">
+    <span class="ds-empty-icon">🎧</span>
+    <p>У тебя пока нет ни одного DJ Set'а</p>
+    <p style="font-size:0.85em;">Нажми «+ Создать новый», чтобы собрать плейлист из твоих треков</p>
+  </div>
+
+  <!-- Loader -->
+  <div id="dsLoader" class="ds-loader">
+    <div class="ds-loader-inner"></div>
+  </div>
+
+</div>
+
+<!-- ─── Модальное окно: Создание / Редактирование ─── -->
+<div id="modalOverlay" class="ds-overlay">
+  <div class="ds-modal">
+    <div class="ds-modal-header">
+      <h2 id="modalTitle">Создать DJ Set</h2>
+      <button class="ds-modal-close" id="modalClose">✕</button>
+    </div>
+
+    <div class="ds-field">
+      <label for="setName">Название сета</label>
+      <input type="text" id="setName" placeholder="Например: Летняя хата 2026">
+    </div>
+
+    <div class="ds-field">
+      <label>Доступные треки из коллекции</label>
+      <div id="trackListContainer" class="ds-tracklist">
+        <div style="padding:20px; text-align:center; color:var(--text-faint);">Загрузка треков...</div>
+      </div>
+    </div>
+
+    <div class="ds-field">
+      <label>Порядок треков</label>
+      <div class="ds-order-field">
+        <input type="text" id="trackOrder" placeholder="1, 2, 3, 4 ...">
+        <span class="ds-order-hint">Введи номера в нужной последовательности через запятую. Пусто = по порядку выбора.</span>
+      </div>
+    </div>
+
+    <div class="ds-modal-footer">
+      <button class="ds-btn" id="modalCancel">Отмена</button>
+      <button class="ds-btn ds-btn-primary" id="modalSave">💾 Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Модальное окно: подтверждение удаления ─── -->
+<div id="deleteOverlay" class="ds-overlay">
+  <div class="ds-modal" style="max-width:400px;">
+    <div class="ds-modal-header">
+      <h2>Удалить DJ Set</h2>
+      <button class="ds-modal-close" id="deleteClose">✕</button>
+    </div>
+    <p class="ds-delete-prompt" id="deletePrompt">Удалить сет «<span id="deleteName"></span>»? Это действие необратимо.</p>
+    <div class="ds-modal-footer">
+      <button class="ds-btn" id="deleteCancel">Нет</button>
+      <button class="ds-btn ds-btn-danger" id="deleteConfirm">🗑 Да, удалить</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Config ───
+const VPS_BASE = 'https://enhance-workflow-rounds-knock.trycloudflare.com';
+const GH_BASE = '/nasledstvo';
+function api(path) { return VPS_BASE + path; }
+let editingId = null;
+let allTracks = [];
+let allSets = [];
+
+const $ = id => document.getElementById(id);
+const dsList = $('dsList');
+const dsEmpty = $('dsEmpty');
+const dsLoader = $('dsLoader');
+const modalOverlay = $('modalOverlay');
+const deleteOverlay = $('deleteOverlay');
+const modalTitle = $('modalTitle');
+const setName = $('setName');
+const trackListContainer = $('trackListContainer');
+const trackOrder = $('trackOrder');
+const modalSave = $('modalSave');
+const deletePrompt = $('deletePrompt');
+const deleteName = $('deleteName');
+
+function absTrackUrl(url) {
+  if (!url || url.startsWith('http')) return url;
+  return VPS_BASE + '/aidj/' + url.replace(/^aidj\/|^\//g, '');
+}
+
+async function fetchGitTracks() {
+  try {
+    const res = await fetch('https://nasledstvo2026.github.io/nasledstvo/aidj/tracks.json');
+    if (res.ok) {
+      const tracks = await res.json();
+      tracks.forEach(t => { t.url = absTrackUrl(t.url); });
+      return tracks;
+    }
+  } catch(_) {}
+  return [
+    { title: 'Hypnotized', artist: 'Paul Oakenfold', url: absTrackUrl('aidj/Paul Oakenfold - Hypnotized.mp3'), duration: '5:09' },
+    { title: 'Эй, дискжокей', artist: 'Сенатор', url: absTrackUrl('aidj/Сенатор - Эй, дискжокей.mp3'), duration: '4:08' },
+    { title: 'Маяк', artist: 'Сплин', url: absTrackUrl('aidj/Сплин - Маяк.mp3'), duration: '3:47' },
+  ];
+}
+
+async function fetchSets() {
+  // Сеты — только из localStorage
+  try {
+    const stored = JSON.parse(localStorage.getItem('dj_sets') || '[]');
+    return stored.map(s => ({
+      id: s.id,
+      name: s.name,
+      track_count: (s.tracks || []).length,
+      created: s.created,
+      updated: s.updated || s.created,
+      tracks: s.tracks || [],
+      mixUrl: s.mixUrl,
+      mixDuration: s.mixDuration,
+      mixMeta: s.mixMeta
+    }));
+  } catch(_) {}
+  return [];
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function renderSets(sets) {
+  if (!sets || sets.length === 0) {
+    dsList.innerHTML = '';
+    dsEmpty.style.display = 'block';
+    return;
+  }
+  dsEmpty.style.display = 'none';
+
+  dsList.innerHTML = sets.map(set => {
+    const tc = set.track_count || set.tracks?.length || 0;
+    const created = set.created ? new Date(set.created).toLocaleDateString('ru-RU') : '—';
+    const tracks = set.tracks || [];
+    const listenBtn = set.mixUrl ? `<button class="ds-btn ds-btn-listen" onclick="playSavedMix('${set.id}')">🎧 Послушать mix</button>` : '';
+    return `
+      <div class="ds-card" data-id="${set.id}">
+        <div class="ds-card-row">
+          <div class="ds-card-info">
+            <div class="ds-card-name">${escapeHtml(set.name)}</div>
+            <div class="ds-card-meta">
+              <span>🎵 ${tc} треков</span>
+              <span>📅 ${created}</span>
+            </div>
+          </div>
+          <div class="ds-card-actions">
+            <button class="ds-btn ds-btn-play" onclick="playSet('${set.id}')">◆ Создать Mix</button>
+            ${listenBtn}
+            <button class="ds-btn ds-btn-primary" onclick="editSet('${set.id}')">✏️</button>
+            <button class="ds-btn ds-btn-danger" onclick="confirmDelete('${set.id}','${escapeHtml(set.name)}')">🗑</button>
+          </div>
+        </div>
+        <button class="ds-btn" style="margin-top:8px; font-size:0.78em;" onclick="toggleTracks('${set.id}')">📋 Показать треки</button>
+        <div class="ds-track-detail" id="td-${set.id}">
+          ${tracks.map((t, i) => '<div class="ds-track-detail-item"><span class="td-num">' + (i+1) + '.</span><span class="td-title">' + escapeHtml(t.artist) + ' — ' + escapeHtml(t.title) + '</span>' + (t.bpm ? '<span class="td-bpm">' + t.bpm + ' BPM</span>' : '') + '</div>').join('')}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleTracks(id) {
+  const el = document.getElementById('td-' + id);
+  if (el) {
+    el.classList.toggle('open');
+    const btn = el.previousElementSibling;
+    if (btn) btn.textContent = el.classList.contains('open') ? '📋 Скрыть треки' : '📋 Показать треки';
+  }
+}
+
+document.getElementById('btnCreateSet').addEventListener('click', () => openCreateModal());
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+
+function openCreateModal() {
+  editingId = null;
+  modalTitle.textContent = '🎛 Создать DJ Set';
+  modalSave.textContent = '💾 Сохранить';
+  setName.value = '';
+  trackOrder.value = '';
+  renderTrackCheckboxes([]);
+  modalOverlay.classList.add('active');
+  loadGitTracks();
+}
+
+async function loadGitTracks() {
+  trackListContainer.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-faint);">⏳ Загрузка треков...</div>';
+  allTracks = await fetchGitTracks();
+  renderTrackCheckboxes([]);
+}
+
+function renderTrackCheckboxes(selectedIndices) {
+  if (!allTracks || allTracks.length === 0) {
+    trackListContainer.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-faint);">Нет доступных треков. Сначала загрузи музыку через Telegram.</div>';
+    return;
+  }
+  trackListContainer.innerHTML = allTracks.map((t, i) => {
+    const checked = selectedIndices.includes(i) ? 'checked' : '';
+    return `
+      <div class="ds-track-item ${checked ? 'selected' : ''}" data-index="${i}">
+        <input type="checkbox" ${checked} data-index="${i}">
+        <span class="ds-track-num">${i+1}.</span>
+        <span class="ds-track-title">${escapeHtml(t.artist)} — ${escapeHtml(t.title)}</span>
+        ${t.duration ? `<span class="ds-track-dur">${t.duration}</span>` : ''}
+      </div>`;
+  }).join('');
+
+  document.querySelectorAll('.ds-track-item').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      const cb = el.querySelector('input[type="checkbox"]');
+      if (cb) {
+        cb.checked = !cb.checked;
+        el.classList.toggle('selected', cb.checked);
+      }
+    });
+  });
+
+  document.querySelectorAll('.ds-track-item input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const item = cb.closest('.ds-track-item');
+      if (item) item.classList.toggle('selected', cb.checked);
+    });
+  });
+}
+
+async function editSet(id) {
+  const set = allSets.find(s => s.id === id);
+  if (!set) return;
+
+  editingId = id;
+  modalTitle.textContent = `✏️ Редактировать: ${set.name}`;
+  modalSave.textContent = '💾 Сохранить изменения';
+  setName.value = set.name;
+
+  const selected = [];
+  if (set.tracks && allTracks.length > 0) {
+    set.tracks.forEach(t => {
+      const idx = allTracks.findIndex(dt => dt.url === t.url);
+      if (idx >= 0) selected.push(idx);
+    });
+  }
+
+  const orderStr = set.tracks ? set.tracks.map((t, i) => {
+    const idx = allTracks.findIndex(dt => dt.url === t.url);
+    return idx >= 0 ? idx + 1 : (i + 1);
+  }).join(', ') : '';
+
+  trackOrder.value = orderStr;
+
+  await loadGitTracks();
+  renderTrackCheckboxes(selected);
+  modalOverlay.classList.add('active');
+}
+
+modalSave.addEventListener('click', async () => {
+  const name = setName.value.trim();
+  if (!name) {
+    alert('Введи название DJ Set\'а');
+    return;
+  }
+
+  const checkedBoxes = document.querySelectorAll('.ds-track-item input[type="checkbox"]:checked');
+  const selectedIndices = Array.from(checkedBoxes).map(cb => parseInt(cb.dataset.index));
+
+  if (selectedIndices.length < 2) {
+    alert('Выбери минимум 2 трека для DJ Set\'а');
+    return;
+  }
+
+  let orderStr = trackOrder.value.trim();
+  let orderIndices;
+  if (orderStr) {
+    orderIndices = orderStr.split(/[,\s]+/).map(s => parseInt(s) - 1).filter(n => !isNaN(n) && n >= 0);
+    const valid = orderIndices.every(i => selectedIndices.includes(i));
+    if (!valid || orderIndices.length !== selectedIndices.length) {
+      alert('Порядок треков не совпадает с выбранными треками. Убедись что использованы те же номера.');
+      return;
+    }
+  } else {
+    orderIndices = [...selectedIndices];
+  }
+
+  const tracks = orderIndices.map(i => ({
+    title: allTracks[i].title,
+    artist: allTracks[i].artist,
+    url: allTracks[i].url,
+    duration: allTracks[i].duration || null,
+    bpm: allTracks[i].bpm || null
+  }));
+
+  const payload = { name, tracks, id: editingId };
+
+  saveSetLocal(payload);
+  closeModal();
+  loadAllSets();
+});
+
+function saveSetLocal(payload) {
+  let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
+  if (payload.id) {
+    const idx = sets.findIndex(s => s.id === payload.id);
+    if (idx >= 0) {
+      payload.updated = new Date().toISOString();
+      payload.created = sets[idx].created;
+      sets[idx] = payload;
+    }
+  } else {
+    const id = 'local-' + Date.now();
+    payload.id = id;
+    payload.created = new Date().toISOString();
+    payload.updated = payload.created;
+    sets.push(payload);
+  }
+  localStorage.setItem('dj_sets', JSON.stringify(sets));
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('active');
+  deleteOverlay.classList.remove('active');
+  editingId = null;
+}
+
+let deleteTargetId = null;
+
+function confirmDelete(id, name) {
+  deleteTargetId = id;
+  deleteName.textContent = name;
+  deleteOverlay.classList.add('active');
+}
+
+document.getElementById('deleteClose').addEventListener('click', () => deleteOverlay.classList.remove('active'));
+document.getElementById('deleteCancel').addEventListener('click', () => deleteOverlay.classList.remove('active'));
+
+document.getElementById('deleteConfirm').addEventListener('click', () => {
+  if (!deleteTargetId) return;
+  let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
+  sets = sets.filter(s => s.id !== deleteTargetId);
+  localStorage.setItem('dj_sets', JSON.stringify(sets));
+  deleteOverlay.classList.remove('active');
+  loadAllSets();
+  deleteTargetId = null;
+});
+
+// ─── Play / Progress / Result ───
+let playPollTimer = null;
+
+function showMixStatus(msg) {
+  const statusDiv = document.getElementById('mixStatus');
+  if (statusDiv) statusDiv.textContent = msg;
+}
+
+function showMixProgress() {
+  const el = document.getElementById('mixProgress');
+  if (el) {
+    el.classList.add('active');
+    el.querySelector('.ds-mix-progress').style.display = 'block';
+    el.querySelector('.ds-mix-result').style.display = 'none';
+    el.querySelector('.ds-mix-error').style.display = 'none';
+    showMixStatus('⏳ Анализирую треки...');
+  }
+}
+
+function hideMixProgress() {
+  const el = document.getElementById('mixProgress');
+  if (el) el.classList.remove('active');
+}
+
+function showMixResult(data, setId) {
+  const el = document.getElementById('mixProgress');
+  if (!el) return;
+  el.classList.add('active');
+  el.querySelector('.ds-mix-progress').style.display = 'none';
+  el.querySelector('.ds-mix-error').style.display = 'none';
+
+  const resultDiv = el.querySelector('.ds-mix-result');
+  resultDiv.style.display = 'block';
+
+  const url = data.url || '';
+  const seg = (data.output?.segments && data.output.segments.length > 0) ? data.output.segments[0] : {};
+  const bpmA = seg?.bpm_a || '?';
+  const bpmB = seg?.bpm_b || '?';
+  const keyA = seg?.key_a || '?';
+  const keyB = seg?.key_b || '?';
+  const harm = seg?.harmonic_label || '?';
+  const dur = data.output?.duration || seg?.duration || '?';
+
+  resultDiv.querySelector('.ds-mix-info').innerHTML = `
+    <div class="mix-info-row">${bpmA} BPM · ${keyA} → ${bpmB} BPM · ${keyB}</div>
+    <div class="mix-info-row">Гармония: ${harm}</div>
+    <div class="mix-info-row">Длительность: ${dur}с</div>
+  `;
+
+  // Reset custom player
+  const player = document.getElementById('mixResult');
+  const btn = document.getElementById('mixPlayBtn');
+  const fill = document.getElementById('mixProgressFill');
+  const cur = document.getElementById('mixTimeCurrent');
+  const tot = document.getElementById('mixTimeTotal');
+  if (player) {
+    player.src = url;
+    player.load();
+  }
+  if (btn) btn.className = 'play-btn paused';
+  if (fill) fill.style.width = '0%';
+  if (cur) cur.textContent = '0:00';
+  if (tot) tot.textContent = '0:00';
+  document.getElementById('mixDownloadBtn').style.display = 'inline-block';
+
+  // Save mix URL to the set in localStorage and update UI
+  if (setId) {
+    let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
+    const idx = sets.findIndex(s => s.id === setId);
+    if (idx >= 0) {
+      sets[idx].mixUrl = url;
+      sets[idx].mixDuration = dur;
+      sets[idx].mixMeta = { bpmA, bpmB, keyA, keyB, harm };
+      localStorage.setItem('dj_sets', JSON.stringify(sets));
+    }
+    // Reload from localStorage so the listen button appears
+    allSets = sets;
+    renderSets(allSets);
+  }
+}
+
+function showMixError(msg) {
+  const el = document.getElementById('mixProgress');
+  if (!el) return;
+  el.classList.add('active');
+  el.querySelector('.ds-mix-progress').style.display = 'none';
+  el.querySelector('.ds-mix-result').style.display = 'none';
+  const err = el.querySelector('.ds-mix-error');
+  err.style.display = 'block';
+  err.textContent = '❌ ' + (msg || 'Неизвестная ошибка');
+}
+
+async function playSet(id) {
+  const set = allSets.find(s => s.id === id);
+  if (!set || !set.tracks || set.tracks.length < 2) {
+    showMixError('Нужно минимум 2 трека');
+    return;
+  }
+
+  // Prepare track list for the server
+  const orderedTracks = [];
+  if (set.trackOrder) {
+    const order = set.trackOrder.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+    for (const idx of order) {
+      const track = set.tracks[idx - 1];
+      if (track) orderedTracks.push({ title: track.title, artist: track.artist, url: track.url });
+    }
+  }
+  if (orderedTracks.length < 2) {
+    set.tracks.forEach(t => orderedTracks.push({ title: t.title, artist: t.artist, url: t.url }));
+  }
+
+  try {
+    const res = await fetch(api('/api/mix'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tracks: orderedTracks, preset: document.getElementById('presetSelect').value })
+    });
+    if (!res.ok) {
+      showMixError('Сервер ответил: ' + res.status);
+      return;
+    }
+    const data = await res.json();
+    const mixId = data.mix_id;
+
+    showMixProgress();
+    showMixStatus('⏳ Сведение... ' + (data.eta || '~30 сек'));
+
+    if (playPollTimer) clearInterval(playPollTimer);
+    let attempts = 0;
+    const maxAttempts = 90;
+
+    playPollTimer = setInterval(async () => {
+      attempts++;
+      try {
+        const statusRes = await fetch(api('/api/mix/' + mixId + '/status'));
+        if (!statusRes.ok) {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError('Ошибка статуса');
+          return;
+        }
+        const statusData = await statusRes.json();
+
+        if (statusData.status === 'done') {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixResult(statusData, id);
+        } else if (statusData.status === 'error') {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError(statusData.error || 'Ошибка сведения');
+        } else if (attempts >= maxAttempts) {
+          clearInterval(playPollTimer);
+          playPollTimer = null;
+          showMixError('Таймаут');
+        } else {
+          showMixStatus('⏳ Сведение... (' + (attempts * 2) + 'с') ;
+        }
+      } catch(e) {
+        clearInterval(playPollTimer);
+        playPollTimer = null;
+        showMixError('Ошибка соединения');
+      }
+    }, 2000);
+  } catch(_) {
+    showMixProgress();
+    showMixStatus('⏳ Сервер не подключён...');
+    setTimeout(() => {
+      showMixResult({
+        url: VPS_BASE + '/static/mix_demo.mp3',
+        bpm_a: '120',
+        bpm_b: '128',
+        key_a: 'C',
+        key_b: 'Am',
+        harmonic_label: 'Perfect',
+        duration: '~5:00'
+      }, id);
+    }, 3000);
+  }
+}
+
+// Play a saved mix
+function playSavedMix(id) {
+  const set = allSets.find(s => s.id === id);
+  if (!set || !set.mixUrl) return;
+  const meta = set.mixMeta || {};
+  showMixResult({
+    url: set.mixUrl,
+    duration: set.mixDuration || '?',
+    bpm_a: meta.bpmA || '?',
+    bpm_b: meta.bpmB || '?',
+    key_a: meta.keyA || '?',
+    key_b: meta.keyB || '?',
+    harmonic_label: meta.harm || '?'
+  }, id);
+}
+
+// Close mix result
+// ─── Custom player controls (aidj-player style) ───
+let mixAudioInitialized = false;
+
+function toggleMixPlay() {
+  const audio = document.getElementById('mixResult');
+  const btn = document.getElementById('mixPlayBtn');
+  if (!audio || !audio.src) return;
+  if (audio.paused) {
+    audio.play();
+    btn.className = 'play-btn';
+  } else {
+    audio.pause();
+    btn.className = 'play-btn paused';
+  }
+}
+
+function seekMix(e) {
+  const bar = document.getElementById('mixProgressBar');
+  const audio = document.getElementById('mixResult');
+  if (!audio || !audio.duration) return;
+  const rect = bar.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = pct * audio.duration;
+}
+
+function updateMixProgress() {
+  const audio = document.getElementById('mixResult');
+  const fill = document.getElementById('mixProgressFill');
+  const cur = document.getElementById('mixTimeCurrent');
+  if (!audio || !audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  fill.style.width = pct + '%';
+  cur.textContent = fmtTime(audio.currentTime);
+}
+
+function mixMetaLoaded() {
+  const audio = document.getElementById('mixResult');
+  const tot = document.getElementById('mixTimeTotal');
+  if (audio && audio.duration) tot.textContent = fmtTime(audio.duration);
+}
+
+function fmtTime(s) {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function downloadMix() {
+  const audio = document.getElementById('mixResult');
+  if (audio && audio.src) {
+    const a = document.createElement('a');
+    a.href = audio.src;
+    a.download = 'mix.mp3';
+    a.click();
+  }
+}
+
+function closeMixResult() {
+  hideMixProgress();
+  const player = document.getElementById('mixResult');
+  if (player) { player.pause(); player.src = ''; }
+  const btn = document.getElementById('mixPlayBtn');
+  if (btn) btn.className = 'play-btn paused';
+  const fill = document.getElementById('mixProgressFill');
+  if (fill) fill.style.width = '0%';
+  document.getElementById('mixTimeCurrent').textContent = '0:00';
+  document.getElementById('mixTimeTotal').textContent = '0:00';
+}
+
+async function loadAllSets() {
+  dsLoader.style.display = 'block';
+  dsList.innerHTML = '';
+
+  allSets = await fetchSets();
+
+  dsLoader.style.display = 'none';
+  renderSets(allSets);
+}
+
+loadAllSets();
+loadGitTracks();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+deleteOverlay.addEventListener('click', (e) => {
+  if (e.target === deleteOverlay) deleteOverlay.classList.remove('active');
+});
+</script>
+
+<!-- ─── Оверлей: прогресс / результат сведения ─── -->
+<div id="mixProgress" class="ds-overlay">
+  <div class="ds-modal" style="max-width:520px;">
+
+    <!-- Progress -->
+    <div class="ds-mix-progress" style="text-align:center;padding:20px 0;">
+      <div class="ds-loader-inner" style="display:block;margin:0 auto 16px;"></div>
+      <p style="color:var(--cyan);font-weight:600;" id="mixStatus">⏳ Сведение...</p>
+    </div>
+
+    <!-- Result -->
+    <div class="ds-mix-result" style="display:none;">
+      <div class="ds-modal-header">
+        <h2 style="font-size:1em;">🎧 Микс готов</h2>
+        <button class="ds-modal-close" onclick="closeMixResult()">✕</button>
+      </div>
+      <div class="ds-mix-info" style="padding:8px 0;color:var(--text-dim);font-size:0.85em;line-height:1.7;"></div>
+
+      <!-- Custom player -->
+      <div id="mixPlayerWrap" class="mix-player-wrap" style="margin:8px 0;">
+        <div class="custom-player">
+          <button class="play-btn paused" id="mixPlayBtn" onclick="toggleMixPlay()">
+            <span class="icon-play">▶</span>
+            <span class="icon-pause">⏸</span>
+          </button>
+          <div class="progress-wrap">
+            <span class="time" id="mixTimeCurrent">0:00</span>
+            <div class="progress-bar" id="mixProgressBar" onclick="seekMix(event)">
+              <div class="progress-fill" id="mixProgressFill" style="width:0%"></div>
+            </div>
+            <span class="time" id="mixTimeTotal">0:00</span>
+          </div>
+          <audio id="mixResult" style="display:none" ontimeupdate="updateMixProgress()" onloadedmetadata="mixMetaLoaded()" onended="mixPlayBtn.className='play-btn paused'"></audio>
+        </div>
+      </div>
+
+      <div class="ds-modal-footer" style="padding-top:4px;">
+        <button class="ds-btn" onclick="closeMixResult()">Закрыть</button>
+        <button class="ds-btn" onclick="downloadMix()" id="mixDownloadBtn" style="display:none;">⬇ Скачать</button>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="ds-mix-error" style="display:none;padding:20px 0;text-align:center;color:#f85149;font-weight:600;"></div>
+
+  </div>
+</div>
+
 </body>
 </html>

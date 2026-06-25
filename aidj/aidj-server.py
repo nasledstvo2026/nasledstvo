@@ -216,9 +216,15 @@ def api_play_set(set_id):
     def run_mix(sid, tracks):
         mixing_jobs[sid] = {'status': 'processing', 'eta': '~30 сек', 'started': moscow_now().isoformat()}
         try:
+            # Support preset from POST body
+            body = request.get_json(silent=True) or {}
+            preset_id = body.get('preset', 'default')
+            if preset_id == 'oakenfold':
+                preset_id = 'oakenfold_1998'
+
             engine = BASE_DIR / 'aidj-engine.py'
             if engine.exists():
-                config_json = json.dumps({'id': sid, 'tracks': tracks})
+                config_json = json.dumps({'id': sid, 'tracks': tracks, 'preset': {'preset': preset_id}})
                 engine_result = subprocess.run(
                     [sys.executable, str(engine), '--config', config_json],
                     capture_output=True, text=True, timeout=180
@@ -320,9 +326,14 @@ def api_mix_tracks():
             for t in tlist:
                 t['filepath'] = lookup_track_path(t)
 
+            # Resolve preset
+            preset_id = data.get('preset', 'default')
+            if preset_id == 'oakenfold':
+                preset_id = 'oakenfold_1998'  # backward compat
+
             engine = BASE_DIR / 'aidj-engine.py'
             if engine.exists():
-                config_json = json.dumps({'id': mid, 'tracks': tlist})
+                config_json = json.dumps({'id': mid, 'tracks': tlist, 'preset': {'preset': preset_id}})
                 engine_result = subprocess.run(
                     [sys.executable, str(engine), '--config', config_json],
                     capture_output=True, text=True, timeout=180
