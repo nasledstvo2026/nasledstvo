@@ -780,7 +780,10 @@ async function fetchSets() {
       track_count: (s.tracks || []).length,
       created: s.created,
       updated: s.updated || s.created,
-      tracks: s.tracks || []
+      tracks: s.tracks || [],
+      mixUrl: s.mixUrl,
+      mixDuration: s.mixDuration,
+      mixMeta: s.mixMeta
     }));
   } catch(_) {}
   return [];
