@@ -286,7 +286,7 @@
     <div class="hero">
       <p class="subtitle">AI DJ Initiative</p>
       <h1 class="title">Стили сведения</h1>
-      <p class="meta">Исследование и каталогизация пресетов известных диджеев · 🌙 2026</p>
+      <p class="meta">Исследование техник известных диджеев · Данные требуют верификации через анализ живых миксов</p>
     </div>
 
     <!-- Preset Grid -->
@@ -440,41 +440,36 @@
         </div>
         <div class="preset-card-body">
           <strong>«Кинематографичное сведение»</strong> — треки звучат как единое
-          полотно. Главные принципы:
+          полотно. Гипотеза на основе статей и разбора одного трека:
         </div>
         <div class="preset-card-body" style="margin-top:-8px;">
-          <strong>① Long Blends (1.5–3 мин):</strong> входящий трек стартует на тихом
-          интро без бочки поверх плотного финала предыдущего. Граница треков
-          незаметна.<br>
-          <strong>② Bass-подмена:</strong> на входе Bass = −∞, Mid/High на 9–10h.
-          На 32–64 такте — быстрая подмена: Low старого → 9h, Bass нового → 12h.
-          Резкий энергетический толчок.<br>
-          <strong>③ Яма на Яму (Breakdown Mixing):</strong> кульминационные паузы
-          двух треков накладываются. Ритм исчезает — переплетаются только эмбиент,
-          вокал, синты. Максимальный драматизм.<br>
-          <strong>④ Гармонический лифт:</strong> каждый следующий трек на ступень
-          выше по Camelot Wheel (Am → Em). Подсознательное ощущение роста.<br>
-          <strong>⑤ Кино-нарратив:</strong> Интро → Завязка → Кульминация → Эпилог.
-          FX-сэмплы из фантастики для маскировки стыков.
+          <strong>① Long Blends:</strong> треки накладываются на 1.5–3 минуты.
+          Входящий трек стартует с тихого интро.<br>
+          <strong>② Bass-подмена:</strong> на входе Bass выкручен, на 32–64 такте —
+          резкая подмена баса.<br>
+          <strong>③ Breakdown-on-Breakdown:</strong> кульминационные паузы
+          накладываются.<br>
+          <strong>④ Гармонический лифт:</strong> следующий трек на ступень выше по
+          Камелоту.<br>
+          <strong>⑤ Кино-нарратив:</strong> структура сета как история.
         </div>
-        <div class="preset-card-body" style="margin-top:8px;padding:10px;border:1px dashed rgba(0,212,255,0.15);border-radius:8px;font-size:0.8em;">
-          <span style="color:var(--cyan);font-weight:600;">🎯 Пример (Tranceport 1998):</span>
-          The Thrillseekers → Binary Finary.<br>
-          <strong>00:00</strong> Запуск Б (Bass=-∞, Mid 9h) ·
-          <strong>00:45</strong> Mid Б→12h, мелодии переплетаются ·
-          <strong>01:30</strong> Bass Swap (64 такта!) — резкая подмена баса ·
-          <strong>02:15</strong> Финал. Трек Б доминирует.
+        <div class="preset-card-body" style="margin-top:8px;padding:10px;border:1px dashed rgba(200,100,50,0.2);border-radius:8px;font-size:0.78em;background:rgba(200,100,50,0.05);">
+          <span style="color:#ff8a50;font-weight:600;">⚠️ ГИПОТЕЗА</span><br>
+          Описание базируется на книге «DJ Skills» (доступна частично) и общих статьях
+          о сведении в трансе. Большинство источников — вторичные, не содержат
+          пошагового анализа живых миксов Оукенфолда.<br><br>
+          <strong>Требуется верификация:</strong> прямой анализ mp3 живого микса
+          через librosa для подтверждения BPM-профиля, EQ-кривых, тайминга Bass Swap
+          и длительности наложения.<br><br>
+          <a href="aidj/research-oakenfold.md" style="color:var(--cyan);">📄 Исследование (research-oakenfold.md)</a>
         </div>
         <div class="preset-params">
           <span class="preset-param"><strong>Crossfade:</strong> 1.5–3 min (layered)</span>
           <span class="preset-param"><strong>Tempo:</strong> lock tight ±0.5</span>
-          <span class="preset-param"><strong>EQ:</strong> Bass cut → sub on 32th bar</span>
           <span class="preset-param"><strong>Harmonic:</strong> Camelot +1 step up</span>
-          <span class="preset-param"><strong>Structure:</strong> breakdown-on-breakdown</span>
-          <span class="preset-param"><strong>Curve:</strong> exponential (slow swell)</span>
           <span class="preset-param"><strong>Source:</strong> The Goa Mix · Perfecto Fluoro · DJ Skills</span>
         </div>
-        <span class="status-badge draft">📝 В разработке</span>
+        <span class="status-badge research">🔍 Исследуется (гипотеза)</span>
       </div>
 
       <!-- Pete Tong preset (research) -->
@@ -528,7 +523,7 @@
       <strong>Статусы:</strong>
       <span class="status-badge ready">✅ Реализован</span> — работает прямо сейчас ·
       <span class="status-badge research">🔍 Исследуется</span> — собираем информацию,
-      параметры предварительные
+      данные предварительные, неподтверждённые
     </div>
 
     <div class="action-hint">
