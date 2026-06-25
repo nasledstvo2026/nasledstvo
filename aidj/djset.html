@@ -761,9 +761,17 @@ async function fetchGitTracks() {
 }
 
 async function fetchSets() {
+  // Сеты — только из localStorage
   try {
-    const res = await fetch(api('/api/sets'));
-    if (res.ok) return await res.json();
+    const stored = JSON.parse(localStorage.getItem('dj_sets') || '[]');
+    return stored.map(s => ({
+      id: s.id,
+      name: s.name,
+      track_count: (s.tracks || []).length,
+      created: s.created,
+      updated: s.updated || s.created,
+      tracks: s.tracks || []
+    }));
   } catch(_) {}
   return [];
 }
@@ -883,12 +891,7 @@ function renderTrackCheckboxes(selectedIndices) {
 }
 
 async function editSet(id) {
-  let set;
-  try {
-    const res = await fetch(api(`/api/sets/${id}`));
-    if (res.ok) set = await res.json();
-  } catch(_) {}
-  if (!set) set = allSets.find(s => s.id === id);
+  const set = allSets.find(s => s.id === id);
   if (!set) return;
 
   editingId = id;
@@ -954,26 +957,9 @@ modalSave.addEventListener('click', async () => {
 
   const payload = { name, tracks, id: editingId };
 
-  try {
-    const url = editingId ? api(`/api/sets/${editingId}/update`) : api('/api/sets/create');
-    const method = editingId ? 'PUT' : 'POST';
-    const res = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if (res.ok) {
-      closeModal();
-      loadAllSets();
-    } else {
-      const err = await res.text();
-      alert('Ошибка сохранения: ' + err);
-    }
-  } catch(e) {
-    saveSetLocal(payload);
-    closeModal();
-    loadAllSets();
-  }
+  saveSetLocal(payload);
+  closeModal();
+  loadAllSets();
 });
 
 function saveSetLocal(payload) {
@@ -1012,23 +998,13 @@ function confirmDelete(id, name) {
 document.getElementById('deleteClose').addEventListener('click', () => deleteOverlay.classList.remove('active'));
 document.getElementById('deleteCancel').addEventListener('click', () => deleteOverlay.classList.remove('active'));
 
-document.getElementById('deleteConfirm').addEventListener('click', async () => {
+document.getElementById('deleteConfirm').addEventListener('click', () => {
   if (!deleteTargetId) return;
-  try {
-    const res = await fetch(api(`/api/sets/${deleteTargetId}/delete`), { method: 'DELETE' });
-    if (res.ok) {
-      deleteOverlay.classList.remove('active');
-      loadAllSets();
-    } else {
-      alert('Ошибка удаления');
-    }
-  } catch(_) {
-    let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
-    sets = sets.filter(s => s.id !== deleteTargetId);
-    localStorage.setItem('dj_sets', JSON.stringify(sets));
-    deleteOverlay.classList.remove('active');
-    loadAllSets();
-  }
+  let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
+  sets = sets.filter(s => s.id !== deleteTargetId);
+  localStorage.setItem('dj_sets', JSON.stringify(sets));
+  deleteOverlay.classList.remove('active');
+  loadAllSets();
   deleteTargetId = null;
 });
 
@@ -1187,26 +1163,7 @@ async function loadAllSets() {
   dsLoader.style.display = 'block';
   dsList.innerHTML = '';
 
-  try {
-    allSets = await fetchSets();
-  } catch(_) {}
-  if (!allSets || allSets.length === 0) {
-    try {
-      allSets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
-    } catch(_) { allSets = []; }
-  }
-
-  for (const set of allSets) {
-    if (!set.tracks || set.tracks.length === 0) {
-      try {
-        const res = await fetch(api(`/api/sets/${set.id}`));
-        if (res.ok) {
-          const detail = await res.json();
-          set.tracks = detail.tracks || [];
-        }
-      } catch(_) {}
-    }
-  }
+  allSets = await fetchSets();
 
   dsLoader.style.display = 'none';
   renderSets(allSets);
