@@ -805,6 +805,7 @@ function renderSets(sets) {
     const tc = set.track_count || set.tracks?.length || 0;
     const created = set.created ? new Date(set.created).toLocaleDateString('ru-RU') : '—';
     const tracks = set.tracks || [];
+    const listenBtn = set.mixUrl ? `<button class="ds-btn ds-btn-listen" onclick="playSavedMix('${set.id}')">🎧 Послушать mix</button>` : '';
     return `
       <div class="ds-card" data-id="${set.id}">
         <div class="ds-card-row">
@@ -817,20 +818,14 @@ function renderSets(sets) {
           </div>
           <div class="ds-card-actions">
             <button class="ds-btn ds-btn-play" onclick="playSet('${set.id}')">◆ Создать Mix</button>
-            ${set.mixUrl ? `<button class="ds-btn ds-btn-listen" onclick="playSavedMix('${set.id}')">🎧 Послушать mix</button>` : ''}
+            ${listenBtn}
             <button class="ds-btn ds-btn-primary" onclick="editSet('${set.id}')">✏️</button>
             <button class="ds-btn ds-btn-danger" onclick="confirmDelete('${set.id}','${escapeHtml(set.name)}')">🗑</button>
           </div>
         </div>
         <button class="ds-btn" style="margin-top:8px; font-size:0.78em;" onclick="toggleTracks('${set.id}')">📋 Показать треки</button>
         <div class="ds-track-detail" id="td-${set.id}">
-          ${tracks.map((t, i) => `
-            <div class="ds-track-detail-item">
-              <span class="td-num">${i+1}.</span>
-              <span class="td-title">${escapeHtml(t.artist)} — ${escapeHtml(t.title)}</span>
-              ${t.bpm ? `<span class="td-bpm">${t.bpm} BPM</span>` : ''}
-            </div>
-          `).join('')}
+          ${tracks.map((t, i) => '<div class="ds-track-detail-item"><span class="td-num">' + (i+1) + '.</span><span class="td-title">' + escapeHtml(t.artist) + ' — ' + escapeHtml(t.title) + '</span>' + (t.bpm ? '<span class="td-bpm">' + t.bpm + ' BPM</span>' : '') + '</div>').join('')}
         </div>
       </div>`;
   }).join('');
@@ -1177,14 +1172,13 @@ async function playSet(id) {
     setTimeout(() => {
       showMixResult({
         url: VPS_BASE + '/static/mix_demo.mp3',
-      }, id);
         bpm_a: '120',
         bpm_b: '128',
         key_a: 'C',
         key_b: 'Am',
         harmonic_label: 'Perfect',
         duration: '~5:00'
-      });
+      }, id);
     }, 3000);
   }
 }
