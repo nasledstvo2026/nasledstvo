@@ -806,7 +806,7 @@ function renderSets(sets) {
             </div>
           </div>
           <div class="ds-card-actions">
-            <button class="ds-btn ds-btn-play" onclick="playSet('${set.id}')">▶ Играть</button>
+            <button class="ds-btn ds-btn-play" onclick="mixSet('${set.id}')">◆ Создать Mix</button>
             <button class="ds-btn ds-btn-primary" onclick="editSet('${set.id}')">✏️</button>
             <button class="ds-btn ds-btn-danger" onclick="confirmDelete('${set.id}','${escapeHtml(set.name)}')">🗑</button>
           </div>
@@ -1075,81 +1075,9 @@ function showMixError(msg) {
   err.textContent = '❌ ' + (msg || 'Неизвестная ошибка');
 }
 
-async function playSet(id) {
-  // Find set name for display
-  const set = allSets.find(s => s.id === id);
-  const setName = set ? set.name : id;
-
-  try {
-    const res = await fetch(api(`/api/sets/${id}/play`), { method: 'POST' });
-    if (!res.ok) {
-      showMixError('Сервер ответил: ' + res.status);
-      return;
-    }
-    const data = await res.json();
-    if (data.status === 'already_processing') {
-      showMixError('Уже сводится');
-      return;
-    }
-
-    showMixProgress();
-    showMixStatus('⏳ Сведение... Ожидаемое время: ' + (data.eta || '~30 сек'));
-
-    // Poll for status
-    if (playPollTimer) clearInterval(playPollTimer);
-    let attempts = 0;
-    const maxAttempts = 60; // 60 * 2s = 120s timeout
-
-    playPollTimer = setInterval(async () => {
-      attempts++;
-      try {
-        const statusRes = await fetch(api(`/api/sets/${id}/status`));
-        if (!statusRes.ok) {
-          clearInterval(playPollTimer);
-          playPollTimer = null;
-          showMixError('Ошибка статуса');
-          return;
-        }
-        const statusData = await statusRes.json();
-
-        if (statusData.status === 'done') {
-          clearInterval(playPollTimer);
-          playPollTimer = null;
-          showMixResult(statusData);
-        } else if (statusData.status === 'error') {
-          clearInterval(playPollTimer);
-          playPollTimer = null;
-          showMixError(statusData.error || 'Ошибка сведения');
-        } else if (attempts >= maxAttempts) {
-          clearInterval(playPollTimer);
-          playPollTimer = null;
-          showMixError('Таймаут');
-        } else {
-          showMixStatus('⏳ Сведение... (' + (attempts * 2) + 'с прошло)');
-        }
-      } catch(e) {
-        clearInterval(playPollTimer);
-        playPollTimer = null;
-        showMixError('Ошибка соединения');
-      }
-    }, 2000);
-
-  } catch(_) {
-    // Server not available — demo stub
-    showMixProgress();
-    showMixStatus('⏳ Сервер не подключён, эмулирую...');
-    setTimeout(() => {
-      showMixResult({
-        url: '/aidj/player/index.html',
-        bpm_a: '120',
-        bpm_b: '128',
-        key_a: 'C',
-        key_b: 'Am',
-        harmonic_label: '🔥 Perfect',
-        duration: '~5:00'
-      });
-    }, 3000);
-  }
+function mixSet(id) {
+  const vpsUrl = 'https://176.123.162.12/aidj/';
+  window.open(vpsUrl, '_blank');
 }
 
 // Close mix result
