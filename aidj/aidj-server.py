@@ -28,7 +28,7 @@ SETS_INDEX = SETS_DIR / 'sets-index.json'
 # ─── Network ───
 HOST = '176.123.162.12'
 PORT = 8766
-NGINX_BASE = os.environ.get('NGINX_BASE', 'https://176.123.162.12/aidj')
+NGINX_BASE = os.environ.get('NGINX_BASE', 'https://enhance-workflow-rounds-knock.trycloudflare.com')
 
 # Moscow TZ
 MOSCOW_OFFSET = timedelta(hours=3)
@@ -259,6 +259,65 @@ def api_play_set(set_id):
 
     return jsonify({'status': 'processing', 'eta': '~30 сек'}), 202
 
+# ─── POST /api/mix — свести треки напрямую (без сета) ───
+@app.route('/api/mix', methods=['POST'])
+def api_mix_tracks():
+    data = request.get_json(silent=True) or {}
+    tracks = data.get('tracks', [])
+    if not tracks:
+        return jsonify({'error': 'No tracks provided'}), 400
+
+    mix_id = 'mix_' + uuid.uuid4().hex[:8]
+
+    def run_direct(mid, tlist):
+        mixing_jobs[mid] = {'status': 'processing', 'eta': '~30 сек', 'started': moscow_now().isoformat()}
+        try:
+            engine = BASE_DIR / 'aidj-engine.py'
+            if engine.exists():
+                config_json = json.dumps({'id': mid, 'tracks': tlist})
+                engine_result = subprocess.run(
+                    [sys.executable, str(engine), '--config', config_json],
+                    capture_output=True, text=True, timeout=180
+                )
+                if engine_result.returncode == 0:
+                    try:
+                        engine_data = json.loads(engine_result.stdout.strip())
+                        final_output = engine_data.get('output', '')
+                        fname = os.path.basename(final_output)
+                        nginx_base = NGINX_BASE.rstrip('/')
+                        mix_url = f'{nginx_base}/static/{fname}'
+                        mixing_jobs[mid] = {
+                            'status': 'done',
+                            'output': engine_data,
+                            'url': mix_url,
+                            'filename': fname,
+                            'completed': moscow_now().isoformat()
+                        }
+                    except (json.JSONDecodeError, KeyError) as e:
+                        mixing_jobs[mid] = {'status': 'error', 'error': f'Engine parse: {e}'}
+                else:
+                    mixing_jobs[mid] = {'status': 'error', 'error': engine_result.stderr.strip()[:500]}
+            else:
+                time.sleep(3)
+                mixing_jobs[mid] = {'status': 'done', 'output': f'mix-{mid}.mp3', 'completed': moscow_now().isoformat(), 'stub': True}
+        except Exception as e:
+            mixing_jobs[mid] = {'status': 'error', 'error': str(e)}
+
+    thread = threading.Thread(target=run_direct, args=(mix_id, tracks), daemon=True)
+    thread.start()
+
+    return jsonify({'status': 'processing', 'mix_id': mix_id, 'eta': '~30 сек'}), 202
+
+
+# ─── GET /api/mix/<mix_id>/status — статус прямого сведения ───
+@app.route('/api/mix/<mix_id>/status', methods=['GET'])
+def api_mix_status(mix_id):
+    job = mixing_jobs.get(mix_id, {})
+    if not job:
+        return jsonify({'status': 'idle'})
+    return jsonify(job)
+
+
 # ─── GET /api/sets/<set_id>/status — статус сведения ───
 @app.route('/api/sets/<set_id>/status', methods=['GET'])
 def api_status_set(set_id):
@@ -267,11 +326,17 @@ def api_status_set(set_id):
         return jsonify({'status': 'idle'})
     return jsonify(job)
 
-# ─── GET /static/<path> — раздача миксов (nginx отрезает /aidj/) ───
+# ─── GET /static/<path> — раздача миксов ───
 @app.route('/aidj/static/<path:filename>')
 @app.route('/static/<path:filename>')
 def serve_mix(filename):
     return send_from_directory(str(STATIC_DIR), filename)
+
+
+# ─── GET /aidj/<mp3> — раздача треков ───
+@app.route('/aidj/<path:filename>')
+def serve_audio(filename):
+    return send_from_directory(str(BASE_DIR), filename)
 
 
 # ─── GET /djset.html — страница DJ Set ───

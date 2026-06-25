@@ -1077,31 +1077,48 @@ function showMixError(msg) {
 
 async function playSet(id) {
   const set = allSets.find(s => s.id === id);
-  const setName = set ? set.name : id;
+  if (!set || !set.tracks || set.tracks.length < 2) {
+    showMixError('Нужно минимум 2 трека');
+    return;
+  }
+
+  // Prepare track list for the server
+  const orderedTracks = [];
+  if (set.trackOrder) {
+    const order = set.trackOrder.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+    for (const idx of order) {
+      const track = set.tracks[idx - 1];
+      if (track) orderedTracks.push({ title: track.title, artist: track.artist, url: track.url });
+    }
+  }
+  if (orderedTracks.length < 2) {
+    set.tracks.forEach(t => orderedTracks.push({ title: t.title, artist: t.artist, url: t.url }));
+  }
 
   try {
-    const res = await fetch(api('/api/sets/' + id + '/play'), { method: 'POST' });
+    const res = await fetch(api('/api/mix'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tracks: orderedTracks })
+    });
     if (!res.ok) {
       showMixError('Сервер ответил: ' + res.status);
       return;
     }
     const data = await res.json();
-    if (data.status === 'already_processing') {
-      showMixError('Уже сводится');
-      return;
-    }
+    const mixId = data.mix_id;
 
     showMixProgress();
-    showMixStatus('⏳ Сведение... Ожидаемое время: ' + (data.eta || '~30 сек'));
+    showMixStatus('⏳ Сведение... ' + (data.eta || '~30 сек'));
 
     if (playPollTimer) clearInterval(playPollTimer);
     let attempts = 0;
-    const maxAttempts = 60;
+    const maxAttempts = 90;
 
     playPollTimer = setInterval(async () => {
       attempts++;
       try {
-        const statusRes = await fetch(api('/api/sets/' + id + '/status'));
+        const statusRes = await fetch(api('/api/mix/' + mixId + '/status'));
         if (!statusRes.ok) {
           clearInterval(playPollTimer);
           playPollTimer = null;
@@ -1123,7 +1140,7 @@ async function playSet(id) {
           playPollTimer = null;
           showMixError('Таймаут');
         } else {
-          showMixStatus('⏳ Сведение... (' + (attempts * 2) + 'с прошло)');
+          showMixStatus('⏳ Сведение... (' + (attempts * 2) + 'с') ;
         }
       } catch(e) {
         clearInterval(playPollTimer);
@@ -1133,10 +1150,10 @@ async function playSet(id) {
     }, 2000);
   } catch(_) {
     showMixProgress();
-    showMixStatus('⏳ Сервер не подключён, эмулирую...');
+    showMixStatus('⏳ Сервер не подключён...');
     setTimeout(() => {
       showMixResult({
-        url: 'https://enhance-workflow-rounds-knock.trycloudflare.com/static/mix_demo.mp3',
+        url: VPS_BASE + '/static/mix_demo.mp3',
         bpm_a: '120',
         bpm_b: '128',
         key_a: 'C',
