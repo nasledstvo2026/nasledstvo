@@ -213,12 +213,9 @@ def api_play_set(set_id):
     if set_id in mixing_jobs and mixing_jobs[set_id]['status'] in ('processing', 'downloading'):
         return jsonify({'status': 'already_processing', 'eta': mixing_jobs[set_id].get('eta', '~30 сек')})
 
-    def run_mix(sid, tracks):
+    def run_mix(sid, tracks, preset_id='default'):
         mixing_jobs[sid] = {'status': 'processing', 'eta': '~30 сек', 'started': moscow_now().isoformat()}
         try:
-            # Support preset from POST body
-            body = request.get_json(silent=True) or {}
-            preset_id = body.get('preset', 'default')
             if preset_id == 'oakenfold':
                 preset_id = 'oakenfold_1998'
 
@@ -260,7 +257,9 @@ def api_play_set(set_id):
         except Exception as e:
             mixing_jobs[sid] = {'status': 'error', 'error': str(e)}
 
-    thread = threading.Thread(target=run_mix, args=(set_id, data.get('tracks', [])), daemon=True)
+    body = request.get_json(silent=True) or {}
+    preset_id = body.get('preset', 'default')
+    thread = threading.Thread(target=run_mix, args=(set_id, data.get('tracks', []), preset_id), daemon=True)
     thread.start()
 
     return jsonify({'status': 'processing', 'eta': '~30 сек'}), 202
@@ -394,6 +393,7 @@ def serve_mix(filename):
 
 # ─── GET /aidj/<mp3> — раздача треков ───
 @app.route('/aidj/<path:filename>')
+@app.route('/<path:filename>')
 def serve_audio(filename):
     return send_from_directory(str(BASE_DIR), filename)
 
