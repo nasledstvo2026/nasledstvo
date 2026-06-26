@@ -489,7 +489,7 @@
       showAlert('Удаление...', '');
 
       try {
-        const resp = await fetch('http://176.123.162.12/aidj/api/tracks/delete', {
+        const resp = await fetch('https://about-wish-ties-capture.trycloudflare.com/api/tracks/delete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ urls })
