@@ -376,23 +376,17 @@
   </div>
 
   <script>
+    const API_BASE = 'https://176.123.162.12/aidj';
     let tracks = [];
 
     async function loadTracks() {
       try {
-        // Try API first
-        const resp = await fetch('/aidj/tracks.json');
+        const resp = await fetch(API_BASE + '/tracks.json');
         if (!resp.ok) throw new Error('API unavailable');
         tracks = await resp.json();
       } catch(e) {
-        // Fallback: direct JSON
-        try {
-          const resp = await fetch('aidj/tracks.json');
-          tracks = await resp.json();
-        } catch(e2) {
-          showAlert('Не удалось загрузить коллекцию треков', 'error');
-          return;
-        }
+        showAlert('Не удалось загрузить коллекцию треков', 'error');
+        return;
       }
 
       document.getElementById('loading').style.display = 'none';
@@ -480,7 +474,7 @@
       btn.textContent = 'Удаление...';
 
       try {
-        const resp = await fetch('/aidj/api/tracks/delete', {
+        const resp = await fetch(API_BASE + '/api/tracks/delete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ urls })
