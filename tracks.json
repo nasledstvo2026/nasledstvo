@@ -4,31 +4,35 @@
     "bpm": null,
     "duration": "72:19",
     "title": "Fantazia 1997",
-    "url": "aidj/Paul Oakenfold - Fantazia 1997.mp3",
-    "size_bytes": 104140928
+    "url": "aidj/Paul Oakenfold - Fantazia 1997.mp3"
   },
   {
-    "artist": "Paul Oakenfold",
-    "bpm": null,
-    "duration": "5:09",
     "title": "Hypnotized",
+    "artist": "Paul Oakenfold",
     "url": "aidj/Paul Oakenfold - Hypnotized.mp3",
-    "size_bytes": 7419819
+    "duration": "5:09",
+    "bpm": null
   },
   {
-    "artist": "Сенатор",
-    "bpm": null,
-    "duration": "4:08",
     "title": "Эй, дискжокей",
+    "artist": "Сенатор",
     "url": "aidj/Сенатор - Эй, дискжокей.mp3",
-    "size_bytes": 5957172
+    "duration": "4:08",
+    "bpm": null
   },
   {
-    "artist": "Сплин",
-    "bpm": null,
-    "duration": "3:47",
     "title": "Маяк",
+    "artist": "Сплин",
     "url": "aidj/Сплин - Маяк.mp3",
-    "size_bytes": 5471293
+    "duration": "3:47",
+    "bpm": null
+  },
+  {
+    "artist": "Faithless",
+    "title": "Insomnia (Radio Edit)",
+    "url": "aidj/Faithless - Insomnia.mp3",
+    "duration": "3:34",
+    "bpm": null,
+    "size_bytes": 8790726
   }
 ]
