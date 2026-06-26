@@ -59,7 +59,13 @@
     .hero-image img { display:block; width:100%; height:auto; aspect-ratio:16/11; object-fit:cover; border-radius:15px; transition:transform 0.5s ease,filter 0.5s ease; filter:saturate(1.1) contrast(1.05); }
     .hero-image:hover img { transform:scale(1.02); filter:saturate(1.2) contrast(1.1) brightness(1.05); }
     .hero-image .image-glow { position:absolute; bottom:-30%; left:-10%; width:120%; height:60%; background:radial-gradient(ellipse,rgba(0,212,255,0.12),transparent 70%); pointer-events:none; z-index:1; }
-    .stats-bar { display:flex; justify-content:center; gap:32px; margin:24px 0 32px; flex-wrap:wrap; }
+    .toolbar { display:flex; align-items:center; justify-content:center; gap:16px; margin:24px 0 32px; flex-wrap:wrap; }
+    .stats-bar { display:flex; gap:32px; flex-wrap:wrap; }
+    .refresh-btn { padding:10px 24px; border-radius:10px; border:1px solid var(--border-glow); background:var(--bg-card); backdrop-filter:blur(16px); color:var(--cyan); font-family:'Inter',sans-serif; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.3s ease; }
+    .refresh-btn:hover { background:var(--cyan-dim); box-shadow:var(--glow-cyan); transform:translateY(-1px); }
+    .refresh-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+    .loading-msg { text-align:center; color:var(--text-dim); padding:40px 0; font-size:15px; }
+    @media (max-width:640px) { .toolbar { flex-direction:column; gap:12px; } }
     .stat-item { text-align:center; padding:12px 24px; background:var(--bg-card); backdrop-filter:blur(12px) saturate(1.4); -webkit-backdrop-filter:blur(12px) saturate(1.4); border:1px solid var(--border-subtle); border-radius:12px; min-width:120px; transition:border-color 0.3s,box-shadow 0.3s; }
     .stat-item:hover { border-color:var(--border-glow); box-shadow:var(--glow-cyan); }
     .stat-value { font-size:28px; font-weight:800; background:linear-gradient(135deg,var(--cyan),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
@@ -143,132 +149,129 @@
          loading="lazy">
   </div>
 
-  <div class="stats-bar">
-    <div class="stat-item"><div class="stat-value">3</div><div class="stat-label">Треков</div></div>
-    <div class="stat-item"><div class="stat-value">18.0</div><div class="stat-label">MB всего</div></div>
-    <div class="stat-item"><div class="stat-value">∞</div><div class="stat-label">Не протухают</div></div>
+  <div class="toolbar">
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-item"><div class="stat-value" id="statTracks">0</div><div class="stat-label">Треков</div></div>
+      <div class="stat-item"><div class="stat-value" id="statSize">0</div><div class="stat-label">MB</div></div>
+    </div>
+    <button class="refresh-btn" onclick="loadTracks()" title="Обновить список из коллекции">⟳ Обновить</button>
   </div>
-  <div class="player-list">
-    
-    <div class="track" data-track="0">
-      <div class="track-info">
-        <span class="track-num">1</span>
-        <div class="track-name">Paul Oakenfold - Hypnotized</div>
-        <span class="track-size">7245.9 KB</span>
-      </div>
-      <div class="equalizer">
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-      </div>
-      <div class="player-wrap">
-        <div class="custom-player">
-          <button class="play-btn paused" onclick="togglePlay(this)">
-            <span class="icon-play">▶</span>
-            <span class="icon-pause">⏸</span>
-          </button>
-          <div class="progress-wrap">
-            <span class="time current">0:00</span>
-            <div class="progress-bar" onclick="seek(event, this)">
-              <div class="progress-fill" style="width:0%"></div>
-            </div>
-            <span class="time total">0:00</span>
-          </div>
-          <button class="vol-btn" onclick="toggleMute(this)" title="Mute">🔊</button>
-        </div>
-        <audio preload="none" style="display:none">
-          <source src="aidj/Paul Oakenfold - Hypnotized.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    </div>
-    <div class="track" data-track="1">
-      <div class="track-info">
-        <span class="track-num">2</span>
-        <div class="track-name">Сенатор - Эй, дискжокей</div>
-        <span class="track-size">5817.6 KB</span>
-      </div>
-      <div class="equalizer">
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-      </div>
-      <div class="player-wrap">
-        <div class="custom-player">
-          <button class="play-btn paused" onclick="togglePlay(this)">
-            <span class="icon-play">▶</span>
-            <span class="icon-pause">⏸</span>
-          </button>
-          <div class="progress-wrap">
-            <span class="time current">0:00</span>
-            <div class="progress-bar" onclick="seek(event, this)">
-              <div class="progress-fill" style="width:0%"></div>
-            </div>
-            <span class="time total">0:00</span>
-          </div>
-          <button class="vol-btn" onclick="toggleMute(this)" title="Mute">🔊</button>
-        </div>
-        <audio preload="none" style="display:none">
-          <source src="aidj/Сенатор - Эй, дискжокей.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    </div>
-    <div class="track" data-track="2">
-      <div class="track-info">
-        <span class="track-num">3</span>
-        <div class="track-name">Сплин - Маяк</div>
-        <span class="track-size">5343.1 KB</span>
-      </div>
-      <div class="equalizer">
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-      </div>
-      <div class="player-wrap">
-        <div class="custom-player">
-          <button class="play-btn paused" onclick="togglePlay(this)">
-            <span class="icon-play">▶</span>
-            <span class="icon-pause">⏸</span>
-          </button>
-          <div class="progress-wrap">
-            <span class="time current">0:00</span>
-            <div class="progress-bar" onclick="seek(event, this)">
-              <div class="progress-fill" style="width:0%"></div>
-            </div>
-            <span class="time total">0:00</span>
-          </div>
-          <button class="vol-btn" onclick="toggleMute(this)" title="Mute">🔊</button>
-        </div>
-        <audio preload="none" style="display:none">
-          <source src="aidj/Сплин - Маяк.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    </div>
-    
+  <div class="player-list" id="playerList">
+    <div class="loading-msg" id="loadingMsg">Загрузка треков…</div>
   </div>
   <div class="footer">
     <strong>AI DJ Player</strong> · nasledstvo2026.github.io · mp3 в репозитории · 2026
   </div>
 </div>
 <script>
-function getPlayers() { return document.querySelectorAll('.track'); }
+function escHtml(s) { var d=document.createElement('div'); d.appendChild(document.createTextNode(s)); return d.innerHTML; }
 function getAudio(t) { return t.querySelector('audio'); }
 function getPlayBtn(t) { return t.querySelector('.play-btn'); }
 function getProgressFill(t) { return t.querySelector('.progress-fill'); }
 function getCurrentTime(t) { return t.querySelector('.time.current'); }
 function getTotalTime(t) { return t.querySelector('.time.total'); }
-function formatTime(s) { if(!s||isNaN(s)) return '0:00'; const m=Math.floor(s/60); const sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
+function formatTime(s) { if(!s||isNaN(s)) return '0:00'; var m=Math.floor(s/60); var sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
 function stopAllExcept(e) { document.querySelectorAll('.track.playing').forEach(function(t) { if(t!==e) { t.classList.remove('playing'); var a=getAudio(t); a.pause(); a.currentTime=0; getPlayBtn(t).classList.add('paused'); getProgressFill(t).style.width='0%'; getCurrentTime(t).textContent='0:00'; } }); }
 function togglePlay(btn) { var t=btn.closest('.track'); var a=getAudio(t); if(a.paused) { stopAllExcept(t); a.play().then(function(){ t.classList.add('playing'); btn.classList.remove('paused'); }).catch(function(){}); } else { a.pause(); t.classList.remove('playing'); btn.classList.add('paused'); } }
 function seek(e,bar) { var t=bar.closest('.track'); var a=getAudio(t); var r=bar.getBoundingClientRect(); var p=(e.clientX-r.left)/r.width; if(a.duration) a.currentTime=p*a.duration; }
 function toggleMute(btn) { var t=btn.closest('.track'); var a=getAudio(t); a.muted=!a.muted; btn.textContent=a.muted?'🔇':'🔊'; btn.title=a.muted?'Unmute':'Mute'; }
 function updateAll() { document.querySelectorAll('.track.playing').forEach(function(t){ var a=getAudio(t); if(a.duration){ var p=a.currentTime/a.duration; getProgressFill(t).style.width=(p*100)+'%'; } getCurrentTime(t).textContent=formatTime(a.currentTime); getTotalTime(t).textContent=formatTime(a.duration); }); requestAnimationFrame(updateAll); }
-document.addEventListener('DOMContentLoaded',function(){ getPlayers().forEach(function(t){ var a=getAudio(t); a.addEventListener('loadedmetadata',function(){ getTotalTime(t).textContent=formatTime(a.duration); }); a.addEventListener('ended',function(){ t.classList.remove('playing'); getPlayBtn(t).classList.add('paused'); getProgressFill(t).style.width='0%'; getCurrentTime(t).textContent='0:00'; }); }); updateAll(); });
+
+var TRACKS_DATA = [];
+
+function buildTrackHTML(track, idx) {
+  var name = track.title;
+  if (track.artist) name = escHtml(track.artist) + ' - ' + escHtml(track.title);
+  var sizeKB = 0;
+  if (track.size_bytes) sizeKB = Math.round(track.size_bytes / 1024);
+  var sizeStr = sizeKB ? sizeKB + ' KB' : '';
+  var src = escHtml(track.url || '');
+  var nameSafe = escHtml(name);
+  return '<div class="track" data-track="'+idx+'">'
+    + '<div class="track-info">'
+    + '<span class="track-num">'+(idx+1)+'</span>'
+    + '<div class="track-name">'+nameSafe+'</div>'
+    + (sizeStr ? '<span class="track-size">'+sizeStr+'</span>' : '')
+    + '</div>'
+    + '<div class="equalizer"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>'
+    + '<div class="player-wrap">'
+    + '<div class="custom-player">'
+    + '<button class="play-btn paused" onclick="togglePlay(this)"><span class="icon-play">▶</span><span class="icon-pause">⏸</span></button>'
+    + '<div class="progress-wrap">'
+    + '<span class="time current">0:00</span>'
+    + '<div class="progress-bar" onclick="seek(event, this)"><div class="progress-fill" style="width:0%"></div></div>'
+    + '<span class="time total">0:00</span>'
+    + '</div>'
+    + '<button class="vol-btn" onclick="toggleMute(this)" title="Mute">🔊</button>'
+    + '</div>'
+    + '<audio preload="none" style="display:none"><source src="'+src+'" type="audio/mpeg"></audio>'
+    + '</div></div>';
+}
+
+function loadTracks() {
+  var list = document.getElementById('playerList');
+  var msg = document.getElementById('loadingMsg');
+  var btn = document.querySelector('.refresh-btn');
+  if (btn) btn.disabled = true;
+  if (msg) msg.textContent = 'Загрузка треков…';
+  
+  fetch('/tracks.json')
+    .then(function(r) {
+      if (!r.ok) throw new Error('Ошибка загрузки');
+      return r.json();
+    })
+    .then(function(data) {
+      TRACKS_DATA = data;
+      var html = '';
+      var totalSize = 0;
+      for (var i = 0; i < data.length; i++) {
+        html += buildTrackHTML(data[i], i);
+        if (data[i].size_bytes) totalSize += data[i].size_bytes;
+      }
+      if (msg) msg.style.display = 'none';
+      list.innerHTML = html;
+      document.getElementById('statTracks').textContent = data.length;
+      document.getElementById('statSize').textContent = totalSize ? (totalSize / 1048576).toFixed(1) : '?';
+      
+      // Привязать события к новым аудио
+      document.querySelectorAll('.track').forEach(function(t) {
+        var a = getAudio(t);
+        a.addEventListener('loadedmetadata', function() {
+          getTotalTime(t).textContent = formatTime(a.duration);
+        });
+        a.addEventListener('ended', function() {
+          t.classList.remove('playing');
+          getPlayBtn(t).classList.add('paused');
+          getProgressFill(t).style.width = '0%';
+          getCurrentTime(t).textContent = '0:00';
+        });
+      });
+      
+      if (btn) btn.disabled = false;
+    })
+    .catch(function(e) {
+      if (msg) msg.textContent = 'Ошибка: ' + e.message;
+      if (btn) btn.disabled = false;
+    });
+}
+
+function updateAll() {
+  document.querySelectorAll('.track.playing').forEach(function(t) {
+    var a = getAudio(t);
+    if (a.duration) {
+      var p = a.currentTime / a.duration;
+      getProgressFill(t).style.width = (p * 100) + '%';
+    }
+    getCurrentTime(t).textContent = formatTime(a.currentTime);
+    getTotalTime(t).textContent = formatTime(a.duration);
+  });
+  requestAnimationFrame(updateAll);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadTracks();
+  updateAll();
+});
 </script>
 </body>
 </html>
