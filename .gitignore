@@ -16,7 +16,6 @@ memory/
 ssl/
 aidj/sets/
 aidj/static/
-aidj/*.mp3
 aidj/*.py
 aidj/__pycache__/
 .env.timeweb
