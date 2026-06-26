@@ -384,6 +384,9 @@
         if (!resp.ok) throw new Error('unavailable');
         tracks = await resp.json();
       } catch(e) {
+        document.getElementById('loading').innerHTML = '<p>Ошибка загрузки: ' + escHtml(e.message) + '</p>';
+        return;
+      }
 
       document.getElementById('loading').style.display = 'none';
       document.getElementById('content').style.display = 'block';
