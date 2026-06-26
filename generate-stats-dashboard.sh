@@ -1,5 +1,5 @@
 #!/bin/bash
-# Генерация HTML-дашборда статистики OpenClaw для nasledstvo.net.ru
+# Генерация HTML-дашборда статистики OpenClaw для nasledstvo2026.github.io/nasledstvo
 set -euo pipefail
 
 GATEWAY_URL="http://127.0.0.1:18789/api/v1/admin/rpc"

@@ -234,7 +234,7 @@ cat > "$HTML_FILE" << HTMLEOF
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📊 Токены — nasledstvo.net.ru</title>
+<title>📊 Токены — nasledstvo2026.github.io/nasledstvo</title>
 <link rel="stylesheet" href="theme.css">
 <style>
 .block{margin-bottom:32px}

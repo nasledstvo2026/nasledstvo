@@ -107,7 +107,7 @@ parts.append('''<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>\u0410\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u2014 nasledstvo.net.ru</title>
+  <title>\u0410\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439 \u2014 nasledstvo2026.github.io/nasledstvo</title>
   <link rel="stylesheet" href="theme.css">
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
   <style>
@@ -317,7 +317,7 @@ c{idx}.setOption({{
     parts.append('</script>\n')
 
 parts.append('''
-  <div class="footer">\u262D \u041B\u0443\u043D\u0442 &middot; <a href="index.html">nasledstvo.net.ru</a></div>
+  <div class="footer">\u262D \u041B\u0443\u043D\u0442 &middot; <a href="index.html">nasledstvo2026.github.io/nasledstvo</a></div>
 </div>
 </body>
 </html>
