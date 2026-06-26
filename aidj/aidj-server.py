@@ -404,6 +404,55 @@ def serve_djset_page():
     return send_from_directory(str(BASE_DIR), 'djset.html')
 
 
+# ─── DELETE /api/tracks/delete — удалить треки ───
+@app.route('/api/tracks/delete', methods=['POST'])
+def api_delete_tracks():
+    body = request.get_json(silent=True) or {}
+    urls = body.get('urls', [])
+    if not urls or not isinstance(urls, list):
+        return jsonify({'ok': False, 'error': 'Нет URL для удаления'}), 400
+
+    tracks = read_tracks_json()
+    removed = 0
+    errors = []
+    new_tracks = []
+    for t in tracks:
+        if t.get('url') in urls:
+            # Try to delete the file
+            filepath = BASE_DIR / t.get('url', '').lstrip('/')
+            if filepath.exists():
+                try:
+                    filepath.unlink()
+                    removed += 1
+                except Exception as e:
+                    errors.append(f"{t.get('title')}: {e}")
+            else:
+                # URL may be relative like "aidj/..." 
+                alt_path = BASE_DIR / t.get('url', '')
+                if alt_path.exists():
+                    try:
+                        alt_path.unlink()
+                        removed += 1
+                    except Exception as e:
+                        errors.append(f"{t.get('title')}: {e}")
+                else:
+                    removed += 1  # file already gone, just remove from index
+        else:
+            new_tracks.append(t)
+
+    # Write back tracks.json
+    TRACKS_FILE.write_text(
+        json.dumps(new_tracks, ensure_ascii=False, indent=2) + '\n',
+        encoding='utf-8'
+    )
+
+    msg = f'Удалено {removed} треков из каталога'
+    if errors:
+        msg += f'. Ошибки: {"; ".join(errors)}'
+
+    return jsonify({'ok': True, 'removed': removed, 'errors': errors, 'message': msg, 'remaining': len(new_tracks)})
+
+
 # ─── GET / → redirect to djset.html ───
 @app.route('/', methods=['GET'])
 def serve_root():
