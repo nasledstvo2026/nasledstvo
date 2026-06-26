@@ -171,6 +171,7 @@ function getProgressFill(t) { return t.querySelector('.progress-fill'); }
 function getCurrentTime(t) { return t.querySelector('.time.current'); }
 function getTotalTime(t) { return t.querySelector('.time.total'); }
 function formatTime(s) { if(!s||isNaN(s)) return '0:00'; var m=Math.floor(s/60); var sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
+function parseDuration(d) { if(!d) return NaN; if(typeof d === 'number') return d; var parts=d.split(':'); if(parts.length===2) return parseInt(parts[0])*60+parseInt(parts[1]); if(parts.length===3) return parseInt(parts[0])*3600+parseInt(parts[1])*60+parseInt(parts[2]); return NaN; }
 function stopAllExcept(e) { document.querySelectorAll('.track.playing').forEach(function(t) { if(t!==e) { t.classList.remove('playing'); var a=getAudio(t); a.pause(); a.currentTime=0; getPlayBtn(t).classList.add('paused'); getProgressFill(t).style.width='0%'; getCurrentTime(t).textContent='0:00'; } }); }
 function togglePlay(btn) { var t=btn.closest('.track'); var a=getAudio(t); if(a.paused) { stopAllExcept(t); a.play().then(function(){ t.classList.add('playing'); btn.classList.remove('paused'); }).catch(function(){}); } else { a.pause(); t.classList.remove('playing'); btn.classList.add('paused'); } }
 function seek(e,bar) { var t=bar.closest('.track'); var a=getAudio(t); var r=bar.getBoundingClientRect(); var p=(e.clientX-r.left)/r.width; if(a.duration) a.currentTime=p*a.duration; }
@@ -233,8 +234,14 @@ function loadTracks() {
       document.getElementById('statTracks').textContent = data.length;
       document.getElementById('statSize').textContent = totalSize ? (totalSize / 1048576).toFixed(1) : '?';
       
-      // Привязать события к новым аудио
+      // Проставить total time из JSON
       document.querySelectorAll('.track').forEach(function(t) {
+        var idx = parseInt(t.getAttribute('data-track'));
+        var track = data[idx];
+        var dur = parseDuration(track.duration);
+        if (!isNaN(dur)) {
+          getTotalTime(t).textContent = formatTime(dur);
+        }
         var a = getAudio(t);
         a.addEventListener('loadedmetadata', function() {
           getTotalTime(t).textContent = formatTime(a.duration);
