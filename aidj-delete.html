@@ -337,7 +337,7 @@
 
   <div class="container">
 
-    <a class="back" href="aidj.html">← Назад к AI DJ</a>
+    <a class="back" href="https://nasledstvo2026.github.io/nasledstvo/aidj.html">← Назад к AI DJ</a>
 
     <div class="hero">
       <div class="subtitle">AI DJ</div>
@@ -376,27 +376,14 @@
   </div>
 
   <script>
-    const API_BASE = 'https://176.123.162.12/aidj';
-    const GITHUB_BASE = 'https://nasledstvo2026.github.io/nasledstvo';
     let tracks = [];
 
     async function loadTracks() {
       try {
-        // Load from GitHub Pages (same origin — no CORS issues)
-        const resp = await fetch(GITHUB_BASE + '/aidj/tracks.json');
-        if (!resp.ok) throw new Error('GitHub unavailable');
+        const resp = await fetch('/tracks.json');
+        if (!resp.ok) throw new Error('unavailable');
         tracks = await resp.json();
       } catch(e) {
-        // Fallback: try VPS directly
-        try {
-          const resp = await fetch(API_BASE + '/tracks.json');
-          if (!resp.ok) throw new Error('VPS unavailable');
-          tracks = await resp.json();
-        } catch(e2) {
-          showAlert('Не удалось загрузить коллекцию треков. Возможно, самоподписанный сертификат VPS блокируется браузером. Откройте https://176.123.162.12/aidj/tracks.json и примите предупреждение один раз.', 'error');
-          return;
-        }
-      }
 
       document.getElementById('loading').style.display = 'none';
       document.getElementById('content').style.display = 'block';
@@ -498,31 +485,22 @@
 
       showAlert('Удаление...', '');
 
-      // Send to server via form POST (bypasses CORS/self-signed cert issues)
-      // by using an image beacon or hidden iframe
       try {
-        // Use navigator.sendBeacon — doesn't need CORS, doesn't wait for response
-        const blob = new Blob([JSON.stringify({ urls })], { type: 'application/json' });
-        const sent = navigator.sendBeacon(API_BASE + '/api/tracks/delete', blob);
-        
-        if (sent) {
-          showAlert(`Треки удалены из списка. Изменения опубликуются через несколько секунд.`, 'success');
+        const resp = await fetch('/api/tracks/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ urls })
+        });
+
+        const result = await resp.json();
+
+        if (result.ok) {
+          showAlert(result.message || 'Треки удалены', 'success');
         } else {
-          // Fallback: try fetch with no-cors
-          try {
-            await fetch(API_BASE + '/api/tracks/delete', {
-              method: 'POST',
-              mode: 'no-cors',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ urls })
-            });
-            showAlert(`Треки удалены из списка. Изменения опубликуются через несколько секунд.`, 'success');
-          } catch(e2) {
-            showAlert('Треки удалены локально. Сервер: ' + e2.message, 'error');
-          }
+          showAlert(result.error || 'Ошибка удаления', 'error');
         }
       } catch(e) {
-        showAlert('Треки удалены локально, но сервер не уведомлен', 'error');
+        showAlert('Ошибка: ' + e.message, 'error');
       } finally {
         btn.disabled = false;
         btn.textContent = 'Удалить выбранные';

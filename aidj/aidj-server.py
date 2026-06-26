@@ -446,28 +446,23 @@ def api_delete_tracks():
         encoding='utf-8'
     )
 
-    # Push changes to GitHub Pages
-    try:
-        import subprocess
-        workspace = str(BASE_DIR.parent)
-        subprocess.run(
-            ['git', '-C', workspace, 'add', 'aidj/tracks.json'],
-            capture_output=True, timeout=10
-        )
-        subprocess.run(
-            ['git', '-C', workspace, 'commit', '-m', 'aidj: delete tracks via web'],
-            capture_output=True, timeout=10
-        )
-        subprocess.run(
-            ['git', '-C', workspace, 'push'],
-            capture_output=True, timeout=30
-        )
-    except Exception as e:
-        print(f'[WARN] Git push failed: {e}', file=sys.stderr)
-
     msg = f'Удалено {removed} треков из каталога'
     if errors:
         msg += f'. Ошибки: {"; ".join(errors)}'
+
+    # Push to GitHub in background thread (don't block the response)
+    def bg_push():
+        try:
+            import subprocess as sp
+            wk = str(BASE_DIR.parent)
+            sp.run(['git', '-C', wk, 'add', 'aidj/tracks.json'], capture_output=True, timeout=10)
+            sp.run(['git', '-C', wk, 'commit', '-m', 'aidj: delete tracks via web'], capture_output=True, timeout=10)
+            sp.run(['git', '-C', wk, 'push'], capture_output=True, timeout=30)
+        except Exception as e:
+            print(f'[WARN] Git push failed: {e}', file=sys.stderr)
+
+    import threading
+    threading.Thread(target=bg_push, daemon=True).start()
 
     return jsonify({'ok': True, 'removed': removed, 'errors': errors, 'message': msg, 'remaining': len(new_tracks)})
 
@@ -476,6 +471,11 @@ def api_delete_tracks():
 @app.route('/', methods=['GET'])
 def serve_root():
     return send_from_directory(str(BASE_DIR), 'djset.html')
+
+# ─── GET /delete → страница удаления треков (same-origin) ───
+@app.route('/delete', methods=['GET'])
+def serve_delete_page():
+    return send_from_directory(str(BASE_DIR.parent), 'aidj-delete.html')
 
 
 # ══════════════════════════════════════════
