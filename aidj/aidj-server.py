@@ -28,7 +28,7 @@ SETS_INDEX = SETS_DIR / 'sets-index.json'
 # ─── Network ───
 HOST = '176.123.162.12'
 PORT = 8766
-NGINX_BASE = os.environ.get('NGINX_BASE', 'https://176.123.162.12')
+NGINX_BASE = os.environ.get('NGINX_BASE', 'https://176.123.162.12/aidj')
 
 # Moscow TZ
 MOSCOW_OFFSET = timedelta(hours=3)
@@ -277,7 +277,7 @@ def api_mix_tracks():
 
     def lookup_track_path(track):
         """Convert track URL/name to local file path"""
-        from urllib.parse import unquote
+        from urllib.parse import unquote, urlparse
 
         url = track.get('url', '')
         name = track.get('title', '')
@@ -296,15 +296,15 @@ def api_mix_tracks():
             if Path(fname).exists():
                 return str(Path(fname).resolve())
 
-        # Priority 2: Direct URL path relative to aidj/
+        # Priority 2: Extract filename from URL (handles absolute http:// URLs)
         if url:
-            stripped = url.replace('/aidj/', '/').lstrip('/')
-            # Try each path component
-            parts = stripped.split('/')
-            for part in parts:
-                part = unquote(part)
-                local = BASE_DIR / part
+            # URL-decode and get just the filename component
+            parsed = urlparse(url)
+            fname = os.path.basename(unquote(parsed.path))
+            if fname:
+                local = BASE_DIR / fname
                 if local.exists():
+                    print(f'[RESOLVE] URL filename -> {local}', file=sys.stderr, flush=True)
                     return str(local)
 
         # Priority 3: Search by filename match in BASEDIR

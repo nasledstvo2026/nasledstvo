@@ -765,7 +765,7 @@
 
 <script>
 // ─── Config ───
-const VPS_BASE = 'http://176.123.162.12';
+const VPS_BASE = 'https://176.123.162.12/aidj';
 function api(path) { return VPS_BASE + path; }
 let editingId = null;
 let allTracks = [];
@@ -787,7 +787,7 @@ const deleteName = $('deleteName');
 
 function absTrackUrl(url) {
   if (!url || url.startsWith('http')) return url;
-  return VPS_BASE + '/aidj/' + url.replace(/^aidj\/|^\//g, '');
+  return VPS_BASE + '/' + url.replace(/^aidj\/|^\//g, '');
 }
 
 async function fetchGitTracks() {
