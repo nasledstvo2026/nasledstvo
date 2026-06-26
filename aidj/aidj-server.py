@@ -446,6 +446,25 @@ def api_delete_tracks():
         encoding='utf-8'
     )
 
+    # Push changes to GitHub Pages
+    try:
+        import subprocess
+        workspace = str(BASE_DIR.parent)
+        subprocess.run(
+            ['git', '-C', workspace, 'add', 'aidj/tracks.json'],
+            capture_output=True, timeout=10
+        )
+        subprocess.run(
+            ['git', '-C', workspace, 'commit', '-m', 'aidj: delete tracks via web'],
+            capture_output=True, timeout=10
+        )
+        subprocess.run(
+            ['git', '-C', workspace, 'push'],
+            capture_output=True, timeout=30
+        )
+    except Exception as e:
+        print(f'[WARN] Git push failed: {e}', file=sys.stderr)
+
     msg = f'Удалено {removed} треков из каталога'
     if errors:
         msg += f'. Ошибки: {"; ".join(errors)}'

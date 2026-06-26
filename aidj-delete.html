@@ -377,16 +377,25 @@
 
   <script>
     const API_BASE = 'https://176.123.162.12/aidj';
+    const GITHUB_BASE = 'https://nasledstvo2026.github.io/nasledstvo';
     let tracks = [];
 
     async function loadTracks() {
       try {
-        const resp = await fetch(API_BASE + '/tracks.json');
-        if (!resp.ok) throw new Error('API unavailable');
+        // Load from GitHub Pages (same origin — no CORS issues)
+        const resp = await fetch(GITHUB_BASE + '/aidj/tracks.json');
+        if (!resp.ok) throw new Error('GitHub unavailable');
         tracks = await resp.json();
       } catch(e) {
-        showAlert('Не удалось загрузить коллекцию треков', 'error');
-        return;
+        // Fallback: try VPS directly
+        try {
+          const resp = await fetch(API_BASE + '/tracks.json');
+          if (!resp.ok) throw new Error('VPS unavailable');
+          tracks = await resp.json();
+        } catch(e2) {
+          showAlert('Не удалось загрузить коллекцию треков. Возможно, самоподписанный сертификат VPS блокируется браузером. Откройте https://176.123.162.12/aidj/tracks.json и примите предупреждение один раз.', 'error');
+          return;
+        }
       }
 
       document.getElementById('loading').style.display = 'none';
