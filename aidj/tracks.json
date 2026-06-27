@@ -1,5 +1,12 @@
 [
   {
+    "title": "Insomnia",
+    "artist": "Faithless",
+    "url": "aidj/Faithless - Insomnia.mp3",
+    "duration": "3:33",
+    "bpm": null
+  },
+  {
     "title": "Fantazia 1997",
     "artist": "Paul Oakenfold",
     "url": "aidj/Paul Oakenfold - Fantazia 1997.mp3",
@@ -11,6 +18,13 @@
     "artist": "Paul Oakenfold",
     "url": "aidj/Paul Oakenfold - Hypnotized.mp3",
     "duration": "5:09",
+    "bpm": null
+  },
+  {
+    "title": "Московская ночь",
+    "artist": "Данко",
+    "url": "aidj/Данко - Московская ночь.mp3",
+    "duration": "4:18",
     "bpm": null
   },
   {
