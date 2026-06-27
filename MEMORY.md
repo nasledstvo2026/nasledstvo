@@ -55,9 +55,26 @@
 - **DJ Set'ы:** CRUD в `aidj/sets/set-*.json`, создание/редактирование через веб-интерфейс
 - **Track list:** единый `aidj/tracks.json` — обновляется Лунтом при добавлении трека
 - **Dropbox:** отключён из продукта AI DJ (24.06.2026)
-- **Cloudflare Tunnel:** отключён (24.06.2026) — работает напрямую через nginx
-- **GitHub Pages:** `djset.html` — редирект на VPS
-- **В репозитории:** только `aidj/tracks.json` и `aidj/djset.html` (редирект). Серверные файлы, mp3, ssl — в `.gitignore`
+- **GitHub Pages:** `djset.html` — редирект на VPS; `aidj-delete.html` — страница удаления треков
+- **В репозитории:** `aidj/tracks.json`, `aidj/djset.html`, `aidj-delete.html`. Серверные файлы, mp3, ssl — в `.gitignore`
+
+### AI DJ — архитектура доступа (27.06.2026)
+```
+[Браузер] → GitHub Pages (HTTPS)
+  └─ aidj-delete.html ← ты сюда
+       └─ fetch() → Cloudflare Tunnel (HTTPS, валидный сертификат)
+            └─ https://*.trycloudflare.com
+                 └─ cloudflared (VPS, systemd-сервис)
+                      └─ http://localhost:8766
+                           └─ Flask (aidj-server.py)
+                                ├─ GET  /tracks.json         — список треков
+                                ├─ POST /api/tracks/delete    — удаление треков
+                                └─ POST /api/log              — client-side логирование
+```
+- **27.06.2026:** Cloudflare Tunnel переподнят как quick tunnel (без аккаунта). URL генерируется при каждом старте сервиса (`cloudflared-aidj.service`). Для постоянного URL нужен named tunnel с API токеном.
+- **Проблема:** Safari на iOS блокирует HTTP и self-signed HTTPS. Решение: Cloudflare Tunnel даёт валидный сертификат.
+- **Client-side логирование:** `aidj-delete.html` отправляет `POST /api/log` при загрузке и ошибках. Логи в `journalctl -u aidj-server | grep CLIENT-LOG`.
+- **Если туннель перестал работать:** перезапустить `sudo systemctl restart cloudflared-aidj.service`, получить новый URL из лога, обновить URL в `aidj-delete.html` и перепубликовать на GitHub Pages.
 
 ### Модели LLM
 - **deepseek/deepseek-v4-flash** — primary модель (чат в Telegram + новые сессии) с 19.06.2026
