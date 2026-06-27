@@ -48,7 +48,7 @@
 - **SSH ключ GitHub:** `~/.ssh/id_ed25519` (добавлен на аккаунт nasledstvo2026)
 - **Ключ Timeweb удалён:** `~/.ssh/timeweb` не используется
 
-### AI DJ — полная архитектура продукта (27.06.2026)
+### AI DJ — полная архитектура продукта (28.06.2026)
 
 #### Серверная часть
 - **Flask-сервер:** `aidj-server.py` на порт 8766, nginx `/aidj/` → `localhost:8766`
@@ -80,6 +80,19 @@
 - **tracks.json:** там же. При удалении трека через веб — mp3 стирается автоматически
 - **В репозитории GitHub:** только html-страницы, server.py и tracks.json. mp3 в `.gitignore`
 - **Страницы на GitHub Pages:** `aidj-delete.html`, `aidj-player.html`, `djset.html`
+
+#### Club EQ (28.06.2026)
+- Фиксированный пресет Club, без UI, без слайдеров
+- Реализация: Web Audio API, цепочка BiquadFilter-ов
+- Цепочка: `source → GainNode → f60(lowshelf +4dB) → f250(peak +3dB) → f1k(peak -2dB) → f4k(peak +3dB) → f12k(highshelf +2dB) → destination`
+- **Важно: фильтры подключаются ПОСЛЕ GainNode, а не до.** GainNode → фильтры → destination. Не наоборот.
+- AudioContext инициализируется при первом нажатии Play (Chrome autoplay policy)
+- `togglePlay` — создаёт AudioContext, вызывает resume() из suspended, подключает audio к цепочке, только потом play()
+- refresh-кнопка: сбрасывает AudioContext (close + null), все старые MediaElementSource умирают вместе с DOM
+- `eqConnected[trackIdx]` — защита от двойного `createMediaElementSource` для одного трека
+- `preload="none"` на audio-элементе — работает корректно, createMediaElementSource не требует загруженного медиа
+- `crossorigin="anonymous"` добавлен на audio для Web Audio API
+- Cloudflare Tunnel отдаёт `Access-Control-Allow-Origin: *` — CORS не проблема
 
 #### Добавление нового трека (алгоритм для Лунта)
 **Приоритет поиска mp3 (навсегда):**

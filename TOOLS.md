@@ -2,6 +2,18 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
+## LegalMCP — Юридический MCP-сервер
+- **MCP-токен:** `lmcp_npXn_t9-i6EWaLdqU-xq6RAvwhc0Y1-S6PQ1iQHHPF4`
+- **URL:** https://legalmcp.ru/mcp
+- **Лимит:** 100 запросов/мес (бесплатно)
+- **Скрипт обновления:** `scripts/legalmcp-update.py`
+- **База знаний:** `knowledge/katrin/weekly-update.md`
+- **Аккаунт:** 9215691@inbox.ru (зарегистрирован 28.06.2026)
+- **Зарегистрированные NDA:** 44-ФЗ, 224-ФЗ, ПП РФ №620, ПП №1875, Честный ЗНАК
+- **Cron:** пн/ср/пт 09:30
+- **Актуальность данных:** кодексы свежие (апрель 2026), постановления (март 2026)
+- **Статус:** работает, влезает в бесплатный лимит (84 вызова/мес из 100)
+
 ## Dropbox
 
 - **SDK:** Python dropbox 12.0.2 (`pip3 install dropbox --break-system-packages`)
