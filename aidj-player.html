@@ -174,28 +174,24 @@ function initAudioContext() {
   if (audioCtx) return;
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   
-  // Club EQ presets: [frequency, type, gain, Q]
-  // Chain: source -> lowshelf(60,+4) -> peak(250,+3) -> peak(1k,-2) -> peak(4k,+3) -> highshelf(12k,+2) -> gain -> destination
-  
   eqGain = audioCtx.createGain();
   eqGain.gain.value = 1.0;
+  eqGain.connect(audioCtx.destination);
   
+  // Club EQ — BiquadFilter chain
   var f60  = audioCtx.createBiquadFilter(); f60.type = 'lowshelf';  f60.frequency.value = 60;   f60.gain.value = 4;  f60.Q.value = 0.7;
   var f250 = audioCtx.createBiquadFilter(); f250.type = 'peaking';  f250.frequency.value = 250;  f250.gain.value = 3;  f250.Q.value = 0.7;
   var f1k  = audioCtx.createBiquadFilter(); f1k.type = 'peaking';   f1k.frequency.value = 1000; f1k.gain.value = -2; f1k.Q.value = 0.7;
   var f4k  = audioCtx.createBiquadFilter(); f4k.type = 'peaking';   f4k.frequency.value = 4000; f4k.gain.value = 3;  f4k.Q.value = 0.7;
   var f12k = audioCtx.createBiquadFilter(); f12k.type = 'highshelf';f12k.frequency.value = 12000;f12k.gain.value = 2;  f12k.Q.value = 0.7;
   
-  // Build series: f60 -> f250 -> f1k -> f4k -> f12k -> gain -> destination
   f60.connect(f250);
   f250.connect(f1k);
   f1k.connect(f4k);
   f4k.connect(f12k);
   f12k.connect(eqGain);
-  eqGain.connect(audioCtx.destination);
   
   eqFirstFilter = f60;
-  console.log('[AI DJ] Club EQ initialised: 60Hz(+4) 250Hz(+3) 1kHz(-2) 4kHz(+3) 12kHz(+2)');
 }
 
 function connectToEQ(trackEl, trackIdx) {
@@ -206,11 +202,10 @@ function connectToEQ(trackEl, trackIdx) {
   if (!audioEl) return;
   try {
     var src = audioCtx.createMediaElementSource(audioEl);
-    src.connect(eqFirstFilter);
+    src.connect(eqGain);
     eqConnected[trackIdx] = true;
-    console.log('[AI DJ] Track #'+trackIdx+' connected to EQ');
   } catch(e) {
-    console.warn('[AI DJ] EQ connect error:', e.message);
+    console.warn('[AI DJ] EQ error:', e.message);
   }
 }
 
@@ -263,7 +258,7 @@ function buildTrackHTML(track, idx) {
     + '</div>'
     + '<button class="vol-btn" onclick="toggleMute(this)" title="Mute">🔊</button>'
     + '</div>'
-    + '<audio preload="none" style="display:none"><source src="'+src+'" type="audio/mpeg"></audio>'
+    + '<audio preload="none" crossorigin="anonymous" style="display:none"><source src="'+src+'" type="audio/mpeg"></audio>'
     + '</div></div>';
 }
 
