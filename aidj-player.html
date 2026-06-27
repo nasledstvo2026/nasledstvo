@@ -166,66 +166,51 @@
 <script>
 // ---- Web Audio API: Club EQ chain ----
 var audioCtx = null;
+var eqFirstFilter = null;
 var eqGain = null;
-var eqFilters = [];
+var eqConnected = {};
 
 function initAudioContext() {
   if (audioCtx) return;
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   
   // Club EQ presets: [frequency, type, gain, Q]
-  var clubPreset = [
-    { freq: 60,  type: 'lowshelf', gain: 4,  Q: 0.7 },
-    { freq: 250, type: 'peaking',  gain: 3,  Q: 0.7 },
-    { freq: 1000,type: 'peaking',  gain: -2, Q: 0.7 },
-    { freq: 4000,type: 'peaking',  gain: 3,  Q: 0.7 },
-    { freq: 12000,type: 'highshelf',gain: 2, Q: 0.7 }
-  ];
+  // Chain: source -> lowshelf(60,+4) -> peak(250,+3) -> peak(1k,-2) -> peak(4k,+3) -> highshelf(12k,+2) -> gain -> destination
   
   eqGain = audioCtx.createGain();
-  eqGain.gain.value = 1;
+  eqGain.gain.value = 1.0;
+  
+  var f60  = audioCtx.createBiquadFilter(); f60.type = 'lowshelf';  f60.frequency.value = 60;   f60.gain.value = 4;  f60.Q.value = 0.7;
+  var f250 = audioCtx.createBiquadFilter(); f250.type = 'peaking';  f250.frequency.value = 250;  f250.gain.value = 3;  f250.Q.value = 0.7;
+  var f1k  = audioCtx.createBiquadFilter(); f1k.type = 'peaking';   f1k.frequency.value = 1000; f1k.gain.value = -2; f1k.Q.value = 0.7;
+  var f4k  = audioCtx.createBiquadFilter(); f4k.type = 'peaking';   f4k.frequency.value = 4000; f4k.gain.value = 3;  f4k.Q.value = 0.7;
+  var f12k = audioCtx.createBiquadFilter(); f12k.type = 'highshelf';f12k.frequency.value = 12000;f12k.gain.value = 2;  f12k.Q.value = 0.7;
+  
+  // Build series: f60 -> f250 -> f1k -> f4k -> f12k -> gain -> destination
+  f60.connect(f250);
+  f250.connect(f1k);
+  f1k.connect(f4k);
+  f4k.connect(f12k);
+  f12k.connect(eqGain);
   eqGain.connect(audioCtx.destination);
   
-  // Build chain: firstFilter -> secondFilter -> ... -> lastFilter -> eqGain -> destination
-  // We'll store them in order (freq ascending) so we can connect source -> firstFilter
-  var filterNodes = [];
-  clubPreset.forEach(function(p) {
-    var f = audioCtx.createBiquadFilter();
-    f.type = p.type;
-    f.frequency.value = p.freq;
-    f.gain.value = p.gain;
-    f.Q.value = p.Q;
-    filterNodes.push(f);
-  });
-  
-  // Connect filters in series: f0 -> f1 -> f2 -> f3 -> f4 -> eqGain
-  for (var i = 0; i < filterNodes.length; i++) {
-    if (i === 0) {
-      filterNodes[i].connect(filterNodes[i+1] || eqGain);
-    } else if (i === filterNodes.length - 1) {
-      filterNodes[i].connect(eqGain);
-    } else {
-      filterNodes[i].connect(filterNodes[i+1]);
-    }
-  }
-  
-  eqFilters = filterNodes;
+  eqFirstFilter = f60;
+  console.log('[AI DJ] Club EQ initialised: 60Hz(+4) 250Hz(+3) 1kHz(-2) 4kHz(+3) 12kHz(+2)');
 }
-
-var eqConnected = {}; // track index -> bool
 
 function connectToEQ(trackEl, trackIdx) {
   if (eqConnected[trackIdx]) return;
   if (!audioCtx) initAudioContext();
-  if (!audioCtx || eqFilters.length === 0) return;
+  if (!audioCtx || !eqFirstFilter) return;
   var audioEl = getAudio(trackEl);
   if (!audioEl) return;
   try {
     var src = audioCtx.createMediaElementSource(audioEl);
-    src.connect(eqFilters[0]);
+    src.connect(eqFirstFilter);
     eqConnected[trackIdx] = true;
+    console.log('[AI DJ] Track #'+trackIdx+' connected to EQ');
   } catch(e) {
-    // Если createMediaElementSource уже был вызван для этого элемента — игнорируем
+    console.warn('[AI DJ] EQ connect error:', e.message);
   }
 }
 
@@ -241,9 +226,7 @@ function stopAllExcept(e) { document.querySelectorAll('.track.playing').forEach(
 function togglePlay(btn) { var t=btn.closest('.track'); var a=getAudio(t); if(a.paused) {
     // Init AudioContext and connect to EQ on first user interaction
     var idx = parseInt(t.getAttribute('data-track'));
-    if (!audioCtx || audioCtx.state === 'suspended') {
-      initAudioContext();
-    }
+    initAudioContext();
     if (audioCtx && audioCtx.state === 'suspended') {
       audioCtx.resume();
     }
@@ -289,7 +272,7 @@ function loadTracks() {
   if (audioCtx) {
     audioCtx.close();
     audioCtx = null;
-    eqFilters = [];
+    eqFirstFilter = null;
     eqGain = null;
     eqConnected = {};
   }
