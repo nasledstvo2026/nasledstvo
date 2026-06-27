@@ -48,23 +48,16 @@
 - **SSH ключ GitHub:** `~/.ssh/id_ed25519` (добавлен на аккаунт nasledstvo2026)
 - **Ключ Timeweb удалён:** `~/.ssh/timeweb` не используется
 
-### AI DJ — проект (24.06.2026)
-- **Сервер:** Flask (`aidj-server.py`) на порт 8766, проброшен через nginx `/aidj/` → `localhost:8766`
-- **Доступ:** `https://176.123.162.12/aidj/` (self-signed cert, принять 1 раз)
+### AI DJ — полная архитектура продукта (27.06.2026)
+
+#### Серверная часть
+- **Flask-сервер:** `aidj-server.py` на порт 8766, nginx `/aidj/` → `localhost:8766`
 - **Engine:** `aidj-engine.py` (librosa + ffmpeg) — BPM/key detection, beat-synced crossfade
-- **DJ Set'ы:** CRUD в `aidj/sets/set-*.json`, создание/редактирование через веб-интерфейс
-- **Track list:** единый `aidj/tracks.json` — обновляется Лунтом при добавлении трека
-- **Dropbox:** отключён из продукта AI DJ (24.06.2026)
-- **GitHub Pages:** `djset.html` — редирект на VPS; `aidj-delete.html`, `aidj-player.html` — страницы, читающие tracks.json через Cloudflare Tunnel
-- **В репозитории:** `aidj/tracks.json`, `aidj/djset.html`, `aidj-delete.html`, `aidj-player.html`. Серверные файлы, mp3, ssl — в `.gitignore`
+- **DJ Set'ы:** `aidj/sets/set-*.json`, CRUD через веб-интерфейс
+- **Track list:** единый `aidj/tracks.json` — живёт на VPS, обновляется при добавлении/удалении треков
+- **Доступ к API напрямую:** `https://176.123.162.12/aidj/` (self-signed cert, только для curl, браузер не примет)
 
-### AI DJ — добавление треков
-**Приоритет поиска mp3 (навсегда):**
-1. **VK Music / Mail.ru** — через yt-dlp: `yt-dlp -f 0 -o "<file>" "https://my.mail.ru/music/search/<запрос>"`
-2. Hitmotop / музпоисковики — fallback
-3. Яндекс.Музыка — только метаданные (через yandex-music библиотеку)
-
-### AI DJ — архитектура доступа (27.06.2026)
+#### Внешний доступ
 ```
 [Браузер] → GitHub Pages (HTTPS)
   ├─ aidj-delete.html — удаление треков
@@ -78,11 +71,31 @@
                                 ├─ POST /api/tracks/delete    — удаление треков
                                 └─ POST /api/log              — client-side логирование
 ```
-- **27.06.2026:** Cloudflare Tunnel переподнят как quick tunnel (без аккаунта). URL генерируется при каждом старте сервиса (`cloudflared-aidj.service`). Для постоянного URL нужен named tunnel с API токеном.
-- **Проблема:** Safari на iOS блокирует HTTP и self-signed HTTPS. Решение: Cloudflare Tunnel даёт валидный сертификат.
-- **Client-side логирование:** `aidj-delete.html` отправляет `POST /api/log` при загрузке и ошибках. Логи в `journalctl -u aidj-server | grep CLIENT-LOG`.
-- **Если туннель перестал работать:** перезапустить `sudo systemctl restart cloudflared-aidj.service`, получить новый URL из лога, обновить URL в `aidj-delete.html` и `aidj-player.html`, перепубликовать на GitHub Pages.
-- **Все страницы читают tracks.json с VPS (через Cloudflare Tunnel) — единый источник данных.** Рассинхронизация GitHub Pages (статический tracks.json) vs VPS (живой) больше не проблема.
+- **Cloudflare Tunnel** — quick tunnel, URL меняется при каждом рестарте `cloudflared-aidj.service`
+- **Если туннель упал:** `sudo systemctl restart cloudflared-aidj.service`, получить новый URL из лога, обновить URL в `aidj-delete.html` и `aidj-player.html`, перепубликовать на GitHub Pages
+- **Логи:** `sudo journalctl -u aidj-server | grep CLIENT-LOG`
+
+#### Хранение файлов
+- **mp3:** на VPS в `/home/user1/.openclaw/workspace/aidj/`
+- **tracks.json:** там же. При удалении трека через веб — mp3 стирается автоматически
+- **В репозитории GitHub:** только html-страницы, server.py и tracks.json. mp3 в `.gitignore`
+- **Страницы на GitHub Pages:** `aidj-delete.html`, `aidj-player.html`, `djset.html`
+
+#### Добавление нового трека (алгоритм для Лунта)
+**Приоритет поиска mp3 (навсегда):**
+1. **VK Music / Mail.ru** — через yt-dlp:
+   - Команда: `yt-dlp -f 0 -o "<path>/aidj/<filename>.mp3" "https://my.mail.ru/music/search/<поисковый запрос>"`
+   - Получает полный mp3 128-160kbps
+   - Западные группы (Guns N' Roses, Rolling Stones) могут быть недоступны в РФ
+2. **Hitmotop / музпоисковики** — fallback, если в VK нет
+   - URL: `https://rus.hitmotop.com/song/<id>` или `https://rus.hitmoz.org/song/<id>`
+3. **Яндекс.Музыка** — только метаданные (токен в TOOLS.md, библиотека `yandex-music`). Скачивание даёт только preview 30 сек
+
+**После скачивания:**
+- Имя файла: латиница без пробелов, подчёркивания вместо пробелов
+- `tracks.json`: URL через Cloudflare Tunnel — `https://*.trycloudflare.com/<filename>.mp3`
+- Проверить curl что mp3 отдаётся через туннель (HTTP 200)
+- Git add + commit + push (только tracks.json, mp3 в .gitignore)
 
 ### Модели LLM
 - **deepseek/deepseek-v4-flash** — primary модель (чат в Telegram + новые сессии) с 19.06.2026
