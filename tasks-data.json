@@ -5,10 +5,10 @@
     "schedule": "Ежедневно 23:50",
     "success_rate": 67,
     "duration_pct": 12,
-    "latency_min": 2.1,
+    "latency_min": 0.0,
     "cache_hit_pct": 85,
-    "cost_per_run": 0.0069,
-    "last_run": "25.06 23:52",
+    "cost_per_run": 0.0068,
+    "last_run": "26.06 23:50",
     "tip": "Увеличить таймаут с 60 до 90 с."
   },
   {
@@ -100,11 +100,11 @@
     "author": "Лена",
     "schedule": "Пн–Пт 23:55",
     "success_rate": 100,
-    "duration_pct": 10,
-    "latency_min": 0.0,
-    "cache_hit_pct": 60,
-    "cost_per_run": 0.0066,
-    "last_run": "25.06 23:55",
+    "duration_pct": 16,
+    "latency_min": 0,
+    "cache_hit_pct": 75,
+    "cost_per_run": 0.0086,
+    "last_run": "26.06 23:55",
     "tip": "Таймаут увеличен до 90 с. (применено)"
   },
   {
