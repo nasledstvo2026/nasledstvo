@@ -380,7 +380,7 @@
 
     async function loadTracks() {
       try {
-        const resp = await fetch('tracks.json');
+        const resp = await fetch('http://176.123.162.12/aidj/tracks.json');
         if (!resp.ok) throw new Error('unavailable');
         tracks = await resp.json();
       } catch(e) {
@@ -489,7 +489,7 @@
       showAlert('Удаление...', '');
 
       try {
-        const resp = await fetch('https://consolidation-revelation-validity-possibilities.trycloudflare.com/api/tracks/delete', {
+        const resp = await fetch('http://176.123.162.12/aidj/api/tracks/delete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ urls })
