@@ -164,6 +164,64 @@
   </div>
 </div>
 <script>
+// ---- Web Audio API: Club EQ chain ----
+var audioCtx = null;
+var eqGain = null;
+var eqFilters = [];
+
+function initAudioContext() {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  
+  // Club EQ presets: [frequency, type, gain, Q]
+  var clubPreset = [
+    { freq: 60,  type: 'lowshelf', gain: 4,  Q: 0.7 },
+    { freq: 250, type: 'peaking',  gain: 3,  Q: 0.7 },
+    { freq: 1000,type: 'peaking',  gain: -2, Q: 0.7 },
+    { freq: 4000,type: 'peaking',  gain: 3,  Q: 0.7 },
+    { freq: 12000,type: 'highshelf',gain: 2, Q: 0.7 }
+  ];
+  
+  eqGain = audioCtx.createGain();
+  eqGain.gain.value = 1;
+  eqGain.connect(audioCtx.destination);
+  
+  // Build chain: firstFilter -> secondFilter -> ... -> lastFilter -> eqGain -> destination
+  // We'll store them in order (freq ascending) so we can connect source -> firstFilter
+  var filterNodes = [];
+  clubPreset.forEach(function(p) {
+    var f = audioCtx.createBiquadFilter();
+    f.type = p.type;
+    f.frequency.value = p.freq;
+    f.gain.value = p.gain;
+    f.Q.value = p.Q;
+    filterNodes.push(f);
+  });
+  
+  // Connect filters in series: f0 -> f1 -> f2 -> f3 -> f4 -> eqGain
+  for (var i = 0; i < filterNodes.length; i++) {
+    if (i === 0) {
+      filterNodes[i].connect(filterNodes[i+1] || eqGain);
+    } else if (i === filterNodes.length - 1) {
+      filterNodes[i].connect(eqGain);
+    } else {
+      filterNodes[i].connect(filterNodes[i+1]);
+    }
+  }
+  
+  eqFilters = filterNodes;
+}
+
+function connectToEQ(audioEl) {
+  if (!audioCtx) {
+    initAudioContext();
+  }
+  if (!audioCtx || eqFilters.length === 0) return;
+  var src = audioCtx.createMediaElementSource(audioEl);
+  // source -> first filter in chain
+  src.connect(eqFilters[0]);
+}
+
 function escHtml(s) { var d=document.createElement('div'); d.appendChild(document.createTextNode(s)); return d.innerHTML; }
 function getAudio(t) { return t.querySelector('audio'); }
 function getPlayBtn(t) { return t.querySelector('.play-btn'); }
@@ -173,7 +231,12 @@ function getTotalTime(t) { return t.querySelector('.time.total'); }
 function formatTime(s) { if(!s||isNaN(s)) return '0:00'; var m=Math.floor(s/60); var sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
 function parseDuration(d) { if(!d) return NaN; if(typeof d === 'number') return d; var parts=d.split(':'); if(parts.length===2) return parseInt(parts[0])*60+parseInt(parts[1]); if(parts.length===3) return parseInt(parts[0])*3600+parseInt(parts[1])*60+parseInt(parts[2]); return NaN; }
 function stopAllExcept(e) { document.querySelectorAll('.track.playing').forEach(function(t) { if(t!==e) { t.classList.remove('playing'); var a=getAudio(t); a.pause(); a.currentTime=0; getPlayBtn(t).classList.add('paused'); getProgressFill(t).style.width='0%'; getCurrentTime(t).textContent='0:00'; } }); }
-function togglePlay(btn) { var t=btn.closest('.track'); var a=getAudio(t); if(a.paused) { stopAllExcept(t); a.play().then(function(){ t.classList.add('playing'); btn.classList.remove('paused'); }).catch(function(){}); } else { a.pause(); t.classList.remove('playing'); btn.classList.add('paused'); } }
+function togglePlay(btn) { var t=btn.closest('.track'); var a=getAudio(t); if(a.paused) { // init AudioContext on first user interaction (Chrome autoplay policy)
+    if (!audioCtx || audioCtx.state === 'suspended') {
+      initAudioContext();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    }
+    stopAllExcept(t); a.play().then(function(){ t.classList.add('playing'); btn.classList.remove('paused'); }).catch(function(){}); } else { a.pause(); t.classList.remove('playing'); btn.classList.add('paused'); } }
 function seek(e,bar) { var t=bar.closest('.track'); var a=getAudio(t); var r=bar.getBoundingClientRect(); var p=(e.clientX-r.left)/r.width; if(a.duration) a.currentTime=p*a.duration; }
 function toggleMute(btn) { var t=btn.closest('.track'); var a=getAudio(t); a.muted=!a.muted; btn.textContent=a.muted?'🔇':'🔊'; btn.title=a.muted?'Unmute':'Mute'; }
 function updateAll() { document.querySelectorAll('.track.playing').forEach(function(t){ var a=getAudio(t); if(a.duration){ var p=a.currentTime/a.duration; getProgressFill(t).style.width=(p*100)+'%'; } getCurrentTime(t).textContent=formatTime(a.currentTime); getTotalTime(t).textContent=formatTime(a.duration); }); requestAnimationFrame(updateAll); }
@@ -210,6 +273,13 @@ function buildTrackHTML(track, idx) {
 }
 
 function loadTracks() {
+  // При обновлении сбрасываем AudioContext — старые MediaElementSource умирают вместе с DOM
+  if (audioCtx) {
+    audioCtx.close();
+    audioCtx = null;
+    eqFilters = [];
+    eqGain = null;
+  }
   var list = document.getElementById('playerList');
   var msg = document.getElementById('loadingMsg');
   var btn = document.querySelector('.refresh-btn');
@@ -233,6 +303,12 @@ function loadTracks() {
       list.innerHTML = html;
       document.getElementById('statTracks').textContent = data.length;
       document.getElementById('statSize').textContent = totalSize ? (totalSize / 1048576).toFixed(1) : '?';
+      
+      // Подключаем каждый audio к EQ-цепочке
+      document.querySelectorAll('.track').forEach(function(t) {
+        var a = getAudio(t);
+        if (a) connectToEQ(a);
+      });
       
       // Проставить total time из JSON
       document.querySelectorAll('.track').forEach(function(t) {
