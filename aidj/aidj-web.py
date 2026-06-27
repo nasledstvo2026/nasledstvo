@@ -8,7 +8,7 @@ import http.server
 import os
 import socketserver
 
-PORT = 8765
+PORT = 8766
 AIDJ_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
