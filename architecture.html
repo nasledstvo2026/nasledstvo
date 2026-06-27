@@ -26,7 +26,7 @@ svg { width: 100%; max-width: 1100px; margin: 0 auto; display: block; }
 </div>
 
 <div class="svg-wrap">
-<svg viewBox="0 0 1100 1120">
+<svg viewBox="0 0 1100 1180">
 
   <defs>
     <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#58a6ff"/></marker>
@@ -96,8 +96,8 @@ svg { width: 100%; max-width: 1100px; margin: 0 auto; display: block; }
   <line x1="777" y1="74" x2="830" y2="74" stroke="#bc8cff" stroke-width="1" opacity="0.12"/>
 
   <!-- ===== VPS layer ===== -->
-  <rect x="10" y="140" width="1080" height="520" fill="none" stroke="#30363d" stroke-dasharray="4 4" rx="8"/>
-  <text x="20" y="158" font-size="10" fill="#8b949e">VPS vm-f13581 · OpenStack · Linux x64 · Docker (SearXNG)</text>
+  <rect x="10" y="140" width="1080" height="570" fill="none" stroke="#30363d" stroke-dasharray="4 4" rx="8"/>
+  <text x="20" y="158" font-size="10" fill="#8b949e">VPS vm-f13581 · OpenStack · Linux x64 · Docker (SearXNG, cloudflared)</text>
 
   <!-- Telegram → Gateway -->
   <line x1="885" y1="103" x2="885" y2="175" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrp)"/>
@@ -158,7 +158,7 @@ svg { width: 100%; max-width: 1100px; margin: 0 auto; display: block; }
   <line x1="270" y1="480" x2="290" y2="480" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
 
   <!-- ===== LegalMCP (NEW) ===== -->
-  <rect x="530" y="430" width="270" height="140" fill="#0d1117" stroke="#f0883e" stroke-width="2" rx="6"/>
+  <rect x="530" y="430" width="270" height="150" fill="#0d1117" stroke="#f0883e" stroke-width="2" rx="6"/>
   <text x="665" y="452" text-anchor="middle" font-size="12" fill="#f0883e" font-weight="bold">⚖️ LegalMCP</text>
   <text x="665" y="468" text-anchor="middle" font-size="10" fill="#8b949e">MCP-сервер · legalmcp.ru</text>
   <text x="540" y="488" font-size="9" fill="#7ee787">✅ 13 кодексов РФ</text>
@@ -171,7 +171,28 @@ svg { width: 100%; max-width: 1100px; margin: 0 auto; display: block; }
   <line x1="270" y1="530" x2="530" y2="530" stroke="#f0883e" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- ===== Memory ===== -->
-  <rect x="820" y="430" width="230" height="140" fill="#161b22" stroke="#7ee787" stroke-width="1.5" rx="6"/>
+  <!-- ===== AI DJ (NEW) ===== -->
+  <rect x="530" y="595" width="270" height="105" fill="#161b22" stroke="#bc8cff" stroke-width="2" rx="6"/>
+  <text x="665" y="615" text-anchor="middle" font-size="12" fill="#bc8cff" font-weight="bold">🎧 AI DJ (NEW)</text>
+  <text x="665" y="631" text-anchor="middle" font-size="10" fill="#8b949e">Flask · port 8766</text>
+  <text x="540" y="650" font-size="9" fill="#c9d1d9">📁 MP3: /aidj/*.mp3</text>
+  <text x="540" y="666" font-size="9" fill="#c9d1d9">📄 tracks.json (список)</text>
+  <text x="540" y="682" font-size="9" fill="#c9d1d9">🔗 nginx /aidj/ → lvh:8766</text>
+  <text x="540" y="698" font-size="9" fill="#d29922">🌐 Club EQ: Web Audio API</text>
+
+  <!-- AI DJ → Cloudflare Tunnel -->
+  <line x1="800" y1="630" x2="860" y2="630" stroke="#bc8cff" stroke-width="1.5" marker-end="url(#arrp)"/>
+
+  <!-- ===== Cloudflare Tunnel (NEW) ===== -->
+  <rect x="860" y="595" width="200" height="105" fill="#0d1117" stroke="#bc8cff" stroke-width="1.5" rx="6"/>
+  <text x="960" y="615" text-anchor="middle" font-size="11" fill="#bc8cff" font-weight="bold">🌪 Cloudflare Tunnel</text>
+  <text x="960" y="631" text-anchor="middle" font-size="9" fill="#8b949e">systemd cloudflared</text>
+  <text x="960" y="647" text-anchor="middle" font-size="9" fill="#d29922">quick tunnel URL</text>
+  <text x="870" y="666" font-size="9" fill="#c9d1d9">HTTPS (валидный SSL)</text>
+  <text x="870" y="682" font-size="9" fill="#c9d1d9">https://*.trycloudflare.com</text>
+  <text x="870" y="698" font-size="9" fill="#f85149">URL меняется при рестарте</text>
+
+  <rect x="820" y="430" width="240" height="150" fill="#161b22" stroke="#7ee787" stroke-width="1.5" rx="6"/>
   <text x="935" y="452" text-anchor="middle" font-size="11" fill="#7ee787" font-weight="bold">💾 Memory & Базы знаний</text>
   <text x="835" y="472" font-size="9" fill="#c9d1d9">MEMORY.md · AGENTS.md · USER.md</text>
   <text x="835" y="488" font-size="9" fill="#c9d1d9">katya-stats-data.md / katya-data.json</text>
@@ -179,7 +200,8 @@ svg { width: 100%; max-width: 1100px; margin: 0 auto; display: block; }
   <text x="835" y="520" font-size="9" fill="#f0883e">zakupki-knowledge.md (база Катрин)</text>
   <text x="835" y="536" font-size="9" fill="#f0883e">weekly-update.md (LegalMCP cron)</text>
   <text x="835" y="552" font-size="9" fill="#f0883e">product-44fz-224fz.md (архитектура)</text>
-  <text x="835" y="568" font-size="9" fill="#c9d1d9">prompt-activity.json · activity.html</text>
+  <text x="835" y="568" font-size="9" fill="#bc8cff">aidj/ — AI DJ mp3/json</text>
+  <text x="835" y="578" font-size="9" fill="#c9d1d9">prompt-activity.json · activity.html</text>
 
   <!-- ===== Git & GitHub Pages ===== -->
   <rect x="10" y="670" width="1080" height="200" fill="none" stroke="#7ee787" stroke-dasharray="4 4" rx="8"/>
@@ -195,7 +217,9 @@ svg { width: 100%; max-width: 1100px; margin: 0 auto; display: block; }
   <text x="145" y="760" text-anchor="middle" font-size="9" fill="#58a6ff">nasledstvo2026.github.io/nasledstvo</text>
   <text x="35" y="780" font-size="9" fill="#c9d1d9">index.html · stats-inheritance.html</text>
   <text x="35" y="796" font-size="9" fill="#c9d1d9">report-lena.html · report-danil.html</text>
-  <text x="35" y="808" font-size="9" fill="#f0883e">zakupki.html (новый продукт)</text>
+  <text x="35" y="808" font-size="9" fill="#f0883e">zakupki.html (44-ФЗ/224-ФЗ)</text>
+  <text x="35" y="820" font-size="9" fill="#bc8cff">aidj-player.html · aidj-delete.html</text>
+  <text x="35" y="832" font-size="9" fill="#bc8cff">djset.html (AI DJ)</text>
 
   <rect x="290" y="720" width="180" height="95" fill="#161b22" stroke="#58a6ff" stroke-width="1.5" rx="6"/>
   <text x="380" y="742" text-anchor="middle" font-size="11" fill="#58a6ff" font-weight="bold">📦 git-репозиторий</text>
@@ -214,6 +238,7 @@ svg { width: 100%; max-width: 1100px; margin: 0 auto; display: block; }
   <text x="665" y="762" font-size="9" fill="#c9d1d9">publish-report.sh</text>
   <text x="665" y="778" font-size="9" fill="#c9d1d9">upload-to-github.sh</text>
   <text x="665" y="794" font-size="9" fill="#f0883e">legalmcp-update.py (NEW)</text>
+  <text x="665" y="808" font-size="9" fill="#bc8cff">aidj-server.py · aidj-engine.py</text>
 
   <!-- ===== Delivery flow (bottom) ===== -->
   <rect x="10" y="880" width="1080" height="130" fill="none" stroke="#30363d" stroke-dasharray="4 4" rx="8"/>
@@ -279,8 +304,8 @@ svg { width: 100%; max-width: 1100px; margin: 0 auto; display: block; }
   <rect x="635" y="975" width="190" height="28" fill="#0d1117" stroke="#30363d" stroke-width="1" rx="4"/>
   <text x="730" y="993" text-anchor="middle" font-size="9" fill="#f85149">failureAlert → Кириллу</text>
 
-  <rect x="840" y="975" width="190" height="28" fill="#0d1117" stroke="#30363d" stroke-width="1" rx="4"/>
-  <text x="935" y="993" text-anchor="middle" font-size="9" fill="#f0883e">Продукт "44-ФЗ/224-ФЗ" NEW</text>
+  <rect x="840" y="975" width="220" height="28" fill="#0d1117" stroke="#30363d" stroke-width="1" rx="4"/>
+  <text x="950" y="993" text-anchor="middle" font-size="9" fill="#bc8cff">🎧 AI DJ · ⚖️ 44-ФЗ/224-ФЗ</text>
 
 </svg>
 </div>
