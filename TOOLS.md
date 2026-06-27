@@ -15,6 +15,20 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - **App creds:** `~/.dropbox_app_creds` (app_key + app_secret)
 - **Владелец:** 9215691@inbox.ru (Kirill)
 
+## Yandex Music API
+- **Токен:** `y0__wgBEPPn3YsEGI_CRCCe8YSKGLzb3G0HcIjxhfJUCZOS7lYBvqjC` (получен 27.06.2026)
+- **Библиотека:** `yandex-music 3.0.0`
+- **Поиск:** `client.search('текст').tracks.results[0]`
+- **Скачивание:** работает только preview (30 сек). Полный трек — через yt-dlp (mail.ru/VK Music)
+- **Обновление токена:** `curl -X POST 'https://oauth.yandex.ru/token' -d 'grant_type=refresh_token' -d 'refresh_token=***' -d 'client_id=...'`
+
+## VK Music / Mail.ru (yt-dlp)
+- **Приоритет:** #1 при поиске и скачивании mp3 треков
+- **Команда:** `yt-dlp -f 0 -o "output.mp3" "https://my.mail.ru/music/search/<поисковый запрос>"`
+- **Файлы:** полные mp3 128-160kbps, ~10 MB за трек
+- **Поиск ID:** `yt-dlp --print "id,title" "https://my.mail.ru/music/search/<запрос>"`
+- **Guns N' Roses, Rolling Stones** и другие западные группы могут быть недоступны в РФ
+
 ## GitHub Pages (текущий хостинг)
 
 - **Сайт:** https://nasledstvo2026.github.io/nasledstvo/
