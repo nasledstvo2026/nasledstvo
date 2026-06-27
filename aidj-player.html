@@ -216,7 +216,7 @@ function loadTracks() {
   if (btn) btn.disabled = true;
   if (msg) msg.textContent = 'Загрузка треков…';
   
-  fetch('https://nasledstvo2026.github.io/nasledstvo/tracks.json')
+  fetch('https://figure-mental-gentle-focal.trycloudflare.com/tracks.json')
     .then(function(r) {
       if (!r.ok) throw new Error('Ошибка загрузки');
       return r.json();
