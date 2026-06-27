@@ -520,4 +520,4 @@ if __name__ == '__main__':
     print(f"[AI DJ Server] Starting on {scheme}://{HOST}:{p}")
     print(f"[AI DJ Server] Sets dir: {SETS_DIR}")
     print(f"[AI DJ Server] Static dir: {STATIC_DIR}")
-    app.run(host='0.0.0.0', port=p, ssl_context=ssl_ctx, debug=False)
+    app.run(host='127.0.0.1', port=p, ssl_context=ssl_ctx, debug=False)

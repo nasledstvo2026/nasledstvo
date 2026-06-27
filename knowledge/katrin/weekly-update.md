@@ -1,4 +1,4 @@
-# Обновление базы знаний (legal) – 28.06.2026 01:07
+# Обновление базы знаний (legal) – 28.06.2026 01:50
 
 Источник: LegalMCP (MCP-сервер, https://legalmcp.ru)
 Официальные первоисточники: pravo.gov.ru, publication.pravo.gov.ru
