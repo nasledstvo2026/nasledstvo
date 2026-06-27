@@ -479,6 +479,31 @@ def serve_delete_page():
 
 
 # ══════════════════════════════════════════
+#   Client-side log endpoint
+# ══════════════════════════════════════════
+
+@app.route('/api/log', methods=['POST'])
+def api_client_log():
+    body = request.get_json(silent=True) or {}
+    event = body.get('event', 'unknown')
+    details = body.get('details', {})
+    user_agent = body.get('userAgent', 'unknown')
+    timestamp = body.get('timestamp', datetime.now(timezone.utc).isoformat())
+    screen = body.get('screen', 'unknown')
+
+    log_line = (
+        f"[CLIENT-LOG] {timestamp}"
+        f" | event={event}"
+        f" | details={json.dumps(details, ensure_ascii=False)}"
+        f" | screen={screen}"
+        f" | ua={user_agent[:100]}"
+    )
+    print(log_line, file=sys.stderr, flush=True)
+
+    return jsonify({'ok': True})
+
+
+# ══════════════════════════════════════════
 #   Main
 # ══════════════════════════════════════════
 
