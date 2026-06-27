@@ -58,6 +58,12 @@
 - **GitHub Pages:** `djset.html` — редирект на VPS; `aidj-delete.html`, `aidj-player.html` — страницы, читающие tracks.json через Cloudflare Tunnel
 - **В репозитории:** `aidj/tracks.json`, `aidj/djset.html`, `aidj-delete.html`, `aidj-player.html`. Серверные файлы, mp3, ssl — в `.gitignore`
 
+### AI DJ — добавление треков
+**Приоритет поиска mp3 (навсегда):**
+1. **VK Music / Mail.ru** — через yt-dlp: `yt-dlp -f 0 -o "<file>" "https://my.mail.ru/music/search/<запрос>"`
+2. Hitmotop / музпоисковики — fallback
+3. Яндекс.Музыка — только метаданные (через yandex-music библиотеку)
+
 ### AI DJ — архитектура доступа (27.06.2026)
 ```
 [Браузер] → GitHub Pages (HTTPS)
