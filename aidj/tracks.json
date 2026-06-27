@@ -1,30 +1,30 @@
 [
   {
-    "title": "Fantazia 1997",
-    "artist": "Paul Oakenfold",
-    "url": "https://figure-mental-gentle-focal.trycloudflare.com/Paul_Oakenfold_Fantazia_1997.mp3",
+    "title": "_Veter",
+    "artist": "Brainstorm_",
+    "url": "aidj/Brainstorm_-_Veter.mp3",
+    "duration": "3:53",
+    "bpm": null
+  },
+  {
+    "title": "Paul_Oakenfold_Fantazia_1997",
+    "artist": "Unknown",
+    "url": "aidj/Paul_Oakenfold_Fantazia_1997.mp3",
     "duration": "72:19",
     "bpm": null
   },
   {
-    "title": "Hypnotized",
-    "artist": "Paul Oakenfold",
-    "url": "https://figure-mental-gentle-focal.trycloudflare.com/Paul_Oakenfold_Hypnotized.mp3",
+    "title": "Paul_Oakenfold_Hypnotized",
+    "artist": "Unknown",
+    "url": "aidj/Paul_Oakenfold_Hypnotized.mp3",
     "duration": "5:09",
     "bpm": null
   },
   {
-    "title": "Эй, дискжокей",
-    "artist": "Сенатор",
-    "url": "https://figure-mental-gentle-focal.trycloudflare.com/Senator_Ej_diskzhokej.mp3",
+    "title": "Senator_Ej_diskzhokej",
+    "artist": "Unknown",
+    "url": "aidj/Senator_Ej_diskzhokej.mp3",
     "duration": "4:08",
-    "bpm": null
-  },
-  {
-    "title": "Ветер",
-    "artist": "Brainstorm",
-    "url": "https://figure-mental-gentle-focal.trycloudflare.com/Brainstorm_-_Veter.mp3",
-    "duration": "3:53",
     "bpm": null
   }
 ]
