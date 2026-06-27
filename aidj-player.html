@@ -203,6 +203,20 @@ function connectToEQ(trackEl, trackIdx) {
   try {
     var src = audioCtx.createMediaElementSource(audioEl);
     src.connect(eqGain);
+    // Chain: source -> gain -> f60 -> f250 -> f1k -> f4k -> f12k -> destination
+    // Rewire: disconnect gain from destination, insert filters in between
+    eqGain.disconnect();
+    var f60  = audioCtx.createBiquadFilter(); f60.type = 'lowshelf';  f60.frequency.value = 60;   f60.gain.value = 4;  f60.Q.value = 0.7;
+    var f250 = audioCtx.createBiquadFilter(); f250.type = 'peaking';  f250.frequency.value = 250;  f250.gain.value = 3;  f250.Q.value = 0.7;
+    var f1k  = audioCtx.createBiquadFilter(); f1k.type = 'peaking';   f1k.frequency.value = 1000; f1k.gain.value = -2; f1k.Q.value = 0.7;
+    var f4k  = audioCtx.createBiquadFilter(); f4k.type = 'peaking';   f4k.frequency.value = 4000; f4k.gain.value = 3;  f4k.Q.value = 0.7;
+    var f12k = audioCtx.createBiquadFilter(); f12k.type = 'highshelf';f12k.frequency.value = 12000;f12k.gain.value = 2;  f12k.Q.value = 0.7;
+    eqGain.connect(f60);
+    f60.connect(f250);
+    f250.connect(f1k);
+    f1k.connect(f4k);
+    f4k.connect(f12k);
+    f12k.connect(audioCtx.destination);
     eqConnected[trackIdx] = true;
   } catch(e) {
     console.warn('[AI DJ] EQ error:', e.message);
