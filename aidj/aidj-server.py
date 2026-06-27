@@ -418,8 +418,10 @@ def api_delete_tracks():
     new_tracks = []
     for t in tracks:
         if t.get('url') in urls:
-            # Try to delete the file
-            filepath = BASE_DIR / t.get('url', '').lstrip('/')
+            # Extract filename from full URL (or use relative path)
+            raw_url = t.get('url', '')
+            filename = raw_url.rstrip('/').split('/')[-1]
+            filepath = BASE_DIR / filename
             if filepath.exists():
                 try:
                     filepath.unlink()
@@ -427,16 +429,7 @@ def api_delete_tracks():
                 except Exception as e:
                     errors.append(f"{t.get('title')}: {e}")
             else:
-                # URL may be relative like "aidj/..." 
-                alt_path = BASE_DIR / t.get('url', '')
-                if alt_path.exists():
-                    try:
-                        alt_path.unlink()
-                        removed += 1
-                    except Exception as e:
-                        errors.append(f"{t.get('title')}: {e}")
-                else:
-                    removed += 1  # file already gone, just remove from index
+                removed += 1  # file already gone, just remove from index
         else:
             new_tracks.append(t)
 
