@@ -1,5 +1,6 @@
 #!/bin/bash
-# Инкрементальный бэкап: только изменённые файлы с Timeweb + memory + canvas
+# Инкрементальный бэкап: только изменённые файлы memory + canvas
+# Timeweb отключён (перешли на GitHub Pages 20.06.2026)
 # Запуск: backup-incremental.sh
 # retention: последние 7 дней
 
@@ -11,22 +12,12 @@ mkdir -p "$DIR"
 
 echo "=== Incremental backup ${TS} ==="
 
-HOST="timeweb"
-
-# 1. Timeweb — скачиваем только HTML-файлы
-echo "[1/3] Timeweb (changed files)..."
-mkdir -p "$DIR/timeweb"
-scp "$HOST:~/public_html/"*.html \
-  "$HOST:~/public_html/"*.css \
-  "$HOST:~/public_html/"*.json \
-  "$DIR/timeweb/" 2>/dev/null || echo "  WARNING: Timeweb SCP failed"
-
-# 2. Memory файлы
-echo "[2/3] Memory..."
+# 1. Memory файлы
+echo "[1/2] Memory..."
 cp -r /home/user1/.openclaw/workspace/memory "$DIR/memory" 2>/dev/null || true
 
-# 3. Canvas
-echo "[3/3] Canvas..."
+# 2. Canvas
+echo "[2/2] Canvas..."
 cp /home/user1/.openclaw/canvas/*.html "$DIR/" 2>/dev/null || true
 
 # Размер
