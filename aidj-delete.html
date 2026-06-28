@@ -380,7 +380,7 @@
 
     async function loadTracks() {
       try {
-        const resp = await fetch('https://figure-mental-gentle-focal.trycloudflare.com/tracks.json');
+        const resp = await fetch('https://modify-builders-meals-phd.trycloudflare.com/tracks.json');
         if (!resp.ok) throw new Error('HTTP ' + resp.status + ': ' + resp.statusText);
         tracks = await resp.json();
       } catch(e) {
@@ -491,7 +491,7 @@
       showAlert('Удаление...', '');
 
       try {
-        const resp = await fetch('https://figure-mental-gentle-focal.trycloudflare.com/api/tracks/delete', {
+        const resp = await fetch('https://modify-builders-meals-phd.trycloudflare.com/api/tracks/delete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ urls })
@@ -532,7 +532,7 @@
           screen: screen.width + 'x' + screen.height
         };
         // Send to VPS log endpoint (best-effort, fire-and-forget)
-        await fetch('https://figure-mental-gentle-focal.trycloudflare.com/api/log', {
+        await fetch('https://modify-builders-meals-phd.trycloudflare.com/api/log', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
