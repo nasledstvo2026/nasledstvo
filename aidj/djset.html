@@ -879,7 +879,7 @@ function toggleTracks(id) {
   }
 }
 
-document.getElementById('btnCreateSet').addEventListener('click', () => openCreateModal());
+document.getElementById('btnCreateSet').addEventListener('click', () => { sendLog('open_create_modal', {action: 'open'}); openCreateModal(); });
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalCancel').addEventListener('click', closeModal);
 
@@ -965,6 +965,7 @@ async function editSet(id) {
 }
 
 modalSave.addEventListener('click', async () => {
+  sendLog('save_set', {name: setName.value.trim() || '(empty)', action: editingId ? 'update' : 'create'});
   const name = setName.value.trim();
   if (!name) {
     alert('Введи название DJ Set\'а');
@@ -1006,6 +1007,23 @@ modalSave.addEventListener('click', async () => {
   closeModal();
   loadAllSets();
 });
+
+function sendLog(event, data) {
+  try {
+    const t = new Date().toISOString().slice(11,19);
+    const d = document.getElementById('tracksUpdateLog');
+    const line = '['+t+'] '+event+' — '+JSON.stringify(data);
+    if (d) {
+      d.value += line+'\n';
+      d.scrollTop = d.scrollHeight;
+    }
+    fetch('/api/log', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({event, data, page: 'djset', ts: new Date().toISOString()})
+    }).catch(()=>{});
+  } catch(e){}
+}
 
 function saveSetLocal(payload) {
   let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
