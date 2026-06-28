@@ -296,15 +296,13 @@ def mix_tracks_v2(track_a, track_b, output,
         tolerance = preset_params.get('tempo_tolerance', 0.5)
         bpm_diff = abs(info_a['bpm'] - info_b['bpm'])
         if bpm_diff > tolerance:
-            # Fallback to follow_fastest — stretching beyond ±5% degrades quality
-            preset_tempo_mode = 'follow_fastest'
+            # BPM mismatch too large for lock_tight (stretching beyond ±5-7% degrades quality)
+            # Use fastest BPM instead, but keep ALL other preset params (breakdown_matching, layering, etc.)
             target_bpm = max(info_a['bpm'], info_b['bpm'])
             if verbose:
-                print(f'[AI DJ] ⚠️ BPM diff {bpm_diff:.1f} > ±{tolerance}, falling back to follow_fastest ({target_bpm} BPM)', file=sys.stderr)
+                print(f'[AI DJ] ⚠️ BPM diff {bpm_diff:.1f} > ±{tolerance}, targeting fastest BPM {target_bpm} (preset features preserved)', file=sys.stderr)
         else:
             target_bpm = info_a['bpm']  # follow first track
-            if verbose:
-                print(f'[AI DJ] BPM diff {bpm_diff:.1f} within tolerance ±{tolerance}, lock tight at {target_bpm} BPM', file=sys.stderr)
     else:
         target_bpm = max(info_a['bpm'], info_b['bpm'])
     

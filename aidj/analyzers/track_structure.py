@@ -237,28 +237,34 @@ def find_crossfade_points(structure_a, structure_b, preset_params=None):
     cf = min(cf, dur_a * 0.6, dur_b * 0.8)
 
     if style == 'layering' and preset_params.get('breakdown_matching'):
-        # 🔥 Oakenfold-style: start track B at track A's breakdown
+        # 🔥 Oakenfold-style: start track B on track A's build-up (after breakdown)
         breakdown_a = structure_a.get('main_breakdown_sec', dur_a * 0.7)
 
-        # Start point in track A: a few seconds before its breakdown
-        # Start point in track B: its intro (first energy rise)
-        start_a = max(0, breakdown_a - 8)
-        start_b = 0  # B starts from the beginning, but we want to hit B's structure
+        # Find the build-up after breakdown: first energy peak > 60% after the main breakdown
+        energy_profile = structure_a.get('energy_profile', [])
+        build_up_time = breakdown_a + 8  # fallback: 8s after breakdown
+        if energy_profile:
+            for pt in energy_profile:
+                if pt['time_sec'] > breakdown_a and pt['energy'] > 0.6:
+                    build_up_time = pt['time_sec']
+                    break
+            # Sanity: build-up shouldn't be too far from breakdown
+            if build_up_time > breakdown_a + 20:
+                build_up_time = breakdown_a + 8
 
-        # Find B's first notable event to align
-        intro_b = structure_b.get('intro_duration', 5)
-        first_breakdown_b = structure_b.get('main_breakdown_sec', dur_b * 0.3)
+        start_a = max(0, build_up_time)
+        start_b = 0
 
-        cf_duration = dur_a - start_a  # from breakdown of A to end of A
-        # Cap crossfade — ffmpeg acrossfade struggles beyond ~30s
-        MAX_CROSSFADE = 30
+        # Crossfade: from build-up of A to end of A (capped for ffmpeg compat)
+        cf_duration = dur_a - start_a
+        MAX_CROSSFADE = 20
 
         return {
             'start_in_a': round(start_a, 1),
             'start_in_b': round(start_b, 1),
             'crossfade_duration': round(min(cf_duration, dur_a - 5, MAX_CROSSFADE), 1),
             'method': 'breakdown_matching',
-            'note': f'B starts at A\'s breakdown ({start_a:.0f}s)',
+            'note': f'B starts at A\'s build-up ({start_a:.0f}s, breakdown at {breakdown_a:.0f}s)',
         }
 
     if style == 'layering' and preset_params.get('intro_matching'):
