@@ -765,7 +765,9 @@
 
 <script>
 // ─── Config ───
-const VPS_BASE = 'https://176.123.162.12/aidj';
+// Используем Cloudflare Tunnel вместо прямого IP (self-signed SSL блокируется браузером)
+// При рестарте cloudflared URL меняется — обнови тут или перейди на named tunnel
+const VPS_BASE = 'https://figure-mental-gentle-focal.trycloudflare.com';
 function api(path) { return VPS_BASE + path; }
 let editingId = null;
 let allTracks = [];
