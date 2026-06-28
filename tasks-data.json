@@ -15,12 +15,12 @@
     "task": "Бэкап: полный",
     "author": "Кирилл",
     "schedule": "Вс 03:00",
-    "success_rate": 33,
+    "success_rate": 67,
     "duration_pct": 4,
-    "latency_min": 5.6,
-    "cache_hit_pct": 52,
-    "cost_per_run": 0.0057,
-    "last_run": "21.06 03:05",
+    "latency_min": 3.5,
+    "cache_hit_pct": 50,
+    "cost_per_run": 0.0062,
+    "last_run": "28.06 03:03",
     "tip": "Увеличить таймаут со 120 до 180 с."
   },
   {
