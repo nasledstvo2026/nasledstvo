@@ -92,19 +92,19 @@
 
   <div class="stats-row" style="margin-top:-20px;margin-bottom:30px;">
     <div class="stat-box">
-      <div class="num" id="status-codex">🟢</div>
+      <div class="num" id="status-codex">⏳</div>
       <div class="label">Кодексы</div>
     </div>
     <div class="stat-box">
-      <div class="num" id="status-pp">🟡</div>
+      <div class="num" id="status-pp">⏳</div>
       <div class="label">Постановления</div>
     </div>
     <div class="stat-box">
-      <div class="num" id="calls-count">7 ✅</div>
+      <div class="num" id="calls-count">⏳</div>
       <div class="label">Запросов сегодня</div>
     </div>
     <div class="stat-box">
-      <div class="num" id="monthly-calls">91/100</div>
+      <div class="num" id="monthly-calls">⏳</div>
       <div class="label">В месяц</div>
     </div>
   </div>
@@ -204,6 +204,34 @@
   </div>
 
 </div>
+
+<script>
+  // Динамическая загрузка статистики LegalMCP с GitHub Pages
+  fetch('zakupki-stats.json')
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(data => {
+      document.getElementById('status-codex').textContent = data.status_codex || '🟢';
+      document.getElementById('status-pp').textContent = data.status_pp || '🟡';
+      document.getElementById('calls-count').textContent = data.calls_today_display || '—';
+      document.getElementById('monthly-calls').textContent = data.monthly_display || '—';
+
+      // Обновляем дату последнего запуска, если есть
+      if (data.last_update) {
+        const el = document.querySelector('.section.law-section p strong');
+        if (el) el.textContent = data.last_update;
+      }
+    })
+    .catch(() => {
+      // Fallback: оставляем статичные значения при ошибке загрузки
+      document.getElementById('status-codex').textContent = '🟢';
+      document.getElementById('status-pp').textContent = '🟡';
+      document.getElementById('calls-count').textContent = '—';
+      document.getElementById('monthly-calls').textContent = '—';
+    });
+</script>
 
 </body>
 </html>
