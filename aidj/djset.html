@@ -768,7 +768,21 @@
 // Используем Cloudflare Tunnel вместо прямого IP (self-signed SSL блокируется браузером)
 // При рестарте cloudflared URL меняется — обнови тут или перейди на named tunnel
 const VPS_BASE = 'https://modify-builders-meals-phd.trycloudflare.com';
+const VPS_FALLBACK = 'https://176.123.162.12';
 function api(path) { return VPS_BASE + path; }
+
+// Универсальный fetch: сначала туннель, при ошибке — IP (с игнором сертификата)
+function apiFetch(path, options) {
+  const url = VPS_BASE + path;
+  const fallbackUrl = VPS_FALLBACK + path;
+  return fetch(url, options).catch(() => {
+    console.warn('Tunnel failed, trying fallback IP:', path);
+    return fetch(fallbackUrl, {...options, mode: 'cors'}).catch(e => {
+      console.warn('Both tunnel and IP failed:', path, e);
+      throw e;
+    });
+  });
+}
 let editingId = null;
 let allTracks = [];
 let allSets = [];
@@ -1019,7 +1033,7 @@ function sendLog(event, data) {
       d.value += line+'\n';
       d.scrollTop = d.scrollHeight;
     }
-    fetch(VPS_BASE + '/api/log', {
+    apiFetch('/api/log', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({event, details: data || {}, page: 'djset', ts: new Date().toISOString()})
@@ -1074,7 +1088,7 @@ document.getElementById('deleteConfirm').addEventListener('click', () => {
 
   // Если у сета есть готовый микс — удаляем физически через API
   if (targetSet && targetSet.mix_url) {
-    fetch(VPS_BASE + '/api/mixes/delete', {
+    apiFetch('/api/mixes/delete', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({urls: [targetSet.mix_url]})
@@ -1199,7 +1213,7 @@ async function playSet(id) {
   }
 
   try {
-    const res = await fetch(api('/api/mix'), {
+    const res = await apiFetch('/api/mix', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tracks: orderedTracks, preset: document.getElementById('presetSelect').value })
@@ -1221,7 +1235,7 @@ async function playSet(id) {
     playPollTimer = setInterval(async () => {
       attempts++;
       try {
-        const statusRes = await fetch(api('/api/mix/' + mixId + '/status'));
+        const statusRes = await apiFetch('/api/mix/' + mixId + '/status');
         if (!statusRes.ok) {
           clearInterval(playPollTimer);
           playPollTimer = null;
