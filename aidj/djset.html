@@ -1169,8 +1169,10 @@ async function playSet(id) {
   const set = allSets.find(s => s.id === id);
   if (!set || !set.tracks || set.tracks.length < 2) {
     showMixError('Нужно минимум 2 трека');
+    sendLog('play_set_error', {setId: id, reason: 'min_tracks'});
     return;
   }
+  sendLog('play_set', {setId: id, setName: set.name, trackCount: set.tracks.length});
 
   // Prepare track list for the server
   const orderedTracks = [];
@@ -1258,7 +1260,11 @@ async function playSet(id) {
 // Play a saved mix
 function playSavedMix(id) {
   const set = allSets.find(s => s.id === id);
-  if (!set || !set.mixUrl) return;
+  if (!set || !set.mixUrl) {
+    sendLog('listen_mix_error', {setId: id, reason: 'no_mix_url'});
+    return;
+  }
+  sendLog('listen_mix', {setId: id, setName: set.name, mixUrl: set.mixUrl});
   const meta = set.mixMeta || {};
   showMixResult({
     url: set.mixUrl,
