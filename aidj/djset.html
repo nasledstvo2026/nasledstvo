@@ -1066,10 +1066,21 @@ document.getElementById('deleteCancel').addEventListener('click', () => deleteOv
 document.getElementById('deleteConfirm').addEventListener('click', () => {
   if (!deleteTargetId) return;
   let sets = JSON.parse(localStorage.getItem('dj_sets') || '[]');
+  const targetSet = sets.find(s => s.id === deleteTargetId);
   sets = sets.filter(s => s.id !== deleteTargetId);
   localStorage.setItem('dj_sets', JSON.stringify(sets));
   deleteOverlay.classList.remove('active');
   loadAllSets();
+
+  // Если у сета есть готовый микс — удаляем физически через API
+  if (targetSet && targetSet.mix_url) {
+    fetch(VPS_BASE + '/api/mixes/delete', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({urls: [targetSet.mix_url]})
+    }).catch(e => console.warn('Mix delete failed:', e));
+  }
+
   deleteTargetId = null;
 });
 

@@ -460,6 +460,34 @@ def api_delete_tracks():
     return jsonify({'ok': True, 'removed': removed, 'errors': errors, 'message': msg, 'remaining': len(new_tracks)})
 
 
+# ─── DELETE /api/mixes/delete — удалить готовые миксы из static/ ───
+@app.route('/api/mixes/delete', methods=['POST'])
+def api_delete_mixes():
+    body = request.get_json(silent=True) or {}
+    urls = body.get('urls', [])
+    if not urls or not isinstance(urls, list):
+        return jsonify({'ok': False, 'error': 'Нет URL для удаления'}), 400
+
+    STATIC_DIR = BASE_DIR / 'static'
+    removed = 0
+    errors = []
+
+    for url in urls:
+        filename = url.rstrip('/').split('/')[-1]
+        if not filename.startswith('mix_') or not filename.endswith('.mp3'):
+            continue  # safety: only mix_ files
+        filepath = STATIC_DIR / filename
+        if filepath.exists():
+            try:
+                filepath.unlink()
+                print(f'[DELETE] Removed mix: {filename}', file=sys.stderr)
+                removed += 1
+            except Exception as e:
+                errors.append(f'{filename}: {e}')
+
+    return jsonify({'ok': True, 'removed': removed, 'errors': errors, 'message': f'Удалено {removed} миксов'})
+
+
 # ─── GET / → redirect to djset.html ───
 @app.route('/', methods=['GET'])
 def serve_root():
