@@ -1019,7 +1019,7 @@ function sendLog(event, data) {
       d.value += line+'\n';
       d.scrollTop = d.scrollHeight;
     }
-    fetch('/api/log', {
+    fetch(VPS_BASE + '/api/log', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({event, data, page: 'djset', ts: new Date().toISOString()})
