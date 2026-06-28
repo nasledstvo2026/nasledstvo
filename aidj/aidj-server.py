@@ -28,7 +28,7 @@ SETS_INDEX = SETS_DIR / 'sets-index.json'
 # ─── Network ───
 HOST = '176.123.162.12'
 PORT = 8766
-NGINX_BASE = os.environ.get('NGINX_BASE', 'https://176.123.162.12/aidj')
+NGINX_BASE = os.environ.get('NGINX_BASE', 'https://modify-builders-meals-phd.trycloudflare.com')
 
 # Moscow TZ
 MOSCOW_OFFSET = timedelta(hours=3)
