@@ -250,11 +250,13 @@ def find_crossfade_points(structure_a, structure_b, preset_params=None):
         first_breakdown_b = structure_b.get('main_breakdown_sec', dur_b * 0.3)
 
         cf_duration = dur_a - start_a  # from breakdown of A to end of A
+        # Cap crossfade — ffmpeg acrossfade struggles beyond ~30s
+        MAX_CROSSFADE = 30
 
         return {
             'start_in_a': round(start_a, 1),
             'start_in_b': round(start_b, 1),
-            'crossfade_duration': round(min(cf_duration, dur_a - 5, 120), 1),
+            'crossfade_duration': round(min(cf_duration, dur_a - 5, MAX_CROSSFADE), 1),
             'method': 'breakdown_matching',
             'note': f'B starts at A\'s breakdown ({start_a:.0f}s)',
         }
