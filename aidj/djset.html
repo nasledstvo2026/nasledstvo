@@ -1022,7 +1022,7 @@ function sendLog(event, data) {
     fetch(VPS_BASE + '/api/log', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({event, data, page: 'djset', ts: new Date().toISOString()})
+      body: JSON.stringify({event, details: data || {}, page: 'djset', ts: new Date().toISOString()})
     }).catch(()=>{});
   } catch(e){}
 }
