@@ -232,39 +232,50 @@ def find_crossfade_points(structure_a, structure_b, preset_params=None):
     dur_a = structure_a['duration_sec']
     dur_b = structure_b['duration_sec']
 
-    # Default: последние N секунд трека A
+    # Default: берём из пресета или 15
     cf = preset_params.get('crossfade_seconds', 15)
+    if isinstance(cf, dict):
+        cf = cf.get('default_seconds', 50)
     cf = min(cf, dur_a * 0.6, dur_b * 0.8)
 
     if style == 'layering' and preset_params.get('breakdown_matching'):
-        # 🔥 Oakenfold-style: start track B on track A's build-up (after breakdown)
+        # 🔥 Oakenfold Tranceport (1998): старт трека B на breakdown трека A
+        # Подтверждено анализом: energy падает до 3-8% на стыках (#3, #5, #8)
         breakdown_a = structure_a.get('main_breakdown_sec', dur_a * 0.7)
-
-        # Find the build-up after breakdown: first energy peak > 60% after the main breakdown
-        energy_profile = structure_a.get('energy_profile', [])
-        build_up_time = breakdown_a + 8  # fallback: 8s after breakdown
-        if energy_profile:
-            for pt in energy_profile:
-                if pt['time_sec'] > breakdown_a and pt['energy'] > 0.6:
-                    build_up_time = pt['time_sec']
-                    break
-            # Sanity: build-up shouldn't be too far from breakdown
-            if build_up_time > breakdown_a + 20:
-                build_up_time = breakdown_a + 8
-
-        start_a = max(0, build_up_time)
+        breakdown_energy_a = structure_a.get('main_breakdown_energy', 0.5)
+        
+        # Энергетический порог: только если breakdown реально глубокий
+        min_energy_threshold = preset_params.get('breakdown_energy_threshold', 0.30)
+        
+        if breakdown_energy_a < min_energy_threshold:
+            # Глубокий breakdown: стартуем на нём (как Oakenfold)
+            start_a = max(0, breakdown_a)
+            method = 'breakdown_matching'
+            cf_duration = dur_a - start_a
+            # Ограничиваем до 70с (максимум Tranceport), но не жёстко 20
+            max_cf = preset_params.get('crossfade_seconds', {})
+            if isinstance(max_cf, dict):
+                max_cf = max_cf.get('max_seconds', 70)
+            else:
+                max_cf = 70
+            cf_duration = min(cf_duration, dur_a - 5, max_cf)
+            note = f'B starts at A\'s breakdown ({start_a:.0f}s, energy={breakdown_energy_a:.2f})'
+        else:
+            # Нет глубокого breakdown — smooth long blend как при outro
+            # Из Tranceport: переходы #2, #4, #7, #9 — fade_out style
+            start_a = max(0, dur_a - cf)
+            cf_duration = cf
+            method = 'outro_fade'
+            note = f'No deep breakdown (energy={breakdown_energy_a:.2f}), outro blend'
+        
         start_b = 0
-
-        # Crossfade: from build-up of A to end of A (capped for ffmpeg compat)
-        cf_duration = dur_a - start_a
-        MAX_CROSSFADE = 20
 
         return {
             'start_in_a': round(start_a, 1),
             'start_in_b': round(start_b, 1),
-            'crossfade_duration': round(min(cf_duration, dur_a - 5, MAX_CROSSFADE), 1),
-            'method': 'breakdown_matching',
-            'note': f'B starts at A\'s build-up ({start_a:.0f}s, breakdown at {breakdown_a:.0f}s)',
+            'crossfade_duration': round(min(cf_duration, dur_a - 5), 1),
+            'method': method,
+            'note': note,
         }
 
     if style == 'layering' and preset_params.get('intro_matching'):

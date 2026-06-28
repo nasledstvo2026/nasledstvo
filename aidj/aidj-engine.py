@@ -402,6 +402,15 @@ def mix_tracks_v2(track_a, track_b, output,
             result['crossfade'] = round(cf, 1)
 
         # ── Apply crossfade ──
+        # ffmpeg acrossfade стабильно работает до ~30-35с, дальше buffer underflow
+        FFMPEG_SAFE_CF = 32
+        if cf > FFMPEG_SAFE_CF:
+            if verbose:
+                print(f'[AI DJ] Crossfade {cf:.0f}s exceeds safe ffmpeg limit ({FFMPEG_SAFE_CF}s), capping', file=sys.stderr)
+            cf = FFMPEG_SAFE_CF
+            result['crossfade'] = cf
+            result['crossfade_capped'] = True
+
         if verbose:
             print(f'[AI DJ] Applying acrossfade (d={cf:.0f}s, curve={curve1}/{curve2})...', file=sys.stderr)
 
