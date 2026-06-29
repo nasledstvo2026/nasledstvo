@@ -549,3 +549,8 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - ~/.ssh/timeweb удалён
 - PasswordAuthentication no в sshd_config
 - Правило: все новые продукты проходят проверку безопасности на этапе архитектуры
+
+### 29.06.2026 — Катрин: только .docx, без .md
+- Катрин просит «рыбу»/шаблон → сразу .docx (Microsoft Office), никакого .md
+- Markdown только если сама попросит черновик перед оформлением
+- Записано по указанию Кирилла
