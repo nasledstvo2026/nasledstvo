@@ -437,7 +437,7 @@ auditor-agent → response (список замечаний / OK) → katrin-age
           <li><strong>Аудит:</strong> auditor-agent проверяет по всем источникам</li>
           <li><strong>Ответ:</strong> auditor-agent возвращает [замечание / риск / OK]</li>
           <li><strong>Исправление:</strong> katrin-agent вносит правки</li>
-          <li><strong>Финал:</strong> katrin-agent отдаёт .docx Катрин + комментарий</li>
+          <li><strong>Финал:</strong> katrin-agent отдаёт .docx специалисту + комментарий</li>
         </ol>
 
         <h4>Fallback</h4>
@@ -468,7 +468,7 @@ auditor-agent → response (список замечаний / OK) → katrin-age
         <ul>
           <li>Оба агента — persistent-сессии OpenClaw, изолированы друг от друга</li>
           <li>Межсессионная связь — только через Gateway (sessions_send)</li>
-          <li>Катрин видит только katrin-agent (Telegram-маршрутизация)</li>
+          <li>Специалист видит только katrin-agent (Telegram-маршрутизация)</li>
           <li>UFW: только 22, 80, 443. fail2ban SSH. PasswordAuthentication no</li>
         </ul>
       </div>
@@ -489,8 +489,8 @@ auditor-agent → response (список замечаний / OK) → katrin-age
       <div class="card-body">
         <div class="diagram-box">
 ┌─────────────────────────────────────────────────────────────┐
-│                   Человек: Катрин                           │
-│              (тендерный специалист)                          │
+│                   Специалист по тендерным продажам                           │
+│              (специалист по тендерным продажам)                          │
 │         ┌──────────────────────────────┐                    │
 │         │  Telegram @Su_Ri_Mi         │                    │
 │         └──────────┬───────────────────┘                    │
@@ -566,7 +566,7 @@ auditor-agent → response (список замечаний / OK) → katrin-age
       <div class="card-title">📄 Поток данных: Генерация документа с аудитом</div>
       <div class="card-body">
         <div class="diagram-box">
-Катрин (Telegram): "Создай допсоглашение к контракту №ХХХ на ЛП..."
+Специалист (Telegram): "Создай допсоглашение к контракту №ХХХ на ЛП..."
   │
   ▼
 katrin-agent:
@@ -580,9 +580,9 @@ katrin-agent:
   │   │   doc_type, context, doc_text, risks
   │   ◀── Ответ: список замечаний
   │
-  ├─ 6. Вносит исправления
+  ├─ 6. Вносит исправления на основании замечаний auditor-agent
   ├─ 7. Формирует финальный .docx
-  └─ 8. Отправляет Катрин: файл + комментарий
+  └─ 8. Отправляет специалисту: файл + комментарий
 
 auditor-agent:
   ├─ 1. Принимает запрос на аудит
@@ -601,7 +601,7 @@ auditor-agent:
         <div class="diagram-box">
 VPS (vm-f13581) Linux 6.8.0-generic x64
 ├─ OpenClaw Gateway (127.0.0.1:18789)
-│  ├─ main (Лунт)
+│  ├─ main (main)
 │  ├─ katrin-agent
 │  └─ auditor-agent
 ├─ nginx (80→443, self-signed)
