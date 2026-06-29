@@ -1,11 +1,7 @@
 {
   "status_codex": "🟢",
   "status_pp": "🟢",
-  "calls_today": 7,
-  "calls_today_display": "7 ✅",
-  "monthly_used": 72,
-  "monthly_limit": 100,
-  "monthly_display": "72/100",
-  "last_update": "30.06.2026 01:50",
-  "has_changes": true
+  "calls_today_display": "7",
+  "monthly_display": "84/100",
+  "last_update": "30.06.2026 02:15"
 }
