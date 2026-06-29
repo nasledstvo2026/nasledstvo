@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ФармТендеролог — Цифровой продукт</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .product-hero {
+      text-align: center;
+      padding: 48px 24px 36px;
+    }
+    .product-hero .logo {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--text-faint);
+      margin-bottom: 12px;
+    }
+    .product-hero .logo span {
+      color: var(--purple);
+    }
+    .product-hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: transparent;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff, #ff9000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .product-hero .tagline {
+      font-size: 16px;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto 16px;
+      line-height: 1.6;
+    }
+    .product-hero .badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .product-hero .badge-row .tag {
+      font-size: 11px;
+    }
+
+    .arch-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .arch-section {
+      margin-top: 32px;
+    }
+    .arch-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .arch-section h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 20px 0 12px;
+    }
+    .arch-section h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin: 14px 0 8px;
+    }
+    .arch-section p {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .arch-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: border-color .2s;
+    }
+    .arch-card:hover {
+      border-color: var(--glass-hover);
+    }
+    .arch-card .card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .arch-card .card-body {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .arch-card .card-body strong { color: var(--text); }
+    .arch-card ul {
+      margin: 8px 0 8px 20px;
+      list-style: none;
+    }
+    .arch-card ul li {
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .arch-card ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--text-faint);
+      font-weight: 700;
+    }
+
+    .arch-schema {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 20px;
+      overflow-x: auto;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-dim);
+      border: 1px solid var(--glass-border);
+      white-space: pre;
+    }
+
+    .diagram-box {
+      background: rgba(0,0,0,0.25);
+      border-radius: 12px;
+      padding: 16px;
+      overflow-x: auto;
+      border: 1px solid var(--glass-border);
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--text-dim);
+      white-space: pre;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .req-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+    }
+    .req-table th {
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.02);
+    }
+    .req-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+    .req-table tr:last-child td { border-bottom: none; }
+    .req-table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .status-dot-green { color: #7ee787; }
+    .status-dot-red { color: #f85149; }
+    .status-dot-yellow { color: #e3b341; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .metric-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .metric-card .label {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .metric-card .value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .metric-card .note {
+      font-size: 12px;
+      color: var(--text-faint);
+      margin-top: 4px;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .toc a {
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-dim);
+      transition: border-color .2s, color .2s;
+    }
+    .toc a:hover {
+      border-color: var(--glass-hover);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .product-hero h1 { font-size: 26px; }
+      .arch-container { padding: 16px; }
+      .arch-card { padding: 16px; }
+      .metric-grid { grid-template-columns: 1fr; }
+      .diagram-box { font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="arch-container">
+
+  <a href="service.html" class="back">← Сервисы</a>
+
+  <!-- Hero -->
+  <div class="product-hero">
+    <div class="logo">Цифровой продукт — <span>ФармТендеролог</span></div>
+    <h1>ФармТендеролог</h1>
+    <p class="tagline">
+      Интеллектуальный юридический ассистент для участников закупок
+      лекарственных препаратов и медицинских изделий по 44-ФЗ и 224-ФЗ
+    </p>
+    <div class="badge-row">
+      <span class="tag" style="background:rgba(188,140,255,.12);color:#bc8cff;border-color:rgba(188,140,255,.2);">MVP</span>
+      <span class="tag" style="background:rgba(88,166,255,.12);color:#58a6ff;border-color:rgba(88,166,255,.2);">29.06.2026</span>
+      <span class="tag" style="background:rgba(126,231,135,.12);color:#7ee787;border-color:rgba(126,231,135,.2);">Черновик</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <a href="#bizreq">Бизнес-требования</a>
+    <a href="#sysreq">Системные требования</a>
+    <a href="#arch">Архитектура</a>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 1. БИЗНЕС-ТРЕБОВАНИЯ -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="bizreq" class="arch-section">
+
+    <h2>1. Бизнес-требования</h2>
+    <p>Что нужно бизнесу, зачем продукт, какие проблемы решает.</p>
+
+    <div class="arch-card">
+      <div class="card-title">🎯 Проблема</div>
+      <div class="card-body">
+        <ul>
+          <li>Подготовка допсоглашения требует сверки с 44-ФЗ, ПП №620, ПП №1875 — вручную это часы работы юриста</li>
+          <li>Юридическая ошибка = риск отклонения, жалобы в УФАС, срыв контракта</li>
+          <li>Нужно отслеживать практику УФАС и предельные цены ЖНВЛП — без автоматизации это ручной мониторинг</li>
+          <li>Разрозненные источники: нет единого окна проверки</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">👤 Целевая аудитория</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Роль</th><th>Потребность</th></tr>
+          <tr><td><strong>Катрин</strong> (тендерный специалист)</td><td>Быстро генерировать корректные документы</td></tr>
+          <tr><td><strong>Кирилл</strong> (руководитель)</td><td>Контролировать качество и эффективность</td></tr>
+          <tr><td><strong>Юридический отдел</strong> (перспектива)</td><td>Аудит документов на compliance</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">📋 Пользовательские сценарии</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Как тендерный специалист,</strong> я хочу отправить запрос на допсоглашение — и получить готовый .docx</li>
+          <li><strong>Как тендерный специалист,</strong> я хочу автоматическую проверку на 44-ФЗ</li>
+          <li><strong>Как тендерный специалист,</strong> я хочу сверку с практикой УФАС</li>
+          <li><strong>Как тендерный специалист,</strong> я хочу сверку цен с реестром ЖНВЛП</li>
+          <li><strong>Как руководитель,</strong> я хочу метрики: сколько создано документов, найдено ошибок</li>
+          <li><strong>Как юрист,</strong> я хочу отчёт аудита по каждому документу</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">📊 Бизнес-ценность</div>
+      <div class="card-body">
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="label">Время на документ</div>
+            <div class="value">~15 мин</div>
+            <div class="note">было 2-3 часа</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">Ошибки в документах</div>
+            <div class="value">&lt;5%</div>
+            <div class="note">было 30-50%</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">Риск жалобы УФАС</div>
+            <div class="value">↓</div>
+            <div class="note">сверка с практикой</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">Реакция на изменения</div>
+            <div class="value">Авто</div>
+            <div class="note">LegalMCP cron</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🚧 Ограничения</div>
+      <div class="card-body">
+        <ul>
+          <li>Бесплатный лимит LegalMCP — 100 запросов/месяц</li>
+          <li>Открытые API УФАС, ЕИС, ЖНВЛП — требуется исследование</li>
+          <li>Формат документов: только .docx (Microsoft Office)</li>
+          <li>Infra: GitHub Pages + VPS + Cloudflare Tunnel (без кастомного домена)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">✅ Критерии успеха (MVP)</div>
+      <div class="card-body">
+        <ul>
+          <li>katrin-agent отвечает на вопросы по 44-ФЗ/224-ФЗ с цитатами</li>
+          <li>katrin-agent генерирует .docx по запросу</li>
+          <li>auditor-agent проверяет документ на соответствие нормам</li>
+          <li>Цикл «генерация → аудит → исправление → отдача» работает</li>
+          <li>Telegram-маршрутизация: сообщения Катрин → katrin-agent</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 2. СИСТЕМНЫЕ ТРЕБОВАНИЯ -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="sysreq" class="arch-section">
+
+    <h2>2. Системные требования</h2>
+    <p>Как продукт реализован: агенты, протоколы, источники, безопасность.</p>
+
+    <div class="arch-card">
+      <div class="card-title">🤖 katrin-agent — Генератор</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Параметр</th><th>Значение</th></tr>
+          <tr><td>ID</td><td><code>katrin-agent</code></td></tr>
+          <tr><td>Сессия</td><td><code>session:katrin</code> (persistent)</td></tr>
+          <tr><td>Модель</td><td>deepseek-chat</td></tr>
+          <tr><td>Скилл</td><td><code>katrin-tender-expert</code></td></tr>
+          <tr><td>Память</td><td><code>memory/katrin/</code></td></tr>
+          <tr><td>Знания</td><td><code>knowledge/katrin/</code> (НПА, процедуры, образцы)</td></tr>
+          <tr><td>Инструменты</td><td>read, edit, write, web_search, web_fetch, exec, sessions_send</td></tr>
+          <tr><td>Cron</td><td>пн/ср/пт 09:30 — LegalMCP обновление</td></tr>
+          <tr><td>Роль</td><td>Генерация → Исправление документов</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🔍 auditor-agent — Юрисконсульт-аудитор</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Параметр</th><th>Значение</th></tr>
+          <tr><td>ID</td><td><code>auditor-agent</code></td></tr>
+          <tr><td>Сессия</td><td><code>session:auditor</code> (persistent)</td></tr>
+          <tr><td>Модель</td><td>deepseek-chat</td></tr>
+          <tr><td>Скилл</td><td><code>compliance-audit</code> (создать)</td></tr>
+          <tr><td>Память</td><td><code>memory/auditor/</code></td></tr>
+          <tr><td>Знания</td><td><code>knowledge/auditor/</code> (УФАС, реестры, комплаенс)</td></tr>
+          <tr><td>Инструменты</td><td>read, edit, web_search, web_fetch, exec</td></tr>
+          <tr><td>Роль</td><td>Только критика/аудит</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🔄 Протокол взаимодействия</div>
+      <div class="card-body">
+        <h4>Межсессионная связь</h4>
+        <div class="diagram-box">katrin-agent → sessions_send(sessionKey="session:auditor", message=...) → auditor-agent
+auditor-agent → response (список замечаний / OK) → katrin-agent</div>
+
+        <h4 style="margin-top:16px;">Цикл аудита</h4>
+        <ol style="margin:8px 0 8px 20px;color:var(--text-dim);line-height:1.8;">
+          <li><strong>Генерация:</strong> katrin-agent создаёт черновик (python-docx)</li>
+          <li><strong>Отправка:</strong> katrin-agent шлёт auditor-agent (текст + метаданные)</li>
+          <li><strong>Аудит:</strong> auditor-agent проверяет по всем источникам</li>
+          <li><strong>Ответ:</strong> auditor-agent возвращает [замечание / риск / OK]</li>
+          <li><strong>Исправление:</strong> katrin-agent вносит правки</li>
+          <li><strong>Финал:</strong> katrin-agent отдаёт .docx Катрин + комментарий</li>
+        </ol>
+
+        <h4>Fallback</h4>
+        <ul>
+          <li>Таймаут auditor-agent (120 сек) → katrin-agent выдаёт «без аудита»</li>
+          <li>Ошибка auditor-agent → katrin-agent предлагает повторить</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">📡 Источники данных</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Источник</th><th>Тип</th><th>Статус</th></tr>
+          <tr><td>LegalMCP</td><td>MCP API</td><td><span class="status-dot-green">●</span> Работает</td></tr>
+          <tr><td>pravo.gov.ru</td><td>web</td><td><span class="status-dot-green">●</span> Работает</td></tr>
+          <tr><td>Решения УФАС</td><td>API / парсер</td><td><span class="status-dot-red">●</span> Исследовать</td></tr>
+          <tr><td>Реестр контрактов ЕИС</td><td>API / парсер</td><td><span class="status-dot-red">●</span> Исследовать</td></tr>
+          <tr><td>Реестр цен ЖНВЛП</td><td>API / выгрузка</td><td><span class="status-dot-red">●</span> Исследовать</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🔒 Безопасность</div>
+      <div class="card-body">
+        <ul>
+          <li>Оба агента — persistent-сессии OpenClaw, изолированы друг от друга</li>
+          <li>Межсессионная связь — только через Gateway (sessions_send)</li>
+          <li>Катрин видит только katrin-agent (Telegram-маршрутизация)</li>
+          <li>UFW: только 22, 80, 443. fail2ban SSH. PasswordAuthentication no</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 3. АРХИТЕКТУРА СИСТЕМЫ -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="arch" class="arch-section">
+
+    <h2>3. Архитектура системы</h2>
+    <p>Схемы потоков данных, развёртывание и контейнерная архитектура.</p>
+
+    <div class="arch-card">
+      <div class="card-title">🏗 Контекстная диаграмма</div>
+      <div class="card-body">
+        <div class="diagram-box">
+┌─────────────────────────────────────────────────────────────┐
+│                   Человек: Катрин                           │
+│              (тендерный специалист)                          │
+│         ┌──────────────────────────────┐                    │
+│         │  Telegram @Su_Ri_Mi         │                    │
+│         └──────────┬───────────────────┘                    │
+│                    │ запрос на документ / вопрос             │
+│                    ▼ готовый .docx + ответ                   │
+└────────────────────┼─────────────────────────────────────────┘
+                     │
+    ┌────────────────┼──────────────────────────────────┐
+    │                ▼                                   │
+    │   ┌──────────────────────────────────────────┐    │
+    │   │        Система «ФармТендеролог»           │    │
+    │   │  (OpenClaw Gateway + GitHub Pages + VPS)  │    │
+    │   └──────────────────────────────────────────┘    │
+    │                │                                  │
+    └────────────────┼──────────────────────────────────┘
+                     │
+    ┌────────────────┼──────────────────────────────────┐
+    │                ▼                                   │
+    │   ┌──────────────────────────────────────────┐    │
+    │   │        Внешние системы                   │    │
+    │   │  ┌─────────┐ ┌──────┐ ┌────────┐ ┌────┐ │    │
+    │   │  │ LegalMCP │ │ УФАС │ │  ЕИС   │ │ЖНВЛП│ │    │
+    │   │  └─────────┘ └──────┘ └────────┘ └────┘ │    │
+    │   └──────────────────────────────────────────┘    │
+    └────────────────────────────────────────────────────┘
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🧩 Контейнерная диаграмма (Агенты и данные)</div>
+      <div class="card-body">
+        <div class="diagram-box">
+┌──────────────────────────────────────────────────────────────────────┐
+│                    OpenClaw Gateway (VPS)                             │
+│  ┌─────────────────────┐  ┌──────────────────────────────────────┐  │
+│  │ Telegram Channel    │  │  Маршрутизация: 311760717 → katrin   │  │
+│  └─────────────────────┘  └──────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────┘
+
+  ┌──────────────────────────────────────────────────────────────────┐
+  │  session:katrin (katrin-agent)                                   │
+  │  ┌──────────────┐ ┌────────────┐ ┌───────────────┐              │
+  │  │ katrin-      │ │memory/     │ │knowledge/     │              │
+  │  │ tender-      │ │katrin/     │ │katrin/        │              │
+  │  │ expert.skill │ │            │ │(НПА, законы)  │              │
+  │  └──────────────┘ └────────────┘ └───────────────┘              │
+  │  Роль: Генерация → Исправление                                   │
+  │  Инструменты: read, edit, write, web_search, web_fetch,          │
+  │               exec, sessions_send                                 │
+  └──────────────────────┬───────────────────────────────────────────┘
+                         │ sessions_send
+  ┌──────────────────────▼───────────────────────────────────────────┐
+  │  session:auditor (auditor-agent)                                  │
+  │  ┌──────────────┐ ┌────────────┐ ┌───────────────┐              │
+  │  │ compliance-  │ │memory/     │ │knowledge/     │              │
+  │  │ audit.skill  │ │auditor/    │ │auditor/       │              │
+  │  └──────────────┘ └────────────┘ └───────────────┘              │
+  │  Роль: Только критика/аудит                                      │
+  │  Инструменты: read, edit, web_search, web_fetch, exec            │
+  └──────────────────────────────────────────────────────────────────┘
+
+  Внешние соединения:
+  ┌──────────┐ ┌──────────────────┐ ┌──────────────────────┐
+  │ LegalMCP │ │ GitHub Pages     │ │ Cloudflare Tunnel    │
+  │ MCP API  │ │ (лендинг статика)│ │ (другие сервисы)     │
+  └──────────┘ └──────────────────┘ └──────────────────────┘
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">📄 Поток данных: Генерация документа с аудитом</div>
+      <div class="card-body">
+        <div class="diagram-box">
+Катрин (Telegram): "Создай допсоглашение к контракту №ХХХ на ЛП..."
+  │
+  ▼
+katrin-agent:
+  ├─ 1. Парсит Intent (тип документа, контракт, ЛП, цена)
+  ├─ 2. Читает знания — типовые формы, НПА
+  ├─ 3. LegalMCP — актуальные нормы
+  ├─ 4. Генерирует черновик (python-docx)
+  ├─ 5. Сериализует текст + метаданные для аудита
+  │
+  ├─ sessions_send("session:auditor", {...})
+  │   │   doc_type, context, doc_text, risks
+  │   ◀── Ответ: список замечаний
+  │
+  ├─ 6. Вносит исправления
+  ├─ 7. Формирует финальный .docx
+  └─ 8. Отправляет Катрин: файл + комментарий
+
+auditor-agent:
+  ├─ 1. Принимает запрос на аудит
+  ├─ 2. Проверяет 44-ФЗ/224-ФЗ
+  ├─ 3. Проверяет практику УФАС
+  ├─ 4. Сверяет с реестром ЕИС
+  ├─ 5. Сверяет цены с ЖНВЛП
+  └─ 6. Возвращает: [НАРУШЕНИЕ] / [РИСК] / [OK]
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🖥 Развёртывание (Deployment)</div>
+      <div class="card-body">
+        <div class="diagram-box">
+VPS (vm-f13581) Linux 6.8.0-generic x64
+├─ OpenClaw Gateway (127.0.0.1:18789)
+│  ├─ main (Лунт)
+│  ├─ katrin-agent
+│  └─ auditor-agent
+├─ nginx (80→443, self-signed)
+├─ Файлы:
+│  ├─ memory/katrin/
+│  ├─ memory/auditor/
+│  ├─ knowledge/katrin/
+│  └─ knowledge/auditor/
+└─ Безопасность: UFW(22/80/443) + fail2ban
+
+GitHub Pages (внешний хостинг):
+└─ https://nasledstvo2026.github.io/nasledstvo/
+   └─ service.html → pharm-tenderolog.html (лендинг)
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <strong>☽ ЛУНТ</strong> · ФармТендеролог v1.0 · 29.06.2026
+  </div>
+
+</div>
+</body>
+</html>
