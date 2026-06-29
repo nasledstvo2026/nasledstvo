@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Обновление анализа изменений 44-ФЗ / 224-ФЗ.
+"""Обновление анализа изменений 44-ФЗ / 223-ФЗ.
 
-Без LegalMCP — только верификация через consultant.ru + pravo.gov.ru.
-Скрипт не делает web-запросы самостоятельно (это делает агент через web_fetch).
-Скрипт только публикует готовые данные.
+Без LegalMCP — только верификация через consultant.ru (web_fetch в агенте, публикация здесь).
+Скрипт принимает данные из аргументов командной строки.
 """
 
 import json, os, subprocess, re, sys
@@ -18,32 +17,26 @@ NOW_MSK = datetime.now(MSK)
 
 
 def parse_consultant_laws(html):
-    """Парсит блок (в ред. Федеральных законов от ДД.ММ.ГГГГ N ФЗ-№, ...)
-    Возвращает список (дата, номер_закона) от старых к новым.
-    """
+    """Парсит блок (в ред. Федеральных законов от ...)"""
     block = re.search(
         r'\(в\s+ред\.?\s*Федеральных\s+законов\s+от\s+([^)]+)\)',
         html, re.DOTALL
     )
     if not block:
         return []
-
     text = re.sub(r'\s+', ' ', block.group(1))
-    laws = re.findall(r'от\s+(\d{2}\.\d{2}\.\d{4})\s+N\s+([^,\s)]+)', text)
-    return laws
+    return re.findall(r'от\s+(\d{2}\.\d{2}\.\d{4})\s+N\s+([^,\s)]+)', text)
 
 
-def build_result(consultant_44, consultant_224, pravo_44, pravo_224, errors):
-    """Формирует текст результата."""
+def build_result(consultant_44, consultant_223, errors):
     lines = []
 
     if errors:
-        lines.append(f"⚠️ Ошибки при получении данных: {', '.join(errors)}")
+        lines.append(f"⚠️ Ошибки: {', '.join(errors)}")
 
-    lines.append("")
     lines.append("🔍 consultant.ru (последние редакции):")
 
-    def fmt_laws(laws, label):
+    def fmt(laws, label):
         if not laws:
             lines.append(f"  • {label}: данные не получены")
             return
@@ -51,28 +44,21 @@ def build_result(consultant_44, consultant_224, pravo_44, pravo_224, errors):
         for dt, num in laws[-5:]:
             lines.append(f"      от {dt} N {num}")
 
-    fmt_laws(consultant_44, "44-ФЗ")
-    fmt_laws(consultant_224, "224-ФЗ")
-
-    lines.append("")
-    lines.append("🔍 pravo.gov.ru (официальный портал):")
-    lines.append(f"  • 44-ФЗ: {'🟢 совпадает' if pravo_44 else '🟡 не проверен'}")
-    lines.append(f"  • 224-ФЗ: {'🟢 совпадает' if pravo_224 else '🟡 не проверен'}")
+    fmt(consultant_44, "44-ФЗ (контрактная система)")
+    fmt(consultant_223, "223-ФЗ (закупки госкомпаний)")
 
     lines.append("")
     if consultant_44:
-        latest = consultant_44[-1]
-        lines.append(f"⚡ Последняя редакция 44-ФЗ: от {latest[0]} N {latest[1]}")
-    if consultant_224:
-        latest = consultant_224[-1]
-        lines.append(f"⚡ Последняя редакция 224-ФЗ: от {latest[0]} N {latest[1]}")
+        lines.append(f"⚡ Последняя редакция 44-ФЗ: от {consultant_44[-1][0]} N {consultant_44[-1][1]}")
+    if consultant_223:
+        lines.append(f"⚡ Последняя редакция 223-ФЗ: от {consultant_223[-1][0]} N {consultant_223[-1][1]}")
 
     return "\n".join(lines)
 
 
-def publish(result_text, consultant_44, consultant_224, errors):
-    lmcp_used = len(consultant_44) + len(consultant_224)
-    meta = f"consultant.ru: {lmcp_used} редакций"
+def publish(result_text, consultant_44, consultant_223, errors):
+    total = len(consultant_44) + len(consultant_223)
+    meta = f"consultant.ru: {total} редакций"
     if errors:
         meta += f" · ошибки: {', '.join(errors)}"
 
@@ -84,12 +70,10 @@ def publish(result_text, consultant_44, consultant_224, errors):
     with open(RESULT_FILE, "w", encoding="utf-8") as f:
         json.dump(result_data, f, ensure_ascii=False, indent=2)
 
-    # stats
     stats_data = {
         "status_codex": "🟢" if consultant_44 else "🟡",
-        "status_pp": "🟢" if consultant_224 else "🟡",
-        "calls_today_display": str(lmcp_used),
-        "monthly_display": "0 (без LegalMCP)",
+        "status_pp": "🟢" if consultant_223 else "🟡",
+        "calls_today_display": str(total),
         "last_update": NOW_MSK.strftime('%d.%m.%Y %H:%M')
     }
     with open(STATS_FILE, "w", encoding="utf-8") as f:
@@ -104,22 +88,14 @@ def publish(result_text, consultant_44, consultant_224, errors):
 
 
 if __name__ == "__main__":
-    print("▶ Чтение данных...")
-
-    # Данные приходят извне (агент записывает в stdin или файл)
-    # Скрипт читает из аргументов: --consultant-44 'json' --consultant-224 'json'
-    # Или через файлы
     consultant_44 = json.loads(sys.argv[sys.argv.index("--c44") + 1]) if "--c44" in sys.argv else []
-    consultant_224 = json.loads(sys.argv[sys.argv.index("--c224") + 1]) if "--c224" in sys.argv else []
-    pravo_44 = "--p44" in sys.argv
-    pravo_224 = "--p224" in sys.argv
+    consultant_223 = json.loads(sys.argv[sys.argv.index("--c223") + 1]) if "--c223" in sys.argv else []
     errors = json.loads(sys.argv[sys.argv.index("--errors") + 1]) if "--errors" in sys.argv else []
 
-    print(f"  44-ФЗ: {len(consultant_44)} редакций")
-    print(f"  224-ФЗ: {len(consultant_224)} редакций")
-    print(f"  pravo 44: {pravo_44}, pravo 224: {pravo_224}")
-    print(f"  ошибки: {errors}")
+    print(f"44-ФЗ: {len(consultant_44)} редакций")
+    print(f"223-ФЗ: {len(consultant_223)} редакций")
+    print(f"ошибки: {errors}")
 
-    result_text = build_result(consultant_44, consultant_224, pravo_44, pravo_224, errors)
-    publish(result_text, consultant_44, consultant_224, errors)
+    result_text = build_result(consultant_44, consultant_223, errors)
+    publish(result_text, consultant_44, consultant_223, errors)
     print("✅ Готово")
