@@ -48,11 +48,11 @@
 |-----|----------|------------------|
 | A.1.1 | Экспортировать все cron-задачи main-агента | `openclaw cron list --json > backup/cron-main-$(date +%F).json` |
 | A.1.2 | Создать резервную копию всей рабочей директории | Сделать git tag перед изменениями: `git tag pre-pharm-tenderolog-$(date +%F)` |
-| A.1.3 | Создать бэкап конфигурации OpenClaw Gateway | `cp ~/.openclaw/gateway.yaml backup/gateway-pre-migration.yaml` |
+| A.1.3 | Зафиксировать: Gateway конфиг в runtime (не файл) | Recovery: `openclaw gateway restart` + ручная настройка маршрутов |
 | A.1.4 | Создать бэкап знаний и памяти katrin-скилла | `cp -r knowledge/katrin/ backup/knowledge-katrin/` |
 | A.1.5 | Зафиксировать состояние LegalMCP: остаток лимита, подписки | `python3 scripts/legalmcp-update.py --stats > backup/legalmcp-pre-migration.txt` |
 
-**Выход:** `backup/` с копиями кронов, конфига, знаний, лимитов. Git tag `pre-pharm-tenderolog-YYYY-MM-DD`.
+**Выход:** `backup/` с копиями кронов, знаний, лимитов. Git tag `pre-pharm-tenderolog-YYYY-MM-DD`. Gateway конфиг в runtime.
 
 #### A.2. Разработка тест-кейсов
 
@@ -186,7 +186,7 @@
 
 | Checkpoint | Условие прохода | Кто подтверждает |
 |------------|----------------|------------------|
-| **CP-A** ⬜ | Backup сделан, тест-кейсы написаны, план отката готов | Архитектор |
+| **CP-A** 🟡 | Backup сделан, тест-кейсы написаны, план отката готов | Архитектор |
 | **CP-B** ⬜ | Этап B завершён: известно, какие источники доступны | Архитектор |
 | **CP-C** ⬜ | Этап C завершён: katrin-agent отвечает и генерирует, TC-01..05 пройдены | Архитектор |
 | **CP-D** ⬜ | Этап D завершён: маршрутизация работает, TC-06..07 пройдены | Владелец продукта |
@@ -217,7 +217,7 @@
 | R.1 | Удалить agent id `katrin-agent` и `auditor-agent` |
 | R.2 | Удалить persistent-сессии `session:katrin` и `session:auditor` |
 | R.3 | Отключить кастомный Telegram channel (маршрутизацию) |
-| R.4 | Восстановить Gateway config из backup |
+| R.4 | Перенастроить Gateway маршруты вручную (backup нет — runtime) |
 | R.5 | Восстановить LegalMCP-крон на main из backup кронов |
 | R.6 | Удалить `memory/katrin/` и `memory/auditor/` |
 | R.7 | Восстановить знания из backup: `knowledge/katrin/` |
