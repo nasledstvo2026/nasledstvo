@@ -48,50 +48,99 @@
 - **SSH ключ GitHub:** `~/.ssh/id_ed25519` (добавлен на аккаунт nasledstvo2026)
 - **Ключ Timeweb удалён:** `~/.ssh/timeweb` не используется
 
-### AI DJ — полная архитектура продукта (28.06.2026)
-
-#### Серверная часть
-- **Flask-сервер:** `aidj-server.py` на порт 8766, nginx `/aidj/` → `localhost:8766`
-- **Engine:** `aidj-engine.py` (librosa + ffmpeg) — BPM/key detection, beat-synced crossfade
-- **DJ Set'ы:** `aidj/sets/set-*.json`, CRUD через веб-интерфейс
-- **Track list:** единый `aidj/tracks.json` — живёт на VPS, обновляется при добавлении/удалении треков
-- **Доступ к API напрямую:** `https://176.123.162.12/aidj/` (self-signed cert, только для curl, браузер не примет)
+### AI DJ — полная архитектура продукта (28.06.2026, уточнено v2)
 
 #### Внешний доступ
 ```
-[Браузер] → GitHub Pages (HTTPS)
+[Браузер] → GitHub Pages (HTTPS, валидный сертификат)
+  ├─ djset.html — DJ Set'ы, создание сетов, сведение
   ├─ aidj-delete.html — удаление треков
   └─ aidj-player.html — плеер
-       └─ fetch() → Cloudflare Tunnel (HTTPS, валидный сертификат)
-            └─ https://*.trycloudflare.com
+       └─ fetch() → Cloudflare Quick Tunnel (HTTPS, валидный сертификат)
+            └─ https://*.trycloudflare.com  (МЕНЯЕТСЯ ПРИ РЕСТАРТЕ)
                  └─ cloudflared (VPS, systemd-сервис)
                       └─ http://localhost:8766
                            └─ Flask (aidj-server.py)
-                                ├─ GET  /tracks.json         — список треков
-                                ├─ POST /api/tracks/delete    — удаление треков
-                                └─ POST /api/log              — client-side логирование
+                                ├─ GET  /tracks.json         — список треков (с VPS)
+                                ├─ GET  /static/<file>       — отдача готовых миксов mp3
+                                ├─ GET  /<mp3_file>          — отдача треков
+                                ├─ POST /api/mix             — запустить сведение
+                                ├─ POST /api/tracks/delete   — удаление треков
+                                └─ POST /api/log             — client-side логирование
 ```
-- **Cloudflare Tunnel** — quick tunnel, URL меняется при каждом рестарте `cloudflared-aidj.service`
-- **Если туннель упал:** `sudo systemctl restart cloudflared-aidj.service`, получить новый URL из лога, обновить URL в `aidj-delete.html` и `aidj-player.html`, перепубликовать на GitHub Pages
-- **Логи:** `sudo journalctl -u aidj-server | grep CLIENT-LOG`
+
+#### ⚠️ Quick Tunnel — URL меняется при рестарте
+- При каждом рестарте `cloudflared-aidj.service` Cloudflare выдаёт **новый** random URL
+- Сменить URL → нужно обновить **все** файлы, где он захардкожен:
+  - `aidj-player.html` — fetch tracks.json
+  - `aidj-delete.html` — fetch tracks.json, delete, log
+  - `aidj/djset.html` — переменная `VPS_BASE`
+  - `aidj/aidj-server.py` — переменная `NGINX_BASE` (формирует URL готового микса)
+  - `aidj/tracks.json` (на VPS) — URL треков в коллекции
+
+**Процедура обновления URL туннеля:**
+```bash
+# 1. Получить новый URL
+NEW_URL=$(sudo journalctl -u cloudflared-aidj --no-pager 2>&1 | grep -oP 'https://[a-z0-9-]+\.trycloudflare\.com' | tail -1)
+
+# 2. Заменить во всех файлах
+cd /home/user1/.openclaw/workspace
+OLD_URL=$(grep -oP 'https://[a-z0-9-]+\.trycloudflare\.com' aidj-player.html | head -1)
+sed -i "s|$OLD_URL|$NEW_URL|g" aidj-player.html aidj-delete.html aidj/djset.html aidj/tracks.json aidj/aidj-server.py
+
+# 3. Перезапустить сервер
+sudo systemctl restart aidj-server
+
+# 4. Опубликовать на GitHub
+git add -A && git commit -m "aidj: updated tunnel URL" && git push
+```
+
+#### Серверная часть
+- **Flask-сервер:** `aidj-server.py` на порт 8766
+  - Слушает: `localhost:8766` (только через cloudflared туннель)
+  - HOST = `'176.123.162.12'` (не используется напрямую — через туннель)
+  - NGINX_BASE — для формирования URL миксов. Должен совпадать с URL туннеля
+- **Engine:** `aidj-engine.py` (librosa + ffmpeg) — BPM/key detection, beat-synced crossfade
+- **DJ Set'ы:** `aidj/sets/set-*.json`, CRUD через веб-интерфейс (localStorage)
+- **Track list:** единый `aidj/tracks.json` — живёт на VPS, обновляется при добавлении/удалении треков
+  - URL треков в формате: `$TUNNEL_URL/<filename>.mp3`
+  - При обновлении туннеля — заменить URL и в этом файле
+
+#### ❌ Named tunnel создан, но не активирован
+- Named tunnel: `aidj-api` (ID: `dce12743-14bc-4157-a730-c1808a26a5ef`)
+- Credentials: `~/.cloudflared/aidj-credentials.json`
+- **Не активирован** — нет домена в Cloudflare. Когда появится — простая DNS-запись и named tunnel заменит quick tunnel навсегда
+
+#### Клиентские страницы (GitHub Pages)
+- `aidj/djset.html` — DJ Set'ы: создание сетов, выбор треков, сведение, прослушивание
+  - VPS_BASE — URL туннеля (хардкод, без слеша в конце)
+- `aidj-player.html` — плеер с Club EQ (Web Audio API)
+- `aidj-delete.html` — удаление треков
 
 #### Хранение файлов
 - **mp3:** на VPS в `/home/user1/.openclaw/workspace/aidj/`
 - **tracks.json:** там же. При удалении трека через веб — mp3 стирается автоматически
+- **Готовые миксы:** `aidj/static/mix_*.mp3`
+  - Формат имени: `mix_<YYYYMMDD>_<HHMMSS>_<preset_id>.mp3`
+  - preset берётся из `preset_params.get('preset', 'default')` в aidj-engine.py
 - **В репозитории GitHub:** только html-страницы, server.py и tracks.json. mp3 в `.gitignore`
-- **Страницы на GitHub Pages:** `aidj-delete.html`, `aidj-player.html`, `djset.html`
 
-#### Club EQ (28.06.2026)
+#### Логирование создания миксов
+- Сервер пишет в stderr: `[MIX-CREATED] <filename> — <preset_name> (<N> треков, <size> MB)`
+- Просмотр: `sudo journalctl -u aidj-server | grep MIX-CREATED`
+- Добавлено 28.06 в строке `print(f"[MIX-CREATED] ...")` в обоих эндпоинтах run_mix (сет) и api_mix_tracks (прямой микс)
+
+#### Логирование (sendLog)
+- Все клиентские страницы шлют POST `/api/log` на VPS через туннель
+- Аналитика: `sudo journalctl -u aidj-server | grep CLIENT-LOG`
+
+#### Club EQ
 - Фиксированный пресет Club, без UI, без слайдеров
 - Реализация: Web Audio API, цепочка BiquadFilter-ов
 - Цепочка: `source → GainNode → f60(lowshelf +4dB) → f250(peak +3dB) → f1k(peak -2dB) → f4k(peak +3dB) → f12k(highshelf +2dB) → destination`
 - **Важно: фильтры подключаются ПОСЛЕ GainNode, а не до.** GainNode → фильтры → destination. Не наоборот.
 - AudioContext инициализируется при первом нажатии Play (Chrome autoplay policy)
-- `togglePlay` — создаёт AudioContext, вызывает resume() из suspended, подключает audio к цепочке, только потом play()
-- refresh-кнопка: сбрасывает AudioContext (close + null), все старые MediaElementSource умирают вместе с DOM
-- `eqConnected[trackIdx]` — защита от двойного `createMediaElementSource` для одного трека
-- `preload="none"` на audio-элементе — работает корректно, createMediaElementSource не требует загруженного медиа
-- `crossorigin="anonymous"` добавлен на audio для Web Audio API
+- `crossorigin="anonymous"` на audio-элементе
 - Cloudflare Tunnel отдаёт `Access-Control-Allow-Origin: *` — CORS не проблема
 
 #### Добавление нового трека (алгоритм для Лунта)
@@ -101,14 +150,14 @@
    - Получает полный mp3 128-160kbps
    - Западные группы (Guns N' Roses, Rolling Stones) могут быть недоступны в РФ
 2. **Hitmotop / музпоисковики** — fallback, если в VK нет
-   - URL: `https://rus.hitmotop.com/song/<id>` или `https://rus.hitmoz.org/song/<id>`
 3. **Яндекс.Музыка** — только метаданные (токен в TOOLS.md, библиотека `yandex-music`). Скачивание даёт только preview 30 сек
 
 **После скачивания:**
 - Имя файла: латиница без пробелов, подчёркивания вместо пробелов
-- `tracks.json`: URL через Cloudflare Tunnel — `https://*.trycloudflare.com/<filename>.mp3`
+- `tracks.json`: URL через текущий Cloudflare Tunnel — `https://*.trycloudflare.com/<filename>.mp3`
 - Проверить curl что mp3 отдаётся через туннель (HTTP 200)
 - Git add + commit + push (только tracks.json, mp3 в .gitignore)
+- **ВАЖНО:** tracks.json на VPS и на GitHub синхронизировать (на GitHub — для aidj-player.html)
 
 ### Модели LLM
 - **deepseek/deepseek-v4-flash** — primary модель (чат в Telegram + новые сессии) с 19.06.2026
@@ -179,6 +228,7 @@
 |  | 📋 Ирина: НПА | понедельник 09:06 | deepseek-chat | Ирина |
   | 🔘 Отчёт по токенам (bash) | ежедневно 03:30 | — | tokens.html (локально) |
   | 🔄 Обновление tasks.html (Health Index) | каждые 3 часа | deepseek-chat 120s | tasks.html (авто: last_run из Gateway + Health Index) |
+  | 🤖 AI DJ мониторинг туннеля | каждые 3 часа | deepseek-chat 60s | — (проверка, что туннель жив) |
 
 ### Удалённые задачи (20.06.2026)
 - ~~Инкрементальный бэкап~~ (удалён)
@@ -190,7 +240,13 @@
 - **Публикация:** все отчёты через `publish-report.sh` (git add → commit → push → GitHub Pages)
 - **failureAlert:** после 2 ошибок → Кириллу (cooldown 1 час)
 - **sessionTarget:** Катя/Данил/Роза/Ирина/Катрин = `isolated`, Лена/РЖД = её сессия, бэкапы = `isolated`
-- **timeout:** 60–300 сек
+- **timeout:** 60–600 сек
+
+### 29.06.2026 — Катя: модель и таймаут
+- Задача «Сводка жалоб» переведена с deepseek-v4-flash на deepseek-chat (primary)
+- deepseek-v4-flash нестабилен: стабильно падал по таймауту 300с, а потом и по LLM error
+- timeout увеличен с 300 до 600 секунд
+- deepseek-chat дешевле и стабильнее для этой задачи
 
 ---
 

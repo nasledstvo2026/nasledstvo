@@ -517,8 +517,9 @@ def mix_set_tracks(tracks, output_dir=None, preset_params=None):
 
         current_file = output_file
 
-    # Final mix
-    final_output = str(output_dir / f'mix_{timestamp}_full.mp3')
+    # Final mix with preset name
+    preset_slug = preset_params.get('preset', 'default')
+    final_output = str(output_dir / f'mix_{timestamp}_{preset_slug}.mp3')
     if os.path.exists(current_file):
         shutil.move(current_file, final_output)
 

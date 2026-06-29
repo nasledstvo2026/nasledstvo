@@ -108,5 +108,32 @@ async def main():
             print(f"\n✅ Saved to {UPDATE_FILE} ({len(output)} chars)", file=sys.stderr)
             print(f"   Calls used: ~{len(QUERIES) + 1} of 100 monthly", file=sys.stderr)
 
+            # 4. Генерация zakupki-stats.json для динамических плашек на сайте
+            calls_today = len(QUERIES) + 1
+            # Определяем статус кодексов и постановлений по последним изменениям
+            has_changes = "изменени" in changes.lower() if changes else False
+            if has_changes:
+                codex_status = "🟢"
+                pp_status = "🟢"
+            else:
+                codex_status = "🟢"
+                pp_status = "🟡"
+
+            stats = {
+                "status_codex": codex_status,
+                "status_pp": pp_status,
+                "calls_today": calls_today,
+                "calls_today_display": f"{calls_today} ✅",
+                "monthly_used": len(QUERIES) * 3 * 4,  # ~84 запроса/мес
+                "monthly_limit": 100,
+                "monthly_display": f"{len(QUERIES) * 3 * 4}/100",
+                "last_update": datetime.now().strftime('%d.%m.%Y %H:%M'),
+                "has_changes": has_changes
+            }
+            STATS_FILE = os.path.expanduser("~/.openclaw/workspace/zakupki-stats.json")
+            with open(STATS_FILE, "w") as f:
+                json.dump(stats, f, ensure_ascii=False, indent=2)
+            print(f"\n✅ Stats saved to {STATS_FILE}", file=sys.stderr)
+
 if __name__ == "__main__":
     asyncio.run(main())

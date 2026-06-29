@@ -234,6 +234,10 @@ def api_play_set(set_id):
                         fname = os.path.basename(final_output)
                         nginx_base = NGINX_BASE.rstrip('/')
                         mix_url = f'{nginx_base}/static/{fname}'
+                        file_size = os.path.getsize(final_output) / (1024*1024)
+                        preset_name = engine_data.get('preset_name', '?')
+                        track_count = engine_data.get('track_count', len(tracks))
+                        print(f"[MIX-CREATED] {fname} — {preset_name} ({track_count} треков, {file_size:.0f} MB)", file=sys.stderr, flush=True)
                         mixing_jobs[sid] = {
                             'status': 'done',
                             'output': engine_data,
@@ -344,6 +348,10 @@ def api_mix_tracks():
                         fname = os.path.basename(final_output)
                         nginx_base = NGINX_BASE.rstrip('/')
                         mix_url = f'{nginx_base}/static/{fname}'
+                        file_size = os.path.getsize(final_output) / (1024*1024)
+                        preset_name = engine_data.get('preset_name', '?')
+                        track_count = engine_data.get('track_count', len(tlist))
+                        print(f"[MIX-CREATED] {fname} — {preset_name} ({track_count} треков, {file_size:.0f} MB)", file=sys.stderr, flush=True)
                         mixing_jobs[mid] = {
                             'status': 'done',
                             'output': engine_data,
