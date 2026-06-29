@@ -283,6 +283,7 @@
   <div class="toc">
     <a href="#bizreq">Бизнес-требования</a>
     <a href="#workflow">Workflow</a>
+    <a href="#migration">План миграции</a>
     <a href="#sysreq">Системные требования</a>
     <a href="#arch">Архитектура</a>
   </div>
@@ -458,7 +459,88 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════ -->
-  <!-- 2. СИСТЕМНЫЕ ТРЕБОВАНИЯ -->
+  <!-- 2. ПЛАН МИГРАЦИИ -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="migration" class="arch-section">
+
+    <h2>План миграции</h2>
+    <p>Пошаговый план перехода на многоагентную архитектуру: от подготовки до production.</p>
+
+    <div class="arch-card">
+      <div class="card-title">📋 Этапы миграции</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Этап</th><th>Что делаем</th><th>Срок</th><th>CP</th></tr>
+          <tr><td><strong>A</strong></td><td>Подготовка: бэкап, тест-кейсы, план отката</td><td>1 час</td><td>CP-A</td></tr>
+          <tr><td><strong>B</strong></td><td>Разведка источников (УФАС, ЕИС, ЖНВЛП)</td><td>1 день</td><td>CP-B</td></tr>
+          <tr><td><strong>C</strong></td><td>Разработка katrin-agent + тестирование</td><td>1 день</td><td>CP-C</td></tr>
+          <tr><td><strong>D</strong></td><td>Маршрутизация Telegram + тестирование</td><td>0.5 дня</td><td>CP-D</td></tr>
+          <tr><td><strong>E</strong></td><td>Разработка auditor-agent + тестирование</td><td>1 день</td><td>CP-E</td></tr>
+          <tr><td><strong>F</strong></td><td>Интеграция цикла аудита + тестирование</td><td>1 день</td><td>CP-F</td></tr>
+          <tr><td><strong>G</strong></td><td>Production-запуск + регрессия</td><td>0.5 дня</td><td>CP-G</td></tr>
+        </table>
+        <p style="margin-top:10px;color:var(--text-dim);font-size:13px;">⏱ Итого: <strong>~5 дней</strong> до полного production-ready</p>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🔐 Резервное копирование (Этап A.1)</div>
+      <div class="card-body">
+        <ul>
+          <li>Git tag <code>pre-pharm-tenderolog-YYYY-MM-DD</code></li>
+          <li>Экспорт всех cron-задач main-агента</li>
+          <li>Бэкап конфига Gateway: <code>~/.openclaw/gateway.yaml</code></li>
+          <li>Бэкап знаний и памяти katrin-скилла</li>
+          <li>Фиксация остатка LegalMCP</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🧪 Тест-кейсы (Этап A.2)</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Код</th><th>Что проверяем</th><th>Ожидание</th></tr>
+          <tr><td>TC-01..03</td><td>Базовые ответы katrin-agent</td><td>Цитаты 44-ФЗ, ПП №620, Честный ЗНАК</td></tr>
+          <tr><td>TC-04..05</td><td>Генерация и модерация</td><td>.docx создан, не по теме → возврат</td></tr>
+          <tr><td>TC-06..07</td><td>Маршрутизация Telegram</td><td>311760717 → katrin-agent, остальные → Лунт</td></tr>
+          <tr><td>TC-08..09</td><td>Аудитор в изоляции</td><td>Отчёт [НАРУШЕНИЕ/РИСК/OK], отказ генерации</td></tr>
+          <tr><td>TC-10..14</td><td>Цикл аудита + отказоустойчивость</td><td>Цикл работает, fallback срабатывает</td></tr>
+          <tr><td>TC-15</td><td>Регрессия</td><td>Другие пользователи работают как прежде</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">🔄 План отката (Rollback)</div>
+      <div class="card-body">
+        <h4>Быстрый откат</h4>
+        <table class="req-table">
+          <tr><th>Сценарий</th><th>Действие</th><th>Время</th></tr>
+          <tr><td>katrin-agent не отвечает</td><td>Удалить сессию, вернуть кроны на main</td><td>3 мин</td></tr>
+          <tr><td>Маршрутизация сломала Лунта</td><td>Отключить кастомный channel, перезапустить Gateway</td><td>5 мин</td></tr>
+          <tr><td>auditor-agent не аудирует</td><td>Отключить sessions_send, работа без аудита</td><td>2 мин</td></tr>
+          <tr><td>Цикл аудита зависает</td><td>Увеличить таймаут / отключить аудит</td><td>3 мин</td></tr>
+          <tr><td>LegalMCP исчерпан</td><td>Использовать кеш знаний</td><td>5 мин</td></tr>
+        </table>
+        <h4 style="margin-top:16px;">Полный откат</h4>
+        <ol style="margin:8px 0 8px 20px;color:var(--text-dim);line-height:1.8;">
+          <li>Удалить agent id katrin-agent и auditor-agent</li>
+          <li>Удалить persistent-сессии</li>
+          <li>Отключить кастомный Telegram channel</li>
+          <li>Восстановить Gateway config из backup</li>
+          <li>Восстановить кроны из backup</li>
+          <li>Удалить memory/katrin/ и memory/auditor/</li>
+          <li>git checkout до тега pre-pharm-tenderolog</li>
+        </ol>
+        <p style="color:var(--text-dim);font-size:13px;">⏱ Полный откат: <strong>~15 минут</strong></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 3. СИСТЕМНЫЕ ТРЕБОВАНИЯ -->
   <!-- ══════════════════════════════════════════════════════ -->
   <div id="sysreq" class="arch-section">
 
