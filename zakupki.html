@@ -142,10 +142,20 @@
     </div>
   </div>
 
+  <!-- ═══ РЕЗУЛЬТАТ ПОСЛЕДНЕГО ЗАПУСКА ═══ -->
+  <div class="section law-section" id="result-section" style="display:none;">
+    <h2>Результат последнего запуска</h2>
+    <div class="item" id="result-body">
+      <div class="title" id="result-title">—</div>
+      <div class="meta" id="result-meta">—</div>
+      <div class="body" id="result-text">—</div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-  // Динамическая загрузка статистики LegalMCP с GitHub Pages
+  // Динамическая загрузка статистики LegalMCP
   fetch('zakupki-stats.json')
     .then(r => {
       if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -156,19 +166,29 @@
       document.getElementById('status-pp').textContent = data.status_pp || '🟡';
       document.getElementById('calls-count').textContent = data.calls_today_display || '—';
       document.getElementById('monthly-calls').textContent = data.monthly_display || '—';
-
-      // Обновляем дату последнего запуска, если есть
-      if (data.last_update) {
-        const el = document.querySelector('.section.law-section p strong');
-        if (el) el.textContent = data.last_update;
-      }
     })
     .catch(() => {
-      // Fallback: оставляем статичные значения при ошибке загрузки
       document.getElementById('status-codex').textContent = '🟢';
       document.getElementById('status-pp').textContent = '🟡';
       document.getElementById('calls-count').textContent = '—';
       document.getElementById('monthly-calls').textContent = '—';
+    });
+
+  // Загрузка сводки последнего запуска
+  fetch('zakupki-result.json?t=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(data => {
+      const section = document.getElementById('result-section');
+      section.style.display = 'block';
+      document.getElementById('result-title').textContent = data.title || 'Обновление базы знаний';
+      document.getElementById('result-meta').textContent = data.meta || '';
+      document.getElementById('result-text').innerHTML = (data.text || '').replace(/\n/g, '<br>');
+    })
+    .catch(() => {
+      // Нет файла — не показываем блок
     });
 </script>
 
