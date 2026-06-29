@@ -198,33 +198,31 @@
 
 ## 4. План отката (Rollback Plan)
 
-### 4.1. Быстрый откат (шаги сценариев)
+### 4.1. Быстрый откат — сценарии с командами
 
-| Сценарий | Признак | Действие | Время |
-|----------|---------|----------|-------|
-| **katrin-agent не отвечает** | Специалист пишет, ответа нет | Удалить session:katrin. Вернуть LegalMCP-крон на main. Специалист возвращается к Лунту | 3 мин |
-| **Маршрутизация сломала Лунта** | Другие пользователи не получают ответы | Отключить кастомный channel. Вернуть маршрут по умолчанию. Перезапустить Gateway | 5 мин |
-| **auditor-agent не аудирует** | Цикл аудита не завершается | Отключить sessions_send в katrin-agent. katrin-agent продолжает работу без аудита | 2 мин |
-| **Цикл аудита зависает** | Таймаут 120 сек, fallback сработал, но документы все «без аудита» | Увеличить таймаут. Если не помогает — временно отключить аудит | 3 мин |
-| **LegalMCP исчерпан** | Запросы падают с 402 | Уменьшить число вызовов. Использовать кеш знаний | 5 мин |
+| Сценарий | Признак | Команды | Время | CP привязка |
+|----------|---------|--------|-------|-------------|
+| **katrin-agent не отвечает** | Специалист пишет, ответа нет | `openclaw cron add --from-backup backup/cron-main-2026-06-29.json` (восстановить LegalMCP-крон на main). Удалить сессию. Специалист возвращается к Лунту | 3 мин | CP-C |
+| **Маршрутизация сломала Лунта** | Другие пользователи не получают ответы | Вернуть default-маршрут в Gateway. `openclaw gateway restart` | 5 мин | CP-D |
+| **auditor-agent не аудирует** | Цикл аудита не завершается | Удалить агента/сессию. katrin-agent продолжает работу без аудита до исправления auditor | 2 мин | CP-E / CP-F |
+| **Цикл аудита зависает** | Таймаут 120 сек, все документы «без аудита» | Отключить sessions_send → auditor-agent в katrin-agent. Вернуть, когда аудитор починится | 3 мин | CP-F |
+| **LegalMCP исчерпан** | Запросы падают с 402 | katrin-agent → режим «только знания» (кеш). Уменьшить частоту вызовов LegalMCP | 5 мин | Любая |
 
-### 4.2. Полный откат
+### 4.2. Полный откат (катастрофический)
 
-Если провалилось всё (катастрофический сценарий):
+| Шаг | Команда / Действие | Время |
+|-----|-------------------|-------|
+| R.1 | Удалить agent id: `openclaw agents remove katrin-agent` и `openclaw agents remove auditor-agent` | 30 сек |
+| R.2 | Удалить persistent-сессии: `openclaw sessions remove session:katrin` и `openclaw sessions remove session:auditor` | 30 сек |
+| R.3 | Отключить кастомный Telegram channel (вернуть default-маршрут) | 2 мин |
+| R.4 | Перенастроить Gateway маршруты вручную (backup нет — runtime) | 3 мин |
+| R.5 | Восстановить LegalMCP-крон на main: `openclaw cron add --from-json backup/cron-main-2026-06-29.json` и удалить дубликат `openclaw cron remove <id>` | 2 мин |
+| R.6 | Удалить: `rm -rf memory/katrin/ memory/auditor/` | 30 сек |
+| R.7 | Восстановить знания: `rm -rf knowledge/katrin && cp -r backup/knowledge-katrin knowledge/katrin` | 30 сек |
+| R.8 | `git checkout tags/pre-pharm-tenderolog-2026-06-29` (только если файлы репозитория были изменены) | 1 мин |
+| R.9 | `openclaw gateway restart` | 1 мин |
 
-| Шаг | Действие |
-|-----|----------|
-| R.1 | Удалить agent id `katrin-agent` и `auditor-agent` |
-| R.2 | Удалить persistent-сессии `session:katrin` и `session:auditor` |
-| R.3 | Отключить кастомный Telegram channel (маршрутизацию) |
-| R.4 | Перенастроить Gateway маршруты вручную (backup нет — runtime) |
-| R.5 | Восстановить LegalMCP-крон на main из backup кронов |
-| R.6 | Удалить `memory/katrin/` и `memory/auditor/` |
-| R.7 | Восстановить знания из backup: `knowledge/katrin/` |
-| R.8 | `git checkout tags/pre-pharm-tenderolog-YYYY-MM-DD` (если репозиторий был изменён) |
-| R.9 | Перезапустить Gateway: `openclaw gateway restart` |
-
-**Время полного отката:** ~15 минут.
+**Время полного отката:** ~11 минут.
 
 ---
 
