@@ -614,9 +614,9 @@ auditor-agent → response (список замечаний / OK) → katrin-age
           <tr><th>Источник</th><th>Тип</th><th>Статус</th></tr>
           <tr><td>LegalMCP</td><td>MCP API</td><td><span class="status-dot-green">●</span> Работает</td></tr>
           <tr><td>pravo.gov.ru</td><td>web</td><td><span class="status-dot-green">●</span> Работает</td></tr>
-          <tr><td>Решения УФАС</td><td>API / парсер</td><td><span class="status-dot-red">●</span> Исследовать</td></tr>
-          <tr><td>Реестр контрактов ЕИС</td><td>API / парсер</td><td><span class="status-dot-red">●</span> Исследовать</td></tr>
-          <tr><td>Реестр цен ЖНВЛП</td><td>API / выгрузка</td><td><span class="status-dot-red">●</span> Исследовать</td></tr>
+          <tr><td>Решения УФАС</td><td>web_search + web_fetch</td><td><span class="status-dot-yellow">●</span> Fallback (API нет)</td></tr>
+          <tr><td>Реестр контрактов ЕИС</td><td>web_search + web_fetch</td><td><span class="status-dot-yellow">●</span> Fallback (API нет)</td></tr>
+          <tr><td>Реестр цен ЖНВЛП</td><td>web_fetch (pots.minzdrav.gov.ru)</td><td><span class="status-dot-yellow">●</span> Fallback (HTML-парсинг)</td></tr>
         </table>
       </div>
     </div>
