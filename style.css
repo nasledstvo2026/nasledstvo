@@ -118,6 +118,7 @@
 .cards .card-tag.pink   { background: rgba(248,81,73,.12);   color: var(--pink);   border: 1px solid rgba(255,107,157,.2); }
 
 /* ─── AURA card — строгий uppercase serif ─── */
+/* ─── AURA card — строгий uppercase serif ─── */
 .cards .card.aura {
   min-height: 150px;
   cursor: pointer;
@@ -136,6 +137,18 @@
   text-transform: uppercase;
   font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
   letter-spacing: 2px;
+}
+
+/* ─── AURA card icon (ФармТендеролог) ─── */
+.cards .card.aura .aura-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-right: 10px;
+  opacity: 0.9;
+  filter: drop-shadow(0 1px 3px rgba(188,140,255,0.3));
+  vertical-align: middle;
 }
 
 /* ─── Card badges (статус в заголовке) ─── */
