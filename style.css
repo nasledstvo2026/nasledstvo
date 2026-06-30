@@ -412,8 +412,8 @@
 /* Фото с фоновым изображением */
 .cards .card.pink.bg-image {
   background-image: url('assets/photo-bg.jpg') !important;
-  height: 140px;
-  min-height: 140px;
+  height: 150px;
+  min-height: 150px;
   display: block;
 }
 .cards .card.pink.bg-image::before {
