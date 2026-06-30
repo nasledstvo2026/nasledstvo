@@ -77,6 +77,66 @@
     }
     .tag-ok { background: rgba(46,160,67,0.15); color: #3fb950; }
     .tag-stale { background: rgba(210,153,34,0.15); color: #d29922; }
+
+    /* Живая таблица закупок */
+    .purchases-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .purchases-table th {
+      text-align: left;
+      padding: 10px 8px;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .purchases-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(33,38,45,0.6);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+    .purchases-table td.obj {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .purchases-table tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .law-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .law-badge.fz44 { background: rgba(88,166,255,0.15); color: #58a6ff; }
+    .law-badge.fz223 { background: rgba(188,140,255,0.15); color: #bc8cff; }
+    .status-tag {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .purchases-meta {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+    .load-error {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-faint);
+    }
+    @media (max-width: 768px) {
+      .purchases-table { font-size: 12px; }
+      .purchases-table td.obj { max-width: 120px; }
+      .purchases-table th:nth-child(4),
+      .purchases-table td:nth-child(4) { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -134,6 +194,29 @@
     </div>
   </div>
 
+  <!-- ═══ ЖИВЫЕ ЗАКУПКИ С ЕИС ═══ -->
+  <div class="section law-section" id="purchases-section">
+    <h2>📋 Закупки (лекарства / медизделия)</h2>
+    <div class="purchases-meta" id="purchases-meta">Загрузка данных…</div>
+    <div style="overflow-x:auto;">
+      <table class="purchases-table" id="purchases-table">
+        <thead>
+          <tr>
+            <th>Закон</th>
+            <th>Номер / Статус</th>
+            <th class="obj">Объект закупки</th>
+            <th>Заказчик</th>
+            <th>Цена</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+        <tbody id="purchases-tbody">
+          <tr><td colspan="6" class="load-error">⏳ Загрузка…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -150,8 +233,49 @@
       document.getElementById('result-meta').textContent = data.meta || '';
       document.getElementById('result-text').innerHTML = (data.text || '').replace(/\n/g, '<br>');
     })
-    .catch(() => {
-      // Нет файла — не показываем блок
+    .catch(() => {});
+
+  // Загрузка живых закупок
+  fetch('zakupki-purchases.json?t=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(data => {
+      const meta = data.meta || {};
+      const purchases = data.purchases || [];
+      document.getElementById('purchases-meta').innerHTML =
+        'Обновлено: <strong>' + (meta.updated || '—') + '</strong>' +
+        ' · Всего в системе: <strong>' + (meta.total_display || '—') + '</strong>' +
+        ' · Показано: <strong>' + purchases.length + '</strong>';
+
+      const tbody = document.getElementById('purchases-tbody');
+      if (purchases.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="load-error">Нет данных</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = purchases.map(p => {
+        const lawClass = p.law === '223-ФЗ' ? 'fz223' : 'fz44';
+        const price = p.price && p.price !== '?' ? p.price : '—';
+        const customer = p.customer && p.customer !== '?' ? p.customer.substring(0, 80) + '…' : '—';
+        const obj = p.object && p.object !== '?' ? p.object.substring(0, 120) : '—';
+        const url = p.url && p.url.startsWith('http') ? p.url : '#';
+        const target = url !== '#' ? ' target="_blank"' : '';
+        return '<tr>' +
+          '<td><span class="law-badge ' + lawClass + '">' + p.law + '</span></td>' +
+          '<td><a href="' + url + '"' + target + ' style="color:var(--text);text-decoration:none;"><strong>' + p.number + '</strong></a><br><span class="status-tag">' + p.status + '</span></td>' +
+          '<td class="obj">' + obj + '</td>' +
+          '<td style="font-size:12px;color:var(--text-dim);">' + customer + '</td>' +
+          '<td style="white-space:nowrap;text-align:right;">' + price + '</td>' +
+          '<td style="white-space:nowrap;font-size:12px;color:var(--text-faint);">' + (p.placed || '—') + '</td>' +
+          '</tr>';
+      }).join('');
+    })
+    .catch(err => {
+      document.getElementById('purchases-meta').textContent = '❌ Не удалось загрузить данные';
+      document.getElementById('purchases-tbody').innerHTML =
+        '<tr><td colspan="6" class="load-error">❌ Ошибка загрузки. Данные появятся после первого запуска парсера.</td></tr>';
     });
 </script>
 
