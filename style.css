@@ -125,9 +125,11 @@
   overflow: hidden;
 }
 
-/* ─── AI DJ: фоновое изображение ─── */
+/* ─── AI DJ: фоновое изображение, пустая плашка ─── */
 .cards .card.purple.bg-image:not(.aura) {
   background-image: url('assets/aidj-bg.jpg');
+  height: 140px;
+  min-height: 140px;
 }
 .cards .card.purple.bg-image:not(.aura)::before {
   background: linear-gradient(135deg, rgba(188,140,255,0.4) 0%, rgba(10,14,20,0.75) 70%);
