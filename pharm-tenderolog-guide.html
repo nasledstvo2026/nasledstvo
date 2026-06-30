@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Как пользоваться — ФармТендеролог</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .guide-page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+    .guide-hero {
+      text-align: center;
+      padding: 48px 24px 32px;
+    }
+    .guide-hero h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .guide-hero p {
+      color: var(--text-dim);
+      font-size: 15px;
+    }
+    .section-title {
+      font-size: 18px;
+      margin: 36px 0 16px;
+      color: var(--text);
+      border-left: 3px solid var(--blue);
+      padding-left: 12px;
+    }
+    .example-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .example-card .label {
+      font-size: 11px;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .example-card .phrase {
+      font-size: 16px;
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .example-card .result {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    .example-card .copy-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: rgba(88,166,255,0.1);
+      color: var(--blue);
+      border: 1px solid rgba(88,166,255,0.2);
+      cursor: pointer;
+    }
+    .example-card .copy-btn:hover {
+      background: rgba(88,166,255,0.2);
+    }
+    .tip-box {
+      background: rgba(88,166,255,0.05);
+      border: 1px solid rgba(88,166,255,0.15);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .tip-box strong {
+      color: var(--blue);
+    }
+    .tip-box .icon {
+      font-size: 20px;
+      margin-right: 8px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .nav-links a:hover {
+      border-color: var(--blue);
+    }
+
+    /* Модальное уведомление о копировании */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card);
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: var(--green);
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="guide-page">
+
+  <div class="guide-hero">
+    <h1>📖 Как пользоваться ФармТендерологом</h1>
+    <p>Просто напишите в Telegram то, что нужно — ассистент сам разберётся</p>
+  </div>
+
+  <!-- ═══ ЧТО МОЖНО ДЕЛАТЬ ═══ -->
+  <div class="section-title">📌 Что можно попросить</div>
+
+  <div class="example-card">
+    <div class="label">📄 Создать документ</div>
+    <div class="phrase">«Подготовь допсоглашение к контракту №345 по 44-ФЗ на поставку лекарств»</div>
+    <div class="result">→ Ассистент сформирует .docx с корректными ссылками на статьи. Останется добавить реквизиты.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card">
+    <div class="label">📄 Создать спецификацию</div>
+    <div class="phrase">«Сделай спецификацию к контракту на медицинские изделия (5 позиций, шаблон)»</div>
+    <div class="result">→ Готовый шаблон спецификации в .docx с таблицей.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card">
+    <div class="label">📄 Расчёт НМЦК</div>
+    <div class="phrase">«Рассчитай НМЦК методом сопоставимых рыночных цен на лекарства (МНН: Амлодипин)»</div>
+    <div class="result">→ Расчёт с формулами и обоснованием по Приказу №1064н.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card">
+    <div class="label">🔍 Проверить документ</div>
+    <div class="phrase">«Проверь мой проект контракта на ошибки»</div>
+    <div class="result">→ Внутренний аудитор проверит документ и укажет, что поправить.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card">
+    <div class="label">📖 Спросить про закон</div>
+    <div class="phrase">«Какие изменения в 44-ФЗ были в 2026 году?»</div>
+    <div class="result">→ Ответ с цитатами и ссылками, без воды.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card">
+    <div class="label">📖 Уточнить норму</div>
+    <div class="phrase">«Можно ли изменить цену контракта по 44-ФЗ, если он меньше 10 млн?»</div>
+    <div class="result">→ Чёткий ответ со ссылкой на статью 95 44-ФЗ.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card">
+    <div class="label">📊 Посмотреть закупки</div>
+    <div class="phrase">«Что сегодня по закупкам?»</div>
+    <div class="result">→ Ссылка на <a href="zakupki.html" style="color:var(--blue);">страницу с актуальными торгами</a>.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <!-- ═══ СОВЕТЫ ═══ -->
+  <div class="section-title">💡 Советы</div>
+
+  <div class="tip-box">
+    <span class="icon">✏️</span> <strong>Пишите как коллеге.</strong> Не нужно специальных команд. Просто: «Сделай допсоглашение на №345».
+  </div>
+
+  <div class="tip-box">
+    <span class="icon">📎</span> <strong>Прикрепите файл.</strong> Если есть проект документа — пришлите его в чат и напишите «проверь». Ассистент прочитает и найдёт ошибки.
+  </div>
+
+  <div class="tip-box">
+    <span class="icon">🔄</span> <strong>Можно уточнять.</strong> Ответ не устроил? Напишите «поподробнее» или «исправь раздел про НМЦК». Ассистент доработает.
+  </div>
+
+  <div class="tip-box">
+    <span class="icon">❗</span> <strong>Не стесняйтесь.</strong> Любой вопрос — от «как рассчитать НМЦК» до «сделай проект контракта». Не бывает «глупого» вопроса для ассистента.
+  </div>
+
+  <!-- ═══ НАВИГАЦИЯ ═══ -->
+  <div class="nav-links">
+    <a href="zakupki.html">📋 Закупки сегодня</a>
+    <a href="pharm-tenderolog-product.html">ℹ️ О продукте</a>
+  </div>
+
+  <div style="text-align:center;margin-top:32px;color:var(--text-faint);font-size:12px;">
+    Не знаете, что написать — начните с «Привет, что ты умеешь?»
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✅ Скопировано</div>
+
+<script>
+  function copyText(btn) {
+    const phrase = btn.parentElement.querySelector('.phrase').innerText;
+    navigator.clipboard.writeText(phrase).then(() => {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

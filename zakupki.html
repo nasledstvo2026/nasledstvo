@@ -209,10 +209,11 @@
             <th>Заказчик</th>
             <th>Цена</th>
             <th>Дата</th>
+            <th></th>
           </tr>
         </thead>
         <tbody id="purchases-tbody">
-          <tr><td colspan="6" class="load-error">⏳ Загрузка…</td></tr>
+          <tr><td colspan="7" class="load-error">⏳ Загрузка…</td></tr>
         </tbody>
       </table>
     </div>
@@ -252,7 +253,7 @@
 
       const tbody = document.getElementById('purchases-tbody');
       if (purchases.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="load-error">Нет данных</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="load-error">Нет данных</td></tr>';
         return;
       }
 
@@ -263,22 +264,45 @@
         const obj = p.object && p.object !== '?' ? p.object.substring(0, 120) : '—';
         const url = p.url && p.url.startsWith('http') ? p.url : '#';
         const target = url !== '#' ? ' target="_blank"' : '';
+        const num = p.number || '';
         return '<tr>' +
           '<td><span class="law-badge ' + lawClass + '">' + p.law + '</span></td>' +
-          '<td><a href="' + url + '"' + target + ' style="color:var(--text);text-decoration:none;"><strong>' + p.number + '</strong></a><br><span class="status-tag">' + p.status + '</span></td>' +
+          '<td><a href="' + url + '"' + target + ' style="color:var(--text);text-decoration:none;"><strong>' + num + '</strong></a><br><span class="status-tag">' + p.status + '</span></td>' +
           '<td class="obj">' + obj + '</td>' +
           '<td style="font-size:12px;color:var(--text-dim);">' + customer + '</td>' +
           '<td style="white-space:nowrap;text-align:right;">' + price + '</td>' +
           '<td style="white-space:nowrap;font-size:12px;color:var(--text-faint);">' + (p.placed || '—') + '</td>' +
+          '<td><a href="#" onclick="createDoc(event,\'' + num + '\')" style="font-size:12px;color:var(--blue);white-space:nowrap;text-decoration:none;">📄 Создать</a></td>' +
           '</tr>';
       }).join('');
     })
     .catch(err => {
       document.getElementById('purchases-meta').textContent = '❌ Не удалось загрузить данные';
       document.getElementById('purchases-tbody').innerHTML =
-        '<tr><td colspan="6" class="load-error">❌ Ошибка загрузки. Данные появятся после первого запуска парсера.</td></tr>';
+        '<tr><td colspan="7" class="load-error">❌ Ошибка загрузки. Данные появятся после первого запуска парсера.</td></tr>';
     });
+  // Копирование номера закупки в Telegram-запрос
+  function createDoc(event, number) {
+    event.preventDefault();
+    const text = '📄 Подготовь документ по закупке №' + number;
+    navigator.clipboard.writeText(text).then(() => {
+      // Убираем все остальные toasts
+      document.querySelectorAll('.copy-toast').forEach(t => t.remove());
+      const toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.innerHTML = '✅ Скопировано в буфер. Вставьте в Telegram: <strong style="color:var(--text);">' + text + '</strong>';
+      toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--green);border-radius:8px;padding:12px 20px;color:var(--green);font-size:14px;z-index:100;max-width:90%;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);line-height:1.5;';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }).catch(() => {
+      alert('Скопируйте вручную: ' + text);
+    });
+  }
 </script>
+
+<div style="text-align:center;margin-top:24px;font-size:13px;color:var(--text-dim);">
+  <a href="pharm-tenderolog-guide.html" style="color:var(--blue);">📖 Как задавать вопросы ассистенту →</a>
+</div>
 
 </body>
 </html>
