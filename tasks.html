@@ -14,39 +14,46 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">0 активных задач · 30.06.2026 00:00</div>
+    <div class="meta">10 активных задач (8 бизнес + 2 сервисных) · 30.06.2026 07:05</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
   <div class="section" style="padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
-    <h2 style="font-size:14px;margin-bottom:12px;color:var(--text,#c9d1d9);">💡 Легенда</h2>
-    <div class="legend-metric">
-      <div class="legend-title">⏱ Duration / Timeout</div>
-      <div class="legend-desc">Доля времени выполнения от таймаута</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;50%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &gt;80%</span></div>
-    </div>
-    <div class="legend-metric">
-      <div class="legend-title">📈 Success Rate</div>
-      <div class="legend-desc">Процент успешных запусков</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> 100%</span><span><span class="tl tl-yellow"></span> &lt;100%</span><span><span class="tl tl-red"></span> &lt;90%</span></div>
-    </div>
-    <div class="legend-metric">
-      <div class="legend-title">📬 Latency</div>
-      <div class="legend-desc">Задержка старта относительно расписания</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> ≤1 мин</span><span><span class="tl tl-yellow"></span> 2–15 мин</span><span><span class="tl tl-red"></span> &gt;15 мин</span></div>
-    </div>
-    <div class="legend-sep"></div>
-    <div class="legend-metric">
-      <div class="legend-title">💎 Cache Hit %</div>
-      <div class="legend-desc"><code>cacheRead / (input + cacheRead) × 100</code> — эффективность системного промпта. Данные из trajectory сессии (сырой ответ DeepSeek API).</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &gt;80%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &lt;50%</span></div>
-    </div>
-    <div class="legend-metric" style="border:none;margin:0;padding:0;">
-      <div class="legend-title">💰 Cost / Run</div>
-      <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code> — тарифы deepseek-chat из openclaw.json.</div>
-      <div class="legend-items"><span><span class="tl tl-green"></span> &lt;$0.01</span><span><span class="tl tl-yellow"></span> $0.01–0.05</span><span><span class="tl tl-red"></span> &gt;$0.05</span></div>
-    </div>
+    <h2 style="font-size:14px;margin-bottom:10px;color:var(--text,#c9d1d9);">💡 Легенда</h2>
+    <table class="legend-table">
+      <thead>
+        <tr><th>Метрика</th><th style="text-align:center;"><span class="tl tl-green"></span> 🟢</th><th style="text-align:center;"><span class="tl tl-yellow"></span> 🟡</th><th style="text-align:center;"><span class="tl tl-red"></span> 🔴</th><th>Описание</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>⏱ Duration</td><td style="text-align:center;">&lt;50%</td><td style="text-align:center;">50–80%</td><td style="text-align:center;">&gt;80%</td><td>Доля времени от таймаута</td></tr>
+        <tr><td>📈 Success Rate</td><td style="text-align:center;">100%</td><td style="text-align:center;">&lt;100%</td><td style="text-align:center;">&lt;90%</td><td>Процент успешных запусков</td></tr>
+        <tr><td>📬 Latency</td><td style="text-align:center;">≤1 мин</td><td style="text-align:center;">2–15 мин</td><td style="text-align:center;">&gt;15 мин</td><td>Задержка старта относительно расписания</td></tr>
+        <tr><td>💎 Cache Hit</td><td style="text-align:center;">&gt;80%</td><td style="text-align:center;">50–80%</td><td style="text-align:center;">&lt;50%</td><td>cacheRead / (input + cacheRead) × 100</td></tr>
+        <tr><td>💰 Cost / Run</td><td style="text-align:center;">&lt;$0.01</td><td style="text-align:center;">$0.01–0.05</td><td style="text-align:center;">&gt;$0.05</td><td>По тарифам модели из openclaw.json</td></tr>
+        <tr><td>🩺 Health Index</td><td style="text-align:center;">≥80</td><td style="text-align:center;">50–79</td><td style="text-align:center;">&lt;50</td><td>SR×30% + Dur×25% + Lat×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0</td></tr>
+      </tbody>
+    </table>
   </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- ОПИСАНИЕ СИСТЕМЫ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section" style="padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;margin-bottom:16px;">
+    <h2 style="font-size:14px;margin-bottom:10px;color:var(--text,#c9d1d9);">🔧 Как это работает</h2>
+    <ul style="margin:0;padding:0 0 0 18px;font-size:12.5px;line-height:1.7;color:var(--text-dim,#8b949e);">
+      <li><b style="color:var(--text,#c9d1d9);">Метрики</b> — все значения (Duration, Latency, Cache, Cost, SR) рассчитываются автоматически из Gateway при каждом обновлении (каждые 3ч)</li>
+      <li><b style="color:var(--text,#c9d1d9);">🩺 Health Index</b> — SR×30% + Duration×25% + Latency×20% + Cache×15% + Cost×10%. Hard Stop: SR&lt;90% → 0</li>
+      <li><b style="color:var(--text,#c9d1d9);">💡 Рекомендации</b> — генерируются автоматически по текущим метрикам. Если SR &lt; 90% — рекомендация только про ошибки. Если SR в порядке — анализируются остальные метрики</li>
+      <li><b style="color:var(--text,#c9d1d9);">⚙️ Авто-применение</b> — если рекомендация повторяется 2 цикла подряд (6ч), скрипт сам меняет конфигурацию: увеличивает/уменьшает таймаут при перегрузке/недогрузке, переключает дорогие задачи на flash-модель</li>
+      <li><b style="color:var(--text,#c9d1d9);">🔒 Безопасность</b> — задачи с SR &lt; 90% исключены из авто-применения. Сначала стабильность, потом оптимизация</li>
+      <li><b style="color:var(--text,#c9d1d9);">💡 Колонка «Проработка»</b> — наследие старого оптимизатора (отключён). Не используется</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- БИЗНЕС-ЗАДАЧИ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <h2 style="font-size:18px;margin:24px 0 12px;color:var(--text,#c9d1d9);">📋 Бизнес-задачи</h2>
 
   <div class="section">
     <div class="table-wrapper">
@@ -54,35 +61,217 @@
         <thead>
           <tr>
             <th>Задача</th><th>Автор</th><th>Расписание</th>
-            <th class="col-metric">⏱ Duration/Timeout</th><th class="col-metric">📈 Success rate</th><th class="col-metric">📬 Latency</th>
-            <th class="col-metric">💎 Cache Hit</th><th class="col-metric">💰 Cost/Run</th>
-            <th>Последний запуск</th><th class="col-rec">💡 Рекомендация по оптимизации</th>
+            <th class="col-metric">⏱ Duration</th><th class="col-metric">📈 Success</th><th class="col-metric">📬 Latency</th>
+            <th class="col-metric">💎 Cache</th><th class="col-metric">💰 Cost</th>
+            <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
+            <th class="col-metric col-apply">⚙️ Авто-прим.</th>
+            <th class="col-metric">🩺 System Health</th>
+            <th class="col-desc-header">🧠 Описание результата</th>
           </tr>
         </thead>
         <tbody>
-
+          <tr>
+            <td><span class="status-dot ok"></span> Сводка жалоб — наследство</td>
+            <td>Катя</td>
+            <td>Ежедневно 08:00</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 2%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 0%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +15.4 мин</span></td>
+            <td>76%</td>
+            <td>$0.017</td>
+            <td>29.06 08:15</td>
+            <td class="rec">⚠️ SR 0% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 0% — стабильность нарушена</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> Обновление статистики</td>
+            <td>Катя</td>
+            <td>Ежедневно 08:10</td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 54%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 33%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> +11.7 мин</span></td>
+            <td>96%</td>
+            <td>$0.040</td>
+            <td>29.06 08:21</td>
+            <td class="rec">⚠️ SR 33% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 33% — стабильность нарушена</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> Дайджест новостей</td>
+            <td>Лена</td>
+            <td>Ежедневно 09:00</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 29%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 33%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +20.2 мин</span></td>
+            <td>93%</td>
+            <td>$0.079</td>
+            <td>29.06 09:20</td>
+            <td class="rec">⚠️ SR 33% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 33% — стабильность нарушена</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> Изменения в законах по пособиям</td>
+            <td>Роза</td>
+            <td>Пн 09:03</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 24%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 33%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +33.1 мин</span></td>
+            <td>92%</td>
+            <td>$0.029</td>
+            <td>29.06 09:36</td>
+            <td class="rec">⚠️ SR 33% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 33% — стабильность нарушена</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> Обзор НПА</td>
+            <td>Ирина</td>
+            <td>Пн 09:06</td>
+            <td><span class="metric"><span class="tl tl-red"></span> 92%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 67%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 0.0 мин</span></td>
+            <td>97%</td>
+            <td>$0.114</td>
+            <td>29.06 09:30</td>
+            <td class="rec">⚠️ SR 67% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 67% — стабильность нарушена</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> Вклады 1991 — понедельник</td>
+            <td>Данил</td>
+            <td>Пн 10:00</td>
+            <td><span class="metric"><span class="tl tl-red"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 0%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +16.7 мин</span></td>
+            <td>90%</td>
+            <td>$0.013</td>
+            <td>29.06 14:16</td>
+            <td class="rec">⚠️ SR 0% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 0% — стабильность нарушена</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> РЖД 1Р-37R — итоги</td>
+            <td>Лена</td>
+            <td>Пн–Пт 23:55</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 20%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 0.0 мин</span></td>
+            <td>42%</td>
+            <td><$0.0089</td>
+            <td>29.06 23:55</td>
+            <td class="rec"><span style="color:var(--text-dim,#8b949e);">✅ Всё ОК</span></td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-green">🟢 85</span></td>
+            <td class="col-desc">✅ SR идеален, таймаут свободен, без задержек</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> Вклады 1991 — четверг</td>
+            <td>Данил</td>
+            <td>Чт 10:00</td>
+            <td><span class="metric"><span class="tl tl-red"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 0%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +21.5 мин</span></td>
+            <td>66%</td>
+            <td><$0.0063</td>
+            <td>25.06 10:21</td>
+            <td class="rec">⚠️ SR 0% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 0% — стабильность нарушена</td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 30.06.2026 00:00</div>
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- СЕРВИСНЫЕ ЗАДАЧИ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <h2 style="font-size:18px;margin:28px 0 12px;color:var(--text,#c9d1d9);">⚙️ Сервисные задачи</h2>
+
+  <div class="section">
+    <div class="table-wrapper">
+      <table class="task-table">
+        <thead>
+          <tr>
+            <th>Задача</th><th>Автор</th><th>Расписание</th>
+            <th class="col-metric">⏱ Duration</th><th class="col-metric">📈 Success</th><th class="col-metric">📬 Latency</th>
+            <th class="col-metric">💎 Cache</th><th class="col-metric">💰 Cost</th>
+            <th>Запуск</th><th class="col-rec">💡 Рекомендация</th>
+            <th class="col-metric col-apply">⚙️ Авто-прим.</th>
+            <th class="col-metric">🩺 System Health</th>
+            <th class="col-desc-header">🧠 Описание результата</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="status-dot ok"></span> Активность пользователей</td>
+            <td>—</td>
+            <td>Ежедневно 23:50</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 12%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 67%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 0.0 мин</span></td>
+            <td>85%</td>
+            <td><$0.0068</td>
+            <td>26.06 23:50</td>
+            <td class="rec">⚠️ SR 67% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 67% — стабильность нарушена</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> Бэкап: полный</td>
+            <td>Кирилл</td>
+            <td>Вс 03:00</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 4%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 67%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> +3.5 мин</span></td>
+            <td>50%</td>
+            <td><$0.0062</td>
+            <td>28.06 03:03</td>
+            <td class="rec">⚠️ SR 67% — есть ошибки, проверить стабильность</td>
+            <td style="text-align:center;"><span class="stat-na">—</span></td>
+            <td style="text-align:center;"><span class="health-badge health-red">🔴 0</span></td>
+            <td class="col-desc">🔴 SR 67% — стабильность нарушена</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 30.06.2026 07:05</div>
 </div>
 
 <style>
 .table-wrapper { overflow-x: auto; margin: 10px 0; }
-.task-table { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.5; min-width: 1100px; }
+.task-table { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.5; min-width: 1300px; }
 .task-table thead th { text-align: left; padding: 10px 8px; background: rgba(33,38,45,.6); border-bottom: 1px solid var(--glass-border,#21262d); color: var(--text-dim,#8b949e); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
 .task-table thead th:first-child { border-radius: 8px 0 0 0; }
 .task-table thead th:last-child  { border-radius: 0 8px 0 0; }
 .col-metric { text-align: center !important; }
 .col-rec { min-width: 220px; }
+.col-apply { min-width: 80px; }
+.col-desc { max-width: 220px; font-size: 11.5px; color: var(--text-dim,#8b949e); padding-left: 4px; padding-right: 4px; white-space: normal; line-height: 1.4; }
+.col-desc-header { min-width: 140px; }
+.stat-na { color: var(--text-dim,#8b949e); font-size: 12px; }
 .task-table tbody tr { border-bottom: 1px solid rgba(33,38,45,.4); transition: background .15s ease; }
 .task-table tbody tr:hover { background: rgba(88,166,255,.04); }
 .task-table tbody td { padding: 9px 8px; vertical-align: middle; font-size: 12.5px; }
 .task-table tbody td:first-child { font-weight: 500; white-space: nowrap; }
 .task-table tbody td:nth-child(4),.task-table tbody td:nth-child(5),.task-table tbody td:nth-child(6),
-.task-table tbody td:nth-child(7) { text-align: center; }
+.task-table tbody td:nth-child(7),.task-table tbody td:nth-child(8) { text-align: center; }
+.task-table tbody td:nth-child(12) { text-align: center; }
 .rec { font-size: 12px; color: var(--text,#c9d1d9); line-height: 1.45; }
 .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: middle; position: relative; top: -1px; }
 .status-dot.ok   { background: #3fb950; box-shadow: 0 0 5px rgba(63,185,80,.5); }
@@ -92,14 +281,16 @@
 .tl-red    { background: #f85149; box-shadow: 0 0 4px rgba(248,81,73,.5); }
 .metric { display: inline-flex; align-items: center; gap: 4px; font-variant-numeric: tabular-nums; }
 .metric-na { text-align: center; color: var(--text-dim,#8b949e); font-size: 12px; }
-.legend-sep { height: 1px; background: rgba(33,38,45,.5); margin: 12px 0; }
-.legend-metric { margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(33,38,45,.5); }
-.legend-metric:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.legend-title { font-size: 13px; font-weight: 600; color: var(--text,#c9d1d9); margin-bottom: 2px; }
-.legend-desc { font-size: 12px; color: var(--text-dim,#8b949e); margin-bottom: 6px; }
-.legend-items { display: flex; gap: 14px; flex-wrap: wrap; }
-.legend-items span { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-dim,#8b949e); }
-@media (max-width: 1100px) { .task-table { font-size: 12px; min-width: 800px; } .task-table tbody td { padding: 7px 6px; } .col-rec { min-width: 180px; } }
+.health-badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.health-green  { background: rgba(63,185,80,.15); color: #3fb950; }
+.health-yellow { background: rgba(210,153,34,.15); color: #d29922; }
+.health-red    { background: rgba(248,81,73,.15); color: #f85149; }
+.legend-table { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.6; }
+.legend-table th { text-align: left; padding: 6px 8px; background: rgba(33,38,45,.5); border-bottom: 1px solid var(--glass-border,#21262d); color: var(--text-dim,#8b949e); font-weight: 600; font-size: 11px; white-space: nowrap; }
+.legend-table td { padding: 5px 8px; border-bottom: 1px solid rgba(33,38,45,.3); color: var(--text-dim,#8b949e); font-size: 12px; }
+.legend-table td:first-child { color: var(--text,#c9d1d9); font-weight: 500; white-space: nowrap; }
+.legend-table td:last-child { font-size: 11.5px; color: var(--text-dim-dim,#6e7681); }
+@media (max-width: 1300px) { .task-table { font-size: 12px; min-width: 1000px; } .task-table tbody td { padding: 7px 6px; } .col-rec { min-width: 180px; } } }
 </style>
 </body>
 </html>
