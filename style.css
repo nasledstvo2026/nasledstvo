@@ -409,6 +409,14 @@
   z-index: 1;
 }
 
+/* Фото с фоновым изображением */
+.cards .card.pink.bg-image {
+  background-image: url('assets/photo-bg.jpg') !important;
+}
+.cards .card.pink.bg-image::before {
+  background: linear-gradient(135deg, rgba(220,80,140,0.35) 0%, rgba(10,14,20,0.6) 70%);
+}
+
 /* AURA с фоновым изображением */
 .cards .card.orange.aura.bg-image {
   background-image: url('assets/aura-bg.jpg') !important;
