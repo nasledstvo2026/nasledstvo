@@ -39,6 +39,7 @@ def fetch_purchases(search_query, page=1):
         f"https://zakupki.gov.ru/epz/order/extendedsearch/results.html"
         f"?searchString={quote(search_query)}"
         f"&fz44=on&fz223=on&pageNumber={page}"
+        f"&recordsPerPage=_50"  # 50 записей на страницу
     )
     
     req = Request(url, headers={
@@ -153,6 +154,10 @@ def main():
     
     # Сортировка: сначала новые (по дате обновления)
     all_purchases.sort(key=lambda x: x.get("updated", ""), reverse=True)
+    
+    # Фильтр: только активные закупки (где ещё можно участвовать)
+    active_statuses = ["Подача заявок", "Работа комиссии"]
+    all_purchases = [p for p in all_purchases if p.get("status") in active_statuses]
     
     # Ограничим до 100 записей (больше не нужно для показа)
     if len(all_purchases) > 100:
