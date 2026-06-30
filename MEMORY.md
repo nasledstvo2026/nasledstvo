@@ -585,3 +585,20 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 | 🕖 07:30 | 📋 Верификация 44-ФЗ + 223-ФЗ (пн/ср/пт) |
 
 **Принцип:** все задачи завершаются до 08:00 (начало рабочего дня Катрин). 20-минутные зазоры — на восстановление при ошибках. deepseek-chat, isolated, failureAlert после 2 ошибок.
+
+## 🎨 Плашки с фоновым изображением на главной (30.06.2026)
+
+**Паттерн:** `.card.bg-image` в `style.css` — универсальный, для любых плашек на index.html.
+
+### Как добавить новую плашку с фоном:
+1. Добавить класс `bg-image` к `<div class="card XX">` в index.html
+2. Определить `background-image` и `::before` (градиент-оверлей) в style.css
+3. `bg-image` даёт: overflow hidden, cover/center, blend overlay, z-index для ссылок
+
+### Текущее использование:
+- **ФармТендеролог** — `card.purple.aura.bg-image` + `assets/pharm-hero.jpg`
+- Градиент: `linear-gradient(135deg, rgba(188,140,255,0.5) 0%, rgba(10,14,20,0.7) 70%)`
+
+### Правило:
+- Только для плашек на **index.html** (главная страница)
+- Не использовать на внутренних страницах (в т.ч. zakupki.html)
