@@ -174,12 +174,31 @@
   <div class="section law-section">
     <h2 style="text-align:center;">Расписание обновлений</h2>
     <div class="item">
-      <div class="title">Анализ изменений 44-ФЗ / 223-ФЗ</div>
-      <div class="meta">LegalMCP · 7 семантических запросов</div>
+      <div class="title">Парсинг закупок (ЕИС)</div>
+      <div class="meta">zakupki.gov.ru · 5 ключевых запросов</div>
       <div class="body">
-        <strong>Расписание:</strong> пн/ср/пт в <strong>09:30</strong><br>
-        <strong>Что делает:</strong> подключается к LegalMCP, делает 7 запросов по ключевым документам, сохраняет конспект в базу знаний ассистента.<br>
-        <strong>Лимит:</strong> 7 × 12 = 84 запроса/мес из 100 (бесплатно)<br>
+        <strong>Расписание:</strong> будни в <strong>07:00</strong><br>
+        <strong>Что делает:</strong> парсит zakupki.gov.ru по 5 запросам (лекарственные средства, медицинские изделия, лекарственные препараты, медизделия, фармацевтическая продукция), дедуплицирует, сохраняет 100 свежих записей.<br>
+        <strong>Источник:</strong> <a href="https://zakupki.gov.ru" target="_blank" style="color:var(--blue);">zakupki.gov.ru</a><br>
+        <strong>Статус:</strong> <span class="tag tag-ok" style="margin-left:0;">активен</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="title">Health-check закупок</div>
+      <div class="meta">автоматическая проверка</div>
+      <div class="body">
+        <strong>Расписание:</strong> будни в <strong>07:20</strong><br>
+        <strong>Что делает:</strong> проверяет что zakupki-purchases.json доступен, не пуст и актуален.<br>
+        <strong>Статус:</strong> <span class="tag tag-ok" style="margin-left:0;">активен</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="title">Верификация 44-ФЗ / 223-ФЗ</div>
+      <div class="meta">consultant.ru · последние редакции</div>
+      <div class="body">
+        <strong>Расписание:</strong> пн/ср/пт в <strong>07:30</strong><br>
+        <strong>Что делает:</strong> проверяет последние редакции 44-ФЗ и 223-ФЗ через consultant.ru, обновляет данные на сайте.<br>
+        <strong>Источник:</strong> <a href="https://www.consultant.ru" target="_blank" style="color:var(--blue);">consultant.ru</a><br>
         <strong>Статус:</strong> <span class="tag tag-ok" style="margin-left:0;">активен</span>
       </div>
     </div>
