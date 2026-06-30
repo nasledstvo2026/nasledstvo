@@ -152,8 +152,8 @@ def main():
         except Exception as e:
             print(f"     ❌ Ошибка: {e}", file=sys.stderr)
     
-    # Сортировка: сначала новые (по дате обновления)
-    all_purchases.sort(key=lambda x: x.get("updated", ""), reverse=True)
+    # Сортировка: сначала новые (по дате размещения)
+    all_purchases.sort(key=lambda x: x.get("placed", ""), reverse=True)
     
     # Фильтр: только активные закупки (где ещё можно участвовать)
     active_statuses = ["Подача заявок", "Работа комиссии"]
