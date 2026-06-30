@@ -126,25 +126,11 @@
 }
 
 /* ─── ФармТендеролог: фоновое изображение ─── */
-.cards .card.purple.aura {
+.cards .card.purple.aura.bg-image {
   background-image: url('assets/pharm-hero.jpg');
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: overlay;
 }
-.cards .card.purple.aura::before {
-  display: block !important;
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
+.cards .card.purple.aura.bg-image::before {
   background: linear-gradient(135deg, rgba(188,140,255,0.5) 0%, rgba(10,14,20,0.7) 70%);
-  z-index: 0;
-  pointer-events: none;
-}
-.cards .card.purple.aura a {
-  position: relative;
-  z-index: 1;
 }
 .cards .card.aura .card-header {
   height: 100%;
@@ -383,4 +369,30 @@
 .action-btn:visited .action-btn-label,
 .action-btn:active .action-btn-label {
   color: #c9d1d9;
+}
+
+/* ════════════════════════════════════════════
+   Плашка с фоновым изображением (главная)
+   Применять только к карточкам на index.html
+   ════════════════════════════════════════════ */
+.cards .card.bg-image {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  position: relative;
+}
+.cards .card.bg-image::before {
+  display: block !important;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  z-index: 0;
+  pointer-events: none;
+}
+.cards .card.bg-image a,
+.cards .card.bg-image .card-header {
+  position: relative;
+  z-index: 1;
 }
