@@ -408,3 +408,11 @@
   position: relative;
   z-index: 1;
 }
+
+/* AURA с фоновым изображением */
+.cards .card.orange.aura.bg-image {
+  background-image: url('assets/aura-bg.jpg') !important;
+}
+.cards .card.orange.aura.bg-image::before {
+  background: linear-gradient(135deg, rgba(255,144,0,0.25) 0%, rgba(10,14,20,0.6) 70%);
+}
