@@ -19,8 +19,106 @@
 
   <div class="section">
     <p class="desc" style="padding:0 24px;color:var(--text-dim)">
-      Техническая документация проекта. Страница в разработке.
+      Техническая документация проекта. Cron-задачи по сбору и аналитике жалоб.
     </p>
+
+    <style>
+      .task-table { width:100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; line-height: 1.5; }
+      .task-table th, .task-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--glass-border); vertical-align: top; }
+      .task-table th { background: rgba(255,255,255,0.04); color: var(--text-dim); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+      .task-table tr:hover td { background: rgba(255,255,255,0.02); }
+      .task-table .num { color: var(--accent); font-weight: 600; text-align: center; }
+      .task-table .time { color: var(--green); font-weight: 500; white-space: nowrap; }
+      .task-table .prompt { font-size: 13px; color: var(--text-dim); }
+      .task-table .prompt code { font-size: 12px; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 3px; }
+      .task-table .note { color: var(--orange); font-size: 12px; }
+      .task-table .fail { color: var(--red); }
+      .task-table .ok { color: var(--green); }
+      .task-table .badge {
+        display: inline-block; padding: 2px 8px; border-radius: 10px;
+        font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+      }
+      .badge-ok { background: rgba(126,231,135,0.15); color: var(--green); }
+      .badge-err { background: rgba(248,81,73,0.15); color: var(--red); }
+      .badge-announce { background: rgba(88,166,255,0.12); color: var(--blue); }
+      .badge-none { background: rgba(139,148,158,0.12); color: var(--text-dim); }
+    </style>
+
+    <div class="section">
+      <h2 style="margin-bottom:12px">Cron-задачи Кати</h2>
+      <table class="task-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Время</th>
+            <th>Название</th>
+            <th>Статус</th>
+            <th>Промпт</th>
+            <th>Доп. требования</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td class="time">08:30</td>
+            <td>
+              <strong>Сводка жалоб (основная)</strong><br>
+              <span class="badge badge-announce">announce → Катя</span>
+              <span class="badge badge-ok">deepseek-v4-flash</span>
+            </td>
+            <td><span class="badge badge-ok">OK</span><br><span class="note">~92 сек</span></td>
+            <td class="prompt">
+              Сделай сводку жалоб по наследству в банках РФ за вчерашний день (4 площадки: banki.ru, otzovik.com, pikabu.ru + sravni.ru).
+              Не публикуй HTML. Используй SearXNG (<code>localhost:8888/search</code>) — до 6 запросов за раз.
+              Результаты запиши в <code>katya-stats-data.md</code>.
+              Если жалоб 0 — не пиши строку статистики.
+              Отвечай ТОЛЬКО текстом сводки.
+            </td>
+            <td style="color:var(--text-faint);font-style:italic;">—</td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td class="time">08:45</td>
+            <td>
+              <strong>Сводка жалоб (резерв)</strong><br>
+              <span class="badge badge-announce">announce → Катя</span>
+              <span class="badge badge-ok">deepseek-chat</span>
+            </td>
+            <td><span class="badge badge-ok">OK</span></td>
+            <td class="prompt">
+              Резервный запуск. Аналогично основной задаче, но модель deepseek-chat.
+              Срабатывает, если основная задача выдала ошибку.
+            </td>
+            <td style="color:var(--text-faint);font-style:italic;">—</td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td class="time">08:50</td>
+            <td>
+              <strong>Статистика жалоб</strong><br>
+              <span class="badge badge-none">без доставки</span>
+              <span class="badge badge-ok">deepseek-v4-flash</span>
+            </td>
+            <td><span class="badge badge-err">ERROR</span><br><span class="note fail">LLM request failed</span></td>
+            <td class="prompt">
+              Обнови <code>stats-inheritance.html</code> на основе шаблона и <code>katya-data.json</code>.
+              Рассчитай: дата дня, статистика месяца, годовая разбивка по банкам, таблица по месяцам, хронология.
+              Опубликуй через <code>publish-report.sh</code>.
+              Ответ в чат не нужен.
+            </td>
+            <td style="color:var(--text-faint);font-style:italic;">—</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:32px;margin-bottom:8px;color:var(--text-dim)">Общие параметры</h3>
+      <ul style="padding-left:20px;color:var(--text-dim);font-size:14px;line-height:1.8">
+        <li><strong style="color:var(--text)">Failure alert:</strong> после 2 ошибок → Кириллу (cooldown 1 час)</li>
+        <li><strong style="color:var(--text)">Таймаут:</strong> 900 секунд (15 минут)</li>
+        <li><strong style="color:var(--text)">Fallback:</strong> deepseek-v4-flash → deepseek-chat</li>
+        <li><strong style="color:var(--text)">Публикация:</strong> GitHub Pages через <code>publish-report.sh</code></li>
+      </ul>
+    </div>
   </div>
 
   <div class="footer">
