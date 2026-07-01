@@ -586,6 +586,44 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 
 **Принцип:** все задачи завершаются до 08:00 (начало рабочего дня Катрин). 20-минутные зазоры — на восстановление при ошибках. deepseek-chat, isolated, failureAlert после 2 ошибок.
 
+## 🔗 Как делаются ссылки на плашках (index.html)
+
+### Плашка с текстом (обычная ссылка)
+`<a>` внутри `<div class="card">`, оборачивает содержимое:
+```html
+<div class="card green">
+  <a href="social.html">
+    <div class="card-header">...</div>
+    <div class="desc">...</div>
+  </a>
+</div>
+```
+
+### Пустая плашка (только фон, без текста)
+`<a>` **снаружи** `<div class="card">`, див пустой:
+```html
+<a href="https://example.com/page.html">
+  <div class="card purple bg-image">
+  </div>
+</a>
+```
+Не класть `<a>` внутрь пустого дива — у пустого `<a>` нет размеров.
+
+### AURA — модальное окно (6-я плашка)
+Без ссылки, через `onclick`:
+```html
+<div class="card orange aura" onclick="openAuraModal()">
+  <div class="card-header">
+    <div class="card-header-row">
+      <h2>AURA</h2>
+    </div>
+  </div>
+</div>
+```
+Функция `openAuraModal()` создаёт overlay + модалку с затемнением (backdrop-filter blur), заголовком AURA, подписью «Девочки не плачут…», полем ввода для VIP PASS (5 символов). При вводе 5 символов поле скрывается, показывается сообщение «Вход закрыт. Найдите свой VIP PASS».
+
+Функция объявлена внизу index.html в `<script>`. Оверлей закрывается по клику вне модалки.
+
 ## 🎨 Плашки с фоновым изображением на главной (30.06.2026)
 
 **Паттерн:** `.card.bg-image` в `style.css` — универсальный, для любых плашек на index.html.
