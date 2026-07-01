@@ -429,3 +429,11 @@
 .cards .card.orange.aura.bg-image::before {
   background: linear-gradient(135deg, rgba(255,144,0,0.25) 0%, rgba(10,14,20,0.6) 70%);
 }
+
+/* Техническая информация с фоновым изображением */
+.cards .card.cyan.bg-image {
+  background-image: url('assets/service-bg.jpg') !important;
+}
+.cards .card.cyan.bg-image::before {
+  background: linear-gradient(135deg, rgba(20,180,190,0.35) 0%, rgba(10,14,20,0.65) 70%);
+}
