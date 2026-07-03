@@ -40,11 +40,11 @@
     "author": "Катя",
     "schedule": "Ежедневно 08:10",
     "success_rate": 33,
-    "duration_pct": 11,
-    "latency_min": 1283.4,
+    "duration_pct": 47,
+    "latency_min": 1303.1,
     "cache_hit_pct": 91,
     "cost_per_run": 0.0528,
-    "last_run": "03.07 08:43",
+    "last_run": "03.07 09:03",
     "tip": "Уменьшить таймаут с 300 до 120 с."
   },
   {
