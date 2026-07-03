@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "artist": "Paul Oakenfold",
+    "bpm": null,
+    "duration": "72:19",
+    "title": "Fantazia 1997",
+    "url": "aidj/Paul Oakenfold - Fantazia 1997.mp3"
+  },
+  {
+    "title": "Hypnotized",
+    "artist": "Paul Oakenfold",
+    "url": "aidj/Paul Oakenfold - Hypnotized.mp3",
+    "duration": "5:09",
+    "bpm": null
+  },
+  {
+    "title": "Oakenfold-Hypnotized",
+    "artist": "Paul",
+    "url": "aidj/Paul-Oakenfold-Hypnotized.mp3",
+    "duration": "5:09",
+    "bpm": null
+  },
+  {
+    "title": "Эй, дискжокей",
+    "artist": "Сенатор",
+    "url": "aidj/Сенатор - Эй, дискжокей.mp3",
+    "duration": "4:08",
+    "bpm": null
+  },
+  {
+    "title": "Маяк",
+    "artist": "Сплин",
+    "url": "aidj/Сплин - Маяк.mp3",
+    "duration": "3:47",
+    "bpm": null
+  }
+]
