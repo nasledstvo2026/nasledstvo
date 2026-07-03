@@ -28,11 +28,11 @@
     "author": "Катя",
     "schedule": "Ежедневно 08:00",
     "success_rate": 33,
-    "duration_pct": 44,
-    "latency_min": 0.0,
-    "cache_hit_pct": 91,
-    "cost_per_run": 0.0385,
-    "last_run": "02.07 08:30",
+    "duration_pct": 18,
+    "latency_min": 1300.0,
+    "cache_hit_pct": 95,
+    "cost_per_run": 0.0462,
+    "last_run": "03.07 08:39",
     "tip": "Уменьшить таймаут с 300 до 120 с. Перенести на 08:30 — разгрузить очередь 08:00."
   },
   {
@@ -40,11 +40,11 @@
     "author": "Катя",
     "schedule": "Ежедневно 08:10",
     "success_rate": 33,
-    "duration_pct": 41,
-    "latency_min": 0.0,
-    "cache_hit_pct": 88,
-    "cost_per_run": 0.0169,
-    "last_run": "02.07 08:50",
+    "duration_pct": 11,
+    "latency_min": 1283.4,
+    "cache_hit_pct": 91,
+    "cost_per_run": 0.0528,
+    "last_run": "03.07 08:43",
     "tip": "Уменьшить таймаут с 300 до 120 с."
   },
   {
