@@ -223,9 +223,9 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 
 | # | Задача | Расписание | Модель | Кому |
 |---|--------|-----------|--------|------|
-| 1a | 📋 Катя: сводка жалоб (осн.) | ежедневно 08:30 | deepseek-v4-flash → deepseek-chat → glm-5.1 600s | Катя |
-| 1b | 📋 Катя: сводка жалоб (резерв) | ежедневно 08:45 | deepseek-chat 600s | Катя |
-| 2 | 📊 Статистика жалоб (stats-inheritance) | ежедневно 08:50 | deepseek-chat | — |
+| 1a | 📋 Катя: сводка жалоб (осн.) | ежедневно 08:30 | deepseek-chat → deepseek-v4-flash | Катя |
+| 1b | 📋 Катя: сводка жалоб (резерв) | ежедневно 08:45 | deepseek-chat → deepseek-v4-flash | Катя |
+| 2 | 📊 Статистика жалоб (stats-inheritance) | ежедневно 08:50 | deepseek-chat → deepseek-v4-flash | — |
 | 3 | 📰 Лена: дайджест новостей | ежедневно 09:00 (isolated) | deepseek-chat 300s | Лена |
 | 4 | 💰 РЖД 1Р-37R итоги торгов | будни 23:55 (isolated) | deepseek-chat | Лена |
 | 5 | 📊 Данил: вклады 1991 (пн) | понедельник 10:00 | deepseek-chat | Данил |
@@ -255,6 +255,12 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - Основной запуск перенесён на 08:30 (позже индексация SearXNG)
 - Добавлен резервный запуск (08:45) на случай сбоя
 - Модель: deepseek-v4-flash (primary) → deepseek-chat → glm-5.1 (fallback, 600s timeout)
+
+### 03.07.2026 — Катя: смена приоритета моделей
+- DeepSeek V4 Flash стал стабильно «залипать» на утренних запусках (08:00–09:00 МСК)
+- API-ключ валидный, но модель зависает на 300+ сек и Gateway прерывает соединение
+- **Решение:** основная модель для утренних задач Кати (сводка жалоб, резерв, stats-inheritance) — **deepseek-chat**, fallback — deepseek-v4-flash
+- deepseek-chat чуть дороже, но стабильно отрабатывает за 60–90 сек
 
 ---
 
