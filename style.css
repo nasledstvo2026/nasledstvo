@@ -51,6 +51,14 @@
   background: linear-gradient(145deg, rgba(220,50,140,0.28) 0%, var(--glass-bg) 55%);
   border: 1.5px solid rgba(247,120,186,0.55);
 }
+.cards .card.red {
+  background: linear-gradient(145deg, rgba(200,40,40,0.28) 0%, var(--glass-bg) 55%);
+  border: 1.5px solid rgba(255,80,80,0.55);
+}
+.cards .card.red::after { background: linear-gradient(180deg, #ff5050, #c82828); }
+.cards .card.red::before { display: none; }
+.cards .card:hover.red { border-color: rgba(255,80,80,0.85) !important; box-shadow: 0 0 36px rgba(255,80,80,0.25); }
+
 .cards .card.orange {
   background: linear-gradient(145deg, rgba(220,120,0,0.28) 0%, var(--glass-bg) 55%);
   border: 1.5px solid rgba(255,144,0,0.55);
@@ -458,4 +466,14 @@
 }
 .cards .card.cyan.bg-image::before {
   background: linear-gradient(135deg, rgba(20,180,190,0.35) 0%, rgba(10,14,20,0.65) 70%);
+}
+
+/* OSINT с фоновым изображением */
+.cards .card.red.bg-image {
+  background-image: url('assets/osint-bg.jpg') !important;
+  height: 140px;
+  min-height: 140px;
+}
+.cards .card.red.bg-image::before {
+  background: linear-gradient(135deg, rgba(255,80,80,0.3) 0%, rgba(10,14,20,0.65) 70%);
 }
