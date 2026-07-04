@@ -51,12 +51,12 @@
     "task": "Дайджест новостей",
     "author": "Лена",
     "schedule": "Ежедневно 09:00",
-    "success_rate": 33,
-    "duration_pct": 17,
-    "latency_min": 11.0,
-    "cache_hit_pct": 94,
-    "cost_per_run": 0.0346,
-    "last_run": "03.07 02:41",
+    "success_rate": 67,
+    "duration_pct": 10,
+    "latency_min": 6.7,
+    "cache_hit_pct": 93,
+    "cost_per_run": 0.0192,
+    "last_run": "04.07 02:36",
     "tip": "Таймаут уменьшен с 300 до 120 с. (применено 22.06)"
   },
   {
