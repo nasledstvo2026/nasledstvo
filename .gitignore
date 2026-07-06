@@ -24,3 +24,4 @@ aidj/fantazia-tracks/
 aidj/Paul *
 scripts/analyze-mix.py
 scripts/dropbox-get-*.py
+*.mp3

@@ -1,42 +1,37 @@
 [
   {
-    "artist": "Paul Oakenfold",
-    "title": "Fantazia 1997",
-    "url": "https://tissue-western-warcraft-appliances.trycloudflare.com/Paul_Oakenfold_Fantazia_1997.mp3",
-    "duration": "72:19",
-    "bpm": null,
-    "size_bytes": 104140928
-  },
-  {
-    "artist": "Paul Oakenfold",
-    "title": "Hypnotized",
-    "url": "https://tissue-western-warcraft-appliances.trycloudflare.com/Paul_Oakenfold_Hypnotized.mp3",
-    "duration": "5:09",
-    "bpm": null,
-    "size_bytes": 7419819
-  },
-  {
-    "artist": "Brainstorm",
-    "title": "Veter",
-    "url": "https://tissue-western-warcraft-appliances.trycloudflare.com/Brainstorm_-_Veter.mp3",
+    "title": "_Veter",
+    "artist": "Brainstorm_",
+    "url": "aidj/Brainstorm_-_Veter.mp3",
     "duration": "3:53",
-    "bpm": null,
-    "size_bytes": 9518678
+    "bpm": null
   },
   {
-    "artist": "Сенатор",
-    "title": "Эй, дискжокей",
-    "url": "https://tissue-western-warcraft-appliances.trycloudflare.com/Senator_Ej_diskzhokej.mp3",
+    "title": "Paul_Oakenfold_Fantazia_1997",
+    "artist": "Unknown",
+    "url": "aidj/Paul_Oakenfold_Fantazia_1997.mp3",
+    "duration": "72:19",
+    "bpm": null
+  },
+  {
+    "title": "Paul_Oakenfold_Hypnotized",
+    "artist": "Unknown",
+    "url": "aidj/Paul_Oakenfold_Hypnotized.mp3",
+    "duration": "5:09",
+    "bpm": null
+  },
+  {
+    "title": "Senator_Ej_diskzhokej",
+    "artist": "Unknown",
+    "url": "aidj/Senator_Ej_diskzhokej.mp3",
     "duration": "4:08",
-    "bpm": null,
-    "size_bytes": 5957172
+    "bpm": null
   },
   {
-    "artist": "Сплин",
     "title": "Маяк",
-    "url": "https://tissue-western-warcraft-appliances.trycloudflare.com/Сплин - Маяк.mp3",
+    "artist": "Сплин",
+    "url": "aidj/Сплин - Маяк.mp3",
     "duration": "3:47",
-    "bpm": null,
-    "size_bytes": 5471293
+    "bpm": null
   }
 ]
