@@ -9,6 +9,7 @@
 import json
 import os
 import re
+import ssl
 import subprocess
 import sys
 from datetime import datetime, timezone, timedelta
@@ -16,6 +17,9 @@ from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 from urllib.parse import quote
+
+# zakupki.gov.ru использует российские сертификаты, которых нет в стандартных CA
+SSL_CTX = ssl._create_unverified_context()
 
 WORKSPACE = "/home/user1/.openclaw/workspace"
 RESULT_FILE = os.path.join(WORKSPACE, "zakupki-purchases.json")
@@ -49,7 +53,7 @@ def fetch_purchases(search_query, page=1):
     })
     
     try:
-        with urlopen(req, timeout=30) as resp:
+        with urlopen(req, timeout=30, context=SSL_CTX) as resp:
             html = resp.read().decode("utf-8", errors="replace")
     except URLError as e:
         print(f"  ⚠️  Ошибка загрузки: {e}", file=sys.stderr)
