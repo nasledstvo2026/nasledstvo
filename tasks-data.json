@@ -89,10 +89,10 @@
     "schedule": "Пн 10:00",
     "success_rate": 0,
     "duration_pct": 100,
-    "latency_min": 16.7,
+    "latency_min": 0.0,
     "cache_hit_pct": 90,
     "cost_per_run": 0.0133,
-    "last_run": "29.06 14:16",
+    "last_run": "06.07 14:00",
     "tip": "Таймаут уменьшен с 300 до 120 с. (применено 22.06)"
   },
   {
