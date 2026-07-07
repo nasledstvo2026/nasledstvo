@@ -347,6 +347,70 @@
     </div>
   </div>
 
+  <!-- ════════════ В ПЛАНЕ ════════════ -->
+  <div class="section">
+    <h2>📋 В плане разработки</h2>
+    <div class="item">
+      <div class="body">
+
+        <p style="margin-bottom:12px;"><strong>Что не удалось из обязательных требований (v0.1):</strong></p>
+        <ul style="margin:0 0 20px;padding-left:20px;color:rgba(255,255,255,0.6);line-height:1.8;font-size:14px;">
+          <li>
+            <span style="color:#ff5050;">❌ Верификация по Минздраву РФ и РОРР</span><br>
+            <span style="color:rgba(255,255,255,0.4);font-size:13px;">
+              cr.minzdrav.gov.ru (JS-рендеринг) и rorr.ru не индексируются поиском.
+              consultant.ru работает, но охватывает не все клинические рекомендации.
+              Решение: нужен headless browser, PDF-архив КР или API Минздрава.
+            </span>
+          </li>
+          <li style="margin-top:8px;">
+            <span style="color:#ff5050;">❌ Кеш верификации</span><br>
+            <span style="color:rgba(255,255,255,0.4);font-size:13px;">
+              Записан в файл, но не протестирован на практике — источники не позволяют.
+            </span>
+          </li>
+          <li style="margin-top:8px;">
+            <span style="color:#ff5050;">❌ Блокировка выдачи при недоступности источников</span><br>
+            <span style="color:rgba(255,255,255,0.4);font-size:13px;">
+              Сейчас агент выдаёт ответ с ❓. Требуется: полная блокировка с сообщением
+              «Источники недоступны». Нужно доработать логику medhelp-agent.
+            </span>
+          </li>
+        </ul>
+
+        <p style="margin-bottom:12px;"><strong>Опционально из требований (v1.1):</strong></p>
+        <ul style="margin:0;padding-left:20px;color:rgba(255,255,255,0.6);line-height:1.8;font-size:14px;">
+          <li>
+            <span style="color:#d29922;">📝 Шаблоны заключений</span><br>
+            <span style="color:rgba(255,255,255,0.4);font-size:13px;">
+              Структура заключения с пропусками, готовые формулировки для типовых находок.
+            </span>
+          </li>
+          <li style="margin-top:8px;">
+            <span style="color:#d29922;">🔬 Дифференциальный ряд</span><br>
+            <span style="color:rgba(255,255,255,0.4);font-size:13px;">
+              Список возможных диагнозов по симптомам/данным КТ
+              с вероятностью и обоснованием (2-3 частых).
+            </span>
+          </li>
+          <li style="margin-top:8px;">
+            <span style="color:#d29922;">📊 Дозиметрия</span><br>
+            <span style="color:rgba(255,255,255,0.4);font-size:13px;">
+              Справочные дозы по протоколам (ссылки на НРБ-99/2009, без расчёта СДН).
+            </span>
+          </li>
+          <li style="margin-top:8px;">
+            <span style="color:#d29922;">📄 Интеграция с PACS/RIS</span><br>
+            <span style="color:rgba(255,255,255,0.4);font-size:13px;">
+              Автоматическая подстановка протоколов в рабочее место врача.
+            </span>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
   <div class="footer">
     <span class="tech">MedHelp · v0.1 · 07.07.2026</span>
   </div>
