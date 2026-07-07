@@ -163,7 +163,7 @@
     <h2 style="text-align:center;">📊 Статус продукта</h2>
     <div class="status-row">
       <div class="status-box">
-        <div class="value" style="color:#3fb950;">В разработке</div>
+        <div class="value" style="color:#3fb950;">MVP готов</div>
         <div class="label">Стадия</div>
       </div>
       <div class="status-box">
@@ -246,7 +246,7 @@
       <div class="body">
         <p><strong>medhelp-agent</strong> — фронтальный ассистент. Общается с врачом в Telegram, помогает с формулировками, ищет протоколы, формирует ответ.</p>
         <p><strong>medcheck-agent</strong> — изолированный верификатор. Проверяет каждый клинический факт по источникам и возвращает вердикт.</p>
-        <p style="margin-top:10px;">Перед выдачей ответа medhelp-agent отправляет факты в medcheck-agent. Если верификация провалена или источники недоступны — данные не выдаются.</p>
+        <p style="margin-top:10px;">Перед выдачей ответа medhelp-agent отправляет факты в medcheck-agent. Если верификация провалена или источники недоступны — агент выдаёт ответ с пометкой ❓ и рекомендацией сверить с первоисточником.</p>
       </div>
     </div>
 
@@ -284,12 +284,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td style="padding:8px 6px;">✅ Требования (v0.1)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
-          <tr><td style="padding:8px 6px;">✅ Тест-кейсы (15 шт.)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
-          <tr><td style="padding:8px 6px;">✅ План реализации (10 этапов)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
-          <tr><td style="padding:8px 6px;">⬜ Этап 1 — Архитектура агентов</td><td style="padding:8px 6px;color:rgba(255,255,255,0.4);">Ожидание</td></tr>
-          <tr><td style="padding:8px 6px;">⬜ Этап 2 — Инфраструктура</td><td style="padding:8px 6px;color:rgba(255,255,255,0.4);">Ожидание</td></tr>
-          <tr><td style="padding:8px 6px;">⬜ Этапы 3–10</td><td style="padding:8px 6px;color:rgba(255,255,255,0.4);">Ожидание</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Архитектура + конфиги агентов</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Инфраструктура (pdfplumber, источники)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Память/кеш агентов</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Интеграция agent-to-agent</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ База знаний (типовые темы)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Тестирование (TC-01, TC-02)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Источники + fallback</td><td style="padding:8px 6px;color:#d29922;">Готово (с ограничениями)</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Health check + мониторинг</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Публикация на GitHub Pages</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Финальная проверка</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
         </tbody>
       </table>
       <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,0.4);">
