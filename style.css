@@ -145,6 +145,14 @@
   background: linear-gradient(135deg, rgba(188,140,255,0.4) 0%, rgba(10,14,20,0.75) 70%);
 }
 
+/* MedHelp: фоновое изображение */
+.cards .card.green.bg-image.medhelp {
+  background-image: url('assets/medhelp-bg.jpg') !important;
+}
+.cards .card.green.bg-image.medhelp::before {
+  background: linear-gradient(135deg, rgba(63,185,80,0.3) 0%, rgba(10,14,20,0.6) 70%);
+}
+
 /* ─── ФармТендеролог: фоновое изображение ─── */
 .cards .card.purple.aura.bg-image {
   background-image: url('assets/pharm-hero.jpg');
