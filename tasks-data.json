@@ -39,12 +39,12 @@
     "task": "Обновление статистики",
     "author": "Катя",
     "schedule": "Ежедневно 08:10",
-    "success_rate": 33,
-    "duration_pct": 10,
+    "success_rate": 67,
+    "duration_pct": 33,
     "latency_min": 0.0,
-    "cache_hit_pct": 93,
-    "cost_per_run": 0.0729,
-    "last_run": "06.07 11:20",
+    "cache_hit_pct": 98,
+    "cost_per_run": 0.2685,
+    "last_run": "07.07 11:20",
     "tip": "Уменьшить таймаут с 300 до 120 с."
   },
   {
