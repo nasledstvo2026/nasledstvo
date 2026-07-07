@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedHelp — nasledstvo2026.github.io</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero-subtitle {
+      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .section {
+      margin-top: 40px;
+    }
+    .section h2 {
+      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      font-size: 20px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    .section h3 {
+      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 8px;
+      margin-top: 24px;
+      letter-spacing: 1px;
+    }
+    .section .item {
+      background: rgba(22,27,34,0.6);
+      border: 1px solid rgba(33,38,45,0.8);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .section .item .title {
+      font-size: 15px;
+      color: #58a6ff;
+      margin-bottom: 6px;
+    }
+    .section .item .meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 6px;
+    }
+    .section .item .body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .feature-card {
+      background: rgba(22,27,34,0.6);
+      border: 1px solid rgba(33,38,45,0.8);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .feature-card .icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .feature-card .name {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 6px;
+    }
+    .feature-card .desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+    .verdict-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .verdict-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .verdict-tag.ok { background: rgba(46,160,67,0.15); color: #3fb950; }
+    .verdict-tag.conflict { background: rgba(210,153,34,0.15); color: #d29922; }
+    .verdict-tag.unknown { background: rgba(139,148,158,0.15); color: #8b949e; }
+    .verdict-tag.error { background: rgba(220,50,50,0.15); color: #ff5050; }
+    .tech-list {
+      list-style: none;
+      padding: 0;
+    }
+    .tech-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(33,38,45,0.5);
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+    .tech-list li:last-child { border-bottom: none; }
+    .tech-list strong { color: rgba(255,255,255,0.9); }
+    .status-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+    .status-box {
+      background: rgba(22,27,34,0.6);
+      border: 1px solid rgba(33,38,45,0.8);
+      border-radius: 10px;
+      padding: 14px 20px;
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
+    .status-box .value {
+      font-size: 24px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+    }
+    .status-box .label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+    }
+    @media (max-width: 768px) {
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back">← На главную</a>
+
+<div class="container">
+
+  <h1 style="font-size:38px;font-weight:800;letter-spacing:-1px;margin:0 0 16px 4px;padding:0;color:transparent;background:linear-gradient(90deg,#3fb950,#58a6ff,#bc8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;">MedHelp</h1>
+
+  <p style="text-align:center;margin:0 0 12px;color:var(--text-dim);font-size:16px;">
+    Интеллектуальный ассистент для врача-рентгенолога
+  </p>
+  <p style="text-align:center;margin:0 0 24px;color:rgba(255,255,255,0.45);font-size:13px;">
+    КТ · МРТ · ПЭТ/КТ · Протоколы исследований · Клинические рекомендации
+  </p>
+
+  <!-- ════════════ СТАТУС ════════════ -->
+  <div class="section">
+    <h2 style="text-align:center;">📊 Статус продукта</h2>
+    <div class="status-row">
+      <div class="status-box">
+        <div class="value" style="color:#3fb950;">В разработке</div>
+        <div class="label">Стадия</div>
+      </div>
+      <div class="status-box">
+        <div class="value">0.1</div>
+        <div class="label">Версия требований</div>
+      </div>
+      <div class="status-box">
+        <div class="value">~7.5 дн.</div>
+        <div class="label">План реализации</div>
+      </div>
+      <div class="status-box">
+        <div class="value">15</div>
+        <div class="label">Тест-кейсов</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ ЧТО ТАКОЕ MEDHELP ════════════ -->
+  <div class="section">
+    <h2>💡 Что такое MedHelp</h2>
+    <div class="item">
+      <div class="body">
+        <strong>MedHelp</strong> — интеллектуальный ассистент для врачей лучевой диагностики (КТ, МРТ, ПЭТ/КТ).
+        Разработан для врача-рентгенолога Марии Комаровой как помощник в рутинной работе:
+        подготовка заключений, поиск актуальных протоколов исследований,
+        верификация ссылок на клинические рекомендации.
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ КЛЮЧЕВЫЕ ВОЗМОЖНОСТИ ════════════ -->
+  <div class="section">
+    <h2>🔬 Возможности</h2>
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="icon">📋</div>
+        <div class="name">Протоколы исследований</div>
+        <div class="desc">
+          Помощь в подготовке заключений: техника, находки, заключение.
+          Рекомендации по дозиметрии (НРБ-99/2009).
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">📖</div>
+        <div class="name">Клинические рекомендации</div>
+        <div class="desc">
+          Поиск и цитирование актуальных протоколов Минздрава РФ и РОРР.
+          Дословные цитаты с указанием раздела, пункта, даты утверждения.
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">✅</div>
+        <div class="name">Верификация фактов</div>
+        <div class="desc">
+          Каждый факт проверяется по двум независимым источникам.
+          Вердикты: ✅ ❌ 🔄 ❓
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">🌐</div>
+        <div class="name">Международные источники</div>
+        <div class="desc">
+          Radiopaedia.org, ACR Appropriateness Criteria, PubMed.
+          Используются при отсутствии российских протоколов.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════ КАК ЭТО РАБОТАЕТ ════════════ -->
+  <div class="section">
+    <h2>⚙️ Как это работает</h2>
+    <div class="item">
+      <div class="title">Двухагентная архитектура</div>
+      <div class="body">
+        <p><strong>medhelp-agent</strong> — фронтальный ассистент. Общается с врачом в Telegram, помогает с формулировками, ищет протоколы, формирует ответ.</p>
+        <p><strong>medcheck-agent</strong> — изолированный верификатор. Проверяет каждый клинический факт по источникам и возвращает вердикт.</p>
+        <p style="margin-top:10px;">Перед выдачей ответа medhelp-agent отправляет факты в medcheck-agent. Если верификация провалена или источники недоступны — данные не выдаются.</p>
+      </div>
+    </div>
+
+    <h3 style="text-align:center;margin-top:24px;">Вердикты верификации</h3>
+    <div class="verdict-tags" style="justify-content:center;">
+      <span class="verdict-tag ok">✅ Подтверждено</span>
+      <span class="verdict-tag error">❌ Противоречие</span>
+      <span class="verdict-tag conflict">🔄 Расхождение источников</span>
+      <span class="verdict-tag unknown">❓ Нет данных в РФ</span>
+    </div>
+  </div>
+
+  <!-- ════════════ ТЕХНИЧЕСКАЯ ОСНОВА ════════════ -->
+  <div class="section">
+    <h2>🛠 Техническая основа</h2>
+    <ul class="tech-list">
+      <li><strong>Платформа:</strong> OpenClaw (изолированные сессии агентов)</li>
+      <li><strong>Модель:</strong> DeepSeek Chat (deepseek/deepseek-chat)</li>
+      <li><strong>Источники (РФ):</strong> cr.minzdrav.gov.ru (Минздрав), rorr.ru (РОРР)</li>
+      <li><strong>Источники (междунар.):</strong> Radiopaedia.org, ACR, PubMed</li>
+      <li><strong>Нормативы:</strong> НРБ-99/2009 (СанПиН) по дозиметрии</li>
+      <li><strong>Архитектура:</strong> двухагентная, agent-to-agent, peer binding</li>
+    </ul>
+  </div>
+
+  <!-- ════════════ ЭТАПЫ РАЗРАБОТКИ ════════════ -->
+  <div class="section">
+    <h2>📌 Ход разработки</h2>
+    <div class="item">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+            <th style="text-align:left;padding:8px 6px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-size:11px;">Этап</th>
+            <th style="text-align:left;padding:8px 6px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-size:11px;">Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:8px 6px;">✅ Требования (v0.1)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ Тест-кейсы (15 шт.)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">✅ План реализации (10 этапов)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
+          <tr><td style="padding:8px 6px;">⬜ Этап 1 — Архитектура агентов</td><td style="padding:8px 6px;color:rgba(255,255,255,0.4);">Ожидание</td></tr>
+          <tr><td style="padding:8px 6px;">⬜ Этап 2 — Инфраструктура</td><td style="padding:8px 6px;color:rgba(255,255,255,0.4);">Ожидание</td></tr>
+          <tr><td style="padding:8px 6px;">⬜ Этапы 3–10</td><td style="padding:8px 6px;color:rgba(255,255,255,0.4);">Ожидание</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,0.4);">
+        Пользователь: <strong>Мария Комарова</strong> (врач-рентгенолог, КТ/МРТ/ПЭТ-КТ)
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ ГРАНИЦЫ ════════════ -->
+  <div class="section">
+    <h2>🚫 Что ассистент НЕ делает</h2>
+    <div class="item">
+      <div class="body">
+        <ul style="margin:0;padding-left:20px;color:rgba(255,255,255,0.6);line-height:1.8;">
+          <li>Не ставит медицинские диагнозы</li>
+          <li>Не описывает снимки (AI-анализ изображений)</li>
+          <li>Не назначает лечение и не выписывает рецепты</li>
+          <li>Не подписывает заключения (финальный документ — ответственность врача)</li>
+          <li>Не интегрируется с PACS/RIS-системами</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="tech">MedHelp · v0.1 · 07.07.2026</span>
+  </div>
+
+</div>
+
+</body>
+</html>
