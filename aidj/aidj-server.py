@@ -67,6 +67,12 @@ def read_tracks_json():
     return []
 
 
+# ─── GET /ping — тест связи ───
+@app.route('/ping', methods=['GET', 'OPTIONS'])
+def api_ping():
+    return jsonify({"status": "ok", "message": "VPS доступен через Cloudflare Tunnel"})
+
+
 # ─── GET /tracks.json — список треков ───
 @app.route('/tracks.json', methods=['GET'])
 def api_tracks_json():
