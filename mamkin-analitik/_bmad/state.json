@@ -1,0 +1,22 @@
+{
+  "projectName": "Создать БТ",
+  "projectPath": "/home/user1/.openclaw/workspace/mamkin-analitik/",
+  "createdAt": "2026-07-08T10:07:00.000Z",
+  "currentPhase": "planning",
+  "activeWorkflow": null,
+  "completedWorkflows": [
+    {
+      "id": "create-product-brief",
+      "agentId": "mary-analyst",
+      "outputFile": "/home/user1/.openclaw/workspace/mamkin-analitik/_bmad-output/planning-artifacts/product-brief-Мамкин аналитик-2026-07-08.md",
+      "completedAt": "2026-07-08T10:07:00.000Z"
+    },
+    {
+      "id": "create-prd",
+      "agentId": "subagent-bmad",
+      "description": "YOLO-режим: создание PRD для проекта «Мамкин аналитик»",
+      "outputFile": "/home/user1/.openclaw/workspace/mamkin-analitik/_bmad-output/planning-artifacts/prd.md",
+      "completedAt": "2026-07-08T15:20:00.000Z"
+    }
+  ]
+}
