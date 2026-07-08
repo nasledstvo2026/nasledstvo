@@ -67,12 +67,12 @@
     <a href="inheritance.html" class="back">← Кластер Наследство</a>
 
     <div class="hero">
-      <h1>Статистика жалоб по наследству в банках <span style="font-size:0.6em;color:var(--text-secondary);font-weight:400">v2</span></h1>
+      <h1>Статистика жалоб по наследству в банках <span style="font-size:0.6em;color:var(--text-secondary);font-weight:400">v3</span></h1>
     </div>
 
     <div class="section">
       <div class="item">
-        <h2>📅 6 Июля 2026</h2>
+        <h2>📅 7 Июля 2026</h2>
         <div class="stats-row" style="margin-bottom:12px;margin-top:8px">
           <div class="stat-box">
             <div class="label">Сбер</div>
@@ -83,9 +83,8 @@
             <div class="value" style="color:var(--green)">0</div>
           </div>
         </div>
-        <div style="font-size:0.9em;line-height:1.6">
-          <span style="opacity:0.5">Новых жалоб не обнаружено</span>
-          </div>
+        <div style="font-size:0.9em;line-height:1.6">          <span style="opacity:0.5">Новых жалоб не обнаружено</span>
+        </div>
       </div>
     </div>
 
@@ -116,17 +115,17 @@
               </tr>
               <tr>
                 <td style="padding:4px 8px;text-align:left;color:var(--green);font-weight:600">Сбер</td>
-                <td style="padding:4px 8px;text-align:center">6</td>
+                <td style="padding:4px 8px;text-align:center">{prev_sber}</td>
                 <td style="padding:4px 4px;text-align:center">→</td>
-                <td style="padding:4px 8px;text-align:center">0</td>
-                <td style="padding:4px 8px;text-align:center"><span style="color:var(--green);font-weight:700">var(--green)</span></td>-6</span></td>
+                <td style="padding:4px 8px;text-align:center">{curr_sber}</td>
+                <td style="padding:4px 8px;text-align:center"><span style="color:{trend_color(delta_sber)};font-weight:700">{delta_sber:+,}</span></td>
               </tr>
               <tr>
                 <td style="padding:4px 8px;text-align:left;color:var(--text);font-weight:600">Другие</td>
-                <td style="padding:4px 8px;text-align:center">20</td>
+                <td style="padding:4px 8px;text-align:center">{prev_other}</td>
                 <td style="padding:4px 4px;text-align:center">→</td>
-                <td style="padding:4px 8px;text-align:center">0</td>
-                <td style="padding:4px 8px;text-align:center"><span style="color:var(--green);font-weight:700">var(--green)</span></td>-20</span></td>
+                <td style="padding:4px 8px;text-align:center">{curr_other}</td>
+                <td style="padding:4px 8px;text-align:center"><span style="color:{trend_color(delta_other)};font-weight:700">{delta_other:+,}</span></td>
               </tr>
             </table>
           </div>
@@ -146,62 +145,62 @@
       <div class="bar-chart">
         <div class="bar">
           <span class="bar-label">Сбер</span>
-          <span class="bar-fill sber" style="width:230px;"></span>
+          <span class="bar-fill class="sber"" style="width:230px;"></span>
           <span class="bar-val">10 (31.2%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">ВТБ</span>
-          <span class="bar-fill vtb" style="width:115px;"></span>
+          <span class="bar-fill class="vtb"" style="width:115px;"></span>
           <span class="bar-val">5 (15.6%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">Альфа-Банк</span>
-          <span class="bar-fill" style="width:92px;background:#ef4444;"></span>
+          <span class="bar-fill style="background:#ef4444"" style="width:92px;"></span>
           <span class="bar-val">4 (12.5%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">Газпромбанк</span>
-          <span class="bar-fill gpb" style="width:92px;"></span>
+          <span class="bar-fill class="gpb"" style="width:92px;"></span>
           <span class="bar-val">4 (12.5%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">Т-Банк</span>
-          <span class="bar-fill tbank" style="width:46px;"></span>
+          <span class="bar-fill class="tbank"" style="width:46px;"></span>
           <span class="bar-val">2 (6.2%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">Уралсиб</span>
-          <span class="bar-fill" style="width:23px;background:#2d8bcf;"></span>
+          <span class="bar-fill style="background:#2d8bcf"" style="width:23px;"></span>
           <span class="bar-val">1 (3.1%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">Россельхозбанк</span>
-          <span class="bar-fill" style="width:23px;background:#1a7d38;"></span>
+          <span class="bar-fill style="background:#1a7d38"" style="width:23px;"></span>
           <span class="bar-val">1 (3.1%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">Совкомбанк</span>
-          <span class="bar-fill sovcombank" style="width:23px;"></span>
+          <span class="bar-fill class="sovcombank"" style="width:23px;"></span>
           <span class="bar-val">1 (3.1%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">Ozon Банк</span>
-          <span class="bar-fill" style="width:23px;background:#8b5cf6;"></span>
+          <span class="bar-fill style="background:#8b5cf6"" style="width:23px;"></span>
           <span class="bar-val">1 (3.1%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">РайффайзенБанк</span>
-          <span class="bar-fill" style="width:23px;background:#00a86b;"></span>
+          <span class="bar-fill style="background:#00a86b"" style="width:23px;"></span>
           <span class="bar-val">1 (3.1%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">Неизвестно</span>
-          <span class="bar-fill" style="width:23px;background:#6b7280;"></span>
+          <span class="bar-fill style="background:#6b7280"" style="width:23px;"></span>
           <span class="bar-val">1 (3.1%)</span>
         </div>
         <div class="bar">
           <span class="bar-label">МТС Банк</span>
-          <span class="bar-fill" style="width:23px;background:#f59e0b;"></span>
+          <span class="bar-fill style="background:#f59e0b"" style="width:23px;"></span>
           <span class="bar-val">1 (3.1%)</span>
         </div>
       </div>
@@ -232,9 +231,9 @@
         <tbody>
           <tr style="background:rgba(37,99,235,0.08)">
             <td><strong style="color:var(--accent)">2026</strong></td>
-            <td><strong style="color:var(--accent)">10</strong></td>
-            <td><strong style="color:var(--accent)">22</strong></td>
-            <td><strong style="color:var(--accent)">32</strong></td>
+            <td><strong style="color:var(--accent)">{sber_2026}</strong></td>
+            <td><strong style="color:var(--accent)">{other_2026}</strong></td>
+            <td><strong style="color:var(--accent)">{total_2026}</strong></td>
             <td><strong style="color:var(--accent)"></strong></td>
           </tr>
           <tr>
@@ -242,7 +241,7 @@
             <td style="color:var(--red)">6</td>
             <td style="color:var(--red)">20</td>
             <td><strong>26</strong></td>
-            <td style="white-space:nowrap">ВТБ(5), Альфа-Банк(4), Газпромбанк(3), Т-Банк(2), Уралсиб, Россельхозбанк, Совкомбанк, Ozon Банк, РайффайзенБанк, Неизвестно</td>
+            <td style="white-space:nowrap">ВТБ(5), Альфа-Банк(4), Газпромбанк(3), Т-Банк(2), Ozon Банк, Неизвестно, РайффайзенБанк, Россельхозбанк, Совкомбанк, Уралсиб</td>
           </tr>
           <tr>
             <td>Май</td>
@@ -284,7 +283,7 @@
             <td style="color:var(--green)">0</td>
             <td style="color:var(--red)">2</td>
             <td><strong>2</strong></td>
-            <td style="white-space:nowrap">ПСБ, Ozon Банк</td>
+            <td style="white-space:nowrap">Ozon Банк, ПСБ</td>
           </tr>
           <tr>
             <td>Сен 2025</td>
@@ -298,21 +297,21 @@
             <td style="color:var(--red)">1</td>
             <td style="color:var(--red)">3</td>
             <td><strong>4</strong></td>
-            <td style="white-space:nowrap">Ренессанс Банк, Совкомбанк, ПСБ</td>
+            <td style="white-space:nowrap">ПСБ, Ренессанс Банк, Совкомбанк</td>
           </tr>
           <tr>
             <td>Июл 2025</td>
             <td style="color:var(--green)">0</td>
             <td style="color:var(--red)">3</td>
             <td><strong>3</strong></td>
-            <td style="white-space:nowrap">Т-Банк, ВТБ, Почта Банк</td>
+            <td style="white-space:nowrap">ВТБ, Почта Банк, Т-Банк</td>
           </tr>
           <tr>
             <td>Июн 2025</td>
             <td style="color:var(--green)">0</td>
             <td style="color:var(--red)">4</td>
             <td><strong>4</strong></td>
-            <td style="white-space:nowrap">ПСБ(2), БСПБ (Банк Санкт-Петербург), БСПБ</td>
+            <td style="white-space:nowrap">ПСБ(2), БСПБ, БСПБ (Банк Санкт-Петербург)</td>
           </tr>
           <tr>
             <td>Май 2025</td>
@@ -333,7 +332,7 @@
             <td style="color:var(--red)">1</td>
             <td style="color:var(--red)">2</td>
             <td><strong>3</strong></td>
-            <td style="white-space:nowrap">Совкомбанк, ВТБ</td>
+            <td style="white-space:nowrap">ВТБ, Совкомбанк</td>
           </tr>
           <tr>
             <td>Фев 2025</td>
@@ -347,7 +346,7 @@
             <td style="color:var(--red)">3</td>
             <td style="color:var(--red)">4</td>
             <td><strong>7</strong></td>
-            <td style="white-space:nowrap">Неизвестно(2), Уралсиб, Газпромбанк</td>
+            <td style="white-space:nowrap">Неизвестно(2), Газпромбанк, Уралсиб</td>
           </tr>
         </tbody>
       </table>
@@ -843,10 +842,15 @@
       </div>
     </div>
 
-    <div style="text-align:center;margin-top:1.5rem;padding:1rem;font-size:0.85rem;color:var(--text-secondary);border-top:1px solid var(--border)">
-      <p>Сбор и анализ жалоб по наследству в банках РФ. Данные собраны 07.07.2026.</p>
-      <p style="margin-top:0.25rem">Обновлено 07.07.2026 ☽</p>
+    <div class="note" style="margin-top:24px;color:var(--text-secondary);font-size:0.85rem;text-align:center">
+      📊 Данные собраны 8 июля 2026 · Источники: banki.ru, pikabu.ru, otzovik.com, 2ГИС, findozor.net
     </div>
+
   </div>
+
+  <footer class="footer" style="margin-top:2rem;padding:1rem 0;border-top:1px solid var(--border);text-align:center;color:var(--text-faint);font-size:0.8rem">
+    Обновлено 8 июля 2026 · Статистика по жалобам наследников в банках РФ
+  </footer>
+
 </body>
 </html>
