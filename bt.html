@@ -3,181 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Создать БТ — nasledstvo2026.github.io</title>
+  <title>Создать БТ — Документ требований v3.1 (final)</title>
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    .hero-subtitle {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 16px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 8px;
-      line-height: 1.5;
-    }
-    .section {
-      margin-top: 40px;
-    }
-    .section h2 {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 20px;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 12px;
-      letter-spacing: 2px;
-    }
-    .section h3 {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 16px;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 8px;
-      margin-top: 24px;
-      letter-spacing: 1px;
-    }
-    .section .item {
-      background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 12px;
-    }
-    .section .item .title {
-      font-size: 15px;
-      color: #58a6ff;
-      margin-bottom: 6px;
-    }
-    .section .item .meta {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 6px;
-    }
-    .section .item .body {
-      font-size: 14px;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.6;
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-    .feature-card {
-      background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
-      border-radius: 12px;
+    .req-container {
+      max-width: 860px;
+      margin: 0 auto;
       padding: 20px;
     }
-    .feature-card .icon {
+    .req-container h1 {
       font-size: 28px;
-      margin-bottom: 8px;
+      color: rgba(255,255,255,0.9);
+      margin: 40px 0 16px;
+      letter-spacing: -0.5px;
     }
-    .feature-card .name {
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 6px;
+    .req-container h2 {
+      font-size: 20px;
+      color: #58a6ff;
+      margin: 32px 0 12px;
+      letter-spacing: 1px;
     }
-    .feature-card .desc {
-      font-size: 13px;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.5;
-    }
-    .bt-block {
-      margin-bottom: 16px;
-    }
-    .bt-block .block-num {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 4px;
-    }
-    .bt-block .block-title {
+    .req-container h3 {
       font-size: 16px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 4px;
+      color: rgba(255,255,255,0.8);
+      margin: 24px 0 8px;
+      letter-spacing: 0.5px;
     }
-    .bt-block .block-subs {
-      font-size: 13px;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 6px;
-    }
-    .depth-tag {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 11px;
-      font-weight: 600;
-      margin-right: 6px;
-      margin-bottom: 4px;
-    }
-    .depth-tag.l1 { background: rgba(88,166,255,0.12); color: #58a6ff; }
-    .depth-tag.l2 { background: rgba(188,140,255,0.12); color: #bc8cff; }
-    .depth-tag.l3 { background: rgba(248,81,73,0.12); color: #f85149; }
-    .tech-list {
-      list-style: none;
-      padding: 0;
-    }
-    .tech-list li {
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(33,38,45,0.5);
+    .req-container blockquote {
+      border-left: 3px solid rgba(88,166,255,0.3);
+      padding: 8px 14px;
+      margin: 8px 0;
+      color: rgba(255,255,255,0.55);
       font-size: 14px;
-      color: rgba(255,255,255,0.7);
+      background: rgba(22,27,34,0.3);
+      border-radius: 0 6px 6px 0;
     }
-    .tech-list li:last-child { border-bottom: none; }
-    .tech-list strong { color: rgba(255,255,255,0.9); }
-    .status-row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin: 16px 0;
+    .req-container hr {
+      border: none;
+      border-top: 1px solid rgba(33,38,45,0.6);
+      margin: 24px 0;
     }
-    .status-box {
-      background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
-      border-radius: 10px;
-      padding: 14px 20px;
-      flex: 1;
-      min-width: 120px;
-      text-align: center;
+    .req-container table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 13px;
     }
-    .status-box .value {
-      font-size: 24px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.9);
-    }
-    .status-box .label {
-      font-size: 11px;
+    .req-container table th {
+      text-align: left;
+      padding: 8px 8px;
+      color: rgba(255,255,255,0.4);
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: rgba(255,255,255,0.4);
-      margin-top: 4px;
+      font-size: 11px;
+      border-bottom: 1px solid rgba(33,38,45,0.5);
+      background: rgba(22,27,34,0.4);
     }
-    .agent-flow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin: 20px 0;
+    .req-container table td {
+      padding: 8px;
+      border-bottom: 1px solid rgba(33,38,45,0.3);
+      color: rgba(255,255,255,0.7);
     }
-    .agent-node {
+    .req-container ul {
+      padding-left: 24px;
+      margin: 8px 0;
+    }
+    .req-container ul li {
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      font-size: 14px;
+      margin: 4px 0;
+    }
+    .req-container strong {
+      color: rgba(255,255,255,0.9);
+    }
+    .req-container code {
+      background: rgba(88,166,255,0.1);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #58a6ff;
+    }
+    .req-container pre {
       background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
-      border-radius: 12px;
-      padding: 14px 18px;
-      text-align: center;
-      min-width: 120px;
+      border: 1px solid rgba(33,38,45,0.5);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 12px 0;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
     }
-    .agent-node .emoji { font-size: 24px; margin-bottom: 4px; }
-    .agent-node .name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); }
-    .agent-node .desc { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
-    .arrow-sep { font-size: 20px; color: rgba(255,255,255,0.2); align-self: center; }
+    .req-container br {
+      display: block;
+      content: '';
+      margin: 8px 0;
+    }
+    .req-container blockquote strong {
+      color: #58a6ff;
+    }
     @media (max-width: 768px) {
-      .feature-grid { grid-template-columns: 1fr; }
-      .agent-flow { flex-direction: column; align-items: center; }
-      .arrow-sep { transform: rotate(90deg); }
+      .req-container { padding: 12px; }
+      .req-container table { font-size: 12px; }
     }
   </style>
 </head>
@@ -186,302 +114,518 @@
 <a href="index.html" class="back">← На главную</a>
 
 <div class="container">
-
-  <h1 style="font-size:38px;font-weight:800;letter-spacing:-1px;margin:0 0 16px 4px;padding:0;color:transparent;background:linear-gradient(90deg,#3fb950,#58a6ff,#bc8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;">Создать БТ</h1>
-
-  <p style="text-align:center;margin:0 0 12px;color:var(--text-dim);font-size:16px;">
-    Сервис для формирования бизнес-требований высокого уровня зрелости
-  </p>
-  <p style="text-align:center;margin:0 0 24px;color:rgba(255,255,255,0.45);font-size:13px;">
-    Динамический опрос · Мультиагентный контроль · Самообучаемость · DOCX + веб-версия
-  </p>
-
-  <!-- ════════════ СТАТУС ════════════ -->
-  <div class="section">
-    <h2 style="text-align:center;">📊 Статус продукта</h2>
-    <div class="status-row">
-      <div class="status-box">
-        <div class="value" style="color:#3fb950;">Требования ✅</div>
-        <div class="label">Стадия</div>
-      </div>
-      <div class="status-box">
-        <div class="value">3.1</div>
-        <div class="label">Версия требований</div>
-      </div>
-      <div class="status-box">
-        <div class="value">4</div>
-        <div class="label">Агента</div>
-      </div>
-      <div class="status-box">
-        <div class="value">7</div>
-        <div class="label">Блоков шаблона</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ ЧТО ТАКОЕ ════════════ -->
-  <div class="section">
-    <h2>💡 Что такое «Создать БТ»</h2>
-    <div class="item">
-      <div class="body">
-        <strong>«Создать БТ»</strong> — мультиагентный сервис для формирования бизнес-требований (БТ) высокого уровня зрелости.
-        Сервис решает проблему низкой культуры работы с БТ: владельцы продуктов и бизнес-аналитики
-        тратят много времени, используют разные шаблоны, формулируют поверхностные требования без
-        анализа корневых причин. «Создать БТ» через динамический опрос и мультиагентный контроль
-        помогает создавать глубокие, структурированные и измеримые бизнес-требования.
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ КЛЮЧЕВЫЕ ВОЗМОЖНОСТИ ════════════ -->
-  <div class="section">
-    <h2>🔬 Ключевые возможности</h2>
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="icon">🤖</div>
-        <div class="name">Динамический опрос</div>
-        <div class="desc">Агент задаёт вопросы в Telegram, адаптируясь под ответы. При поверхностном ответе — копает глубже, до корневой причины.</div>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🔄</div>
-        <div class="name">Мультиагентный пайплайн</div>
-        <div class="desc">4 агента: опросчик → составитель → контролёр → генератор. Контролёр возвращает на доработку, если раздел заполнен поверхностно.</div>
-      </div>
-      <div class="feature-card">
-        <div class="icon">📄</div>
-        <div class="name">DOCX + веб-версия</div>
-        <div class="desc">Двойной формат выдачи: DOCX для Jira + веб-страница на GitHub Pages для просмотра и шаринга.</div>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🧠</div>
-        <div class="name">Самообучаемость</div>
-        <div class="desc">С каждым новым БТ качество опроса повышается: сервис запоминает паттерны, которые вели к хорошим требованиям.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ АРХИТЕКТУРА ════════════ -->
-  <div class="section">
-    <h2>⚙️ Архитектура</h2>
-    <div class="item">
-      <div class="title">Мультиагентный пайплайн</div>
-      <div class="body">
-        <p>Telegram → агенты OpenClaw (изолированные сессии):</p>
-        <div class="agent-flow">
-          <div class="agent-node"><div class="emoji">🎙️</div><div class="name">Агент-опросчик</div><div class="desc">Задаёт вопросы, погружается в контекст</div></div>
-          <div class="arrow-sep">→</div>
-          <div class="agent-node"><div class="emoji">✍️</div><div class="name">Агент-составитель</div><div class="desc">Формирует текст БТ по шаблону</div></div>
-          <div class="arrow-sep">→</div>
-          <div class="agent-node"><div class="emoji">🔍</div><div class="name">Агент-контролёр</div><div class="desc">Проверяет полноту и глубину разделов</div></div>
-          <div class="arrow-sep">→</div>
-          <div class="agent-node"><div class="emoji">📦</div><div class="name">Агент-генератор</div><div class="desc">Создаёт DOCX и веб-версию</div></div>
-        </div>
-        <p style="margin-top:14px;">Результат: DOCX + веб-страница → GitHub Pages → ссылка в Telegram пользователю</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ ШАБЛОН БТ (7 блоков) ════════════ -->
-  <div class="section">
-    <h2>📋 Шаблон БТ (7 блоков, неменяемый)</h2>
-    <div class="item">
-      <div class="body">
-        <p style="margin-bottom:16px;">Агент-опросчик проходит блоки последовательно, с динамической глубиной (L1 → L2 → L3):</p>
-        <div class="bt-block">
-          <div class="block-num">Блок 1</div>
-          <div class="block-title">📌 Контекст и проблема</div>
-          <div class="block-subs">1.1 Контекст инициативы · 1.2 Проблемная область · 1.3 Последствия бездействия</div>
-          <div><span class="depth-tag l1">L1</span> «Расскажите в двух словах…» <span class="depth-tag l2">L2</span> «Приведите пример…» <span class="depth-tag l3">L3</span> «Какая коренная причина?»</div>
-        </div>
-        <div class="bt-block">
-          <div class="block-num">Блок 2</div>
-          <div class="block-title">🎯 Цель и измерение</div>
-          <div class="block-subs">2.1 Бизнес-цель · 2.2 Критерии успеха</div>
-          <div><span class="depth-tag l1">L1</span> «Какую бизнес-цель преследуете?» <span class="depth-tag l2">L2</span> «Сформулируйте измеримо» <span class="depth-tag l3">L3</span> «Какие целевые KPI?»</div>
-        </div>
-        <div class="bt-block">
-          <div class="block-num">Блок 3</div>
-          <div class="block-title">👥 Стейкхолдеры и влияние</div>
-          <div class="block-subs">3.1 Заинтересованные стороны · 3.2 Их интересы и влияние</div>
-          <div><span class="depth-tag l1">L1</span> «Кто затронут?» <span class="depth-tag l2">L2</span> «По группам: пользователи, внедренцы…» <span class="depth-tag l3">L3</span> «Конфликт интересов?»</div>
-        </div>
-        <div class="bt-block">
-          <div class="block-num">Блок 4</div>
-          <div class="block-title">🛠 Решение</div>
-          <div class="block-subs">4.1 Ключевые функции · 4.2 Пользовательские сценарии · 4.3 Граничные случаи</div>
-          <div><span class="depth-tag l1">L1</span> «Что решение должно делать?» <span class="depth-tag l2">L2</span> «Must/Should/Nice to have» <span class="depth-tag l3">L3</span> «Для каждой must have — что кодить?»</div>
-        </div>
-        <div class="bt-block">
-          <div class="block-num">Блок 5</div>
-          <div class="block-title">⚡ Требования к качеству и ограничения</div>
-          <div class="block-subs">5.1 Качественные характеристики · 5.2 Ограничения</div>
-          <div><span class="depth-tag l1">L1</span> «Производительность, безопасность?» <span class="depth-tag l2">L2</span> «Сколько пользователей? Аутентификация?» <span class="depth-tag l3">L3</span> «99.9% uptime? RTO < 1 час?»</div>
-        </div>
-        <div class="bt-block">
-          <div class="block-num">Блок 6</div>
-          <div class="block-title">✅ Приёмка</div>
-          <div class="block-subs">6.1 Критерии приёмки</div>
-          <div><span class="depth-tag l1">L1</span> «Как поймём, что функция реализована?» <span class="depth-tag l2">L2</span> «Given-When-Then» <span class="depth-tag l3">L3</span> «Кто принимает? Автотесты?»</div>
-        </div>
-        <div class="bt-block">
-          <div class="block-num">Блок 7</div>
-          <div class="block-title">⚠️ Риски и митигации</div>
-          <div class="block-subs">7.1 Идентифицированные риски · 7.2 Митигации</div>
-          <div><span class="depth-tag l1">L1</span> «Систематизируем риски» <span class="depth-tag l2">L2</span> «Технические, организационные, adoption» <span class="depth-tag l3">L3</span> «Для критических: план Б?»</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ ТЕХНИЧЕСКАЯ ОСНОВА ════════════ -->
-  <div class="section">
-    <h2>🛠 Техническая основа</h2>
-    <ul class="tech-list">
-      <li><strong>Платформа:</strong> OpenClaw (изолированные сессии агентов)</li>
-      <li><strong>Модель:</strong> DeepSeek Chat (deepseek/deepseek-chat)</li>
-      <li><strong>Канал:</strong> Telegram</li>
-      <li><strong>Архитектура:</strong> мультиагентный пайплайн (4 агента, agent-to-agent)</li>
-      <li><strong>Генерация DOCX:</strong> python-docx (на VPS)</li>
-      <li><strong>Публикация:</strong> GitHub Pages (веб-версия + DOCX-файл)</li>
-      <li><strong>Хранение:</strong> история сессий на VPS (черновики, завершённые БТ, паттерны для самообучения)</li>
-      <li><strong>Язык:</strong> только русский</li>
-    </ul>
-  </div>
-
-  <!-- ════════════ ПОЛЬЗОВАТЕЛИ ════════════ -->
-  <div class="section">
-    <h2>👤 Пользователи сервиса</h2>
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="icon">🎯</div>
-        <div class="name">Владельцы продуктов</div>
-        <div class="desc">Катя, Лена, Данил, Роман, Кирилл. Инициируют продуктовые инициативы. Боль: тратят много времени, не уверены в полноте и глубине документа.</div>
-      </div>
-      <div class="feature-card">
-        <div class="icon">📊</div>
-        <div class="name">Бизнес-аналитики</div>
-        <div class="desc">Определяются по мере внедрения. Профессионально готовят БТ, заинтересованы в едином стандарте.</div>
-      </div>
-      <div class="feature-card">
-        <div class="icon">⚙️</div>
-        <div class="name">Разработчики</div>
-        <div class="desc">Косвенные пользователи. Заинтересованы в качественных, конкретных требованиях.</div>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🏢</div>
-        <div class="name">Руководители</div>
-        <div class="desc">Оценивают трудозатраты на основе БТ. Заинтересованы в документированной, воспроизводимой оценке.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ КРИТЕРИИ ЗРЕЛОСТИ ════════════ -->
-  <div class="section">
-    <h2>📐 Критерии зрелости БТ</h2>
-    <div class="item">
-      <div class="body">
-        <p style="margin-bottom:10px;">Сервис достиг цели, если подготовленный БТ соответствует критериям:</p>
-        <ul style="margin:0 0 16px;padding-left:20px;color:rgba(255,255,255,0.65);line-height:1.8;">
-          <li>✅ <strong>Проблемная область</strong> — проанализирована до корневой причины</li>
-          <li>✅ <strong>Бизнес-цель</strong> — измерима, привязана к KPI</li>
-          <li>✅ <strong>Критерии успеха</strong> — явные, достижимые, проверяемые</li>
-          <li>✅ <strong>Стейкхолдеры</strong> — все идентифицированы, интересы учтены</li>
-          <li>✅ <strong>Функции</strong> — конкретны, без общих фраз</li>
-          <li>✅ <strong>NFR и ограничения</strong> — зафиксированы</li>
-          <li>✅ <strong>Приёмка</strong> — проверяемые критерии</li>
-          <li>✅ <strong>Риски</strong> — осознаны, а не отписка</li>
-        </ul>
-        <p style="color:rgba(255,255,255,0.45);font-size:13px;"><strong>KPI:</strong> Полнота 7/7 блоков · Глубина «хорошо» и выше · Время подготовки меньше ручного · Доля инициатив с БТ = 100%</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ MVP SCOPE ════════════ -->
-  <div class="section">
-    <h2>📦 MVP Scope</h2>
-    <div class="item">
-      <div class="body">
-        <p><strong>Core Features:</strong></p>
-        <ul style="margin:0 0 12px;padding-left:20px;color:rgba(255,255,255,0.65);line-height:1.8;">
-          <li>Telegram-бот — основной канал</li>
-          <li>Динамический опрос по 7 блокам шаблона с L1→L2→L3</li>
-          <li>Мультиагентный пайплайн (опросчик → составитель → контролёр → генератор)</li>
-          <li>Генерация DOCX (python-docx на VPS)</li>
-          <li>Публикация на GitHub Pages (DOCX + веб-страница)</li>
-          <li>Хранение истории сессий</li>
-          <li>Самообучаемость</li>
-        </ul>
-        <p><strong>Out of Scope:</strong> Jira-интеграция, мультиязычность, веб-интерфейс сессий, агрегация метрик</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ ЭТАПЫ РАЗРАБОТКИ ════════════ -->
-  <div class="section">
-    <h2>📌 Ход разработки</h2>
-    <div class="item">
-      <table style="width:100%;border-collapse:collapse;font-size:13px;">
-        <thead>
-          <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
-            <th style="text-align:left;padding:8px 6px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-size:11px;">Этап</th>
-            <th style="text-align:left;padding:8px 6px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-size:11px;">Статус</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td style="padding:8px 6px;">✅ Требования v3.1</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
-          <tr><td style="padding:8px 6px;">✅ Шаблон БТ (7 блоков, L1-L3)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
-          <tr><td style="padding:8px 6px;">✅ BMAD — Product Brief (Mary)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
-          <tr><td style="padding:8px 6px;">✅ BMAD — PRD (John)</td><td style="padding:8px 6px;color:#3fb950;">Готово</td></tr>
-          <tr><td style="padding:8px 6px;">🔲 Проектирование архитектуры агентов</td><td style="padding:8px 6px;color:#d29922;">В плане</td></tr>
-          <tr><td style="padding:8px 6px;">🔲 Phase 1 — Core (опросчик + контролёр)</td><td style="padding:8px 6px;color:#d29922;">В плане</td></tr>
-          <tr><td style="padding:8px 6px;">🔲 Phase 2 — Экспертиза (multi-model)</td><td style="padding:8px 6px;color:#d29922;">В плане</td></tr>
-          <tr><td style="padding:8px 6px;">🔲 Phase 3 — Самообучение</td><td style="padding:8px 6px;color:#d29922;">В плане</td></tr>
-          <tr><td style="padding:8px 6px;">🔲 Тестирование на реальных сценариях</td><td style="padding:8px 6px;color:#d29922;">В плане</td></tr>
-          <tr><td style="padding:8px 6px;">🔲 Запуск в эксплуатацию</td><td style="padding:8px 6px;color:#d29922;">В плане</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ════════════ ГРАНИЦЫ ════════════ -->
-  <div class="section">
-    <h2>🚫 Что сервис НЕ делает</h2>
-    <div class="item">
-      <div class="body">
-        <ul style="margin:0;padding-left:20px;color:rgba(255,255,255,0.6);line-height:1.8;">
-          <li>Не прикрепляет БТ в Jira (пользователь делает это сам)</li>
-          <li>Не пишет код и не проектирует архитектуру</li>
-          <li>Не работает на английском (только русский)</li>
-          <li>Не даёт веб-интерфейс для управления сессиями</li>
-          <li>Не считает автоматическую оценку качества БТ (оценка экспертная)</li>
-          <li>Не заменяет Product Owner — сервис ассистирует, а не решает</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════ ИНСТРУКЦИЯ ════════════ -->
-  <div class="section">
-    <h2>📱 Как пользоваться</h2>
-    <div class="item">
-      <div class="body">
-        <ol style="margin:8px 0 16px;padding-left:20px;color:rgba(255,255,255,0.65);line-height:1.8;">
-          <li>Напиши <strong>в Telegram</strong> — сервис начнёт опрос</li>
-          <li>Отвечай на вопросы свободно — агент адаптируется под твой контекст</li>
-          <li>При поверхностном ответе агент задаст уточняющие вопросы</li>
-          <li>После прохождения всех 7 блоков — дождись проверки контролёра</li>
-          <li>Получи готовый DOCX + ссылку на веб-версию в Telegram</li>
-          <li>Прикрепи DOCX к Jira-задаче</li>
-        </ol>
-        <p style="font-size:13px;color:rgba(255,255,255,0.4);">⏱ Типичное время опроса: 10–25 минут, в зависимости от сложности инициативы.</p>
-      </div>
-    </div>
+  <div class="req-container">
+    <h1>Проект «Создать БТ» — Документ требований v3.1</h1>
+<br>
+<blockquote>Версия: 3.1 (final)</blockquote>
+<blockquote>Дата: 08.07.2026</blockquote>
+<blockquote>Финализация: 08.07.2026</blockquote>
+<blockquote>Статус: утверждено</blockquote>
+<blockquote>Основание: склейка Product Brief от Mary (BMAD Analyst, 08.07.2026) и требований v2.3</blockquote>
+<br>
+<hr>
+<br>
+<h2>1. Executive Summary</h2>
+<br>
+<strong>«Создать БТ»</strong> — сервис для формирования бизнес-требований (БТ) высокого уровня зрелости.
+Сервис решает проблему низкой культуры работы с БТ: владельцы продуктов и бизнес-аналитики
+тратят много времени, используют разные шаблоны, формулируют поверхностные требования без
+анализа корневых причин. «Создать БТ» через динамический опрос и мультиагентный контроль
+помогает создавать глубокие, структурированные и измеримые бизнес-требования.
+<br>
+<hr>
+<br>
+<h2>2. Core Vision</h2>
+<br>
+<h3>2.1. Problem Statement</h3>
+<br>
+В организации сложилась неэффективная практика работы с бизнес-требованиями.
+Владельцы продуктов (Катя, Лена, Данил, Роман, Кирилл) и бизнес-аналитики:
+<br>
+<ul>
+<li>Тратят много времени на подготовку БТ</li>
+<li>Используют разные шаблоны — нет единого формата</li>
+<li>Часто подходят формально, не прорабатывают глубину</li>
+<li>Не формулируют проблемную область, не выходят на корневые причины</li>
+<li>Подготовка БТ либо откладывается, либо делается наспех</li>
+<li>Оценка трудозатрат делается «из головы», знания не фиксируются</li>
+</ul>
+<br>
+<strong>Корневая причина:</strong> низкая культура работы с БТ — пользователи не понимают ценность
+качественного документа, пренебрегают этим этапом.
+<br>
+<h3>2.2. Why Existing Solutions Fall Short</h3>
+<br>
+<ul>
+<li>Традиционные шаблоны БТ не адаптируются под ответы пользователя</li>
+<li>Нет механизма «принуждения к глубине» — если пользователь отвечает поверхностно, система не задаёт уточняющих вопросов</li>
+<li>Нет контроля качества: отсутствует ревьюер, который проверяет полноту разделов</li>
+<li>Нет механизма обучения: каждый новый БТ создаётся с нуля без учёта предыдущего опыта</li>
+<li>Нет интеграции с публикацией (DOCX + веб-версия)</li>
+</ul>
+<br>
+<h3>2.3. Proposed Solution</h3>
+<br>
+«Создать БТ» — мультиагентный сервис в Telegram, который:
+<br>
+1. Проводит <strong>динамический опрос</strong> пользователя, адаптируя вопросы под его ответы
+2. Использует <strong>мультиагентный пайплайн</strong>:
+<ul>
+<li>Агент-опросчик задаёт вопросы, погружается в контекст</li>
+<li>Агент-составитель формирует текст БТ по шаблону</li>
+<li>Агент-контролёр проверяет полноту и глубину</li>
+<li>Агент-генератор создаёт DOCX и веб-версию</li>
+</ul>
+3. <strong>Самообучается</strong>: с каждым новым БТ качество опроса повышается
+4. Генерирует <strong>единый формат</strong> БТ (утверждённый шаблон из 7 блоков)
+5. Публикует результат в <strong>DOCX и на GitHub Pages</strong>
+6. Интегрируется через <strong>Telegram</strong> (основной канал взаимодействия)
+<br>
+<h3>2.4. Key Differentiators</h3>
+<br>
+<ul>
+<li><strong>Динамическая глубина</strong>: при поверхностном ответе агент копает глубже, а не принимает «как есть»</li>
+<li><strong>Контроль качества в реальном времени</strong>: контролёр проверяет каждый раздел на полноту</li>
+<li><strong>Самообучаемость</strong>: сервис накапливает опыт от сессии к сессии</li>
+<li><strong>Мультиагентная архитектура</strong> на базе OpenClaw + DeepSeek API</li>
+<li><strong>Двойной формат выдачи</strong>: DOCX (для Jira) + веб-страница (для просмотра)</li>
+<li><strong>Жёсткий шаблон</strong>: 7 фиксированных блоков без лишней художественности</li>
+</ul>
+<br>
+<hr>
+<br>
+<h2>3. Пользователи сервиса</h2>
+<br>
+<h3>3.1. Primary Users</h3>
+<br>
+<strong>Владельцы продуктов (Product Owners)</strong>
+<br>
+<table>
+<tr><th>Конкретные участники</th><th>Роль</th></tr>
+<tr><td>Катя</td><td>Владелец продукта</td></tr>
+<tr><td>Лена</td><td>Владелец продукта</td></tr>
+<tr><td>Данил</td><td>Владелец продукта</td></tr>
+<tr><td>Роман</td><td>Владелец продукта</td></tr>
+<tr><td>Кирилл</td><td>Владелец продукта</td></tr>
+</table>
+<br>
+<ul>
+<li>Инициируют новые продуктовые инициативы</li>
+<li>Отвечают за формирование БТ, но не имеют для этого достаточных инструментов и культуры</li>
+<li>Мотивация: быстро получить качественный документ БТ, снизить нагрузку по подготовке</li>
+<li>Боль: тратят много времени, не уверены в полноте и глубине документа</li>
+</ul>
+<br>
+<strong>Бизнес-аналитики (Business Analysts)</strong>
+<ul>
+<li>Определяются по мере внедрения сервиса</li>
+<li>Профессионально занимаются подготовкой БТ</li>
+<li>Заинтересованы в едином стандарте и глубине проработки</li>
+<li>Боль: нет единого шаблона, формат зависит от конкретного специалиста</li>
+</ul>
+<br>
+<h3>3.2. Secondary Users</h3>
+<br>
+<strong>Разработчики и команда разработки</strong>
+<ul>
+<li>Косвенные пользователи — получают БТ как вход для разработки</li>
+<li>Заинтересованы в качественных, полных и конкретных требованиях</li>
+<li>Выигрывают от снижения неопределённости и переформулировок</li>
+</ul>
+<br>
+<strong>Руководители / Стейкхолдеры</strong>
+<ul>
+<li>Оценивают трудозатраты на основе БТ</li>
+<li>Заинтересованы в документированной и воспроизводимой оценке, а не «знании в голове»</li>
+</ul>
+<br>
+<h3>3.3. User Journey</h3>
+<br>
+1. <strong>Discovery:</strong> Пользователь узнаёт о сервисе через Telegram (ссылка/приглашение)
+2. <strong>Onboarding:</strong> Бот приветствует, объясняет процесс, запрашивает контекст инициативы
+3. <strong>Core Usage:</strong> Динамический опрос — агент задаёт вопросы по 7 блокам шаблона, уточняет, контролирует глубину
+4. <strong>Success Moment:</strong> Пользователь получает готовый DOCX + ссылку на GitHub Pages
+5. <strong>Long-term:</strong> Пользователь прикрепляет DOCX к задаче в Jira. В следующий раз сервис задаёт более точные вопросы (самообучение)
+<br>
+<hr>
+<br>
+<h2>4. Описание цели</h2>
+<br>
+<h3>Главная цель</h3>
+Разработать сервис, позволяющий формировать бизнес-требования высокого уровня зрелости.
+<br>
+<h3>Что такое высокий уровень зрелости БТ</h3>
+Это глубина проработки каждого раздела шаблона. БТ считается зрелой, когда проблемная область проанализирована до корневой причины, цель измерима, заинтересованные стороны идентифицированы, требования конкретны, риски осознаны.
+<br>
+<h3>За счёт чего достигается</h3>
+1. <strong>Динамический опрос</strong> — агент реагирует на ответы: при поверхностном ответе задаёт уточняющие вопросы («А что стоит за этой болью?», «Кто именно страдает?», «Что будет, если ничего не менять?»), при глубоком — фиксирует и идёт дальше
+2. <strong>Мультиагентный контроль</strong> — контролёр проверяет каждый раздел на полноту и возвращает на доработку, если раздел заполнен поверхностно
+3. <strong>Самообучаемость</strong> — с каждым новым БТ агент учится задавать более точные вопросы на основе предыдущего опыта
+<br>
+<h3>Business Objectives</h3>
+<br>
+1. <strong>Повышение зрелости БТ:</strong> каждый раздел документа соответствует критериям зрелости (см. Раздел 5)
+2. <strong>Сокращение времени подготовки БТ</strong> по сравнению с текущим процессом
+3. <strong>Документированная оценка трудозатрат:</strong> оценка становится воспроизводимой, а не «знанием в голове» при уходе человека
+4. <strong>Повышение культуры работы с БТ:</strong> каждая новая инициатива в Jira содержит БТ, подготовленный сервисом
+<br>
+<hr>
+<br>
+<h2>5. Критерии достижения цели (Success Metrics)</h2>
+<br>
+<h3>Критерии зрелости БТ (целевые)</h3>
+Сервис достиг цели, если подготовленный им документ БТ соответствует следующим критериям:
+<ul>
+<li><strong>Проблемная область</strong> — проанализирована до корневой причины, а не просто описана поверхностно</li>
+<li><strong>Бизнес-цель</strong> — сформулирована измеримо, привязана к показателям бизнеса</li>
+<li><strong>Критерии достижения цели</strong> — явно указаны, достижимы и проверяемы</li>
+<li><strong>Заинтересованные стороны</strong> — идентифицированы все, чьи интересы затронуты</li>
+<li><strong>Функциональные возможности</strong> — конкретны, без общих фраз</li>
+<li><strong>Качественные характеристики</strong> — учтены (безопасность, производительность и т.д.)</li>
+<li><strong>Ограничения</strong> — осознаны и зафиксированы</li>
+<li><strong>Критерии приёмки</strong> — проверяемы</li>
+<li><strong>Риски</strong> — осознаны, а не отписка</li>
+</ul>
+<br>
+<h3>Key Performance Indicators</h3>
+<br>
+<table>
+<tr><th>Метрика</th><th>Цель</th><th>Измерение</th></tr>
+<tr><td>Полнота разделов БТ</td><td>7/7 блоков заполнены</td><td>Автоматическая проверка контролёром</td></tr>
+<tr><td>Глубина проработки</td><td>Экспертная оценка «хорошо» и выше</td><td>Качественная оценка (не автоматизирована)</td></tr>
+<tr><td>Время подготовки БТ</td><td>Меньше, чем ручной процесс</td><td>Сравнение с текущими трудозатратами</td></tr>
+<tr><td>Доля инициатив с БТ</td><td>100% новых инициатив</td><td>Jira-задачи с прикреплённым БТ</td></tr>
+<tr><td>Удовлетворённость пользователя</td><td>Легко и понятно проходить опрос</td><td>Обратная связь от PO и БА</td></tr>
+<tr><td>Улучшение от сессии к сессии</td><td>Качество растёт</td><td>Анализ паттернов вопросов (самообучение)</td></tr>
+</table>
+<br>
+<h3>Признаки успеха внедрения</h3>
+<ul>
+<li>Каждая новая инициатива в Jira содержит БТ, подготовленный сервисом</li>
+<li>На основании БТ проводится экспресс-оценка трудозатрат — оценка становится документированной и воспроизводимой, а не «знанием в голове»</li>
+<li>Время подготовки БТ сократилось по сравнению с текущим процессом</li>
+<li>Пользователю легко и понятно проходить опрос</li>
+</ul>
+<br>
+<h3>Конечный результат работы сервиса</h3>
+<ul>
+<li>Готовый документ БТ в формате DOCX</li>
+<li>Публикация идентичной версии на веб-странице на GitHub Pages</li>
+<li>Пользователь самостоятельно прикрепляет DOCX к задаче в Jira (интеграция с Jira не предусмотрена)</li>
+</ul>
+<br>
+<hr>
+<br>
+<h2>6. Контекст и ограничения</h2>
+<br>
+<strong>Инфраструктура (что есть):</strong>
+<ul>
+<li>VPS (vm-f13581, Linux)</li>
+<li>GitHub Pages для статики</li>
+<li>DeepSeek API (LLM)</li>
+<li>Cloudflare Tunnel (HTTPS)</li>
+<li>OpenClaw (мультиагентная архитектура)</li>
+</ul>
+<br>
+<strong>Ограничения сети:</strong>
+<ul>
+<li>Прямой доступ к VPS по HTTP/IP заблокирован в корпоративной сети (но пользователи работают из дома/с мобильного — не критично)</li>
+</ul>
+<br>
+<strong>Язык:</strong> только русский. Мультиязычность не предусмотрена.
+<br>
+<strong>Объём БТ:</strong>
+<ul>
+<li>Зависит от контекста инициативы</li>
+<li>Формулировки без лишней художественности, по делу</li>
+</ul>
+<br>
+<hr>
+<br>
+<h2>7. Шаблон БТ (неменяемый) — утверждён</h2>
+<br>
+<blockquote>⚠️ Шаблон фиксируется на этапе разработки сервиса и не подлежит изменению после ввода в эксплуатацию. Все вопросы агента строятся на основе этой структуры.</blockquote>
+<br>
+<h3>Структура шаблона БТ (агентный формат — 7 диалоговых блоков)</h3>
+<br>
+Шаблон организован как последовательность из 7 блоков, каждый из которых содержит подразделы. Агент-опросчик проходит блоки последовательно (Блок 1 → Блок 2 → … → Блок 7), задавая вопросы с динамической глубиной:
+<br>
+<ul>
+<li><strong>L1 (открывающий)</strong> — общий вопрос, позволяет пользователю ответить свободно</li>
+<li><strong>L2 (углубляющий)</strong> — уточняет и конкретизирует, если ответ L1 поверхностный</li>
+<li><strong>L3 (корневой)</strong> — добирается до коренной причины, если L1-L2 недостаточно</li>
+</ul>
+<br>
+Риски собираются агентом на протяжении всего диалога, фиксируются в память сессии и систематизируются в Блоке 7.
+<br>
+<table>
+<tr><th>№</th><th>Блок</th><th>Подразделы</th></tr>
+<tr><td>1</td><td><strong>Контекст и проблема</strong></td><td>1.1 Контекст инициативы · 1.2 Проблемная область · 1.3 Последствия бездействия</td></tr>
+<tr><td>2</td><td><strong>Цель и измерение</strong></td><td>2.1 Бизнес-цель · 2.2 Критерии успеха</td></tr>
+<tr><td>3</td><td><strong>Стейкхолдеры и влияние</strong></td><td>3.1 Заинтересованные стороны · 3.2 Их интересы и влияние</td></tr>
+<tr><td>4</td><td><strong>Решение</strong></td><td>4.1 Ключевые функциональные возможности · 4.2 Пользовательские сценарии · 4.3 Граничные случаи и исключения</td></tr>
+<tr><td>5</td><td><strong>Требования к качеству и ограничения</strong></td><td>5.1 Качественные характеристики · 5.2 Ограничения</td></tr>
+<tr><td>6</td><td><strong>Приёмка</strong></td><td>6.1 Критерии приёмки (с привязкой к функциям)</td></tr>
+<tr><td>7</td><td><strong>Риски и митигации</strong></td><td>7.1 Идентифицированные риски · 7.2 Митигации</td></tr>
+</table>
+<br>
+<h4>Блок 1 — Контекст и проблема</h4>
+<br>
+<table>
+<tr><th>Подраздел</th><th>Уровень</th><th>Вопрос-подсказка</th></tr>
+<tr><td>1.1 Контекст инициативы</td><td>L1</td><td>«Расскажите в двух словах: над чем работаете? Что за проект или инициативу мы обсуждаем?»</td></tr>
+<tr><td>1.1 Контекст инициативы</td><td>L2</td><td>«Как бы вы сформулировали суть этой инициативы для человека, который ничего о ней не знает?»</td></tr>
+<tr><td>1.1 Контекст инициативы</td><td>L3</td><td>«Давайте придумаем рабочее название: отталкиваясь от того, что вы рассказали, как бы вы её назвали?»</td></tr>
+<tr><td>1.2 Проблемная область</td><td>L1</td><td>«Что сейчас не так? Какая конкретно ситуация или боль заставляет вас этим заниматься?»</td></tr>
+<tr><td>1.2 Проблемная область</td><td>L2</td><td>«Приведите конкретный пример из последней недели. Что произошло? Кто и как пострадал?»</td></tr>
+<tr><td>1.2 Проблемная область</td><td>L3</td><td>«А почему эта ситуация сложилась? Какая коренная причина? Как давно это длится?»</td></tr>
+<tr><td>1.3 Последствия бездействия</td><td>L1</td><td>«Что будет, если ничего не менять? Какие последствия для бизнеса, пользователей, команды?»</td></tr>
+<tr><td>1.3 Последствия бездействия</td><td>L2</td><td>«Есть ли конкретные потери — деньги, время, клиенты, репутация? Что мы теряем каждый месяц бездействия?»</td></tr>
+<tr><td>1.3 Последствия бездействия</td><td>L3</td><td>«Если мы не сделаем этот проект в ближайшие полгода — что изменится? Ситуация ухудшится или решится сама?»</td></tr>
+</table>
+<br>
+<h4>Блок 2 — Цель и измерение</h4>
+<br>
+<table>
+<tr><th>Подраздел</th><th>Уровень</th><th>Вопрос-подсказка</th></tr>
+<tr><td>2.1 Бизнес-цель</td><td>L1</td><td>«Какую бизнес-цель вы преследуете? Какой результат хотите получить в итоге?»</td></tr>
+<tr><td>2.1 Бизнес-цель</td><td>L2</td><td>«Сформулируйте это как измеримый результат: что конкретно изменится для бизнеса после внедрения?»</td></tr>
+<tr><td>2.1 Бизнес-цель</td><td>L3</td><td>«Какие KPI затронуты? Есть ли целевые значения — например, „снизить время обработки с 3 дней до 4 часов“?»</td></tr>
+<tr><td>2.2 Критерии успеха</td><td>L1</td><td>«Как вы поймёте, что цель достигнута? По каким признакам?»</td></tr>
+<tr><td>2.2 Критерии успеха</td><td>L2</td><td>«Назовите 2-3 конкретных измеримых критерия.»</td></tr>
+<tr><td>2.2 Критерии успеха</td><td>L3</td><td>«Как эти критерии проверяются? Можно ли их измерить автоматически? Кто проверяет? К какому сроку?»</td></tr>
+</table>
+<br>
+<h4>Блок 3 — Стейкхолдеры и влияние</h4>
+<br>
+<table>
+<tr><th>Подраздел</th><th>Уровень</th><th>Вопрос-подсказка</th></tr>
+<tr><td>3.1 Заинтересованные стороны</td><td>L1</td><td>«Кто затронут этой инициативой? Чьи интересы она меняет?»</td></tr>
+<tr><td>3.1 Заинтересованные стороны</td><td>L2</td><td>«Давайте по группам: кто будет пользоваться результатом? Кто внедрять? Кто платить? Кто может заблокировать?»</td></tr>
+<tr><td>3.1 Заинтересованные стороны</td><td>L3</td><td>«Есть ли стейкхолдеры, о которых мы забыли? Юридический отдел, служба безопасности, поддержка?»</td></tr>
+<tr><td>3.2 Их интересы и влияние</td><td>L1</td><td>«Что каждая из сторон хочет получить от этой инициативы? Какие ожидания?»</td></tr>
+<tr><td>3.2 Их интересы и влияние</td><td>L2</td><td>«Чьё мнение критично для успеха? Кто может сказать „нет“?»</td></tr>
+<tr><td>3.2 Их интересы и влияние</td><td>L3</td><td>«Есть ли конфликт интересов между сторонами? Кто может быть против этой инициативы?»</td></tr>
+</table>
+<br>
+<h4>Блок 4 — Решение</h4>
+<br>
+<table>
+<tr><th>Подраздел</th><th>Уровень</th><th>Вопрос-подсказка</th></tr>
+<tr><td>4.1 Ключевые функциональные возможности</td><td>L1</td><td>«Что решение должно делать? Назовите 3-5 ключевых функций, без которых система не имеет смысла.»</td></tr>
+<tr><td>4.1 Ключевые функциональные возможности</td><td>L2</td><td>«Расположите по приоритету: must have, should have, nice to have.»</td></tr>
+<tr><td>4.1 Ключевые функциональные возможности</td><td>L3</td><td>«Для каждой must have: что конкретно она делает? Никаких „удобный интерфейс“. Разработчик должен понять, что кодить.»</td></tr>
+<tr><td>4.2 Пользовательские сценарии</td><td>L1</td><td>«Опишите типичный день пользователя: как он будет взаимодействовать с системой?»</td></tr>
+<tr><td>4.2 Пользовательские сценарии</td><td>L2</td><td>«Разберём сценарий: что пользователь видит при входе? Что делает? Что делает система в ответ? Каков результат?»</td></tr>
+<tr><td>4.2 Пользовательские сценарии</td><td>L3</td><td>«Есть ли сценарии, когда пользователь использует систему не так, как задумано?»</td></tr>
+<tr><td>4.3 Граничные случаи и исключения</td><td>L1</td><td>«Что должно произойти, если что-то пошло не так? Неверные данные, сеть упала, система не нашла информацию.»</td></tr>
+<tr><td>4.3 Граничные случаи и исключения</td><td>L2</td><td>«Для каждой ключевой функции: что считается успехом? Что — ошибкой? Как система реагирует на ошибку?»</td></tr>
+<tr><td>4.3 Граничные случаи и исключения</td><td>L3</td><td>«Какие экстремальные случаи? Максимальная нагрузка, пиковые пользователи, работа с большими данными?»</td></tr>
+</table>
+<br>
+<h4>Блок 5 — Требования к качеству и ограничения</h4>
+<br>
+<table>
+<tr><th>Подраздел</th><th>Уровень</th><th>Вопрос-подсказка</th></tr>
+<tr><td>5.1 Качественные характеристики</td><td>L1</td><td>«Какие требования к качеству? Производительность, безопасность, доступность, совместимость?»</td></tr>
+<tr><td>5.1 Качественные характеристики</td><td>L2</td><td>«— Производительность: сколько пользователей? Время отклика? — Безопасность: какие данные? Нужна аутентификация? — Доступность: 24/7 или окна обслуживания? — Совместимость: с чем интегрироваться?»</td></tr>
+<tr><td>5.1 Качественные характеристики</td><td>L3</td><td>«Есть ли требования по надёжности: 99.9% uptime, время восстановления до 1 часа, бэкапы?»</td></tr>
+<tr><td>5.2 Ограничения</td><td>L1</td><td>«Какие ограничения — бюджет, сроки, технологии, политики, регуляторика?»</td></tr>
+<tr><td>5.2 Ограничения</td><td>L2</td><td>«— Бюджет: есть рамка? — Сроки: когда MVP? — Технологии: на чём должны/не должны делать? — Регуляторика: ФЗ, GDPR, отраслевые стандарты?»</td></tr>
+<tr><td>5.2 Ограничения</td><td>L3</td><td>«Какие ограничения можем нарушить, а какие нет? Где манёвр?»</td></tr>
+</table>
+<br>
+<h4>Блок 6 — Приёмка</h4>
+<br>
+<table>
+<tr><th>Подраздел</th><th>Уровень</th><th>Вопрос-подсказка</th></tr>
+<tr><td>6.1 Критерии приёмки</td><td>L1</td><td>«Для каждой ключевой функции: как поймём, что она реализована правильно и её можно принять?»</td></tr>
+<tr><td>6.1 Критерии приёмки</td><td>L2</td><td>«Опишите в формате Given-When-Then: Дано: ситуация. Когда: действие. Тогда: ожидаемый результат.»</td></tr>
+<tr><td>6.1 Критерии приёмки</td><td>L3</td><td>«Кто принимает? Есть ли blocker для приёмки? Нужно ли автоматическое тестирование?»</td></tr>
+</table>
+<br>
+<h4>Блок 7 — Риски и митигации</h4>
+<br>
+<table>
+<tr><th>Подраздел</th><th>Уровень</th><th>Вопрос-подсказка</th></tr>
+<tr><td>7.1 Идентифицированные риски</td><td>L1</td><td>«Мы по ходу разговора затронули несколько рисков. Давайте их систематизируем. Какие риски вы видите?»</td></tr>
+<tr><td>7.1 Идентифицированные риски</td><td>L2</td><td>«По категориям: технические, организационные, бизнес-риски, adoption.»</td></tr>
+<tr><td>7.1 Идентифицированные риски</td><td>L3</td><td>«Для каждого риска: вероятность (низкая/средняя/высокая), влияние (низкое/среднее/критическое), приоритет.»</td></tr>
+<tr><td>7.2 Митигации</td><td>L1</td><td>«Какие действия можем предпринять, чтобы снизить вероятность или влияние каждого риска?»</td></tr>
+<tr><td>7.2 Митигации</td><td>L2</td><td>«Для критических рисков: что делаем сейчас для предотвращения? Что будем делать, если наступит? Есть ли план Б?»</td></tr>
+<tr><td>7.2 Митигации</td><td>L3</td><td>«Есть ли риски, которые можно полностью устранить? Или те, с которыми придётся жить?»</td></tr>
+</table>
+<br>
+<h3>Примечания к шаблону:</h3>
+<ul>
+<li>Агент последовательно проходит по блокам, задавая вопросы с динамическим уровнем глубины</li>
+<li>L1 → L2 → L3: агент углубляется только при поверхностном ответе; при глубоком ответе — фиксирует и переходит к следующему подразделу</li>
+<li>Риски собираются на протяжении всего диалога (фиксируются в память сессии), систематизируются в Блоке 7</li>
+<li>Блоки заполняются нелинейно: агент может возвращаться к блокам для уточнения</li>
+<li>Все блоки и подразделы обязательны к заполнению (даже ответом «не применимо»)</li>
+<li>Шаблон неменяемый, все блоки фиксированы</li>
+</ul>
+<br>
+<hr>
+<br>
+<h2>8. Архитектура решения</h2>
+<br>
+<h3>Канал взаимодействия</h3>
+<ul>
+<li>Пользователь общается с агентом через <strong>Telegram</strong> (стандартный канал)</li>
+<li>Агент задаёт вопросы, анализирует ответы, динамически адаптирует следующие вопросы</li>
+</ul>
+<br>
+<h3>Принцип работы</h3>
+<ul>
+<li>Сервис сам опрашивает пользователя (агентный подход)</li>
+<li>Вопросы динамически меняются в зависимости от ответов</li>
+<li>Агент погружается в суть предмета, адаптирует следующие вопросы</li>
+</ul>
+<br>
+<h3>Мультиагентная архитектура</h3>
+Архитектурный подход аналогичен тому, что используется для Марии (medhelp-agent) и Катрин (katrin-agent):
+<br>
+<pre><code>Telegram → main (OpenClaw) → мультиагентная связка:<br>├─ agent-опросчик    — задаёт вопросы, погружается в контекст<br>├─ agent-составитель  — формирует текст БТ по шаблону<br>├─ agent-контролёр    — проверяет полноту, глубину, отсутствие воды<br>└─ agent-генератор    — создаёт DOCX и веб-версию на GitHub Pages</code></pre>
+<br>
+<h3>BMAD и business-writing skill в архитектуре сервиса</h3>
+<br>
+<strong>BMAD (bmad-method + bmad-master agent)</strong> — «операционная система» для агентов. В сервисе «Создать БТ» BMAD используется как:
+1. <strong>Оркестратор мультиагентного пайплайна</strong> — BMAD управляет последовательностью вызова агентов (опросчик → составитель → контролёр → генератор), передаёт контекст между ними, контролирует завершение этапов
+2. <strong>Стандартные воркфлоу BMAD</strong> — готовые процессы (Product Brief от Mary, PRD от John) применяются при проектировании новых функций сервиса, а не в продакшн-режиме
+3. <strong>Агент Mary (Business Analyst)</strong> — может вызываться как дополнительная экспертиза внутри пайплайна: Mary проверяет сформулированные требования на полноту и даёт рекомендации агенту-контролёру
+<br>
+<strong>Business-writing skill</strong> — даёт агенту навыки профессионального бизнес-аналитика. В сервисе применяется:
+1. <strong>Агент-составитель</strong> — использует business-writing для формулирования текста БТ: чёткая структура, обоснованные формулировки, ссылки на контекст
+2. <strong>Агент-контролёр</strong> — бизнес-райтинг позволяет точнее оценивать глубину проработки разделов и выявлять поверхностные формулировки
+3. <strong>Агент-генератор</strong> — при создании веб-версии и DOCX применяет принципы business-writing для оформления документа
+<br>
+<blockquote><strong>Примечание:</strong> BMAD и business-writing — инструменты разработки и внутреннего контроля, а не пользовательские функции. Пользователь взаимодействует только с Telegram-ботом и не видит эти механизмы.</blockquote>
+<br>
+<h3>Риск сервиса (учтён в архитектуре)</h3>
+<ul>
+<li><strong>Основной риск:</strong> агент будет задавать поверхностные вопросы и формулировать высокопарный/водянистый текст</li>
+<li><strong>Митигация:</strong> multi-agent pipeline с контролёром качества, жёсткий шаблон БТ без лишней художественности</li>
+</ul>
+<br>
+<h3>Самообучаемость</h3>
+<ul>
+<li>Сервис должен накапливать опыт от сессии к сессии</li>
+<li>С каждым новым БТ качество опроса должно повышаться</li>
+<li><strong>Конкретный механизм обучения — уточняется на этапе проектирования</strong>, архитектурно закладывается хранение контекста/паттернов между сессиями (файловая система VPS или БД для кейсов)</li>
+</ul>
+<br>
+<h3>Генерация документа</h3>
+<ul>
+<li>Agent (OpenClaw / DeepSeek) формирует БТ на основе утверждённого шаблона</li>
+<li>DOCX-генерация выполняется на VPS (python-docx)</li>
+</ul>
+<br>
+<h3>Публикация</h3>
+<pre><code>[Пользователь (Telegram)] ↔ [мультиагент: опрос → контроль → генерация]<br>↓<br>DOCX + веб-версия → GitHub Pages<br>↓<br>Ссылка в Telegram пользователю</code></pre>
+<br>
+<h3>Компоненты</h3>
+<ul>
+<li><strong>Канал:</strong> Telegram (бот → пользователь)</li>
+<li><strong>Agent:</strong> OpenClaw + DeepSeek API — мультиагентная связка</li>
+<li><strong>Документ:</strong> python-docx (VPS) для генерации .docx</li>
+<li><strong>Публикация:</strong> GitHub Pages (DOCX + веб-страница)</li>
+<li><strong>История сессий:</strong> сохраняется для возможности продолжить прерванный опрос и для самообучения сервиса</li>
+</ul>
+<br>
+<h3>Формат финального документа</h3>
+<ul>
+<li><strong>DOCX</strong> — скачивание</li>
+<li><strong>Веб-версия</strong> — идентичное содержание на GitHub Pages</li>
+</ul>
+<br>
+<h3>Хранение</h3>
+<ul>
+<li>История сессий: да (черновики, завершённые БТ, паттерны для самообучения)</li>
+<li>Механизм самообучения: уточняется на этапе проектирования</li>
+</ul>
+<br>
+<hr>
+<br>
+<h2>9. MVP Scope</h2>
+<br>
+<h3>Core Features (MVP)</h3>
+<br>
+1. <strong>Telegram-бот</strong> как основной канал взаимодействия с пользователем
+2. <strong>Динамический опрос</strong> по 7 блокам утверждённого шаблона БТ:
+<ul>
+<li>Агент последовательно проходит по разделам</li>
+<li>Вопросы адаптируются под ответы пользователя</li>
+<li>При поверхностном ответе — уточняющие вопросы</li>
+</ul>
+3. <strong>Мультиагентный пайплайн:</strong>
+<ul>
+<li>Агент-опросчик — сбор информации через диалог</li>
+<li>Агент-составитель — формирование текста по шаблону</li>
+<li>Агент-контролёр — проверка полноты и глубины разделов</li>
+<li>Агент-генератор — создание DOCX и веб-версии</li>
+</ul>
+4. <strong>Генерация DOCX</strong> (python-docx на VPS)
+5. <strong>Публикация на GitHub Pages</strong> (DOCX + веб-страница)
+6. <strong>Хранение истории сессий</strong> (черновики, завершённые БТ, паттерны)
+7. <strong>Самообучаемость:</strong> накопление опыта для улучшения качества вопросов
+<br>
+<h3>Out of Scope for MVP</h3>
+<br>
+<ul>
+<li>Интеграция с Jira (пользователь прикрепляет DOCX самостоятельно)</li>
+<li>Мультиязычность (только русский язык)</li>
+<li>Агрегация метрик качества (оценка экспертная, не автоматизированная)</li>
+<li>Party Mode и Advanced Elicitation (продвинутые режимы опроса)</li>
+<li>Веб-интерфейс для просмотра сессий (только GitHub Pages для готовых документов)</li>
+</ul>
+<br>
+<h3>MVP Success Criteria</h3>
+<br>
+<ul>
+<li>Сервис успешно проводит опрос по всем 7 блокам</li>
+<li>Контролёр возвращает на доработку поверхностные разделы</li>
+<li>DOCX-файл генерируется корректно</li>
+<li>Веб-версия публикуется на GitHub Pages</li>
+<li>Пользователь получает ссылку в Telegram</li>
+</ul>
+<br>
+<h3>Future Vision (2-3 года)</h3>
+<br>
+<ul>
+<li>Интеграция с Jira для автоматического прикрепления БТ к задачам</li>
+<li>Автоматическая агрегация метрик качества</li>
+<li>Расширение на английский язык</li>
+<li>Веб-интерфейс для управления сессиями</li>
+<li>API для интеграции с другими системами</li>
+<li>Аналитическая панель с метриками по зрелости БТ</li>
+</ul>
+<br>
+<hr>
+<br>
+<h2>10. План дальнейших шагов</h2>
+<br>
+1. ✅ Создать папку проекта «Создать БТ»
+2. ✅ Собрать и утвердить требования
+3. ✅ Утвердить шаблон БТ (7 блоков)
+4. ✅ Установить BMAD-фреймворк и запустить Mary (Analyst) — получен Product Brief
+5. ✅ Установить business-writing skill — доступен в OpenClaw
+6. ✅ Описать применение BMAD и business-writing в архитектуре сервиса (раздел 8)
+7. 🔲 Запустить BMAD-воркфлоу <code>create-prd</code> (John — Product Manager) для детального PRD на основе v3.0
+8. 🔲 Спроектировать мультиагентную архитектуру (agents, протоколы, state management)
+9. 🔲 Разработать первую версию сервиса
+10. 🔲 Протестировать на реальном сценарии
+11. 🔲 Запустить в эксплуатацию
+<br>
+<hr>
+<br>
+<em>Документ будет дополняться на этапе проектирования.</em>
+<br>
   </div>
 
   <div class="footer">
     <span class="tech">Создать БТ · v3.1 (final) · 08.07.2026</span>
   </div>
-
 </div>
 
 </body>
