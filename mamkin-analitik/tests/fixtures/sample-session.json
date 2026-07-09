@@ -1,0 +1,33 @@
+{
+  "sessionId": "sample-session-001",
+  "telegramUserId": 123456789,
+  "username": "test_user",
+  "status": "in_progress",
+  "createdAt": "2026-07-08T12:00:00.000Z",
+  "updatedAt": "2026-07-08T12:30:00.000Z",
+  "template": {
+    "block": 1,
+    "subsection": "1.2",
+    "depth": "L1"
+  },
+  "answers": {
+    "1.1": {
+      "L1": "Работаем над новым мобильным приложением для заказа кофе в офис.",
+      "L2": null,
+      "L3": null,
+      "depthReached": "L1"
+    }
+  },
+  "risks": [
+    {
+      "text": "Пользователи могут не принять новое приложение, если привыкли к старому процессу",
+      "collectedAt": "block_1",
+      "category": "adoption"
+    }
+  ],
+  "documentReady": false,
+  "qualityGate": {
+    "approved": false,
+    "issues": []
+  }
+}

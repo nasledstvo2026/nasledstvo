@@ -1,0 +1,32 @@
+[
+  {
+    "telegramId": 346428630,
+    "username": "Kirill_syst",
+    "addedBy": 0,
+    "addedAt": "2026-07-08T19:23:00.000Z"
+  },
+  {
+    "telegramId": 932052526,
+    "username": "katya_k",
+    "addedBy": 346428630,
+    "addedAt": "2026-07-08T19:23:00.000Z"
+  },
+  {
+    "telegramId": 254785028,
+    "username": "lena_l",
+    "addedBy": 346428630,
+    "addedAt": "2026-07-08T19:23:00.000Z"
+  },
+  {
+    "telegramId": 221828063,
+    "username": "danil_d",
+    "addedBy": 346428630,
+    "addedAt": "2026-07-08T19:23:00.000Z"
+  },
+  {
+    "telegramId": 335268873,
+    "username": "roman_r",
+    "addedBy": 346428630,
+    "addedAt": "2026-07-08T19:23:00.000Z"
+  }
+]

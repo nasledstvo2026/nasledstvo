@@ -1,0 +1,139 @@
+{
+  "currentStory": "dev-story-5-2",
+  "currentEpic": "epic-5",
+  "status": "story-5-2-done",
+  "completedAt": "2026-07-08T20:53:00+03:00",
+  "completedAtOriginal": "2026-07-08T17:35:47.931Z",
+  "storiesCompleted": [
+    "1-1-nastrojka-struktury-proekta-i-iniczializacziya-infrastruktury",
+    "1-2-realizacziya-session-manager-fajlovoe-json-hranilishhe",
+    "1-3-realizacziya-template-engine-i-shablona-bt",
+    "1-4-integrracziya-telegram-bot-connector-i-whitelist",
+    "1-5-komandy-upravleniya-sessiej-nachat-prodolzhit-prosmotr-istorii-zavershit",
+    "1-6-avtomaticheskoe-sohranenie-chernovikov-sessii",
+    "1-7-izolyacziya-sessij-i-bezopasnost-hraneniya",
+    "2-1-agent-oproschik-bazovaya-logika-posledovatelnogo-oprosa",
+    "2-2-agent-oproschik-glubina-l1-otkryvayushhie-voprosy",
+    "2-3-agent-oproschik-glubina-l2-utochnyayushhie-voprosy",
+    "2-4-agent-oproschik-glubina-l3-kornevye-voprosy",
+    "2-5-sbor-riskov-na-protyazhenii-dialoga",
+    "2-6-vozvrat-k-ranee-projdennym-blokam-dlya-utochneniya",
+    "2-7-konversaczionnye-ux-komponenty-dialoga",
+    "3-1-agent-sostavitel-formirovanie-teksta-po-shablonu",
+    "3-2-agent-kontrolyor-proverka-polnoty-razdelov",
+    "3-3-agent-kontrolyor-proverka-glubiny-prorabotki",
+    "4-1-agent-generator-sozdanie-docx-fajla",
+    "4-2-agent-generator-sozdanie-veb-versii",
+    "4-3-publikacziya-na-github-pages",
+    "4-4-otpravka-ssylok-polzovatelyu-v-telegram",
+    "4-5-identichnost-docx-i-veb-versii",
+    "5-1-sohranenie-istorii-sessij-dlya-samoobucheniya",
+    "5-2-analiz-patternov-voprosov-i-otvetov"
+  ],
+  "epicStartTimestamps": {
+    "epic-2": "2026-07-08T17:35:47.931Z",
+    "epic-3": "2026-07-08T20:36:00+03:00",
+    "epic-4": "2026-07-08T20:43:00+03:00"
+  },
+  "nextEpic": "epic-5",
+  "artifactsCreated": {
+    "session-manager": {
+      "adminOverride": [
+        "getSessionForAdmin",
+        "listAllActiveSessions",
+        "listAllCompletedSessions"
+      ],
+      "isolation": [
+        "listActiveSessions",
+        "listCompletedSessions"
+      ]
+    },
+    "session-context": "lib/session-context.js",
+    "survey-engine-l2": {
+      "formatL2Question": "_formatL2Question() — reason prefix + 🔍 + context adaptation",
+      "extractKeyPhrase": "_extractKeyPhrase() — extract 2-5 key words from user answer",
+      "processAnswerL2": "L1 shallow → L2 formatted question, L2 deep → next subsection, L2 shallow → L3",
+      "reflectionToL2": "Shallow correction during reflection → L2 with formatted question"
+    },
+    "prompt": "agents/questioner/prompt.md — L2 instructions added",
+    "tests": [
+      "tests/test-depth-levels.js (renamed from test-l1-depth.js, 36 tests all pass)"
+    ],
+    "survey-engine-l3": {
+      "formatL3Question": "_formatL3Question(subsectionKey, fullContext) — root cause question with full dialogue context reference (L1+L2)",
+      "processAnswerL3": "L2 shallow → L3 with formatted question + fullContext, L3 deep → depthReached L3 → next, L3 shallow → depthReached L3 max → next (no loop)",
+      "l3ContextRelevance": "L3 question references full dialogue via _extractKeyPhrase() — \"вы говорили про [ключевая фраза]\"",
+      "l3NoLoop": "L3 is max depth — even shallow answer leads to transition, no infinite loop"
+    },
+    "prompt-l3": "agents/questioner/prompt.md — L3 section enhanced: no irritation tone, no loop rule, full context relevance",
+    "tests-l3": "tests/test-depth-levels.js (56 tests all pass — 36 original + 20 new L3 tests)",
+    "survey-engine-return": {
+      "returnToSection": "Enhanced returnToSection(blockId, subId, options) — saves return origin, shows \"ранее вы ответили\" with previous answer, supports isUserBack/reason for /back vs controller-initiated return",
+      "handleBackNavigation": "handleBackNavigation(session) — uses TemplateEngine to find previous subsection, calls returnToSection, returns atStart:true when at first subsection",
+      "continueFromReturn": "continueFromReturn(session, subId) — restores origin position after user refines a returned-to section, preserves Session Context state",
+      "_handleReturnAnswer": "_handleReturnAnswer(session, answer, subId) — saves refinement answer, preserves previous depth, collects risks, calls continueFromReturn",
+      "getAvailableReturnTargets": "getAvailableReturnTargets(session) — returns list of all answered subsections for controller-initiated navigation",
+      "_getPreviousSubsection": "_getPreviousSubsection(session) — finds previous subsection in traversal order for /back command",
+      "_formatReturnQuestion": "_formatReturnQuestion() — uses \"ранее вы ответили:\" phrase, supports isUserBack and reason options",
+      "processAnswerReturnDetection": "processAnswer() detects _returnActive flag and routes to _handleReturnAnswer() for return-flow answers"
+    },
+    "session-commands-return": {
+      "surveyEngineIntegration": "constructor accepts surveyEngine dep; handleBackConfirm uses surveyEngine.handleBackNavigation() with fallback to legacy logic",
+      "Ранее вы ответили": "handleBackCommand uses \"ранее вы ответили\" phrasing in both confirmation and navigation messages",
+      "fallbackLegacyLogic": "Preserved legacy back navigation logic as fallback when surveyEngine is unavailable"
+    },
+    "docx-gen": {
+      "agent": "agents/generator/docx-gen.py",
+      "features": [
+        "Title page: project name, date, author",
+        "Table of contents with depth indicators",
+        "7 blocks with professional styling (Calibri, margins, colors)",
+        "Risk section: summary table + detailed by category",
+        "Retry logic (up to 3 attempts with exponential backoff)",
+        "Page numbering, headers/footers"
+      ],
+      "formatting": {
+        "fonts": "Calibri / Calibri Light",
+        "colors": "#1F4E79 primary, #2E75B6 accent, #333333 text",
+        "margins": "top/bottom 2cm, left 2.5cm, right 2cm",
+        "lineSpacing": 1.15
+      }
+    },
+    "prompt-generator": "agents/generator/prompt.md — generator agent system prompt with input/output spec, DOCX structure, formatting rules, anti-patterns",
+    "link-sharing": {
+      "signalCompletion": "signalCompletion() enhanced — accepts links (docxUrl, htmlUrl), builds final message with DOCX + web links, fallback on publication failure"
+    },
+    "github-pages": {
+      "publisher": "lib/github-pages.js",
+      "publishDraft": "publishDraft(sessionId, docxPath, htmlPath, projectName) — full publish flow: validate files → ensure worktree → copy files → commit & push → return URLs",
+      "_copyToPagesDir": "Copies DOCX to {pagesDir}/sessions/{sessionId}/{originalName}.docx, HTML to {pagesDir}/sessions/{sessionId}/index.html",
+      "_commitAndPush": "git add -A, commit 'Add BRD session {sessionId} - {projectName}', push to gh-pages (with retry)",
+      "_generateUrls": "Returns { docxUrl, htmlUrl, sessionDir } — format: https://{org}.github.io/{repo}/sessions/{sessionId}/",
+      "_ensureWorktree": "Clones pages repo if not exists, else pull (graceful if no remote)",
+      "_isGitRepo": "git rev-parse --git-dir check",
+      "_hasRemote": "git remote get-url check — skips fetch if no remote",
+      "dryRun": "Config option — skips git push for testing",
+      "config": "Env: GITHUB_PAGES_REPO, GITHUB_TOKEN, GITHUB_PAGES_DIR, GITHUB_PAGES_BRANCH, GITHUB_PAGES_URL",
+      "tests": "tests/test-github-pages.js — 33 tests covering config, validation, file copy, URL generation, commit messages, integration, edge cases"
+    },
+    "generator-index": {
+      "publishFlow": "agents/generator/index.js — GeneratorAgent.process() now calls publisher.publishDraft() after DOCX+HTML generation. Falls back gracefully if GitHub Pages not configured. New publishFromResult() method.",
+      "import": "GitHubPagesPublisher from lib/github-pages.js"
+    },
+    "consistency": {
+      "test": "tests/test-consistency.js — 10 tests",
+      "coverage": [
+        "Structure validation: 7 blocks, correct names, required fields",
+        "Sample data integrity: blocks, subsections, depth labels, risks",
+        "HTML generation: all 7 blocks, depth badges, risk section, TOC",
+        "DOCX generation: title page, TOC, blocks, risk section",
+        "Content identity: same key phrases, numbers, structure in both formats",
+        "Subsection labels: same subsectionId/subsectionName in both",
+        "Depth indicators: same depthReached values in both",
+        "Risk data: same risk counts, categories, mitigations in both",
+        "HTML format features: responsive CSS, @media print, viewport meta",
+        "DOCX format features: date, session info, TOC"
+      ]
+    }
+  }
+}

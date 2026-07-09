@@ -1,0 +1,38 @@
+name: Publish to GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      session_id:
+        description: 'ID сессии для публикации'
+        required: true
+      docx_path:
+        description: 'Путь к DOCX-файлу'
+        required: true
+      html_path:
+        description: 'Путь к HTML-файлу'
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pages repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.GITHUB_PAGES_REPO }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Copy documents
+        run: |
+          mkdir -p docs/${{ github.event.inputs.session_id }}
+          cp ${{ github.event.inputs.docx_path }} docs/${{ github.event.inputs.session_id }}/
+          cp ${{ github.event.inputs.html_path }} docs/${{ github.event.inputs.session_id }}/
+
+      - name: Commit and push
+        run: |
+          git config user.name "Мамкин аналитик Bot"
+          git config user.email "bot@mamkin-analitik.ru"
+          git add .
+          git commit -m "Publish BRD session ${{ github.event.inputs.session_id }}"
+          git push
