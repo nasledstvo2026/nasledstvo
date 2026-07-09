@@ -113,7 +113,20 @@ class GitHubPagesPublisher {
    * @returns {boolean}
    */
   get isConfigured() {
-    return !!(this.repo && this.token);
+    // Можно через токен (HTTP) или через SSH-ключ
+    if (this.repo && this.token) return true;
+    if (this.repo) {
+      // Проверяем наличие SSH-ключа
+      try {
+        const { execSync } = require('child_process');
+        execSync('ssh -T git@github.com 2>&1', { timeout: 5000, stdio: 'pipe' });
+        return true;
+      } catch (e) {
+        // SSH не работает — только через токен
+        return false;
+      }
+    }
+    return false;
   }
 
   // ==================== PUBLIC API ====================
