@@ -50,8 +50,8 @@ completedAt: 2026-07-08
 
 | Категория | Ключевые NFRs | Архитектурное влияние |
 |-----------|---------------|----------------------|
-| Performance | NFR1–NFR4 | 5s ответ агента, 30s DOCX, 60s GitHub Pages |
-| Security | NFR5–NFR8 | Шифрование сессий (AES-256), env vars, Cloudflare Tunnel |
+| Performance | NFR2–NFR4 | 30s DOCX, 60s GitHub Pages, 3s history (*NFR1 — таймаут ответа агента снят 09.07.2026*) |
+| Security | NFR5, NFR7, NFR8 | Разграничение доступа, env vars, Cloudflare Tunnel (*NFR6 — шифрование сессий снято 09.07.2026*) |
 | Reliability | NFR9–NFR11 | 99% uptime, 1h восстановление, автосохранение |
 | Scalability | NFR12–NFR14 | 20 одновременных сессий, 500+ завершённых БТ |
 | Accessibility | NFR15 | Только текстовый ввод в MVP |
@@ -146,7 +146,7 @@ completedAt: 2026-07-08
 |---------|---------|
 | Self-learning data model | ✅ history.json — накопление паттернов |
 | Authentication | ✅ Telegram user ID + whitelist |
-| Encryption | ✅ AES-256 для файлов сессий |
+| Encryption | ✅ ~~AES-256 для файлов сессий~~ *(снято 09.07.2026 — данные сессий не ПДн)* |
 | GitHub Pages publishing | ✅ git push через GitHub Actions или direct push |
 
 **Deferred Decisions (Post-MVP):**
@@ -212,7 +212,7 @@ completedAt: 2026-07-08
 |---------|--------|
 | Аутентификация | По Telegram user ID (telegram_id как уникальный идентификатор) |
 | Авторизация | Белый список (whitelist.json) — только приглашённые пользователи |
-| Шифрование данных сессий | AES-256 для файлов активных и завершённых сессий |
+| Шифрование данных сессий | ~~AES-256 для файлов активных и завершённых сессий~~ *(снято 09.07.2026)* |
 | API-ключи DeepSeek | Переменные окружения (`.env`), не в коде |
 | HTTPS | Cloudflare Tunnel — все соединения через TLS |
 | Доступ к сессиям | Только автор сессии и администратор |
@@ -274,7 +274,7 @@ Telegram → OpenClaw Telegram Connector → Session Manager
 9. Реализовать Self-learning (history.json + pattern analysis)
 
 **Cross-Component Dependencies:**
-- Session Manager зависит от: File System, Encryption (AES-256)
+- Session Manager зависит от: File System (без шифрования — снято 09.07.2026)
 - Agent-опросчик зависит от: Session Manager, Template engine, DeepSeek API
 - Agent-составитель зависит от: Session Manager, Template engine
 - Agent-контролёр зависит от: Session Manager, Quality rules
@@ -334,7 +334,7 @@ Telegram → OpenClaw Telegram Connector → Session Manager
 │   ├── session-manager.js # File-based JSON persistence
 │   ├── template-engine.js # 7-block template reader
 │   ├── github-pages.js    # Git push publisher
-│   └── crypto.js          # AES-256 encryption wrapper
+│   └── crypto.js          # ~~AES-256 encryption wrapper~~ *(deprecated — снято 09.07.2026)*
 ├── data/
 │   ├── template.json      # 7-block BRD template (immutable)
 │   ├── whitelist.json     # Authorized Telegram user IDs
@@ -377,7 +377,7 @@ Telegram → OpenClaw Telegram Connector → Session Manager
 ### 4.5 Loading State Patterns
 
 - Telegram sends typing indicator during agent processing
-- Max response time: 5 seconds (NFR1)
+- ~~Max response time: 5 seconds (NFR1)~~ *(снято 09.07.2026)*
 - Long operations (DOCX gen, GitHub Pages push) → "Ваш документ готовится..." message
 
 ---
@@ -424,7 +424,7 @@ Telegram → OpenClaw Telegram Connector → Session Manager
 │   ├── session-manager.js             # JSON persistence
 │   ├── template-engine.js             # 7-block BRD template reader
 │   ├── github-pages.js               # Git push publisher
-│   ├── crypto.js                      # AES-256 encrypt/decrypt
+│   ├── crypto.js                      # ~~AES-256 encrypt/decrypt~~ *(deprecated — шифрование снято 09.07.2026; сохранён для совместимости, не используется)*
 │   ├── logger.js                      # Structured logging
 │   └── retry.js                       # Exponential backoff utility
 │
@@ -435,8 +435,8 @@ Telegram → OpenClaw Telegram Connector → Session Manager
 │   └── risk-categories.json          # Risk classification schema
 │
 ├── session-storage/                   # Session persistence
-│   ├── active/                        # In-progress sessions (encrypted)
-│   └── completed/                     # Finished BRD sessions (encrypted)
+│   ├── active/                        # In-progress sessions
+│   └── completed/                     # Finished BRD sessions
 │
 ├── history.json                       # Self-learning aggregated data
 │
@@ -496,7 +496,7 @@ Telegram → OpenClaw Telegram Connector → Session Manager
 - Self-learning обновляется асинхронно после завершения сессии
 
 **Data Boundaries:**
-- session-storage/ — доступ только у Session Manager (через crypto.js)
+- session-storage/ — доступ только у Session Manager
 - data/template.json — read-only (кроме административных обновлений)
 - history.json — append-only (только добавление данных)
 
@@ -510,8 +510,8 @@ Telegram → OpenClaw Telegram Connector → Session Manager
 | FR17–FR21 (Генерация и публикация) | `agents/generator/` + `lib/github-pages.js` |
 | FR22–FR25 (Самообучение) | `history.json` + `lib/session-manager.js` |
 | FR26–FR28 (Управление пользователями) | `data/whitelist.json` + `lib/session-manager.js` |
-| NFR1 (5s response) | `config.yaml` (timeout) + `lib/retry.js` |
-| NFR5–NFR8 (Security) | `lib/crypto.js` + `.env` + Cloudflare Tunnel config |
+| ~~NFR1 (5s response)~~ | ~~`config.yaml` (timeout) + `lib/retry.js`~~ *(снято 09.07.2026)* |
+| NFR5, NFR7, NFR8 (Security) | `.env` + Cloudflare Tunnel config (*шифрование сессий NFR6 снято 09.07.2026*) |
 | NFR9–NFR11 (Reliability) | `scripts/backup.sh` + автосохранение в session-manager |
 
 ### 5.4 Integration Points
@@ -578,12 +578,12 @@ Telegram webhook
 
 | NFR | Архитектурная поддержка |
 |-----|------------------------|
-| NFR1 (5s response) | Timeout config + retry.js + async processing for long ops |
+| ~~NFR1~~ (5s response) | ~~Timeout config + retry.js + async processing for long ops~~ *(снято 09.07.2026)* |
 | NFR2 (30s DOCX) | Generator agent timeout = 30s |
 | NFR3 (60s GitHub Pages) | Async push with user notification |
 | NFR4 (3s history load) | Memory-cached whitelist + minimal file reads |
 | NFR5 (access control) | Session Manager: only author + admin |
-| NFR6 (encryption) | crypto.js (AES-256) |
+| ~~NFR6~~ (encryption) | ~~crypto.js (AES-256)~~ *(снято 09.07.2026)* |
 | NFR7 (API keys) | .env → process.env |
 | NFR8 (HTTPS) | Cloudflare Tunnel |
 | NFR9 (99% uptime) | systemd auto-restart + Cloudflare Tunnel HA |
@@ -623,7 +623,7 @@ Telegram webhook
 - [x] Critical decisions documented (4-agent pipeline, file storage, template design)
 - [x] Technology stack fully specified (OpenClaw + DeepSeek + python-docx)
 - [x] Integration patterns defined (Session Context, git push)
-- [x] Performance considerations addressed (5s response, async generation)
+- [x] Performance considerations addressed (async generation) — *5s response снято 09.07.2026*
 
 **✅ Implementation Patterns**
 - [x] Naming conventions established (snake_case files, camelCase JSON)
@@ -661,14 +661,40 @@ Telegram webhook
 4. Мониторинг и alerting (Prometheus/Grafana)
 5. Параллельная обработка сессий для масштабирования
 
+### 6.8 Architectural Revision (09.07.2026)
+
+**Решение:** отказ от отдельного Telegram-бота @MamkinAnalitikBot.
+Логика сервиса «Создать БТ» работает как OpenClaw-агент, привязанный
+к существующему @Sbernasledtsvo_bot (через OpenClaw gateway).
+
+**Обоснование:**
+- OpenClaw gateway уже обеспечивает стабильное подключение к Telegram API
+  (auto-restart, мониторинг, обработка ошибок)
+- Собственный polling-цикл на голом fetch показал нестабильность
+  (4 падения «Network error» за 30 минут, без auto-restart)
+- Нет необходимости в шифровании сессий (данные — бизнес-требования, не ПДн)
+- Нет жёстких таймаутов ответа агента (LLM отвечает по готовности)
+- Единый бот = единая инфраструктура (один токен, одна точка входа)
+- Пользователям не нужно переключаться между ботами
+
+**Изменения в архитектуре:**
+- ❌ Удалён компонент: отдельный Telegram Bot @MamkinAnalitikBot
+- ❌ Удалён компонент: собственный polling-цикл (telegram-connector)
+- ❌ Снято требование: AES-256 шифрование сессий
+- ❌ Снято требование: таймаут ответа агента 5 сек
+- ✅ OpenClaw gateway принимает все сообщения от @Sbernasledtsvo_bot
+- ✅ Маршрутизация: команды /создатьбт, /start, /back, /history, /cancel
+  обрабатываются соответствующим OpenClaw-агентом
+- ✅ Логика опроса и генерации сохраняется как scripts/lib, вызываемые из агента
+
 ### 6.7 Implementation Handoff
 
-**AI Agent Guidelines:**
+**AI Agent Guidelines (revised 09.07.2026):**
 
 1. **Follow this architecture document** as the single source of truth for all technical decisions
 2. **Use implementation patterns consistently** across all agent components
 3. **Respect project structure and boundaries** defined in Section 5
-4. **All session data must be encrypted** (AES-256) before writing to disk
+4. ❌ **Session data encryption** — НЕ ТРЕБУЕТСЯ (снято 09.07.2026)
 5. **Template (data/template.json) is immutable** — any changes require approval
 6. **Depth control thresholds** shall be defined in depth-config.json (min 2 facts or 3 sentences for L2)
 7. **Risk collection** must happen across all blocks, not just Block 7
@@ -711,12 +737,14 @@ Telegram webhook
 ### Ключевые архитектурные решения:
 
 1. **Мультиагентный пайплайн из 4 агентов:** опросчик → составитель → контролёр → генератор
-2. **Файловое JSON-хранилище** для сессий (активные + завершённые) с AES-256 шифрованием
+2. **Файловое JSON-хранилище** для сессий (активные + завершённые) — без шифрования
 3. **Жёсткий template.json** с 7 блоками + L1/L2/L3 вопросами (immutable)
 4. **Session Context** как единый протокол обмена между агентами
 5. **Self-learning** через history.json (агрегированные паттерны, append-only)
 6. **GitHub Pages** через git push (GitHub Actions или прямая команда)
 7. **Cloudflare Tunnel** для HTTPS-доступа к VPS
+8. **Канал связи:** @Sbernasledtsvo_bot (единый бот, OpenClaw gateway), без отдельного бота
+9. **Отказ от собственного polling-цикла** — управление через OpenClaw gateway
 
 ### Рекомендуемые следующие шаги:
 1. ✅ **Create Architecture** ← текущий (завершён)

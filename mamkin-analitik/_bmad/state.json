@@ -209,6 +209,20 @@
         "lib/survey-engine.js"
       ],
       "completedAt": "2026-07-08T20:51:00.000Z"
+    },
+    {
+      "id": "architectural-revision-2026-07-09",
+      "agentId": "owner-kirill",
+      "description": "Пересмотр архитектуры: отказ от отдельного Telegram-бота, интеграция в OpenClaw-агент @Sbernasledtsvo_bot. Снятие требований к шифрованию сессий (AES-256) и таймауту ответа агента (5 сек).",
+      "outputFile": "/home/user1/.openclaw/workspace/mamkin-analitik/_bmad-output/planning-artifacts/architecture.md#6.8",
+      "completedAt": "2026-07-09T13:15:00.000Z"
+    },
+    {
+      "id": "doc-validation-fix-2026-07-09",
+      "agentId": "owner-kirill",
+      "description": "Точечные правки документов после BMAD Validation: prd.md (NFR1/NFR6 зачёркнуты, канал уточнён), epics-and-stories.md (~14 правок NFR1/NFR6, story 1.2/1.7), readiness-report.md (NFR matrix), architecture.md (разделы 1.1, 3.1, 3.3, 3.7), product-brief (10→7 блоков, канал), ux-design-specification (timeout снят).",
+      "outputFile": "multiple files in _bmad-output/planning-artifacts/",
+      "completedAt": "2026-07-09T13:25:00.000Z"
     }
   ]
 }

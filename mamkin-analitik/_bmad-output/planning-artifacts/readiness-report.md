@@ -93,12 +93,12 @@
 
 | NFR | Категория | Описание | Цель |
 |-----|-----------|----------|------|
-| NFR1 | Performance | Ответ агента | ≤ 5 сек (95-й перцентиль) |
+| ~~NFR1~~ | ~~Performance~~ | ~~Ответ агента~~ | ~~≤ 5 сек (95-й перцентиль)~~ *(снято 09.07.2026)* |
 | NFR2 | Performance | Генерация DOCX | ≤ 30 сек |
 | NFR3 | Performance | Публикация GitHub Pages | ≤ 60 сек |
 | NFR4 | Performance | Загрузка истории сессий | ≤ 3 сек |
 | NFR5 | Security | Доступ к сессиям | Только автор + администратор |
-| NFR6 | Security | Шифрование данных | AES-256 для файлов |
+| ~~NFR6~~ | ~~Security~~ | ~~Шифрование данных~~ | ~~AES-256 для файлов~~ *(снято 09.07.2026)* |
 | NFR7 | Security | API-ключи DeepSeek | В переменных окружения |
 | NFR8 | Security | HTTPS | Cloudflare Tunnel |
 | NFR9 | Reliability | Доступность | 99% в рабочее время |
@@ -113,7 +113,7 @@
 
 **Архитектурные:**
 - 4 агента: questioner, compiler, controller, generator
-- Файловое JSON-хранилище с AES-256 шифрованием
+- Файловое JSON-хранилище (*шифрование снято 09.07.2026*)
 - Immutable template.json (7 блоков, L1/L2/L3)
 - Session Context как протокол обмена
 - Self-learning через history.json (append-only)
@@ -132,7 +132,7 @@
 | Аспект | Оценка |
 |--------|--------|
 | Полнота FR | ✅ 28/28 — все требования покрыты |
-| Полнота NFR | ✅ 15/15 — все нефункциональные требования с метриками |
+| Полнота NFR | ✅ 13/13 — все актуальные нефункциональные требования с метриками (NFR1 и NFR6 сняты 09.07.2026) |
 | Структура | ✅ BMAD Standard + Innovation + SaaS B2B разделы |
 | Измеряемость | ✅ NFRs с конкретными числами, FRs чёткие |
 | Проблемные места | ⚠️ FR17 (python-docx implementation leakage), FR7/FR8 (субъективная глубина) |
@@ -178,12 +178,12 @@
 
 | NFR | Покрытие | Статус |
 |-----|----------|--------|
-| NFR1 (5s response) | Story 2.1 + Architecture (timeout config, retry.js) | ✅ Covered |
+| ~~NFR1~~ (5s response) | ~~Story 2.1 + Architecture (timeout config, retry.js)~~ | ~~✅ Covered~~ *(снято 09.07.2026)* |
 | NFR2 (30s DOCX) | Story 4.1 | ✅ Covered |
 | NFR3 (60s Pages) | Story 4.3 | ✅ Covered |
 | NFR4 (3s history) | Story 5.1 | ✅ Covered |
 | NFR5 (access control) | Story 1.7 | ✅ Covered |
-| NFR6 (AES-256) | Story 1.2, 1.7 | ✅ Covered |
+| ~~NFR6~~ (AES-256) | ~~Story 1.2, 1.7~~ | ~~✅ Covered~~ *(снято 09.07.2026)* |
 | NFR7 (API keys) | Story 1.1 | ✅ Covered |
 | NFR8 (HTTPS) | Story 1.1 | ✅ Covered |
 | NFR9 (99% uptime) | Story 1.1 | ✅ Covered |
@@ -202,8 +202,8 @@
 | FR покрыто эпиками | 28 |
 | FR покрыто историями | 28 |
 | Процент покрытия FR | **100%** |
-| Всего NFR | 15 |
-| NFR адресовано | 15 |
+| Всего NFR | 13 (NFR1 и NFR6 сняты 09.07.2026) |
+| NFR адресовано | 13 |
 | Процент покрытия NFR | **100%** |
 
 ### Missing Requirements
@@ -239,7 +239,7 @@
 | Проверка | Статус | Примечание |
 |----------|--------|------------|
 | Архитектура поддерживает UX-компоненты | ✅ Да | Через agent prompts + depth-control logic |
-| Performance NFR1 (5s) учтён в UX | ✅ | Сообщение «Ваш документ готовится…» для длинных операций |
+| ~~Performance NFR1 (5s)~~ учтён в UX | ✅ ~~(снято 09.07.2026)~~ | Сообщение «Ваш документ готовится…» для длинных операций |
 | Conversation Components маппинг | ⚠️ Частичный | UX определяет 5 компонентов. Architecture описывает агентов, но не делает явный маппинг компонентов на агентов |
 | Session Resume (UX) ↔ Session Manager (Arch) | ✅ | Story 1.2 + Architecture Session Manager покрывает |
 

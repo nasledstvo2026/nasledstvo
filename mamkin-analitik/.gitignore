@@ -1,47 +1,8 @@
-# Secrets & Environment
-.env
-.env.local
-*.key
-
-# Dependencies
 node_modules/
-venv/
-.venv/
-
-# Python
+*.sqlite*
+*.wal
+*.shm
 __pycache__/
 *.pyc
-*.pyo
-*.egg-info/
-dist/
-build/
-
-# Session Storage (sensitive data)
-session-storage/active/
-session-storage/completed/
-
-# OS
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-*~
-
-# IDE
-.vscode/
-.idea/
-*.sublime-*
-
-# Logs
-*.log
-logs/
-
-# Tunnel (dev, never commit)
-test-tunnel.html
-
-# Temp
-tmp/
-temp/
-
-# BMad internal state (generated, don't commit)
-_bmad/core/
+*.docx
+session-storage/
