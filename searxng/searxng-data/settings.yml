@@ -20,37 +20,52 @@ search:
 
 ui:
   static_use_hash: true
-  default_locale: ""
+  default_locale: "ru"
 
 outgoing:
-  request_timeout: 10.0
-  max_request_timeout: 15.0
+  request_timeout: 5.0
+  max_request_timeout: 10.0
+  # Firefox-подобный User-Agent — по умолчанию SearXNG шлёт "SearXNG/{version}",
+  # что блокируется некоторыми движками (Brave, Google)
+  useragent_suffix: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0"
 
 engines:
+  # Google — не отвечает с VPS
   - name: google
     engine: google
     shortcut: g
-    disabled: false
+    disabled: true
+
+  # DuckDuckGo
   - name: duckduckgo
     engine: duckduckgo
     shortcut: ddg
     disabled: false
+
+  # Bing — работает стабильно
   - name: bing
     engine: bing
     shortcut: bi
     disabled: false
+
+  # Startpage — капча с РФ IP
   - name: startpage
     engine: startpage
     shortcut: sp
-    disabled: false
+    disabled: true
+
+  # Google News — не работает с VPS
   - name: google news
     engine: google_news
     shortcut: gn
-    disabled: false
+    disabled: true
+
+  # Brave — 429 from VPS IP, отключаем
   - name: brave
     engine: brave
     shortcut: br
-    disabled: false
+    disabled: true
+
   - name: wikipedia
     engine: wikipedia
     shortcut: wp
