@@ -4,17 +4,22 @@ on:
   push:
     branches: [master]
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          publish_branch: deploy
-          force_orphan: true
+      - name: Deploy to gh-pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git checkout --orphan gh-pages
+          git rm -rf .
+          git checkout master -- .
+          touch .nojekyll
+          git add -A
+          git commit -m "deploy: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push origin gh-pages --force
