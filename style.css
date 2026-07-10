@@ -163,11 +163,20 @@
   display: block !important;
   background: linear-gradient(135deg, rgba(255,80,80,0.35) 0%, rgba(10,14,20,0.65) 70%);
 }
+.cards .card.red.bg-image.products .card-header {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 22px;
+}
+.cards .card.red.bg-image.products .card-header-row {
+  margin-bottom: 0;
+}
 .cards .card.red.bg-image.products h2 {
   text-transform: uppercase;
   font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
   letter-spacing: 2px;
-  font-size: 20px;
   color: white;
 }
 
