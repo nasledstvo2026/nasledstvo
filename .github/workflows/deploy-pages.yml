@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy to gh-pages
+      - name: Force Pages rebuild
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
@@ -23,3 +23,10 @@ jobs:
           git add -A
           git commit -m "deploy: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           git push origin gh-pages --force
+      - name: Trigger GitHub Pages
+        run: |
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/pages/builds \
+            -d '{}'
