@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Продукты — nasledstvo2026.github.io</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero-subtitle {
+      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .section {
+      margin-top: 40px;
+    }
+    .section h2 {
+      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      font-size: 20px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    .section h3 {
+      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 8px;
+      margin-top: 24px;
+      letter-spacing: 1px;
+    }
+    .section .item {
+      background: rgba(22,27,34,0.6);
+      border: 1px solid rgba(33,38,45,0.8);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .section .item .title {
+      font-size: 15px;
+      color: #58a6ff;
+      margin-bottom: 6px;
+    }
+    .section .item .meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 6px;
+    }
+    .section .item .body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+    .product-card {
+      background: rgba(22,27,34,0.6);
+      border: 1px solid rgba(33,38,45,0.8);
+      border-radius: 12px;
+      padding: 22px;
+      transition: border-color .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card:hover {
+      border-color: rgba(255,80,80,0.5);
+      transform: translateY(-2px);
+    }
+    .product-card .accent {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+    }
+    .product-card .accent.blue   { background: linear-gradient(180deg, #58a6ff, #1e64dc); }
+    .product-card .accent.green  { background: linear-gradient(180deg, #7ee787, #1eb450); }
+    .product-card .accent.purple { background: linear-gradient(180deg, #bc8cff, #8c50e6); }
+    .product-card .accent.orange { background: linear-gradient(180deg, #ff9000, #dc7800); }
+    .product-card .accent.pink   { background: linear-gradient(180deg, #f778ba, #dc328c); }
+    .product-card .accent.cyan   { background: linear-gradient(180deg, #56d4dd, #14b4be); }
+    .product-card .accent.red    { background: linear-gradient(180deg, #ff5050, #c82828); }
+    .product-card .icon { font-size: 32px; margin-bottom: 10px; }
+    .product-card .name {
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 6px;
+    }
+    .product-card .name a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+    .product-card .name a:hover { text-decoration: underline; }
+    .product-card .desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .product-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .product-card .tags span {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.45);
+    }
+    .product-card .status {
+      font-size: 11px;
+      margin-top: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .product-card .status.live      { color: #3fb950; }
+    .product-card .status.beta      { color: #d29922; }
+    .product-card .status.dev       { color: #8b949e; }
+    @media (max-width: 768px) {
+      .product-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back">← На главную</a>
+
+<div class="container">
+
+  <h1 style="font-size:38px;font-weight:800;letter-spacing:-1px;margin:0 0 16px 4px;padding:0;color:transparent;background:linear-gradient(90deg,#ff5050,#ff9000,#bc8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;">Продукты</h1>
+
+  <p style="text-align:center;margin:0 0 12px;color:var(--text-dim);font-size:16px;">
+    Экосистема цифровых продуктов nasledstvo2026
+  </p>
+  <p style="text-align:center;margin:0 0 24px;color:rgba(255,255,255,0.45);font-size:13px;">
+    Мониторинг жалоб · Медицина · Правовая аналитика · Развлечения
+  </p>
+
+  <!-- ════════════ ЧТО ЭТО ════════════ -->
+  <div class="section">
+    <h2>💡 Что такое экосистема</h2>
+    <div class="item">
+      <div class="body">
+        <strong>Экосистема продуктов</strong> — это набор ИИ-решений на платформе OpenClaw, каждое из которых автоматизирует конкретную задачу: мониторинг жалоб, анализ закупок, медицинские консультации, развлечения. Продукты разрабатываются под реальных пользователей и работают в продакшене.
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ ВСЕ ПРОДУКТЫ ════════════ -->
+  <div class="section">
+    <h2>📦 Все продукты</h2>
+
+    <div class="product-grid">
+
+      <!-- Наследство -->
+      <div class="product-card">
+        <div class="accent blue"></div>
+        <div class="icon">🏛</div>
+        <div class="name"><a href="inheritance.html">Наследство</a></div>
+        <div class="desc">
+          Мониторинг жалоб на банки РФ по наследственным делам.
+          4 ИИ-агента: поиск через SearXNG, верификация каждой жалобы, сводка в Telegram, статистика на сайте.
+        </div>
+        <div class="tags">
+          <span>#жалобы</span><span>#банки</span><span>#наследство</span><span>#аналитика</span>
+        </div>
+        <div class="status live">✅ В продакшене</div>
+      </div>
+
+      <!-- Социальный консультант -->
+      <div class="product-card">
+        <div class="accent green"></div>
+        <div class="icon">🤝</div>
+        <div class="name"><a href="social.html">Социальный консультант</a></div>
+        <div class="desc">
+          ИИ-ассистент по социальным пособиям, льготам и выплатам РФ.
+          Помогает разобраться с детскими, пенсионными и региональными выплатами.
+        </div>
+        <div class="tags">
+          <span>#пособия</span><span>#социалка</span><span>#льготы</span><span>#консультации</span>
+        </div>
+        <div class="status beta">🔶 Бета</div>
+      </div>
+
+      <!-- Сервисы -->
+      <div class="product-card">
+        <div class="accent cyan"></div>
+        <div class="icon">⚙️</div>
+        <div class="name"><a href="service.html">Сервисы</a></div>
+        <div class="desc">
+          Каталог внутренних сервисов: создание бизнес-требований, отчёты по закупкам, юридическая аналитика.
+        </div>
+        <div class="tags">
+          <span>#сервисы</span><span>#БТ</span><span>#аналитика</span>
+        </div>
+        <div class="status live">✅ В продакшене</div>
+      </div>
+
+      <!-- AI DJ -->
+      <div class="product-card">
+        <div class="accent purple"></div>
+        <div class="icon">🎧</div>
+        <div class="name"><a href="https://nasledstvo2026.github.io/nasledstvo/aidj.html">AI DJ</a></div>
+        <div class="desc">
+          ИИ-диджей: автоматическое сведение треков, BPM/Key детекция, beat-synced кроссфейды.
+          100+ треков, веб-плеер с Club EQ.
+        </div>
+        <div class="tags">
+          <span>#музыка</span><span>#DJ</span><span>#сведение</span><span>#аудио</span>
+        </div>
+        <div class="status live">✅ В продакшене</div>
+      </div>
+
+      <!-- MedHelp -->
+      <div class="product-card">
+        <div class="accent green"></div>
+        <div class="icon">🏥</div>
+        <div class="name"><a href="medhelp.html">MedHelp</a></div>
+        <div class="desc">
+          Интеллектуальный ассистент для врача-рентгенолога.
+          Протоколы КТ/МРТ/ПЭТ-КТ, клинические рекомендации, верификация фактов.
+        </div>
+        <div class="tags">
+          <span>#медицина</span><span>#рентгенология</span><span>#КТ</span><span>#МРТ</span>
+        </div>
+        <div class="status beta">🔶 MVP готов</div>
+      </div>
+
+      <!-- Создать БТ -->
+      <div class="product-card">
+        <div class="accent orange"></div>
+        <div class="icon">📋</div>
+        <div class="name"><a href="bt.html">Создать БТ</a></div>
+        <div class="desc">
+          Конструктор бизнес-требований: быстрая генерация документов
+          для IT-продуктов на основе шаблонов.
+        </div>
+        <div class="tags">
+          <span>#БТ</span><span>#документы</span><span>#продукты</span><span>#шаблоны</span>
+        </div>
+        <div class="status live">✅ В продакшене</div>
+      </div>
+
+      <!-- ФармТендер -->
+      <div class="product-card">
+        <div class="accent purple"></div>
+        <div class="icon">💊</div>
+        <div class="name"><a href="zakupki.html">ФармТендер</a></div>
+        <div class="desc">
+          Мониторинг госзакупок лекарственных препаратов и медицинских изделий.
+          Парсинг zakupki.gov.ru, визуализация на сайте.
+        </div>
+        <div class="tags">
+          <span>#закупки</span><span>#44-ФЗ</span><span>#223-ФЗ</span><span>#фарма</span>
+        </div>
+        <div class="status live">✅ В продакшене</div>
+      </div>
+
+      <!-- Фото -->
+      <div class="product-card">
+        <div class="accent pink"></div>
+        <div class="icon">📸</div>
+        <div class="name"><a href="https://nasledstvo2026.github.io/nasledstvo/photo.html">Фото</a></div>
+        <div class="desc">
+          Каталог креативных проектов и фото.
+        </div>
+        <div class="tags">
+          <span>#фото</span><span>#креатив</span>
+        </div>
+        <div class="status live">✅ В продакшене</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════ АРХИТЕКТУРА ════════════ -->
+  <div class="section">
+    <h2>🔧 Технологическая платформа</h2>
+    <div class="item">
+      <div class="body">
+        <p>Все продукты работают на единой платформе <strong>OpenClaw</strong>:</p>
+        <ul style="margin:8px 0 0;padding-left:20px;color:rgba(255,255,255,0.65);line-height:1.8;">
+          <li><strong>Модель ИИ:</strong> DeepSeek Chat / V4 Flash</li>
+          <li><strong>Поиск:</strong> SearXNG (Bing + DuckDuckGo)</li>
+          <li><strong>Хостинг:</strong> GitHub Pages (HTTPS)</li>
+          <li><strong>Связь с пользователем:</strong> Telegram Bot API</li>
+          <li><strong>Архитектура:</strong> мультиагентная, изолированные сессии</li>
+          <li><strong>Внешний API:</strong> Cloudflare Quick Tunnel (для AI DJ)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ КАК ДОБАВИТЬ ПРОДУКТ ════════════ -->
+  <div class="section">
+    <h2>🆕 Как добавляются продукты</h2>
+    <div class="item">
+      <div class="body">
+        <ol style="margin:0;padding-left:20px;color:rgba(255,255,255,0.65);line-height:1.8;">
+          <li>Пользователь описывает задачу в Telegram</li>
+          <li>Разрабатывается агент (workspace, AGENTS.md, SOUL.md)</li>
+          <li>Регистрируется в openclaw.json (agents.list + binding)</li>
+          <li>Настраиваются cron-задачи (если нужны)</li>
+          <li>Создаётся страница продукта на GitHub Pages</li>
+          <li>Плашка на index.html → продукт доступен</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="tech">Экосистема продуктов · Июль 2026</span>
+  </div>
+
+</div>
+
+</body>
+</html>
