@@ -4,5 +4,7 @@ node_modules/
 *.shm
 __pycache__/
 *.pyc
+_bmad/core
+_bmad/bmm
 *.docx
 session-storage/
