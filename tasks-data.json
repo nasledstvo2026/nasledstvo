@@ -52,11 +52,11 @@
     "author": "Лена",
     "schedule": "Ежедневно 09:00",
     "success_rate": 100,
-    "duration_pct": 59,
+    "duration_pct": 75,
     "latency_min": 0.0,
     "cache_hit_pct": 96,
-    "cost_per_run": 0.0509,
-    "last_run": "09.07 02:30",
+    "cost_per_run": 0.0923,
+    "last_run": "10.07 02:30",
     "tip": "Таймаут уменьшен с 300 до 120 с. (применено 22.06)"
   },
   {
