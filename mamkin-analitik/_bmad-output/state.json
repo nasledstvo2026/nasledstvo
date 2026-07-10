@@ -1,0 +1,185 @@
+{
+  "projectName": "Мамкин аналитик",
+  "createdAt": "2026-07-08T10:08:00+03:00",
+  "updatedAt": "2026-07-08T20:55:00+03:00",
+  "completedWorkflows": [
+    "check-implementation-readiness",
+    "create-architecture",
+    "create-epics-and-stories",
+    "create-prd",
+    "create-product-brief",
+    "create-ux-design",
+    "dev-story-1-2",
+    "dev-story-1-3",
+    "dev-story-1-4",
+    "dev-story-1-5",
+    "dev-story-1-6",
+    "dev-story-1-7",
+    "dev-story-2-1",
+    "dev-story-2-2",
+    "dev-story-2-3",
+    "dev-story-2-4",
+    "dev-story-2-5",
+    "dev-story-2-6",
+    "dev-story-2-7",
+    "dev-story-3-1",
+    "dev-story-3-2",
+    "dev-story-3-3",
+    "dev-story-4-1",
+    "dev-story-4-2",
+    "dev-story-4-4",
+    "dev-story-5-1",
+    "dev-story-5-2",
+    "dev-story-5-3",
+    "dev-story-5-4",
+    "sprint-planning",
+    "validate-prd"
+  ],
+  "planningArtifacts": {
+    "productBrief": "_bmad-output/planning-artifacts/product-brief-Мамкин аналитик-2026-07-08.md",
+    "prd": "_bmad-output/planning-artifacts/prd.md",
+    "prdValidation": "_bmad-output/planning-artifacts/prd-validation-report.md",
+    "architecture": "_bmad-output/planning-artifacts/architecture.md",
+    "uxDesign": "_bmad-output/planning-artifacts/ux-design-specification.md",
+    "epicsAndStories": "_bmad-output/planning-artifacts/epics-and-stories.md",
+    "readinessReport": "_bmad-output/planning-artifacts/readiness-report.md"
+  },
+  "workflowStatus": {
+    "create-ux-design": {
+      "status": "completed",
+      "completedAt": "2026-07-08T15:34:00+03:00",
+      "outputFile": "_bmad-output/planning-artifacts/ux-design-specification.md",
+      "stepsCompleted": 14
+    },
+    "create-epics-and-stories": {
+      "status": "completed",
+      "completedAt": "2026-07-08T15:38:00+03:00",
+      "outputFile": "_bmad-output/planning-artifacts/epics-and-stories.md",
+      "stepsCompleted": 4
+    },
+    "dev-story-1-6": {
+      "status": "completed",
+      "completedAt": "2026-07-08T19:32:00+03:00",
+      "description": "Survey Engine + auto-save drafts",
+      "artifacts": [
+        "lib/survey-engine.js",
+        "tests/test-survey-engine.js",
+        "lib/telegram-connector.js (updated)"
+      ],
+      "testResults": "18/18 passed"
+    },
+    "dev-story-2-2": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:09:00+03:00",
+      "description": "Questioner Agent — L1 depth: open questions + Reflection",
+      "artifacts": [
+        "lib/survey-engine.js (enhanced: _isL1DeepEnough, buildReflection, _handleReflectionConfirm)",
+        "agents/questioner/prompt.md (updated: L1 instructions, reflection, coach tone)",
+        "tests/test-l1-depth.js (18 tests)"
+      ],
+      "testResults": "49/49 passed (31 existing + 18 new)"
+    },
+    "dev-story-2-3": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:14:00+03:00",
+      "description": "Questioner Agent — L2 depth: clarifying questions, L3 formatting, enhanced risk collection, returnToSection (FR11)",
+      "artifacts": [
+        "lib/survey-engine.js (enhanced: _formatL3Question, _extractRisks with depth, returnToSection, _formatReturnQuestion)",
+        "agents/questioner/prompt.md (updated: L2 clarifying behavior, enhanced risk collection, return navigation)",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (story 2-3: done)"
+      ]
+    },
+    "dev-story-2-7": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:32:00+03:00",
+      "description": "Conversational UX components — финал Epic 2: Progress Badge, Depth Indicator, Reflection, Risk Warning, Action Buttons, assembleMessage, coach/facilitator tone",
+      "artifacts": [
+        "lib/survey-engine.js (enhanced: buildProgressBadge, buildDepthIndicator, buildActionButtons, buildRiskWarning, assembleMessage, enhanced getCurrentQuestion with UX components)",
+        "agents/questioner/prompt.md (updated: UX component structure section 6 with all 6 components + assemble integration)",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (story 2-7: done, epic-2: done)",
+        "state.json (dev-story-2-7)"
+      ]
+    },
+    "dev-story-3-2": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:36:00+03:00",
+      "description": "Story 3.2: Controller Agent — completeness check (FR14). Prompt with scoring 0-10 per block, completeness/depth checks, FR15/FR16 flows. Full _checkCompleteness implementation in index.js",
+      "artifacts": [
+        "agents/controller/prompt.md (enhanced with completeness+scoring+FR15/FR16)",
+        "agents/controller/index.js (implemented: _checkCompleteness, _checkDepth, _isEmptyAnswer, _scoreCompleteness, full quality gate)",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (story 3-2: done)",
+        "state.json (dev-story-3-2)"
+      ]
+    },
+    "dev-story-3-3": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:40:00+03:00",
+      "description": "Story 3.3: Controller Agent — depth quality check. per-dimension scoring, vague language detection, improvement suggestions",
+      "artifacts": [
+        "agents/controller/prompt.md (enhanced: block-specific depth dimensions 3.1, per-dimension scoring 3.2, vague language check 3.3, improvement suggestions 3.4, two-tier scoring 7.1-7.4)",
+        "agents/controller/quality-rules.md (rewritten: per-dimension criteria, shallow detection patterns, depth scoring table)",
+        "state.json (dev-story-3-3)",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (story 3-3: done)"
+      ]
+    },
+    "dev-story-4-2": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:48:00+03:00",
+      "description": "Story 4.2: HTML web version generator — modern responsive design, cover page, TOC, 7 blocks with depth labels, risk section, GitHub Pages ready (FR18, FR21)",
+      "artifacts": [
+        "agents/generator/html-gen.py (full implementation: generate_html, CLI, CSS, responsive, print)",
+        "agents/generator/index.js (updated: _generateHtml wired in)",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (story 4-2: done)",
+        "state.json (dev-story-4-2)"
+      ]
+    },
+    "dev-story-4-4": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:45:00+03:00",
+      "description": "Story 4.4: Send links — signalCompletion enhanced with docx/html links, fallback message",
+      "artifacts": []
+    },
+    "dev-story-5-1": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:51:00+03:00",
+      "description": "Story 5.1: Session history for self-learning — HistoryRecorder (lib/history-recorder.js) + signalCompletion integration (FR22)",
+      "artifacts": [
+        "lib/history-recorder.js",
+        "lib/survey-engine.js (enhanced: historyRecorder dependency, _recordToHistory)",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (epic-5: in-progress, story 5-1: done)",
+        "_bmad-output/implementation-artifacts/state.json"
+      ]
+    },
+    "dev-story-5-2": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:53:00+03:00",
+      "description": "Story 5.2: Pattern analysis — LearningEngine (lib/learning-engine.js) with avgDepthPerBlock, frequentL3Topics, commonGaps (FR23)",
+      "artifacts": [
+        "lib/learning-engine.js",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (story 5-2: done)",
+        "_bmad-output/implementation-artifacts/state.json"
+      ]
+    },
+    "dev-story-5-3": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:53:00+03:00",
+      "description": "Story 5.3: Context reuse from previous BRDs — LearningEngine for personalized surveys (FR24, FR25)",
+      "artifacts": [
+        "lib/learning-engine.js",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (story 5-3: done)",
+        "_bmad-output/implementation-artifacts/state.json"
+      ]
+    },
+    "dev-story-5-4": {
+      "status": "completed",
+      "completedAt": "2026-07-08T20:55:00+03:00",
+      "description": "Story 5.4: Async self-learning update — LearningEngine with triggerAsyncUpdate, _backgroundUpdate, isUpdating; survey-engine.js signalCompletion integration (NFR13)",
+      "artifacts": [
+        "lib/learning-engine.js (enhanced: triggerAsyncUpdate, _backgroundUpdate, isUpdating, _recordWithRetry, _analyzePatterns, _updateContext)",
+        "lib/survey-engine.js (enhanced: learningEngine dependency, _triggerLearningUpdate in signalCompletion)",
+        "_bmad-output/implementation-artifacts/sprint-status.yaml (epic-5: done, story 5-4: done)",
+        "_bmad-output/state.json (dev-story-5-4)"
+      ]
+    }
+  }
+}

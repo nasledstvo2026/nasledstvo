@@ -1,0 +1,49 @@
+{
+  "presets": [
+    {
+      "id": "default",
+      "name": "Стандартный",
+      "description": "Базовый crossfade, выравнивание по быстрому треку, линейная кривая",
+      "dj": "AI Default",
+      "genre": "Универсальный",
+      "status": "ready",
+      "file": "default-preset.json"
+    },
+    {
+      "id": "oakenfold_1998",
+      "name": "Oakenfold Tranceport (1998)",
+      "description": "Драматический транс: breakdown-matching, переменная длина перехода, плавное нарастание. Подтверждено анализом живого микса",
+      "dj": "Paul Oakenfold",
+      "genre": "Trance · Progressive",
+      "status": "research",
+      "file": "oakenfold-tranceport-preset.json",
+      "source": "Tranceport 1998 — анализ 11 треков FLAC, 73:30 мин",
+      "confirmed_techniques": [
+        "breakdown_matching",
+        "variable_crossfade",
+        "tonal_blocks",
+        "smooth_energy_rise"
+      ],
+      "refuted_techniques": [
+        "bass_swap",
+        "camelot_+1_lift",
+        "fixed_long_blend"
+      ]
+    },
+    {
+      "id": "oakenfold_1997",
+      "name": "Oakenfold Fantazia (1997)",
+      "description": "Плотный хаус-микс: короткие гладкие переходы, единый BPM, без breakdown. Подтверждено анализом живого микса",
+      "dj": "Paul Oakenfold",
+      "genre": "House · Progressive House",
+      "status": "research",
+      "file": "oakenfold-fantazia-preset.json",
+      "source": "Fantazia House Collection Vol.6 (CD1) — анализ RMS, 72 мин",
+      "confirmed_techniques": [
+        "tight_crossfade",
+        "unified_bpm",
+        "smooth_transitions"
+      ]
+    }
+  ]
+}

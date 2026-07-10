@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Создать БТ — Сервис бизнес-требований</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .bt-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .bt-container h1 {
+      font-size: 28px;
+      color: rgba(255,255,255,0.9);
+      margin: 40px 0 16px;
+      letter-spacing: -0.5px;
+    }
+    .bt-container h2 {
+      font-size: 20px;
+      color: #58a6ff;
+      margin: 32px 0 12px;
+      letter-spacing: 1px;
+    }
+    .bt-container h3 {
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      margin: 24px 0 8px;
+      letter-spacing: 0.5px;
+    }
+    .bt-container p {
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      font-size: 14px;
+      margin: 8px 0;
+    }
+    .bt-container ul {
+      padding-left: 24px;
+      margin: 8px 0;
+    }
+    .bt-container ul li {
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      font-size: 14px;
+      margin: 4px 0;
+    }
+    .bt-container strong {
+      color: rgba(255,255,255,0.9);
+    }
+    .bt-container blockquote {
+      border-left: 3px solid rgba(88,166,255,0.3);
+      padding: 8px 14px;
+      margin: 8px 0;
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+      background: rgba(22,27,34,0.3);
+      border-radius: 0 6px 6px 0;
+    }
+    .bt-container hr {
+      border: none;
+      border-top: 1px solid rgba(33,38,45,0.6);
+      margin: 24px 0;
+    }
+    .bt-container .tag {
+      display: inline-block;
+      background: rgba(88,166,255,0.15);
+      color: #58a6ff;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin: 2px 4px 2px 0;
+    }
+    .bt-container .epic-card {
+      background: rgba(22,27,34,0.5);
+      border: 1px solid rgba(33,38,45,0.5);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+    .bt-container .epic-card h4 {
+      color: rgba(255,255,255,0.85);
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+    .bt-container .epic-card p {
+      font-size: 13px;
+      margin: 4px 0;
+    }
+    .bt-container .epic-card .stat {
+      display: inline-block;
+      margin-right: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+    .bt-container .project-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+    .bt-container .project-stats .stat-box {
+      background: rgba(22,27,34,0.5);
+      border: 1px solid rgba(33,38,45,0.5);
+      border-radius: 8px;
+      padding: 12px 20px;
+      flex: 1;
+      min-width: 100px;
+      text-align: center;
+    }
+    .bt-container .project-stats .stat-box .num {
+      font-size: 24px;
+      color: #58a6ff;
+      font-weight: 600;
+    }
+    .bt-container .project-stats .stat-box .label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+    }
+    @media (max-width: 768px) {
+      .bt-container { padding: 12px; }
+      .bt-container .project-stats { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back">← На главную</a>
+
+<div class="container">
+  <div class="bt-container">
+    <h1>Создать БТ</h1>
+    <p style="font-size:16px; color:rgba(255,255,255,0.7);">Мультиагентный сервис в Telegram для формирования бизнес-требований высокого уровня зрелости</p>
+    <p><span class="tag">v3.1 final</span> <span class="tag">08.07.2026</span> <span class="tag">✅ утверждено</span></p>
+
+    <hr>
+
+    <div class="project-stats">
+      <div class="stat-box"><div class="num">5</div><div class="label">эпиков</div></div>
+      <div class="stat-box"><div class="num">28</div><div class="label">историй</div></div>
+      <div class="stat-box"><div class="num">28 FR</div><div class="label">функц. требований</div></div>
+      <div class="stat-box"><div class="num">15 NFR</div><div class="label">нефункц. требований</div></div>
+      <div class="stat-box"><div class="num">4</div><div class="label">агента</div></div>
+      <div class="stat-box"><div class="num">7</div><div class="label">блоков шаблона</div></div>
+    </div>
+
+    <hr>
+
+    <h2>О проекте</h2>
+
+    <p><strong>«Создать БТ»</strong> — сервис, который решает проблему низкой культуры работы с бизнес-требованиями. Владельцы продуктов и бизнес-аналитики тратят много времени, используют разные шаблоны, формулируют поверхностные требования без анализа корневых причин.</p>
+
+    <p>Сервис заменяет статический шаблон и пустой документ на <strong>динамический диалог</strong> с AI-агентом в Telegram. Пользователь не заполняет форму — он разговаривает с экспертом, который слушает, уточняет, углубляется, контролирует качество — и в итоге выдаёт готовый документ.</p>
+
+    <hr>
+
+    <h2>Мультиагентная архитектура</h2>
+
+    <p>В основе — 4 специализированных AI-агента, работающих последовательно через единый Session Context:</p>
+
+    <ul>
+      <li><strong>Агент-опросчик</strong> — ведёт диалог, задаёт вопросы по 7 блокам шаблона, адаптирует глубину (L1→L2→L3) в зависимости от полноты ответов</li>
+      <li><strong>Агент-составитель</strong> — формирует текст БТ по утверждённому шаблону без лишней художественности</li>
+      <li><strong>Агент-контролёр</strong> — проверяет каждый раздел на полноту и глубину; при поверхностном ответе возвращает на доработку</li>
+      <li><strong>Агент-генератор</strong> — создаёт DOCX и веб-версию, публикует на GitHub Pages</li>
+    </ul>
+
+    <p><strong>Канал взаимодействия:</strong> Telegram (основной) → мультиагентный пайплайн на OpenClaw + DeepSeek API → генерация DOCX (python-docx) → публикация на GitHub Pages.</p>
+
+    <p><strong>Безопасность:</strong> аутентификация по Telegram user ID, белый список пользователей (whitelist.json), шифрование сессий AES-256, Cloudflare Tunnel (HTTPS), API-ключи в переменных окружения.</p>
+
+    <hr>
+
+    <h2>Ключевые отличия</h2>
+
+    <ul>
+      <li><strong>Динамическая глубина:</strong> при поверхностном ответе агент задаёт уточняющие вопросы, а не принимает «как есть». Три уровня: L1 (открывающий) → L2 (углубляющий) → L3 (корневой)</li>
+      <li><strong>Контроль качества в реальном времени:</strong> контролёр проверяет каждый раздел на полноту и возвращает на доработку, если блок заполнен поверхностно</li>
+      <li><strong>Самообучаемость:</strong> с каждым новым БТ сервис накапливает опыт — анализирует паттерны вопросов и ответов, качество опроса растёт от сессии к сессии</li>
+      <li><strong>Единый формат:</strong> утверждённый шаблон из 7 блоков, неменяемый после ввода в эксплуатацию</li>
+      <li><strong>Двойной формат выдачи:</strong> DOCX (для Jira) + веб-страница на GitHub Pages — идентичное содержание</li>
+      <li><strong>Жёсткий шаблон:</strong> без лишней художественности, только по делу</li>
+    </ul>
+
+    <hr>
+
+    <h2>Шаблон БТ (7 блоков)</h2>
+
+    <p>Агент последовательно проходит по каждому блоку, задавая вопросы с динамической глубиной. При полном ответе — фиксирует и идёт дальше. При поверхностном — уточняет:</p>
+
+    <ul>
+      <li><strong>Блок 1 — Контекст и проблема:</strong> контекст инициативы → проблемная область → последствия бездействия</li>
+      <li><strong>Блок 2 — Цель и измерение:</strong> бизнес-цель → критерии успеха (SMART)</li>
+      <li><strong>Блок 3 — Стейкхолдеры и влияние:</strong> заинтересованные стороны → их интересы и влияние</li>
+      <li><strong>Блок 4 — Решение:</strong> ключевые функциональные возможности → пользовательские сценарии → граничные случаи</li>
+      <li><strong>Блок 5 — Требования к качеству и ограничения:</strong> качественные характеристики → ограничения</li>
+      <li><strong>Блок 6 — Приёмка:</strong> критерии приёмки (Given-When-Then)</li>
+      <li><strong>Блок 7 — Риски и митигации:</strong> идентифицированные риски (собираются в течение всего диалога) → митигации</li>
+    </ul>
+
+    <hr>
+
+    <h2>Пользователи</h2>
+
+    <p><strong>Первичные:</strong> владельцы продуктов (Катя, Лена, Данил, Роман, Кирилл) и бизнес-аналитики — инициируют новые инициативы, формируют БТ.</p>
+    <p><strong>Вторичные:</strong> разработчики (получают чёткие требования) и руководители (оценивают трудозатраты по документированным данным).</p>
+
+    <hr>
+
+    <h2>Эпики (5 эпиков, 28 историй)</h2>
+
+    <div class="epic-card">
+      <h4>Эпик 1 — Управление доступом и сессиями</h4>
+      <p>7 историй · FR1–FR5, FR26–FR28. Начало и продолжение сессии, автосохранение черновиков, белый список, изоляция данных, шифрование.</p>
+    </div>
+
+    <div class="epic-card">
+      <h4>Эпик 2 — Динамический опрос по шаблону БТ</h4>
+      <p>7 историй · FR6–FR11. Адаптивный опрос по 7 блокам, L1→L2→L3, сбор рисков, возврат к блокам.</p>
+    </div>
+
+    <div class="epic-card">
+      <h4>Эпик 3 — Контроль качества и черновик</h4>
+      <p>6 историй · FR12–FR16. Составитель, контролёр, проверка полноты, возврат на доработку.</p>
+    </div>
+
+    <div class="epic-card">
+      <h4>Эпик 4 — Генерация и публикация</h4>
+      <p>5 историй · FR17–FR21. DOCX (python-docx), веб-версия, GitHub Pages, ссылки в Telegram.</p>
+    </div>
+
+    <div class="epic-card">
+      <h4>Эпик 5 — Самообучение</h4>
+      <p>4 истории · FR22–FR25. history.json, анализ паттернов, повышение качества от сессии к сессии.</p>
+    </div>
+
+    <hr>
+
+    <h2>Инфраструктура</h2>
+
+    <ul>
+      <li><strong>VPS</strong> vm-f13581 (Linux) — хостинг сервиса</li>
+      <li><strong>OpenClaw</strong> — оркестрация мультиагентного пайплайна</li>
+      <li><strong>DeepSeek API</strong> — LLM для работы всех агентов</li>
+      <li><strong>Telegram Bot API</strong> — канал взаимодействия с пользователем</li>
+      <li><strong>Cloudflare Tunnel</strong> — HTTPS-доступ к VPS</li>
+      <li><strong>GitHub Pages</strong> — публикация DOCX и веб-версий</li>
+      <li><strong>python-docx</strong> — генерация DOCX-файлов</li>
+    </ul>
+
+    <hr>
+
+    <h2>MVP Scope</h2>
+
+    <p><strong>Входит:</strong> Telegram-бот, динамический опрос по 7 блокам, мультиагентный пайплайн (опросчик → составитель → контролёр → генератор), генерация DOCX, публикация на GitHub Pages, хранение истории сессий, самообучаемость.</p>
+
+    <p><strong>Вне MVP:</strong> интеграция с Jira, мультиязычность, веб-интерфейс управления сессиями, аналитическая панель, Party Mode, Advanced Elicitation.</p>
+
+    <hr>
+
+    <h2>Целевые метрики</h2>
+
+    <ul>
+      <li>Полнота разделов БТ: <strong>7/7 блоков</strong> заполнены</li>
+      <li>Время ответа агента: <strong>&lt;5 сек</strong> (95-й перцентиль)</li>
+      <li>Генерация DOCX: <strong>&lt;30 сек</strong></li>
+      <li>Публикация на GitHub Pages: <strong>&lt;60 сек</strong></li>
+      <li>Доступность: <strong>99%</strong> в рабочее время</li>
+      <li>Одновременных сессий: до <strong>20</strong></li>
+      <li>Хранение сессий: не менее <strong>500</strong> завершённых БТ</li>
+    </ul>
+
+    <hr>
+
+    <h2>Статус реализации</h2>
+
+    <p>Проект прошёл полный цикл BMAD-планирования (9 воркфлоу, ~700 KB артефактов). Архитектура, UX-дизайн, декомпозиция на эпики и stories готовы. Readiness assessment: 🟡 CONDITIONAL PASS (3 minor issues: формулировка FR17 с указанием библиотеки, субъективная метрика в FR7/FR8, UX→Arch маппинг).</p>
+
+    <p>Первый спринт — Эпик 1 (Управление доступом и сессиями). Проект готов к реализации.</p>
+
+    <hr>
+
+    <div class="footer">
+      <span class="tech">Создать БТ · v3.1 (final) · 08.07.2026 · BMAD full cycle: ✅ 9/9 workflows</span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

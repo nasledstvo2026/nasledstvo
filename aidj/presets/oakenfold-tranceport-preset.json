@@ -1,0 +1,36 @@
+{
+  "name": "Oakenfold Tranceport (1998)",
+  "version": "2.0",
+  "based_on": "Paul Oakenfold — Tranceport (1998)",
+  "source": "Анализ librosa RMS 10 переходов склеенного FLAC (73:30, 11 треков, BPM 136). Дата: 28.06.2026",
+  "parameters": {
+    "tempo": {
+      "mode": "follow_fastest",
+      "note": "Все треки Tranceport — 136 BPM. При разном BPM нет смысла в lock_tight (растяжение >5% ломает звук). follow_fastest = максимальный BPM, минимальное растяжение."
+    },
+    "crossfade": {
+      "type": "smart_variable",
+      "default_seconds": 50,
+      "duration_seconds": [30, 70],
+      "min_seconds": 30,
+      "max_seconds": 70,
+      "note": "Измерено на Tranceport: среднее 50с (30-70с) для smooth_long_blend. Переходы в треках с коротким наложением — ~30с, с длинным — ~70с."
+    },
+    "blend": {
+      "type": "layering",
+      "breakdown_matching": true,
+      "breakdown_energy_threshold": 0.30,
+      "note": "На Tranceport: breakdown_matching используется когда energy < 0.30 на стыке (то есть трек А реально затихает). Если energy > 0.30 — smooth blend, не breakdown."
+    },
+    "curve": {
+      "type": "exp",
+      "curve1": "exp",
+      "curve2": "log",
+      "description": "Экспоненциальное затухание A + логарифмическое нарастание B — как в оригинале."
+    },
+    "style": {
+      "type": "dramatic_trance",
+      "note": "Результат анализа 10 переходов: 4 smooth_long_blend (44-70с), 3 fade_out (второй трек входит на затихании первого), 3 неклассифицированы (короткие стыки)."
+    }
+  }
+}

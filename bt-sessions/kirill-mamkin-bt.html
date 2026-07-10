@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Документ бизнес-требований — Мамкин аналитик">
+    <title>Документ бизнес-требований</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #2D3748;
+    background-color: #FFFFFF;
+    line-height: 1.6;
+    padding: 0;
+}
+
+/* ===== Layout ===== */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== Cover Page ===== */
+.cover-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 24px;
+    border-bottom: 1px solid #E2E8F0;
+    position: relative;
+}
+
+.cover-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #1F4E79, #2E75B6, #63B3ED);
+}
+
+.cover-rule {
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, #1F4E79, #2E75B6);
+    margin: 0 auto 40px;
+    border-radius: 2px;
+}
+
+.cover-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1F4E79;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.cover-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #718096;
+    margin-bottom: 48px;
+}
+
+.cover-meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 24px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.cover-meta dt {
+    font-weight: 600;
+    color: #1F4E79;
+    white-space: nowrap;
+}
+
+.cover-meta dd {
+    color: #2D3748;
+}
+
+/* ===== Navigation / TOC ===== */
+.toc-page {
+    padding: 60px 0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.toc-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1F4E79;
+    margin-bottom: 32px;
+}
+
+.toc-block {
+    margin-bottom: 20px;
+}
+
+.toc-block-header {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1F4E79;
+    margin-bottom: 6px;
+    padding: 8px 12px;
+    background: #F7FAFC;
+    border-radius: 6px;
+    border-left: 3px solid #1F4E79;
+}
+
+.toc-subsection {
+    display: flex;
+    align-items: center;
+    padding: 4px 12px 4px 28px;
+    font-size: 0.92rem;
+    color: #2D3748;
+    text-decoration: none;
+    transition: background 0.15s;
+    border-radius: 4px;
+}
+
+.toc-subsection:hover {
+    background: #F7FAFC;
+}
+
+.toc-depth-icon {
+    margin-right: 8px;
+    font-size: 0.8rem;
+}
+
+.toc-depth-label {
+    font-size: 0.78rem;
+    color: #718096;
+    margin-left: 8px;
+    font-style: italic;
+}
+
+/* ===== Section / Block ===== */
+.document-body {
+    padding: 40px 0;
+}
+
+.section {
+    margin-bottom: 48px;
+    padding-top: 8px;
+}
+
+.section-header {
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+.section-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #1F4E79;
+    line-height: 1.3;
+}
+
+/* ===== Subsection ===== */
+.subsection {
+    margin-bottom: 28px;
+}
+
+.subsection-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.subsection-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2D3748;
+}
+
+.depth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.subsection-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #2D3748;
+}
+
+.subsection-text p {
+    margin-bottom: 12px;
+}
+
+.subsection-text ul,
+.subsection-text ol {
+    margin: 8px 0 12px 24px;
+}
+
+.subsection-text li {
+    margin-bottom: 4px;
+}
+
+.subsection-empty {
+    font-style: italic;
+    color: #718096;
+    padding: 16px;
+    background: #F7FAFC;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+/* ===== Risk Section ===== */
+.risk-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 3px solid #1F4E79;
+}
+
+.risk-summary {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    padding: 20px;
+    background: #F7FAFC;
+    border-radius: 8px;
+}
+
+.risk-stat {
+    text-align: center;
+}
+
+.risk-stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1F4E79;
+    line-height: 1;
+}
+
+.risk-stat-label {
+    font-size: 0.78rem;
+    color: #718096;
+    margin-top: 4px;
+}
+
+.risk-category {
+    margin-bottom: 32px;
+}
+
+.risk-category-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1F4E79;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.risk-card {
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    border-left: 4px solid #E2E8F0;
+}
+
+.risk-card.high { border-left-color: #E53E3E; }
+.risk-card.medium { border-left-color: #DD6B20; }
+.risk-card.low { border-left-color: #38A169; }
+
+.risk-card-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    color: #2D3748;
+}
+
+.risk-card-details {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: #718096;
+    margin-top: 6px;
+}
+
+.risk-card-detail {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.risk-card-detail-label {
+    font-weight: 500;
+    color: #718096;
+}
+
+.risk-card-mitigation {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #F7FAFC;
+    border-radius: 6px;
+    font-size: 0.88rem;
+}
+
+.risk-card-mitigation strong {
+    color: #38A169;
+}
+
+.risk-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 0.88rem;
+}
+
+.risk-table th {
+    background: #1F4E79;
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.risk-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.risk-table tr:nth-child(even) td {
+    background: #F7FAFC;
+}
+
+.risk-table tr:hover td {
+    background: #EBF8FF;
+}
+
+/* ===== Progress Bar ===== */
+.progress-section {
+    padding: 24px 0;
+    margin-bottom: 32px;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: #E2E8F0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2E75B6, #1F4E79);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.progress-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.82rem;
+    color: #718096;
+}
+
+/* ===== Footer ===== */
+.document-footer {
+    padding: 32px 0;
+    text-align: center;
+    border-top: 1px solid #E2E8F0;
+    font-size: 0.82rem;
+    color: #718096;
+}
+
+.document-footer a {
+    color: #2E75B6;
+    text-decoration: none;
+}
+
+.document-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Top Navigation Bar ===== */
+.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #E2E8F0;
+    padding: 0 24px;
+}
+
+.top-nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+}
+
+.top-nav-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1F4E79;
+}
+
+.top-nav-links {
+    display: flex;
+    gap: 16px;
+    font-size: 0.82rem;
+}
+
+.top-nav-links a {
+    color: #718096;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.top-nav-links a:hover {
+    color: #2E75B6;
+}
+
+/* ===== TOC Sidebar (mobile hamburger simplified) ===== */
+.toc-toggle {
+    display: none;
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    .top-nav {
+        display: none;
+    }
+
+    .cover-page {
+        min-height: 100vh;
+        page-break-after: always;
+        padding: 60px 24px;
+    }
+
+    .toc-page {
+        page-break-after: always;
+    }
+
+    .section {
+        page-break-inside: avoid;
+    }
+
+    .subsection {
+        page-break-inside: avoid;
+    }
+
+    .risk-card {
+        page-break-inside: avoid;
+    }
+
+    .risk-table {
+        page-break-inside: auto;
+    }
+
+    body {
+        font-size: 11pt;
+    }
+
+    .cover-title {
+        font-size: 24pt;
+    }
+
+    .section-title {
+        font-size: 16pt;
+    }
+
+    a {
+        color: #2D3748 !important;
+        text-decoration: none !important;
+    }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .cover-title {
+        font-size: 1.8rem;
+    }
+
+    .cover-subtitle {
+        font-size: 1rem;
+    }
+
+    .cover-meta {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        text-align: center;
+    }
+
+    .cover-meta dt {
+        white-space: normal;
+    }
+
+    .section-title {
+        font-size: 1.35rem;
+    }
+
+    .subsection-header {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .risk-summary {
+        justify-content: center;
+    }
+
+    .risk-card-details {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .top-nav-inner {
+        height: auto;
+        padding: 8px 0;
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cover-title {
+        font-size: 1.4rem;
+    }
+
+    .cover-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .risk-table {
+        font-size: 0.78rem;
+    }
+
+    .risk-table th,
+    .risk-table td {
+        padding: 6px 8px;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav class="top-nav">
+    <div class="top-nav-inner">
+        <span class="top-nav-title">Документ бизнес-требований</span>
+        <div class="top-nav-links">
+            <a href="#top">Наверх</a>
+            <a href="#toc">Содержание</a>
+            <a href="#risks">Риски</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Cover Page -->
+
+<section class="cover-page" id="top">
+    <div class="cover-rule"></div>
+    <h1 class="cover-title">Документ бизнес-требований</h1>
+    <p class="cover-subtitle">Business Requirements Document</p>
+    <dl class="cover-meta">
+        <dt>Дата создания</dt><dd>09.07.2026 07:31</dd><dt>Сессия</dt><dd>3bd55e8735695927aa322601029b0814</dd><dt>Автор (Telegram ID)</dt><dd>346428630</dd><dt>Количество разделов</dt><dd>7</dd><dt>Заполнено подразделов</dt><dd>15/15</dd><dt>Идентифицировано рисков</dt><dd>25</dd>
+    </dl>
+</section>
+
+
+<!-- Table of Contents -->
+
+<section class="toc-page" id="toc">
+    <div class="container">
+        <h2 class="toc-title">Содержание</h2>
+        
+    <div class="toc-block">
+        <div class="toc-block-header">Блок 1. Контекст и проблема</div>
+        <a href="#1.1" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>1.1. Контекст инициативы<span class="toc-depth-label"> (глубоко)</span></a><a href="#1.2" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>1.2. Проблемная область<span class="toc-depth-label"> (глубоко)</span></a><a href="#1.3" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>1.3. Последствия бездействия<span class="toc-depth-label"> (глубоко)</span></a>
+    </div>
+
+    <div class="toc-block">
+        <div class="toc-block-header">Блок 2. Цель и измерение</div>
+        <a href="#2.1" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>2.1. Бизнес-цель<span class="toc-depth-label"> (глубоко)</span></a><a href="#2.2" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>2.2. Критерии успеха<span class="toc-depth-label"> (глубоко)</span></a>
+    </div>
+
+    <div class="toc-block">
+        <div class="toc-block-header">Блок 3. Стейкхолдеры и влияние</div>
+        <a href="#3.1" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>3.1. Заинтересованные стороны<span class="toc-depth-label"> (глубоко)</span></a><a href="#3.2" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>3.2. Их интересы и влияние<span class="toc-depth-label"> (глубоко)</span></a>
+    </div>
+
+    <div class="toc-block">
+        <div class="toc-block-header">Блок 4. Решение</div>
+        <a href="#4.1" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>4.1. Ключевые функциональные возможности<span class="toc-depth-label"> (глубоко)</span></a><a href="#4.2" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>4.2. Пользовательские сценарии<span class="toc-depth-label"> (глубоко)</span></a><a href="#4.3" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>4.3. Граничные случаи и исключения<span class="toc-depth-label"> (глубоко)</span></a>
+    </div>
+
+    <div class="toc-block">
+        <div class="toc-block-header">Блок 5. Требования к качеству и ограничения</div>
+        <a href="#5.1" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>5.1. Качественные характеристики<span class="toc-depth-label"> (глубоко)</span></a><a href="#5.2" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>5.2. Ограничения<span class="toc-depth-label"> (глубоко)</span></a>
+    </div>
+
+    <div class="toc-block">
+        <div class="toc-block-header">Блок 6. Приёмка</div>
+        <a href="#6.1" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>6.1. Критерии приёмки<span class="toc-depth-label"> (глубоко)</span></a>
+    </div>
+
+    <div class="toc-block">
+        <div class="toc-block-header">Блок 7. Риски и митигации</div>
+        <a href="#7.1" class="toc-subsection"><span class="toc-depth-icon" style="color:#38A169">●</span>7.1. Идентифицированные риски<span class="toc-depth-label"> (глубоко)</span></a><a href="#7.2" class="toc-subsection"><span class="toc-depth-icon" style="color:#DD6B20">○</span>7.2. Митигации<span class="toc-depth-label"> (поверхностно)</span></a>
+    </div>
+
+    <div class="toc-block">
+        <div class="toc-block-header">Блок 7. Риски и митигации (25 рисков)</div>
+        <a href="#risks" class="toc-subsection">
+            <span class="toc-depth-icon">▼</span>
+            Все риски (25)
+        </a>
+    </div>
+
+    </div>
+</section>
+
+
+<!-- Document Body -->
+<div class="document-body">
+    <div class="container">
+
+        
+<div class="progress-section">
+    <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width:100%"></div>
+    </div>
+    <div class="progress-stats">
+        <span>Подразделы: 15/15 (100%)</span>
+        <span>Рисков: 25</span>
+        <span>Блоков: 7</span>
+    </div>
+</div>
+
+
+        
+<section class="section" id="block-1">
+    <div class="section-header">
+        <h2 class="section-title">Блок 1. Контекст и проблема</h2>
+    </div>
+    
+    <div class="subsection" id="1.1">
+        <div class="subsection-header">
+            <h3 class="subsection-title">1.1. Контекст инициативы</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Проект «оценка трудозатрат».</p>
+<p>Сервис позволит проводить оценку трудозатрат на разработку программного обеспечения, в разрезе трудозатрат на бизнес анализ, системный анализ, dev, qa.</p>
+<p>Экспресс-оценка трудозатрат.</p></div>
+    </div>
+
+    <div class="subsection" id="1.2">
+        <div class="subsection-header">
+            <h3 class="subsection-title">1.2. Проблемная область</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Сейчас процесс оценки занимает длительное время, не стандартизирован, не прозрачен (нет понимания по каким формулам сделан расчет).</p>
+<p>Оценка трудозатрат по инициативе была неточной, пришлось тратить дополнительное время на ее детальный анализ и переоценку.</p>
+<p>Длится несколько лет. Вероятно причина - человеческий фактор. Оценка сильно зависит от компетенции оценивающего.</p></div>
+    </div>
+
+    <div class="subsection" id="1.3">
+        <div class="subsection-header">
+            <h3 class="subsection-title">1.3. Последствия бездействия</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Завышенные оценки трудозатрат, как следствие меньшее количество фич будет сделано.</p>
+<p>Каждый месяц мы теряем деньги тк мы платим зарплату а получаем меньшее количество разработок.</p>
+<p>Ситуация не ухудшится но и не изменится сама.</p></div>
+    </div>
+
+</section>
+
+<section class="section" id="block-2">
+    <div class="section-header">
+        <h2 class="section-title">Блок 2. Цель и измерение</h2>
+    </div>
+    
+    <div class="subsection" id="2.1">
+        <div class="subsection-header">
+            <h3 class="subsection-title">2.1. Бизнес-цель</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Стандартизация , ускорение, оптимизация и повышение качества оценок на разработку программного обеспечения за счет внедрения нового цифрового сервиса «оценка трудозатрат».</p>
+<p>Повысится качество квартального и полугодового планирования так как к моменту их наступления каждая новая инициатива уже будет оценена в части трудозатрат. И эта оценка будет оптимальной , ее расчет будет прозрачен и легко обьясним.</p>
+<p>Снизить время затраченное на оценку, повысить качество оценки.</p></div>
+    </div>
+
+    <div class="subsection" id="2.2">
+        <div class="subsection-header">
+            <h3 class="subsection-title">2.2. Критерии успеха</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Новым сервисом пользуются продуктовые команды для оценки новых фич.</p>
+<p>Сервис разработан и доступен в пром. Сервис апробирован в рамках пилота.</p>
+<p>Проверять будем на конкретных боевых примерах, на новых инциативах. Сроки не важны.</p></div>
+    </div>
+
+</section>
+
+<section class="section" id="block-3">
+    <div class="section-header">
+        <h2 class="section-title">Блок 3. Стейкхолдеры и влияние</h2>
+    </div>
+    
+    <div class="subsection" id="3.1">
+        <div class="subsection-header">
+            <h3 class="subsection-title">3.1. Заинтересованные стороны</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Инициатива затрагивает тимлмда команды разработки, владельца продукта.</p>
+<p>Пользоватся - тимлид, владелец продукта. Внедрять - я, заблокировать - никто.</p>
+<p>Нет.</p></div>
+    </div>
+
+    <div class="subsection" id="3.2">
+        <div class="subsection-header">
+            <h3 class="subsection-title">3.2. Их интересы и влияние</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Высокое качество оценки трудозатрат. Возможность оценивать в человеко днях и в пше.</p>
+<p>Тимлид разработки, владелец продукта.</p>
+<p>Нет.</p></div>
+    </div>
+
+</section>
+
+<section class="section" id="block-4">
+    <div class="section-header">
+        <h2 class="section-title">Блок 4. Решение</h2>
+    </div>
+    
+    <div class="subsection" id="4.1">
+        <div class="subsection-header">
+            <h3 class="subsection-title">4.1. Ключевые функциональные возможности</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>На основании бизнес-требований оценивать трудозатраты на подготовку системной аналитики, разработку кода, тестирование.</p>
+<p>Все маст хев.</p>
+<p>Изучает БТ и оценивает трудозатраты.</p></div>
+    </div>
+
+    <div class="subsection" id="4.2">
+        <div class="subsection-header">
+            <h3 class="subsection-title">4.2. Пользовательские сценарии</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Отправит боту в телеграм документ БТ, ответит на все вопросы бота, получит оценку трудозатрат ч описанием как был сделан расчет.</p>
+<p>Пользователь вступает в диалог с ботом, бот просит его прислать бизнестребования (бт), после анализа бт бот должен вернуть пользователю состав работ, оценку каждой задачи из состава работ в человеко-днях, состав работ должен быть разбит на три группы - системная аналитика, разработка, тестирование.</p>
+<p>Нет.</p></div>
+    </div>
+
+    <div class="subsection" id="4.3">
+        <div class="subsection-header">
+            <h3 class="subsection-title">4.3. Граничные случаи и исключения</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Система должна обяснить в каком месте данные не верны, попросить устранить ошибку, прислать новую версию</p>
+<p>Бт.</p>
+<p>Успехом считается правильная оценка трудозатрат.</p>
+<p>Нет.</p></div>
+    </div>
+
+</section>
+
+<section class="section" id="block-5">
+    <div class="section-header">
+        <h2 class="section-title">Блок 5. Требования к качеству и ограничения</h2>
+    </div>
+    
+    <div class="subsection" id="5.1">
+        <div class="subsection-header">
+            <h3 class="subsection-title">5.1. Качественные характеристики</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Нет.</p>
+<p>Нет.</p>
+<p>Нет.</p></div>
+    </div>
+
+    <div class="subsection" id="5.2">
+        <div class="subsection-header">
+            <h3 class="subsection-title">5.2. Ограничения</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Нет.</p>
+<p>Нет</p>
+<p>Нет</p>
+<p>Должны делать на openclaw deepseek telegram vsp github page</p>
+<p>Нет.</p>
+<p>Техстех не можем нарушить.</p></div>
+    </div>
+
+</section>
+
+<section class="section" id="block-6">
+    <div class="section-header">
+        <h2 class="section-title">Блок 6. Приёмка</h2>
+    </div>
+    
+    <div class="subsection" id="6.1">
+        <div class="subsection-header">
+            <h3 class="subsection-title">6.1. Критерии приёмки</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Какие у нас ключевые функции?</p>
+<p>У пользователя готовые бизнес требования и он хочет оценить трудозатраты на реализацию. Пользователь вступает в диалог с ботом и передает ему документ БТ. Бот анализирует БТ и проводит экспресс-оценку.</p>
+<p>Бот принимает БТ.</p></div>
+    </div>
+
+</section>
+
+<section class="section" id="block-7">
+    <div class="section-header">
+        <h2 class="section-title">Блок 7. Риски и митигации</h2>
+    </div>
+    
+    <div class="subsection" id="7.1">
+        <div class="subsection-header">
+            <h3 class="subsection-title">7.1. Идентифицированные риски</h3>
+            <span class="depth-badge" style="background:#38A16915;color:#38A169">Глубокая проработка (L3) — анализ коренных причин</span>
+        </div>
+        <div class="subsection-text"><p>Неверная оценка трудозатрат Неверная декомпозиция состава работ.</p>
+<p>Бизнес -риск.</p>
+<p>Высокая вероятность, высокое влияние, высокий приоритет.</p></div>
+    </div>
+
+    <div class="subsection" id="7.2">
+        <div class="subsection-header">
+            <h3 class="subsection-title">7.2. Митигации</h3>
+            <span class="depth-badge" style="background:#DD6B2015;color:#DD6B20">Поверхностная проработка (L1) — общее описание</span>
+        </div>
+        <div class="subsection-text"><p>?</p>
+<p>Ничего.</p>
+<p>Нет.</p></div>
+    </div>
+
+</section>
+
+
+        
+<section class="risk-section" id="risks">
+    <div class="section-header">
+        <h2 class="section-title">Риски и митигации</h2>
+    </div>
+
+
+    <div class="risk-summary">
+        <div class="risk-stat">
+            <div class="risk-stat-value">25</div>
+            <div class="risk-stat-label">Всего рисков</div>
+        </div>
+        <div class="risk-stat">
+            <div class="risk-stat-value">4</div>
+            <div class="risk-stat-label">Категорий</div>
+        </div>
+        <div class="risk-stat">
+            <div class="risk-stat-value">0</div>
+            <div class="risk-stat-label">С митигацией</div>
+        </div>
+        <div class="risk-stat">
+            <div class="risk-stat-value" style="color:#E53E3E">0</div>
+            <div class="risk-stat-label">Высокого риска</div>
+        </div>
+    </div>
+
+
+    <table class="risk-table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Риск</th>
+                <th>Категория</th>
+                <th>Вероятность</th>
+                <th>Влияние</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <tr>
+                <td>1</td>
+                <td>Проект «оценка трудозатрат»</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>2</td>
+                <td>Сервис позволит проводить оценку трудозатрат на разработку программного обеспечения, в разрезе трудозатрат на бизнес ...</td>
+                <td>Технические риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>3</td>
+                <td>Экспресс-оценка трудозатрат</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>4</td>
+                <td>Сейчас процесс оценки занимает длительное время, не стандартизирован, не прозрачен (нет понимания по каким формулам с...</td>
+                <td>Организационные риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>5</td>
+                <td>Оценка трудозатрат по инициативе была неточной, пришлось тратить дополнительное время на ее детальный анализ и переоц...</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>6</td>
+                <td>Завышенные оценки трудозатрат, как следствие меньшее количество фич будет сделано</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>7</td>
+                <td>Стандартизация , ускорение, оптимизация и повышение качества оценок на разработку программного обеспечения за счет вн...</td>
+                <td>Технические риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>8</td>
+                <td>Повысится качество квартального и полугодового планирования так как к моменту их наступления каждая новая инициатива ...</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>9</td>
+                <td>Новым сервисом пользуются продуктовые команды для оценки новых фич</td>
+                <td>Организационные риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>10</td>
+                <td>Сервис разработан и доступен в пром</td>
+                <td>Технические риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>11</td>
+                <td>Сроки не важны</td>
+                <td>Организационные риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>12</td>
+                <td>Инициатива затрагивает тимлмда команды разработки, владельца продукта</td>
+                <td>Технические риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>13</td>
+                <td>Высокое качество оценки трудозатрат</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>14</td>
+                <td>Тимлид разработки, владелец продукта</td>
+                <td>Технические риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>15</td>
+                <td>На основании бизнес-требований оценивать трудозатраты на подготовку системной аналитики, разработку кода, тестирование</td>
+                <td>Технические риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>16</td>
+                <td>Изучает БТ и оценивает трудозатраты</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>17</td>
+                <td>Отправит боту в телеграм документ БТ, ответит на все вопросы бота, получит оценку трудозатрат ч описанием как был сде...</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>18</td>
+                <td>Пользователь вступает в диалог с ботом, бот просит его прислать бизнестребования (бт), после анализа бт бот должен ве...</td>
+                <td>Технические риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>19</td>
+                <td>Успехом считается правильная оценка трудозатрат</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>20</td>
+                <td>У пользователя готовые бизнес требования и он хочет оценить трудозатраты на реализацию</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>21</td>
+                <td>Пользователь вступает в диалог с ботом и передает ему документ БТ</td>
+                <td>Риски внедрения</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>22</td>
+                <td>Неверная оценка трудозатрат так как в
+бТ может быть недостаточно данных доя оценки</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>23</td>
+                <td>Бизнес -риск</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>24</td>
+                <td>Проработка технического решения для нашего сервиса</td>
+                <td>Технические риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+            <tr>
+                <td>25</td>
+                <td>Сейчас прорабатываем решение, если наступит - ручная оценка трудозатрат</td>
+                <td>Бизнес-риски</td>
+                <td style="color:#718096">Не определена</td>
+                <td style="color:#718096">Не определена</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+
+    <div class="risk-category">
+        <h3 class="risk-category-title">Технические риски (8)</h3>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 1. Сервис позволит проводить оценку трудозатрат на разработку программного обеспечения, в разрезе трудозатрат на бизнес анализ, системный анализ, dev, qa</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 2. Стандартизация , ускорение, оптимизация и повышение качества оценок на разработку программного обеспечения за счет внедрения нового цифрового сервиса «оценка трудозатрат»</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 3. Сервис разработан и доступен в пром</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 4. Инициатива затрагивает тимлмда команды разработки, владельца продукта</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 5. Тимлид разработки, владелец продукта</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 6. На основании бизнес-требований оценивать трудозатраты на подготовку системной аналитики, разработку кода, тестирование</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 7. Пользователь вступает в диалог с ботом, бот просит его прислать бизнестребования (бт), после анализа бт бот должен вернуть пользователю состав работ, оценку каждой задачи из состава работ в человеко-днях, состав работ должен быть разбит на три группы - системная аналитика, разработка, тестирование</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 8. Проработка технического решения для нашего сервиса</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="risk-category">
+        <h3 class="risk-category-title">Бизнес-риски (13)</h3>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 1. Проект «оценка трудозатрат»</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 2. Экспресс-оценка трудозатрат</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 3. Оценка трудозатрат по инициативе была неточной, пришлось тратить дополнительное время на ее детальный анализ и переоценку</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 4. Завышенные оценки трудозатрат, как следствие меньшее количество фич будет сделано</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 5. Повысится качество квартального и полугодового планирования так как к моменту их наступления каждая новая инициатива уже будет оценена в части трудозатрат</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 6. Высокое качество оценки трудозатрат</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 7. Изучает БТ и оценивает трудозатраты</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 8. Отправит боту в телеграм документ БТ, ответит на все вопросы бота, получит оценку трудозатрат ч описанием как был сделан расчет</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 9. Успехом считается правильная оценка трудозатрат</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 10. У пользователя готовые бизнес требования и он хочет оценить трудозатраты на реализацию</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 11. Неверная оценка трудозатрат так как в
+бТ может быть недостаточно данных доя оценки</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 12. Бизнес -риск</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 13. Сейчас прорабатываем решение, если наступит - ручная оценка трудозатрат</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="risk-category">
+        <h3 class="risk-category-title">Организационные риски (3)</h3>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 1. Сейчас процесс оценки занимает длительное время, не стандартизирован, не прозрачен (нет понимания по каким формулам сделан расчет)</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 2. Новым сервисом пользуются продуктовые команды для оценки новых фич</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 3. Сроки не важны</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="risk-category">
+        <h3 class="risk-category-title">Риски внедрения (1)</h3>
+
+
+        <div class="risk-card ">
+            <div class="risk-card-title">Риск 1. Пользователь вступает в диалог с ботом и передает ему документ БТ</div>
+            <div class="risk-card-details">
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="document-footer">
+    <div class="container">
+        <p>Сгенерировано 09.07.2026 10:31 · Сессия 3bd55e8735695927aa322601029b0814</p>
+        <p>Проект «Мамкин аналитик» · <a href="https://github.com/mamkin-analitik">GitHub Pages</a></p>
+    </div>
+</div>
+
+</body>
+</html>

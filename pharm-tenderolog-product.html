@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ФармТендер — Ассистент по госзакупкам</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .product-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    /* Hero */
+    .product-hero {
+      text-align: center;
+      padding: 60px 24px 40px;
+    }
+    .product-hero .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      background: rgba(255,144,0,0.1);
+      border: 1px solid rgba(255,144,0,0.2);
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .product-hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: transparent;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff, #ff9000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .product-hero .tagline {
+      font-size: 18px;
+      color: var(--text-dim);
+      max-width: 650px;
+      margin: 0 auto 8px;
+      line-height: 1.6;
+    }
+    .product-hero .big-number {
+      font-size: 14px;
+      color: var(--text-faint);
+      margin-top: 20px;
+    }
+    .product-hero .big-number strong {
+      font-size: 28px;
+      color: var(--green);
+    }
+
+    /* Value blocks */
+    .value-block {
+      margin-top: 40px;
+    }
+    .value-block h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .value-block .sub {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .value-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform .2s ease, border-color .2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .value-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--glass-hover);
+    }
+    .value-card .icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .value-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .value-card .what {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .value-card .benefit {
+      font-size: 13px;
+      color: var(--green);
+      line-height: 1.4;
+    }
+
+    /* Accent border per card */
+    .value-card.blue   { border-left: 4px solid var(--blue); }
+    .value-card.green  { border-left: 4px solid var(--green); }
+    .value-card.purple { border-left: 4px solid var(--purple); }
+    .value-card.orange { border-left: 4px solid var(--orange); }
+    .value-card.cyan   { border-left: 4px solid var(--cyan); }
+
+    /* Feature comparison table */
+    .compare-box {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .compare-box table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .compare-box td {
+      padding: 14px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px;
+      color: var(--text);
+      vertical-align: top;
+    }
+    .compare-box td:first-child {
+      color: var(--text-dim);
+      width: 40%;
+      font-size: 13px;
+    }
+    .compare-box td:last-child {
+      color: var(--green);
+    }
+    .compare-box tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Arch box (упрощённая схема) */
+    .flow-box {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text-dim);
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .flow-box strong {
+      color: var(--text);
+    }
+
+    /* Footer note */
+    .product-note {
+      margin-top: 40px;
+      padding: 20px 24px;
+      background: rgba(255,144,0,0.05);
+      border: 1px solid rgba(255,144,0,0.15);
+      border-radius: 12px;
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .product-note strong {
+      color: var(--text);
+    }
+
+    @media (max-width: 600px) {
+      .value-grid { grid-template-columns: 1fr; }
+      .product-hero h1 { font-size: 26px; }
+      .product-hero .tagline { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="zakupki.html" class="back">← Закупки</a>
+
+<div class="product-page">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="product-hero">
+
+    <h1>ФармТендер</h1>
+    <div class="tagline">
+      Ваш цифровой консультант по 44-ФЗ / 223-ФЗ<br>
+      (лекарственные препараты и медизделия)
+    </div>
+    <div class="big-number">
+      Документ за <strong>~15 минут</strong> вместо 2–3 часов · Двойная проверка каждому документу
+    </div>
+  </div>
+
+  <!-- ═══ ФИШКИ И ВЫГОДЫ ═══ -->
+  <div class="value-block">
+    <h2>Что даёт ассистент</h2>
+    <div class="sub">Вы просто пишете в Telegram — всё остальное делает пара юристов-ассистентов внутри</div>
+
+    <div class="value-grid">
+
+      <div class="value-card blue">
+        <div class="icon">📄</div>
+        <h3>Готовые документы за минуты</h3>
+        <div class="what">Вы описываете задачу — получаете .docx с корректными ссылками на НПА</div>
+        <div class="benefit">✅ Не искать шаблоны. Не сверять статьи. Открыли Word — заполнили реквизиты</div>
+      </div>
+
+      <div class="value-card green">
+        <div class="icon">🔍</div>
+        <h3>Встроенная проверка на ошибки</h3>
+        <div class="what">Второй ассистент проверяет каждый документ и находит нарушения до вас</div>
+        <div class="benefit">✅ Привязка к курсу валют? HIGH. Нет ссылки на ПП РФ? MEDIUM. Исправляется сразу</div>
+      </div>
+
+      <div class="value-card purple">
+        <div class="icon">💬</div>
+        <h3>Консультации без воды</h3>
+        <div class="what">Задали вопрос по НМЦК, маркировке или лимитам — получили чёткий ответ с цитатами</div>
+        <div class="benefit">✅ Не надо гуглить. Не надо рыться в кодексах. Ассистент знает предмет</div>
+      </div>
+
+      <div class="value-card orange">
+        <div class="icon">🔄</div>
+        <h3>Актуальность каждую неделю</h3>
+        <div class="what">База знаний обновляется автоматически 3 раза в неделю через LegalMCP</div>
+        <div class="benefit">✅ Изменения в 44-ФЗ не пройдут мимо. Всегда свежие ссылки на постановления</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ БЫЛО / СТАЛО ═══ -->
+  <div class="value-block">
+    <h2>До и после</h2>
+    <div class="sub">Как изменилась рутина с появлением ФармТендера</div>
+
+    <div class="compare-box">
+      <table>
+        <tr><td>Подготовка допсоглашения</td><td>2–3 часа → <strong>~15 минут</strong></td></tr>
+        <tr><td>Проверка документа на ошибки</td><td>Нужен второй юрист → <strong>ассистент проверяет сам</strong></td></tr>
+        <tr><td>Свежие изменения в законах</td><td>Надо отслеживать вручную → <strong>автоматическое обновление</strong></td></tr>
+        <tr><td>Консультация по норме 44-ФЗ</td><td>Гугл + кодекс → <strong>пишете в Telegram и получаете ответ</strong></td></tr>
+        <tr><td>Риск ошибки в документе</td><td>30–50% → <strong>менее 5%</strong> (двойной контроль)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ КАК УСТРОЕНО ═══ -->
+  <div class="value-block">
+    <h2>Как это работает</h2>
+    <div class="sub">Два ассистента внутри одного чата работают в паре</div>
+
+    <div class="flow-box">Вы в Telegram
+  │
+  ├──→ <strong>katrin-agent</strong> — создаёт документ
+  │     └──→ <strong>auditor-agent</strong> — проверяет на ошибки
+  │           └──→ katrin-agent исправляет замечания
+  │
+  └──→ Готовый .docx у вас</div>
+
+    <div class="compare-box">
+      <table>
+        <tr>
+          <td style="width:120px;white-space:nowrap;"><strong>katrin-agent</strong></td>
+          <td>Ваш основной ассистент. Отвечает на вопросы, создаёт документы, исправляет по замечаниям</td>
+        </tr>
+        <tr>
+          <td><strong>auditor-agent</strong></td>
+          <td>Внутренний аудитор. Получает черновик → находит нарушения → возвращает на доработку. Никогда не создаёт документы сам</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ ПРОВЕРЕНО ═══ -->
+  <div class="value-block">
+    <h2>Что уже проверено</h2>
+    <div class="sub">Продукт прошёл 15 тестов — все успешно</div>
+
+    <div class="compare-box">
+      <table>
+        <tr><td>Консультация по 44-ФЗ (ст.95, лимиты)</td><td>✅ С цитатами и ссылками</td></tr>
+        <tr><td>Расчёт НМЦК (Приказ №1064н)</td><td>✅ 3 метода, с формулами</td></tr>
+        <tr><td>Маркировка (ПП №894, №375)</td><td>✅ Этапы, сроки, что попадает</td></tr>
+        <tr><td>Генерация .docx</td><td>✅ Допсоглашения, спецификации, акты, расчёты</td></tr>
+        <tr><td>Аудит и исправление ошибок</td><td>✅ Цикл katrin → auditor → исправление</td></tr>
+        <tr><td>Отказ от нерелевантных запросов</td><td>✅ «К звёздам отношения не имеет»</td></tr>
+        <tr><td>Изоляция от других пользователей</td><td>✅ Работает параллельно с Лунтом</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ ИСТОЧНИКИ ДАННЫХ ═══ -->
+  <div class="value-block">
+    <h2>Источники данных</h2>
+    <div class="sub">Откуда ассистент берёт актуальную информацию</div>
+
+    <div class="compare-box">
+      <table>
+        <tr><td style="width:100px;"><strong>🟢 ЕИС zakupki.gov.ru</strong></td><td>Живой мониторинг закупок по лекарствам и медизделиям. Ежедневный парсинг: номер закупки, статус, заказчик, цена, сроки. <strong>До 100 свежих записей ежедневно</strong></td></tr>
+        <tr><td><strong>🟢 consultant.ru</strong></td><td>Эталонная верификация — последние редакции 44-ФЗ и 223-ФЗ с датами изменений</td></tr>
+        <tr><td><strong>🟡 Аналитика</strong></td><td>Контекст и практика (pro-ability.ru, fz44.org, medcub.ru)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ КАК РАБОТАЕТ АГЕНТ ═══ -->
+  <div class="value-block">
+    <h2>Как ассистент узнаёт об изменениях</h2>
+    <div class="sub">Автоматическое обновление знаний 3 раза в неделю</div>
+
+    <div class="compare-box">
+      <table>
+        <tr><td style="width:120px;"><strong>Пн-Пт 07:00</strong></td><td>Парсинг закупок с zakupki.gov.ru — активные торги (приём заявок / работа комиссии)</td></tr>
+        <tr><td><strong>Ежедневно</strong></td><td>Таблица на <a href="zakupki.html" style="color:var(--blue);">странице закупок</a> показывает живые данные: номера, статусы, цены, заказчиков</td></tr>
+        <tr><td><strong>Пн/Ср/Пт 09:30</strong></td><td>Проверка изменений в 44-ФЗ, 223-ФЗ и смежных постановлениях через consultant.ru</td></tr>
+        <tr><td><strong>Сохранение</strong></td><td>Конспект изменений записывается в базу знаний — чтобы не гонять LegalMCP на каждый вопрос</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ КЛЮЧЕВЫЕ ДОКУМЕНТЫ ═══ -->
+  <div class="value-block">
+    <h2>Ключевые документы, которыми владеет ассистент</h2>
+    <div class="sub">Основные НПА, которые ассистент использует при подготовке документов</div>
+
+    <div class="compare-box">
+      <table>
+        <tr><td style="width:120px;"><strong>44-ФЗ</strong></td><td>О контрактной системе — госзакупки для бюджетных учреждений, ЕИС. Изменения 2026: снятие лимита по котировкам, расширение нацрежима, цифровые контракты</td></tr>
+        <tr><td><strong>223-ФЗ</strong></td><td>О закупках госкомпаний (ГУПы, МУПы). Нацрежим (ПП № 1875) распространён и на 223-ФЗ</td></tr>
+        <tr><td><strong>ПП РФ № 620</strong></td><td>Формирование лотов по медизделиям — запрет на смешение разных видов МИ в одном лоте</td></tr>
+        <tr><td><strong>ПП РФ № 1875</strong></td><td>Национальный режим — единые правила для 44-ФЗ и 223-ФЗ, балльная система оценки локализации</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ НЮАНСЫ ═══ -->
+  <div class="product-note">
+    <strong>⚠️ Что стоит помнить</strong><br><br>
+    <strong>Законодательство быстро меняется.</strong> База знаний обновляется 3 раза в неделю, но финальная проверка всегда за вами.<br><br>
+    <strong>Только .docx.</strong> Другие форматы не поддерживаем.<br><br>
+    <strong>Реквизиты вы заполняете сами.</strong> Ассистент готовит содержательную часть, а ФИО, должности, банковские счета — за вами (так точнее).<br><br>
+    <strong>УФАС, ЕИС, ЖНВЛП</strong> — только через поиск в интернете, не через API (сами сайты не дают открытого доступа).<br><br>
+    <strong>Законы быстро меняются.</strong> Ассистент старается быть в курсе, но финальная проверка всегда за вами.
+  </div>
+
+  <!-- ═══ ПОДВАЛ ═══ -->
+  <div style="text-align:center;margin-top:32px;">
+    <a href="pharm-tenderolog-guide.html" style="display:inline-block;padding:10px 24px;border-radius:8px;background:var(--card);border:1px solid var(--blue);color:var(--blue);text-decoration:none;font-size:14px;">📖 Как пользоваться →</a>
+  </div>
+
+  <div style="text-align:center;margin-top:24px;color:var(--text-faint);font-size:12px;">
+    ФармТендер · 30 июня 2026
+  </div>
+
+</div>
+
+</body>
+</html>

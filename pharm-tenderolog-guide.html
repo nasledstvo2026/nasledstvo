@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Как пользоваться — ФармТендеролог</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .guide-page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    /* ─── HERO ─── */
+    .guide-hero {
+      text-align: center;
+      padding: 48px 24px 40px;
+    }
+    .guide-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: transparent;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff, #ff9000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .guide-hero p {
+      font-size: 16px;
+      color: var(--text-dim);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* ─── СЕКЦИОННЫЙ ЗАГОЛОВОК ─── */
+    .section-title {
+      font-size: 18px;
+      margin: 40px 0 20px;
+      color: var(--text);
+      border-left: 3px solid var(--blue);
+      padding-left: 12px;
+    }
+
+    /* ─── КАРТОЧКА-ПРИМЕР (glass-morphism) ─── */
+    .example-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      transition: transform .2s ease, border-color .2s ease;
+      position: relative;
+      overflow: hidden;
+      border-left: 4px solid var(--cyan);
+    }
+    .example-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--glass-hover);
+    }
+    .example-card .label {
+      font-size: 11px;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 6px;
+    }
+    .example-card .phrase {
+      font-size: 16px;
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .example-card .result {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    .example-card .result a {
+      color: var(--blue);
+    }
+    .example-card .copy-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(88,166,255,0.12);
+      color: var(--blue);
+      border: 1px solid rgba(88,166,255,0.25);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .example-card .copy-btn:hover {
+      background: rgba(88,166,255,0.22);
+    }
+
+    /* ─── ЦВЕТНЫЕ БОРДЕРЫ У ПРИМЕРОВ ─── */
+    .example-card.doc    { border-left-color: var(--blue); }
+    .example-card.spec   { border-left-color: var(--green); }
+    .example-card.price  { border-left-color: var(--purple); }
+    .example-card.audit  { border-left-color: var(--orange); }
+    .example-card.law    { border-left-color: var(--cyan); }
+    .example-card.check  { border-left-color: var(--green); }
+    .example-card.purch  { border-left-color: var(--purple); }
+
+    /* ─── СОВЕТЫ (glass) ─── */
+    .tip-box {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+      transition: border-color .2s;
+    }
+    .tip-box:hover {
+      border-color: var(--glass-hover);
+    }
+    .tip-box strong {
+      color: var(--blue);
+    }
+    .tip-box .icon {
+      font-size: 20px;
+      margin-right: 8px;
+    }
+
+    /* ─── НАВИГАЦИЯ ─── */
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 12px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: border-color .2s, transform .2s;
+    }
+    .nav-links a:hover {
+      border-color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    /* ─── ТОСТ ─── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--green);
+      border-radius: 10px;
+      padding: 12px 24px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<a href="pharm-tenderolog-product.html" class="back">← О продукте</a>
+
+<div class="guide-page">
+
+  <div class="guide-hero">
+    <h1>Как пользоваться ФармТендерологом</h1>
+    <p>Просто напишите в Telegram то, что нужно — ассистент сам разберётся</p>
+  </div>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- ЧТО МОЖНО ПОПРОСИТЬ                 -->
+  <!-- ════════════════════════════════════ -->
+  <div class="section-title">📌 Что можно попросить</div>
+
+  <div class="example-card doc">
+    <div class="label">📄 Создать документ</div>
+    <div class="phrase">«Подготовь допсоглашение к контракту №345 по 44-ФЗ на поставку лекарств»</div>
+    <div class="result">→ Ассистент сформирует .docx с корректными ссылками на статьи. Останется добавить реквизиты.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card spec">
+    <div class="label">📄 Создать спецификацию</div>
+    <div class="phrase">«Сделай спецификацию к контракту на медицинские изделия (5 позиций, шаблон)»</div>
+    <div class="result">→ Готовый шаблон спецификации в .docx с таблицей.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card price">
+    <div class="label">📄 Расчёт НМЦК</div>
+    <div class="phrase">«Рассчитай НМЦК методом сопоставимых рыночных цен на лекарства (МНН: Амлодипин)»</div>
+    <div class="result">→ Расчёт с формулами и обоснованием по Приказу №1064н.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card audit">
+    <div class="label">🔍 Проверить документ</div>
+    <div class="phrase">«Проверь мой проект контракта на ошибки»</div>
+    <div class="result">→ Внутренний аудитор проверит документ и укажет, что поправить.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card law">
+    <div class="label">📖 Спросить про закон</div>
+    <div class="phrase">«Какие изменения в 44-ФЗ были в 2026 году?»</div>
+    <div class="result">→ Ответ с цитатами и ссылками, без воды.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card check">
+    <div class="label">📖 Уточнить норму</div>
+    <div class="phrase">«Можно ли изменить цену контракта по 44-ФЗ, если он меньше 10 млн?»</div>
+    <div class="result">→ Чёткий ответ со ссылкой на статью 95 44-ФЗ.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <div class="example-card purch">
+    <div class="label">📊 Посмотреть закупки</div>
+    <div class="phrase">«Что сегодня по закупкам?»</div>
+    <div class="result">→ Ссылка на <a href="zakupki.html">страницу с актуальными торгами</a>.</div>
+    <span class="copy-btn" onclick="copyText(this)">📋 Копировать</span>
+  </div>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- СОВЕТЫ                              -->
+  <!-- ════════════════════════════════════ -->
+  <div class="section-title">💡 Советы</div>
+
+  <div class="tip-box">
+    <span class="icon">✏️</span> <strong>Пишите как коллеге.</strong> Не нужно специальных команд. Просто: «Сделай допсоглашение на №345».
+  </div>
+
+  <div class="tip-box">
+    <span class="icon">📎</span> <strong>Прикрепите файл.</strong> Если есть проект документа — пришлите его в чат и напишите «проверь». Ассистент прочитает и найдёт ошибки.
+  </div>
+
+  <div class="tip-box">
+    <span class="icon">🔄</span> <strong>Можно уточнять.</strong> Ответ не устроил? Напишите «поподробнее» или «исправь раздел про НМЦК». Ассистент доработает.
+  </div>
+
+  <div class="tip-box">
+    <span class="icon">❗</span> <strong>Не стесняйтесь.</strong> Любой вопрос — от «как рассчитать НМЦК» до «сделай проект контракта». Не бывает «глупого» вопроса для ассистента.
+  </div>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- НАВИГАЦИЯ                           -->
+  <!-- ════════════════════════════════════ -->
+  <div class="nav-links">
+    <a href="zakupki.html">📋 Закупки сегодня</a>
+    <a href="pharm-tenderolog-product.html">ℹ️ О продукте</a>
+  </div>
+
+  <div style="text-align:center;margin-top:32px;color:var(--text-faint);font-size:12px;">
+    Не знаете, что написать — начните с «Привет, что ты умеешь?»
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✅ Скопировано</div>
+
+<script>
+  function copyText(btn) {
+    const phrase = btn.parentElement.querySelector('.phrase').innerText;
+    navigator.clipboard.writeText(phrase).then(() => {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

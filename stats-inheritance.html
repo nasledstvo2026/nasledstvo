@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Статистика жалоб по наследству в банках РФ</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --bg-secondary: #e8ecf1;
+      --glass-bg: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(0, 0, 0, 0.08);
+      --glass-hover: rgba(0, 0, 0, 0.04);
+      --glass-shine: rgba(255, 255, 255, 0.6);
+      --text: #1a1a2e;
+      --text-dim: #4a4a5a;
+      --text-secondary: #6b6b7b;
+      --text-faint: #999;
+      --accent: #2563eb;
+      --red: #dc2626;
+      --green: #16a34a;
+      --orange: #ea580c;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --border: rgba(0, 0, 0, 0.08);
+    }
+    body { background: var(--bg); background-image: none; }
+    .hero + .section { margin-top: 4px; }
+    .section { margin-top: 16px; }
+    .item { padding: 14px; margin-bottom: 10px; }
+    .section h2 { margin-bottom: 10px; }
+    .item .tag { margin-bottom: 4px; }
+    .stats-row { gap: 1rem; }
+    .stat-box { box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    .stat-box .value { font-size: 28px; }
+    .bar-chart { margin: 0.5rem 0; }
+    .bar { display: flex; align-items: center; gap: 0.5rem; margin: 0.25rem 0; }
+    .bar-label { width: 120px; font-size: 0.9rem; color: var(--text); text-align: right; padding-right: 12px; flex-shrink: 0; }
+    .bar-fill { height: 22px; border-radius: 4px; min-width: 4px; transition: width 0.3s; }
+    .bar-fill.sber { background: #1a9e5c; }
+    .bar-fill.vtb { background: #009fdf; }
+    .bar-fill.psb { background: #f15a24; }
+    .bar-fill.tbank { background: #ffdd3c; }
+    .bar-fill.gpb { background: #003a70; }
+    .bar-fill.sovcombank { background: #d42027; }
+    .bar { margin-bottom: 10px; }
+    .bar-val { font-size: 0.85rem; color: var(--text-secondary); white-space: nowrap; }
+    .mini-bar { display: inline-block; height: 10px; border-radius: 3px; margin-left: 0.5rem; vertical-align: middle; }
+    .mini-bar.sber { background: #1a9e5c; }
+    .mini-bar.other { background: #009fdf; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 0.5rem 0.75rem; text-align: left; border: 1px solid var(--border); }
+    th { color: var(--text-secondary); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; background: var(--bg-secondary); }
+    tr:last-child td { border-bottom: none; }
+    tr.total td { font-weight: 700; color: var(--text); border-top: 2px solid var(--accent); }
+    .trend-note { color: var(--text-secondary); font-size: 0.85rem; }
+    table.striped-table th, table.striped-table td { border: 1px solid var(--border); }
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: var(--accent); color: #fff; border-radius: 6px; text-decoration: none; font-size: 0.9rem; transition: background 0.2s; }
+    .btn:hover { background: var(--accent-hover); }
+    .yesterday-block { background: var(--bg-secondary); border-radius: 8px; padding: 1rem; margin: 1rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+    .item small { color: var(--text-secondary); font-size: 0.85rem; display: block; margin-top: 0.2rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="inheritance.html" class="back">← Кластер Наследство</a>
+
+    <div class="hero">
+      <h1>Статистика жалоб по наследству в банках <span style="font-size:0.6em;color:var(--text-secondary);font-weight:400">v5</span></h1>
+    </div>
+
+    <div class="section">
+      <div class="item">
+        <h2>📅 09 July 2026</h2>
+        <div class="stats-row" style="margin-bottom:12px;margin-top:8px">
+          <div class="stat-box">
+            <div class="label">Сбер</div>
+            <div class="value" style="color:var(--green)">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="label">Другие банки</div>
+            <div class="value" style="color:var(--green)">0</div>
+          </div>
+        </div>
+        <div style="font-size:0.9em;line-height:1.6">          <span style="opacity:0.5">Новых жалоб не обнаружено</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="item">
+        <h2>📊 Июл 2026</h2>
+        <div style="margin:8px 0 4px;opacity:.7;font-size:0.9em">Текущий месяц — сбор данных продолжается</div>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="label">Всего жалоб</div>
+            <div class="value" style="color:var(--green)">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="label">Сбер · Другие</div>
+            <div class="value" style="color:var(--green);display:inline">0</div>
+            <span style="font-size:28px;font-weight:700;color:var(--text-dim)"> · </span>
+            <div class="value" style="color:var(--green);display:inline">0</div>
+          </div>
+          <div class="stat-box" style="max-width:100%">
+            <div class="label">Динамика</div>
+            <table style="font-size:14px;width:100%;margin:8px auto;border-collapse:collapse">
+              <tr style="border-bottom:1px solid var(--border)">
+                <td style="padding:4px 8px;text-align:left;font-weight:600"></td>
+                <td style="padding:4px 8px;text-align:center;font-weight:600">Июн</td>
+                <td style="padding:4px 4px;text-align:center"></td>
+                <td style="padding:4px 8px;text-align:center;font-weight:600">Июл</td>
+                <td style="padding:4px 8px;text-align:center;font-weight:600">Δ</td>
+              </tr>
+              <tr>
+                <td style="padding:4px 8px;text-align:left;color:var(--green);font-weight:600">Сбер</td>
+                <td style="padding:4px 8px;text-align:center">6</td>
+                <td style="padding:4px 4px;text-align:center">→</td>
+                <td style="padding:4px 8px;text-align:center">0</td>
+                <td style="padding:4px 8px;text-align:center"><span style="color:var(--green);font-weight:700">-6</span></td>
+              </tr>
+              <tr>
+                <td style="padding:4px 8px;text-align:left;color:var(--text);font-weight:600">Другие</td>
+                <td style="padding:4px 8px;text-align:center">20</td>
+                <td style="padding:4px 4px;text-align:center">→</td>
+                <td style="padding:4px 8px;text-align:center">0</td>
+                <td style="padding:4px 8px;text-align:center"><span style="color:var(--green);font-weight:700">-20</span></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="item" style="margin-top:12px">
+          <div style="font-size:12px;color:var(--text-dim);margin-bottom:6px">По банкам за июл:</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.5">
+            Новых жалоб не обнаружено
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="item">
+                <h2>🏦 Банки · 2026</h2>
+      <div class="bar-chart">
+        <div class="bar">
+          <span class="bar-label">Сбер</span>
+          <span class="bar-fill" class="sber" style="width:230px;"></span>
+          <span class="bar-val">10 (31.2%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">ВТБ</span>
+          <span class="bar-fill" class="vtb" style="width:115px;"></span>
+          <span class="bar-val">5 (15.6%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Альфа-Банк</span>
+          <span class="bar-fill" style="background:#ef4444;width:92px;"></span>
+          <span class="bar-val">4 (12.5%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Газпромбанк</span>
+          <span class="bar-fill" class="gpb" style="width:92px;"></span>
+          <span class="bar-val">4 (12.5%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Т-Банк</span>
+          <span class="bar-fill" class="tbank" style="width:46px;"></span>
+          <span class="bar-val">2 (6.2%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Уралсиб</span>
+          <span class="bar-fill" style="background:#2d8bcf;width:23px;"></span>
+          <span class="bar-val">1 (3.1%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Россельхозбанк</span>
+          <span class="bar-fill" style="background:#1a7d38;width:23px;"></span>
+          <span class="bar-val">1 (3.1%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Совкомбанк</span>
+          <span class="bar-fill" class="sovcombank" style="width:23px;"></span>
+          <span class="bar-val">1 (3.1%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Ozon Банк</span>
+          <span class="bar-fill" style="background:#8b5cf6;width:23px;"></span>
+          <span class="bar-val">1 (3.1%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">РайффайзенБанк</span>
+          <span class="bar-fill" style="background:#00a86b;width:23px;"></span>
+          <span class="bar-val">1 (3.1%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">Неизвестно</span>
+          <span class="bar-fill" style="background:#6b7280;width:23px;"></span>
+          <span class="bar-val">1 (3.1%)</span>
+        </div>
+        <div class="bar">
+          <span class="bar-label">МТС Банк</span>
+          <span class="bar-fill" style="background:#f59e0b;width:23px;"></span>
+          <span class="bar-val">1 (3.1%)</span>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="item">
+        <h2>📅 Статистика</h2>
+      <div style="max-width:100%;overflow-x:auto">
+      <table class="striped-table" style="width:100%">
+        <colgroup>
+          <col style="width:70px">
+          <col style="width:60px">
+          <col style="width:60px">
+          <col style="width:60px">
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Месяц</th>
+            <th>Сбер</th>
+            <th>Банки</th>
+            <th>Итог</th>
+            <th>Банк</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(37,99,235,0.08)">
+            <td><strong style="color:var(--accent)">2026</strong></td>
+            <td><strong style="color:var(--accent)">10</strong></td>
+            <td><strong style="color:var(--accent)">22</strong></td>
+            <td><strong style="color:var(--accent)">32</strong></td>
+            <td><strong style="color:var(--accent)"></strong></td>
+          </tr>
+          <tr>
+            <td>Июл</td>
+            <td style="color:var(--green)">0</td>
+            <td style="color:var(--green)">0</td>
+            <td><strong>0</strong></td>
+            <td style="white-space:nowrap">—</td>
+          </tr>
+          <tr>
+            <td>Июн</td>
+            <td style="color:var(--red)">6</td>
+            <td style="color:var(--red)">20</td>
+            <td><strong>26</strong></td>
+            <td style="white-space:nowrap">ВТБ(5), Альфа-Банк(4), Газпромбанк(3), Т-Банк(2), Уралсиб, Россельхозбанк, Совкомбанк, Ozon Банк, РайффайзенБанк, Неизвестно</td>
+          </tr>
+          <tr>
+            <td>Май</td>
+            <td style="color:var(--green)">0</td>
+            <td style="color:var(--red)">1</td>
+            <td><strong>1</strong></td>
+            <td style="white-space:nowrap">Газпромбанк</td>
+          </tr>
+          <tr>
+            <td>Апр</td>
+            <td style="color:var(--green)">0</td>
+            <td style="color:var(--green)">0</td>
+            <td><strong>0</strong></td>
+            <td style="white-space:nowrap">—</td>
+          </tr>
+          <tr>
+            <td>Мар</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--green)">0</td>
+            <td><strong>1</strong></td>
+            <td style="white-space:nowrap">—</td>
+          </tr>
+          <tr>
+            <td>Фев</td>
+            <td style="color:var(--green)">0</td>
+            <td style="color:var(--green)">0</td>
+            <td><strong>0</strong></td>
+            <td style="white-space:nowrap">—</td>
+          </tr>
+          <tr>
+            <td>Янв</td>
+            <td style="color:var(--red)">3</td>
+            <td style="color:var(--red)">1</td>
+            <td><strong>4</strong></td>
+            <td style="white-space:nowrap">МТС Банк</td>
+          </tr>
+          <tr style="background:rgba(234,88,12,0.1)">
+            <td><strong style="color:var(--orange)">2025</strong></td>
+            <td><strong style="color:var(--orange)">17</strong></td>
+            <td><strong style="color:var(--orange)">28</strong></td>
+            <td><strong style="color:var(--orange)">45</strong></td>
+            <td><strong style="color:var(--orange)"></strong></td>
+          </tr>
+          <tr>
+            <td>Дек 2025</td>
+            <td style="color:var(--red)">2</td>
+            <td style="color:var(--red)">1</td>
+            <td><strong>3</strong></td>
+            <td style="white-space:nowrap">Совкомбанк</td>
+          </tr>
+          <tr>
+            <td>Ноя 2025</td>
+            <td style="color:var(--green)">0</td>
+            <td style="color:var(--red)">2</td>
+            <td><strong>2</strong></td>
+            <td style="white-space:nowrap">ПСБ, Ozon Банк</td>
+          </tr>
+          <tr>
+            <td>Окт 2025</td>
+            <td style="color:var(--green)">0</td>
+            <td style="color:var(--green)">0</td>
+            <td><strong>0</strong></td>
+            <td style="white-space:nowrap">—</td>
+          </tr>
+          <tr>
+            <td>Сен 2025</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--red)">2</td>
+            <td><strong>3</strong></td>
+            <td style="white-space:nowrap">Альфа-Банк, ПСБ</td>
+          </tr>
+          <tr>
+            <td>Авг 2025</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--red)">3</td>
+            <td><strong>4</strong></td>
+            <td style="white-space:nowrap">Ренессанс Банк, Совкомбанк, ПСБ</td>
+          </tr>
+          <tr>
+            <td>Июл 2025</td>
+            <td style="color:var(--green)">0</td>
+            <td style="color:var(--red)">3</td>
+            <td><strong>3</strong></td>
+            <td style="white-space:nowrap">Т-Банк, ВТБ, Почта Банк</td>
+          </tr>
+          <tr>
+            <td>Июн 2025</td>
+            <td style="color:var(--green)">0</td>
+            <td style="color:var(--red)">4</td>
+            <td><strong>4</strong></td>
+            <td style="white-space:nowrap">ПСБ(2), БСПБ (Банк Санкт-Петербург), БСПБ</td>
+          </tr>
+          <tr>
+            <td>Май 2025</td>
+            <td style="color:var(--red)">2</td>
+            <td style="color:var(--red)">4</td>
+            <td><strong>6</strong></td>
+            <td style="white-space:nowrap">ВТБ(2), Яндекс Банк(2)</td>
+          </tr>
+          <tr>
+            <td>Апр 2025</td>
+            <td style="color:var(--red)">6</td>
+            <td style="color:var(--red)">2</td>
+            <td><strong>8</strong></td>
+            <td style="white-space:nowrap">ВТБ (предположительно), ВТБ</td>
+          </tr>
+          <tr>
+            <td>Мар 2025</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--red)">2</td>
+            <td><strong>3</strong></td>
+            <td style="white-space:nowrap">Совкомбанк, ВТБ</td>
+          </tr>
+          <tr>
+            <td>Фев 2025</td>
+            <td style="color:var(--red)">1</td>
+            <td style="color:var(--red)">1</td>
+            <td><strong>2</strong></td>
+            <td style="white-space:nowrap">Почта Банк</td>
+          </tr>
+          <tr>
+            <td>Янв 2025</td>
+            <td style="color:var(--red)">3</td>
+            <td style="color:var(--red)">4</td>
+            <td><strong>7</strong></td>
+            <td style="white-space:nowrap">Неизвестно(2), Уралсиб, Газпромбанк</td>
+          </tr>
+      </tbody>
+      </table>
+      </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="item">
+        <h2>⚠️ Хронология</h2>
+      <div style="overflow-x:auto">
+      <table class="striped-table" style="width:100%">
+        <colgroup>
+          <col style="width:90px">
+          <col style="width:120px">
+          <col>
+          <col style="width:100px">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Дата</th>
+            <th>Банк</th>
+            <th>Описание</th>
+            <th>Источник</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>30.06.26</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1075813/" target="_blank">Сбербанк ошибся с выдачей наследства — требует вернуть деньги</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>30.06.26</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13193140/" target="_blank">Сбербанк — вторая неделя не может снять свои деньги со счёта</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>30.06.26</td>
+            <td>ВТБ</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1075105/" target="_blank">ВТБ — проблемы с наследством по инвестиционным счетам</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>30.06.26</td>
+            <td>Газпромбанк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13195071/" target="_blank">Газпромбанк удержал НДФЛ с продажи акций, полученных по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>29.06.26</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13190376/" target="_blank">Мошенничество — отзыв о Сбербанке</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>29.06.26</td>
+            <td>Уралсиб</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13190334/" target="_blank">Хотите приключений с банком? Обращайтесь в Уралсиб</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>29.06.26</td>
+            <td>Альфа-Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13189188/" target="_blank">Требуют погасить ипотеку одним платежом после смерти супруга</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>29.06.26</td>
+            <td>ВТБ</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1075105/" target="_blank">Наследство по инвестиционным счетам</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>29.06.26</td>
+            <td>Россельхозбанк</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1074999/" target="_blank">Россельхозбанк отказал в выдаче денег по свидетельству о праве на наследство</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>27.06.26</td>
+            <td>Совкомбанк</td>
+            <td><a href="https://www.banki.ru/dialog/articles/61158/" target="_blank">Война за наследство с Совкомбанком</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>26.06.26</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13185473/" target="_blank">Сбербанк задерживает выплату по свидетельству о наследстве</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>25.06.26</td>
+            <td>Т-Банк</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1072526/" target="_blank">Не предоставляют информацию о наличии счетов умершего нотариусу</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>25.06.26</td>
+            <td>Альфа-Банк</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1072646/" target="_blank">Не дают доступа к личному кабинету для оплаты ипотеки после вступления в наследство</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>25.06.26</td>
+            <td>Альфа-Банк</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1072800/" target="_blank">Отзыв о проблемах с переводом наследства не зачтен</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>25.06.26</td>
+            <td>ВТБ</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1072500/" target="_blank">Квартира в ипотеке, муж умер — можно ли не платить до вступления в наследство?</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>24.06.26</td>
+            <td>Альфа-Банк</td>
+            <td><a href="https://www.banki.ru/dialog/articles/59205/" target="_blank">Три раза посещал разные отделения Альфа-банка, но так и не смог получить наследство</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>24.06.26</td>
+            <td>Ozon Банк</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1072087/" target="_blank">Смерть родственника</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>24.06.26</td>
+            <td>Газпромбанк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13168492/" target="_blank">Газпромбанк — и тут со дна постучали</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>23.06.26</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1071020/" target="_blank">Банк не дает закрыть полностью досрочно кредит умершего родственника</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>23.06.26</td>
+            <td>ВТБ</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1071374/" target="_blank">Не готовы пойти на встречу</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>22.06.26</td>
+            <td>РайффайзенБанк</td>
+            <td><a href="https://otzovik.com/review_18443862.html" target="_blank">Банк долго не реагировал на мошеннический кредит, оформленный на умершего родственника</a></td>
+            <td><span style="color:var(--green)">otzovik.com</span></td>
+          </tr>
+          <tr>
+            <td>21.06.26</td>
+            <td>ВТБ</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1069959/" target="_blank">Проблемы с досрочным погашением наследственного кредита и разблокировкой счета умершего заемщика</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>21.06.26</td>
+            <td>Неизвестно</td>
+            <td><a href="https://findozor.net/forum/threads/dolgi-po-nasledstvu-nesovershennoletnikh.55113/" target="_blank">Долги по наследству несовершеннолетних</a></td>
+            <td><span style="color:var(--text-secondary)">findozor.net</span></td>
+          </tr>
+          <tr>
+            <td>19.06.26</td>
+            <td>Т-Банк</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/1069005/" target="_blank">Не списывают кредит погибшего участника СВО</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>18.06.26</td>
+            <td>Газпромбанк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13135519/" target="_blank">Проблемы с получением наследства</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>13.06.26</td>
+            <td>Сбер</td>
+            <td><a href="https://otzovik.com/review_18437130.html" target="_blank">Северо-Западный банк Сбербанка — отказ выплатить наследство по решению суда</a></td>
+            <td><span style="color:var(--green)">otzovik.com</span></td>
+          </tr>
+          <tr>
+            <td>25.05.26</td>
+            <td>Газпромбанк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/13148100/" target="_blank">Некомпетентные сотрудники не могут оказать услугу по передаче наследства</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>12.03.26</td>
+            <td>Сбер</td>
+            <td><a href="https://2gis.ru/yaroslavl/firm/3941177954927439" target="_blank">Отказались выдавать денежные средства, полученные по наследству</a></td>
+            <td><span style="color:var(--purple)">2ГИС</span></td>
+          </tr>
+          <tr>
+            <td>22.01.26</td>
+            <td>МТС Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12871003/" target="_blank">Оформление наследства</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>15.01.26</td>
+            <td>Сбер</td>
+            <td><a href="https://pikabu.ru/story/sberbank_biznes_ne_khochet_otdavat_dengi_nasledniku_13598412" target="_blank">Сбербанк Бизнес не хочет отдавать деньги наследнику</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>15.01.26</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/972786/" target="_blank">Сбербанк Бизнес не хочет отдавать деньги наследнику</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>13.01.26</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12856955/" target="_blank">Сбербанк отказывается исполнять нотариальное свидетельство о праве на наследство</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>25.12.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12833187/" target="_blank">Задалбывают звонками о наследстве</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>11.12.25</td>
+            <td>Совкомбанк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12808006/" target="_blank">2 месяца не отдают деньги несовершеннолетнему по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>03.12.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12785467/" target="_blank">Сбербанк не выплачивает деньги по вкладу наследнику</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>19.11.25</td>
+            <td>ПСБ</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12739141/" target="_blank">Получение наследства</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>11.11.25</td>
+            <td>Ozon Банк</td>
+            <td><a href="https://otzovik.com/reviews/ozon_internet_resheniya_ooo/" target="_blank">Нарушение прав наследников — доступ к счету умершего ИП</a></td>
+            <td><span style="color:var(--green)">otzovik.com</span></td>
+          </tr>
+          <tr>
+            <td>22.09.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12567338/" target="_blank">Сбер делает всё, чтобы не выплачивать наследство</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>18.09.25</td>
+            <td>Альфа-Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12531698/" target="_blank">Наследство и какая беда в Альфе с ним...</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>Сен 25</td>
+            <td>ПСБ</td>
+            <td><a href="https://pikabu.ru/story/kak_ya_poluchal_nasledstvo_gayd_dlya_novichkov_privet_banku_psb_13213217" target="_blank">Как я получал наследство. Гайд. Привет ПСБ</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>21.08.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12569235/" target="_blank">НПФ Сбербанка не выплачивает средства умершего родственника</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>20.08.25</td>
+            <td>Ренессанс Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12498054/" target="_blank">Банк не отвечает на запросы нотариуса о наследстве</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>18.08.25</td>
+            <td>Совкомбанк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12492278/" target="_blank">Кредит умершего</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>13.08.25</td>
+            <td>ПСБ</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12483145/" target="_blank">34 дня ожидания выплаты наследства в ПСБ. Участник СВО</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>31.07.25</td>
+            <td>Т-Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12452104/" target="_blank">Не могу вступить в наследство! Т-банк нарушает сроки ответа</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>17.07.25</td>
+            <td>ВТБ</td>
+            <td><a href="https://pikabu.ru/story/vtb_skryivaet_dengi_umershikh_12971259" target="_blank">ВТБ скрывает деньги умерших</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>Июл 25</td>
+            <td>Почта Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12415940/" target="_blank">Банк не даёт возможность погасить кредит доставшийся в наследство</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>30.06.25</td>
+            <td>ПСБ</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12496156/" target="_blank">Не выдает наследство, 50 дней с момента обращения</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>30.06.25</td>
+            <td>ПСБ</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12496100/" target="_blank">Не выдает наследство, 50 дней с момента обращения</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>27.06.25</td>
+            <td>БСПБ (Банк Санкт-Петербург)</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12452732/" target="_blank">Намеренно задерживают перечисление средств с вклада по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>27.06.25</td>
+            <td>БСПБ</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12452700/" target="_blank">Намеренно задерживают перечисление средств с вклада по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>27.05.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12293319/" target="_blank">Задерживает выплаты по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>27.05.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12293300/" target="_blank">Задерживает выплаты по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>15.05.25</td>
+            <td>ВТБ</td>
+            <td><a href="https://pikabu.ru/story/tolko_sud_zastavil_bank_vtb_otdat_vklad_docheryam_umershego_klienta_bank_ochen_khotel_ostavit_1_mln_rubley_sebe_12726857" target="_blank">Только суд заставил отдать вклад дочерям умершего</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>15.05.25</td>
+            <td>ВТБ</td>
+            <td><a href="https://pikabu.ru/story/tolko_sud_zastavil_bank_vtb_otdat_vklad_docheryam_umershego_12898018" target="_blank">Только суд заставил отдать вклад дочерям умершего</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>Май 25</td>
+            <td>Яндекс Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12362831/" target="_blank">Отказ принять добровольное погашение долга умершего</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>Май 25</td>
+            <td>Яндекс Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12362800/" target="_blank">Отказ принять добровольное погашение долга умершего</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>25.04.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12297298/" target="_blank">Необоснованные задержки выплаты наследства несовершеннолетнему</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>25.04.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12297208/" target="_blank">Необоснованные задержки выплаты наследства несовершеннолетнему</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>23.04.25</td>
+            <td>Сбер</td>
+            <td><a href="https://pikabu.ru/story/sberbank_potreboval_s_syina_umershey_klientki_trekhkratnyiy_razmer_dolga_sudyi_vstali_na_storonu_banka_12642610" target="_blank">Потребовал с наследника трехкратный размер долга умершей</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>23.04.25</td>
+            <td>Сбер</td>
+            <td><a href="https://pikabu.ru/story/sberbank_potreboval_s_syina_umershey" target="_blank">Потребовал с наследника трехкратный размер долга умершего</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>07.04.25</td>
+            <td>ВТБ</td>
+            <td><a href="https://pikabu.ru/story/kak_nasledniki_prouchili_bank_kotoryiy_ne_khotel_otdavat_vklad_umershego_ottsa_12580830" target="_blank">Наследники проучили банк — отказ выдать вклад умершего</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>07.04.25</td>
+            <td>ВТБ</td>
+            <td><a href="https://pikabu.ru/story/kak_nasledniki_prouchili_bank_kotoryiy_otkazalsya_otdavat_vklad_umershego_12676631" target="_blank">Наследники проучили банк — отказ выдать вклад умершего</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>03.04.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12232318/" target="_blank">Отказ в выплате наследства — ошибка в долях</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>03.04.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12232300/" target="_blank">Отказ в выплате наследства — ошибка в долях</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>28.03.25</td>
+            <td>Совкомбанк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12223628/" target="_blank">Не выплачивают денежные средства по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>24.03.25</td>
+            <td>ВТБ</td>
+            <td><a href="https://pikabu.ru/story/pomogite_s_vtb_12526872" target="_blank">Проблемы с кредитом умершего после вступления в наследство</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>06.03.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12303322/" target="_blank">Невыплата денег по завещательному распоряжению 1996 года</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>18.02.25</td>
+            <td>Почта Банк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12141454/" target="_blank">Отказ в выдаче денежных средств по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>10.02.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12138482/" target="_blank">Задержка выплаты наследства</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>31.01.25</td>
+            <td>Неизвестно</td>
+            <td><a href="https://pikabu.ru/story/nasledstvo_i_kreditnaya_karta_umershego_vopros_po_strakhovke_12319103" target="_blank">Наследство и кредитная карта умершего, вопрос по страховке</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>30.01.25</td>
+            <td>Неизвестно</td>
+            <td><a href="https://pikabu.ru/story/zhenshchina_vzyala_kredit_i_umerla_bank_zhdal_5_let_chtobyi_dolg_vyiros_v_25_raza_i_potreboval_ego_s_naslednika_tri_instantsii_podderzhali_bank_12314992" target="_blank">Женщина взяла кредит и умерла. Банк ждал 5 лет, потребовал с наследника долг в 2,5 раза</a></td>
+            <td><span style="color:var(--orange)">pikabu.ru</span></td>
+          </tr>
+          <tr>
+            <td>22.01.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/721053/" target="_blank">Не выплачивают наследство по решению суда</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>20.01.25</td>
+            <td>Уралсиб</td>
+            <td><a href="https://2gis.ru/novosibirsk/firm/141265769351463" target="_blank">Жалоба на работу банка (наследственные вопросы)</a></td>
+            <td><span style="color:var(--text-secondary)">2GIS</span></td>
+          </tr>
+          <tr>
+            <td>17.01.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/questions-answers/question/696502/" target="_blank">Не выдаются денежные средства по свидетельству о праве на наследство</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>14.01.25</td>
+            <td>Сбер</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12159388/" target="_blank">Невыдача денег по наследству</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+          <tr>
+            <td>Янв 25</td>
+            <td>Газпромбанк</td>
+            <td><a href="https://www.banki.ru/services/responses/bank/response/12117602/" target="_blank">Начисление процентов на кредит умершего</a></td>
+            <td><span style="color:var(--blue)">banki.ru</span></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:24px;color:var(--text-secondary);font-size:0.85rem;text-align:center">
+      📊 Данные собраны 09 July 2026 · Источники: banki.ru, pikabu.ru, otzovik.com, 2ГИС, findozor.net
+    </div>
+
+  </div>
+
+  <footer class="footer" style="margin-top:2rem;padding:1rem 0;border-top:1px solid var(--border);text-align:center;color:var(--text-faint);font-size:0.8rem">
+    Обновлено 09 July 2026 · Статистика по жалобам наследников в банках РФ
+  </footer>
+
+</body>
+</html>

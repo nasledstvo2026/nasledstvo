@@ -1,0 +1,128 @@
+{
+  "id": "oakenfold",
+  "name": "Paul Oakenfold — Perfecto Fluidity",
+  "description": "Кинематографичное сведение: long blends, bass-подмена, breakdown mixing, гармонический лифт",
+  "dj": "Paul Oakenfold",
+  "genre": "Trance · Progressive · Goa",
+  "era": "1994–2000",
+  "status": "draft",
+
+  "parameters": {
+    "crossfade": {
+      "type": "long_blend",
+      "duration_seconds": [90, 180],
+      "description": "1.5–3 минуты. Не crossfade, а layering — наложение треков"
+    },
+    "tempo": {
+      "mode": "lock_tight",
+      "tolerance_bpm": 0.5,
+      "description": "Треки выровнены в ноль, ±0.5 BPM"
+    },
+    "eq": {
+      "phases": [
+        {
+          "phase": 1,
+          "name": "sneak_in",
+          "bars": [0, 32],
+          "time_seconds": [0, 45],
+          "incoming": { "low": -60, "mid": 9, "high": 10, "fader": "0→70%" },
+          "outgoing": { "low": 12, "mid": 12, "high": 12, "fader": "100%" }
+        },
+        {
+          "phase": 2,
+          "name": "melodic_overlay",
+          "bars": [32, 64],
+          "time_seconds": [45, 90],
+          "incoming": { "low": -60, "mid": "9→12", "high": "10→12", "fader": "70%" },
+          "outgoing": { "low": 12, "mid": "12→10", "high": 12, "fader": "100%" }
+        },
+        {
+          "phase": 3,
+          "name": "bass_swap",
+          "bar": 64,
+          "time_seconds": 90,
+          "action": "instant",
+          "incoming": { "low": "−∞→12", "action": "snap to 12" },
+          "outgoing": { "low": "12→9", "action": "snap to 9" },
+          "description": "Главный энергетический толчок — резкая подмена баса на 1 долю"
+        },
+        {
+          "phase": 4,
+          "name": "fade_out",
+          "bars": [64, 96],
+          "time_seconds": [90, 135],
+          "incoming": { "low": 12, "mid": 12, "high": 12, "fader": "100%" },
+          "outgoing": { "low": 9, "mid": 10, "high": "12→0", "fader": "100%→0" }
+        }
+      ]
+    },
+    "harmonic": {
+      "mode": "camelot_wheel",
+      "allowed_transitions": ["same", "+1_up"],
+      "description": "Только совпадающие тональности или +1 по Camelot. Разные — не сводит"
+    },
+    "structure": {
+      "type": "breakdown_on_breakdown",
+      "description": "Яма на Яму — кульминационные паузы двух треков накладываются, ритм исчезает"
+    },
+    "curve": {
+      "type": "exponential",
+      "description": "Медленное нарастание громкости/EQ, но Bass Swap — резкий"
+    },
+    "fx": {
+      "type": "external_samples",
+      "description": "FX-сэмплы из фантастики для маскировки стыков (Pioneer EFX-500)"
+    },
+    "narrative": {
+      "type": "cinema",
+      "acts": ["intro_ambient_breaks", "progressive_house", "goa_uplifting_trance", "deep_emotional_epilogue"],
+      "description": "Интро → Завязка → Кульминация → Эпилог"
+    }
+  },
+
+  "example_mix": {
+    "title": "Tranceport (1998) — трек 4→5",
+    "track_a": {
+      "artist": "The Thrillseekers",
+      "title": "Synaesthesia (En-Motion Mix)",
+      "bpm": 134,
+      "key": "8A",
+      "key_name": "A minor"
+    },
+    "track_b": {
+      "artist": "Binary Finary",
+      "title": "1998 (Paul van Dyk Remix)",
+      "bpm": 134,
+      "key": "8A",
+      "key_name": "A minor"
+    },
+    "timeline": [
+      { "time": "00:00", "action": "launch", "description": "На 1-ю долю квадрата запуск Трека Б. Bass = -∞, Mid 9h, High 10h, Fader 0%" },
+      { "time": "00:00→00:45", "action": "sneak_in", "bars": 32, "description": "Плавно поднять Fader Б до 70%. Слышен только хэт-рисунок" },
+      { "time": "00:45→01:30", "action": "melodic_overlay", "bars": 32, "description": "Mid Б с 9h→12h. Mid А с 12h→10h. Мелодии переплетаются" },
+      { "time": "01:30", "action": "bass_swap", "bar": 64, "description": "Low А→9h, Low Б→12h. Синхронно. Резкий толчок" },
+      { "time": "01:30→02:15", "action": "fade_out", "description": "Fader А→0, High А выкручен. Трек Б доминирует" },
+      { "time": "02:15", "action": "complete", "description": "Переход завершён. Трек Б выходит на свою яму" }
+    ],
+    "total_duration_seconds": 135,
+    "total_bars": 96
+  },
+
+  "sources": [
+    "The Goa Mix (1994)",
+    "Perfecto Fluoro CD1 (1996)",
+    "Tranceport (1998)",
+    "DJ Skills book",
+    "DJ School: Разные способы сведения"
+  ],
+
+  "requirements": [
+    "Треки должны быть в одной тональности (или +1 Camelot)",
+    "Входящий трек должен иметь интро без бочки (только перкуссия/хэты)",
+    "Уходящий трек должен быть в фазе outro (бочка+бас+фон)",
+    "Движок должен уметь layering, а не crossfade",
+    "Bass Swap — синхронный и резкий, не плавный",
+    "64 такта от запуска до Bass Swap",
+    "Общая длительность сведения: 90–180 секунд"
+  ]
+}

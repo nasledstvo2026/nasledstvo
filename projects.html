@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проекты и задачи — nasledstvo2026.github.io/nasledstvo</title>
+<link rel="stylesheet" href="theme.css?v=20260620">
+<link rel="stylesheet" href="style.css?v=20260620">
+<style>
+  :root {
+    --gantt-bar-h: 22px;
+    --gantt-row-h: 30px;
+    --gantt-left-w: 520px;
+    --gantt-day-w: 36px;
+    --gantt-header-h: 46px;
+  }
+  .gantt-wrap {
+    display: flex;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 12px;
+    background: rgba(10,14,20,.6);
+  }
+  /* LEFT TABLE */
+  .gantt-left {
+    width: var(--gantt-left-w);
+    min-width: var(--gantt-left-w);
+    flex-shrink: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-right: 2px solid rgba(255,255,255,.1);
+    scrollbar-width: none;
+  }
+  .gantt-left::-webkit-scrollbar { display: none; }
+  .gantt-left table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .gantt-left thead { position: sticky; top: 0; z-index: 5; }
+  .gantt-left th {
+    background: rgba(22,27,34,.95);
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding: 6px 8px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .gantt-left td {
+    padding: 4px 8px;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-dim);
+    height: var(--gantt-row-h);
+    vertical-align: middle;
+  }
+  .gantt-left tr.summary-row td { font-weight: 600; color: var(--text); background: rgba(255,255,255,.03); }
+  .gantt-left tr.milestone-row td .task-name { color: var(--orange); }
+  .gantt-left tr.critical-row td .task-name { color: var(--crit); }
+  .gantt-left tr.done-row td { opacity: .5; }
+  .gantt-left td.col-id { width: 30px; text-align: center; color: var(--text-faint); }
+  .gantt-left td.col-name .task-name { display: flex; align-items: center; gap: 4px; }
+  .gantt-left td.col-dur, .gantt-left td.col-start, .gantt-left td.col-finish { font-size: 11px; }
+  .task-indent { display: inline-block; width: 16px; }
+  .task-icon { font-size: 10px; opacity: .7; }
+
+  /* RIGHT TIMELINE */
+  .gantt-right {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+  }
+  .gantt-right svg { display: block; }
+  .gantt-right .gantt-svg-bars { position: absolute; top: 0; left: 0; }
+
+  /* Progress bar */
+  .progress-mini { display: inline-block; width: 40px; height: 6px; background: rgba(255,255,255,.06); border-radius: 3px; overflow: hidden; vertical-align: middle; }
+  .progress-mini-fill { height: 100%; border-radius: 3px; }
+</style>
+</head>
+<body>
+<a href="service.html" class="back">← Назад</a>
+<div class="nav-row">
+  <a href="architecture.html" class="nav-btn green"><span class="icon">🏢</span> Архитектура</a>
+  <a href="tokens.html" class="nav-btn blue"><span class="icon">📊</span> Токены</a>
+</div>
+<div class="hero">
+  <h1 class="page-title">Проекты и задачи</h1>
+  <p class="sub">Диаграмма Ганта · Критический путь · Зависимости</p>
+</div>
+<div class="stats-row" id="stats-row"></div>
+<div class="cards" id="projects-container"></div>
+<div class="footer"><strong>☽ ЛУНТ</strong> · <a href="index.html">nasledstvo2026.github.io/nasledstvo</a><span class="tech" data-openclaw="OpenClaw 2026.6.9" data-llm="deepseek/deepseek-v4-flash"></span></div>
+
+<script>
+// ── Calendar ──
+const HOLIDAYS = new Set(['2026-01-01','2026-01-02','2026-01-03','2026-01-04','2026-01-05','2026-01-06','2026-01-07','2026-01-08','2026-02-23','2026-03-08','2026-03-09','2026-05-01','2026-05-09','2026-05-11','2026-06-12','2026-11-04']);
+const ds = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const isWE = d => { const w=d.getDay(); return w===0||w===6; };
+const isHol = d => HOLIDAYS.has(ds(d));
+const isNW = d => isWE(d)||isHol(d);
+function addWD(d,n) { let c=new Date(d); if(n>0) { while(n>0) { c.setDate(c.getDate()+1); if(!isNW(c)) n--; } } else if(n<0) { while(n<0) { c.setDate(c.getDate()-1); if(!isNW(c)) n++; } } return c; }
+function prevWD(d) { let r=new Date(d); r.setDate(r.getDate()-1); while(isNW(r)) r.setDate(r.getDate()-1); return r; }
+function wdBetween(a,b) { let c=0; const s=new Date(a); s.setHours(0,0,0,0); const e=new Date(b); e.setHours(0,0,0,0); const d=new Date(s); while(d<=e){if(!isNW(d))c++;d.setDate(d.getDate()+1)} return c; }
+function sameDay(a,b) { return new Date(a).toDateString()===new Date(b).toDateString(); }
+function addDays(d,n) { const r=new Date(d); r.setDate(r.getDate()+n); return r; }
+const fmtDate = d => { const dt=new Date(d); return dt.getDate()+'.'+String(dt.getMonth()+1).padStart(2,'0')+'.'+dt.getFullYear(); };
+const fmtShort = d => { const dt=new Date(d); return dt.getDate()+' '+['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'][dt.getMonth()]; };
+const MONTHS_RU = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const DOW_RU = ['вс','пн','вт','ср','чт','пт','сб'];
+
+// ── Scheduling ──
+function scheduleProject(p) {
+  const tasks = p.tasks, idx = {};
+  tasks.forEach(t => idx[t.id] = t);
+  const pStart = new Date(p.startDate); pStart.setHours(0,0,0,0);
+
+  // Topo sort
+  const vis = new Set(), order = [];
+  function visit(id) { if(vis.has(id)) return; vis.add(id); const t=idx[id]; if(t&&t.depends) t.depends.forEach(d=>visit(d.id)); order.push(id); }
+  tasks.forEach(t => visit(t.id));
+
+  // Forward pass — calc start/end
+  for (const id of order) {
+    const t = idx[id];
+    if (t.type==='summary') continue;
+    let earliest = t.startAfter ? new Date(t.startAfter) : new Date(pStart);
+    earliest.setHours(0,0,0,0);
+    if (t.depends && t.depends.length > 0) {
+      for (const dep of t.depends) {
+        const pred = idx[dep.id]; if(!pred||!pred._calcEnd) continue;
+        const lag = dep.lag || 0;
+        let candidate;
+        switch(dep.type||'FS') {
+          case 'FS': candidate = addWD(pred._calcEnd, lag+1); break;
+          case 'SS': candidate = addWD(pred._calcStart||pStart, lag); break;
+          default: candidate = addWD(pred._calcEnd, lag+1);
+        }
+        if (candidate > earliest) earliest = candidate;
+      }
+    }
+    if (earliest < pStart) earliest = new Date(pStart);
+    while (isNW(earliest)) earliest.setDate(earliest.getDate()+1);
+    t._calcStart = new Date(earliest); t._calcStart.setHours(0,0,0,0);
+    if (t.type==='milestone') { t._calcEnd = new Date(t._calcStart); }
+    else { t._calcEnd = addWD(t._calcStart, (t.duration||1)-1); }
+    t._calcEnd.setHours(0,0,0,0);
+  }
+
+  // Summary
+  for (const id of order) {
+    const t = idx[id]; if(t.type!=='summary'||!t.children) continue;
+    let mn=null, mx=null;
+    for (const cid of t.children) { const c=idx[cid]; if(!c||!c._calcStart) continue; if(!mn||c._calcStart<mn) mn=new Date(c._calcStart); if(!mx||c._calcEnd>mx) mx=new Date(c._calcEnd); }
+    if (mn) { t._calcStart=mn; t._calcEnd=mx||mn; t.duration=wdBetween(mn,mx||mn); }
+  }
+
+  // Critical path (backward pass)
+  let pEnd = new Date(pStart);
+  tasks.forEach(t => { if(t._calcEnd && t._calcEnd>pEnd) pEnd=new Date(t._calcEnd); });
+  tasks.forEach(t => {
+    t._isCritical = false;
+    if (t.type==='summary') return;
+    const succs = tasks.filter(s => s.depends && s.depends.some(d=>d.id===t.id));
+    let lf = new Date(pEnd);
+    for (const s of succs) { if(s._calcStart) { const bound=prevWD(s._calcStart); if(bound<lf) lf=new Date(bound); } }
+    t._lf = lf;
+    if (t.type==='milestone') { t._ls = new Date(lf); }
+    else { let ls=new Date(lf); let rem=(t.duration||1)-1; while(rem>0){ls=prevWD(ls);rem--} t._ls=new Date(ls); }
+    t._isCritical = t._calcStart && t._ls && Math.abs(t._calcStart.getTime()-t._ls.getTime())===0;
+  });
+  tasks.forEach(t => { if(t.type==='milestone'&&t._calcEnd&&sameDay(t._calcEnd,pEnd)) t._isCritical=true; });
+}
+
+// ── Project Data ──
+const PROJECTS = [{
+  id:"request-task", name:"Подготовка и отправка запроса", status:"active", owner:"Кирилл", startDate:"2026-06-08",
+  description:"Написание и отправка запроса.",
+  tasks:[
+    {id:"t1", name:"Написать запрос", type:"task", startAfter:"2026-06-08", duration:5, owner:"Кирилл", status:"wip", pct:30, color:"#3b82f6", depends:[]},
+    {id:"t2", name:"Отправить запрос", type:"task", duration:3, owner:"Кирилл", status:"pending", pct:0, color:"#8b5cf6", depends:[{id:"t1",type:"FS",lag:0}]},
+    {id:"m1", name:"Запрос отправлен", type:"milestone", owner:"Кирилл", status:"pending", pct:0, color:"#f59e0b", depends:[{id:"t2",type:"FS",lag:0}]}
+  ]
+}];
+PROJECTS.forEach(p => scheduleProject(p));
+
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+
+// ── Rendering constants ──
+const CW = 36;       // day column width
+const RH = 30;       // row height
+const HDR_H = 46;    // header height (month + day rows)
+const LEFT_W = 520;
+const BAR_H = 20;
+const BAR_R = 4;     // bar border radius
+const MS_SIZE = 18;  // milestone diamond size
+
+function dateToX(d, dates) {
+  for (let i=0; i<dates.length; i++) { if (sameDay(dates[i], d)) return i*CW; }
+  // If not exact match, interpolate
+  for (let i=0; i<dates.length-1; i++) {
+    if (dates[i]<d && dates[i+1]>d) return i*CW + CW/2;
+  }
+  return -1;
+}
+
+function buildTimeline(dates, ordered, project) {
+  const nDates = dates.length;
+  const nTasks = ordered.length;
+  const totalW = nDates * CW;
+  const totalH = HDR_H + nTasks * RH;
+
+  let svg = '';
+
+  // Background stripes for weekends/holidays
+  for (let i=0; i<nDates.length; i++) {
+    const d = dates[i];
+    if (isHol(d)) {
+      svg += `<rect x="${i*CW}" y="${HDR_H}" width="${CW}" height="${nTasks*RH}" fill="rgba(255,144,0,.08)"/>`;
+    } else if (isWE(d)) {
+      svg += `<rect x="${i*CW}" y="${HDR_H}" width="${CW}" height="${nTasks*RH}" fill="rgba(255,144,0,.04)"/>`;
+    }
+  }
+
+  // Horizontal grid lines
+  for (let i=0; i<=nTasks; i++) {
+    const y = HDR_H + i*RH;
+    svg += `<line x1="0" y1="${y}" x2="${totalW}" y2="${y}" stroke="rgba(255,255,255,.04)" stroke-width="1"/>`;
+  }
+
+  // Vertical grid lines (light)
+  for (let i=0; i<=nDates; i++) {
+    svg += `<line x1="${i*CW}" y1="${HDR_H}" x2="${i*CW}" y2="${totalH}" stroke="rgba(255,255,255,.03)" stroke-width="1"/>`;
+  }
+
+  // Header background
+  svg += `<rect x="0" y="0" width="${totalW}" height="${HDR_H}" fill="rgba(22,27,34,.95)"/>`;
+  svg += `<line x1="0" y1="${HDR_H}" x2="${totalW}" y2="${HDR_H}" stroke="rgba(255,255,255,.08)"/>`;
+
+  // Month headers
+  let prevMonth = -1;
+  for (let i=0; i<nDates; i++) {
+    const m = dates[i].getMonth();
+    if (m !== prevMonth) {
+      // Count span
+      let span = 1;
+      for (let j=i+1; j<nDates && dates[j].getMonth()===m; j++) span++;
+      const x = i*CW;
+      const w = span*CW;
+      svg += `<text x="${x+6}" y="16" fill="#8b949e" font-size="11" font-weight="600" font-family="sans-serif">${MONTHS_RU[m]} ${dates[i].getFullYear()}</text>`;
+      svg += `<line x1="${x}" y1="22" x2="${x+w}" y2="22" stroke="rgba(255,255,255,.06)"/>`;
+      prevMonth = m;
+    }
+  }
+
+  // Day headers
+  for (let i=0; i<nDates; i++) {
+    const d = dates[i];
+    const x = i*CW + CW/2;
+    let fill = '#484f58';
+    if (isHol(d)) fill = '#ff9000';
+    else if (isWE(d)) fill = 'rgba(255,144,0,.5)';
+    if (sameDay(d, TODAY)) fill = '#f85149';
+    const label = d.getDate();
+    svg += `<text x="${x}" y="38" fill="${fill}" font-size="10" font-family="sans-serif" text-anchor="middle" ${sameDay(d,TODAY)?'font-weight="800"':''}>${label}</text>`;
+  }
+
+  // Today line
+  const todayX = dateToX(TODAY, dates);
+  if (todayX >= 0) {
+    svg += `<line x1="${todayX+CW/2}" y1="${HDR_H}" x2="${todayX+CW/2}" y2="${totalH}" stroke="#f85149" stroke-width="2" stroke-dasharray="4,3" opacity=".7"/>`;
+  }
+
+  // Bars
+  const idx = {};
+  ordered.forEach((t,i) => idx[t.id] = i);
+
+  for (let ri=0; ri<ordered.length; ri++) {
+    const t = ordered[ri];
+    if (!t._calcStart || !t._calcEnd) continue;
+
+    const si = dateToX(t._calcStart, dates);
+    const ei = dateToX(t._calcEnd, dates);
+    if (si<0 || ei<0) continue;
+
+    const y = HDR_H + ri*RH + (RH - BAR_H)/2;
+
+    if (t.type === 'milestone') {
+      const mx = si + CW/2;
+      const my = HDR_H + ri*RH + RH/2;
+      const s = MS_SIZE/2;
+      const crit = t._isCritical ? ' stroke="#f85149" stroke-width="2"' : '';
+      svg += `<polygon points="${mx},${my-s} ${mx+s},${my} ${mx},${my+s} ${mx-s},${my}" fill="${t.color}"${crit}/>`;
+      // Label
+      svg += `<text x="${mx+s+4}" y="${my+4}" fill="#c9d1d9" font-size="10" font-family="sans-serif">★ ${t.name}</text>`;
+    } else if (t.type === 'summary') {
+      // Summary bar: thin with hooks
+      const bx = si + 2;
+      const bw = (ei - si) + CW - 4;
+      const by = HDR_H + ri*RH + RH/2 - 3;
+      svg += `<rect x="${bx}" y="${by}" width="${bw}" height="6" rx="1" fill="rgba(255,255,255,.25)"/>`;
+      // Down hooks
+      svg += `<polygon points="${bx},${by} ${bx+6},${by} ${bx},${by+8}" fill="rgba(255,255,255,.25)"/>`;
+      svg += `<polygon points="${bx+bw},${by} ${bx+bw-6},${by} ${bx+bw},${by+8}" fill="rgba(255,255,255,.25)"/>`;
+    } else {
+      // Task bar
+      const bx = si + 1;
+      const bw = Math.max(CW/2, (ei - si) + CW - 2);
+      const crit = t._isCritical ? ' stroke="#f85149" stroke-width="2"' : '';
+      const opacity = t.status==='done' ? '.4' : '1';
+
+      // Background bar
+      svg += `<rect x="${bx}" y="${y}" width="${bw}" height="${BAR_H}" rx="${BAR_R}" fill="${t.color}" opacity="${opacity}"${crit}/>`;
+
+      // Progress fill (lighter shade)
+      if (t.pct > 0 && t.pct < 100) {
+        const pw = bw * t.pct / 100;
+        svg += `<rect x="${bx}" y="${y}" width="${pw}" height="${BAR_H}" rx="${BAR_R}" fill="rgba(255,255,255,.2)"/>`;
+        // Clip right side of progress if not full
+        if (pw < bw) {
+          svg += `<rect x="${bx+pw-BAR_R}" y="${y}" width="${BAR_R}" height="${BAR_H}" fill="${t.color}" opacity="${opacity}"/>`;
+        }
+      }
+
+      // Label on bar
+      if (bw > 60) {
+        svg += `<text x="${bx+bw/2}" y="${y+BAR_H/2+4}" fill="white" font-size="10" font-family="sans-serif" text-anchor="middle" font-weight="600">${t.pct>0?t.pct+'%':''}</text>`;
+      }
+    }
+  }
+
+  // Dependency arrows
+  svg += `<defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="rgba(255,255,255,.4)"/></marker></defs>`;
+
+  for (let ri=0; ri<ordered.length; ri++) {
+    const t = ordered[ri];
+    if (!t.depends) continue;
+    for (const dep of t.depends) {
+      const fromIdx = idx[dep.id];
+      if (fromIdx === undefined) continue;
+      const from = ordered[fromIdx];
+      const to = t;
+      if (!from._calcEnd || !to._calcStart) continue;
+
+      const fx = dateToX(from._calcEnd, dates) + CW;
+      const fy = HDR_H + fromIdx*RH + RH/2;
+      const tx = dateToX(to._calcStart, dates);
+      const ty = HDR_H + ri*RH + RH/2;
+
+      const critStroke = (from._isCritical && to._isCritical) ? 'rgba(248,81,73,.5)' : 'rgba(255,255,255,.25)';
+      const midX = fx + (tx - fx) / 2;
+
+      // FS dependency: from end of predecessor to start of successor
+      if (dep.type === 'FS' || !dep.type) {
+        const dy = ty - fy;
+        if (Math.abs(dy) < 2) {
+          svg += `<line x1="${fx}" y1="${fy}" x2="${tx}" y2="${ty}" stroke="${critStroke}" stroke-width="1.5" marker-end="url(#arrowhead)"/>`;
+        } else {
+          svg += `<path d="M${fx},${fy} L${fx+10},${fy} L${fx+10},${ty} L${tx},${ty}" fill="none" stroke="${critStroke}" stroke-width="1.5" marker-end="url(#arrowhead)"/>`;
+        }
+      }
+    }
+  }
+
+  return { svg, totalW, totalH };
+}
+
+function buildLeftTable(ordered) {
+  let html = `<table><thead><tr>
+    <th style="width:30px">№</th>
+    <th style="width:180px">Задача</th>
+    <th style="width:60px">Длит.</th>
+    <th style="width:80px">Начало</th>
+    <th style="width:80px">Конец</th>
+    <th style="width:60px">%</th>
+    <th style="width:50px">Ресурс</th>
+  </tr></thead><tbody>`;
+
+  ordered.forEach((t, i) => {
+    const cls = [];
+    if (t.type==='summary') cls.push('summary-row');
+    if (t.type==='milestone') cls.push('milestone-row');
+    if (t._isCritical) cls.push('critical-row');
+    if (t.status==='done') cls.push('done-row');
+
+    const indent = t.indent ? `<span class="task-indent">${'│ '.repeat(t.indent-1)}└</span>` : '';
+    const icon = '';
+    const dur = t.type==='milestone' ? '—' : (t.duration||0)+'д';
+    const start = t._calcStart ? fmtDate(t._calcStart) : '—';
+    const end = t._calcEnd ? fmtDate(t._calcEnd) : '—';
+
+    const pColor = t.pct>=80?'var(--green)':t.pct>=40?'var(--blue)':'var(--text-faint)';
+
+    html += `<tr class="${cls.join(' ')}">
+      <td class="col-id">${i+1}</td>
+      <td><span class="task-name"><span class="task-icon">${icon}</span>${indent} ${t.name}</span></td>
+      <td class="col-dur">${dur}</td>
+      <td class="col-start">${start}</td>
+      <td class="col-finish">${end}</td>
+      <td><span class="progress-mini"><span class="progress-mini-fill" style="width:${t.pct}%;background:${pColor}"></span></span> ${t.pct}%</td>
+      <td style="font-size:11px">${t.owner||'—'}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>`;
+  return html;
+}
+
+function orderTasks(tasks) {
+  const ordered = [];
+  const placed = new Set();
+  for (const t of tasks) {
+    if (placed.has(t.id)) continue;
+    ordered.push(t); placed.add(t.id);
+    if (t.type==='summary' && t.children) {
+      for (const cid of t.children) {
+        const c = tasks.find(x => x.id===cid);
+        if (c && !placed.has(c.id)) { c.indent = 1; ordered.push(c); placed.add(c.id); }
+      }
+    }
+  }
+  return ordered;
+}
+
+function pColor(p) { return p>=80?'green':p>=40?'blue':p>=20?'orange':'red'; }
+
+function renderStats() {
+  const a = PROJECTS.filter(p=>p.status==='active').length;
+  const w = PROJECTS.filter(p=>p.status==='warning').length;
+  const o = PROJECTS.filter(p=>p.status==='overdue').length;
+  const d = PROJECTS.filter(p=>p.status==='done').length;
+  document.getElementById('stats-row').innerHTML = `
+    <div class="stat-box green"><div class="num">${a}</div><div class="lbl">В работе</div></div>
+    <div class="stat-box orange"><div class="num">${w}</div><div class="lbl">С отклонениями</div></div>
+    <div class="stat-box red"><div class="num">${o}</div><div class="lbl">Просрочено</div></div>
+    <div class="stat-box blue"><div class="num">${d}</div><div class="lbl">Завершено</div></div>`;
+}
+
+function renderProjects() {
+  const container = document.getElementById('projects-container');
+  if (!PROJECTS.length) {
+    container.innerHTML = `<div class="empty"><div class="icon">📐</div><h3>Пока нет проектов</h3><p>Скажи Лунту задачи, сроки и исполнителей.</p></div>`;
+    return;
+  }
+
+  let html = '';
+  for (const p of PROJECTS) {
+    const sl = {active:'В работе', warning:'Отклонение', overdue:'Просрочен', done:'Завершён'};
+    let dl = new Date(p.startDate);
+    p.tasks.forEach(t => { if(t._calcEnd && t._calcEnd>dl) dl=new Date(t._calcEnd); });
+    const leafs = p.tasks.filter(t=>t.type!=='summary');
+    const fact = leafs.length ? Math.round(leafs.reduce((s,t)=>s+t.pct,0)/leafs.length) : 0;
+
+    // Date range for timeline
+    const ordered = orderTasks(p.tasks);
+    let minD = new Date(p.startDate), maxD = new Date(p.startDate);
+    p.tasks.forEach(t => { if(t._calcStart&&t._calcStart<minD) minD=new Date(t._calcStart); if(t._calcEnd&&t._calcEnd>maxD) maxD=new Date(t._calcEnd); });
+    const start = addDays(minD, -2);
+    const end = addDays(maxD, 5);
+    const days = Math.ceil((end-start)/864e5)+1;
+    const dates = [];
+    for (let i=0; i<days; i++) dates.push(addDays(start, i));
+
+    const {svg: timelineSvg, totalW, totalH} = buildTimeline(dates, ordered, p);
+    const leftTable = buildLeftTable(ordered);
+
+    // Scroll sync script
+    const syncId = `sync-${p.id}`;
+
+    html += `<div class="card">
+      <div class="card-header">
+        <span class="card-tag ${p.status}">${sl[p.status]||p.status}</span>
+        <h2>${p.name}</h2>
+        <p class="desc">${p.description}</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar-bg"><div class="progress-bar-fill ${pColor(fact)}" style="width:${fact}%"></div></div>
+        <div class="progress-label"><span>Прогресс: ${fact}%</span><span>${fmtShort(p.startDate)} — ${fmtShort(dl)}</span></div>
+      </div>
+      <div class="gantt-wrap" id="${syncId}">
+        <div class="gantt-left" id="${syncId}-left">${leftTable}</div>
+        <div class="gantt-right" id="${syncId}-right">
+          <svg width="${totalW}" height="${totalH}" xmlns="http://www.w3.org/2000/svg">${timelineSvg}</svg>
+        </div>
+      </div>
+      <div class="gantt-hint" style="text-align:center;font-size:10px;color:#484f58;padding:6px 0">← Скролл по таймлайну →</div>
+      <div class="card-footer">
+        <span class="owner">👤 ${p.owner}</span>
+        <span class="dates">Финиш: ${fmtDate(dl)}</span>
+      </div>
+    </div>`;
+  }
+
+  container.innerHTML = html;
+
+  // Sync vertical scroll between left table and right SVG
+  for (const p of PROJECTS) {
+    const syncId = `sync-${p.id}`;
+    const left = document.getElementById(`${syncId}-left`);
+    const right = document.getElementById(`${syncId}-right`);
+    if (left && right) {
+      left.addEventListener('scroll', () => { right.scrollTop = left.scrollTop; });
+      right.addEventListener('scroll', () => { left.scrollTop = right.scrollTop; });
+    }
+  }
+}
+
+renderStats();
+renderProjects();
+</script>
+</body>
+</html>

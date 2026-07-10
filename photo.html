@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Фото — AI DJ Style</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    :root {
+      --bg-deep: #070b12;
+      --bg-card: rgba(14, 22, 36, 0.75);
+      --border-subtle: rgba(0, 200, 255, 0.08);
+      --border-glow: rgba(0, 200, 255, 0.25);
+      --cyan: #00d4ff;
+      --cyan-dim: rgba(0, 212, 255, 0.15);
+      --magenta: #f0f;
+      --purple: #a855f7;
+      --purple-dim: rgba(168, 85, 247, 0.15);
+      --pink: #ff3bc3;
+      --text: #eaf0f6;
+      --text-dim: #8892a0;
+      --text-faint: #4a5464;
+      --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);
+      --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.3);
+      --glow-purple: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .bg-glow {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(0, 212, 255, 0.06), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate;
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      right: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(168, 85, 247, 0.05), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes glow-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 5%) scale(1.1); }
+    }
+
+    .particles {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particle-float 8s infinite;
+      box-shadow: 0 0 6px var(--cyan);
+    }
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+    .particle:nth-child(2) { left: 25%; animation-delay: 1.2s; animation-duration: 9s; width: 2px; height: 2px; }
+    .particle:nth-child(3) { left: 40%; animation-delay: 2.5s; animation-duration: 6s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(4) { left: 55%; animation-delay: 0.8s; animation-duration: 8s; width: 4px; height: 4px; }
+    .particle:nth-child(5) { left: 70%; animation-delay: 3.1s; animation-duration: 7.5s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(6) { left: 85%; animation-delay: 1.8s; animation-duration: 9.5s; width: 2px; height: 2px; }
+    .particle:nth-child(7) { left: 50%; animation-delay: 4.2s; animation-duration: 6.5s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(8) { left: 15%; animation-delay: 5.0s; animation-duration: 8.2s; width: 3px; height: 3px; }
+    .particle:nth-child(9) { left: 65%; animation-delay: 3.8s; animation-duration: 7.2s; }
+    .particle:nth-child(10) { left: 35%; animation-delay: 6.0s; animation-duration: 8.8s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(11) { left: 5%; animation-delay: 0.5s; animation-duration: 9.2s; width: 2px; height: 2px; }
+    .particle:nth-child(12) { left: 75%; animation-delay: 2.2s; animation-duration: 7.8s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(13) { left: 90%; animation-delay: 4.8s; animation-duration: 6.2s; }
+    .particle:nth-child(14) { left: 30%; animation-delay: 5.5s; animation-duration: 8.5s; width: 3px; height: 3px; }
+    .particle:nth-child(15) { left: 45%; animation-delay: 1.5s; animation-duration: 7.0s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+
+    @keyframes particle-float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .back::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .back:hover {
+      color: var(--text);
+      border-color: transparent;
+      box-shadow: var(--glow-cyan);
+      transform: translateX(-2px);
+    }
+    .back:hover::before { opacity: 1; }
+
+    .hero {
+      text-align: center;
+      padding: 12px 24px 8px;
+      position: relative;
+    }
+
+    /* Кнопка обновления */
+    .btn-sync {
+      display: block;
+      margin: 24px auto 0;
+      padding: 12px 32px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
+      overflow: hidden;
+    }
+    .btn-sync::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--purple));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .btn-sync:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(0, 212, 255, 0.4);
+    }
+    .btn-sync:hover::before { opacity: 1; }
+    .btn-sync:active {
+      transform: translateY(0);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
+    }
+    .btn-sync:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-sync .icon {
+      display: inline-block;
+      transition: transform 0.6s ease;
+    }
+    .btn-sync.spinning .icon {
+      animation: spin 1.2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Статус-бар */
+    .sync-status {
+      text-align: center;
+      margin: 12px auto 0;
+      font-size: 12px;
+      color: var(--text-dim);
+      min-height: 18px;
+      transition: all 0.3s ease;
+    }
+    .sync-status.success { color: #4ade80; }
+    .sync-status.error { color: #f87171; }
+
+    .photo-grid {
+      max-width: 800px;
+      margin: 32px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .photo-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 12px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .photo-card:hover {
+      border-color: transparent;
+      box-shadow: var(--glow-cyan), inset 0 0 40px rgba(0, 212, 255, 0.03);
+      transform: translateY(-2px);
+    }
+    .photo-card:hover::before { opacity: 1; }
+
+
+
+    .photo-card img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      margin-top: 48px;
+      font-size: 12px;
+      color: var(--text-faint);
+      position: relative;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+    }
+    .footer strong { color: var(--text-dim); }
+
+    @media (max-width: 640px) {
+      .container { padding: 16px 16px 32px; }
+      .hero { padding: 24px 16px 24px; }
+      .hero h1 { font-size: 26px; }
+      .photo-grid { gap: 20px; }
+      .photo-card { padding: 8px; }
+
+      .btn-sync { padding: 10px 24px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="particles">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  </div>
+
+<div class="container">
+
+  <a class="back" href="index.html">← Назад</a>
+
+  <div class="hero">
+    &nbsp;
+  </div>
+
+
+
+  <!-- Кнопка синхронизации -->
+  <button class="btn-sync" onclick="syncPhotos()" id="syncBtn">
+    <span class="icon">⟳</span>&nbsp; Обновить
+  </button>
+  <div class="sync-status" id="syncStatus"></div>
+
+  <div class="photo-grid">
+    <div class="photo-card">
+      <img src="photo_files/IMG_0757.webp" alt="IMG_0757">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_0786.webp" alt="IMG_0786">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_0790.webp" alt="IMG_0790">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_0844.webp" alt="IMG_0844">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_0848.webp" alt="IMG_0848">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1284.webp" alt="IMG_1284">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1286.webp" alt="IMG_1286">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1287.webp" alt="IMG_1287">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1294.webp" alt="IMG_1294">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1295.webp" alt="IMG_1295">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1296.webp" alt="IMG_1296">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1306.webp" alt="IMG_1306">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1310.webp" alt="IMG_1310">
+    </div>
+    <div class="photo-card">
+      <img src="photo_files/IMG_1323.webp" alt="IMG_1323">
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>☽ ЛУНТ</strong> · nasledstvo2026.github.io · 2026
+  </div>
+
+</div>
+
+<script>
+// Photo Sync Button
+// HTTPS через Tailscale Funnel
+const SYNC_URL = 'https://vm-f13581.tail31d188.ts.net/sync';
+
+let syncing = false;
+
+function syncPhotos() {
+  if (syncing) return;
+  syncing = true;
+
+  const btn = document.getElementById('syncBtn');
+  const status = document.getElementById('syncStatus');
+
+  btn.disabled = true;
+  btn.classList.add('spinning');
+  status.textContent = 'Синхронизирую...';
+  status.className = 'sync-status';
+
+  // Открываем в новом окне (HTTPS, без mixed-content проблем)
+  const win = window.open(SYNC_URL, 'photoSync', 'width=520,height=480,menubar=no,toolbar=no,location=no');
+
+  if (!win) {
+    status.textContent = '☝️ Разреши всплывающие окна для этого сайта';
+    status.className = 'sync-status error';
+    syncing = false;
+    btn.disabled = false;
+    btn.classList.remove('spinning');
+    return;
+  }
+
+  // Раз в 3 секунды проверяем статус (если окно не закрылось)
+  const pollTimer = setInterval(async () => {
+    try {
+      if (win.closed) {
+        clearInterval(pollTimer);
+        status.textContent = '✅ Готово! Обнови страницу';
+        status.className = 'sync-status success';
+        syncing = false;
+        btn.disabled = false;
+        btn.classList.remove('spinning');
+        return;
+      }
+      // Пробуем дёрнуть статус напрямую
+      const resp = await fetch(SYNC_URL.replace('/sync', '/status'));
+      const data = await resp.json();
+      if (!data.running) {
+        clearInterval(pollTimer);
+        const n = data.last_result?.new || 0;
+        if (n > 0) {
+          status.textContent = '✅ Добавлено ' + n + ' фото. Обнови страницу';
+        } else {
+          status.textContent = '✅ Новых фото нет';
+        }
+        status.className = 'sync-status success';
+        syncing = false;
+        btn.disabled = false;
+        btn.classList.remove('spinning');
+      }
+    } catch(e) {
+      // Игнорируем ошибки при опросе
+    }
+  }, 3000);
+
+  // Таймаут опроса — 30 секунд
+  setTimeout(() => {
+    clearInterval(pollTimer);
+    if (syncing) {
+      status.textContent = '✅ Задача запущена. Проверь окно синхронизации';
+      status.className = 'sync-status success';
+      syncing = false;
+      btn.disabled = false;
+      btn.classList.remove('spinning');
+    }
+  }, 35000);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Цифровые продукты — nasledstvo2026.github.io</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <h1 class="hero-title-serif">ЦИФРОВЫЕ ПРОДУКТЫ</h1>
+  </div>
+
+  <div class="cards" style="max-width:900px;margin:0 auto;gap:150px;">
+
+    <!-- Кластер Наследство -->
+    <a href="inheritance.html">
+      <div class="card blue bg-image">
+        <div class="card-header">
+          <div class="card-header-row">
+            <h2>Наследство</h2>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Команда Социальный консультант -->
+    <a href="social.html">
+      <div class="card green bg-image">
+        <div class="card-header">
+          <div class="card-header-row">
+            <h2>Социальный консультант</h2>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Сервисы -->
+    <a href="service.html">
+      <div class="card cyan bg-image">
+      </div>
+    </a>
+
+    <!-- AI DJ -->
+    <a href="https://nasledstvo2026.github.io/nasledstvo/aidj.html">
+      <div class="card purple bg-image">
+      </div>
+    </a>
+
+    <!-- Фото -->
+    <a href="https://nasledstvo2026.github.io/nasledstvo/photo.html">
+      <div class="card pink bg-image">
+      </div>
+    </a>
+
+    <!-- MedHelp -->
+    <a href="medhelp.html">
+      <div class="card green bg-image medhelp">
+        <div class="card-header">
+          <div class="card-header-row">
+            <h2>MedHelp</h2>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Создать БТ -->
+    <a href="bt.html">
+      <div class="card orange bg-image">
+        <div class="card-header">
+          <div class="card-header-row">
+            <h2>Создать БТ</h2>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- AURA -->
+    <div class="card orange aura bg-image" onclick="openAuraModal()">
+      <div class="card-header">
+        <div class="card-header-row">
+          <h2>AURA</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- 44-ФЗ / 223-ФЗ → ФармТендер -->
+    <div class="card purple aura bg-image">
+      <a href="zakupki.html">
+        <div class="card-header">
+          <div class="card-header-row">
+            <h2>ФармТендер</h2>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- OSINT: удалена 04.07 -->
+
+  </div>
+
+  <div class="footer">
+    <span class="tech" data-openclaw="OpenClaw 2026.6.9" data-llm="deepseek/deepseek-v4-flash" data-updated="1782924355"></span>
+  </div>
+
+</div>
+<script>
+function openAuraModal() {
+  // Create overlay
+  var overlay = document.createElement('div');
+  overlay.id = 'auraOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;';
+  overlay.onclick = function(e) {
+    if (e.target === e.currentTarget) {
+      document.body.removeChild(overlay);
+      document.body.style.overflow = '';
+    }
+  };
+
+  // Create modal
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:linear-gradient(145deg,rgba(30,30,50,0.95),rgba(10,10,20,0.98));border:1.5px solid rgba(255,144,0,0.4);border-radius:20px;padding:48px 40px 40px;max-width:480px;width:90%;text-align:center;box-shadow:0 0 60px rgba(255,144,0,0.15);position:relative;';
+
+  // Title
+  var title = document.createElement('div');
+  title.textContent = 'A U R A';
+  title.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:42px;font-weight:700;letter-spacing:14px;text-transform:uppercase;color:#ff9000;text-shadow:0 0 30px rgba(255,144,0,0.3);margin-bottom:24px;';
+
+  // Subtitle
+  var sub = document.createElement('div');
+  sub.textContent = 'Девочки не плачут. Девочки выбирают, кто сегодня платит.';
+  sub.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:20px;';
+
+  // Body
+  var body = document.createElement('div');
+  body.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;';
+  body.innerHTML = '🔒 Доступ в систему строго ограничен. Пожалуйста, введи свой персональный';
+
+  // VIP PASS label
+  var passLabel = document.createElement('div');
+  passLabel.textContent = 'VIP PASS';
+  passLabel.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:16px;font-weight:700;color:#ff9000;letter-spacing:6px;text-transform:uppercase;margin-top:16px;margin-bottom:14px;text-shadow:0 0 20px rgba(255,144,0,0.25);';
+
+  // Input
+  var input = document.createElement('input');
+  input.type = 'text';
+  input.maxLength = 5;
+  input.placeholder = '•••••';
+  input.style.cssText = 'background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,144,0,0.3);border-radius:10px;padding:10px 14px;font-family:Georgia,serif;font-size:16px;color:#fff;text-align:center;letter-spacing:6px;outline:none;width:200px;transition:border-color .2s;';
+  input.onfocus = function() { this.style.borderColor = 'rgba(255,144,0,0.7)'; };
+  input.onblur = function() { this.style.borderColor = 'rgba(255,144,0,0.3)'; };
+  input.oninput = function() {
+    if (this.value.length === 5) {
+      // Hide input, show message
+      passLabel.style.display = 'none';
+      this.style.display = 'none';
+      var result = document.createElement('div');
+      result.textContent = 'Вход закрыт. Найдите свой VIP PASS';
+      result.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:14px;color:rgba(255,100,100,0.8);line-height:1.6;margin-top:12px;padding:16px;border:1px solid rgba(255,100,100,0.25);border-radius:10px;background:rgba(255,50,50,0.08);';
+      modal.appendChild(result);
+    }
+  };
+
+  modal.appendChild(title);
+  modal.appendChild(sub);
+  modal.appendChild(body);
+  modal.appendChild(passLabel);
+  modal.appendChild(input);
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+}
+</script>
+
+</body>
+</html>
+

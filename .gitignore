@@ -1,0 +1,27 @@
+*.pptx
+*.pdf
+*.tar.gz
+*.docx
+__pycache__/
+node_modules/
+.env*
+.openclaw/
+.clawhub/
+backup/full/
+backup/incremental/
+myenv/
+venv/
+.DS_Store
+memory/
+ssl/
+aidj/sets/
+aidj/static/
+aidj/*.py
+aidj/__pycache__/
+.env.timeweb
+scripts/aidj-nginx.conf
+aidj/fantazia-tracks/
+aidj/Paul *
+scripts/analyze-mix.py
+scripts/dropbox-get-*.py
+*.mp3

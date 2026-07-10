@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>44-ФЗ / 223-ФЗ — nasledstvo2026.github.io</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero-subtitle {
+      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .law-section {
+      margin-top: 40px;
+    }
+    .law-section h2 {
+      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      font-size: 20px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    .law-section .item {
+      background: rgba(22,27,34,0.6);
+      border: 1px solid rgba(33,38,45,0.8);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .law-section .item .title {
+      font-size: 15px;
+      color: #58a6ff;
+      margin-bottom: 6px;
+    }
+    .law-section .item .meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 6px;
+    }
+    .law-section .item .body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+    .changes-list {
+      list-style: none;
+      padding: 0;
+    }
+    .changes-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(33,38,45,0.6);
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+    .changes-list li:last-child {
+      border-bottom: none;
+    }
+    .changes-list .date {
+      color: rgba(255,255,255,0.4);
+      font-size: 12px;
+      display: inline-block;
+      min-width: 80px;
+    }
+    .changes-list .tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-left: 8px;
+    }
+    .tag-ok { background: rgba(46,160,67,0.15); color: #3fb950; }
+    .tag-stale { background: rgba(210,153,34,0.15); color: #d29922; }
+
+    /* Живая таблица закупок */
+    .purchases-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .purchases-table th {
+      text-align: left;
+      padding: 10px 8px;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .purchases-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(33,38,45,0.6);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+    .purchases-table td.obj {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .purchases-table tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .law-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .law-badge.fz44 { background: rgba(88,166,255,0.15); color: #58a6ff; }
+    .law-badge.fz223 { background: rgba(188,140,255,0.15); color: #bc8cff; }
+    .status-tag {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .purchases-meta {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+    .load-error {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-faint);
+    }
+    @media (max-width: 768px) {
+      .purchases-table { font-size: 12px; }
+      .purchases-table td.obj { max-width: 120px; }
+      .purchases-table th:nth-child(4),
+      .purchases-table td:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="back">← Назад</a>
+
+<div class="container">
+
+  <h1 style="font-size:38px;font-weight:800;letter-spacing:-1px;margin:0 0 16px 4px;padding:0;color:transparent;background:linear-gradient(90deg,#58a6ff,#bc8cff,#ff9000);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;">ФармТендер</h1>
+
+  <p style="text-align:center;margin:0 0 12px;color:var(--text-dim);font-size:16px;">44-ФЗ / 223-ФЗ. Лекарственные препараты и медицинские изделия</p>
+
+  <!-- ═══ ПЛАШКА-ССЫЛКА НА ФАРМТЕНДЕРОЛОГ ═══ -->
+  <div class="cards" style="padding: 0 0 24px; max-width: 100%;">
+    <a href="pharm-tenderolog-product.html" style="grid-column: 1 / -1;">
+      <div class="card purple aura" style="margin-bottom: 0; min-height: 50px; display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center;">
+          <h2 style="font-size: 14px; margin-bottom: 0; text-transform: uppercase; letter-spacing: 2px;">О продукте</h2>
+        </div>
+      </div>
+    </a>
+    <a href="pharm-tenderolog-guide.html" style="grid-column: 1 / -1;">
+      <div class="card purple aura" style="margin-bottom: 0; min-height: 50px; display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center;">
+          <h2 style="font-size: 14px; margin-bottom: 0; text-transform: uppercase; letter-spacing: 2px;">Как задавать вопросы ассистенту</h2>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div style="text-align:center;margin-bottom:24px;">
+    <img src="zakupki-product.jpg" alt="ФармТендер" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
+  </div>
+
+  <div class="hero" style="text-align:center;">
+    <h1 class="hero-title-serif">АНАЛИЗ ИЗМЕНЕНИЙ</h1>
+  </div>
+
+
+
+
+
+  <!-- ═══ РЕЗУЛЬТАТ ПОСЛЕДНЕГО ЗАПУСКА ═══ -->
+  <div class="section law-section" id="result-section" style="display:none;">
+    <h2 style="text-align:center;">Результат последнего запуска</h2>
+    <div class="item" id="result-body">
+      <div class="title" id="result-title">—</div>
+      <div class="meta" id="result-meta">—</div>
+      <div class="body" id="result-text">—</div>
+    </div>
+  </div>
+
+  <!-- ═══ ЖИВЫЕ ЗАКУПКИ С ЕИС ═══ -->
+  <div class="section law-section" id="purchases-section">
+    <h2 style="text-align:center;">📋 Активные закупки (лекарства / медизделия)</h2>
+    <div class="purchases-meta" id="purchases-meta">Загрузка данных…</div>
+    <div style="font-size:11px;color:var(--text-faint);margin-bottom:12px;">Показаны закупки со статусом «Подача заявок» и «Работа комиссии» · Источник: <a href="https://zakupki.gov.ru" target="_blank" style="color:var(--blue);">zakupki.gov.ru</a> · Данные информационного характера</div>
+    <div style="overflow-x:auto;">
+      <table class="purchases-table" id="purchases-table">
+        <thead>
+          <tr>
+            <th>Закон</th>
+            <th>Номер / Статус</th>
+            <th class="obj">Объект закупки</th>
+            <th>Заказчик</th>
+            <th>Цена</th>
+            <th>Размещено</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="purchases-tbody">
+          <tr><td colspan="7" class="load-error">⏳ Загрузка…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Загрузка сводки последнего запуска
+  fetch('zakupki-result.json?t=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(data => {
+      const section = document.getElementById('result-section');
+      section.style.display = 'block';
+      document.getElementById('result-title').textContent = data.title || 'Обновление базы знаний';
+      document.getElementById('result-meta').textContent = data.meta || '';
+      document.getElementById('result-text').innerHTML = (data.text || '').replace(/\n/g, '<br>');
+    })
+    .catch(() => {});
+
+  // Загрузка живых закупок
+  fetch('zakupki-purchases.json?t=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(data => {
+      const meta = data.meta || {};
+      const purchases = data.purchases || [];
+      document.getElementById('purchases-meta').innerHTML =
+        'Обновлено: <strong>' + (meta.updated || '—') + '</strong>' +
+        ' · Всего в системе: <strong>' + (meta.total_display || '—') + '</strong>' +
+        ' · Показано: <strong>' + purchases.length + '</strong>';
+
+      const tbody = document.getElementById('purchases-tbody');
+      if (purchases.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="load-error">Нет данных</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = purchases.map(p => {
+        const lawClass = p.law === '223-ФЗ' ? 'fz223' : 'fz44';
+        const price = p.price && p.price !== '?' ? p.price : '—';
+        const customer = p.customer && p.customer !== '?' ? p.customer.substring(0, 80) + '…' : '—';
+        const obj = p.object && p.object !== '?' ? p.object.substring(0, 120) : '—';
+        const url = p.url && p.url.startsWith('http') ? p.url : '#';
+        const target = url !== '#' ? ' target="_blank"' : '';
+        const num = p.number || '';
+        return '<tr>' +
+          '<td><span class="law-badge ' + lawClass + '">' + p.law + '</span></td>' +
+          '<td><a href="' + url + '"' + target + ' style="color:var(--text);text-decoration:none;"><strong>' + num + '</strong></a><br><span class="status-tag">' + p.status + '</span></td>' +
+          '<td class="obj">' + obj + '</td>' +
+          '<td style="font-size:12px;color:var(--text-dim);">' + customer + '</td>' +
+          '<td style="white-space:nowrap;text-align:right;">' + price + '</td>' +
+          '<td style="white-space:nowrap;font-size:12px;color:var(--text-faint);">' + (p.placed || '—') + '</td>' +
+          '<td><a href="#" onclick="createDoc(event,\'' + num + '\')" style="font-size:12px;color:var(--blue);white-space:nowrap;text-decoration:none;">📄 Создать</a></td>' +
+          '</tr>';
+      }).join('');
+    })
+    .catch(err => {
+      document.getElementById('purchases-meta').textContent = '❌ Не удалось загрузить данные';
+      document.getElementById('purchases-tbody').innerHTML =
+        '<tr><td colspan="7" class="load-error">❌ Ошибка загрузки. Данные появятся после первого запуска парсера.</td></tr>';
+    });
+  // Копирование номера закупки в Telegram-запрос
+  function createDoc(event, number) {
+    event.preventDefault();
+    const text = '📄 Подготовь документ по закупке №' + number;
+    navigator.clipboard.writeText(text).then(() => {
+      // Убираем все остальные toasts
+      document.querySelectorAll('.copy-toast').forEach(t => t.remove());
+      const toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.innerHTML = '✅ Скопировано в буфер. Вставьте в Telegram: <strong style="color:var(--text);">' + text + '</strong>';
+      toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--green);border-radius:8px;padding:12px 20px;color:var(--green);font-size:14px;z-index:100;max-width:90%;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);line-height:1.5;';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }).catch(() => {
+      alert('Скопируйте вручную: ' + text);
+    });
+  }
+</script>
+
+
+
+</body>
+</html>

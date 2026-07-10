@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI DJ — Стили сведения</title>
+  <style>
+    /* ═══════════════════════════════════════════════
+       AI DJ — Futuristic Neon Theme
+       ═══════════════════════════════════════════════ */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    :root {
+      --bg-deep: #070b12;
+      --bg-card: rgba(14, 22, 36, 0.75);
+      --border-subtle: rgba(0, 200, 255, 0.08);
+      --border-glow: rgba(0, 200, 255, 0.25);
+      --cyan: #00d4ff;
+      --cyan-dim: rgba(0, 212, 255, 0.15);
+      --magenta: #f0f;
+      --purple: #a855f7;
+      --purple-dim: rgba(168, 85, 247, 0.15);
+      --pink: #ff3bc3;
+      --text: #eaf0f6;
+      --text-dim: #8892a0;
+      --text-faint: #4a5464;
+      --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);
+      --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.3);
+      --glow-purple: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ─── Animated Background ─── */
+    .bg-grid {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .bg-glow {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .bg-glow::before {
+      content: ''; position: absolute; top: -30%; left: -10%; width: 60%; height: 80%;
+      background: radial-gradient(ellipse, rgba(0, 212, 255, 0.06), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate;
+    }
+    .bg-glow::after {
+      content: ''; position: absolute; bottom: -20%; right: -10%; width: 60%; height: 80%;
+      background: radial-gradient(ellipse, rgba(168, 85, 247, 0.05), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes glow-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 5%) scale(1.1); }
+    }
+
+    .particles {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1; overflow: hidden;
+    }
+    .particle {
+      position: absolute; width: 3px; height: 3px;
+      background: var(--cyan); border-radius: 50%; opacity: 0;
+      animation: particle-float 8s infinite;
+      box-shadow: 0 0 6px var(--cyan);
+    }
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+    .particle:nth-child(2) { left: 25%; animation-delay: 1.2s; animation-duration: 9s; width: 2px; height: 2px; }
+    .particle:nth-child(3) { left: 40%; animation-delay: 2.5s; animation-duration: 6s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(4) { left: 55%; animation-delay: 0.8s; animation-duration: 8s; width: 4px; height: 4px; }
+    .particle:nth-child(5) { left: 70%; animation-delay: 3.1s; animation-duration: 7.5s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(6) { left: 85%; animation-delay: 1.8s; animation-duration: 9.5s; width: 2px; height: 2px; }
+    .particle:nth-child(7) { left: 50%; animation-delay: 4.2s; animation-duration: 6.5s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(8) { left: 15%; animation-delay: 5.0s; animation-duration: 8.2s; width: 3px; height: 3px; }
+    .particle:nth-child(9) { left: 65%; animation-delay: 3.8s; animation-duration: 7.2s; }
+    .particle:nth-child(10) { left: 35%; animation-delay: 6.0s; animation-duration: 8.8s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    .particle:nth-child(11) { left: 5%; animation-delay: 0.5s; animation-duration: 9.2s; width: 2px; height: 2px; }
+    .particle:nth-child(12) { left: 75%; animation-delay: 2.2s; animation-duration: 7.8s; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+    .particle:nth-child(13) { left: 90%; animation-delay: 4.8s; animation-duration: 6.2s; }
+    .particle:nth-child(14) { left: 30%; animation-delay: 5.5s; animation-duration: 8.5s; width: 3px; height: 3px; }
+    .particle:nth-child(15) { left: 45%; animation-delay: 1.5s; animation-duration: 7.0s; background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+    @keyframes particle-float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    .container {
+      position: relative; z-index: 2;
+      max-width: 960px; margin: 0 auto;
+      padding: 24px 24px 48px;
+    }
+
+    .back {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--text-dim); font-size: 13px; font-weight: 500;
+      margin-bottom: 24px; padding: 8px 18px; border-radius: 10px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.3s ease; text-decoration: none;
+      position: relative; overflow: hidden;
+    }
+    .back::before {
+      content: ''; position: absolute; inset: -1px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), transparent, var(--purple));
+      opacity: 0; transition: opacity 0.3s ease; z-index: -1;
+    }
+    .back:hover { color: var(--text); border-color: transparent; box-shadow: var(--glow-cyan); transform: translateX(-2px); }
+    .back:hover::before { opacity: 1; }
+
+    .hero { text-align: center; padding: 32px 24px 28px; position: relative; }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
+      border-radius: 2px;
+    }
+    .hero .title {
+      font-size: 36px; font-weight: 900; letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 4px;
+    }
+    .hero .subtitle {
+      font-size: 13px; color: var(--text-dim); font-weight: 400;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px;
+    }
+    .hero .meta { font-size: 13px; color: var(--text-faint); margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
+
+    /* ─── Preset cards ─── */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .preset-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px) saturate(1.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .preset-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 16px; padding: 1px;
+      background: linear-gradient(135deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    }
+    .preset-card:hover { border-color: transparent; box-shadow: var(--glow-cyan), inset 0 0 40px rgba(0,212,255,0.03); transform: translateY(-2px); }
+    .preset-card:hover::before { opacity: 1; }
+
+    .preset-card.dj-carl { border-left: 3px solid #ff6b35; }
+    .preset-card.dj-hawtin { border-left: 3px solid #888; }
+    .preset-card.dj-guetta { border-left: 3px solid #ffd700; }
+    .preset-card.dj-garnier { border-left: 3px solid #e63946; }
+    .preset-card.dj-tenaglia { border-left: 3px solid #7209b7; }
+    .preset-card.dj-oakenfold { border-left: 3px solid #00b894; }
+    .preset-card.dj-petetong { border-left: 3px solid #0984e3; }
+    .preset-card.dj-djlist { border-left: 3px solid #e17055; }
+    .preset-card.dj-default { border-left: 3px solid var(--cyan); }
+
+    .preset-card-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+    }
+    .preset-card-avatar {
+      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800; color: #fff;
+    }
+    .preset-card-avatar.cc { background: linear-gradient(135deg, #ff6b35, #f7931e); }
+    .preset-card-avatar.rh { background: linear-gradient(135deg, #555, #999); }
+    .preset-card-avatar.dg { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #333; }
+    .preset-card-avatar.lg { background: linear-gradient(135deg, #e63946, #c1121f); }
+    .preset-card-avatar.dt { background: linear-gradient(135deg, #7209b7, #560bad); }
+    .preset-card-avatar.po { background: linear-gradient(135deg, #00b894, #55efc4); }
+    .preset-card-avatar.pt { background: linear-gradient(135deg, #0984e3, #74b9ff); }
+    .preset-card-avatar.dl { background: linear-gradient(135deg, #e17055, #fab1a0); }
+    .preset-card-avatar.def { background: linear-gradient(135deg, var(--cyan), var(--purple)); }
+
+    .preset-card-title {
+      font-weight: 700; font-size: 1.05em; color: var(--text);
+    }
+    .preset-card-genre {
+      font-size: 0.78em; color: var(--text-faint); font-weight: 400;
+    }
+
+    .preset-card-body { color: var(--text-dim); font-size: 0.85em; line-height: 1.6; margin-bottom: 12px; }
+
+    .preset-params {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+    }
+    .preset-param {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle);
+      border-radius: 6px; padding: 3px 8px; font-size: 0.75em; color: var(--text-faint);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .preset-param strong { color: var(--cyan); font-weight: 600; }
+
+    .status-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.72em; font-weight: 600; margin-top: 8px;
+    }
+    .status-badge.research {
+      background: rgba(88, 166, 255, 0.15); color: #58a6ff; border: 1px solid rgba(88, 166, 255, 0.2);
+    }
+    .status-badge.draft {
+      background: rgba(200, 200, 100, 0.15); color: #d4d46a; border: 1px solid rgba(200, 200, 100, 0.2);
+    }
+    .status-badge.ready {
+      background: rgba(63, 185, 80, 0.15); color: #3fb950; border: 1px solid rgba(63, 185, 80, 0.2);
+    }
+
+    /* ─── Legend ─── */
+    .legend {
+      margin-top: 32px; font-size: 0.82em; color: var(--text-faint);
+      line-height: 1.7; text-align: center;
+    }
+    .legend code { background: rgba(14,22,36,0.8); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+
+    .footer {
+      text-align: center; padding: 32px 24px; margin-top: 48px;
+      font-size: 12px; color: var(--text-faint); position: relative;
+    }
+    .footer::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 60%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 16px; }
+      .hero .title { font-size: 26px; }
+      .preset-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Add-to-aidj link style ─── */
+    .action-hint {
+      margin-top: 24px; text-align: center;
+    }
+    .action-hint a {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--text-dim); text-decoration: none;
+      padding: 10px 20px; border-radius: 10px;
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      font-size: 13px; font-weight: 500; transition: all 0.3s;
+    }
+    .action-hint a:hover { color: var(--text); border-color: var(--cyan); box-shadow: var(--glow-cyan); }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="particles">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  </div>
+
+  <div class="container">
+    <a class="back" href="aidj.html">← Вернуться в AI DJ</a>
+
+    <div class="hero">
+      <p class="subtitle">AI DJ Initiative</p>
+      <h1 class="title">Стили сведения</h1>
+      <p class="meta">Исследование техник известных диджеев · Данные требуют верификации через анализ живых миксов</p>
+    </div>
+
+    <!-- Preset Grid -->
+    <div class="preset-grid" id="presetGrid">
+      <!-- Default preset (fallback) -->
+      <div class="preset-card dj-default">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar def">AI</div>
+          <div>
+            <div class="preset-card-title">Стандартный</div>
+            <div class="preset-card-genre">Умолчание · Neutral</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          Базовый алгоритм: выравнивание BPM по более быстрому треку, crossfade 12–15 секунд,
+          линейная кривая громкости. Без EQ-обработки.
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Crossfade:</strong> 12–15s</span>
+          <span class="preset-param"><strong>Tempo:</strong> follow fastest</span>
+          <span class="preset-param"><strong>EQ:</strong> none</span>
+          <span class="preset-param"><strong>Curve:</strong> linear</span>
+        </div>
+        <span class="status-badge ready">✅ Реализован</span>
+      </div>
+
+      <!-- Carl Cox preset (research) -->
+      <div class="preset-card dj-carl">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar cc">CC</div>
+          <div>
+            <div class="preset-card-title">Carl Cox</div>
+            <div class="preset-card-genre">Techno · House · Ibiza legend</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          «Power of Three» — трёхдекерная техника. Длинные, плавные переходы с минимальной
+          EQ-коррекцией. Сохраняет оригинальный темп треков. Known for marathon 6-deck sets.
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Crossfade:</strong> 24–32s</span>
+          <span class="preset-param"><strong>Tempo:</strong> preserve original</span>
+          <span class="preset-param"><strong>EQ:</strong> minimal</span>
+          <span class="preset-param"><strong>Curve:</strong> slow fade</span>
+          <span class="preset-param"><strong>Decks:</strong> 3+</span>
+        </div>
+        <span class="status-badge research">🔍 Исследуется</span>
+      </div>
+
+      <!-- Richie Hawtin preset (research) -->
+      <div class="preset-card dj-hawtin">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar rh">RH</div>
+          <div>
+            <div class="preset-card-title">Richie Hawtin</div>
+            <div class="preset-card-genre">Minimal · Techno · Plastikman</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          Минималистичный подход: агрессивные EQ-срезы, минимальное наложение треков,
+          активное использование loop'ов и эффектов. Короткие, резкие переходы.
+          Акцент на текстуру и пространство.
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Crossfade:</strong> 4–8s</span>
+          <span class="preset-param"><strong>Tempo:</strong> lock ±1 BPM</span>
+          <span class="preset-param"><strong>EQ:</strong> aggressive cuts</span>
+          <span class="preset-param"><strong>Curve:</strong> fast cut</span>
+          <span class="preset-param"><strong>Loops:</strong> 4–8 bars</span>
+        </div>
+        <span class="status-badge research">🔍 Исследуется</span>
+      </div>
+
+      <!-- David Guetta preset (research) -->
+      <div class="preset-card dj-guetta">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar dg">DG</div>
+          <div>
+            <div class="preset-card-title">David Guetta</div>
+            <div class="preset-card-genre">EDM · Pop · Commercial House</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          Поп-ориентированное сведение: быстрые переходы на дропе, вокал всегда на первом плане.
+          Минимальная инструментальная пауза между треками. Энергия не падает.
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Crossfade:</strong> 8–12s</span>
+          <span class="preset-param"><strong>Tempo:</strong> lock to target BPM</span>
+          <span class="preset-param"><strong>EQ:</strong> vocal boost</span>
+          <span class="preset-param"><strong>Curve:</strong> fast energy</span>
+          <span class="preset-param"><strong>Structure:</strong> drop → drop</span>
+        </div>
+        <span class="status-badge research">🔍 Исследуется</span>
+      </div>
+
+      <!-- Laurent Garnier preset (research) -->
+      <div class="preset-card dj-garnier">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar lg">LG</div>
+          <div>
+            <div class="preset-card-title">Laurent Garnier</div>
+            <div class="preset-card-genre">House · Techno · Acid Jazz</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          Эклектичное сведение: длинные атмосферные переходы с акцентом на harmonic mixing.
+          Часто использует неожиданные смены жанров. Deep House → Techno → Jazz — в одном сете.
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Crossfade:</strong> 20–32s</span>
+          <span class="preset-param"><strong>Tempo:</strong> adaptive (genre shift)</span>
+          <span class="preset-param"><strong>EQ:</strong> atmospheric</span>
+          <span class="preset-param"><strong>Harmonic:</strong> Camelot-aware</span>
+          <span class="preset-param"><strong>Curve:</strong> long tail</span>
+        </div>
+        <span class="status-badge research">🔍 Исследуется</span>
+      </div>
+
+      <!-- Danny Tenaglia preset (research) -->
+      <div class="preset-card dj-tenaglia">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar dt">DT</div>
+          <div>
+            <div class="preset-card-title">Danny Tenaglia</div>
+            <div class="preset-card-genre">Tribal House · Deep House · NYC</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          «Journey mixing» — каждый трек — глава истории. Длинные, резиновые переходы
+          с активным использованием фильтров и задержек. Переходы длятся до 1 минуты.
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Crossfade:</strong> 32–48s</span>
+          <span class="preset-param"><strong>Tempo:</strong> preserve original</span>
+          <span class="preset-param"><strong>EQ:</strong> heavy filter sweeps</span>
+          <span class="preset-param"><strong>Curve:</strong> exponential fade</span>
+          <span class="preset-param"><strong>Reverb:</strong> echo trails</span>
+        </div>
+        <span class="status-badge research">🔍 Исследуется</span>
+      </div>
+
+      <!-- Paul Oakenfold preset (research) -->
+      <div class="preset-card dj-oakenfold">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar po">PO</div>
+          <div>
+            <div class="preset-card-title">Paul Oakenfold</div>
+            <div class="preset-card-genre">House · Progressive House · Trance</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          <strong>Проанализированы два живых микса:</strong><br>
+          <strong>Fantazia 1997 (хаус):</strong> 129 BPM, 13 треков, короткие
+          переходы (30-60 с), без breakdown, без Bass Swap. Плотное гладкое
+          сведение для танцпола.<br><br>
+          <strong>Tranceport 1998 (транс):</strong> 136 BPM, 11 треков, 6
+          глубоких breakdown (energy 3-8%), частично long blends, блочная
+          тональная структура. Bass Swap не подтверждён.
+        </div>
+        <div class="preset-card-body" style="margin-top:-8px;">
+          <strong>Ключевое открытие:</strong> гипотеза из статей (Bass Swap,
+          +1 Camelot, long blends на каждый трек) не подтвердилась. Техника
+          Оукенфолда — энергетическая архитектура набора, а не точные
+          EQ-расчёты. Стиль зависит от эпохи и жанра.
+        </div>
+        <div class="preset-card-body" style="margin-top:8px;padding:10px;border:1px solid rgba(0,200,100,0.15);border-radius:8px;font-size:0.78em;background:rgba(0,200,100,0.04);">
+          <span style="color:#3fb950;font-weight:600;">✅ Реальные данные</span><br>
+          Fantazia 1997 (72 мин, RMS/BPM) + Tranceport 1998 (11 треков в
+          FLAC, 73:30, склейка, анализ по трекам).<br><br>
+          <a href="aidj/research-oakenfold.md" style="color:var(--cyan);">📄 Полное исследование (research-oakenfold.md)</a>
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Fantazia:</strong> 129 BPM, 30-60s</span>
+          <span class="preset-param"><strong>Tranceport:</strong> 136 BPM, breakdown</span>
+          <span class="preset-param"><strong>Harmonic:</strong> блочная структура</span>
+          <span class="preset-param"><strong>Источники:</strong> 2 живых микса</span>
+        </div>
+        <span class="status-badge research">🔍 Исследовано</span>
+      </div>
+
+      <!-- Pete Tong preset (research) -->
+      <div class="preset-card dj-petetong">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar pt">PT</div>
+          <div>
+            <div class="preset-card-title">Pete Tong</div>
+            <div class="preset-card-genre">House · Electronic · BBC Radio 1 · Balearic</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          «Radio-ready mixing» — идеально выверенные переходы для эфира.
+          Минимальный downtime, плавные EQ-переходы, акцент на ритм-секцию.
+          Быстрая смена треков, но без резкости.
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Crossfade:</strong> 12–18s</span>
+          <span class="preset-param"><strong>Tempo:</strong> smooth lock</span>
+          <span class="preset-param"><strong>EQ:</strong> rhythm-forward</span>
+          <span class="preset-param"><strong>Curve:</strong> radio fade</span>
+          <span class="preset-param"><strong>Downtime:</strong> minimal</span>
+        </div>
+        <span class="status-badge research">🔍 Исследуется</span>
+      </div>
+
+      <!-- DJ List (generic) preset (research) -->
+      <div class="preset-card dj-djlist">
+        <div class="preset-card-header">
+          <div class="preset-card-avatar dl">JL</div>
+          <div>
+            <div class="preset-card-title">DJ List</div>
+            <div class="preset-card-genre">Требует уточнения · Собираем информацию</div>
+          </div>
+        </div>
+        <div class="preset-card-body">
+          Пресет в процессе сбора информации. Необходимо уточнить имя, жанр
+          и технику сведения. Будет обновлён по мере поступления данных.
+        </div>
+        <div class="preset-params">
+          <span class="preset-param"><strong>Crossfade:</strong> ?</span>
+          <span class="preset-param"><strong>Tempo:</strong> ?</span>
+          <span class="preset-param"><strong>EQ:</strong> ?</span>
+          <span class="preset-param"><strong>Curve:</strong> ?</span>
+        </div>
+        <span class="status-badge research">🔍 Исследуется</span>
+      </div>
+    </div>
+
+    <div class="legend">
+      <strong>Статусы:</strong>
+      <span class="status-badge ready">✅ Реализован</span> — работает прямо сейчас ·
+      <span class="status-badge research">🔍 Исследуется</span> — собираем информацию,
+      данные предварительные, неподтверждённые
+    </div>
+
+    <div class="action-hint">
+      <a href="aidj/djset.html">🎛 Перейти к созданию DJ Set →</a>
+    </div>
+
+    <div class="footer">
+      <strong>AI DJ Initiative</strong> · nasledstvo2026.github.io · Стили сведения · 🌙 2026
+    </div>
+  </div>
+</body>
+</html>

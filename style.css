@@ -1,0 +1,487 @@
+   Главная страница — карточки-плашки (glass)
+   ═══════════════════════════════════════════════ */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 150px;
+  padding: 12px 24px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards .card {
+  margin-bottom: 4px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
+  position: relative;
+}
+.cards .card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--glass-shine), transparent 50%);
+  pointer-events: none;
+}
+
+/* ─── Card color tints (яркие цвета) ─── */
+.cards .card.blue {
+  background: linear-gradient(145deg, rgba(30,100,220,0.3) 0%, var(--glass-bg) 55%);
+  border: 1.5px solid rgba(88,166,255,0.55);
+}
+.cards .card.green {
+  background: linear-gradient(145deg, rgba(30,180,80,0.28) 0%, var(--glass-bg) 55%);
+  border: 1.5px solid rgba(126,231,135,0.55);
+}
+.cards .card.cyan {
+  background: linear-gradient(145deg, rgba(20,180,190,0.28) 0%, var(--glass-bg) 55%);
+  border: 1.5px solid rgba(86,212,221,0.55);
+}
+.cards .card.purple {
+  background: linear-gradient(145deg, rgba(140,80,230,0.28) 0%, var(--glass-bg) 55%);
+  border: 1.5px solid rgba(188,140,255,0.55);
+}
+.cards .card.pink {
+  background: linear-gradient(145deg, rgba(220,50,140,0.28) 0%, var(--glass-bg) 55%);
+  border: 1.5px solid rgba(247,120,186,0.55);
+}
+.cards .card.red {
+  background: linear-gradient(145deg, rgba(200,40,40,0.28) 0%, var(--glass-bg) 55%);
+  border: 1.5px solid rgba(255,80,80,0.55);
+}
+.cards .card.red::after { background: linear-gradient(180deg, #ff5050, #c82828); }
+.cards .card.red::before { display: none; }
+.cards .card:hover.red { border-color: rgba(255,80,80,0.85) !important; box-shadow: 0 0 36px rgba(255,80,80,0.25); }
+
+.cards .card.orange {
+  background: linear-gradient(145deg, rgba(220,120,0,0.28) 0%, var(--glass-bg) 55%);
+  border: 1.5px solid rgba(255,144,0,0.55);
+}
+/* ─── Card accent bar (левая цветная полоса) ─── */
+.cards .card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  border-radius: 16px 0 0 16px;
+  pointer-events: none;
+}
+.cards .card.blue::after   { background: linear-gradient(180deg, #58a6ff, #1e64dc); }
+.cards .card.green::after  { background: linear-gradient(180deg, #7ee787, #1eb450); }
+.cards .card.cyan::after   { background: linear-gradient(180deg, #56d4dd, #14b4be); }
+.cards .card.purple::after { background: linear-gradient(180deg, #bc8cff, #8c50e6); }
+.cards .card.pink::after   { background: linear-gradient(180deg, #f778ba, #dc328c); }
+.cards .card.orange::after { background: linear-gradient(180deg, #ff9000, #dc7800); }
+
+.cards .card.blue::before,
+.cards .card.green::before,
+.cards .card.cyan::before,
+.cards .card.purple::before,
+.cards .card.pink::before,
+.cards .card.orange::before { display: none; }
+
+.cards .card:hover.blue   { border-color: rgba(88,166,255,0.85) !important; box-shadow: 0 0 36px rgba(88,166,255,0.25); }
+.cards .card:hover.green  { border-color: rgba(126,231,135,0.85) !important; box-shadow: 0 0 36px rgba(126,231,135,0.25); }
+.cards .card:hover.cyan   { border-color: rgba(86,212,221,0.85) !important; box-shadow: 0 0 36px rgba(86,212,221,0.25); }
+.cards .card:hover.purple { border-color: rgba(188,140,255,0.85) !important; box-shadow: 0 0 36px rgba(188,140,255,0.25); }
+.cards .card:hover.pink   { border-color: rgba(247,120,186,0.85) !important; box-shadow: 0 0 36px rgba(247,120,186,0.25); }
+.cards .card:hover.orange { border-color: rgba(255,144,0,0.85) !important; box-shadow: 0 0 36px rgba(255,144,0,0.25); }
+
+.cards .card:hover {
+  transform: translateY(-3px);
+  border-color: var(--glass-hover);
+  box-shadow: 0 8px 32px rgba(0,0,0,.4);
+}
+.cards .card a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.cards .card-header {
+  padding: 22px 22px 0;
+  position: relative;
+}
+.cards .card-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.cards .card-tag.blue   { background: rgba(88,166,255,.12);  color: var(--blue);   border: 1px solid rgba(88,166,255,.2); }
+.cards .card-tag.purple { background: rgba(188,140,255,.12); color: var(--purple); border: 1px solid rgba(188,140,255,.2); }
+.cards .card-tag.orange { background: rgba(255,144,0,.12);   color: var(--orange); border: 1px solid rgba(255,144,0,.2); }
+.cards .card-tag.green  { background: rgba(126,231,135,.12); color: var(--green);  border: 1px solid rgba(126,231,135,.2); }
+.cards .card-tag.pink   { background: rgba(248,81,73,.12);   color: var(--pink);   border: 1px solid rgba(255,107,157,.2); }
+
+/* ─── AURA card — строгий uppercase serif ─── */
+/* ─── AURA card — строгий uppercase serif ─── */
+.cards .card.aura {
+  min-height: 150px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* ─── AI DJ: фоновое изображение, пустая плашка ─── */
+.cards .card.purple.bg-image:not(.aura) {
+  background-image: url('assets/aidj-bg.jpg');
+  height: 140px;
+  min-height: 140px;
+  display: block;
+}
+.cards .card.purple.bg-image:not(.aura)::before {
+  display: block !important;
+  background: linear-gradient(135deg, rgba(188,140,255,0.4) 0%, rgba(10,14,20,0.75) 70%);
+}
+
+/* MedHelp: фоновое изображение */
+.cards .card.green.bg-image.medhelp {
+  background-image: url('assets/medhelp-bg.jpg') !important;
+}
+.cards .card.green.bg-image.medhelp::before {
+  background: linear-gradient(135deg, rgba(63,185,80,0.3) 0%, rgba(10,14,20,0.6) 70%);
+}
+
+/* ─── ФармТендеролог: фоновое изображение ─── */
+.cards .card.purple.aura.bg-image {
+  background-image: url('assets/pharm-hero.jpg');
+}
+.cards .card.purple.aura.bg-image::before {
+  background: linear-gradient(135deg, rgba(188,140,255,0.5) 0%, rgba(10,14,20,0.7) 70%);
+}
+.cards .card.aura .card-header {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 22px;
+}
+.cards .card.aura .card-header-row {
+  margin-bottom: 0;
+}
+.cards .card.aura h2 {
+  text-transform: uppercase;
+  font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  letter-spacing: 2px;
+}
+
+
+/* ─── Card badges (статус в заголовке) ─── */
+.cards .card-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.card-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.cards .card-badge.daily::before    { background: #7ee787; box-shadow: 0 0 6px rgba(126,231,135,.5); }
+.cards .card-badge.weekly::before   { background: #58a6ff; box-shadow: 0 0 6px rgba(88,166,255,.5); }
+.cards .card-badge.ondemand::before { background: #bc8cff; box-shadow: 0 0 6px rgba(188,140,255,.5); }
+.cards .card-badge.daily    { background: rgba(126,231,135,.1); border-color: rgba(126,231,135,.2); color: #7ee787; }
+.cards .card-badge.weekly   { background: rgba(88,166,255,.1);  border-color: rgba(88,166,255,.2);  color: #58a6ff; }
+.cards .card-badge.ondemand { background: rgba(188,140,255,.1); border-color: rgba(188,140,255,.2);  color: #bc8cff; }
+.cards .card-badge.mvp { background: rgba(255,144,0,.1); border-color: rgba(255,144,0,.2); color: #ff9000; }
+.cards .card-badge.mvp::before { background: #ff9000; box-shadow: 0 0 6px rgba(255,144,0,.5); }
+
+/* ─── Card header row (название + бейдж) ─── */
+.cards .card-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.cards .card-header-row h2 {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.cards .card h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.cards .card .desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.55;
+  padding: 0 22px 18px;
+  position: relative;
+}
+.cards .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 22px;
+  border-top: 1px solid rgba(255,255,255,.05);
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.cards .card-footer .person { font-weight: 600; }
+.cards .card-footer .updated { color: var(--text-dim); }
+
+/* ─── Card update date (из data-атрибута) ─── */
+.cards .card-footer[data-updated]::after {
+  content: attr(data-updated);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* ─── Footer version info (OpenClaw + LLM) ─── */
+.footer .tech[data-openclaw]::before {
+  content: " · " attr(data-openclaw);
+}
+.footer .tech[data-openclaw][data-llm]::after {
+  content: " · " attr(data-llm);
+}
+
+/* ─── Hero title serif (Главная страница) ─── */
+.hero .hero-title-serif {
+  font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+/* ─── Page title (заголовок страницы, hero h1) ─── */
+.hero .page-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: transparent;
+  background: linear-gradient(90deg, #58a6ff, #bc8cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .hero { padding: 24px 16px 20px; }
+  .hero .page-title { font-size: 22px; }
+  .hero .hero-title-serif { font-size: 18px; letter-spacing: 4px; }
+  .cards { padding: 12px 16px 32px; gap: 150px; }
+  .container { padding: 16px 16px 32px; }
+  .hide-mobile { display: none; }
+  .stats-row { gap: 12px; }
+  .stat-box { min-width: 140px; padding: 16px; }
+}
+
+/* --- Custom card component (ссылка-плашка внутри отчётов) --- */
+.section .custom-card-component {
+  display: inline-block;
+  padding: 12px 24px;
+  background: rgba(255,182,193,0.15);
+  border: 1px solid rgba(255,182,193,0.3);
+  border-radius: 12px;
+  color: #ffb6c1;
+  text-decoration: none;
+  font-size: 15px;
+  transition: background .2s ease, border-color .2s ease;
+}
+.section .custom-card-component:hover {
+  background: rgba(255,182,193,0.25);
+  border-color: rgba(255,182,193,0.5);
+  color: #ffb6c1;
+}
+
+/* ─── Back link (единый стандарт для всех страниц) ─── */
+.back {
+  display: inline-block;
+  color: var(--text-dim);
+  font-size: 13px;
+  margin: 24px 24px 0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  transition: color .2s, border-color .2s;
+}
+.back:hover {
+  color: var(--text);
+  border-color: var(--glass-hover);
+  text-decoration: none;
+}
+
+/* ─── Action button (круглая кнопка + подпись) ─── */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px 0 0;
+  background: linear-gradient(135deg, #1a1f2e, #21262d);
+  border: 1px solid #30363d;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  transition: border-color .2s, background .2s;
+  color: inherit;
+}
+.action-btn:visited,
+.action-btn:active {
+  color: inherit;
+  background: linear-gradient(135deg, #1a1f2e, #21262d);
+  border-color: #30363d;
+}
+.action-btn:hover {
+  border-color: #58a6ff;
+  background: linear-gradient(135deg, #21262d, #1c2333);
+}
+.action-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.action-btn:focus-visible {
+  outline: none;
+}
+.action-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #238636, #2ea043);
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.action-btn:visited .action-btn-icon,
+.action-btn:active .action-btn-icon {
+  background: linear-gradient(135deg, #238636, #2ea043);
+  color: #fff;
+}
+.action-btn-label {
+  color: #c9d1d9;
+  font-size: 0.9em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.action-btn:visited .action-btn-label,
+.action-btn:active .action-btn-label {
+  color: #c9d1d9;
+}
+
+/* ════════════════════════════════════════════
+   Плашка с фоновым изображением (главная)
+   Применять только к карточкам на index.html
+   ════════════════════════════════════════════ */
+.cards .card.bg-image {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  position: relative;
+}
+.cards .card.bg-image::before {
+  display: block !important;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  z-index: 0;
+  pointer-events: none;
+}
+.cards .card.bg-image a,
+.cards .card.bg-image .card-header {
+  position: relative;
+  z-index: 1;
+}
+
+/* Фото с фоновым изображением */
+.cards .card.pink.bg-image {
+  background-image: url('assets/photo-bg.jpg') !important;
+  height: 150px;
+  min-height: 150px;
+  display: block;
+}
+.cards .card.pink.bg-image::before {
+  background: linear-gradient(135deg, rgba(220,80,140,0.35) 0%, rgba(10,14,20,0.6) 70%);
+}
+
+/* AURA с фоновым изображением */
+.cards .card.orange.aura.bg-image {
+  background-image: url('assets/aura-bg.jpg') !important;
+  height: 140px;
+  min-height: 140px;
+}
+.cards .card.orange.aura.bg-image::before {
+  background: linear-gradient(135deg, rgba(255,144,0,0.25) 0%, rgba(10,14,20,0.6) 70%);
+}
+
+/* Кластер Наследство с фоновым изображением */
+.cards .card.blue.bg-image {
+  background-image: url('assets/inheritance-bg.jpg') !important;
+  height: 140px;
+  min-height: 140px;
+}
+.cards .card.blue.bg-image::before {
+  background: linear-gradient(135deg, rgba(88,166,255,0.3) 0%, rgba(10,14,20,0.6) 70%);
+}
+
+/* Социальный консультант с фоновым изображением */
+.cards .card.green.bg-image {
+  background-image: url('assets/social-bg.jpg') !important;
+  height: 140px;
+  min-height: 140px;
+}
+.cards .card.green.bg-image::before {
+  background: linear-gradient(135deg, rgba(126,231,135,0.3) 0%, rgba(10,14,20,0.6) 70%);
+}
+
+/* Техническая информация с фоновым изображением */
+.cards .card.cyan.bg-image {
+  background-image: url('assets/service-bg.jpg') !important;
+  height: 140px;
+  min-height: 140px;
+}
+.cards .card.cyan.bg-image::before {
+  background: linear-gradient(135deg, rgba(20,180,190,0.35) 0%, rgba(10,14,20,0.65) 70%);
+}
+
+/* OSINT с фоновым изображением */
+.cards .card.red.bg-image {
+  background-image: url('assets/osint-bg.jpg') !important;
+  height: 140px;
+  min-height: 140px;
+}
+.cards .card.red.bg-image::before {
+  background: linear-gradient(135deg, rgba(255,80,80,0.3) 0%, rgba(10,14,20,0.65) 70%);
+}
