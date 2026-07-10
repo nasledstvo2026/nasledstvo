@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Социальный консультант — nasledstvo2026.github.io</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero { text-align: center; padding: 20px 0 20px; }
+    .hero .tag { display: inline-block; background: rgba(126,231,135,0.15); color: #7ee787; padding: 4px 16px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; border: 1px solid rgba(126,231,135,0.25); }
+    .hero h1 { font-family: 'Georgia','Palatino Linotype','Book Antiqua',Palatino,serif; font-size: 34px; margin: 0 0 6px; color: rgba(255,255,255,0.92); letter-spacing: 1px; }
+    .hero .subtitle { font-size: 16px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+    .hero .meta { font-size: 13px; color: rgba(255,255,255,0.3); }
+    .summary-box { background: rgba(22,27,34,0.7); border: 1px solid rgba(126,231,135,0.15); border-radius: 12px; padding: 24px 28px; margin: 24px 0; border-left: 4px solid #7ee787; line-height: 1.7; font-size: 15px; color: rgba(255,255,255,0.75); }
+    .summary-box strong { color: #7ee787; }
+    .section { margin-top: 40px; }
+    .section h2 { font-family: 'Georgia','Palatino Linotype','Book Antiqua',Palatino,serif; font-size: 22px; color: rgba(255,255,255,0.9); margin-bottom: 14px; letter-spacing: 2px; padding-bottom: 6px; border-bottom: 2px solid rgba(126,231,135,0.3); }
+    .section h3 { font-family: 'Georgia','Palatino Linotype','Book Antiqua',Palatino,serif; font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 8px; margin-top: 24px; letter-spacing: 1px; }
+    .section .item { background: rgba(22,27,34,0.6); border: 1px solid rgba(33,38,45,0.8); border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; }
+    .section .item .body { font-size: 14px; color: rgba(255,255,255,0.68); line-height: 1.7; }
+    .killer-box { background: rgba(126,231,135,0.06); border: 1px solid rgba(126,231,135,0.25); border-radius: 12px; padding: 18px 22px; margin: 14px 0; }
+    .killer-box h3 { color: #7ee787; margin: 0 0 8px; font-size: 16px; }
+    .killer-box p { margin: 4px 0; font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+    .timeline { display: flex; margin: 20px 0; }
+    .tl-item { flex: 1; text-align: center; position: relative; padding: 24px 6px 8px; }
+    .tl-item::before { content: ''; position: absolute; top: 14px; left: 50%; width: 100%; height: 4px; background: #7ee787; transform: translateX(-50%); z-index: 0; }
+    .tl-item:first-child::before { left: 50%; width: 50%; }
+    .tl-item:last-child::before { width: 50%; }
+    .tl-time { font-weight: bold; font-size: 20px; color: #7ee787; position: relative; z-index: 1; background: #0a0e14; display: inline-block; padding: 0 8px; }
+    .tl-agent { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 600; margin-top: 4px; }
+    .tl-desc { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin: 16px 0; }
+    .agent-card { background: rgba(22,27,34,0.6); border: 1px solid rgba(33,38,45,0.8); border-radius: 10px; padding: 18px; }
+    .agent-card h4 { margin: 0 0 8px; color: rgba(255,255,255,0.85); font-size: 15px; }
+    .agent-card p { margin: 0; font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+    .features-half { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+    .feature-col h3 { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 10px; }
+    .feature-col ul { margin: 0; padding-left: 18px; color: rgba(255,255,255,0.6); font-size: 13px; line-height: 1.8; }
+    .metrics { display: flex; gap: 14px; margin: 16px 0; }
+    .metric { flex: 1; text-align: center; background: rgba(22,27,34,0.6); border: 1px solid rgba(33,38,45,0.8); border-radius: 10px; padding: 16px; }
+    .metric .num { font-size: 32px; font-weight: 800; color: #7ee787; }
+    .metric .label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+    table.clean { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+    table.clean th { background: rgba(22,27,34,0.8); color: rgba(255,255,255,0.7); padding: 8px 12px; text-align: left; font-weight: 600; border-bottom: 1px solid rgba(33,38,45,0.8); }
+    table.clean td { padding: 8px 12px; border-bottom: 1px solid rgba(33,38,45,0.5); color: rgba(255,255,255,0.55); }
+    .ok { color: #7ee787; font-weight: 600; }
+    .cta-box { background: linear-gradient(135deg, rgba(126,231,135,0.12), rgba(126,231,135,0.04)); border: 1px solid rgba(126,231,135,0.3); border-radius: 12px; text-align: center; padding: 24px; margin: 30px 0; }
+    .cta-box .big { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 6px; }
+    .cta-box p { font-size: 13px; color: rgba(255,255,255,0.5); margin: 4px 0; }
+    .contacts { text-align: center; margin: 20px 0; font-size: 13px; color: rgba(255,255,255,0.35); }
+    .contacts a { color: #58a6ff; text-decoration: none; }
+    @media (max-width: 768px) { .features-half { grid-template-columns: 1fr; } .metrics { flex-wrap: wrap; } .metric { min-width: 40%; } .timeline { flex-wrap: wrap; } .tl-item { min-width: 45%; } }
+  </style>
+</head>
+<body>
+<a href="products.html" class="back">← Все продукты</a>
+<div class="container">
+  <div class="hero">
+    <div class="tag">Паспорт продукта</div>
+    <h1>Социальный консультант</h1>
+    <div class="subtitle">ИИ-ассистент по социальным пособиям, льготам и выплатам РФ</div>
+    <div class="meta">v1.0 · Июль 2026 · Бета</div>
+  </div>
+  <div class="summary-box">
+    <strong>Социальный консультант</strong> — это ИИ-ассистент, который помогает разобраться с детскими, пенсионными, региональными выплатами и льготами. Автоматический мониторинг изменений в законодательстве, персонализированные консультации и актуальная база НПА по 4 ключевым категориям поддержки.
+  </div>
+  <div class="section">
+    <h2>Как это работает</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,0.4);">Три агента работают в связке, обеспечивая актуальность и полноту данных:</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">09:03</div><div class="tl-agent">🔍 search-agent</div><div class="tl-desc">поиск законов и новостей</div></div>
+      <div class="tl-item"><div class="tl-time">09:06</div><div class="tl-agent">✅ verify-agent</div><div class="tl-desc">верификация НПА</div></div>
+      <div class="tl-item"><div class="tl-time">по запросу</div><div class="tl-agent">💬 consult-agent</div><div class="tl-desc">консультации</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Киллер-фичи</h2>
+    <div class="killer-box"><h3>📋 1. Автоматический мониторинг законов</h3><p>Агенты ежедневно сканируют fedpress.ru, garant.ru, consultant.ru. Все изменения фиксируются и верифицируются.</p></div>
+    <div class="killer-box"><h3>✅ 2. Актуальность данных</h3><p>Каждый НПА проверяется через consultant.ru. Ни одной устаревшей нормы в ответах.</p></div>
+    <div class="killer-box"><h3>👤 3. Персонализация по категориям</h3><p>Детские пособия, инвалидность, ветераны, СВО, многодетные — ответы под конкретную жизненную ситуацию.</p></div>
+    <div class="killer-box"><h3>🆓 4. Бесплатно</h3><p>Полностью бесплатный сервис. Все консультации, дайджесты и мониторинг — без оплаты.</p></div>
+  </div>
+  <div class="section">
+    <h2>Все фичи продукта</h2>
+    <div class="features-half">
+      <div class="feature-col"><h3>🔍 Поиск и сбор</h3><ul><li>fedpress.ru, garant.ru, consultant.ru</li><li>Еженедельный дайджест изменений</li><li>Категории: детские, инвалидность, ветераны, СВО</li></ul></div>
+      <div class="feature-col"><h3>✅ Верификация</h3><ul><li>Каждый НПА через consultant.ru</li><li>Дата редакции, статус, applicability</li><li>Только действующие нормы</li></ul></div>
+    </div>
+    <div class="features-half">
+      <div class="feature-col"><h3>💬 Консультации</h3><ul><li>Персонализированные ответы</li><li>По категориям поддержки</li><li>Ссылки на источники</li></ul></div>
+      <div class="feature-col"><h3>📊 Отчёты</h3><ul><li>Weekly дайджест для Розы</li><li>Обзор НПА для Ирины</li><li>Публикация на GitHub Pages</li></ul></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Цифры и метрики</h2>
+    <div class="metrics">
+      <div class="metric"><div class="num">3</div><div class="label">ИИ-агента</div></div>
+      <div class="metric"><div class="num">~50</div><div class="label">НПА в базе</div></div>
+      <div class="metric"><div class="num">4</div><div class="label">категории поддержки</div></div>
+      <div class="metric"><div class="num">weekly</div><div class="label">дайджест</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Технологический стек</h2>
+    <div class="features-half">
+      <div class="feature-col"><h3>Инфраструктура</h3><table class="clean" style="font-size:12px;"><tr><td>Платформа</td><td>OpenClaw</td></tr><tr><td>Модель</td><td>DeepSeek Chat</td></tr><tr><td>Поиск</td><td>SearXNG</td></tr><tr><td>Хостинг</td><td>GitHub Pages</td></tr><tr><td>Связь</td><td>Telegram Bot API</td></tr></table></div>
+      <div class="feature-col"><h3>Безопасность</h3><table class="clean" style="font-size:12px;"><tr><td>Агенты</td><td>изолированные сессии</td></tr><tr><td>Данные</td><td>локально</td></tr><tr><td>Сайт</td><td>HTTPS</td></tr></table></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Кому подойдёт</h2>
+    <div class="agent-grid">
+      <div class="agent-card"><h4>👨‍👩‍👧‍👦 Семьи с детьми</h4><p>Пособия, выплаты, льготы.</p></div>
+      <div class="agent-card"><h4>👴 Пенсионеры</h4><p>Индексация, льготы, соцподдержка.</p></div>
+      <div class="agent-card"><h4>🫂 Инвалиды</h4><p>Выплаты, реабилитация, льготы.</p></div>
+      <div class="agent-card"><h4>🎖 Ветераны и СВО</h4><p>Статус, выплаты, меры поддержки.</p></div>
+    </div>
+  </div>
+  <div class="cta-box">
+    <p class="big">Нужна консультация?</p>
+    <p>Сервис бесплатный. Работает с июля 2026 года.</p>
+  </div>
+  <div class="contacts">
+    <p>По вопросам: <a href="https://t.me/Kirill_syst">@Kirill_syst</a> (Telegram)</p>
+    <p>Продукт: <a href="https://nasledstvo2026.github.io/nasledstvo/report-roza.html">nasledstvo2026.github.io/nasledstvo/report-roza.html</a></p>
+  </div>
+  <div class="footer"><span class="tech">Паспорт продукта «Социальный консультант» v1.0 · Июль 2026</span></div>
+</div>
+</body>
+</html>
