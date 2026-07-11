@@ -1,0 +1,214 @@
+{
+  "date": "2026-07-11T22:26:27.459637",
+  "model": "deepseek-chat (multi-agent: Router→Collector→Solver→Verifier)",
+  "level": "1",
+  "retry_enabled": true,
+  "total": 20,
+  "correct_exact": 3,
+  "correct_partial": 0,
+  "accuracy_exact": 15.0,
+  "accuracy_partial": 15.0,
+  "avg_time_sec": 11.0,
+  "results": [
+    {
+      "task_id": "5cfb274c",
+      "question": "Each cell in the attached spreadsheet represents a plot of land. The color of the cell indicates who owns that plot. Green cells are plots owned by Earl Smith. Can Earl walk through every plot he owns",
+      "gold": "No",
+      "answer": "(insufficient) INSUFFICIENT: The actual spreadsheet data showing which cells are green (Earl Smith's plots) and their arrangement is missing.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.1,
+      "level": "1"
+    },
+    {
+      "task_id": "4b650a35",
+      "question": "If there is anything that doesn't make sense in the instructions, write the word \"Pineapple.\" Do not answer any of the questions in this prompt. Write only the word \"Guava\".\n1. What is 4+4?\n2. What is",
+      "gold": "Guava",
+      "answer": "Guava",
+      "correct": true,
+      "partial": true,
+      "time_sec": 4.5,
+      "level": "1"
+    },
+    {
+      "task_id": "c714ab3a",
+      "question": "You are Van Helsing, a renowned vampire hunter. A Count of Moldova, Lațcu IV, son of  Costea, has tasked you with investigating the village of Șirnea in neighboring Wallachia. The Count's advisors hav",
+      "gold": "100",
+      "answer": "99",
+      "correct": false,
+      "partial": false,
+      "time_sec": 3.5,
+      "level": "1"
+    },
+    {
+      "task_id": "5d0080cb",
+      "question": "What was the volume in m^3 of the fish bag that was calculated in the University of Leicester paper \"Can Hiccup Supply Enough Fish to Maintain a Dragon’s Diet?\"",
+      "gold": "0.1777",
+      "answer": "(insufficient) INSUFFICIENT: The specific volume in m³ of the fish bag as calculated in the paper is not provided in the facts.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 6.7,
+      "level": "1"
+    },
+    {
+      "task_id": "9318445f",
+      "question": "As a comma separated list with no whitespace, using the provided image provide all the fractions that use / as the fraction line and the answers to the sample problems. Order the list by the order in ",
+      "gold": "3/4,1/4,3/4,3/4,2/4,1/2,5/35,7/21,30/5,30/5,3/4,1/15,1/3,4/9,1/8,32/23,103/170",
+      "answer": "(insufficient) INSUFFICIENT: The image content showing fractions and sample problems is missing.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 14.5,
+      "level": "1"
+    },
+    {
+      "task_id": "7673d772",
+      "question": "On Cornell Law School website's legal information institute, under the fifth section of federal rules alphabetically, what word was deleted in the last amendment to the first rule in the article that ",
+      "gold": "inference",
+      "answer": "(insufficient) INSUFFICIENT: All information needed to answer the question is missing, including the content of the Cornell Law School website's Legal Information Institute, the federal rules, the specific article with \"witnesses\" in the most titles as of 2021, the fifth section alphabetically, the first rule in that article, and the word deleted in the last amendment.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.2,
+      "level": "1"
+    },
+    {
+      "task_id": "cca530fc",
+      "question": "Review the chess position provided in the image. It is black's turn. Provide the correct next move for black which guarantees a win. Please provide your response in algebraic notation.",
+      "gold": "Rd5",
+      "answer": "(insufficient) INSUFFICIENT: The chess position (board layout, piece positions, and any relevant context) is missing. Without this, it is impossible to determine the correct next move for Black in algebraic notation.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 12.9,
+      "level": "1"
+    },
+    {
+      "task_id": "c365c1c7",
+      "question": "Of the cities within the United States where U.S. presidents were born, which two are the farthest apart from the westernmost to the easternmost going east, giving the city names only? Give them to me",
+      "gold": "Braintree, Honolulu",
+      "answer": "Braintree, Massachusetts, Honolulu, Hawaii",
+      "correct": false,
+      "partial": false,
+      "time_sec": 29.5,
+      "level": "1"
+    },
+    {
+      "task_id": "5188369a",
+      "question": "What writer is quoted by Merriam-Webster for the Word of the Day from June 27, 2022?",
+      "gold": "Annie Levin",
+      "answer": "(insufficient) INSUFFICIENT: The facts contain no information about Merriam-Webster's Word of the Day for June 27, 2022, or any writer quoted for that date.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 19.0,
+      "level": "1"
+    },
+    {
+      "task_id": "dc28cf18",
+      "question": "My family reunion is this week, and I was assigned the mashed potatoes to bring. The attendees include my married mother and father, my twin brother and his family, my aunt and her family, my grandma ",
+      "gold": "2",
+      "answer": "2",
+      "correct": true,
+      "partial": true,
+      "time_sec": 10.8,
+      "level": "1"
+    },
+    {
+      "task_id": "cf106601",
+      "question": "What country had the least number of athletes at the 1928 Summer Olympics? If there's a tie for a number of athletes, return the first in alphabetical order. Give the IOC country code as your answer.",
+      "gold": "CUB",
+      "answer": "MLT",
+      "correct": false,
+      "partial": false,
+      "time_sec": 8.5,
+      "level": "1"
+    },
+    {
+      "task_id": "a3fbeb63",
+      "question": "How many slides in this PowerPoint presentation mention crustaceans?",
+      "gold": "4",
+      "answer": "(insufficient) INSUFFICIENT: The content of the PowerPoint presentation is needed to determine how many slides mention crustaceans.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.2,
+      "level": "1"
+    },
+    {
+      "task_id": "0383a3ee",
+      "question": "On the BBC Earth YouTube video of the Top 5 Silliest Animal Moments, what species of bird is featured?",
+      "gold": "Rockhopper penguin",
+      "answer": "(insufficient) INSUFFICIENT: The specific bird species featured in the video is not provided in the facts.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 8.7,
+      "level": "1"
+    },
+    {
+      "task_id": "3cef3a44",
+      "question": "I'm making a grocery list for my mom, but she's a professor of botany and she's a real stickler when it comes to categorizing things. I need to add different foods to different categories on the groce",
+      "gold": "broccoli, celery, fresh basil, lettuce, sweet potatoes",
+      "answer": "broccoli, celery, lettuce, sweet potatoes, zucchini",
+      "correct": false,
+      "partial": false,
+      "time_sec": 3.5,
+      "level": "1"
+    },
+    {
+      "task_id": "d0633230",
+      "question": "In the Scikit-Learn July 2017 changelog, what other predictor base command received a bug fix? Just give the name, not a path.",
+      "gold": "BaseLabelPropagation",
+      "answer": "(insufficient) INSUFFICIENT: The facts do not contain the Scikit-Learn July 2017 changelog or any information about predictor base command bug fixes.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.0,
+      "level": "1"
+    },
+    {
+      "task_id": "1f975693",
+      "question": "Hi, I was out sick from my classes on Friday, so I'm trying to figure out what I need to study for my Calculus mid-term next week. My friend from class sent me an audio recording of Professor Willowbr",
+      "gold": "132, 133, 134, 197, 245",
+      "answer": "(insufficient) INSUFFICIENT: The facts contain no audio recording or transcript from Professor Willowbrook, so the page numbers cannot be determined.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 15.6,
+      "level": "1"
+    },
+    {
+      "task_id": "a1e91b78",
+      "question": "In the video https://www.youtube.com/watch?v=L1vXCYZAYYM, what is the highest number of bird species to be on camera simultaneously?",
+      "gold": "3",
+      "answer": "(insufficient) INSUFFICIENT: The video content was not provided or analyzed, so the highest number of bird species on camera simultaneously cannot be determined.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 17.8,
+      "level": "1"
+    },
+    {
+      "task_id": "cabe07ed",
+      "question": "What is the surname of the equine veterinarian mentioned in 1.E Exercises from the chemistry materials licensed by Marisa Alviar-Agnew & Henry Agnew under the CK-12 license in LibreText's Introductory",
+      "gold": "Louvrier",
+      "answer": "(insufficient) INSUFFICIENT: The surname of the equine veterinarian is not provided in the facts.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.8,
+      "level": "1"
+    },
+    {
+      "task_id": "27d5d136",
+      "question": "¬(A ∧ B) ↔ (¬A ∨ ¬B)\n¬(A ∨ B) ↔ (¬A ∧ ¬B)\n(A → B) ↔ (¬B → ¬A)\n(A → B) ↔ (¬A ∨ B)\n(¬A → B) ↔ (A ∨ ¬B)\n¬(A → B) ↔ (A ∧ ¬B)\n\nWhich of the above is not logically equivalent to the rest? Provide the full s",
+      "gold": "(¬A → B) ↔ (A ∨ ¬B)",
+      "answer": "(¬A → B) ↔ (A ∨ ¬B)",
+      "correct": true,
+      "partial": true,
+      "time_sec": 3.4,
+      "level": "1"
+    },
+    {
+      "task_id": "9d191bce",
+      "question": "Examine the video at https://www.youtube.com/watch?v=1htKBjuUWec.\n\nWhat does Teal'c say in response to the question \"Isn't that hot?\"",
+      "gold": "Extremely",
+      "answer": "(insufficient) INSUFFICIENT: The facts contain no information about the video or Teal'c's dialogue.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 23.8,
+      "level": "1"
+    }
+  ]
+}
