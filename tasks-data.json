@@ -87,12 +87,12 @@
     "task": "Вклады 1991 — понедельник",
     "author": "Данил",
     "schedule": "Пн 10:00",
-    "success_rate": 0,
-    "duration_pct": 100,
-    "latency_min": 0.0,
-    "cache_hit_pct": 90,
-    "cost_per_run": 0.0133,
-    "last_run": "06.07 14:00",
+    "success_rate": 33,
+    "duration_pct": 13,
+    "latency_min": 7568.3,
+    "cache_hit_pct": 91,
+    "cost_per_run": 0.0195,
+    "last_run": "11.07 20:08",
     "tip": "Таймаут уменьшен с 300 до 120 с. (применено 22.06)"
   },
   {
@@ -111,12 +111,12 @@
     "task": "Вклады 1991 — четверг",
     "author": "Данил",
     "schedule": "Чт 10:00",
-    "success_rate": 0,
-    "duration_pct": 100,
-    "latency_min": 0.0,
-    "cache_hit_pct": 66,
-    "cost_per_run": 0.0063,
-    "last_run": "09.07 10:00",
+    "success_rate": 33,
+    "duration_pct": 6,
+    "latency_min": 3490.2,
+    "cache_hit_pct": 85,
+    "cost_per_run": 0.0125,
+    "last_run": "11.07 20:10",
     "tip": "Уменьшить таймаут с 300 до 120 с."
   }
 ]
