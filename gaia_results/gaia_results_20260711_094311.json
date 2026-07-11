@@ -1,0 +1,100 @@
+{
+  "date": "2026-07-11T09:43:11.476927",
+  "model": "deepseek-chat + browser-agent",
+  "total": 10,
+  "correct": 1,
+  "accuracy": 10.0,
+  "avg_time_sec": 52.0,
+  "tasks": [
+    {
+      "task_id": "e1fc63a2",
+      "question": "If Eliud Kipchoge could maintain his record-making marathon pace indefinitely, how many thousand hou",
+      "gold": "17",
+      "answer": "Could not find answer. Last page: https://en.wikipedia.org/wiki/Moon",
+      "correct": false,
+      "time_sec": 39.0,
+      "level": "1"
+    },
+    {
+      "task_id": "8e867cd7",
+      "question": "How many studio albums were published by Mercedes Sosa between 2000 and 2009 (included)? You can use",
+      "gold": "3",
+      "answer": "Could not find answer. Last page: https://en.wikipedia.org/wiki/Mercedes_Sosa#Studio_albums",
+      "correct": false,
+      "time_sec": 30.0,
+      "level": "1"
+    },
+    {
+      "task_id": "ec09fa32",
+      "question": "Here's a fun riddle that I think you'll enjoy.\n\nYou have been selected to play the final round of th",
+      "gold": "3",
+      "answer": "2",
+      "correct": false,
+      "time_sec": 43.0,
+      "level": "1"
+    },
+    {
+      "task_id": "5d0080cb",
+      "question": "What was the volume in m^3 of the fish bag that was calculated in the University of Leicester paper ",
+      "gold": "0.1777",
+      "answer": "Could not find answer. Last page: https://www2.le.ac.uk/offices/press/think-leicester/student-blogs/2015/can-hiccup-supply-enough-fish-to-maintain-a-dragons-diet",
+      "correct": false,
+      "time_sec": 62.0,
+      "level": "1"
+    },
+    {
+      "task_id": "a1e91b78",
+      "question": "In the video https://www.youtube.com/watch?v=L1vXCYZAYYM, what is the highest number of bird species",
+      "gold": "3",
+      "answer": "Could not find answer. Last page: https://www.youtube.com/watch?v=L1vXCYZAYYM",
+      "correct": false,
+      "time_sec": 72.0,
+      "level": "1"
+    },
+    {
+      "task_id": "46719c30",
+      "question": "Of the authors (First M. Last) that worked on the paper \"Pie Menus or Linear Menus, Which Is Better?",
+      "gold": "Mapping Human Oriented Information to Software Agents for Online Systems Usage",
+      "answer": "Could not find answer. Last page: https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3D%2522Pie%2BMenus%2Bor%2BLinear%2BMenus,%2BWhich%2BIs%2BBetter%3F%2522%2B2015%2Bauthors%26sei%3DLeVRarGCA6yTwPAPgIa2yQw&q=EgSwe6IMGK3Kx9IGIjD7L4FdM3hFPZtMqeLvDAnEiAiH03O3hQieDinj2B73MCCtInm7kCLZLobiqU2Dz-QyAVJaAUM",
+      "correct": false,
+      "time_sec": 63.0,
+      "level": "1"
+    },
+    {
+      "task_id": "4b6bb5f7",
+      "question": "In Series 9, Episode 11 of Doctor Who, the Doctor is trapped inside an ever-shifting maze. What is t",
+      "gold": "THE CASTLE",
+      "answer": "Could not find answer. Last page: https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3DDoctor%2BWho%2BHeaven%2BSent%2Bscript%2Bfirst%2Bscene%2Bheading%2Blocation%2Bname%26sei%3DzeVRauLUKcHOwPAPhvzN4QI&q=EgSwe6IMGM3Lx9IGIjA030YvMziy0z4x9me3wPFF_dfRp71MqKe847w2GhYhDkQExq2OzmL6mkIBACNmlb8yAVJaAUM",
+      "correct": false,
+      "time_sec": 161.0,
+      "level": "1"
+    },
+    {
+      "task_id": "cffe0e32",
+      "question": "An office held a Secret Santa gift exchange where each of its twelve employees was assigned one othe",
+      "gold": "Fred",
+      "answer": "I cannot determine who did not give a gift because the search results are blocked by Google's CAPTCHA, and I do not have access to the specific document mentioned in the task. Please provide the document or a direct link to it.",
+      "correct": false,
+      "time_sec": 38.0,
+      "level": "1"
+    },
+    {
+      "task_id": "2d83110e",
+      "question": ".rewsna eht sa \"tfel\" drow eht fo etisoppo eht etirw ,ecnetnes siht dnatsrednu uoy fI",
+      "gold": "Right",
+      "answer": "right",
+      "correct": true,
+      "time_sec": 2.0,
+      "level": "1"
+    },
+    {
+      "task_id": "5cfb274c",
+      "question": "Each cell in the attached spreadsheet represents a plot of land. The color of the cell indicates who",
+      "gold": "No",
+      "answer": "I cannot complete this task because no spreadsheet was attached to your message. Please provide the spreadsheet data showing which cells are green (owned by Earl Smith) and their positions in the grid so I can analyze whether a path exists through all green plots without backtracking.",
+      "correct": false,
+      "time_sec": 7.0,
+      "level": "1"
+    }
+  ]
+}

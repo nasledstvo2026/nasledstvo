@@ -1,0 +1,4003 @@
+{
+  "benchmark": "MMLU",
+  "model": "deepseek-chat",
+  "mode": "0-shot",
+  "sample_size": 570,
+  "subjects": 57,
+  "per_subject": 10,
+  "accuracy": 81.23,
+  "correct": 463,
+  "total": 570,
+  "results": {
+    "4": {
+      "q": "\"A friend of yours says, “Every time I plan a vacation, there's always a crisis ",
+      "subject": "professional_psychology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "1": {
+      "q": "A 72-year-old man is admitted to the intensive care unit for pain management and",
+      "subject": "professional_medicine",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "0": {
+      "q": "Which of the following is expected to have the largest bond polarity?",
+      "subject": "high_school_chemistry",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "3": {
+      "q": "What are the experiences when a sexual addict has completed the sexual act?",
+      "subject": "human_sexuality",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "2": {
+      "q": " If it were known that a policy would wipe out several animal species without ne",
+      "subject": "moral_disputes",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "6": {
+      "q": "Which of the following is the best explanation for why net primary productivity ",
+      "subject": "college_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "7": {
+      "q": "Which of the following statements is not a reason why tetramethylsilane is used ",
+      "subject": "college_chemistry",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "5": {
+      "q": "This question refers to the following information.\nI appeal to any white man to ",
+      "subject": "high_school_us_history",
+      "correct": "A",
+      "pred": "C",
+      "ok": false
+    },
+    "8": {
+      "q": "Moons cause/contribute to which of the following?",
+      "subject": "astronomy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "9": {
+      "q": "A researcher is experimenting with nerve transmission using neurons from a giant",
+      "subject": "high_school_biology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "11": {
+      "q": "Which of the following has been found to improve balance for older adults?",
+      "subject": "human_aging",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "13": {
+      "q": "Which one of these characteristics is most commonly associated with the 'rationa",
+      "subject": "management",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "12": {
+      "q": " When was the first Buddhist temple constructed in Japan?",
+      "subject": "world_religions",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "10": {
+      "q": "A negative externality in the market for a good exists when",
+      "subject": "high_school_microeconomics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "14": {
+      "q": "Carbon-14 is primarily produced by cosmic radiation in the",
+      "subject": "conceptual_physics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "15": {
+      "q": "A rubber ball (mass = 0.08 kg) is dropped from a height of 3.2 m, and after boun",
+      "subject": "high_school_physics",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "16": {
+      "q": "Consider the following numbers.\n   ° Binary 1100\n   ° Decimal 11\n   ° Hexadecima",
+      "subject": "high_school_computer_science",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "18": {
+      "q": "An airplane with its nose pointing north with an airspeed of 40 km/h in a 30-km/",
+      "subject": "conceptual_physics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "19": {
+      "q": "Why did Americans believe that they could found a different kind of empire after",
+      "subject": "us_foreign_policy",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "17": {
+      "q": "By locating the north celestial pole (NCP) in the sky how can you determine your",
+      "subject": "astronomy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "21": {
+      "q": "Which of the following is true of appellate courts?",
+      "subject": "high_school_government_and_politics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "20": {
+      "q": "Marriage appears to be in decline because:",
+      "subject": "sociology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "22": {
+      "q": "What is the percentage of children aged 13-15 in Japan who reported being bullie",
+      "subject": "global_facts",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "24": {
+      "q": "Which of the following is not one of the categories of research design?",
+      "subject": "marketing",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "23": {
+      "q": "The procedure below is intended to display the index in a list of unique names (",
+      "subject": "high_school_computer_science",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "26": {
+      "q": "The second stage of the advertising campaign is to establish ________, or to bec",
+      "subject": "public_relations",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "27": {
+      "q": "Most New Yorkers remember where they were and what they were doing when they hea",
+      "subject": "high_school_psychology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "28": {
+      "q": "Good X is exchanged in a competitive market. Which of the following is true if a",
+      "subject": "high_school_microeconomics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "25": {
+      "q": "This question refers to the following information.\n\"The power . . . given to the",
+      "subject": "high_school_us_history",
+      "correct": "C",
+      "pred": "A",
+      "ok": false
+    },
+    "29": {
+      "q": "The complex proposition fallacy involves",
+      "subject": "logical_fallacies",
+      "correct": "A",
+      "pred": "B",
+      "ok": false
+    },
+    "32": {
+      "q": "Statement 1 | If a finite group has order n then the group contains a subgroup o",
+      "subject": "abstract_algebra",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "31": {
+      "q": "At 25°C, the maximum amount of PbI2 that can be dissolved in 1.00 L of pure wate",
+      "subject": "college_chemistry",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "30": {
+      "q": "What is the 5th term in a series in which the first term is 2 and each subsequen",
+      "subject": "high_school_mathematics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "33": {
+      "q": "Which of these explains why t should be used instead of z for inference procedur",
+      "subject": "high_school_statistics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "34": {
+      "q": "Which cells in the blood do not have a nucleus?",
+      "subject": "anatomy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "37": {
+      "q": "The quantum efficiency of a photon detector is 0.1. If 100 photons are sent into",
+      "subject": "college_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "35": {
+      "q": "The principal of a school is interested in estimating the average income per fam",
+      "subject": "high_school_statistics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "36": {
+      "q": "Which of these statements cannot be applied to the initial development of peace ",
+      "subject": "security_studies",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "38": {
+      "q": "Which of the following ions CANNOT be used as a dopant in germanium to make an n",
+      "subject": "college_physics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "39": {
+      "q": "Consider an identical situation to that of question 21, except that now a 2-side",
+      "subject": "econometrics",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "40": {
+      "q": "An accountant has been engaged to compile a nonissuer's financial statements tha",
+      "subject": "professional_accounting",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "41": {
+      "q": "A sexually active 20-year-old woman has had fever, chills, malaise, and pain of ",
+      "subject": "professional_medicine",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "42": {
+      "q": "In men gonorrhea and chlamydia most often infect the:",
+      "subject": "human_sexuality",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "46": {
+      "q": "According to Esman (1972), which publics are related to the organisation through",
+      "subject": "public_relations",
+      "correct": "C",
+      "pred": "B",
+      "ok": false
+    },
+    "44": {
+      "q": "This question refers to the following information.\nRead the documents below.\nSou",
+      "subject": "high_school_european_history",
+      "correct": "B",
+      "pred": "A",
+      "ok": false
+    },
+    "45": {
+      "q": "What part of Phineas Gage's brain was damaged by his accident while laying the r",
+      "subject": "high_school_psychology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "47": {
+      "q": "Most viral vaccines are produced by which of the following techniques?",
+      "subject": "virology",
+      "correct": "B",
+      "pred": "A",
+      "ok": false
+    },
+    "43": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "A",
+      "pred": "C",
+      "ok": false
+    },
+    "48": {
+      "q": "Which of the following is true of the Supreme Court?",
+      "subject": "high_school_government_and_politics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "50": {
+      "q": "A shelf has four books on it. The weight, in pounds, of each of the four books o",
+      "subject": "elementary_mathematics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "51": {
+      "q": "As of 2017, what fraction of the population in India used the internet in the pa",
+      "subject": "global_facts",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "49": {
+      "q": "Which of the following shifts the production possibilities frontier outward?",
+      "subject": "high_school_macroeconomics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "52": {
+      "q": "This question refers to the following information.\n\"Al-Zawawi also said 'This su",
+      "subject": "high_school_world_history",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "53": {
+      "q": "According to humanistic psychologists, psychological disorders are most likely c",
+      "subject": "high_school_psychology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "54": {
+      "q": "This question refers to the following information.\nQuestions to the passage belo",
+      "subject": "high_school_world_history",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "55": {
+      "q": "Statement 1 | In a group (ab)^{-2} = b^{-2}a^{-2}. Statement 2 | In a group (ab)",
+      "subject": "abstract_algebra",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "56": {
+      "q": "Which of the following statements are true concerning the Box-Jenkins approach t",
+      "subject": "econometrics",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "57": {
+      "q": "Which of the following statements is true of the temporomandibular joint?",
+      "subject": "anatomy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "58": {
+      "q": "Austin has been described as a 'naive empiricist.' Why?",
+      "subject": "jurisprudence",
+      "correct": "C",
+      "pred": "B",
+      "ok": false
+    },
+    "59": {
+      "q": "How many states in the international system are likely to have nuclear weapons r",
+      "subject": "us_foreign_policy",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "60": {
+      "q": "The migration streams into the United States between 1980 and the present have b",
+      "subject": "high_school_geography",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "61": {
+      "q": "The Anglo-American model being considered the best model in light of the recessi",
+      "subject": "business_ethics",
+      "correct": "A",
+      "pred": "C",
+      "ok": false
+    },
+    "62": {
+      "q": "If A = {1, 2, 3} then relation S = {(1, 1), (2, 2)} is",
+      "subject": "abstract_algebra",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "63": {
+      "q": "The spoils system of awarding civil service jobs was replaced by the merit syste",
+      "subject": "high_school_government_and_politics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "65": {
+      "q": "When considering economic tools for security policy, which of the following is t",
+      "subject": "security_studies",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "64": {
+      "q": "A program that checks spelling works in the following way. A hash table has been",
+      "subject": "college_computer_science",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "66": {
+      "q": "An auditor is selecting prenumbered purchase orders for testing an entity's inte",
+      "subject": "professional_accounting",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "67": {
+      "q": "Of the following ions, which has the smallest radius?",
+      "subject": "college_chemistry",
+      "correct": "C",
+      "pred": "B",
+      "ok": false
+    },
+    "69": {
+      "q": "Which of the following cavities are separated by the diaphragm?",
+      "subject": "anatomy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "71": {
+      "q": "A researcher grows a population of ferns in her laboratory. She notices, after a",
+      "subject": "high_school_biology",
+      "correct": "C",
+      "pred": "B",
+      "ok": false
+    },
+    "68": {
+      "q": "A company should recognize goodwill in its balance sheet at which of the followi",
+      "subject": "professional_accounting",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "70": {
+      "q": "Statement 1| The ReLU's gradient is zero for $x<0$, and the sigmoid gradient $\\s",
+      "subject": "machine_learning",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "72": {
+      "q": "What is the estimated global prevalence of untreated dental caries?\n",
+      "subject": "nutrition",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "74": {
+      "q": "Two spaceships approach Earth with equal speeds, as measured by an observer on E",
+      "subject": "college_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "75": {
+      "q": "Which of the following is an example of monosomy?",
+      "subject": "medical_genetics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "77": {
+      "q": "If someone argues that something should be done in a certain way because that's ",
+      "subject": "logical_fallacies",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "73": {
+      "q": "What makes a relationships last, according to Sternberg?",
+      "subject": "human_sexuality",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "76": {
+      "q": "Compute the product in the given ring. (12)(16) in Z_24",
+      "subject": "abstract_algebra",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "78": {
+      "q": "In binary number system the first digit (bit) from right to left is called as",
+      "subject": "electrical_engineering",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "81": {
+      "q": "That modern Africans do not possess any Neandertal DNA indicates that:",
+      "subject": "prehistory",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "79": {
+      "q": "Which of the following types of electromagnetic radiation has the longest wavele",
+      "subject": "high_school_physics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "80": {
+      "q": "A race car attempting to jump a series of 8 buses is set up on a flat track with",
+      "subject": "college_medicine",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "82": {
+      "q": "What is the obligation of the peaceful settlement of disputes?",
+      "subject": "international_law",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "83": {
+      "q": "The solid-state structures of the principal allotropes of elemental boron are ma",
+      "subject": "college_chemistry",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "84": {
+      "q": "When you squeeze an air-filled party balloon, you increase its",
+      "subject": "conceptual_physics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "85": {
+      "q": "This question refers to the following information.\nYou are the United States,\nyo",
+      "subject": "high_school_world_history",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "87": {
+      "q": "Which of the following ideas is not associated with the stance of situation ethi",
+      "subject": "philosophy",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "88": {
+      "q": "How many numbers are in the list $25, 26, 27, \\ldots, 99, 100 ?$",
+      "subject": "high_school_mathematics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "86": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "91": {
+      "q": "________ men, on the average, begin engaging in sexual intercourse approximately",
+      "subject": "human_sexuality",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "89": {
+      "q": " What is the meaning ofsamyak jnanawithin the Jaina traditions?",
+      "subject": "world_religions",
+      "correct": "C",
+      "pred": "A",
+      "ok": false
+    },
+    "90": {
+      "q": "Boiling and freezing occur when water is subjected to",
+      "subject": "conceptual_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "92": {
+      "q": "Sunspots are black regions that temporarily appear on the Sun. Their number high",
+      "subject": "astronomy",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "94": {
+      "q": "A young man working with a therapist on becoming more productive is expressing m",
+      "subject": "college_medicine",
+      "correct": "B",
+      "pred": "A",
+      "ok": false
+    },
+    "93": {
+      "q": "Statement 1| The BLEU metric uses precision, while the ROGUE metric uses recall.",
+      "subject": "machine_learning",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "95": {
+      "q": "Mergesort works by splitting a list of n numbers in half, sorting each half recu",
+      "subject": "college_computer_science",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "96": {
+      "q": "The intake of which minerals is not affected by high intakes of foods containing",
+      "subject": "nutrition",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "98": {
+      "q": " Which of the given formulas of PL is the best symbolization of the following se",
+      "subject": "formal_logic",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "99": {
+      "q": "Post-modernist writers have argued that:",
+      "subject": "sociology",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "97": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "100": {
+      "q": "In men, specimens for gonococcal cultures are most commonly obtained from which ",
+      "subject": "anatomy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "101": {
+      "q": "Variations in vocabulary, pronunciation, and rhythm in a spoken language are cal",
+      "subject": "high_school_geography",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "102": {
+      "q": "An ice cream shopsold 48 vanilla milkshakes in a day, which was 40% of the total",
+      "subject": "elementary_mathematics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "104": {
+      "q": "Which function of money best defines $1.25 as the price of a 20-ounce bottle of ",
+      "subject": "high_school_macroeconomics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "103": {
+      "q": "What is the problem of 'fragmentation' of international law?",
+      "subject": "international_law",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "106": {
+      "q": "Which of the following best describes the primary way in which a distributed den",
+      "subject": "high_school_computer_science",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "105": {
+      "q": "Habermas distinguishes between 'law as medium' and 'law as institution'. Which s",
+      "subject": "jurisprudence",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "107": {
+      "q": "Which of the following statements is false concerning the linear probability mod",
+      "subject": "econometrics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "108": {
+      "q": " Suppose two athletes, A and B, are equally skilled. Suppose also that A natural",
+      "subject": "moral_disputes",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "109": {
+      "q": "Pick the correct description of the following term: Utilitarianism is…",
+      "subject": "business_ethics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "110": {
+      "q": "Mike and Carol have been married for 5 years. Recently Mike has found that altho",
+      "subject": "human_sexuality",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "111": {
+      "q": "Approximately what proportion of nonprofit sector practitioners conduct audience",
+      "subject": "public_relations",
+      "correct": "C",
+      "pred": "B",
+      "ok": false
+    },
+    "112": {
+      "q": "Let l = [1,2,3,4]. What is min(l) in Python3?",
+      "subject": "high_school_computer_science",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "113": {
+      "q": "The president executes a \"pocket veto\" by doing which of the following?",
+      "subject": "high_school_government_and_politics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "115": {
+      "q": "The normal human chromosome diploid number is:",
+      "subject": "medical_genetics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "116": {
+      "q": "Why might the 'Philadelphian System' be linked to the idea of American exception",
+      "subject": "us_foreign_policy",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "117": {
+      "q": "The polynomial x^4 + 4 can be factored into linear factors in Z_5[x]. Find this ",
+      "subject": "abstract_algebra",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "114": {
+      "q": "If Christmas Day is on a Saturday then the following New Year's Day falls on wha",
+      "subject": "miscellaneous",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "118": {
+      "q": "Recently, Congress enacted a statute requiring all boat owners to register their",
+      "subject": "professional_law",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "119": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "121": {
+      "q": "What does Milton Friedman believe to be the sole responsibility of business?",
+      "subject": "business_ethics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "120": {
+      "q": "Which of the following is not the basis for a wage differential?",
+      "subject": "high_school_microeconomics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "122": {
+      "q": "An insurance company wishes to study the number of years drivers in a large city",
+      "subject": "high_school_statistics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "123": {
+      "q": "Which of the following is NOT a major cost of inflation?",
+      "subject": "high_school_macroeconomics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "124": {
+      "q": "What is the name of the Hindu community associated with environmental activism?",
+      "subject": "world_religions",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "126": {
+      "q": "A diode (p-n junction) when reverse biased act as",
+      "subject": "electrical_engineering",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "125": {
+      "q": "When someone uses grammar or punctuation in a way that makes a statement have mo",
+      "subject": "logical_fallacies",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "128": {
+      "q": " Which early battle led to the conversion of Mecca?",
+      "subject": "world_religions",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "129": {
+      "q": "About how many people are infected by HIV/AIDS as of 2020?",
+      "subject": "global_facts",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "127": {
+      "q": "Consider a computer system in which processes can request and release one or mor",
+      "subject": "college_computer_science",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "131": {
+      "q": "When the shadow of the Moon falls on Earth, we have a",
+      "subject": "conceptual_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "132": {
+      "q": "Suppose you are given an EM algorithm that finds maximum likelihood estimates fo",
+      "subject": "machine_learning",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "130": {
+      "q": "In the equation GDP = C + I + G + X X stands for",
+      "subject": "high_school_macroeconomics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "133": {
+      "q": "A population pyramid, or age-sex structure, displays all the following informati",
+      "subject": "high_school_geography",
+      "correct": "B",
+      "pred": "A",
+      "ok": false
+    },
+    "134": {
+      "q": "A 77-year-old female presents to the office for evaluation of a syncopal event t",
+      "subject": "professional_medicine",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "135": {
+      "q": "Which of the following circles has the greatest number of points of intersection",
+      "subject": "college_mathematics",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "137": {
+      "q": "Which of the following explanations best fits the fallacy of ignorance of refuta",
+      "subject": "logical_fallacies",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "136": {
+      "q": "Social norms are:",
+      "subject": "sociology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "138": {
+      "q": "Studies show that the effect of the presence of others on an individual's perfor",
+      "subject": "professional_psychology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "139": {
+      "q": "The polymerase chain reaction or PCR is a technique that",
+      "subject": "medical_genetics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "140": {
+      "q": " Which of the following is the investigation of the hedonic consumption of produ",
+      "subject": "marketing",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "141": {
+      "q": "Vasocongestion is a process of :",
+      "subject": "human_sexuality",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "142": {
+      "q": "Vocational interest inventories are generally not recommended as",
+      "subject": "professional_psychology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "143": {
+      "q": "In class, John's teacher tells him that she will give him the coin and bill for ",
+      "subject": "high_school_psychology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "144": {
+      "q": "Which best describes Stonehenge?",
+      "subject": "prehistory",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "147": {
+      "q": "Which of the following statements is false?",
+      "subject": "clinical_knowledge",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "145": {
+      "q": "Considering 0.1 M aqueous solutions of each of the following, which solution has",
+      "subject": "college_chemistry",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "146": {
+      "q": "Optometrists use a linear scale of lens power, measured in diopters, to prescrib",
+      "subject": "high_school_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "148": {
+      "q": "Leslie is a disgruntled employee who walks into her place of employment and shoo",
+      "subject": "public_relations",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "149": {
+      "q": "Excess disability refers to symptoms that are",
+      "subject": "human_aging",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "151": {
+      "q": "Consider the Bayesian network given below. How many independent parameters are n",
+      "subject": "machine_learning",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "150": {
+      "q": "Asp235Phe in a molecular report indicates that:",
+      "subject": "medical_genetics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "152": {
+      "q": "What is the meaning of implied authorisation?",
+      "subject": "international_law",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "154": {
+      "q": "Assume that a debugger places a breakpoint at a load instruction at virtual addr",
+      "subject": "college_computer_science",
+      "correct": "A",
+      "pred": "B",
+      "ok": false
+    },
+    "156": {
+      "q": "In a certain region, the electric field varies with the radius away from origin ",
+      "subject": "high_school_physics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "153": {
+      "q": " The process by which individuals accept and use new propositions is referred to",
+      "subject": "marketing",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "157": {
+      "q": "This question refers to the following information.\n\"I travelled thence to 'Aden,",
+      "subject": "high_school_world_history",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "155": {
+      "q": "What is the legal nature of the Universal Declaration of Human Rights (UDHR)?",
+      "subject": "international_law",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "158": {
+      "q": "Fungi participate in each of the following EXCEPT",
+      "subject": "college_biology",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "160": {
+      "q": "What is a replay attack?",
+      "subject": "computer_security",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "161": {
+      "q": "What commonly causes skin excoriation?",
+      "subject": "clinical_knowledge",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "162": {
+      "q": "Intestinal failiure:\n",
+      "subject": "nutrition",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "159": {
+      "q": "This question refers to the following information.\n\"The only force which is stro",
+      "subject": "high_school_us_history",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "163": {
+      "q": "Taurek claims that if faced with the choice between saving the life of X or the ",
+      "subject": "philosophy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "164": {
+      "q": " According to rule consequentialism, the rightness or wrongness of an action dep",
+      "subject": "moral_disputes",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "166": {
+      "q": "Rawls claims that a conception of justice should be justified by:",
+      "subject": "philosophy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "167": {
+      "q": "Which of the following is least likely to reduce bias in a sample survey?",
+      "subject": "high_school_statistics",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "165": {
+      "q": " Callahan cites the Oregon Death with Dignity Legal Defense and the Education Ce",
+      "subject": "moral_disputes",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "168": {
+      "q": "Which of the following is not true with regard to contingency tables for chi-squ",
+      "subject": "high_school_statistics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "169": {
+      "q": "Which of the following is true of the spine?",
+      "subject": "clinical_knowledge",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "170": {
+      "q": "The Fibonacci sequence is the sequence 1, 1, 2, 3, 5, $\\ldots$ where each term i",
+      "subject": "high_school_mathematics",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "173": {
+      "q": "Let R be a ring with a multiplicative identity. If U is an additive subgroup of ",
+      "subject": "college_mathematics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "171": {
+      "q": "With respect to theories of senescence, it's probably safe to say that",
+      "subject": "human_aging",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "172": {
+      "q": "Some research has found that later cognitive decline is predicted by earlier",
+      "subject": "human_aging",
+      "correct": "B",
+      "pred": "A",
+      "ok": false
+    },
+    "176": {
+      "q": "A fluorescent molecule of 1,000 daltons injected into one cell is observed to en",
+      "subject": "college_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "175": {
+      "q": "Which of the following best describes the structure that collects urine in the b",
+      "subject": "anatomy",
+      "correct": "A",
+      "pred": "C",
+      "ok": false
+    },
+    "177": {
+      "q": "Dworkin contends that to every legal question there is only one right answer. Wh",
+      "subject": "jurisprudence",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "174": {
+      "q": "During a chemical reaction, NO(g) gets reduced and no nitrogen-containing compou",
+      "subject": "high_school_chemistry",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "178": {
+      "q": "The film 'Stand By Me' is based on a novel by what author?",
+      "subject": "miscellaneous",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "179": {
+      "q": "This question refers to the following information.\n\"The petition of several poor",
+      "subject": "high_school_us_history",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "180": {
+      "q": "Of the following choices the one most likely to be preferred by supply-side econ",
+      "subject": "high_school_macroeconomics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "182": {
+      "q": "One night, a defendant entered a liquor store, pointed a gun at the cashier, and",
+      "subject": "professional_law",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "181": {
+      "q": "The purpose of \"augmenting\" the Dickey-Fuller test regression is to",
+      "subject": "econometrics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "183": {
+      "q": "Which of the following is most likely to decrease the demand for kindergarten te",
+      "subject": "high_school_microeconomics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "185": {
+      "q": "As the number of training examples goes to infinity, your model trained on that ",
+      "subject": "machine_learning",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "184": {
+      "q": "The supply frequency usually employed for high frequency eddy current heating is",
+      "subject": "electrical_engineering",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "186": {
+      "q": "For a Gestalt therapist, a primary goal of treatment is to help the client:",
+      "subject": "professional_psychology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "187": {
+      "q": "Mapping of human chromosomes:",
+      "subject": "medical_genetics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "188": {
+      "q": "Find the sum of the given polynomials in the given polynomial ring. f(x) = 4x - ",
+      "subject": "abstract_algebra",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "189": {
+      "q": "If the price of one good (A) increases and the quantity demanded of another good",
+      "subject": "high_school_microeconomics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "190": {
+      "q": "A stakeholder orientation includes all of the following activities except:",
+      "subject": "business_ethics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "191": {
+      "q": "What is the molar mass of a monoprotic weak acid that requires 26.3 mL of 0.122 ",
+      "subject": "high_school_chemistry",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "192": {
+      "q": "This question refers to the following information.\n\"The struggle against neo-col",
+      "subject": "high_school_world_history",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "193": {
+      "q": "What is the magnetic moment of 205Tl?",
+      "subject": "college_chemistry",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "195": {
+      "q": "Who wrote 'A Tale of Two Cities'?",
+      "subject": "miscellaneous",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "194": {
+      "q": "What is the structure of the United Nations Security Council?",
+      "subject": "us_foreign_policy",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "196": {
+      "q": "If A is a subset of the real line R and A contains each rational number, which o",
+      "subject": "college_mathematics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "198": {
+      "q": "Imagine an economy that produces only two goods cheese and crackers. Calculate G",
+      "subject": "high_school_macroeconomics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "197": {
+      "q": "The moving coil-meters, damping is provided by",
+      "subject": "electrical_engineering",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "199": {
+      "q": "A particle is constrained to move in a circle with a 10-meter radius. At one ins",
+      "subject": "college_physics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "202": {
+      "q": "The transfer of DNA between two bacterial cells connected by sex pili is known a",
+      "subject": "high_school_biology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "200": {
+      "q": "Who sang lead vocals for the band Big Brother and the Holding Company?",
+      "subject": "miscellaneous",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "201": {
+      "q": "Why are members of the astrovirus family only recently recognised as significant",
+      "subject": "virology",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "203": {
+      "q": "In a condition such as schizophrenia the recurrence risk will be greatest for wh",
+      "subject": "medical_genetics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "206": {
+      "q": "Why are Cepheid stars relevant for astronomers?",
+      "subject": "astronomy",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "204": {
+      "q": "A man stands on a platform scale in an elevator. The elevator moves upward, spee",
+      "subject": "high_school_physics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "205": {
+      "q": "What drives US foreign policy according to the Marxist perspective?",
+      "subject": "us_foreign_policy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "207": {
+      "q": "Which proposition below is the most consistent with what Rawls claims the POP wo",
+      "subject": "jurisprudence",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "208": {
+      "q": "Array A contains 256 elements of 4 bytes each. Its first element is stored at ph",
+      "subject": "college_computer_science",
+      "correct": "A",
+      "pred": "C",
+      "ok": false
+    },
+    "210": {
+      "q": "This question refers to the following information.\n\"I was once a tool of oppress",
+      "subject": "high_school_us_history",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "209": {
+      "q": "A farmer who raises hens for egg production wants his eggs to have a mean mass o",
+      "subject": "high_school_statistics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "211": {
+      "q": "The so-called BRIC countries (Brazil, Russia, India and _______) tend to follow ",
+      "subject": "business_ethics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "212": {
+      "q": "How does a buffer overflow on the stack facilitate running attacker-injected cod",
+      "subject": "computer_security",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "213": {
+      "q": "There are five stages of mitosis that must be carried out correctly for a cell t",
+      "subject": "college_medicine",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "214": {
+      "q": "According to Cutlip (2006), which stage of the communications plan should involv",
+      "subject": "public_relations",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "216": {
+      "q": "On her previous five attempts Sarah had achieved times, in seconds, of 86, 94, 9",
+      "subject": "high_school_mathematics",
+      "correct": "B",
+      "pred": "C",
+      "ok": false
+    },
+    "215": {
+      "q": "What type of countries generally possesses a greater variety of climates and res",
+      "subject": "high_school_geography",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "217": {
+      "q": "A tenant was cleaning out the bedroom of his apartment as his lease had expired.",
+      "subject": "professional_law",
+      "correct": "D",
+      "pred": "C",
+      "ok": false
+    },
+    "218": {
+      "q": " Ross's moral theory is a version of",
+      "subject": "moral_disputes",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "219": {
+      "q": "According to Kohlberg, in order to reason at the postconventional level, people ",
+      "subject": "high_school_psychology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "220": {
+      "q": "In most situations, the “holder of the privilege” is:",
+      "subject": "professional_psychology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "221": {
+      "q": "Those who survive the loss of another are called the",
+      "subject": "human_aging",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "222": {
+      "q": "What are the key elements of the Liberal approach to US foreign policy?",
+      "subject": "us_foreign_policy",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "223": {
+      "q": "Negative residual autocorrelation is indicated by which one of the following?",
+      "subject": "econometrics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "224": {
+      "q": "Which one of the following statements is NOT true of the \"core\" countries?",
+      "subject": "high_school_geography",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "225": {
+      "q": "What does situational theory of leadership emphasise?",
+      "subject": "management",
+      "correct": "B",
+      "pred": "C",
+      "ok": false
+    },
+    "226": {
+      "q": "Which of the following characteristics most likely would heighten an auditor's c",
+      "subject": "professional_accounting",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "228": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "227": {
+      "q": "Which of the following characteristics of modern humans is the most ancient, pre",
+      "subject": "prehistory",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "230": {
+      "q": "Spectral lines of the elements are",
+      "subject": "conceptual_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "229": {
+      "q": "Which of the following is the most important for controlling disease caused by n",
+      "subject": "virology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "231": {
+      "q": "A company sells its product at two different prices in two different locations. ",
+      "subject": "marketing",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "232": {
+      "q": "Which of these is not one of the three branches of the US government?",
+      "subject": "miscellaneous",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "233": {
+      "q": "According to Aquinas, an infinite regress of causes is _____.",
+      "subject": "philosophy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "235": {
+      "q": " Which bodhisattva is known for conducting the souls of dead children to salvati",
+      "subject": "world_religions",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "234": {
+      "q": "Sociobiologists assume that the central function of sex is:",
+      "subject": "human_sexuality",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "236": {
+      "q": "Buffer-overflow may remain as a bug in apps if __________ are not done fully.",
+      "subject": "computer_security",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "237": {
+      "q": "In 1935 roughly how many Americans were in favor of Social Security act?",
+      "subject": "global_facts",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "238": {
+      "q": "This question refers to the following information.\n\"Indeed, as both the fatwas o",
+      "subject": "high_school_world_history",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "240": {
+      "q": "Which is true about Batch Normalization?",
+      "subject": "machine_learning",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "241": {
+      "q": "The cooperative international organization of 185 countries designed to stabiliz",
+      "subject": "us_foreign_policy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "239": {
+      "q": " On McGregor's view, our rights carve out",
+      "subject": "moral_disputes",
+      "correct": "C",
+      "pred": "A",
+      "ok": false
+    },
+    "242": {
+      "q": "The view that art is defined by its form is known as _____.",
+      "subject": "philosophy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "243": {
+      "q": "The inverse of -i in the multiplicative group, {1, -1, i , -i} is",
+      "subject": "abstract_algebra",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "247": {
+      "q": "In what ways might a society be threatened?",
+      "subject": "security_studies",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "244": {
+      "q": "Which of the following was the legal basis for the 1973 Roe v. Wade majority opi",
+      "subject": "high_school_government_and_politics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "246": {
+      "q": "Which of the following explanations of why a 17-year-old drives his car at or be",
+      "subject": "high_school_psychology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "248": {
+      "q": "With respect to the kinked demand curve, which of the following is NOT correct?",
+      "subject": "high_school_microeconomics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "245": {
+      "q": "Which of the following is NOT a group?",
+      "subject": "college_mathematics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "250": {
+      "q": "Statistical regression is a potential threat to a study’s internal validity when",
+      "subject": "professional_psychology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "249": {
+      "q": "Voltage controlled oscillators are used commonly in",
+      "subject": "electrical_engineering",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "252": {
+      "q": "The descending loop of Henle of the nephron of the kidney is permeable to which ",
+      "subject": "college_medicine",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "251": {
+      "q": "Which of the following is not identified as a new form of community?",
+      "subject": "sociology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "253": {
+      "q": "The three countries with the most drug injectors are:",
+      "subject": "virology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "255": {
+      "q": "How is terrorism different from the types of crime described by the Chicago Scho",
+      "subject": "sociology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "256": {
+      "q": "Which of these refers to an alcoholic drink laced with a knockout drug?",
+      "subject": "miscellaneous",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "257": {
+      "q": "The sub key length at each round of DES is__________",
+      "subject": "computer_security",
+      "correct": "B",
+      "pred": "C",
+      "ok": false
+    },
+    "254": {
+      "q": "Which of the following entities is a state?",
+      "subject": "high_school_geography",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "258": {
+      "q": "Which of the following is the most likely to be a deterrent to growth in the eco",
+      "subject": "high_school_macroeconomics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "261": {
+      "q": "Conor made 9 shapes with straws. Each shape had 5 straws. Conor used 15 more str",
+      "subject": "elementary_mathematics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "260": {
+      "q": "Which of the following is true of mutation-based fuzzing?",
+      "subject": "computer_security",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "262": {
+      "q": "Suppose that a hypothesis test is conducted using a 5% significance level. Which",
+      "subject": "econometrics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "263": {
+      "q": "The maximum sustainable power:",
+      "subject": "clinical_knowledge",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "264": {
+      "q": "Which element of the promotional mix handles unfavorable stories and events and ",
+      "subject": "marketing",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "265": {
+      "q": "This question refers to the following information.\n\"His Majesty the Emperor of C",
+      "subject": "high_school_european_history",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "259": {
+      "q": "A proxy rewall lters at the",
+      "subject": "computer_security",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "266": {
+      "q": "What is the future of WMD?",
+      "subject": "security_studies",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "268": {
+      "q": "Fats normally contain triacylglycerols at concentrations of:\n",
+      "subject": "nutrition",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "269": {
+      "q": "If both parents are affected with the same autosomal recessive disorder then the",
+      "subject": "medical_genetics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "270": {
+      "q": "What is a succession plan?",
+      "subject": "management",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "267": {
+      "q": "A particle decays in 2.0 ms in its rest frame. If the same particle moves at v=0",
+      "subject": "college_physics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "271": {
+      "q": "In order to encourage college enrollment, a state provides a tax exemption of $2",
+      "subject": "professional_law",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "274": {
+      "q": "A study is designed to evaluate the feasibility of acupuncture in children with ",
+      "subject": "professional_medicine",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "273": {
+      "q": "In what ways did the Human Development Report, published by the United Nations D",
+      "subject": "security_studies",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "272": {
+      "q": "Let $f(x) = 3x^2-2$ and $g(f(x)) = x^2 + x +1$. Find the sum of all possible val",
+      "subject": "high_school_mathematics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "276": {
+      "q": "At about _________ months after conception, the gender of the fetus is clear fro",
+      "subject": "human_sexuality",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "275": {
+      "q": "Lemon owned 2000 shares of Spectrol Corp. common stock that were purchased in ye",
+      "subject": "professional_accounting",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "277": {
+      "q": "An Insect class is to be written, containing the following data fields: age, whi",
+      "subject": "high_school_computer_science",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "278": {
+      "q": "Which of the following is NOT one of the four categories of persuasive crisis co",
+      "subject": "public_relations",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "279": {
+      "q": " Which of the given formulas of PL is the best symbolization of the following se",
+      "subject": "formal_logic",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "280": {
+      "q": "The pacf is necessary for distinguishing between",
+      "subject": "econometrics",
+      "correct": "B",
+      "pred": "A",
+      "ok": false
+    },
+    "281": {
+      "q": "Which are the formal sources of international law?",
+      "subject": "international_law",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "282": {
+      "q": "How are antibody producing cells stimulated?",
+      "subject": "virology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "283": {
+      "q": "This question refers to the following information.\nIn order to make the title of",
+      "subject": "high_school_european_history",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "286": {
+      "q": "The early Mesolithic Maglemosian culture was adapted to:",
+      "subject": "prehistory",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "284": {
+      "q": "Replacing supply chains with _______ enhances the importance of product _______a",
+      "subject": "business_ethics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "285": {
+      "q": "Which of the following is not a recognized complication of cystic fibrosis?",
+      "subject": "medical_genetics",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "287": {
+      "q": "What is the value of 4x + 9, when x = 4?",
+      "subject": "elementary_mathematics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "288": {
+      "q": "As of 2019, about what percentage of Indians say it is necessary to believe in G",
+      "subject": "global_facts",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "289": {
+      "q": "Which of these has NOT been one of the main hypotheses considered for the origin",
+      "subject": "astronomy",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "290": {
+      "q": "What type of radiation causes a black hole to evaporate over time?",
+      "subject": "astronomy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "291": {
+      "q": "What is the ordinary geographical scope of jurisdiction?",
+      "subject": "international_law",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "292": {
+      "q": "Whose profile can you see on the front of dimes that are currently in circulatio",
+      "subject": "miscellaneous",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "293": {
+      "q": "Which of the following statements is LEAST true of voters in federal, state, and",
+      "subject": "high_school_government_and_politics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "294": {
+      "q": "For EDTA titrations, the analyte solution and the titrant solution are both buff",
+      "subject": "college_chemistry",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "295": {
+      "q": "For a neural network, which one of these structural assumptions is the one that ",
+      "subject": "machine_learning",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "297": {
+      "q": "The two principal contractile proteins found in skeletal muscle are:",
+      "subject": "clinical_knowledge",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "299": {
+      "q": "Which of the following points supports the argument for American unilateralism?",
+      "subject": "us_foreign_policy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "298": {
+      "q": "Let A and B be sets, f: A -> B and g: B -> A be functions such that for all a \\i",
+      "subject": "abstract_algebra",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "300": {
+      "q": "This question refers to the following information.\n\"The seeds of totalitarian re",
+      "subject": "high_school_us_history",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "301": {
+      "q": "Which of the following statements is correct?",
+      "subject": "business_ethics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "303": {
+      "q": "What are the criteria for statehood under the 1933 Montevideo Convention?",
+      "subject": "international_law",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "302": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "A",
+      "pred": "B",
+      "ok": false
+    },
+    "304": {
+      "q": "Aristotle states that if we ask what the highest good of human action is:",
+      "subject": "philosophy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "296": {
+      "q": "The T2 of an NMR line is 15 ms. Ignoring other sources of linebroadening, calcul",
+      "subject": "college_chemistry",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "306": {
+      "q": "The β-oxidation of a molecule of palmitic acid, CH3(CH2)14CO2H:",
+      "subject": "college_medicine",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "307": {
+      "q": "The first hominids could be described as:",
+      "subject": "prehistory",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "308": {
+      "q": "In a clinic, 50 patients with sleep disorders are randomly assigned to one of tw",
+      "subject": "high_school_statistics",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "305": {
+      "q": "In modern societies, social status is typically measured by a person's:",
+      "subject": "sociology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "309": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "D",
+      "pred": "C",
+      "ok": false
+    },
+    "311": {
+      "q": " Mani referred to God by which of the following names?",
+      "subject": "world_religions",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "310": {
+      "q": "As of 2017, how many people in the world have some access to electricity?",
+      "subject": "global_facts",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "312": {
+      "q": "An astronomer observes a very small moon orbiting a planet and measures the moon",
+      "subject": "college_physics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "313": {
+      "q": "This question refers to the following information.\nSource 1:\n\"Moreover, Sir, in ",
+      "subject": "high_school_world_history",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "314": {
+      "q": "Lowest critical frequency is due to zero and it may be present at the origin or ",
+      "subject": "electrical_engineering",
+      "correct": "D",
+      "pred": "B",
+      "ok": false
+    },
+    "315": {
+      "q": " What type of Buddhist organization is the Bodu Bala Sena?",
+      "subject": "world_religions",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "317": {
+      "q": "Statement 1| The Stanford Sentiment Treebank contained movie reviews, not book r",
+      "subject": "machine_learning",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "316": {
+      "q": "Which of the following statements is not applicable to the Securitization proces",
+      "subject": "security_studies",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "318": {
+      "q": "In nerve cells, microtubule-associated proteins (MAPs), most notably MAP2 and MA",
+      "subject": "college_medicine",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "319": {
+      "q": "What is the term for an organisation that adapts to changes in the environment b",
+      "subject": "management",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "320": {
+      "q": "Notice from the Hyatt Regency Hotel in New Orleans: We are pleased to confirm yo",
+      "subject": "logical_fallacies",
+      "correct": "D",
+      "pred": "A",
+      "ok": false
+    },
+    "321": {
+      "q": "The dimerization of NO2(g) to N2O4(g) is an endothermic process. Which of the fo",
+      "subject": "high_school_chemistry",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "322": {
+      "q": "Cerium(III) sulfate, Ce2(SO4)2, is less soluble in hot water than it is in cold.",
+      "subject": "high_school_chemistry",
+      "correct": "A",
+      "pred": "C",
+      "ok": false
+    },
+    "324": {
+      "q": "Which of the following properties is responsible for holding together the water ",
+      "subject": "high_school_biology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "323": {
+      "q": "As more lamps are connected to a series circuit, the current in the power source",
+      "subject": "conceptual_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "325": {
+      "q": "In which of the following situations is a binomial model not an appropriate mode",
+      "subject": "high_school_statistics",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "326": {
+      "q": "Frustration always leads to aggression/aggression always predicated by frustrati",
+      "subject": "professional_psychology",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "327": {
+      "q": "Cleavage symmetry arising from early cell divisions that occur at an oblique ang",
+      "subject": "college_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "328": {
+      "q": "Which of the following is LEAST likely to indicate a phishing attack?",
+      "subject": "high_school_computer_science",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "330": {
+      "q": "Which of these was not one of Townsend's (1979) indicators of relative deprivati",
+      "subject": "sociology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "329": {
+      "q": "This question refers to the following information.\n\"The far-reaching, the boundl",
+      "subject": "high_school_us_history",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "331": {
+      "q": "Which of these is the best description of a P-value?",
+      "subject": "high_school_statistics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "332": {
+      "q": "A mother complains thar her 15-year-old daughter “lives like a pig, she is so sl",
+      "subject": "professional_psychology",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "334": {
+      "q": "Evaluate −2(x − 3) for x = 2.",
+      "subject": "elementary_mathematics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "333": {
+      "q": "A stone is thrown vertically upward with an initial speed of 5 m/s. What is the ",
+      "subject": "high_school_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "335": {
+      "q": "Which of the following is NOT a property of bitmap graphics?",
+      "subject": "college_computer_science",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "336": {
+      "q": "Magnesium has an atomic radius of 160 pm and a first ionization energy of 737 kJ",
+      "subject": "high_school_chemistry",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "337": {
+      "q": "How many different possible committees of 5 people can be chosen from a group of",
+      "subject": "high_school_mathematics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "340": {
+      "q": "Which of the following statements best describes the orientation of military sec",
+      "subject": "security_studies",
+      "correct": "D",
+      "pred": "C",
+      "ok": false
+    },
+    "339": {
+      "q": "In the mid-1900s, the Soviet geneticist Lysenko believed that his winter wheat p",
+      "subject": "high_school_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "338": {
+      "q": "According to Belbin (1981) an extroverted and enthusiastic person fits with what",
+      "subject": "management",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "341": {
+      "q": " Use indirect truth tables to determine whether each set of propositions is cons",
+      "subject": "formal_logic",
+      "correct": "B",
+      "pred": "A",
+      "ok": false
+    },
+    "342": {
+      "q": "You seek the counsel of one of your peers who designed and implemented a communi",
+      "subject": "public_relations",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "345": {
+      "q": "Which of the following statements is TRUE concerning older workers' job performa",
+      "subject": "human_aging",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "344": {
+      "q": "Suppose that an expansionary fiscal policy leads to a large increase in real out",
+      "subject": "high_school_macroeconomics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "343": {
+      "q": "How are arenaviruses spread?",
+      "subject": "virology",
+      "correct": "A",
+      "pred": "C",
+      "ok": false
+    },
+    "346": {
+      "q": "This branding policy requires that all the products use the organization's name,",
+      "subject": "marketing",
+      "correct": "B",
+      "pred": "C",
+      "ok": false
+    },
+    "347": {
+      "q": "Which of the following refers to the systematic study of the earth's layers?",
+      "subject": "prehistory",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "349": {
+      "q": "A programmer is designing a program to catalog all books in a library. He plans ",
+      "subject": "high_school_computer_science",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "348": {
+      "q": "About what percentage of the global population was literate in 1950?",
+      "subject": "global_facts",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "350": {
+      "q": "A major difference between programmed and unprogrammed theories of senescence is",
+      "subject": "human_aging",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "352": {
+      "q": "This question refers to the following information.\nAt the peak of their power, t",
+      "subject": "high_school_world_history",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "351": {
+      "q": "In 2006, an investor purchased a 100-acre tract located in a rural county. Short",
+      "subject": "professional_law",
+      "correct": "D",
+      "pred": "C",
+      "ok": false
+    },
+    "354": {
+      "q": "Erection in the male and vaginal lubrication in the female mark the __________ s",
+      "subject": "human_sexuality",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "353": {
+      "q": "How many categories of ethical principles do Diener and Crandell refer to?",
+      "subject": "philosophy",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "355": {
+      "q": "Which orbital wall is most likely to collapse in a 'blow out' fracture?",
+      "subject": "anatomy",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "357": {
+      "q": "Which is true with regard to voyeurs?",
+      "subject": "human_sexuality",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "356": {
+      "q": "Which of the following is true of equilibrium in a purely (or perfectly) competi",
+      "subject": "high_school_microeconomics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "358": {
+      "q": "Antibiotics that affect bacterial cells interfere with all of the following EXCE",
+      "subject": "college_biology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "360": {
+      "q": "Why does Dworkin support liberal egalitarianism?",
+      "subject": "jurisprudence",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "359": {
+      "q": "For all strings x, the function x^M is defined recursively as follows.\ne^M= e, a",
+      "subject": "college_computer_science",
+      "correct": "D",
+      "pred": "C",
+      "ok": false
+    },
+    "361": {
+      "q": "Which of the factors below contributed significantly to the revival of natural l",
+      "subject": "jurisprudence",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "362": {
+      "q": "To compute the matrix product M_1M_2, where M_1 has p rows and q columns and whe",
+      "subject": "college_computer_science",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "363": {
+      "q": "What was meant by the term 'American multiplication table'?",
+      "subject": "us_foreign_policy",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "367": {
+      "q": "What are workers primarily motivated by according to the instrumental approach?",
+      "subject": "management",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "364": {
+      "q": "An allele that is masked is referred to as:",
+      "subject": "clinical_knowledge",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "366": {
+      "q": "Two unrelated species evolve in a way that makes them more similar.",
+      "subject": "high_school_biology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "365": {
+      "q": "A 3-week-old male infant is brought to the office by his mother because of a 2-d",
+      "subject": "professional_medicine",
+      "correct": "C",
+      "pred": "B",
+      "ok": false
+    },
+    "368": {
+      "q": "A 40-year-old female secretary comes to the office because of a 2-month history ",
+      "subject": "professional_medicine",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "370": {
+      "q": "The midterm scores for a statistics course were approximately normally distribut",
+      "subject": "high_school_statistics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "371": {
+      "q": " Collectively organizations that combine to enable offerings to reach end users ",
+      "subject": "marketing",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "373": {
+      "q": "Which of the following statement is supported by the information given in the pe",
+      "subject": "high_school_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "372": {
+      "q": "A professor owned a building in a city. The building had a commercial space on t",
+      "subject": "professional_law",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "369": {
+      "q": "This question refers to the following information.\n\"In 1500 that work appeared w",
+      "subject": "high_school_european_history",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "374": {
+      "q": " Select the best English interpretation of the given proposition, using the foll",
+      "subject": "formal_logic",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "378": {
+      "q": "Which of the following world regions is NOT considered one of the world's most d",
+      "subject": "high_school_geography",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "377": {
+      "q": "Which of the following structures should be visible on a dental panoramic radiog",
+      "subject": "anatomy",
+      "correct": "D",
+      "pred": "C",
+      "ok": false
+    },
+    "375": {
+      "q": "This question refers to the following information.\nRead the following letter.\nIt",
+      "subject": "high_school_european_history",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "376": {
+      "q": "Pursuant to a newly enacted statute, Congress created a nine-member agency empow",
+      "subject": "professional_law",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "379": {
+      "q": "Who discovered the first virus?",
+      "subject": "virology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "382": {
+      "q": "This question refers to the following information.\nAt a meeting of working girls",
+      "subject": "high_school_us_history",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "380": {
+      "q": "Which of the following statements is correct?\n",
+      "subject": "nutrition",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "381": {
+      "q": "−4 +  ( −3 )=",
+      "subject": "elementary_mathematics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "383": {
+      "q": "This question refers to the following information.\n\"The question, therefore, sho",
+      "subject": "high_school_us_history",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "384": {
+      "q": "A segment of DNA from a lab mouse is determined to be 5’ – GGATCCTCATG – 3’. Whi",
+      "subject": "college_medicine",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "386": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "385": {
+      "q": "Which of the following points would Bayesians and frequentists disagree on?",
+      "subject": "machine_learning",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "387": {
+      "q": "Which one of the following represents a IIIrd cranial nerve palsy and is a neuro",
+      "subject": "clinical_knowledge",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "388": {
+      "q": " According to Singer, the conclusions argued for in \"all animals are equal\" flow",
+      "subject": "moral_disputes",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "389": {
+      "q": "In the formation of the earliest cells, which of the following components most l",
+      "subject": "college_biology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "391": {
+      "q": "Using fundamental trends in electronegativity and bond strength, which of the fo",
+      "subject": "high_school_chemistry",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "390": {
+      "q": "Which one of the following statements is true concerning VARs?",
+      "subject": "econometrics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "392": {
+      "q": "A 33-year-old female presents to the office with the complaint of chronic pelvic",
+      "subject": "professional_medicine",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "393": {
+      "q": "The absence of a political party solely dedicated to labor and working class iss",
+      "subject": "high_school_government_and_politics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "394": {
+      "q": "The sky is blue because",
+      "subject": "astronomy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "396": {
+      "q": "Lombroso claimed that:",
+      "subject": "sociology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "398": {
+      "q": "Epictetus claims that if the wife and children of a virtuous man were to die, he",
+      "subject": "philosophy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "397": {
+      "q": "Which of the following sociological perspectives views society as a system of in",
+      "subject": "sociology",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "395": {
+      "q": "Statement 1 | Every permutation is a cycle. Statement 2 | Every cycle is a permu",
+      "subject": "abstract_algebra",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "399": {
+      "q": "This question refers to the following information.\n\"The real grievance of the wo",
+      "subject": "high_school_world_history",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "400": {
+      "q": "If a real number x is chosen at random in the interval [0, 3] and a real number ",
+      "subject": "college_mathematics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "403": {
+      "q": "An algorithm for finding the average of N numbers is average = sum / N, where N ",
+      "subject": "high_school_computer_science",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "404": {
+      "q": "The U.S. economy currently suffers a recessionary gap and a budget deficit exist",
+      "subject": "high_school_macroeconomics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "402": {
+      "q": "Positive integers $x$ and $y$ have a product of 56 and $x < y$. Seven times the ",
+      "subject": "high_school_mathematics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "405": {
+      "q": "Synthesis of an RNA/DNA hybrid from a single-stranded RNA template requires",
+      "subject": "college_biology",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "401": {
+      "q": " Which of the given formulas of PL is the best symbolization of the following se",
+      "subject": "formal_logic",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "407": {
+      "q": "Which of the following fallacies happen if someone argues that you are a reasona",
+      "subject": "logical_fallacies",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "408": {
+      "q": "Why do we look for water-ice in craters at Mercury's pole?",
+      "subject": "astronomy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "406": {
+      "q": "Lisa owns a small business. There was a loss of $14 on Monday and a profit of $1",
+      "subject": "elementary_mathematics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "409": {
+      "q": "When you scale up an object to 3 times its linear size, the surface area increas",
+      "subject": "conceptual_physics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "410": {
+      "q": "Which of the following will shift the demand curve for the Mexican peso to the l",
+      "subject": "high_school_macroeconomics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "411": {
+      "q": "Which of the following conditions shows anticipation in paternal transmission?",
+      "subject": "medical_genetics",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "412": {
+      "q": "What is the principal tool used in all forms of psychotherapy?",
+      "subject": "high_school_psychology",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "414": {
+      "q": "In terms of cyber-security, what is meant by 'resilience' and why is it importan",
+      "subject": "security_studies",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "413": {
+      "q": "Lewis Henry Morgan conceived of progress in human culture according to the stage",
+      "subject": "prehistory",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "415": {
+      "q": "In electronic communications, \"AM\" stands for",
+      "subject": "electrical_engineering",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "416": {
+      "q": "In marketing, the term proposition:",
+      "subject": "marketing",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "417": {
+      "q": "Children who are obese should:\n",
+      "subject": "nutrition",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "418": {
+      "q": "What is direct diplomacy?",
+      "subject": "us_foreign_policy",
+      "correct": "A",
+      "pred": "B",
+      "ok": false
+    },
+    "419": {
+      "q": "What is the meaning of cultural relativism?",
+      "subject": "international_law",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "421": {
+      "q": "This question refers to the following information.\n\"Some men look at constitutio",
+      "subject": "high_school_us_history",
+      "correct": "D",
+      "pred": "C",
+      "ok": false
+    },
+    "422": {
+      "q": "When relatively slow-moving molecules condense from the air, the temperature of ",
+      "subject": "conceptual_physics",
+      "correct": "C",
+      "pred": "B",
+      "ok": false
+    },
+    "420": {
+      "q": "This question refers to the following information.\nConfidential—For Your Excelle",
+      "subject": "high_school_european_history",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "423": {
+      "q": "Argon can be liquefied at low temperature because of",
+      "subject": "high_school_chemistry",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "424": {
+      "q": "When you look at the red petals of a rose the color light you're seeing is",
+      "subject": "conceptual_physics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "425": {
+      "q": "Who is the founder of Sikhism?",
+      "subject": "world_religions",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "426": {
+      "q": "Which of these quantities decreases as the inverse square of distance for distan",
+      "subject": "high_school_physics",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "427": {
+      "q": "Let $n$ be the product of the two smallest 3-digit prime numbers. Find the sum o",
+      "subject": "high_school_mathematics",
+      "correct": "A",
+      "pred": "C",
+      "ok": false
+    },
+    "431": {
+      "q": "Which hormone is primarily responsible for fluid regulation?",
+      "subject": "clinical_knowledge",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "430": {
+      "q": "Which one of the following is the main reason for pruning a Decision Tree?",
+      "subject": "machine_learning",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "432": {
+      "q": "Which of the following could very well be a cohort difference rather than a chan",
+      "subject": "human_aging",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "428": {
+      "q": "Which oscillators are easy to fabricate in a monolithic IC?",
+      "subject": "electrical_engineering",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "429": {
+      "q": "A shopper sued a supermarket for injuries allegedly suffered from a collision wi",
+      "subject": "professional_law",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "433": {
+      "q": "How does anthropology differ from other social sciences such as economics and so",
+      "subject": "prehistory",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "435": {
+      "q": "Which writer is most associated with bureaucratic structures?",
+      "subject": "management",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "434": {
+      "q": "If v is an eigenvector of an invertible matrix A, then which of the following is",
+      "subject": "college_mathematics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "436": {
+      "q": "Which of the following are steroid-based molecules?\nI. Testosterone\nII. Triglyce",
+      "subject": "college_medicine",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "437": {
+      "q": "Jacques, Hedwig, and Reyes want to form a business entity through which they can",
+      "subject": "miscellaneous",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "438": {
+      "q": "Blood flows from the right ventricle of the heart into which of the following st",
+      "subject": "anatomy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "440": {
+      "q": "The idea that cultures change through time in relation to their environments, al",
+      "subject": "prehistory",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "441": {
+      "q": " Ashford thinks that the right test of whether or not legal and economic structu",
+      "subject": "moral_disputes",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "439": {
+      "q": "Another name for the fallacy of complex question is",
+      "subject": "logical_fallacies",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "442": {
+      "q": "Which of the following statements is correct as it relates to changes in account",
+      "subject": "professional_accounting",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "443": {
+      "q": " According to Singer, international corporations that deal with corrupt dictator",
+      "subject": "moral_disputes",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "444": {
+      "q": "It is correct to state that for the treatment of Bulimia Nervosa:\n",
+      "subject": "nutrition",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "445": {
+      "q": "The competitive market provides the best outcome for society because",
+      "subject": "high_school_microeconomics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "446": {
+      "q": "A 7-year-old male is brought to the office for evaluation of school problems. Th",
+      "subject": "professional_medicine",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "448": {
+      "q": "When speaking with an older adults with some hearing loss, you should",
+      "subject": "human_aging",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "447": {
+      "q": "Ankara, Turkey and Islamabad, Pakistan are both examples of",
+      "subject": "high_school_geography",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "449": {
+      "q": "The state of being unable to make an informed, reasoned decision about a product",
+      "subject": "business_ethics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "450": {
+      "q": "The true length of a block of wood is 1.010 cm. Three measurements of this block",
+      "subject": "miscellaneous",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "451": {
+      "q": "How do astronomers think Jupiter generates its internal heat?",
+      "subject": "astronomy",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "453": {
+      "q": "Identify the antecedent of the following conditional proposition: The university",
+      "subject": "formal_logic",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "454": {
+      "q": "Consider the collection of all undirected graphs with 10 nodes and 6 edges. Let ",
+      "subject": "college_computer_science",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "452": {
+      "q": "Most new mutations appear to be",
+      "subject": "medical_genetics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "455": {
+      "q": "This question refers to the following information.\nAt last it seems to me that I",
+      "subject": "high_school_european_history",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "456": {
+      "q": "Which 18th century writer produced a famous book called 'The Wealth of Nations'?",
+      "subject": "management",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "457": {
+      "q": "Is the recognition of foreign judgments subject to the same rules as those appli",
+      "subject": "international_law",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "458": {
+      "q": "Which of the following circumstances generally will cause a discharge of contrac",
+      "subject": "professional_accounting",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "459": {
+      "q": "This question refers to the following information.\nRead the following quote.\nI h",
+      "subject": "high_school_european_history",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "460": {
+      "q": "Since the end of the Cold War, how has the use of coercive diplomacy by Western ",
+      "subject": "security_studies",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "461": {
+      "q": "Which of the following is (are) required when performing a polymerase chain reac",
+      "subject": "high_school_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "462": {
+      "q": "Which of the following are the disadvantages of a closed loop control system?",
+      "subject": "electrical_engineering",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "463": {
+      "q": "Another name for the fallacy of reducing to an absurdity is",
+      "subject": "logical_fallacies",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "464": {
+      "q": "The emission spectrum of the doubly ionized lithium atom Li++ (Z = 3, A = 7) is ",
+      "subject": "college_physics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "465": {
+      "q": "Two men held-up a liquor store in a city. During the robbery, one of the partici",
+      "subject": "professional_law",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "466": {
+      "q": "This question refers to the following information.\nBonesteel's prime considerati",
+      "subject": "high_school_world_history",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "468": {
+      "q": "Which of the following best accounts for the negative slope of the liquid-solid ",
+      "subject": "college_medicine",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "467": {
+      "q": "Which of the following fallacies happens when someone concludes that someone cou",
+      "subject": "logical_fallacies",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "469": {
+      "q": "Women's world record performances have improved rapidly in recent years mainly b",
+      "subject": "clinical_knowledge",
+      "correct": "D",
+      "pred": "C",
+      "ok": false
+    },
+    "470": {
+      "q": "Memory loss would most likely be due to a malfunction of which part of the brain",
+      "subject": "high_school_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "471": {
+      "q": "Although Jen is a very bright four-year-old, she doesn't think her mother's sist",
+      "subject": "high_school_psychology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "473": {
+      "q": "The star Betelgeuse is one of the brightest stars in the night sky with remarkab",
+      "subject": "astronomy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "472": {
+      "q": "Augustine claims that there can be no evil where there is no:",
+      "subject": "philosophy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "474": {
+      "q": "Which of the following is a primary standard for use in standardizing bases?",
+      "subject": "college_chemistry",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "475": {
+      "q": "A convex lens of focal length f = 0.2 m is used to examine a small coin lying on",
+      "subject": "high_school_physics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "476": {
+      "q": "A group of people have the number 12345.6789 written on a piece of paper. Then t",
+      "subject": "high_school_mathematics",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "477": {
+      "q": " Select the best translation into predicate logic: Some athletes don't get injur",
+      "subject": "formal_logic",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "478": {
+      "q": "A virus such as influenza which emerges suddenly and spreads globally is called:",
+      "subject": "virology",
+      "correct": "B",
+      "pred": "C",
+      "ok": false
+    },
+    "480": {
+      "q": "Electrical stimulation of the brain for the treatment of chronic pain",
+      "subject": "professional_psychology",
+      "correct": "D",
+      "pred": "A",
+      "ok": false
+    },
+    "479": {
+      "q": "Which of the following quotations best describes the central thesis of differenc",
+      "subject": "jurisprudence",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "482": {
+      "q": "Many retail brands adopt a single umbrella brand, based on the name of the organ",
+      "subject": "marketing",
+      "correct": "B",
+      "pred": "A",
+      "ok": false
+    },
+    "481": {
+      "q": "When cool air flows from a high mountain region to a region of lower elevation, ",
+      "subject": "miscellaneous",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "485": {
+      "q": "Quebec is a strong example of which of the following situations?",
+      "subject": "high_school_geography",
+      "correct": "C",
+      "pred": "B",
+      "ok": false
+    },
+    "483": {
+      "q": "There are a number of means by which can influence _______. These include ______",
+      "subject": "business_ethics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "484": {
+      "q": "Let M be a 5 x 5 real matrix. Exactly four of the following five conditions on M",
+      "subject": "college_mathematics",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "486": {
+      "q": "Overall, the growth rate of average incomes in less developed countries between ",
+      "subject": "global_facts",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "487": {
+      "q": "This question refers to the following information.\nRead the following excerpt.\nN",
+      "subject": "high_school_european_history",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "488": {
+      "q": "A survey should avoid asking:",
+      "subject": "sociology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "489": {
+      "q": "Potentiometer method of DC voltage measurement is more accurate than direct meas",
+      "subject": "electrical_engineering",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "490": {
+      "q": "Based on the paper “Click Trajectories: End-to-End Analysis of the Spam Value Ch",
+      "subject": "computer_security",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "491": {
+      "q": "Which of the following best describes the location where the carotid pulse can b",
+      "subject": "anatomy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "492": {
+      "q": "Which of the following sources makes the greatest contribution to the dry mass o",
+      "subject": "college_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "493": {
+      "q": "Which member of the paramyxovirus family can cause very serious croup?",
+      "subject": "virology",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "494": {
+      "q": "A car moving with speed v reaches the foot of an incline of angle θ. The car coa",
+      "subject": "high_school_physics",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "496": {
+      "q": "Which of the following in not a zinc-dependent enzyme?\n",
+      "subject": "nutrition",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "495": {
+      "q": " Nagel clarifies that absolutism is the view that we should",
+      "subject": "moral_disputes",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "497": {
+      "q": "Which of the following would increase the rate at which a gas diffuses between t",
+      "subject": "college_biology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "498": {
+      "q": "Electromagnetic radiation provides a means to probe aspects of the physical univ",
+      "subject": "college_physics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "499": {
+      "q": "In the discharge checklist recommended by the Department of Health (2004), who s",
+      "subject": "clinical_knowledge",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "502": {
+      "q": "1. _________ framework made cracking of vulnerabilities easy like point and clic",
+      "subject": "computer_security",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "500": {
+      "q": "What is a definition of an objective?",
+      "subject": "management",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "501": {
+      "q": "As of 2013, which of the following countries had the highest per capita rate of ",
+      "subject": "global_facts",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "503": {
+      "q": "S(s) + O2(g) → SO2(g)",
+      "subject": "high_school_chemistry",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "504": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "505": {
+      "q": "An auditor is using statistical sampling in testing whether cash disbursements w",
+      "subject": "professional_accounting",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "507": {
+      "q": "Which of the following statements about presidential elections since 1972 is mos",
+      "subject": "high_school_government_and_politics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "508": {
+      "q": "Find the median in the set of data $79.88, $21.88, $29.88, $19.88, $17.88.",
+      "subject": "elementary_mathematics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "506": {
+      "q": "Which of the following has been true of the Republican Party since the 1980s?",
+      "subject": "high_school_government_and_politics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "509": {
+      "q": "Which of the following best describes Dworkin's distinction between principles a",
+      "subject": "jurisprudence",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "511": {
+      "q": "Which of the following statements about glycogen metabolism is correct?\n",
+      "subject": "nutrition",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "510": {
+      "q": "Which of the following cannot be amortized for tax purposes?",
+      "subject": "professional_accounting",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "512": {
+      "q": "Which one of the following statements best describes a Type II error?",
+      "subject": "econometrics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "513": {
+      "q": "Let X be a topological space, and let A, B, and C be nonempty subsets of X such ",
+      "subject": "college_mathematics",
+      "correct": "D",
+      "pred": "B",
+      "ok": false
+    },
+    "514": {
+      "q": "The curves y = (sin x + cos x)^4 and y = (sin x - cos x)^4 intersect at x = 0. I",
+      "subject": "college_mathematics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "515": {
+      "q": "Define $f(x)=\\frac{1+x}{1-x}$ and $g(x)=\\frac{-2}{x+1}$. Find the value of \\[g(f",
+      "subject": "high_school_mathematics",
+      "correct": "C",
+      "pred": "D",
+      "ok": false
+    },
+    "516": {
+      "q": "Let S be the subset of R^2 consisting of all points (x, y) in the unit square [0",
+      "subject": "college_mathematics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "517": {
+      "q": " Construct a complete truth table for the following argument. Then, using the tr",
+      "subject": "formal_logic",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "519": {
+      "q": "The X-band (9.5 GHz) EPR spectrum of a matrix isolated Na atom reveals four hype",
+      "subject": "college_chemistry",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "520": {
+      "q": "A rod measures 1.00 m in its rest system. How fast must an observer move paralle",
+      "subject": "college_physics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "521": {
+      "q": "Additional dietary protein may:\n",
+      "subject": "nutrition",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "518": {
+      "q": "What is the output of the statement \"a\" + \"ab\" in Python 3?",
+      "subject": "high_school_computer_science",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "524": {
+      "q": "Assume that a TLS connection has been established successfully between a client ",
+      "subject": "computer_security",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "522": {
+      "q": "A child with type A B blood inherits an IA allele from one parent and an IB alle",
+      "subject": "high_school_biology",
+      "correct": "C",
+      "pred": "A",
+      "ok": false
+    },
+    "525": {
+      "q": "A wrestler attempting to lose weight for a match in December commits himself to ",
+      "subject": "college_medicine",
+      "correct": "D",
+      "pred": "B",
+      "ok": false
+    },
+    "526": {
+      "q": "Specialisation is a feature of which organisational structure?",
+      "subject": "management",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "523": {
+      "q": "Which of the following entities cannot sue for libel?",
+      "subject": "public_relations",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "527": {
+      "q": "Elsa values her time at $50 per hour, and tutors David for two hours. David is w",
+      "subject": "high_school_microeconomics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "528": {
+      "q": "Under which conditions will a real gas most closely behave as an ideal gas?",
+      "subject": "high_school_chemistry",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "529": {
+      "q": "Arguing that someone should do something because other people are doing it is a ",
+      "subject": "logical_fallacies",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "531": {
+      "q": "Suppose sharing of tiles in a multilevel directory structure is achieved with di",
+      "subject": "college_computer_science",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "530": {
+      "q": "A photon strikes an electron of mass m that is initially at rest, creating an el",
+      "subject": "college_physics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "533": {
+      "q": "Determine whether the polynomial in Z[x] satisfies an Eisenstein criterion for i",
+      "subject": "abstract_algebra",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "532": {
+      "q": "The single most important key to the success of the Multicenter AIDS Cohort (MAC",
+      "subject": "virology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "534": {
+      "q": "As of 2019, about what percentage of Italians say it is very important to have f",
+      "subject": "global_facts",
+      "correct": "B",
+      "pred": "D",
+      "ok": false
+    },
+    "535": {
+      "q": "Sussman Co. prepared cash-basis financial statements for the month ended January",
+      "subject": "professional_accounting",
+      "correct": "A",
+      "pred": "D",
+      "ok": false
+    },
+    "536": {
+      "q": "Mitochondria isolated and placed in a buffered solution with a low pH begin to m",
+      "subject": "college_biology",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "537": {
+      "q": "Tisha wrote the following riddle to her friend: I have 2 faces, no vertices, and",
+      "subject": "elementary_mathematics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "538": {
+      "q": " During what Japanese festival do the spirits of deceased family members return ",
+      "subject": "world_religions",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "539": {
+      "q": "Which description below most accurately captures the distinction between Gemeins",
+      "subject": "jurisprudence",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "541": {
+      "q": "Firms maximize their profits by producing a level of output at which",
+      "subject": "high_school_microeconomics",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "540": {
+      "q": "Posner denies the autonomy of law on two grounds. Name one of them.",
+      "subject": "jurisprudence",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "542": {
+      "q": "The theory that whoever controlled the landmass of Europe would rule the world i",
+      "subject": "high_school_geography",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "543": {
+      "q": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "545": {
+      "q": "These are events when groups of sellers meet collectively with the key purpose o",
+      "subject": "marketing",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "544": {
+      "q": "Anscombe criticizes as absurd Kant’s idea of:",
+      "subject": "philosophy",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "547": {
+      "q": "Which of the following information about publications does the Audit Bureau of C",
+      "subject": "public_relations",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "548": {
+      "q": "What has been a central focus of religious traditions in China and Korea?",
+      "subject": "world_religions",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "546": {
+      "q": "This question refers to the following information.\nThe pair of excerpts below is",
+      "subject": "high_school_european_history",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "549": {
+      "q": "A healthy 2-year-old girl is brought to the office for a routine well-child visi",
+      "subject": "professional_medicine",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "550": {
+      "q": "Let F: K \\times R \\to MF:K×R→M be a secure PRF. For m \\in Mm∈M define E(k,m) = \\",
+      "subject": "computer_security",
+      "correct": "C",
+      "pred": "A",
+      "ok": false
+    },
+    "551": {
+      "q": "Information from the optic nerve is initially processed in what part of the brai",
+      "subject": "high_school_psychology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "552": {
+      "q": "The European Convention on Human Rights is predominantly concerned with which of",
+      "subject": "international_law",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "553": {
+      "q": "For an autoregressive process to be considered stationary",
+      "subject": "econometrics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "554": {
+      "q": "A landlord, an owner in fee simple, leased a three- story house to a tenant for ",
+      "subject": "professional_law",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "555": {
+      "q": " Which of the given formulas of PL is the best symbolization of the following se",
+      "subject": "formal_logic",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "556": {
+      "q": "In Pavlov's conditioning of dogs, the point at which the dogs salivated at the s",
+      "subject": "high_school_psychology",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "558": {
+      "q": "There are three basic types of persuasive advertising campaigns. Which of the fo",
+      "subject": "public_relations",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "557": {
+      "q": "Stephanie flew 2,448 miles from Los Angeles to New York City. What is the number",
+      "subject": "elementary_mathematics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "559": {
+      "q": "Which of the following defines the salience of a political issue?",
+      "subject": "high_school_government_and_politics",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "560": {
+      "q": "A 15-year-old girl is brought to the office by her mother because of abdominal p",
+      "subject": "professional_medicine",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "561": {
+      "q": "The infraorbital nerve",
+      "subject": "anatomy",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "562": {
+      "q": "A large data set contains information about all students majoring in computer sc",
+      "subject": "high_school_computer_science",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "565": {
+      "q": "The Leiter International Performance Scale would be most useful for measuring th",
+      "subject": "professional_psychology",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "564": {
+      "q": "A place where people lived and/or worked and where the physical evidence of thei",
+      "subject": "prehistory",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "563": {
+      "q": "The focus on issues, the intended audience extending beyond shareholders and the",
+      "subject": "business_ethics",
+      "correct": "C",
+      "pred": "C",
+      "ok": true
+    },
+    "568": {
+      "q": "What long-term trends can be foreseen in the concept of environmental security?",
+      "subject": "security_studies",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    },
+    "567": {
+      "q": "The model of social support that says that those who are close to you now are li",
+      "subject": "human_aging",
+      "correct": "B",
+      "pred": "B",
+      "ok": true
+    },
+    "566": {
+      "q": "Two electrically charged balls are separated by a short distance, producing a fo",
+      "subject": "high_school_physics",
+      "correct": "A",
+      "pred": "A",
+      "ok": true
+    },
+    "569": {
+      "q": " Which of the following propositions is an immediate (one-step) consequence in P",
+      "subject": "formal_logic",
+      "correct": "D",
+      "pred": "D",
+      "ok": true
+    }
+  }
+}
