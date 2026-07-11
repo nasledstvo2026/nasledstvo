@@ -469,37 +469,55 @@
       </div>
 
       <div class="what" style="margin-top:12px;">
-        <div class="label">Результаты demo</div>
+        <div class="label">Результаты</div>
         <div class="text" style="font-size:14px;">
-          <ul style="margin:8px 0 8px 20px;">
-            <li><strong>✅ Eiffel Tower height</strong> — 300m (Wikipedia, 13.1s, 7 шагов)</li>
-            <li><strong>✅ Chemical symbol for gold</strong> — Au (Google → результат, 12.7s, 5 шагов)</li>
-            <li><strong>✅ Current year from web</strong> — 2025 (Wikipedia, 22.2s, 7 шагов)</li>
-          </ul>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+              <th style="padding:4px 8px;text-align:left;">Тест</th>
+              <th style="padding:4px 8px;text-align:center;">Результат</th>
+              <th style="padding:4px 8px;text-align:right;">Время</th>
+            </tr>
+            <tr>
+              <td style="padding:4px 8px;">🎯 Demo (3 задачи)</td>
+              <td style="padding:4px 8px;text-align:center;color:var(--green);">✅ 3/3</td>
+              <td style="padding:4px 8px;text-align:right;">~16 с</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 8px;">🎯 GAIA Level 1 (5 задач)</td>
+              <td style="padding:4px 8px;text-align:center;color:var(--orange);">0/5</td>
+              <td style="padding:4px 8px;text-align:right;">~62 с</td>
+            </tr>
+          </table>
+          <div style="margin-top:10px;font-size:13px;color:var(--text-dim);">
+            GAIA — сложнейший бенчмарк. GPT-4 получает ~30% на Level 1.
+            Наша модель переоценила расстояние в задаче про Кипчоге (38000 км вместо
+            ожидаемых 17 единиц), но логика расчёта верна.
+            Требуется архитектура: LLM-анализатор → программируемый web-поиск.
+          </div>
         </div>
       </div>
 
       <div class="compare">
-        <div class="label">Статус развёртывания</div>
+        <div class="label">Статус</div>
         <div class="bench-compare-row">
           <span class="model-name" style="color:var(--text);font-weight:600;min-width:120px;">Browser agent</span>
-          <span style="font-size:13px;color:var(--green);">✅ Playwright + DeepSeek Chat</span>
+          <span style="font-size:13px;color:var(--green);">✅ Playwright + DeepSeek Chat (v2)</span>
         </div>
         <div class="bench-compare-row">
           <span class="model-name" style="min-width:120px;">GAIA датасет</span>
-          <span style="font-size:13px;color:var(--orange);">⏳ HuggingFace gated — доступ не получен</span>
+          <span style="font-size:13px;color:var(--green);">✅ Доступ получен (165 задач)</span>
         </div>
         <div class="bench-compare-row">
-          <span class="model-name" style="min-width:120px;">Полный прогон</span>
-          <span style="font-size:13px;color:var(--text-dim);">🔜 После доступа к датасету (~2 часа на 50 задач)</span>
+          <span class="model-name" style="min-width:120px;">Нужен: structured agent</span>
+          <span style="font-size:13px;color:var(--orange);">⏳ LLM-анализатор + инструменты</span>
         </div>
       </div>
 
       <div class="details">
-        <div class="detail-item">Demo accuracy: <span class="val" style="color:var(--green)">100% (3/3)</span></div>
-        <div class="detail-item">Среднее время: <span class="val">~16 сек/задача</span></div>
-        <div class="detail-item">Архитектура: <span class="val">LLM планировщик + Playwright</span></div>
-        <div class="detail-item">Скрипт: <span class="val">scripts/gaia/browser-agent.py</span></div>
+        <div class="detail-item">Demo: <span class="val" style="color:var(--green)">3/3 (100%)</span></div>
+        <div class="detail-item">GAIA L1: <span class="val" style="color:var(--orange)">0/5 (0%)</span></div>
+        <div class="detail-item">Архитектура: <span class="val">browser-agent-v2.py</span></div>
+        <div class="detail-item">Следующий шаг: <span class="val">structured multi-tool agent</span></div>
       </div>
     </div>
 
@@ -528,13 +546,15 @@
       </div>
 
       <div class="what" style="margin-bottom:6px;">
-        <div class="label">Приоритет 3 — GAIA полный прогон (450 задач)</div>
+        <div class="label">Приоритет 3 — GAIA: structured multi-tool agent</div>
         <div class="text" style="font-size:14px;">
-          <strong>✅ Browser-agent готов</strong> — Playwright + DeepSeek Chat работает (3/3 demo).
-          Нужен доступ к GAIA датасету на HuggingFace (gated).
-          Полный прогон 50-100 задач займёт ~2-3 часа.
-          <strong>Цель:</strong> 20-30% (сильный результат для open-source модели).
-          <span style="color:var(--text-faint);">Действие: запросить доступ gaia-benchmark/GAIA на HF.</span>
+          <strong>✅ Доступ к GAIA получен</strong> (165 validation задач).
+          <strong>✅ Browser-agent работает</strong> (3/3 demo).
+          <strong>❌ GAIA L1 прогон: 0/5</strong> — DeepSeek Chat плохо справляется
+          с raw browser навигацией. GAIA — сложнейший тест; GPT-4 получает ~30%.
+          <strong>Нужно:</strong> structured agent — LLM определяет тип задачи → программируемые инструменты
+          (Wikipedia API, Google Search API, calculator, file parser).
+          <span style="color:var(--text-faint);">Статус: архитектура не готова.</span>
         </div>
       </div>
 
