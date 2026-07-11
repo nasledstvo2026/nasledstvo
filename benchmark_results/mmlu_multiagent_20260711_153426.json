@@ -1,0 +1,1258 @@
+{
+  "date": "2026-07-11T15:34:26.878523",
+  "model": "deepseek-chat (multi-agent: Router→Collector→Solver)",
+  "sample_size": 100,
+  "total": 570,
+  "baseline_sample_accuracy": 80.0,
+  "multiagent_sample_accuracy": 16.0,
+  "improvement": -64.0,
+  "per_subject": {
+    "global_facts": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "sociology": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "electrical_engineering": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 100.0
+    },
+    "medical_genetics": {
+      "total": 3,
+      "old_acc": 33.3,
+      "new_acc": 0.0
+    },
+    "logical_fallacies": {
+      "total": 3,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "machine_learning": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 100.0
+    },
+    "nutrition": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "formal_logic": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "jurisprudence": {
+      "total": 4,
+      "old_acc": 75.0,
+      "new_acc": 50.0
+    },
+    "marketing": {
+      "total": 3,
+      "old_acc": 66.7,
+      "new_acc": 0.0
+    },
+    "moral_disputes": {
+      "total": 4,
+      "old_acc": 75.0,
+      "new_acc": 0.0
+    },
+    "high_school_physics": {
+      "total": 2,
+      "old_acc": 50.0,
+      "new_acc": 0.0
+    },
+    "business_ethics": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 50.0
+    },
+    "security_studies": {
+      "total": 4,
+      "old_acc": 75.0,
+      "new_acc": 25.0
+    },
+    "moral_scenarios": {
+      "total": 3,
+      "old_acc": 66.7,
+      "new_acc": 0.0
+    },
+    "us_foreign_policy": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "miscellaneous": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "philosophy": {
+      "total": 3,
+      "old_acc": 66.7,
+      "new_acc": 0.0
+    },
+    "high_school_microeconomics": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 50.0
+    },
+    "public_relations": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "high_school_chemistry": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 50.0
+    },
+    "high_school_us_history": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "college_physics": {
+      "total": 3,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "computer_security": {
+      "total": 2,
+      "old_acc": 50.0,
+      "new_acc": 50.0
+    },
+    "world_religions": {
+      "total": 3,
+      "old_acc": 66.7,
+      "new_acc": 33.3
+    },
+    "professional_law": {
+      "total": 3,
+      "old_acc": 100.0,
+      "new_acc": 33.3
+    },
+    "college_chemistry": {
+      "total": 1,
+      "old_acc": 0.0,
+      "new_acc": 0.0
+    },
+    "high_school_biology": {
+      "total": 3,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "astronomy": {
+      "total": 3,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "international_law": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 100.0
+    },
+    "high_school_geography": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "college_computer_science": {
+      "total": 2,
+      "old_acc": 0.0,
+      "new_acc": 50.0
+    },
+    "high_school_macroeconomics": {
+      "total": 3,
+      "old_acc": 100.0,
+      "new_acc": 33.3
+    },
+    "high_school_computer_science": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "econometrics": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "prehistory": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "professional_accounting": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "high_school_mathematics": {
+      "total": 1,
+      "old_acc": 0.0,
+      "new_acc": 0.0
+    },
+    "management": {
+      "total": 2,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "anatomy": {
+      "total": 2,
+      "old_acc": 50.0,
+      "new_acc": 0.0
+    },
+    "human_aging": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 100.0
+    },
+    "high_school_psychology": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "clinical_knowledge": {
+      "total": 2,
+      "old_acc": 50.0,
+      "new_acc": 0.0
+    },
+    "college_mathematics": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "college_medicine": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "virology": {
+      "total": 2,
+      "old_acc": 50.0,
+      "new_acc": 50.0
+    },
+    "abstract_algebra": {
+      "total": 2,
+      "old_acc": 0.0,
+      "new_acc": 0.0
+    },
+    "professional_psychology": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    },
+    "high_school_world_history": {
+      "total": 1,
+      "old_acc": 100.0,
+      "new_acc": 0.0
+    }
+  },
+  "results": [
+    {
+      "question": "As of 2019, about what percentage of Indians say it is necessary to believe in G",
+      "subject": "global_facts",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "Based on the provided facts, there is no information about the percentage of Indians who say it is n",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "How is terrorism different from the types of crime described by the Chicago Scho",
+      "subject": "sociology",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. Terrorism involves political or ideological violence against non-combatants to instill fear and a",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "The moving coil-meters, damping is provided by",
+      "subject": "electrical_engineering",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "The moving coil-meters, damping is provided by  \nA. eddy currents  \nB. air friction  \nC. fluid frict",
+      "model_letter": "A",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following is not a recognized complication of cystic fibrosis?",
+      "subject": "medical_genetics",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "C. Pancreatic cancer",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "Arguing that someone should do something because other people are doing it is a ",
+      "subject": "logical_fallacies",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. appeal to popularity",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Suppose you are given an EM algorithm that finds maximum likelihood estimates fo",
+      "subject": "machine_learning",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "Since no facts are provided, I will rely on knowledge about the EM algorithm.\n\nThe EM (Expectation-M",
+      "model_letter": "B",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "The intake of which minerals is not affected by high intakes of foods containing",
+      "subject": "nutrition",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "The question appears incomplete, but based on common nutrition knowledge, high intakes of foods cont",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": " Which of the given formulas of PL is the best symbolization of the following se",
+      "subject": "formal_logic",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "Since no specific sentence is provided in the question, I cannot determine the best symbolization. H",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which proposition below is the most consistent with what Rawls claims the POP wo",
+      "subject": "jurisprudence",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. The principles of justice are those that free and rational persons would accept in an original po",
+      "model_letter": "A",
+      "correct": true,
+      "old_correct": false
+    },
+    {
+      "question": " The process by which individuals accept and use new propositions is referred to",
+      "subject": "marketing",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. Adoption",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": " According to Singer, international corporations that deal with corrupt dictator",
+      "subject": "moral_disputes",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. have a moral obligation to refuse to deal with them\nB. have no moral obligations beyond following",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "A rubber ball (mass = 0.08 kg) is dropped from a height of 3.2 m, and after boun",
+      "subject": "high_school_physics",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. 0.8 N·s  \nB. 1.6 N·s  \nC. 3.2 N·s  \nD. 6.4 N·s  \n\nAnswer: B. 1.6 N·s",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "The so-called BRIC countries (Brazil, Russia, India and _______) tend to follow ",
+      "subject": "business_ethics",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. China  \nB. South Africa  \nC. Indonesia  \nD. Mexico  \n\nAnswer: A. China",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Since the end of the Cold War, how has the use of coercive diplomacy by Western ",
+      "subject": "security_studies",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "Since the end of the Cold War, the use of coercive diplomacy by Western powers has shifted from a pr",
+      "model_letter": "B",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "The question appears incomplete, but based on the subject \"moral_scenarios\" and the partial phrasing",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "How many states in the international system are likely to have nuclear weapons r",
+      "subject": "us_foreign_policy",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "Based on general knowledge, the number of states in the international system that are likely to have",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "The film 'Stand By Me' is based on a novel by what author?",
+      "subject": "miscellaneous",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "Stephen King\n\nAnswer: A. Stephen King",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "How many categories of ethical principles do Diener and Crandell refer to?",
+      "subject": "philosophy",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. 1\nB. 2\nC. 3\nD. 4\n\nAnswer: C. 3",
+      "model_letter": "C",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "With respect to the kinked demand curve, which of the following is NOT correct?",
+      "subject": "high_school_microeconomics",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. It explains price rigidity in oligopolistic markets.\nB. It assumes competitors will match price d",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": " Which of the following is the investigation of the hedonic consumption of produ",
+      "subject": "marketing",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. hedonic consumption",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "According to Cutlip (2006), which stage of the communications plan should involv",
+      "subject": "public_relations",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. Research and analysis",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "What does Milton Friedman believe to be the sole responsibility of business?",
+      "subject": "business_ethics",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. Increase profits  \nB. Serve the community  \nC. Follow government regulations  \nD. Protect the env",
+      "model_letter": "A",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "Argon can be liquefied at low temperature because of",
+      "subject": "high_school_chemistry",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "Argon can be liquefied at low temperature because of intermolecular forces (specifically London disp",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "This question refers to the following information.\nAt a meeting of working girls",
+      "subject": "high_school_us_history",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. The formation of labor unions for women workers\nB. The push for women's suffrage\nC. The Triangle ",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "An astronomer observes a very small moon orbiting a planet and measures the moon",
+      "subject": "college_physics",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. mass of the moon and its distance from the planet\nB. orbital period and distance from the planet\n",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following fallacies happens when someone concludes that someone cou",
+      "subject": "logical_fallacies",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. [choice text]\nB. [choice text]\nC. [choice text]\nD. [choice text]\n\nAnswer: A. [choice text]",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Let F: K \\times R \\to MF:K×R→M be a secure PRF. For m \\in Mm∈M define E(k,m) = \\",
+      "subject": "computer_security",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. F(k, r) ⊕ m, where r is a random nonce  \nB. F(k, m)  \nC. F(k, r) || (m ⊕ F(k, r))  \nD. F(k, m) ⊕ ",
+      "model_letter": "C",
+      "correct": true,
+      "old_correct": false
+    },
+    {
+      "question": "Which of the following conditions shows anticipation in paternal transmission?",
+      "subject": "medical_genetics",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. Transgenerational trauma  \nB. Huntington's disease  \n\nAnswer: B. Huntington's disease",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "What has been a central focus of religious traditions in China and Korea?",
+      "subject": "world_religions",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. Ancestor veneration  \nB. Monotheism  \nC. Salvation  \nD. Reincarnation  \n\nAnswer: A. Ancestor vene",
+      "model_letter": "A",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "Two men held-up a liquor store in a city. During the robbery, one of the partici",
+      "subject": "professional_law",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. accomplice liability\nB. conspiracy\nC. attempt\nD. solicitation\n\nAnswer: A. accomplice liability",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "What is the magnetic moment of 205Tl?",
+      "subject": "college_chemistry",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The magnetic moment of ²⁰⁵Tl is approximately 1.638 μ_N (nuclear magnetons). This is a known value f",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "The transfer of DNA between two bacterial cells connected by sex pili is known a",
+      "subject": "high_school_biology",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. conjugation",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Sunspots are black regions that temporarily appear on the Sun. Their number high",
+      "subject": "astronomy",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "Sunspots are dark, cooler regions on the Sun's surface caused by intense magnetic activity. Their nu",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "The European Convention on Human Rights is predominantly concerned with which of",
+      "subject": "international_law",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The European Convention on Human Rights is predominantly concerned with civil and political rights.\n",
+      "model_letter": "C",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following world regions is NOT considered one of the world's most d",
+      "subject": "high_school_geography",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The question appears incomplete, but based on common MMLU geography questions, it likely asks which ",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "To compute the matrix product M_1M_2, where M_1 has p rows and q columns and whe",
+      "subject": "college_computer_science",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. q must equal the number of rows of M_2  \nB. q must equal the number of columns of M_2  \nC. p must",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "What is the future of WMD?",
+      "subject": "security_studies",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "The future of WMD (Weapons of Mass Destruction) is likely to involve continued proliferation risks, ",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Recently, Congress enacted a statute requiring all boat owners to register their",
+      "subject": "professional_law",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. boats with the federal government\nB. boats with the state government\nC. boats with the Coast Guar",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which description below most accurately captures the distinction between Gemeins",
+      "subject": "jurisprudence",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The question appears to be cut off, but based on the subject of jurisprudence and the term \"Gemeins\"",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following is the most likely to be a deterrent to growth in the eco",
+      "subject": "high_school_macroeconomics",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. high taxes on corporate profits\nB. low levels of government regulation\nC. a high rate of savings ",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "How do astronomers think Jupiter generates its internal heat?",
+      "subject": "astronomy",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "Jupiter generates its internal heat primarily through the Kelvin-Helmholtz mechanism, where the plan",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Marriage appears to be in decline because:",
+      "subject": "sociology",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. fewer people are getting married and more are cohabiting or remaining single",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "If someone argues that something should be done in a certain way because that's ",
+      "subject": "logical_fallacies",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. appeal to tradition",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following best describes the primary way in which a distributed den",
+      "subject": "high_school_computer_science",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. denial-of-service attack is prevented  \nB. denial-of-service attack is mitigated  \nC. denial-of-s",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which one of the following statements best describes a Type II error?",
+      "subject": "econometrics",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. Rejecting a true null hypothesis  \nB. Failing to reject a false null hypothesis  \nC. Accepting a ",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "The idea that cultures change through time in relation to their environments, al",
+      "subject": "prehistory",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. adaptationism",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following is an example of monosomy?",
+      "subject": "medical_genetics",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. Turner syndrome (45,X)",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following statements is correct as it relates to changes in account",
+      "subject": "professional_accounting",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The provided facts are about PID controllers and control systems, not accounting. Therefore, I must ",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Electromagnetic radiation provides a means to probe aspects of the physical univ",
+      "subject": "college_physics",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "The question appears incomplete, but based on the subject and the beginning \"Electromagnetic radiati",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Habermas distinguishes between 'law as medium' and 'law as institution'. Which s",
+      "subject": "jurisprudence",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. Law as medium is used by the administrative system to steer society, while law as institution is ",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "During a chemical reaction, NO(g) gets reduced and no nitrogen-containing compou",
+      "subject": "high_school_chemistry",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. NO(g) gets oxidized to NO₂(g)  \nB. NO(g) gets reduced to N₂(g)  \nC. NO(g) gets reduced to NH₃(g) ",
+      "model_letter": "B",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "Assume that a debugger places a breakpoint at a load instruction at virtual addr",
+      "subject": "college_computer_science",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. 0x4000  \nB. 0x8000  \nC. 0xC000  \nD. 0x10000  \n\nAnswer: A. 0x4000",
+      "model_letter": "A",
+      "correct": true,
+      "old_correct": false
+    },
+    {
+      "question": "The cooperative international organization of 185 countries designed to stabiliz",
+      "subject": "us_foreign_policy",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "The question appears incomplete, but based on the context of \"cooperative international organization",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "This branding policy requires that all the products use the organization's name,",
+      "subject": "marketing",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. family branding",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "Define $f(x)=\\frac{1+x}{1-x}$ and $g(x)=\\frac{-2}{x+1}$. Find the value of \\[g(f",
+      "subject": "high_school_mathematics",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "We need to find \\( g(f(x)) \\).  \nFirst, compute \\( f(x) = \\frac{1+x}{1-x} \\).  \nThen \\( g(x) = \\frac",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "This question refers to the following information.\n\"The far-reaching, the boundl",
+      "subject": "high_school_us_history",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The question appears incomplete, but based on the provided text fragment \"The far-reaching, the boun",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": " When was the first Buddhist temple constructed in Japan?",
+      "subject": "world_religions",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. 6th century",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Lewis Henry Morgan conceived of progress in human culture according to the stage",
+      "subject": "prehistory",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. savagery  \nB. barbarism  \nC. civilization  \nD. all of the above  \n\nAnswer: D. all of the above",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which 18th century writer produced a famous book called 'The Wealth of Nations'?",
+      "subject": "management",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "Adam Smith\n\nAnswer: A. Adam Smith",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following structures should be visible on a dental panoramic radiog",
+      "subject": "anatomy",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "Based on the facts provided, dental panoramic radiographs are used to visualize hidden dental struct",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "According to Belbin (1981) an extroverted and enthusiastic person fits with what",
+      "subject": "management",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. Plant  \nB. Resource investigator  \nC. Coordinator  \nD. Shaper  \n\nAnswer: B. Resource investigator",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "The purpose of \"augmenting\" the Dickey-Fuller test regression is to",
+      "subject": "econometrics",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The purpose of \"augmenting\" the Dickey-Fuller test regression is to account for serial correlation i",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Optometrists use a linear scale of lens power, measured in diopters, to prescrib",
+      "subject": "high_school_physics",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. diopters",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Those who survive the loss of another are called the",
+      "subject": "human_aging",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. bereaved  \nB. widowed  \nC. survivors  \nD. mourners  \n\nAnswer: C. survivors",
+      "model_letter": "C",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "If the price of one good (A) increases and the quantity demanded of another good",
+      "subject": "high_school_microeconomics",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. increases, the goods are substitutes\nB. decreases, the goods are complements\nC. increases, the go",
+      "model_letter": "A",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "In Pavlov's conditioning of dogs, the point at which the dogs salivated at the s",
+      "subject": "high_school_psychology",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. sound of the bell alone, without food, is called the conditioned response",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following statements best describes the orientation of military sec",
+      "subject": "security_studies",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. Military security focuses on the protection of the state from external military threats and the u",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "Epictetus claims that if the wife and children of a virtuous man were to die, he",
+      "subject": "philosophy",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. would not be disturbed because he recognizes that they are not up to him  \nB. would grieve modera",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "The question appears incomplete, but based on the subject \"moral_scenarios\" and the partial phrasing",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following statements is not applicable to the Securitization proces",
+      "subject": "security_studies",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The correct answer is based on securitization theory, primarily developed by the Copenhagen School (",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Fats normally contain triacylglycerols at concentrations of:\n",
+      "subject": "nutrition",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "Fats normally contain triacylglycerols at concentrations of about 95-100%.\n\nAnswer: D. 95-100%",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "The maximum sustainable power:",
+      "subject": "clinical_knowledge",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "The maximum sustainable power is the highest level of power output that can be maintained over a pro",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "A proxy rewall lters at the",
+      "subject": "computer_security",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. Application layer",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following ideas is not associated with the stance of situation ethi",
+      "subject": "philosophy",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. situation ethics is based on agape love\nB. situation ethics allows for exceptions to moral rules\n",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "A landlord, an owner in fee simple, leased a three- story house to a tenant for ",
+      "subject": "professional_law",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. The tenant is liable for the full amount of the rent for the remaining term, unless the landlord ",
+      "model_letter": "A",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following cavities are separated by the diaphragm?",
+      "subject": "anatomy",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "The diaphragm separates the thoracic cavity from the abdominal cavity.\n\nAnswer: A. Thoracic and abdo",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": " Nagel clarifies that absolutism is the view that we should",
+      "subject": "moral_disputes",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. always avoid certain kinds of actions, no matter the consequences",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "If v is an eigenvector of an invertible matrix A, then which of the following is",
+      "subject": "college_mathematics",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "Since v is an eigenvector of A, we have A v = λ v for some eigenvalue λ.  \nSince A is invertible, λ ",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": " What is the meaning ofsamyak jnanawithin the Jaina traditions?",
+      "subject": "world_religions",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "In Jainism, *samyak jnana* means \"right knowledge\" or \"correct knowledge,\" which is one of the three",
+      "model_letter": "B",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "Which of the following are steroid-based molecules?\nI. Testosterone\nII. Triglyce",
+      "subject": "college_medicine",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "Testosterone is a steroid hormone, while triglycerides are lipids but not steroids (they are esters ",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Moons cause/contribute to which of the following?",
+      "subject": "astronomy",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. Tides",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following statement is supported by the information given in the pe",
+      "subject": "high_school_biology",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. The information given in the pe is incomplete, so no statement can be supported.",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "The three countries with the most drug injectors are:",
+      "subject": "virology",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "The three countries with the most drug injectors are:\n\nA. China, USA, Russia  \nB. Brazil, India, Nig",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following shifts the production possibilities frontier outward?",
+      "subject": "high_school_macroeconomics",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. A decrease in the unemployment rate  \nB. An increase in the labor force  \nC. A decrease in consum",
+      "model_letter": "B",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": " Ashford thinks that the right test of whether or not legal and economic structu",
+      "subject": "moral_disputes",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. are just is whether they would be agreed to by rational people in a position of equal liberty",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "In the discharge checklist recommended by the Department of Health (2004), who s",
+      "subject": "clinical_knowledge",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. The patient and their family/carers",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "The polynomial x^4 + 4 can be factored into linear factors in Z_5[x]. Find this ",
+      "subject": "abstract_algebra",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "Since we are working in \\( \\mathbb{Z}_5 \\), we need to find the roots of \\( x^4 + 4 \\) modulo 5.\n\nFi",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "In the equation GDP = C + I + G + X X stands for",
+      "subject": "high_school_macroeconomics",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "X stands for net exports (exports minus imports).\n\nAnswer: D. net exports",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "For which of these two scenarios does the main character (who uses I/me/my) do s",
+      "subject": "moral_scenarios",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "The question appears incomplete, but based on the subject \"moral_scenarios\" and the partial phrasing",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "For a Gestalt therapist, a primary goal of treatment is to help the client:",
+      "subject": "professional_psychology",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. achieve self-awareness and integration of conflicting parts\nB. resolve unconscious conflicts from",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Determine whether the polynomial in Z[x] satisfies an Eisenstein criterion for i",
+      "subject": "abstract_algebra",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "Since no facts are provided, I will use my knowledge of abstract algebra.\n\nThe Eisenstein criterion ",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": false
+    },
+    {
+      "question": "Which of the following quotations best describes the central thesis of differenc",
+      "subject": "jurisprudence",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. \"The law is a system of rules that treats everyone equally.\"\nB. \"Difference is not a deviation fr",
+      "model_letter": "C",
+      "correct": true,
+      "old_correct": true
+    },
+    {
+      "question": "Who sang lead vocals for the band Big Brother and the Holding Company?",
+      "subject": "miscellaneous",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "Janis Joplin\n\nAnswer: A. Janis Joplin",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following is (are) required when performing a polymerase chain reac",
+      "subject": "high_school_biology",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. DNA template\nB. DNA polymerase\nC. Primers\nD. All of the above\n\nAnswer: D. All of the above",
+      "model_letter": "D",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "A rod measures 1.00 m in its rest system. How fast must an observer move paralle",
+      "subject": "college_physics",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. 0.866c  \nB. 0.500c  \nC. 0.707c  \nD. 0.943c  \n\nAnswer: A. 0.866c",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": " If it were known that a policy would wipe out several animal species without ne",
+      "subject": "moral_disputes",
+      "choices": {},
+      "correct_answer": "D",
+      "model_answer": "A. causing any significant benefit to humans, then most people would agree that the policy is morall",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "This question refers to the following information.\nSource 1:\n\"Moreover, Sir, in ",
+      "subject": "high_school_world_history",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "A. The Federalist Papers",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "What is the output of the statement \"a\" + \"ab\" in Python 3?",
+      "subject": "high_school_computer_science",
+      "choices": {},
+      "correct_answer": "B",
+      "model_answer": "A. \"aab\"",
+      "model_letter": "",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "Which of the following entities cannot sue for libel?",
+      "subject": "public_relations",
+      "choices": {},
+      "correct_answer": "C",
+      "model_answer": "A. A deceased person  \nB. A corporation  \nC. A public figure  \nD. A government entity  \n\nAnswer: A. ",
+      "model_letter": "A",
+      "correct": false,
+      "old_correct": true
+    },
+    {
+      "question": "How are arenaviruses spread?",
+      "subject": "virology",
+      "choices": {},
+      "correct_answer": "A",
+      "model_answer": "Arenaviruses are primarily spread through contact with infected rodents or their excreta (urine, fec",
+      "model_letter": "A",
+      "correct": true,
+      "old_correct": false
+    }
+  ]
+}
