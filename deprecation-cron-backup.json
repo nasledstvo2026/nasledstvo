@@ -1,0 +1,723 @@
+{
+  "jobs": [
+    {
+      "id": "1a2fafd9-9f74-4e12-8437-05b6570dccc1",
+      "name": "🔄 Обновление tasks.html (Health Index)",
+      "description": "Каждый час 07–23 — автообновление метрик из Gateway, пересчёт Health Index, публикация на GitHub. Привязано к финишу задач.",
+      "enabled": true,
+      "createdAtMs": 1781961182822,
+      "updatedAtMs": 1783789455648,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 7-23 * * *",
+        "tz": "Europe/Moscow",
+        "staggerMs": 300000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Запусти обновление tasks.html с Health Index.\n\nВыполни:\ncd /home/user1/.openclaw/workspace && python3 generate-tasks-health.py\n\nСкрипт сам сделает git add/commit/push.\nВыведи результат.",
+        "model": "deepseek/deepseek-chat",
+        "fallbacks": [
+          "deepseek/deepseek-v4-flash"
+        ],
+        "timeoutSeconds": 900,
+        "toolsAllow": [
+          "read",
+          "edit",
+          "write",
+          "apply_patch",
+          "exec",
+          "process",
+          "cron",
+          "get_goal",
+          "create_goal",
+          "update_goal",
+          "skill_workshop",
+          "update_plan",
+          "sessions_list",
+          "sessions_history",
+          "sessions_send",
+          "sessions_spawn",
+          "sessions_yield",
+          "subagents",
+          "session_status",
+          "web_search",
+          "web_fetch",
+          "image",
+          "memory_search",
+          "memory_get"
+        ]
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "failureAlert": {
+        "after": 2,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000
+      },
+      "state": {
+        "nextRunAtMs": 1783792977600,
+        "lastRunAtMs": 1783789377628,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 78020,
+        "lastDeliveryStatus": "not-requested",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "status": "ok"
+    },
+    {
+      "id": "b4f0e3ed-affb-4449-ab73-c547f0876079",
+      "name": "Ежедневная сводка: наследство и банки",
+      "description": "Ежедневный дайджест новостей по наследованию вкладов физлиц в банках РФ. Категории: Главное / Коротко. К каждой: Суть + Для граждан. Защита от дублей через сессию. Приоритет 48ч.",
+      "enabled": true,
+      "createdAtMs": 1780309810503,
+      "updatedAtMs": 1783726500534,
+      "agentId": "main",
+      "sessionKey": "agent:main:telegram:direct:254785028",
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 2 * * *",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Найди свежие новости за последние 7 дней по теме «наследование вкладов физлиц в банках России, выплата наследства, выморочное наследство, Росимущество, изменения законодательства».\n\n=== ДЕДУПЛИКАЦИЯ ЧЕРЕЗ ФАЙЛ ===\nПрочитай /home/user1/.openclaw/workspace/memory/lena-news-seen.md\nВ нём строки формата: # YYYY-MM-DD | Заголовок | URL | Источник\n\nНовости, которые УЖЕ есть в этом файле — пропускай (не включай в отчёт и не дублируй в файл).\nЕсли новость совпадает по заголовку или URL — считай дубликатом.\n\nПосле генерации отчёта допиши в /home/user1/.openclaw/workspace/memory/lena-news-seen.md новые строки (по одной на каждую новость).\nФормат: # YYYY-MM-DD | Заголовок | URL | Источник\n\n=== ПОЛУЧИ ТЕКУЩУЮ ДАТУ ===\nПеред поиском выполни:\n- `date +%Y` — текущий год (используй в URL вместо «2026»)\n- `date -d '7 days ago' '+%Y-%m-%d'` — дата 7 дней назад\n\nЗапомни ОБА значения. Текущий год и дата отсечки.\n\n=== ПОИСК ЧЕРЕЗ SEARXNG ===\nSearXNG на http://localhost:8888. web_fetch с format=json.\n3 запроса с time_range=week. В каждом URL замени «2026» на текущий год:\n1. http://localhost:8888/search?q=%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5+%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D0%BE%D0%B2+%D0%B1%D0%B0%D0%BD%D0%BA%D0%B8+2026&format=json&time_range=week\n2. http://localhost:8888/search?q=%D1%80%D0%BE%D1%81%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE+%D0%B2%D1%8B%D0%BC%D0%BE%D1%80%D0%BE%D1%87%D0%BD%D0%BE%D0%B5+%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE+%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4+2026&format=json&time_range=week\n3. http://localhost:8888/search?q=%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D1%81%D1%82%D0%B2%D0%BE+%D0%B1%D0%B0%D0%BD%D0%BA+%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD+%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5+%D0%B3%D0%BE%D1%81%D0%B4%D1%83%D0%BC%D0%B0+2026&format=json&time_range=week\n\n⚠️ ВАЖНО: publishedDate приходит в разных форматах. Анализируй content на маркеры времени. В приоритете новости за последние 48 часов.\n\n=== ⛔ ФИЛЬТР ПО ДАТЕ (КРИТИЧЕСКОЕ) ===\nSearXNG может возвращать старые статьи (переиндексированные). ПРОВЕРЯЙ КАЖДЫЙ РЕЗУЛЬТАТ:\n\n1. Посмотри на publishedDate в JSON. Если год в publishedDate НЕ равен текущему — СРАЗУ ОТБРАСЫВАЙ.\n2. Если publishedDate отсутствует — проверяй content на маркеры даты (текст вида «вчера», «сегодня», «N дней назад», конкретные даты). Если в тексте год не текущий — ОТБРАСЫВАЙ.\n3. Закон, принятый в прошлом году, но вступающий в силу в текущем — НЕ является свежей новостью. Включай ТОЛЬКО если статья с анонсом/разбором опубликована в текущем году.\n4. Если сомневаешься в дате — ОТБРАСЫВАЙ. Лучше пропустить, чем выдать старьё.\n\n=== ФИЛЬТР ПО СОДЕРЖАНИЮ ===\nТОЛЬКО реальные новости за последние 7 дней. Отсеивай дубликаты инфоповодов (если новость одна, оставь один авторитетный источник: ТАСС, РБК, Ведомости, Коммерсант, Российская Газета). Отсекай рекламу юристов.\n\n=== ГРАДАЦИЯ НОВОСТЕЙ ===\n1️⃣ **Главное** — законы, указы, законопроекты, решения ЦБ / Правительства РФ.\n2️⃣ **Коротко** — судебная практика ВС РФ, статистика, крупные региональные прецеденты, аналитика.\n\n=== ФОРМАТ КАЖДОЙ НОВОСТИ ===\n- **Заголовок:** Емкий, понятный, без канцелярита.\n- 📌 *Суть:* Кратко, о чем новость (2-3 предложения).\n- 💡 *Для граждан:* Практический совет, предупреждение, конкретные выгоды, риски, сроки или алгоритм действий (простым языком).\n- 🔗 *Источник:* URL статьи (полная ссылка на источник, не на отчётный сайт).\n\n=== ПУБЛИКАЦИЯ И ЗАПИСЬ ФАЙЛОВ ===\n\n1. Запиши структурированный текст в /home/user1/.openclaw/workspace/memory/lena-news-daily.md\n\n2. Создай HTML-файл /tmp/report-lena.html, скопировав шаблон ниже. Замени ТОЛЬКО текст внутри тегов — не меняй структуру, классы и имена тегов. Весь HTML должен быть внутри ```html ... ``` (тройные бэктики с html).\n\n   ⚠️ Бинарное правило классов:\n   — Если новость из блока **Главное** → у .item обязательно класс .highlight\n   — Если новость из блока **Коротко** → класса .highlight НЕ БЫВАЕТ\n\n   ⚠️ Атомарная структура абзацев:\n   — «Суть:» всегда в <p class=\"essence\">\n   — «Для граждан:» всегда в <p class=\"for-citizens\">\n   — Оба тега строго внутри .body, никаких других <p> в .body\n\n   ⚠️ Ссылка на источник:\n   — В .meta ссылка на источник должна быть кликабельной: <a href=\"URL_ИСТОЧНИКА\">Название СМИ</a>\n\n   ШАБЛОН (скопируй без изменений, замени только текст):\n\n   ```html\n   <!DOCTYPE html>\n   <html lang=\"ru\">\n   <head>\n     <meta charset=\"UTF-8\">\n     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n     <title>Ежедневный дайджест — наследование вкладов</title>\n     <link rel=\"stylesheet\" href=\"theme.css\">\n   </head>\n   <body>\n     <div class=\"container\">\n       <a class=\"back\" href=\"inheritance.html\">← Кластер Наследство</a>\n       <div class=\"hero\">\n         <div class=\"title\">ЗАГОЛОВОК_ОТЧЕТА</div>\n         <div class=\"meta\">ДД.ММ.ГГГГ</div>\n       </div>\n       <div class=\"section\">\n         <h2>1️⃣ Главное</h2>\n         <div class=\"item highlight\">\n           <div class=\"title\">Заголовок новости</div>\n           <div class=\"meta\"><a href=\"URL_ИСТОЧНИКА\">Название СМИ</a> | ДД.ММ.ГГГГ</div>\n           <div class=\"body\">\n             <p class=\"essence\">📌 Суть: текст сути новости.</p>\n             <p class=\"for-citizens\">💡 Для граждан: практический вывод.</p>\n           </div>\n         </div>\n       </div>\n       <div class=\"section\">\n         <h2>2️⃣ Коротко</h2>\n         <div class=\"item\">\n           <div class=\"title\">Заголовок новости</div>\n           <div class=\"meta\"><a href=\"URL_ИСТОЧНИКА\">Название СМИ</a> | ДД.ММ.ГГГГ</div>\n           <div class=\"body\">\n             <p class=\"essence\">📌 Суть: текст сути новости.</p>\n             <p class=\"for-citizens\">💡 Для граждан: практический вывод.</p>\n           </div>\n         </div>\n       </div>\n       <div class=\"footer\">\n         <p>nasledstvo2026.github.io — дайджест за ДД.ММ.ГГГГ</p>\n       </div>\n     </div>\n   </body>\n   </html>\n   ```\n\n   ЕСЛИ НОВОСТЕЙ НЕТ — HTML с памяткой (та же структура, без highlight, заголовок «📚 Топ-3 вечнозелёных материалов»).\n\n3. Выполни отправку на сервер:\n   /home/user1/.openclaw/workspace/publish-report.sh /tmp/report-lena.html report-lena.html\n\n=== ОТВЕТ В ТЕКУЩИЙ ЧАТ (ДЛЯ TELEGRAM) ===\nВыведи ответ строго в формате Telegram-friendly Markdown.\n❌ КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО использовать HTML-теги (<p>, <b>, <br>) в этом блоке!\n\nЕсли новые новости НАЙДЕНЫ:\nГруппируй по блокам «1️⃣ Главное» и «2️⃣ Коротко». К каждой новости пиши Заголовок, Суть, Для граждан.\nВ конце каждой новости укажи ссылку на источник: 🔗 [Название СМИ](url_источника)\n\nЕсли новостей за последние 7 дней НЕТ:\nВыведи текст строго как указано ниже — не меняй текст, не заменяй URL, не переписывай описания:\n«*В Багдаде все спокойно.* За последние 7 дней важных изменений в законах и громких событий в сфере наследования вкладов не зафиксировано.\n\n📚 **Топ-3 вечнозелёных материала о наследовании:**\n1. [Как правильно оформить наследство на вклад в банке](https://nasledstvo2026.github.io/nasledstvo) — пошаговый гайд.\n2. [Что делать при отказе банка выдать деньги](https://nasledstvo2026.github.io/nasledstvo) — разбор прав и досудебная претензия.\n3. [Полный чек-лист документов для нотариуса и банка](https://nasledstvo2026.github.io/nasledstvo) — проверьте свой пакет документов.»\n\n(Не добавляй ссылку на архив отчётов — только если найдены реальные новости с источниками.)\n\n⚠️ Важно: КАЖДАЯ найденная новость должна содержать 🔗 [Название СМИ](url) с прямой ссылкой на исходную статью. Не используй ссылки на report-lena.html на сайте.",
+        "model": "deepseek/deepseek-v4-flash",
+        "fallbacks": [
+          "deepseek/deepseek-chat"
+        ],
+        "timeoutSeconds": 600,
+        "toolsAllow": [
+          "read",
+          "edit",
+          "write",
+          "apply_patch",
+          "exec",
+          "process",
+          "cron",
+          "get_goal",
+          "create_goal",
+          "update_goal",
+          "skill_workshop",
+          "update_plan",
+          "sessions_list",
+          "sessions_history",
+          "sessions_send",
+          "sessions_spawn",
+          "sessions_yield",
+          "subagents",
+          "session_status",
+          "web_search",
+          "web_fetch",
+          "image",
+          "memory_search",
+          "memory_get"
+        ]
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "telegram:254785028",
+        "accountId": "default"
+      },
+      "failureAlert": {
+        "after": 2,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000,
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1783812600000,
+        "lastRunAtMs": 1783726200033,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 300501,
+        "lastDeliveryStatus": "delivered",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "lastDelivered": true
+      },
+      "status": "ok"
+    },
+    {
+      "id": "a7ec1604-6bd8-428d-ba09-dbc894956f5b",
+      "name": "Бэкап: полный (раз в неделю)",
+      "description": "Полный бэкап workspace + canvas + Timeweb. Воскресенье 03:00 МСК. Retention 4 недели.",
+      "enabled": true,
+      "createdAtMs": 1780844639242,
+      "updatedAtMs": 1783210056811,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 3 * * 0",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Сделай git commit и git push в репозиторий nasledstvo2026/nasledstvo для резервного копирования.\n\nВыполни:\ncd /home/user1/.openclaw/workspace && \\\ngit add -A && \\\ngit commit -m \"Backup: $(TZ=Europe/Moscow date '+%Y-%m-%d %H:%M')\" 2>/dev/null || true && \\\ngit push 2>&1\n\nЭто еженедельный полный бэкап всей рабочей директории.\nВыведи результат. Если ошибка — сообщи.",
+        "model": "deepseek/deepseek-chat",
+        "fallbacks": [],
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "346428630"
+      },
+      "state": {
+        "nextRunAtMs": 1783814400000,
+        "lastRunAtMs": 1783210050546,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 6265,
+        "lastDeliveryStatus": "delivered",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "lastDelivered": true
+      },
+      "status": "ok"
+    },
+    {
+      "id": "eec06e3c-4f17-4172-a652-ebb023f2c307",
+      "name": "📊 stats-agent: статистика жалоб",
+      "description": "Расчёт статистики из katya-data.json → публикация stats-inheritance.html",
+      "enabled": true,
+      "createdAtMs": 1783715329074,
+      "updatedAtMs": 1783758167844,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "20 11 * * *",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Обнови stats-inheritance.html на основе данных из shared-директории.\n\n=== АЛГОРИТМ ===\n\n1. **Прочитай шаблон:** /home/user1/.openclaw/agents/shared/stats-inheritance.html\n   Это HTML со структурой, классами, стилями — НЕ МЕНЯТЬ их.\n   Менять ТОЛЬКО текстовые данные внутри тегов.\n\n2. **Прочитай источник данных:** /home/user1/.openclaw/agents/shared/katya-data.json\n   Это массив записей с полями: date, bank, title, description, url, source\n\n3. **Получи даты:**\n   - TZ=Europe/Moscow date +%Y-%m-%d\n   - TZ=Europe/Moscow date -d 'yesterday' '+%d %B %Y'\n\n4. **Рассчитай всё из katya-data.json:**\n   - За сегодня/вчера: сколько записей, разбивка Сбер/Другие\n   - За текущий месяц: всего, Сбер/Другие, динамика к предыдущему\n   - За год: топ банков с барами\n   - Помесячная статистика\n   - Хронология всех записей\n\n5. **Обнови HTML:**\n   - Версия: найди v\\d+, увеличь на 1\n   - Раздел 2 (дата) — вчерашняя дата, цифры, ссылки\n   - Раздел 3 (месяц) — пересчёт\n   - Раздел 4 (банки·год) — бары\n   - Раздел 5 (статистика) — таблица\n   - Раздел 6 (хронология) — все записи\n   - Примечание и Footer — даты\n\n6. **Публикация:**\n   Сохрани в /tmp/stats-inheritance.html\n   Выполни: /home/user1/.openclaw/workspace/publish-report.sh /tmp/stats-inheritance.html stats-inheritance.html\n\n=== ВАЖНО ===\n- НЕ меняй классы, id, теги, структуру шаблона\n- НЕ отвечай в Telegram\n- Если данных нет — просто оставь нули",
+        "model": "deepseek/deepseek-chat",
+        "timeoutSeconds": 900,
+        "toolsAllow": [
+          "read",
+          "edit",
+          "write",
+          "apply_patch",
+          "exec",
+          "process"
+        ]
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "failureAlert": {
+        "after": 2,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000,
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1783844400000,
+        "lastRunAtMs": 1783758000034,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 167810,
+        "lastDeliveryStatus": "not-requested",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "status": "ok"
+    },
+    {
+      "id": "8df8451b-1cf7-4999-ba2b-353fcd7e65ae",
+      "name": "📋 Роза: сводка изменений в законах по пособиям",
+      "description": "Еженедельная сводка изменений в законах по пособиям для Розы, понедельник 09:00",
+      "enabled": true,
+      "createdAtMs": 1781178661895,
+      "updatedAtMs": 1783318907914,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "3 9 * * 1",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Ты — юридический аналитик. Составь еженедельную сводку последних изменений в российском законодательстве по пособиям и социальным выплатам за последнюю неделю.\n\n=== ПОЛУЧИ ТЕКУЩУЮ ДАТУ ===\nПеред поиском выполни: `date +%Y` — полученный год используй в URL ниже вместо «2026».\n\n=== ПОИСК ЧЕРЕЗ SEARXNG ===\nSearXNG на http://localhost:8888. Используй web_fetch с format=json.\nВсего 3 запроса с time_range=week. В каждом URL замени «2026» на текущий год:\n\n1. http://localhost:8888/search?q=%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F+%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD%D1%8B+%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%B8%D1%8F+2026&format=json&time_range=week&language=ru-RU&categories=general\n2. http://localhost:8888/search?q=%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%B8%D1%8F+%D1%81%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B+%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD%D0%BE%D0%B4%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D1%82%D0%B2%D0%BE+2026&format=json&time_range=week&language=ru-RU&categories=general\n3. http://localhost:8888/search?q=%D0%BC%D0%B0%D1%82%D0%BA%D0%B0%D0%BF%D0%B8%D1%82%D0%B0%D0%BB+%D0%B4%D0%B5%D1%82%D1%81%D0%BA%D0%B8%D0%B5+%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%B8%D1%8F+%D0%BF%D0%B5%D0%BD%D1%81%D0%B8%D0%B8+%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F&format=json&time_range=week&language=ru-RU&categories=general\n\n⚠️ ВАЖНО: publishedDate приходит в разных форматах. Анализируй content на маркеры времени.\n\nSearXNG возвращает JSON в поле \"results\": title, url, content, engine, publishedDate.\n\n=== ОБРАБОТКА ===\nДля каждого изменения укажи: название закона/постановления, дату, суть изменений, источник.\nСгруппируй по темам: детские пособия, пенсии, маткапитал, пособия по безработице, другие выплаты.\nЕсли новых изменений за неделю не было — напиши «За прошедшую неделю существенных изменений не зафиксировано» + действующие нормы.\n\n=== HTML ===\nФормат вывода — HTML с theme.css. Только чистый HTML5, без Pug/Jade синтаксиса.\n\nИспользуй классы: .container, .back (тег <a href=\"social.html\" class=\"back\">← Команда Социальный консультант</a>), .hero > .title + .meta, .section, .tag, .item > .title + .meta + .body, .highlight, .footer, .stats-row, .stat-box.\n\nЗаголовок: Изменения в законах по пособиям\nМета: Сводка за [дата] — [дата]\n\n=== ПУБЛИКАЦИЯ ===\n1. Сохрани в /home/user1/.openclaw/workspace/report-roza.html\n2. Выполни загрузку:\n   /home/user1/.openclaw/workspace/publish-report.sh /home/user1/.openclaw/workspace/report-roza.html report-roza.html\n\n=== ОТВЕТ В TELEGRAM ===\nКраткая сводка (ключевые изменения) + 🌐 https://nasledstvo2026.github.io/nasledstvo/report-roza.html",
+        "model": "deepseek/deepseek-chat",
+        "fallbacks": [
+          "deepseek/deepseek-v4-flash"
+        ],
+        "timeoutSeconds": 300,
+        "toolsAllow": [
+          "web_fetch",
+          "write",
+          "exec"
+        ]
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "175808089"
+      },
+      "failureAlert": {
+        "after": 3,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000,
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1783922580000,
+        "lastRunAtMs": 1783318744265,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 163649,
+        "lastDeliveryStatus": "delivered",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "lastDiagnostics": {
+          "summary": "⚠️ 🛠️ `cd ~/.openclaw/workspace && bash ./publish-report…1/.openclaw/workspace/report-roza.html report-roza.html 2>&1 (agent)` failed",
+          "entries": [
+            {
+              "ts": 1783318907567,
+              "source": "tool",
+              "severity": "warn",
+              "message": "⚠️ 🛠️ `cd ~/.openclaw/workspace && bash ./publish-report…1/.openclaw/workspace/report-roza.html report-roza.html 2>&1 (agent)` failed"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "⚠️ 🛠️ `cd ~/.openclaw/workspace && bash ./publish-report…1/.openclaw/workspace/report-roza.html report-roza.html 2>&1 (agent)` failed",
+        "lastDelivered": true
+      },
+      "status": "ok"
+    },
+    {
+      "id": "0d49cb67-c918-4123-9441-4ed146282b10",
+      "name": "Ирина: еженедельный обзор НПА",
+      "description": "Каждый понедельник 09:00 — анализ НПА за 7 дней по мерам соцподдержки (инвалидность, ветераны, СВО)",
+      "enabled": true,
+      "createdAtMs": 1781179030663,
+      "updatedAtMs": 1783319973217,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 9 * * 1",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Проведи глубокий аналитический обзор нормативно-правовых документов и новостей за ПОСЛЕДНИЕ 7 ДНЕЙ (от даты сегодня минус 7 дней до вчера), касающихся социальных мер поддержки для категорий: инвалидность, ветераны боевых действий, участники СВО, члены их семей.\n\n=== ПОИСК ЧЕРЕЗ SEARXNG ===\nSearXNG на http://localhost:8888. Используй web_fetch с format=json.\nВсего 2 запроса с time_range=week. В каждом URL текущий год:\n\n1. http://localhost:8888/search?q=%D0%B8%D0%BD%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%BD%D0%BE%D1%81%D1%82%D1%8C+%D0%BB%D1%8C%D0%B3%D0%BE%D1%82%D1%8B+%D0%B2%D1%8B%D0%BF%D0%BB%D0%B0%D1%82%D1%8B+%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD&format=json&time_range=week&language=ru-RU&categories=general\n2. http://localhost:8888/search?q=%D0%B2%D0%B5%D1%82%D0%B5%D1%80%D0%B0%D0%BD%D1%8B+%D0%A1%D0%92%D0%9E+%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0+%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD&format=json&time_range=week&language=ru-RU&categories=general\n\n⚠️ ВАЖНО: publishedDate приходит в разных форматах. Анализируй content на маркеры времени.\n\nSearXNG возвращает JSON в поле \"results\": title, url, content, engine, publishedDate.\n\n=== ФИЛЬТРЫ ===\n- Игнорируй рекламные блоки, коммерческие предложения юристов и дублирующиеся ссылки\n- Оставляй только реальные НПА и новости: указы Президента, постановления Правительства, законы, приказы министерств, региональные НПА\n- Структура: федеральные НПА, затем региональные (с группировкой по субъектам)\n- Для каждого: название документа, дата, суть, кому касается\n- Если точная сумма выплаты в источнике отсутствует — явно укажи: «Сумма не указана»\n\n=== FALLBACK ПРИ ОШИБКЕ ===\nЕсли SearXNG вернул ошибку (нет доступа, пустой JSON, таймаут) — напиши в Telegram:\n«Ошибка получения данных от SearXNG. Проверьте работу локального поискового сервера»\nНе генерируй пустой отчёт и не падай с ошибкой.\n\n=== ГЕНЕРАЦИЯ WORD ===\n1. Сохрани Markdown-отчёт в /home/user1/.openclaw/workspace/reports/irina-npa-weekly.md\n2. Конвертируй: python3 /home/user1/.openclaw/workspace/convert-to-docx-report.py\n3. DOCX: /home/user1/.openclaw/workspace/reports/irina-npa-weekly.docx\n\n=== ОТВЕТ В TELEGRAM ===\nКраткое содержание (2-3 ключевых события) + приложи DOCX.\n\nПри генерации HTML для публикации на сайте используй:\n<a href=\"social.html\" class=\"back\">← Команда Социальный консультант</a>",
+        "model": "deepseek/deepseek-chat",
+        "fallbacks": [
+          "deepseek/deepseek-v4-flash"
+        ],
+        "timeoutSeconds": 400
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "739016616"
+      },
+      "state": {
+        "nextRunAtMs": 1783924200000,
+        "lastRunAtMs": 1783319860280,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 112937,
+        "lastDeliveryStatus": "delivered",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "lastDelivered": true
+      },
+      "status": "ok"
+    },
+    {
+      "id": "822d930b-63b1-4311-bdc2-e9cb53938b13",
+      "name": "🔍 search-agent: поиск жалоб по наследству",
+      "description": "Поиск жалоб через SearXNG → katya-raw.json + katya-data.json. 10 запросов, только за вчера",
+      "enabled": true,
+      "createdAtMs": 1783715314606,
+      "updatedAtMs": 1783715744911,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 10 * * 1-5",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Выполни поиск жалоб по наследству в банках РФ за **вчерашний день**.\n\nТвоя роль — search-agent. Ты ищешь, сохраняешь, не отвечаешь людям.\n\n=== АЛГОРИТМ ===\n\n1. **Проверь shared-файлы:**\n   - Прочитай /home/user1/.openclaw/agents/shared/katya-data.json (история)\n   - Прочитай /home/user1/.openclaw/agents/shared/katya-stats-data.md (счётчики)\n\n2. **Поиск через SearXNG (10 запросов):**\n   Все запросы: http://localhost:8888/search?q=...&format=json&time_range=day&language=ru-RU&categories=general\n   Используй exec с curl:\n   curl -s 'URL'\n\n   Запросы:\n   1. site:banki.ru (наследство OR умершего) отказ выплата\n   2. site:otzovik.com (наследство OR умершего) жалоба банк\n   3. site:pikabu.ru (наследство OR умершего) жалоба банк\n   4. (вклад умершего) OR наследство жалоба отказ\n   5. site:sravni.ru (наследство OR умершего) вклад жалоба\n   6. site:vc.ru (наследство OR умершего) банк вклад суд\n   7. завещание отказ банк\n   8. выплата наследства жалоба банк\n   9. завещательное распоряжение жалоба\n   10. наследник банк\n\n3. **Фильтрация:**\n   - ТОЛЬКО жалобы/отзывы пользователей (не новости, не статьи юристов)\n   - ТОЛЬКО тема наследства (отказ банка, проблемы с выплатой, ипотека умершего)\n   - Отсеять: 115-ФЗ, блокировки по антиотмывочному, РКЛ, споры по обычным кредитам\n   - Если сомневаешься — web_fetch на URL и проверь контекст\n\n4. **Формирование результата:**\n   Массив JSON с полями: date, bank, title, description, url, source\n   Сохрани в: /home/user1/.openclaw/agents/shared/katya-raw.json\n\n5. **Слияние с историей:**\n   - Прочитай katya-data.json из shared\n   - Добавь новые записи (дедупликация по url)\n   - Сохрани обратно в katya-data.json\n\n6. **Обновление katya-stats-data.md:**\n   - Допиши строку: ГГГГ-ММ-ДД | Сбер: X | Другие: Y\n   - Даже если 0 — пиши\n\n7. **Не отвечай ничего в Telegram.**",
+        "model": "deepseek/deepseek-chat",
+        "timeoutSeconds": 600,
+        "toolsAllow": [
+          "read",
+          "edit",
+          "write",
+          "apply_patch",
+          "exec",
+          "process",
+          "web_search",
+          "web_fetch",
+          "memory_search",
+          "memory_get"
+        ]
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "failureAlert": {
+        "after": 2,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000,
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1783928700000,
+        "lastRunAtMs": 1783715673818,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 71093,
+        "lastDeliveryStatus": "not-requested",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "status": "ok"
+    },
+    {
+      "id": "0104b513-5964-4c3f-8a20-80d4e5c5f87c",
+      "name": "🔍 verify-agent: верификация жалоб",
+      "description": "Проверка каждой жалобы из katya-raw.json: web_fetch url, теги verified/needs_review/rejected",
+      "enabled": true,
+      "createdAtMs": 1783716517038,
+      "updatedAtMs": 1783716798821,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "55 10 * * 1-5",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Выполни верификацию жалоб за вчерашний день.\n\n=== ТВОЯ РОЛЬ ===\nТы — verify-agent. Ты НЕ отвечаешь людям. Ты проверяешь каждую жалобу.\n\n=== АЛГОРИТМ ===\n\n1. Прочитай /home/user1/.openclaw/agents/shared/katya-raw.json\n2. Для каждой записи:\n   - Если url пустой: rejected (url отсутствует)\n   - Если url есть: web_fetch(url) и проверь контекст\n\n=== ПРАВИЛА ВЕРИФИКАЦИИ ===\n\n**verified** — всё ок:\n   - url открывается (HTTP 200)\n   - текст содержит тему наследства (отказ банка, проблемы выплаты, ипотека умершего, вклад/счёт умершего)\n   - автор — реальный пользователь (не юрист, не СМИ, не реклама)\n\n**needs_review** — сомнительно:\n   - url открывается, но тема наследства неочевидна\n   - ИЛИ это вопрос, а не жалоба\n   - ИЛИ отзыв слишком короткий/шаблонный\n\n**rejected** — не подходит:\n   - url не открывается (404, таймаут, blocked)\n   - это статья юриста / новость / реклама\n   - тема не про наследство (115-ФЗ, антиотмывочное, обычные кредиты)\n   - явный дубль\n\n3. Результат сохрани в /home/user1/.openclaw/agents/shared/katya-verified.json\n   Каждой записи добавь поле:\n   \"verification\": \"verified\" | \"needs_review\" | \"rejected\"\n   Для rejected добавь: \"reject_reason\": \"...\"\n\n4. Не отвечай ничего в Telegram.",
+        "model": "deepseek/deepseek-chat",
+        "timeoutSeconds": 300,
+        "toolsAllow": [
+          "read",
+          "edit",
+          "write",
+          "apply_patch",
+          "exec",
+          "process",
+          "web_fetch"
+        ]
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "failureAlert": {
+        "after": 2,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000,
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1783929300000,
+        "lastRunAtMs": 1783716779133,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 19688,
+        "lastDeliveryStatus": "not-requested",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "status": "ok"
+    },
+    {
+      "id": "fc34d68b-af5b-481d-8a8b-972f3dafd8e0",
+      "name": "📋 katya-agent: сводка жалоб",
+      "description": "Формирование сводки жалоб из готовых данных search-agent → Кате",
+      "enabled": true,
+      "createdAtMs": 1783715321302,
+      "updatedAtMs": 1783716813613,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 11 * * 1-5",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Сформируй сводку жалоб по наследству в банках РФ за **вчерашний день**.\n\n=== АЛГОРИТМ ===\n\n1. Прочитай /home/user1/.openclaw/agents/shared/katya-verified.json\n2. Отфильтруй записи где verification == \"verified\" или \"needs_review\" за вчера (TZ=Europe/Moscow date -d 'yesterday' '+%Y-%m-%d')\n3. Сгруппируй по источнику (banki.ru, otzovik.com, pikabu.ru, sravni.ru)\n\n=== ФОРМАТ ОТВЕТА (только текст в Telegram) ===\n\nЕсли жалобы есть:\n📋 **Сводка жалоб — ДД.ММ**\n\n**banki.ru** — N:\n• **Банк** — суть (url)\n• ...\n\n**otzovik.com** — N:\n• ...\n\n**Итого:** N жалоб за день.\n\nЕсли есть rejected — не включай в сводку. Они отфильтрованы.\n\nЕсли verified нет — «Новых жалоб за вчера не обнаружено»\n\n=== ВАЖНО ===\n- НЕ генерируй HTML\n- НЕ пиши в katya-data.json или katya-stats-data.md\n- Отвечай ТОЛЬКО текстом сводки, ничего лишнего",
+        "model": "deepseek/deepseek-chat",
+        "timeoutSeconds": 300,
+        "toolsAllow": [
+          "read",
+          "edit",
+          "write",
+          "apply_patch",
+          "exec"
+        ]
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "telegram:932052526",
+        "accountId": "default"
+      },
+      "failureAlert": {
+        "after": 2,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000,
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1783929600000,
+        "lastRunAtMs": 1783716805695,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 7918,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "lastFailureNotificationDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      },
+      "status": "ok"
+    },
+    {
+      "id": "e001daa1-ec86-4acf-8830-a5204df21a03",
+      "name": "Анализ новостей по вкладам 1991 — понедельник",
+      "description": "Еженедельный анализ новостей по вкладам 1991, понедельник 10:00 МСК. Единый файл report-danil.html (перезаписывается пн и чт).",
+      "enabled": true,
+      "createdAtMs": 1780381413639,
+      "updatedAtMs": 1783335720337,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 14 * * 1",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Анализ свежих новостей по компенсациям по вкладам Сбербанка СССР (до 20.06.1991). Период: последние 7 дней.\n\n=== ПОЛУЧИ ТЕКУЩУЮ ДАТУ ===\nПеред поиском выполни: `date +%Y` — полученный год используй в URL ниже вместо «2026».\n\n=== ПОИСК ЧЕРЕЗ SEARXNG ===\nSearXNG на http://localhost:8888. web_fetch с format=json.\nВсего 3 запроса с time_range=week. В каждом URL замени «2026» на текущий год:\n\n1. http://localhost:8888/search?q=%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B+%D0%A1%D0%A1%D0%A1%D0%A0+1991+%D0%BA%D0%BE%D0%BC%D0%BF%D0%B5%D0%BD%D1%81%D0%B0%D1%86%D0%B8%D1%8F+2026&format=json&time_range=week&language=ru-RU&categories=general\n2. http://localhost:8888/search?q=%D0%BA%D0%BE%D0%BC%D0%BF%D0%B5%D0%BD%D1%81%D0%B0%D1%86%D0%B8%D1%8F+%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%D0%B0%D0%BC+%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B+%D0%A1%D0%A1%D0%A1%D0%A0+%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82&format=json&time_range=week&language=ru-RU&categories=general\n3. http://localhost:8888/search?q=%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5+%D0%BA%D0%BE%D0%BC%D0%BF%D0%B5%D0%BD%D1%81%D0%B0%D1%86%D0%B8%D1%8F+%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B+1991+%D0%A1%D0%A1%D0%A1%D0%A0&format=json&time_range=week&language=ru-RU&categories=general\n\n⚠️ ВАЖНО: Текущая дата — сегодняшнее число. Отбрасывай любые результаты старше 7 дней от сегодня. Анализируй publishedDate и content на маркеры времени.\n\n=== ФИЛЬТР ===\nSearXNG возвращает JSON в поле \"results\": title, url, content, engine, publishedDate.\nОтфильтруй по теме (только компенсации вкладов 1991). Отсеивай дубликаты и общие статьи не по теме.\n\n⚠️ КРИТИЧЕСКОЕ ПРАВИЛО ДЛЯ НУЛЕВОЙ ВЫДАЧИ:\nЕсли в JSON от SearXNG нет публикаций за указанный период, категорически запрещено выдумывать новости.\nВ разделах «Новые постановления» и «Краткое содержание» пиши строго: «Не обнаружено».\nВ блоке «Вывод» пиши: «Нулевая медийная активность».\nВ Telegram отправляй: «В сфере компенсаций вкладов СССР новостей за последние дни нет.» + ссылка.\n\nФормат отчёта: 1) Новые постановления 2) Количество публикаций и издания 3) Краткое содержание 4) Вывод: уровень медийной активности.\n\n=== ПУБЛИКАЦИЯ ===\n1. Сохрани в /home/user1/.openclaw/workspace/memory/danil-vklady-mon.md\n2. Создай HTML /tmp/report-danil.html с theme.css.\n   ⚠️ HTML-код строго внутри ```html ... ```. Только чистый HTML5, без Pug/Jade синтаксиса.\n   Используй классы: .container, .back (тег <a href=\"inheritance.html\" class=\"back\">← Кластер Наследство</a>), .hero > .title + .meta, .section, .item > .title + .meta + .body, .highlight, .footer.\n3. Выполни публикацию:\n   /home/user1/.openclaw/workspace/publish-report.sh /tmp/report-danil.html report-danil.html\n\n=== ОТВЕТ В TELEGRAM ===\nКраткая сводка (ключевые изменения + медиа-активность) + 🌐 https://nasledstvo2026.github.io/nasledstvo/report-danil.html",
+        "model": "deepseek/deepseek-chat",
+        "fallbacks": [],
+        "timeoutSeconds": 120,
+        "toolsAllow": [
+          "read",
+          "edit",
+          "write",
+          "apply_patch",
+          "exec",
+          "process",
+          "cron",
+          "get_goal",
+          "create_goal",
+          "update_goal",
+          "skill_workshop",
+          "update_plan",
+          "sessions_list",
+          "sessions_history",
+          "sessions_send",
+          "sessions_spawn",
+          "sessions_yield",
+          "subagents",
+          "session_status",
+          "web_search",
+          "web_fetch",
+          "image",
+          "memory_search",
+          "memory_get"
+        ]
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "221828063"
+      },
+      "failureAlert": {
+        "after": 2,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000,
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1783940400000,
+        "lastRunAtMs": 1783335600032,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 120305,
+        "lastDeliveryStatus": "unknown",
+        "lastFailureNotificationDeliveryStatus": "unknown",
+        "consecutiveErrors": 5,
+        "consecutiveSkipped": 0,
+        "lastError": "cron: job execution timed out (last phase: model-call-started)",
+        "lastDiagnostics": {
+          "summary": "cron: job execution timed out (last phase: model-call-started)",
+          "entries": [
+            {
+              "ts": 1783335720337,
+              "source": "cron-setup",
+              "severity": "error",
+              "message": "cron: job execution timed out (last phase: model-call-started)"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "cron: job execution timed out (last phase: model-call-started)",
+        "lastErrorReason": "timeout",
+        "lastFailureAlertAtMs": 1783335720349
+      },
+      "status": "error"
+    },
+    {
+      "id": "ef30162f-05de-4521-b91f-0044baf34a64",
+      "name": "Анализ новостей по вкладам 1991 — четверг",
+      "description": "Еженедельный анализ новостей по вкладам 1991, четверг 10:00 МСК. Единый файл report-danil.html (перезаписывается пн и чт).",
+      "enabled": true,
+      "createdAtMs": 1780381413693,
+      "updatedAtMs": 1783580700409,
+      "agentId": "main",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 10 * * 4",
+        "tz": "Europe/Moscow"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Анализ свежих новостей по компенсациям по вкладам Сбербанка СССР (до 20.06.1991). Период: последние 7 дней.\n\n=== ПОЛУЧИ ТЕКУЩУЮ ДАТУ ===\nПеред поиском выполни: `date +%Y` — полученный год используй в URL ниже вместо «2026».\n\n=== ПОИСК ЧЕРЕЗ SEARXNG ===\nSearXNG на http://localhost:8888. web_fetch с format=json.\nВсего 3 запроса с time_range=week. В каждом URL замени «2026» на текущий год:\n\n1. http://localhost:8888/search?q=%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B+%D0%A1%D0%A1%D0%A1%D0%A0+1991+%D0%BA%D0%BE%D0%BC%D0%BF%D0%B5%D0%BD%D1%81%D0%B0%D1%86%D0%B8%D1%8F+2026&format=json&time_range=week&language=ru-RU&categories=general\n2. http://localhost:8888/search?q=%D0%BA%D0%BE%D0%BC%D0%BF%D0%B5%D0%BD%D1%81%D0%B0%D1%86%D0%B8%D1%8F+%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%D0%B0%D0%BC+%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B+%D0%A1%D0%A1%D0%A1%D0%A0+%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82&format=json&time_range=week&language=ru-RU&categories=general\n3. http://localhost:8888/search?q=%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5+%D0%BA%D0%BE%D0%BC%D0%BF%D0%B5%D0%BD%D1%81%D0%B0%D1%86%D0%B8%D1%8F+%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B+1991+%D0%A1%D0%A1%D0%A1%D0%A0&format=json&time_range=week&language=ru-RU&categories=general\n\n⚠️ ВАЖНО: Текущая дата — сегодняшнее число. Отбрасывай любые результаты старше 7 дней от сегодня. Анализируй publishedDate и content на маркеры времени.\n\n=== ФИЛЬТР ===\nSearXNG возвращает JSON в поле \"results\": title, url, content, engine, publishedDate.\nОтфильтруй по теме (только компенсации вкладов 1991). Отсеивай дубликаты и общие статьи не по теме.\n\n⚠️ КРИТИЧЕСКОЕ ПРАВИЛО ДЛЯ НУЛЕВОЙ ВЫДАЧИ:\nЕсли в JSON от SearXNG нет публикаций за указанный период, категорически запрещено выдумывать новости.\nВ разделах «Новые постановления» и «Краткое содержание» пиши строго: «Не обнаружено».\nВ блоке «Вывод» пиши: «Нулевая медийная активность».\nВ Telegram отправляй: «В сфере компенсаций вкладов СССР новостей за последние дни нет.» + ссылка.\n\nФормат отчёта: 1) Новые постановления 2) Количество публикаций и издания 3) Краткое содержание 4) Вывод: уровень медийной активности.\n\n=== ПУБЛИКАЦИЯ ===\n1. Сохрани в /home/user1/.openclaw/workspace/memory/danil-vklady-thu.md\n2. Создай HTML /tmp/report-danil.html с theme.css.\n   ⚠️ HTML-код строго внутри ```html ... ```. Только чистый HTML5, без Pug/Jade синтаксиса.\n   Используй классы: .container, .back (тег <a href=\"inheritance.html\" class=\"back\">← Кластер Наследство</a>), .hero > .title + .meta, .section, .item > .title + .meta + .body, .highlight, .footer.\n3. Выполни публикацию:\n   /home/user1/.openclaw/workspace/publish-report.sh /tmp/report-danil.html report-danil.html\n\n=== ОТВЕТ В TELEGRAM ===\nКраткая сводка (ключевые изменения + медиа-активность) + 🌐 https://nasledstvo2026.github.io/nasledstvo/report-danil.html",
+        "model": "deepseek/deepseek-chat",
+        "fallbacks": [],
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "221828063"
+      },
+      "failureAlert": {
+        "after": 2,
+        "channel": "telegram",
+        "to": "346428630",
+        "cooldownMs": 3600000,
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1784185200000,
+        "lastRunAtMs": 1783580400035,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 300374,
+        "lastDeliveryStatus": "unknown",
+        "lastFailureNotificationDeliveryStatus": "unknown",
+        "consecutiveErrors": 6,
+        "consecutiveSkipped": 0,
+        "lastError": "cron: job execution timed out (last phase: model-call-started)",
+        "lastDiagnostics": {
+          "summary": "cron: job execution timed out (last phase: model-call-started)",
+          "entries": [
+            {
+              "ts": 1783580700409,
+              "source": "cron-setup",
+              "severity": "error",
+              "message": "cron: job execution timed out (last phase: model-call-started)"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "cron: job execution timed out (last phase: model-call-started)",
+        "lastErrorReason": "timeout",
+        "lastFailureAlertAtMs": 1783580700422
+      },
+      "status": "error"
+    }
+  ],
+  "total": 11,
+  "offset": 0,
+  "limit": 11,
+  "hasMore": false,
+  "nextOffset": null,
+  "deliveryPreviews": {
+    "1a2fafd9-9f74-4e12-8437-05b6570dccc1": {
+      "label": "not requested",
+      "detail": "not requested"
+    },
+    "b4f0e3ed-affb-4449-ab73-c547f0876079": {
+      "label": "announce -> telegram:254785028",
+      "detail": "explicit"
+    },
+    "a7ec1604-6bd8-428d-ba09-dbc894956f5b": {
+      "label": "announce -> telegram:346428630",
+      "detail": "explicit"
+    },
+    "eec06e3c-4f17-4172-a652-ebb023f2c307": {
+      "label": "not requested",
+      "detail": "not requested"
+    },
+    "8df8451b-1cf7-4999-ba2b-353fcd7e65ae": {
+      "label": "announce -> telegram:175808089",
+      "detail": "explicit"
+    },
+    "0d49cb67-c918-4123-9441-4ed146282b10": {
+      "label": "announce -> telegram:739016616",
+      "detail": "explicit"
+    },
+    "822d930b-63b1-4311-bdc2-e9cb53938b13": {
+      "label": "not requested",
+      "detail": "not requested"
+    },
+    "0104b513-5964-4c3f-8a20-80d4e5c5f87c": {
+      "label": "not requested",
+      "detail": "not requested"
+    },
+    "fc34d68b-af5b-481d-8a8b-972f3dafd8e0": {
+      "label": "announce -> telegram:932052526",
+      "detail": "explicit"
+    },
+    "e001daa1-ec86-4acf-8830-a5204df21a03": {
+      "label": "announce -> telegram:221828063",
+      "detail": "explicit"
+    },
+    "ef30162f-05de-4521-b91f-0044baf34a64": {
+      "label": "announce -> telegram:221828063",
+      "detail": "explicit"
+    }
+  }
+}

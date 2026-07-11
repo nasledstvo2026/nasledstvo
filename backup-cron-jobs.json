@@ -1,0 +1,4 @@
+{
+  "backup_taken_at": "2026-07-11T17:05:00Z",
+  "note": "Сделать бэкап всех cron-задач перед изменениями. Команда: openclaw cron list --json > backup-cron-jobs.json"
+}
