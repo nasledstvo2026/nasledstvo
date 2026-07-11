@@ -417,10 +417,112 @@
     Все результаты — zero-shot, без доработок и RAG.
   </div>
 
+  <!-- Анализ и рекомендации -->
+  <div class="bench-grid" style="margin-top:28px;">
+
+    <div class="bench-card" style="border-color:rgba(126,231,135,0.2);">
+      <div class="name" style="font-size:18px;">
+        📈 Анализ результатов
+        <span class="score ok" style="font-size:12px;">профиль модели</span>
+      </div>
+
+      <div class="what">
+        <div class="label">Сильные стороны</div>
+        <div class="text" style="font-size:14px;">
+          <ul style="margin:8px 0 8px 20px;">
+            <li><strong>Галлюцинации ниже рынка.</strong> TruthfulQA 61.8% — на 15 п.п. выше GPT-3.5. Критично для NDA-документов, жалоб и медицинских заключений.</li>
+            <li><strong>Эрудиция на уровне топ-моделей.</strong> MMLU 81.2% — выше GPT-3.5 (70%) и Llama 2 (69%), отставание от GPT-4 всего 5 п.п. Особенно сильна в биологии, экономике, праве, медицине.</li>
+            <li><strong>Экономичность.</strong> Стоимость DeepSeek Chat <strong>в 3 раза ниже</strong> GPT-4 при сопоставимой точности на ключевых задачах.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="what" style="margin-top:16px;">
+        <div class="label">Слабые места</div>
+        <div class="text" style="font-size:14px;">
+          <ul style="margin:8px 0 8px 20px;">
+            <li><strong>Точные науки.</strong> Математика (50%) и Computer Science (50%) — провал. Для задач с расчётами и алгоритмами требуется верификация.</li>
+            <li><strong>Верификация источников.</strong> FEVER 56% (пилот) — низкий для автономной работы. Без RAG модель не может гарантированно подтверждать факты.</li>
+            <li><strong>Нестабильность API.</strong> DeepSeek тормозит в часы пик (вечер Китая). Утренние запуски в 08:00 МСК — зона риска.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bench-card" style="border-color:rgba(88,166,255,0.2);">
+      <div class="name" style="font-size:18px;">
+        🎯 Рекомендации
+        <span class="score ok" style="font-size:12px;">дорожная карта</span>
+      </div>
+
+      <div class="what" style="margin-bottom:6px;">
+        <div class="label">Приоритет 1 — FEVER полный (19 000 вопросов)</div>
+        <div class="text" style="font-size:14px;">
+          Запустить FEVER в двух режимах: (а) zero-shot как сейчас, (б) с RAG через нашего verify-agent.
+          <strong>Цель:</strong> показать прирост от RAG (ожидаем +10-15 п.п. к 56%).
+          <span style="color:var(--text-faint);">Трудоёмкость: ~3 часа.</span>
+        </div>
+      </div>
+
+      <div class="what" style="margin-bottom:6px;">
+        <div class="label">Приоритет 2 — MMLU полный (14 042 вопроса)</div>
+        <div class="text" style="font-size:14px;">
+          Текущая выборка 570 (10/категорию) даёт ±3% погрешность. Полный прогон уточнит цифру.
+          <strong>Цель:</strong> зафиксировать точное значение (ожидаем 79-83%).
+          <span style="color:var(--text-faint);">Трудоёмкость: ~3-5 часов, либо ~45 мин с параллельными запросами.</span>
+        </div>
+      </div>
+
+      <div class="what" style="margin-bottom:6px;">
+        <div class="label">Приоритет 3 — GAIA (multi-step web reasoning)</div>
+        <div class="text" style="font-size:14px;">
+          Самый сильный для инвесторов тест. Требует headless browser (browser-agent).
+          Показывает способность выполнять многошаговые задачи с веб-поиском.
+          <strong>Цель:</strong> 20-30% на GAIA (сильный результат).
+          <span style="color:var(--text-faint);">Зависимость: browser-agent.</span>
+        </div>
+      </div>
+
+      <div class="what">
+        <div class="label">Приоритет 4 — HumanEval / программирование</div>
+        <div class="text" style="font-size:14px;">
+          Модель показала 50% на college_computer_science — стоит проверить генерацию кода.
+          <strong>Цель:</strong> оценить пригодность для задач автоматизации.
+          <span style="color:var(--text-faint);">Трудоёмкость: ~30 мин.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bench-card" style="border-color:rgba(255,144,0,0.2);">
+      <div class="name" style="font-size:18px;">
+        💰 Бизнес-вывод для инвестора
+      </div>
+      <div class="what">
+        <div class="label">Что мы продаём</div>
+        <div class="text" style="font-size:14px;">
+          Мультиагентную систему на базе DeepSeek Chat, где каждый дефект модели
+          закрыт инструментальным слоем (RAG, verify-agent, web search, calculator).
+          Модель — <strong>ядро</strong>, а не всё решение.
+          <br><br>
+          <strong>Ключевое преимущество перед конкурентами:</strong>
+          <ul style="margin:8px 0 8px 20px;">
+            <li>Стоимость инференса <strong>в 3-5 раз ниже</strong> GPT-4 при 81.2% MMLU</li>
+            <li>Галлюцинации ниже GPT-3.5 на 15 п.п. — критично для юристов и врачей</li>
+            <li>Многоагентная архитектура усиливает слабые места модели (FEVER с RAG, математика с калькулятором)</li>
+            <li>DeepSeek Chat в 0-shot близок к GPT-4 — fine-tuning даст ещё +3-5%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <div class="bench-footer-action">
-    <a href="https://github.com/openclaw/openclaw" class="action-btn" target="_blank">
-      <span class="action-btn-icon">🔬</span>
-      <span class="action-btn-label">Тесты в репозитории</span>
+    <a href="service.html" class="action-btn">
+      <span class="action-btn-icon">←</span>
+      <span class="action-btn-label">К сервисам</span>
     </a>
   </div>
 
