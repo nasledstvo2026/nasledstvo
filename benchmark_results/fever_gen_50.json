@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "claim": "He was also the general manager of the AFL's Utah Blaze.",
+    "label": "SUPPORTS",
+    "evidence_url": "https://en.wikipedia.org/wiki/Steve_Videtich",
+    "source_title": "Steve Videtich"
+  },
+  {
+    "id": 1,
+    "claim": "He played in Major League Baseball (MLB) for the Baltimore Orioles in 2013.",
+    "label": "SUPPORTS",
+    "evidence_url": "https://en.wikipedia.org/wiki/Mike_Belfiore",
+    "source_title": "Mike Belfiore"
+  },
+  {
+    "id": 2,
+    "claim": "Mount Everest is located in Antarctica.",
+    "label": "NOT ENOUGH INFO",
+    "evidence_url": "",
+    "source_title": ""
+  },
+  {
+    "id": 3,
+    "claim": "San Godenzo is not a comune (municipality) in the Metropolitan City of Florence in the Italian region Tuscany, located about 35 kilometres (22 mi) northeast of Florence, in the Tuscan-Emilian Apennine",
+    "label": "REFUTES",
+    "evidence_url": "https://en.wikipedia.org/wiki/San_Godenzo",
+    "source_title": "San Godenzo"
+  }
+]

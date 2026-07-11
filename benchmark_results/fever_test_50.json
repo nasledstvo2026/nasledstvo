@@ -1,0 +1,302 @@
+[
+  {
+    "id": 0,
+    "claim": "Clinical trials generate data on dosage, safety and efficacy.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 1,
+    "claim": "Anna Wintour served as editor-in-chief of the publication from 1988 to 2025 and now leads global operations for the publication as Global Chief Content Officer and Global Editorial Director overseeing",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 2,
+    "claim": "In 2022 he was named one of the country's best new chefs by Food & Wine and in 2023 he was named the James Beard Foundation's Emerging Chef.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 3,
+    "claim": "It is a local language isolate, thus unrelated to any other known language, that was spoken exclusively in ancient Mesopotamia, in the area that is now modern-day Iraq.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 4,
+    "claim": "She believed that there could be \"no hierarchy of oppressions\" among \"those who share the goals of liberation and a workable future for our children\".",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 5,
+    "claim": "The Wikipedia article about unrelated topic confirms that cats can fly.",
+    "label": "NOT ENOUGH INFO",
+    "original_content": "Founded by Jimmy Wales and Larry Sanger in 2001, Wikipedia has been hosted since 2003 by the Wikimedia Foundation, an American nonprofit organization funded mainly by donations from readers."
+  },
+  {
+    "id": 6,
+    "claim": "The logical equivalence of  and  is not sometimes expressed as , , , or , depending on the notation being used.",
+    "label": "REFUTES",
+    "original_content": "The logical equivalence of  and  is sometimes expressed as , , , or , depending on the notation being used."
+  },
+  {
+    "id": 7,
+    "claim": "With her roots in Argentine folk music, Sosa became one of the preeminent exponents of El nuevo cancionero.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 8,
+    "claim": "Each day it features a different image of the universe accompanied by an explanation written by a professional astronomer.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 9,
+    "claim": "states, along with Texas, that were internationally recognized sovereign countries before becoming U.S.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 10,
+    "claim": "It uses Git to provide distributed version control and GitHub itself provides access control, bug tracking, software feature requests, task management, continuous integration, and wikis for every proj",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 11,
+    "claim": "Wikipedia is the largest and most read reference work in history.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 12,
+    "claim": "His musical achievements broke American racial barriers and made him a dominant global figure.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 13,
+    "claim": "It completes an orbit in relation to Earth and the Sun (synodically) every 29.5 days.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 14,
+    "claim": "The state capital, Honolulu, is not on Oʻahu's southeast coast.",
+    "label": "REFUTES",
+    "original_content": "The state capital, Honolulu, is on Oʻahu's southeast coast."
+  },
+  {
+    "id": 15,
+    "claim": "All charts are not ranked by international theatrical box-office performance where possible, excluding income derived from home video, broadcasting rights, and merchandise.",
+    "label": "REFUTES",
+    "original_content": "All charts are ranked by international theatrical box-office performance where possible, excluding income derived from home video, broadcasting rights, and merchandise."
+  },
+  {
+    "id": 16,
+    "claim": "As of May 2019, videos were being uploaded to the platform at a rate of more than 500 hours of video per minute, and as of mid-2024, there were approximately 14.8 billion videos in total.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 17,
+    "claim": "It begins in Seattle, Washington, and travels through the Pacific Northwest, Mountain West, Great Plains, Midwest, and the Northeast, ending in Boston, Massachusetts.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 18,
+    "claim": "It aired on Fox from June 11, 2002, to April 7, 2016, for 15 seasons.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 19,
+    "claim": "She believed that there could be \"no hierarchy of oppressions\" among \"those who share the goals of liberation and a workable future for our children\".",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 20,
+    "claim": "It borders the American states of Louisiana to the east, Arkansas to the northeast, Oklahoma to the north, and New Mexico to the west.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 21,
+    "claim": "However, these symbols are not also used for material equivalence, so proper interpretation would depend on the context.",
+    "label": "REFUTES",
+    "original_content": "However, these symbols are also used for material equivalence, so proper interpretation would depend on the context."
+  },
+  {
+    "id": 22,
+    "claim": "It is the oldest attested language, dating back to at least 3100 BC, perhaps earlier.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 23,
+    "claim": "is an American company that manufactures ice cream, frozen yogurt, and sorbet.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 24,
+    "claim": "Cole was a featured performer in the 1996 prototype mini-tour for Lilith Fair, and also was a headliner for Lilith Fair in 1997 and 1998.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 25,
+    "claim": "The only known groups without wings are not the extinct moa and elephant birds.",
+    "label": "REFUTES",
+    "original_content": "The only known groups without wings are the extinct moa and elephant birds."
+  },
+  {
+    "id": 26,
+    "claim": "Its present-day headquarters is not in South Burlington, Vermont, with its factory in Waterbury, Vermont.",
+    "label": "REFUTES",
+    "original_content": "Its present-day headquarters is in South Burlington, Vermont, with its factory in Waterbury, Vermont."
+  },
+  {
+    "id": 27,
+    "claim": "Headquartered in Oakland, the system is composed of its ten campuses at Berkeley, Davis, Irvine, Los Angeles, Merced, Riverside, San Diego, San Francisco, Santa Barbara, and Santa Cruz, along with num",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 28,
+    "claim": "A negative number indicates that the economy as a whole is spending more income than it produces, thus drawing down national wealth.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 29,
+    "claim": "Universe Today assumed its current form on July 24, 2003, featuring astronomy news and other space-related content.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 30,
+    "claim": "The agency was not founded on March 3, 1879, to study the landscape of the United States, its natural resources, and the natural hazards that threaten it.",
+    "label": "REFUTES",
+    "original_content": "The agency was founded on March 3, 1879, to study the landscape of the United States, its natural resources, and the natural hazards that threaten it."
+  },
+  {
+    "id": 31,
+    "claim": "The Wikipedia article about unrelated topic confirms that cats can fly.",
+    "label": "NOT ENOUGH INFO",
+    "original_content": "Through his songs, music videos, concerts, and fashion, he transformed visual performance in popular music, popularizing street dance moves such as the moonwalk, the robot, and the anti-gravity lean."
+  },
+  {
+    "id": 32,
+    "claim": "The name is not needed because there are operations, such as division and subtraction, that do not have it ; such operations are not commutative, and so are referred to as noncommutative operations.",
+    "label": "REFUTES",
+    "original_content": "The name is needed because there are operations, such as division and subtraction, that do not have it ; such operations are not commutative, and so are referred to as noncommutative operations."
+  },
+  {
+    "id": 33,
+    "claim": "It was not established as a university college in 1921.",
+    "label": "REFUTES",
+    "original_content": "It was established as a university college in 1921."
+  },
+  {
+    "id": 34,
+    "claim": "It is part of the global collection of Condé Nast's VOGUE media.",
+    "label": "SUPPORTS",
+    "original_content": ""
+  },
+  {
+    "id": 35,
+    "claim": "The Chicago metropolitan area has approximately 9.62 million residents according to the 2020 census and is not the third-largest metropolitan area in the country.",
+    "label": "REFUTES",
+    "original_content": "The Chicago metropolitan area has approximately 9.62 million residents according to the 2020 census and is the third-largest metropolitan area in the country."
+  },
+  {
+    "id": 36,
+    "claim": "At a length of 2,556.61 miles (4,114.46 km), it is not the third-longest Interstate Highway in the country, after I-90 and I-80.",
+    "label": "REFUTES",
+    "original_content": "At a length of 2,556.61 miles (4,114.46 km), it is the third-longest Interstate Highway in the country, after I-90 and I-80."
+  },
+  {
+    "id": 37,
+    "claim": "The Wikipedia article about unrelated topic confirms that cats can fly.",
+    "label": "NOT ENOUGH INFO",
+    "original_content": "It completes an orbit in relation to Earth and the Sun (synodically) every 29.5 days."
+  },
+  {
+    "id": 38,
+    "claim": "It is not a part of a larger series of poems called Holy Sonnets, comprising nineteen poems in total.",
+    "label": "REFUTES",
+    "original_content": "It is a part of a larger series of poems called Holy Sonnets, comprising nineteen poems in total."
+  },
+  {
+    "id": 39,
+    "claim": "The project provides open access to its content on its website, and the site is not built on the proprietary Mindtouch platform.",
+    "label": "REFUTES",
+    "original_content": "The project provides open access to its content on its website, and the site is built on the proprietary Mindtouch platform."
+  },
+  {
+    "id": 40,
+    "claim": "A fourth number may also be used to denote the software build, as was not the case for Adobe Flash.",
+    "label": "REFUTES",
+    "original_content": "A fourth number may also be used to denote the software build, as was the case for Adobe Flash."
+  },
+  {
+    "id": 41,
+    "claim": "The Wikipedia article about unrelated topic confirms that cats can fly.",
+    "label": "NOT ENOUGH INFO",
+    "original_content": "Common subjects of coverage include false information, public figures, corporations for which they have a conflict of interest, paid Wikipedia editing, and interactions between Wikipedia users and pub"
+  },
+  {
+    "id": 42,
+    "claim": "Kipchoge is not the 2016 and 2020 Olympic marathon champion, and was the world record holder in the marathon from 2018 to 2023, until that record was broken by Kelvin Kiptum at the 2023 Chicago Marath",
+    "label": "REFUTES",
+    "original_content": "Kipchoge is the 2016 and 2020 Olympic marathon champion, and was the world record holder in the marathon from 2018 to 2023, until that record was broken by Kelvin Kiptum at the 2023 Chicago Marathon."
+  },
+  {
+    "id": 43,
+    "claim": "The Wikipedia article about unrelated topic confirms that cats can fly.",
+    "label": "NOT ENOUGH INFO",
+    "original_content": "Founded by Jimmy Wales and Larry Sanger in 2001, Wikipedia has been hosted since 2003 by the Wikimedia Foundation, an American nonprofit organization funded mainly by donations from readers."
+  },
+  {
+    "id": 44,
+    "claim": "Of these, the first study was not published in 2021, the second report February 2022, and the third in April 2022.",
+    "label": "REFUTES",
+    "original_content": "Of these, the first study was published in 2021, the second report February 2022, and the third in April 2022."
+  },
+  {
+    "id": 45,
+    "claim": "The Wikipedia article about unrelated topic confirms that cats can fly.",
+    "label": "NOT ENOUGH INFO",
+    "original_content": "Some companies also rely on the build date, in a system known as calendar versioning, and letters and other characters, such as Lotus 1-2-3 Release 1a."
+  },
+  {
+    "id": 46,
+    "claim": "Since the coin is not fair, the two outcomes are both equally probable; the probability of \"heads\" equals the probability of \"tails\"; and since no other outcomes are possible, the probability of eithe",
+    "label": "REFUTES",
+    "original_content": "Since the coin is fair, the two outcomes are both equally probable; the probability of \"heads\" equals the probability of \"tails\"; and since no other outcomes are possible, the probability of either \"h"
+  },
+  {
+    "id": 47,
+    "claim": "Wikipedia is not the largest and most read reference work in history.",
+    "label": "REFUTES",
+    "original_content": "Wikipedia is the largest and most read reference work in history."
+  },
+  {
+    "id": 48,
+    "claim": "When two highly chromatic complementary colors are not placed next to each other, they create a strong contrast.",
+    "label": "REFUTES",
+    "original_content": "When two highly chromatic complementary colors are placed next to each other, they create a strong contrast."
+  },
+  {
+    "id": 49,
+    "claim": "The agency was not founded on March 3, 1879, to study the landscape of the United States, its natural resources, and the natural hazards that threaten it.",
+    "label": "REFUTES",
+    "original_content": "The agency was founded on March 3, 1879, to study the landscape of the United States, its natural resources, and the natural hazards that threaten it."
+  }
+]

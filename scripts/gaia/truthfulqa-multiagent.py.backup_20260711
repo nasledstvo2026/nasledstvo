@@ -9,10 +9,7 @@ Router → Fact Collector → Solver → Verifier
 import sys, os, json, re, time, argparse, requests, urllib.parse, random
 from datetime import datetime
 
-# Force key to be ascii-safe for requests (handles non-latin1 chars)
-_raw_key = os.environ.get("DEEPSEEK_API_KEY", "")
-# Encode as latin-1 with replacement to avoid 'latin-1' codec errors in requests
-DEEPSEEK_API_KEY = _raw_key.encode("utf-8", "replace").decode("utf-8")
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
 WIKI_UA = "Mozilla/5.0 (compatible; TruthfulQA-Benchmark/1.0)"
 
@@ -25,9 +22,8 @@ def llm(prompt, system="", max_tokens=300, temp=0.0, timeout=30):
     msgs.append({"role": "user", "content": prompt})
     for a in range(3):
         try:
-            safe_key = DEEPSEEK_API_KEY.encode("ascii", "replace").decode("ascii")
             r = requests.post(DEEPSEEK_URL,
-                headers={"Authorization": f"Bearer {safe_key}"},
+                headers={"Authorization": f"Bearer {DEEPSEEK_API_KEY}"},
                 json={"model": "deepseek-chat",
                       "messages": msgs,
                       "max_tokens": max_tokens,

@@ -21,8 +21,9 @@ def llm(prompt, system="", max_tokens=300, temp=0.0, timeout=30):
     msgs.append({"role": "user", "content": prompt})
     for a in range(3):
         try:
-            r = requests.post(DEEPSEEK_URL,
-                headers={"Authorization": f"Bearer {DEEPSEEK_API_KEY}"},
+            auth_header = ("Bearer " + DEEPSEEK_API_KEY).encode('ascii', 'ignore').decode('ascii')
+    r = requests.post(DEEPSEEK_URL,
+                headers={"Authorization": auth_header},
                 json={"model": "deepseek-chat",
                       "messages": msgs,
                       "max_tokens": max_tokens,
