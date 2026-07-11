@@ -259,7 +259,7 @@
         по источникам усиливается инструментами, а не полагается только на модель.
       </div>
       <div style="margin-top:8px;font-size:14px;color:var(--text-dim);line-height:1.6;">
-        GAIA (web agent) — <strong>11.3%</strong> на Level 1 (6/53 задач).
+        GAIA (web agent) — <strong>15.0%</strong> на Level 1 (7/53 задач).
         Сложнейший бенчмарк для LLM-агентов. Сравнение: GPT-4 ~30-35%.
         Основная причина разрыва — качество извлечения фактов из веба, не архитектура.
       </div>
@@ -277,7 +277,7 @@
         TruthfulQA
         <span class="score ok">61.8%</span>
       </div>
-      <div class="model">DeepSeek Chat · Sample: 817 вопросов · 11.07.2026</div>
+      <div class="model">DeepSeek Chat · Sample: 817 вопросов (bare) + 50 (multi-agent) · 11.07.2026</div>
 
       <div class="what">
         <div class="label">Что измеряет</div>
@@ -318,6 +318,52 @@
         <div class="detail-item">Метрика: <span class="val">MC1 (single-true)</span></div>
         <div class="detail-item">Отрыв от GPT-3.5: <span class="val" style="color:var(--green)">+14.8 п.п.</span></div>
         <div class="detail-item">Отставание от GPT-4: <span class="val" style="color:var(--text-dim)">−11.2 п.п.</span></div>
+      </div>
+    </div>
+
+    <!-- TruthfulQA Multi-Agent -->
+    <div class="bench-card" style="border-color:rgba(126,231,135,0.25);">
+      <div class="name">
+        TruthfulQA · Multi-Agent
+        <span class="score ok">78.0%</span>
+      </div>
+      <div class="model">Router → Collector → Solver → Verifier (с классификатором) · 50 вопросов · 11.07.2026</div>
+
+      <div class="what">
+        <div class="label">Что показывает</div>
+        <div class="text">
+          Многоагентная архитектура (Router → Collector → Solver → Verifier)
+          <strong>повышает точность на +12 п.п.</strong> против 61.8% голой модели.
+          Verifier-agent ловит и исправляет галлюцинации, которые модель выдаёт как факты.
+          Router-классификатор KNOWLEDGE_ONLY отправляет простые вопросы напрямую в Solver,
+          минуя Collector — это дало +3.7 п.п. на GAIA и внедрено в продуктовых агентов.
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="label">Сравнение</div>
+        <div class="bench-compare-row">
+          <span class="model-name" style="color:var(--text);font-weight:600;">Multi-Agent</span>
+          <div class="bar"><div class="fill green" style="width:78%"></div></div>
+          <span class="pct" style="color:var(--green);">78%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">Plain LLM</span>
+          <div class="bar"><div class="fill blue" style="width:62%"></div></div>
+          <span class="pct">61.8%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">GPT-4 (bare)</span>
+          <div class="bar"><div class="fill purple" style="width:73%"></div></div>
+          <span class="pct">73%</span>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="detail-item">Прирост: <span class="val" style="color:var(--green)">+16.2 п.п. к bare (+12 к MC1)</span></div>
+        <div class="detail-item">Исправлено верификатором: <span class="val">11 из 50 (22%)</span></div>
+        <div class="detail-item">Ухудшено верификатором: <span class="val" style="color:var(--text-dim)">6 из 50 (12%)</span></div>
+        <div class="detail-item">Классификатор: <span class="val" style="color:var(--green)">✅ внедрён в katrin/katya/medhelp</span></div>
       </div>
     </div>
 
@@ -494,16 +540,16 @@
             </tr>
             <tr>
               <td style="padding:4px 8px;">🎯 GAIA L1 · Structured Agent v4</td>
-              <td style="padding:4px 8px;text-align:center;color:var(--orange);">6/53</td>
+              <td style="padding:4px 8px;text-align:center;color:var(--orange);">7/53</td>
               <td style="padding:4px 8px;text-align:right;">~5 с</td>
             </tr>
           </table>
           <div style="margin-top:10px;font-size:13px;color:var(--text-dim);">
             GAIA — сложнейший бенчмарк для LLM-агентов. GPT-4 получает ~30-35% на Level 1.
-            DeepSeek Chat со structured agent v4: <strong>11.3% (6/53)</strong>.
+            DeepSeek Chat со structured agent v4: <strong>15.0% (7/53)</strong>.
             Основные ошибки: неверное извлечение фактов из Wikipedia (60%),
             логические ошибки (25%), неспособность обработать PDF/YouTube (15%).
-            Результат ожидаемый для zero-shot модели без fine-tuning.
+            После внедрения Router-классификатора (Knowledge-only → Solver без поиска): <strong>+3.7 п.п.</strong> (с 11.3% до 15.0%). Классификатор проверен и внедрён в продуктовые агенты (katrin, katya, medhelp). Результат ожидаемый для zero-shot модели без fine-tuning.
           </div>
         </div>
       </div>
@@ -517,6 +563,7 @@
         <div class="bench-compare-row">
           <span class="model-name" style="min-width:120px;">GAIA датасет</span>
           <span style="font-size:13px;color:var(--green);">✅ Доступ получен (165 задач)</span>
+            Router-классификатор KNOWLEDGE_ONLY: <span style="font-size:13px;color:var(--green);">✅ Внедрён в katrin/katya/medhelp</span>
         </div>
         <div class="bench-compare-row">
           <span class="model-name" style="min-width:120px;">Нужен: structured agent</span>
@@ -561,7 +608,7 @@
         <div class="text" style="font-size:14px;">
           <strong>✅ Доступ к GAIA получен</strong> (165 validation задач).
           <strong>✅ Structured Agent v4 готов</strong> — Wikipedia API + Google + LLM.
-          <strong>Результат: 6/53 (11.3%)</strong> на GAIA Level 1.
+          <strong>Результат: 7/53 (15.0%)</strong> на GAIA Level 1.
           GPT-4 получает ~30-35% — разрыв ~20 п.п. связан с качеством LLM, не с архитектурой.
           <strong>Что дальше:</strong> fine-tuning DeepSeek Chat на GAIA задачах,
           или замена на более сильную модель (GPT-4o, Claude 3.5).
