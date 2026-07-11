@@ -6,23 +6,29 @@
 <title>Benchmark Results — OpenClaw Agent</title>
 <link rel="stylesheet" href="theme.css">
 <style>
-.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+.container { max-width: 880px; margin: 0 auto; padding: 20px; }
 h1 { text-align: center; margin: 40px 0 8px; }
 .sub { text-align: center; color: #8b949e; margin-bottom: 32px; font-size: 0.9em; }
-.card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
-.card h2 { margin-top: 0; font-size: 1.2em; }
-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #21262d; }
-thead th { color: #8b949e; font-weight: 400; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
-.num { text-align: right; font-family: 'SF Mono', 'Consolas', monospace; }
-.gold { color: #d29922; }
-.green { color: #3fb950; }
-.red { color: #f85149; }
-.blue { color: #58a6ff; }
-.our-row { background: rgba(56,139,253,0.08); border-left: 3px solid #388bfd; }
-.our-row td:first-child { font-weight: 600; }
-.our-row .num { color: #58a6ff; }
-.note { font-size: 0.85em; color: #8b949e; margin-top: 4px; }
+.card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 28px; margin-bottom: 20px; }
+.card h2 { margin-top: 0; font-size: 1.1em; margin-bottom: 20px; }
+
+.bar { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.bar-label { width: 200px; text-align: right; font-size: 0.85em; color: #c9d1d9; flex-shrink: 0; }
+.bar-track { flex: 1; height: 24px; background: #0d1117; border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 0.78em; font-weight: 600; color: #0d1117; white-space: nowrap; min-width: 40px; transition: width 0.3s; }
+.bar-value { width: 50px; text-align: left; font-size: 0.82em; font-family: 'SF Mono','Consolas',monospace; flex-shrink: 0; }
+
+.bar.our .bar-label { color: #58a6ff; font-weight: 600; }
+.bar.our .bar-fill { background: linear-gradient(90deg, #1f6feb, #58a6ff); color: #fff; }
+
+.ref { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.ref-label { width: 200px; text-align: right; font-size: 0.85em; color: #8b949e; flex-shrink: 0; }
+.ref-dot { width: 8px; height: 8px; border-radius: 50%; background: #484f58; flex-shrink: 0; }
+.ref-name { font-size: 0.82em; color: #8b949e; flex: 1; }
+.ref-val { width: 50px; text-align: left; font-size: 0.82em; color: #8b949e; font-family: 'SF Mono','Consolas',monospace; flex-shrink: 0; }
+
+.section-title { color: #8b949e; font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.5px; margin: 16px 0 8px; }
+
 .footer { text-align: center; color: #484f58; padding: 32px; font-size: 0.8em; }
 </style>
 </head>
@@ -32,76 +38,177 @@ thead th { color: #8b949e; font-weight: 400; font-size: 0.85em; text-transform: 
 <h1>🧪 OpenClaw Agent — Benchmarks</h1>
 <p class="sub">Multi-Agent: Router → Collector → Solver → Verifier · DeepSeek Chat · 11 июля 2026</p>
 
+<!-- GAIA -->
 <div class="card">
-  <h2>📊 GAIA Level 1</h2>
-  <p class="note">GAIA — задачи, требующие инструментального взаимодействия (поиск, расчёты, парсинг файлов). <strong>Exact match</strong>.</p>
-  <table>
-    <thead>
-      <tr><th>Модель / Архитектура</th><th class="num">Score</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>GPT-4 + браузер + инструменты (референс)</td><td class="num gold">63.9%</td></tr>
-      <tr><td>Claude 3.5 Sonnet + инструменты</td><td class="num gold">~40%</td></tr>
-      <tr><td>DeepSeek-V2 + инструменты (референс)</td><td class="num gold">35.8%</td></tr>
-      <tr><td>Human performance</td><td class="num gold">92%</td></tr>
-      <tr class="our-row"><td>🟦 OpenClaw (plain LLM, без инструментов)</td><td class="num">9.4%</td></tr>
-      <tr class="our-row"><td>🟦 OpenClaw (Multi-Agent, без attachment-handler)</td><td class="num">11.3%</td></tr>
-      <tr class="our-row"><td>🟦 OpenClaw (Multi-Agent, пилот без вложений)</td><td class="num green">30.0%</td></tr>
-    </tbody>
-  </table>
-  <p class="note">OpenClaw использует внешние инструменты (Wikipedia API, Google HTML scraper, yt-dlp), но <strong>не обрабатывает вложения</strong> (Excel, изображения, аудио, PDF) — 73% задач Level 1 требуют парсинга вложений.</p>
-</div>
+  <h2>GAIA Level 1 <span style="font-size:0.7em;color:#8b949e;font-weight:400;">(exact match)</span></h2>
+  <div class="section-title">Референсные модели</div>
 
-<div class="card">
-  <h2>📊 TruthfulQA MC1</h2>
-  <p class="note">TruthfulQA — устойчивость к распространённым заблуждениям. <strong>MC1</strong> (Single-true).</p>
-  <table>
-    <thead>
-      <tr><th>Модель</th><th class="num">MC1</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>GPT-4 Turbo</td><td class="num gold">82.1%</td></tr>
-      <tr><td>Claude 3 Opus</td><td class="num gold">79.3%</td></tr>
-      <tr><td>GPT-4</td><td class="num gold">78.4%</td></tr>
-      <tr><td>Llama 3 70B</td><td class="num gold">73.6%</td></tr>
-      <tr><td>DeepSeek-V2</td><td class="num gold">70.2%</td></tr>
-      <tr class="our-row"><td>🟦 OpenClaw (plain LLM)</td><td class="num">68.0%</td></tr>
-      <tr class="our-row"><td>🟦 OpenClaw (Multi-Agent)</td><td class="num green">77.0%</td></tr>
-    </tbody>
-  </table>
-  <p class="note">Multi-Agent даёт +9% — Verifier срезает ложные ответы. Результат на уровне GPT-4 и Claude 3 Opus.</p>
-</div>
+  <div class="ref">
+    <span class="ref-label">Human</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">Человек</span>
+    <span class="ref-val">92%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">GPT-4 + инструменты</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">OpenAI</span>
+    <span class="ref-val">63.9%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">Claude 3.5 Sonnet</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">Anthropic</span>
+    <span class="ref-val">~40%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">DeepSeek-V2</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">DeepSeek</span>
+    <span class="ref-val">35.8%</span>
+  </div>
 
-<div class="card">
-  <h2>📊 MMLU (0-shot)</h2>
-  <p class="note">MMLU — массовый тест знаний по 57 предметам. <strong>0-shot accuracy</strong>.</p>
-  <table>
-    <thead>
-      <tr><th>Модель</th><th class="num">Score</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>GPT-4o</td><td class="num gold">88.7%</td></tr>
-      <tr><td>Claude 3.5 Sonnet</td><td class="num gold">86.8%</td></tr>
-      <tr><td>Gemini 1.5 Pro</td><td class="num gold">85.0%</td></tr>
-      <tr><td>Llama 3 70B</td><td class="num gold">82.0%</td></tr>
-      <tr><td>DeepSeek-V2</td><td class="num gold">78.5%</td></tr>
-      <tr class="our-row"><td>🟦 OpenClaw (plain LLM)</td><td class="num green">80.0%</td></tr>
-      <tr class="our-row"><td>🟦 OpenClaw (Multi-Agent)</td><td class="num red">11.0%</td></tr>
-    </tbody>
-  </table>
-  <p class="note">Multi-Agent <strong>не подходит для knowledge-only тестов</strong> — Router и Collector добавляют шум. Plain LLM на 80% — ожидаемый результат для DeepSeek Chat.</p>
-</div>
+  <div class="section-title" style="margin-top:20px;">OpenClaw Agent</div>
 
-<div class="card" style="text-align:center;">
-  <p style="color:#8b949e;margin:0;">
-    Baseline модель — DeepSeek Chat · Подробные логи: <a href="gaia_results/gaia_results_20260711_151850_multiagent.json">GAIA</a> · 
-    <a href="benchmark_results/truthfulqa_multiagent_20260711_152457.json">TruthfulQA</a> · 
-    <a href="benchmark_results/mmlu_multiagent_20260711_152652.json">MMLU</a>
+  <div class="bar our">
+    <span class="bar-label">Multi-Agent (пилот, без влож.)</span>
+    <div class="bar-track"><div class="bar-fill" style="width:32%;">30%</div></div>
+    <span class="bar-value">30.0%</span>
+  </div>
+  <div class="bar our">
+    <span class="bar-label">Multi-Agent (53 задачи)</span>
+    <div class="bar-track"><div class="bar-fill" style="width:13%;">11.3%</div></div>
+    <span class="bar-value">11.3%</span>
+  </div>
+  <div class="bar our">
+    <span class="bar-label">Plain LLM (без инструментов)</span>
+    <div class="bar-track"><div class="bar-fill" style="width:10%;">9.4%</div></div>
+    <span class="bar-value">9.4%</span>
+  </div>
+  <p style="font-size:0.82em;color:#8b949e;margin-top:12px;">
+    73% задач Level 1 требуют парсинга вложений (Excel, изображения, PDF, аудио) — без этого Multi-Agent упирается в ~11%. 
+    На выборке без вложений — <strong>30%</strong>, что в 3× лучше plain LLM.
   </p>
 </div>
 
+<!-- TruthfulQA -->
+<div class="card">
+  <h2>TruthfulQA <span style="font-size:0.7em;color:#8b949e;font-weight:400;">(MC1, single-true)</span></h2>
+
+  <div class="section-title">Референсные модели</div>
+
+  <div class="ref">
+    <span class="ref-label">GPT-4 Turbo</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">OpenAI</span>
+    <span class="ref-val">82.1%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">Claude 3 Opus</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">Anthropic</span>
+    <span class="ref-val">79.3%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">GPT-4</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">OpenAI</span>
+    <span class="ref-val">78.4%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">Llama 3 70B</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">Meta</span>
+    <span class="ref-val">73.6%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">DeepSeek-V2</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">DeepSeek</span>
+    <span class="ref-val">70.2%</span>
+  </div>
+
+  <div class="section-title" style="margin-top:20px;">OpenClaw Agent</div>
+
+  <div class="bar our">
+    <span class="bar-label">Multi-Agent</span>
+    <div class="bar-track"><div class="bar-fill" style="width:83%;">77%</div></div>
+    <span class="bar-value">77.0%</span>
+  </div>
+  <div class="bar our">
+    <span class="bar-label">Plain LLM (baseline)</span>
+    <div class="bar-track"><div class="bar-fill" style="width:73%;">68%</div></div>
+    <span class="bar-value">68.0%</span>
+  </div>
+
+  <p style="font-size:0.82em;color:#8b949e;margin-top:12px;">
+    Multi-Agent даёт <strong>+9%</strong> — Verifier срезает ложные ответы. Результат <strong>77%</strong> — на уровне GPT-4 и Claude 3 Opus.
+  </p>
+</div>
+
+<!-- MMLU -->
+<div class="card">
+  <h2>MMLU <span style="font-size:0.7em;color:#8b949e;font-weight:400;">(0-shot, 57 subjects)</span></h2>
+
+  <div class="section-title">Референсные модели</div>
+
+  <div class="ref">
+    <span class="ref-label">GPT-4o</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">OpenAI</span>
+    <span class="ref-val">88.7%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">Claude 3.5 Sonnet</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">Anthropic</span>
+    <span class="ref-val">86.8%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">Gemini 1.5 Pro</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">Google</span>
+    <span class="ref-val">85.0%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">Llama 3 70B</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">Meta</span>
+    <span class="ref-val">82.0%</span>
+  </div>
+  <div class="ref">
+    <span class="ref-label">DeepSeek-V2</span>
+    <span class="ref-dot"></span>
+    <span class="ref-name">DeepSeek</span>
+    <span class="ref-val">78.5%</span>
+  </div>
+
+  <div class="section-title" style="margin-top:20px;">OpenClaw Agent</div>
+
+  <div class="bar our">
+    <span class="bar-label">Plain LLM (baseline)</span>
+    <div class="bar-track"><div class="bar-fill" style="width:86%;">80%</div></div>
+    <span class="bar-value">80.0%</span>
+  </div>
+  <div class="bar our">
+    <span class="bar-label">Multi-Agent</span>
+    <div class="bar-track"><div class="bar-fill" style="width:12%;background:linear-gradient(90deg,#da3633,#f85149);">11%</div></div>
+    <span class="bar-value">11.0%</span>
+  </div>
+
+  <p style="font-size:0.82em;color:#8b949e;margin-top:12px;">
+    Multi-Agent <strong>не подходит</strong> для knowledge-only тестов — Router/Collector добавляют шум. Plain LLM показывает ожидаемые для DeepSeek Chat <strong>80%</strong>.
+  </p>
+</div>
+
+<div class="card" style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;padding:16px;text-align:center;">
+  <div><a style="color:#58a6ff;" href="gaia_results/gaia_results_20260711_151850_multiagent.json">📁 GAIA log</a></div>
+  <div><a style="color:#58a6ff;" href="benchmark_results/truthfulqa_multiagent_20260711_152457.json">📁 TruthfulQA log</a></div>
+  <div><a style="color:#58a6ff;" href="benchmark_results/mmlu_multiagent_20260711_152652.json">📁 MMLU log</a></div>
+</div>
+
 <div class="footer">
-  Referenced scores from HuggingFace Open Leaderboard · GAIA paper · TruthfulQA paper · MMLU paper · 2024–2025 data
+  Referenced scores from HuggingFace Open Leaderboard · GAIA paper · TruthfulQA paper · MMLU paper
 </div>
 
 </div>
