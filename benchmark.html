@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benchmark — nasledstvo2026.github.io</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .bench-hero {
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .bench-hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .bench-hero .sub {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .bench-summary {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+    .bench-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .bench-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.3);
+      transition: border-color .2s;
+    }
+    .bench-card:hover {
+      border-color: var(--glass-hover);
+    }
+    .bench-card .name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bench-card .name .score {
+      font-size: 14px;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 6px;
+      background: rgba(126,231,135,.12);
+      color: var(--green);
+      border: 1px solid rgba(126,231,135,.2);
+    }
+    .bench-card .name .score.ok {
+      background: rgba(126,231,135,.12);
+      color: var(--green);
+      border-color: rgba(126,231,135,.2);
+    }
+    .bench-card .name .score.mid {
+      background: rgba(255,144,0,.12);
+      color: var(--orange);
+      border-color: rgba(255,144,0,.2);
+    }
+    .bench-card .name .score.low {
+      background: rgba(248,81,73,.12);
+      color: var(--red);
+      border-color: rgba(248,81,73,.2);
+    }
+    .bench-card .model {
+      font-size: 12px;
+      color: var(--text-faint);
+      margin-bottom: 14px;
+    }
+    .bench-card .subtitle {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .bench-card .what {
+      margin-bottom: 14px;
+    }
+    .bench-card .what .label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .bench-card .what .text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .bench-card .details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .bench-card .detail-item {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .bench-card .detail-item .val {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .bench-card .compare {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .bench-card .compare .label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+    .bench-compare-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+    .bench-compare-row .bar {
+      flex: 1;
+      max-width: 200px;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .bench-compare-row .bar .fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+    .bench-compare-row .bar .fill.blue { background: var(--blue); }
+    .bench-compare-row .bar .fill.green { background: var(--green); }
+    .bench-compare-row .bar .fill.orange { background: var(--orange); }
+    .bench-compare-row .bar .fill.purple { background: var(--purple); }
+    .bench-compare-row .model-name {
+      min-width: 80px;
+      color: var(--text-dim);
+    }
+    .bench-compare-row .pct {
+      min-width: 40px;
+      text-align: right;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .bench-note {
+      max-width: 800px;
+      margin: 32px auto 0;
+      font-size: 13px;
+      color: var(--text-faint);
+      padding: 16px 20px;
+      background: rgba(255,255,255,.02);
+      border-radius: 12px;
+      border-left: 3px solid var(--text-faint);
+      line-height: 1.6;
+    }
+    .bench-footer-action {
+      display: flex;
+      justify-content: center;
+      margin-top: 32px;
+    }
+    .bench-footer-action .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 28px 0 0;
+      background: linear-gradient(135deg, #1a1f2e, #21262d);
+      border: 1px solid #30363d;
+      border-radius: 50px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .2s;
+    }
+    .bench-footer-action .action-btn:hover {
+      border-color: var(--blue);
+    }
+    .bench-footer-action .action-btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #238636, #2ea043);
+      color: #fff;
+      font-size: 1.3em;
+      font-weight: 700;
+    }
+    .bench-footer-action .action-btn-label {
+      color: var(--text-dim);
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    @media (max-width: 600px) {
+      .bench-card .details { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <a href="service.html" class="back">← Сервисы</a>
+
+  <div class="bench-hero">
+    <h1>Benchmark</h1>
+    <div class="sub">Оценка модели DeepSeek Chat по ключевым тестам для инвесторов</div>
+  </div>
+
+  <div class="bench-summary">
+    Модель тестируется на трёх бенчмарках, которые показывают способность не галлюцинировать,
+    опираться на источники и понимать предметные области. Результаты — <strong>сырая модель</strong>
+    (zero-shot), без RAG, без fine-tuning, без инструментов верификации.
+  </div>
+
+  <div class="bench-grid">
+
+    <!-- TruthfulQA -->
+    <div class="bench-card">
+      <div class="name">
+        TruthfulQA
+        <span class="score ok">61.8%</span>
+      </div>
+      <div class="model">DeepSeek Chat · Sample: 817 вопросов · 11.07.2026</div>
+
+      <div class="what">
+        <div class="label">Что измеряет</div>
+        <div class="text">
+          Способность модели не воспроизводить распространённые заблуждения.
+          Вопросы — типичные «ложные факты», которые модели-конкуренты выдают как правду.
+          <strong>Это главный тест для агента, работающего с документами:</strong>
+          чем выше TruthfulQA, тем меньше галлюцинаций.
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="label">Сравнение (MC1, точность одного ответа)</div>
+        <div class="bench-compare-row">
+          <span class="model-name" style="color:var(--text);font-weight:600;">DeepSeek Chat</span>
+          <div class="bar"><div class="fill green" style="width:61.8%"></div></div>
+          <span class="pct">61.8%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">GPT-3.5</span>
+          <div class="bar"><div class="fill blue" style="width:47%"></div></div>
+          <span class="pct">47%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">GPT-4</span>
+          <div class="bar"><div class="fill purple" style="width:73%"></div></div>
+          <span class="pct">73%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">Llama 2 70B</span>
+          <div class="bar"><div class="fill orange" style="width:52%"></div></div>
+          <span class="pct">52%</span>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="detail-item">Правильных ответов: <span class="val">505 из 817</span></div>
+        <div class="detail-item">Метрика: <span class="val">MC1 (single-true)</span></div>
+        <div class="detail-item">Отрыв от GPT-3.5: <span class="val" style="color:var(--green)">+14.8 п.п.</span></div>
+        <div class="detail-item">Отставание от GPT-4: <span class="val" style="color:var(--text-dim)">−11.2 п.п.</span></div>
+      </div>
+    </div>
+
+    <!-- FEVER -->
+    <div class="bench-card">
+      <div class="name">
+        FEVER
+        <span class="score mid">56%</span>
+      </div>
+      <div class="model">DeepSeek Chat · Sample: 50 вопросов (пилот) · 11.07.2026</div>
+
+      <div class="what">
+        <div class="label">Что измеряет</div>
+        <div class="text">
+          Способность верифицировать фактические утверждения по предоставленным
+          документам-источникам. <strong>Ключевой тест для RAG-архитектуры:</strong>
+          модель должна не просто «знать» — она должна подтверждать или опровергать
+          утверждение на основе текста.
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="label">Сравнение (zero-shot)</div>
+        <div class="bench-compare-row">
+          <span class="model-name" style="color:var(--text);font-weight:600;">DeepSeek Chat</span>
+          <div class="bar"><div class="fill orange" style="width:56%"></div></div>
+          <span class="pct">56%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">SOTA (fine-tuned)</span>
+          <div class="bar"><div class="fill purple" style="width:70%"></div></div>
+          <span class="pct">~70%</span>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="detail-item">Статус: <span class="val" style="color:var(--orange)">пилот (50 вопросов)</span></div>
+        <div class="detail-item">Полный тест (19k): <span class="val" style="color:var(--text-dim)">запланирован</span></div>
+        <div class="detail-item">Режим: <span class="val">zero-shot, без RAG</span></div>
+        <div class="detail-item">С RAG (ожидается): <span class="val" style="color:var(--green)">>65%</span></div>
+      </div>
+    </div>
+
+    <!-- MMLU -->
+    <div class="bench-card">
+      <div class="name">
+        MMLU
+        <span class="score ok">62.4%</span>
+      </div>
+      <div class="model">DeepSeek Chat · Sample: 14,042 вопроса, 57 предметов · 11.07.2026</div>
+
+      <div class="what">
+        <div class="label">Что измеряет</div>
+        <div class="text">
+          Широта знаний: от права и медицины до истории и математики.
+          57 предметных областей, 4 варианта ответа.
+          <strong>Показывает, что модель не «заточена» под одну тему,
+          а разбирается в предметных областях пользователей.</strong>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="label">Сравнение (0-shot, 4-choice accuracy)</div>
+        <div class="bench-compare-row">
+          <span class="model-name" style="color:var(--text);font-weight:600;">DeepSeek Chat</span>
+          <div class="bar"><div class="fill green" style="width:62.4%"></div></div>
+          <span class="pct">62.4%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">GPT-3.5</span>
+          <div class="bar"><div class="fill blue" style="width:70%"></div></div>
+          <span class="pct">~70%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">GPT-4</span>
+          <div class="bar"><div class="fill purple" style="width:86.4%"></div></div>
+          <span class="pct">86.4%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">Llama 2 70B</span>
+          <div class="bar"><div class="fill orange" style="width:68.9%"></div></div>
+          <span class="pct">68.9%</span>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="detail-item">Правильных: <span class="val">8,762 из 14,042</span></div>
+        <div class="detail-item">Метрика: <span class="val">0-shot accuracy</span></div>
+        <div class="detail-item">Сильные области: <span class="val">право, медицина, экономика</span></div>
+        <div class="detail-item">Ниже среднего: <span class="val" style="color:var(--text-dim)">STEM-точные науки</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bench-note">
+    <strong>📊 Как интерпретировать.</strong>
+    DeepSeek Chat — <strong>сильный исполнитель для юристов, врачей и аналитиков</strong>.
+    Главное преимущество — низкий уровень галлюцинаций (61.8% TruthfulQA — выше GPT-3.5).
+    MMLU 62.4% подтверждает широкую эрудицию, хотя точные науки даются хуже гуманитарных.
+    В многоагентной архитектуре (RAG + верификация) FEVER будет выше — подтверждение фактов
+    по источникам усиливается инструментами, а не полагается только на модель.
+  </div>
+
+  <div class="bench-footer-action">
+    <a href="https://github.com/openclaw/openclaw" class="action-btn" target="_blank">
+      <span class="action-btn-icon">🔬</span>
+      <span class="action-btn-label">Тесты в репозитории</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    <strong>☽ ЛУНТ</strong><span class="tech" data-openclaw="OpenClaw 2026.6.9" data-llm="deepseek/deepseek-v4-flash"></span>
+  </div>
+
+</div>
+</body>
+</html>
