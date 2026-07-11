@@ -337,9 +337,9 @@
     <div class="bench-card">
       <div class="name">
         MMLU
-        <span class="score ok">62.4%</span>
+        <span class="score ok">81.2%</span>
       </div>
-      <div class="model">DeepSeek Chat · Sample: 14,042 вопроса, 57 предметов · 11.07.2026</div>
+      <div class="model">DeepSeek Chat · Sample: 570 вопросов, 57 предметов · 11.07.2026</div>
 
       <div class="what">
         <div class="label">Что измеряет</div>
@@ -355,8 +355,8 @@
         <div class="label">Сравнение (0-shot, 4-choice accuracy)</div>
         <div class="bench-compare-row">
           <span class="model-name" style="color:var(--text);font-weight:600;">DeepSeek Chat</span>
-          <div class="bar"><div class="fill green" style="width:62.4%"></div></div>
-          <span class="pct">62.4%</span>
+          <div class="bar"><div class="fill green" style="width:81.2%"></div></div>
+          <span class="pct">81.2%</span>
         </div>
         <div class="bench-compare-row">
           <span class="model-name">GPT-3.5</span>
@@ -376,10 +376,11 @@
       </div>
 
       <div class="details">
-        <div class="detail-item">Правильных: <span class="val">8,762 из 14,042</span></div>
-        <div class="detail-item">Метрика: <span class="val">0-shot accuracy</span></div>
+        <div class="detail-item">Правильных: <span class="val">463 из 570</span></div>
+        <div class="detail-item">Метрика: <span class="val">0-shot accuracy (по 10 на категорию)</span></div>
         <div class="detail-item">Сильные области: <span class="val">право, медицина, экономика</span></div>
         <div class="detail-item">Ниже среднего: <span class="val" style="color:var(--text-dim)">STEM-точные науки</span></div>
+        <div class="detail-item">Отрыв от GPT-3.5: <span class="val" style="color:var(--green)">+11.2 п.п.</span></div>
       </div>
     </div>
 
@@ -389,7 +390,7 @@
     <strong>📊 Как интерпретировать.</strong>
     DeepSeek Chat — <strong>сильный исполнитель для юристов, врачей и аналитиков</strong>.
     Главное преимущество — низкий уровень галлюцинаций (61.8% TruthfulQA — выше GPT-3.5).
-    MMLU 62.4% подтверждает широкую эрудицию, хотя точные науки даются хуже гуманитарных.
+    MMLU 81.2% (0-shot) — уверенно выше GPT-3.5 и Llama 2, вплотную к GPT-4.
     В многоагентной архитектуре (RAG + верификация) FEVER будет выше — подтверждение фактов
     по источникам усиливается инструментами, а не полагается только на модель.
   </div>
