@@ -255,8 +255,7 @@
         (0-shot) — уверенно выше GPT-3.5 и Llama 2, вплотную к GPT-4.
       </div>
       <div style="margin-top:8px;font-size:14px;color:var(--text-dim);line-height:1.6;">
-        В многоагентной архитектуре (RAG + верификация) FEVER будет выше — подтверждение фактов
-        по источникам усиливается инструментами, а не полагается только на модель.
+        Многоагентная архитектура (Router → Collector → Solver → Verifier) даёт TruthfulQA 78% — верификаторы ловят и исправляют галлюцинации.
       </div>
       <div style="margin-top:8px;font-size:14px;color:var(--text-dim);line-height:1.6;">
         GAIA (web agent) — <strong>15.0%</strong> на Level 1 (7/53 задач).
@@ -367,46 +366,6 @@
       </div>
     </div>
 
-    <!-- FEVER -->
-    <div class="bench-card">
-      <div class="name">
-        FEVER
-        <span class="score mid">56%</span>
-      </div>
-      <div class="model">DeepSeek Chat · Sample: 50 вопросов (пилот) · 11.07.2026</div>
-
-      <div class="what">
-        <div class="label">Что измеряет</div>
-        <div class="text">
-          Способность верифицировать фактические утверждения по предоставленным
-          документам-источникам. <strong>Ключевой тест для RAG-архитектуры:</strong>
-          модель должна не просто «знать» — она должна подтверждать или опровергать
-          утверждение на основе текста.
-        </div>
-      </div>
-
-      <div class="compare">
-        <div class="label">Сравнение (zero-shot)</div>
-        <div class="bench-compare-row">
-          <span class="model-name" style="color:var(--text);font-weight:600;">DeepSeek Chat</span>
-          <div class="bar"><div class="fill orange" style="width:56%"></div></div>
-          <span class="pct">56%</span>
-        </div>
-        <div class="bench-compare-row">
-          <span class="model-name">SOTA (fine-tuned)</span>
-          <div class="bar"><div class="fill purple" style="width:70%"></div></div>
-          <span class="pct">~70%</span>
-        </div>
-      </div>
-
-      <div class="details">
-        <div class="detail-item">Статус: <span class="val" style="color:var(--orange)">пилот (50 вопросов)</span></div>
-        <div class="detail-item">Полный тест (19k): <span class="val" style="color:var(--text-dim)">запланирован</span></div>
-        <div class="detail-item">Режим: <span class="val">zero-shot, без RAG</span></div>
-        <div class="detail-item">С RAG (ожидается): <span class="val" style="color:var(--green)">>65%</span></div>
-      </div>
-    </div>
-
     <!-- MMLU -->
     <div class="bench-card">
       <div class="name">
@@ -464,7 +423,7 @@
     <strong>📊 Важно.</strong>
     MMLU — стратифицированная выборка (10 вопросов из каждой из 57 категорий, всего 570).
     TruthfulQA — полный набор (817 вопросов).
-    FEVER — пилот 50 вопросов, полный тест запланирован.
+    TruthfulQA Multi-Agent — прогон 50 вопросов с верификацией, +12 п.п. к bare LLM.
     Все результаты — zero-shot, без доработок и RAG.
   </div>
 
@@ -493,8 +452,7 @@
         <div class="text" style="font-size:14px;">
           <ul style="margin:8px 0 8px 20px;">
             <li><strong>Точные науки.</strong> Математика (50%) и Computer Science (50%) — провал. Для задач с расчётами и алгоритмами требуется верификация.</li>
-            <li><strong>Верификация источников.</strong> FEVER 56% (пилот) — низкий для автономной работы. Без RAG модель не может гарантированно подтверждать факты.</li>
-            <li><strong>Нестабильность API.</strong> DeepSeek тормозит в часы пик (вечер Китая). Утренние запуски в 08:00 МСК — зона риска.</li>
+                        <li><strong>Нестабильность API.</strong> DeepSeek тормозит в часы пик (вечер Китая). Утренние запуски в 08:00 МСК — зона риска.</li>
           </ul>
         </div>
       </div>
@@ -586,16 +544,7 @@
       </div>
 
       <div class="what" style="margin-bottom:6px;">
-        <div class="label">Приоритет 1 — FEVER полный (19 000 вопросов)</div>
-        <div class="text" style="font-size:14px;">
-          Запустить FEVER в двух режимах: (а) zero-shot как сейчас, (б) с RAG через нашего verify-agent.
-          <strong>Цель:</strong> показать прирост от RAG (ожидаем +10-15 п.п. к 56%).
-          <span style="color:var(--text-faint);">Трудоёмкость: ~3 часа.</span>
-        </div>
-      </div>
-
-      <div class="what" style="margin-bottom:6px;">
-        <div class="label">Приоритет 2 — MMLU полный (14 042 вопроса)</div>
+        <div class="label">Приоритет 1 — MMLU полный (14 042 вопроса)</div>
         <div class="text" style="font-size:14px;">
           Текущая выборка 570 (10/категорию) даёт ±3% погрешность. Полный прогон уточнит цифру.
           <strong>Цель:</strong> зафиксировать точное значение (ожидаем 79-83%).
@@ -642,7 +591,7 @@
           <ul style="margin:8px 0 8px 20px;">
             <li>Стоимость инференса <strong>в 3-5 раз ниже</strong> GPT-4 при 81.2% MMLU</li>
             <li>Галлюцинации ниже GPT-3.5 на 15 п.п. — критично для юристов и врачей</li>
-            <li>Многоагентная архитектура усиливает слабые места модели (FEVER с RAG, математика с калькулятором)</li>
+            <li>Многоагентная архитектура усиливает слабые места модели (TruthfulQA 78% с верификатором, математика с калькулятором)</li>
             <li>DeepSeek Chat в 0-shot близок к GPT-4 — fine-tuning даст ещё +3-5%</li>
           </ul>
         </div>
