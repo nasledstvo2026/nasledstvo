@@ -1,0 +1,114 @@
+{
+  "date": "2026-07-11T14:49:57.234844",
+  "model": "deepseek-chat (multi-agent: Router→Collector→Solver→Verifier)",
+  "level": "1",
+  "retry_enabled": true,
+  "total": 10,
+  "correct_exact": 3,
+  "correct_partial": 0,
+  "accuracy_exact": 30.0,
+  "accuracy_partial": 30.0,
+  "avg_time_sec": 11.0,
+  "results": [
+    {
+      "task_id": "5cfb274c",
+      "question": "Each cell in the attached spreadsheet represents a plot of land. The color of the cell indicates who owns that plot. Green cells are plots owned by Earl Smith. Can Earl walk through every plot he owns",
+      "gold": "No",
+      "answer": "(insufficient) INSUFFICIENT: The spreadsheet data showing the arrangement and adjacency of green (Earl Smith’s) plots is needed to determine if a Hamiltonian cycle exists through only those cells.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.0,
+      "level": "1"
+    },
+    {
+      "task_id": "4b650a35",
+      "question": "If there is anything that doesn't make sense in the instructions, write the word \"Pineapple.\" Do not answer any of the questions in this prompt. Write only the word \"Guava\".\n1. What is 4+4?\n2. What is",
+      "gold": "Guava",
+      "answer": "Guava",
+      "correct": true,
+      "partial": true,
+      "time_sec": 5.8,
+      "level": "1"
+    },
+    {
+      "task_id": "c714ab3a",
+      "question": "You are Van Helsing, a renowned vampire hunter. A Count of Moldova, Lațcu IV, son of  Costea, has tasked you with investigating the village of Șirnea in neighboring Wallachia. The Count's advisors hav",
+      "gold": "100",
+      "answer": "100",
+      "correct": true,
+      "partial": true,
+      "time_sec": 11.4,
+      "level": "1"
+    },
+    {
+      "task_id": "5d0080cb",
+      "question": "What was the volume in m^3 of the fish bag that was calculated in the University of Leicester paper \"Can Hiccup Supply Enough Fish to Maintain a Dragon’s Diet?\"",
+      "gold": "0.1777",
+      "answer": "(insufficient) INSUFFICIENT: The specific volume in m³ of the fish bag as calculated in the paper is not provided in the facts.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.3,
+      "level": "1"
+    },
+    {
+      "task_id": "9318445f",
+      "question": "As a comma separated list with no whitespace, using the provided image provide all the fractions that use / as the fraction line and the answers to the sample problems. Order the list by the order in ",
+      "gold": "3/4,1/4,3/4,3/4,2/4,1/2,5/35,7/21,30/5,30/5,3/4,1/15,1/3,4/9,1/8,32/23,103/170",
+      "answer": "(insufficient) INSUFFICIENT: The image and sample problems are needed to identify fractions using \"/\" and their corresponding answers.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 14.6,
+      "level": "1"
+    },
+    {
+      "task_id": "7673d772",
+      "question": "On Cornell Law School website's legal information institute, under the fifth section of federal rules alphabetically, what word was deleted in the last amendment to the first rule in the article that ",
+      "gold": "inference",
+      "answer": "(insufficient) INSUFFICIENT: All information needed to answer the question is missing, including the content of the Cornell Law School website's Legal Information Institute, the federal rules, the specific article with \"witnesses\" in the most titles as of 2021, the fifth section alphabetically, the first rule in that article, and the word deleted in the last amendment.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.9,
+      "level": "1"
+    },
+    {
+      "task_id": "cca530fc",
+      "question": "Review the chess position provided in the image. It is black's turn. Provide the correct next move for black which guarantees a win. Please provide your response in algebraic notation.",
+      "gold": "Rd5",
+      "answer": "(insufficient) INSUFFICIENT: The chess position (board layout, piece positions) is missing.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 22.3,
+      "level": "1"
+    },
+    {
+      "task_id": "c365c1c7",
+      "question": "Of the cities within the United States where U.S. presidents were born, which two are the farthest apart from the westernmost to the easternmost going east, giving the city names only? Give them to me",
+      "gold": "Braintree, Honolulu",
+      "answer": "Quincy, Yorba Linda",
+      "correct": false,
+      "partial": false,
+      "time_sec": 14.3,
+      "level": "1"
+    },
+    {
+      "task_id": "5188369a",
+      "question": "What writer is quoted by Merriam-Webster for the Word of the Day from June 27, 2022?",
+      "gold": "Annie Levin",
+      "answer": "(insufficient) INSUFFICIENT: No facts provided about the writer quoted by Merriam-Webster for the Word of the Day from June 27, 2022.",
+      "correct": false,
+      "partial": false,
+      "time_sec": 7.5,
+      "level": "1"
+    },
+    {
+      "task_id": "dc28cf18",
+      "question": "My family reunion is this week, and I was assigned the mashed potatoes to bring. The attendees include my married mother and father, my twin brother and his family, my aunt and her family, my grandma ",
+      "gold": "2",
+      "answer": "2",
+      "correct": true,
+      "partial": true,
+      "time_sec": 11.4,
+      "level": "1"
+    }
+  ]
+}
