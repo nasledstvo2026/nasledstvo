@@ -87,12 +87,12 @@
     "task": "Вклады 1991 — понедельник",
     "author": "Данил",
     "schedule": "Пн 10:00",
-    "success_rate": 33,
-    "duration_pct": 13,
-    "latency_min": 7568.3,
+    "success_rate": 67,
+    "duration_pct": 63,
+    "latency_min": 0.0,
     "cache_hit_pct": 91,
-    "cost_per_run": 0.0195,
-    "last_run": "11.07 20:08",
+    "cost_per_run": 0.0119,
+    "last_run": "13.07 14:00",
     "tip": "Таймаут уменьшен с 300 до 120 с. (применено 22.06)"
   },
   {
