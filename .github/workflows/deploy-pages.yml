@@ -28,21 +28,26 @@ jobs:
       - name: Remove broken symlinks
         run: |
           rm -f mamkin-analitik/_bmad/core mamkin-analitik/_bmad/bmm
+      - name: Prepare artifact (copy with excludes)
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='aidj/fantazia-tracks' \
+            --exclude='aidj/static' \
+            --exclude='node_modules' \
+            --exclude='.git' \
+            --exclude='*.flac' \
+            --exclude='*.wav' \
+            --exclude='*.mp3' \
+            --exclude='*.m4a' \
+            --exclude='*.aiff' \
+            --exclude='.gitignore' \
+            --exclude='.gitattributes' \
+            . _site/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
-          exclude: |
-            **/*.flac
-            **/*.wav
-            **/*.mp3
-            aidj/fantazia-tracks/**
-            aidj/static/**
-            node_modules/**
-            .git/**
-            **/*.jpg
-            **/*.png
-            **/*.svg
+          path: '_site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
