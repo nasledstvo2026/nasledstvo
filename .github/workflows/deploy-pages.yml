@@ -28,6 +28,9 @@ jobs:
       - name: Remove broken symlinks
         run: |
           rm -f mamkin-analitik/_bmad/core mamkin-analitik/_bmad/bmm
+      - name: Remove large artifacts (gh-pages deploy only)
+        run: |
+          rm -rf aidj/fantazia-tracks aidj/static node_modules .git
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
