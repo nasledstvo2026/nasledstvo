@@ -43,6 +43,16 @@ jobs:
             --exclude='*.aiff' \
             --exclude='.gitignore' \
             --exclude='.gitattributes' \
+            --exclude='downloads' \
+            --exclude='photo_files' \
+            --exclude='benchmark_results' \
+            --exclude='gaia_results' \
+            --exclude='search_results' \
+            --exclude='backup-*' \
+            --exclude='*.docx' \
+            --exclude='*.xlsx' \
+            --exclude='*.pptx' \
+            --exclude='*.tar.gz' \
             . _site/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
