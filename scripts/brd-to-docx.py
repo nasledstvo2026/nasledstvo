@@ -293,7 +293,7 @@ def main():
             output_path = args[i + 1]
         elif arg.startswith("-"):
             continue
-        else:
+        elif input_source is None:
             input_source = arg
 
     # Read input

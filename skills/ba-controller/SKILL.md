@@ -99,3 +99,7 @@ description: "BRD Controller — оркестратор мультиагентн
 
 ## Биндинг
 - Нет. Controller вызывается только через sessions_send.
+
+## Доставка
+- delivery.mode = none (ответы Controller не должны дублироваться в чат)
+- Controller отвечает только через sessions_send обратно агенту-отправителю
