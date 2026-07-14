@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Comprehensive inheritance complaint data collection from SearXNG"""
+"""Comprehensive inheritance complaint data collection (archived — SearXNG removed)"""
 
 import json
 import urllib.request
@@ -8,7 +8,7 @@ import time
 import re
 import os
 
-SEARXNG = "http://localhost:8888/search"
+# SearXNG удалён (14.07.2026) — скрипт сохранён для истории
 
 QUERIES = [
     "site:banki.ru наследство Сбербанк жалоба",
@@ -33,20 +33,9 @@ MONTH_MAP = {
 }
 
 def search_searxng(query, time_range="year", pageno=1):
-    """Search SearXNG and return results"""
-    params = urllib.parse.urlencode({
-        'q': query + f" {2025 if '2025' in query else ''}",
-        'format': 'json',
-        'time_range': time_range,
-        'pageno': pageno,
-        'categories': 'general',
-        'language': 'ru',
-    })
-    url = f"{SEARXNG}?{params}"
-    
-    try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=15) as resp:
+    """Search — disabled, SearXNG removed"""
+    print(f"  [SearXNG удалён] Пропускаю запрос: {query[:50]}")
+    return []
             data = json.loads(resp.read())
         return data.get('results', [])
     except Exception as e:

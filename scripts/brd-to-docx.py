@@ -163,6 +163,41 @@ def parse_md_log(text: str) -> dict:
     if current_q:
         data["question_log"].append(current_q)
 
+    # Raw text capture for sections we can't parse
+    data["raw_compiled"] = ""
+    in_compiled = False
+    in_verification = False
+    compiled_section = None
+    for line in lines:
+        if line.startswith("## CompiledBRD"):
+            in_compiled = True
+            in_verification = False
+            continue
+        if line.startswith("## VerificationLog"):
+            in_verification = True
+            in_compiled = False
+            continue
+        if line.startswith("## "):
+            in_compiled = False
+            in_verification = False
+            continue
+        if in_compiled:
+            data["raw_compiled"] += line + "\n"
+        if in_verification:
+            m = re.match(r'^- Verdict:\s*(.*)', line)
+            if m:
+                data["verification"]["verdict"] = m.group(1).strip()
+            m = re.match(r'### Check:\s*(.*)', line)
+            if m:
+                data["verification"][f"check_{m.group(1).strip()}"] = m.group(1).strip()
+            m = re.match(r'^- Status:\s*([✅❌🔄]+)', line)
+            if m:
+                status_map = {"✅": "PASS", "❌": "FAIL", "🔄": "RETRY"}
+                data["verification"]["rca_status"] = status_map.get(m.group(1), m.group(1))
+            m = re.match(r'^- Comment:\s*(.*)', line)
+            if m:
+                data["verification"]["comment"] = m.group(1).strip()
+
     return data
 
 
@@ -194,9 +229,16 @@ def generate_docx(data: dict, output_path: str):
     doc.add_page_break()
 
     # 1. Problem Description
-    doc.add_heading('1. Описание проблемы', level=1)
-    if data["compiled"].get("description"):
-        doc.add_paragraph(data["compiled"]["description"])
+    doc.add_heading('1. Root Cause Analysis', level=1)
+    raw = data.get("raw_compiled", "")
+    # Extract section 1 (RCA) — everything until next numbered section or end
+    rca_match = re.search(r'###\s*1\.\s*Описание проблемы.*?\n(.*?)(?=\n###\s*2\.|\Z)', raw, re.DOTALL)
+    if rca_match:
+        rca_text = rca_match.group(1).strip()
+        rca_text = re.sub(r'\*\*', '', rca_text)
+        for para in rca_text.split('\n'):
+            if para.strip():
+                doc.add_paragraph(para.strip())
     elif data["summary"]:
         for key, val in data["summary"].items():
             p = doc.add_paragraph()
@@ -206,32 +248,98 @@ def generate_docx(data: dict, output_path: str):
         doc.add_paragraph("—")
 
     # 2. Goal
-    doc.add_heading('2. Цель', level=1)
-    if data["compiled"].get("goal"):
-        doc.add_paragraph(data["compiled"]["goal"])
+    doc.add_heading('2. SMART-цель', level=1)
+    goal_match = re.search(r'###\s*2\.\s*SMART-цель.*?\n(.*?)(?=\n###\s*3\.|\Z)', raw, re.DOTALL)
+    if goal_match:
+        goal_text = goal_match.group(1).strip()
+        goal_text = re.sub(r'\*\*', '', goal_text)
+        for para in goal_text.split('\n'):
+            if para.strip():
+                doc.add_paragraph(para.strip())
     else:
         doc.add_paragraph("—")
 
-    # 3. Metrics
-    doc.add_heading('3. Метрики успеха', level=1)
-    if data["compiled"].get("metrics"):
-        for line in data["compiled"]["metrics"].split("\n"):
-            if line.strip():
-                doc.add_paragraph(line.strip(), style='List Bullet')
+    # 3. KPI
+    doc.add_heading('3. Ключевые показатели (KPI)', level=1)
+    kpi_match = re.search(r'###\s*3\.\s*Метрики успеха.*?\n(.*?)(?=\n###\s*4\.|\Z)', raw, re.DOTALL)
+    if kpi_match:
+        kpi_text = kpi_match.group(1).strip()
+        # Try to detect a markdown table and render it
+        table_lines = []
+        in_table = False
+        for line in kpi_text.split('\n'):
+            if '|' in line:
+                if not in_table:
+                    in_table = True
+                table_lines.append(line)
+            else:
+                if in_table:
+                    # render table
+                    if len(table_lines) >= 2:
+                        # parse header
+                        header = [h.strip() for h in table_lines[0].strip('|').split('|')]
+                        # skip delimiter row
+                        rows = []
+                        for tl in table_lines[2:]:
+                            cells = [c.strip() for c in tl.strip('|').split('|')]
+                            if cells:
+                                rows.append(cells)
+                        if rows:
+                            tbl = doc.add_table(rows=len(rows)+1, cols=len(header))
+                            tbl.style = 'Light Grid Accent 1'
+                            for i, h in enumerate(header):
+                                tbl.cell(0, i).text = h
+                            for ri, row in enumerate(rows):
+                                for ci, cell in enumerate(row):
+                                    if ci < len(header):
+                                        tbl.cell(ri+1, ci).text = cell
+                    table_lines = []
+                    in_table = False
+                if line.strip():
+                    doc.add_paragraph(line.strip())
+        # handle trailing table
+        if in_table and len(table_lines) >= 2:
+            header = [h.strip() for h in table_lines[0].strip('|').split('|')]
+            rows = []
+            for tl in table_lines[2:]:
+                cells = [c.strip() for c in tl.strip('|').split('|')]
+                if cells and len(cells) > 1:
+                    rows.append(cells)
+            if rows:
+                tbl = doc.add_table(rows=len(rows)+1, cols=len(header))
+                tbl.style = 'Light Grid Accent 1'
+                for i, h in enumerate(header):
+                    tbl.cell(0, i).text = h
+                for ri, row in enumerate(rows):
+                    for ci, cell in enumerate(row):
+                        if ci < len(header):
+                            tbl.cell(ri+1, ci).text = cell
     else:
         doc.add_paragraph("—")
 
-    # 4. Impact Mapping
-    doc.add_heading('4. Impact Mapping', level=1)
-    if data["compiled"].get("impacts"):
-        for line in data["compiled"]["impacts"].split("\n"):
-            if line.strip():
-                doc.add_paragraph(line.strip(), style='List Bullet')
+    # 4. Solution
+    doc.add_heading('4. Решение: Мера.НПА', level=1)
+    sol_match = re.search(r'###\s*4\.\s*Описание желаемого решения.*?\n(.*?)(?=\n###\s*5\.|\Z)', raw, re.DOTALL)
+    if sol_match:
+        sol_text = sol_match.group(1).strip()
+        sol_text = re.sub(r'\*\*', '', sol_text)
+        for para in sol_text.split('\n'):
+            if para.strip():
+                doc.add_paragraph(para.strip())
     else:
         doc.add_paragraph("—")
 
-    # 5. Interview Summary
-    doc.add_heading('5. Результаты интервью', level=1)
+    # 5. Requirements
+    doc.add_heading('5. Бизнес-требования', level=1)
+    req_match = re.search(r'###\s*5\.\s*Бизнес-требования.*?\n(.*?)(?=\n###\s*6\.|\Z)', raw, re.DOTALL)
+    if req_match:
+        req_text = req_match.group(1).strip()
+        req_text = re.sub(r'\*\*', '', req_text)
+        for para in req_text.split('\n'):
+            if para.strip():
+                doc.add_paragraph(para.strip())
+    # Also include interview questions (Q&A)
+    doc.add_heading('5.1 Результаты интервью', level=2)
     if data["question_log"]:
         for q in data["question_log"]:
             p = doc.add_paragraph()
@@ -243,19 +351,62 @@ def generate_docx(data: dict, output_path: str):
     else:
         doc.add_paragraph("—")
 
-    # 6. Sources / References
-    doc.add_heading('6. Источники', level=1)
-    refs = data["compiled"].get("refs", [])
-    if refs:
-        for ref in refs:
-            p = doc.add_paragraph()
-            p.add_run(ref["title"]).bold = True
-            p.add_run(f'\n{ref["url"]}')
-    if data["compiled"].get("refs_extra"):
-        for line in data["compiled"]["refs_extra"].split("\n"):
-            if line.strip():
-                doc.add_paragraph(line.strip(), style='List Bullet')
-    if not refs and not data["compiled"].get("refs_extra"):
+    # 6. Effect
+    doc.add_heading('6. Оценка эффекта (до/после)', level=1)
+    eff_match = re.search(r'###\s*6\.\s*Оценка эффекта.*?\n(.*?)(?=\n###\s*7\.|\Z|\n##\s)', raw, re.DOTALL)
+    if eff_match:
+        eff_text = eff_match.group(1).strip()
+        # Parse effect table
+        table_lines = []
+        in_table = False
+        for line in eff_text.split('\n'):
+            if '|' in line and not line.strip().startswith('|--'):
+                if not in_table:
+                    in_table = True
+                table_lines.append(line)
+            elif '|' in line and line.strip().startswith('|--'):
+                continue
+            else:
+                if in_table and len(table_lines) >= 2:
+                    header = [h.strip() for h in table_lines[0].strip('|').split('|')]
+                    rows = []
+                    for tl in table_lines[1:]:
+                        cells = [c.strip() for c in tl.strip('|').split('|')]
+                        if cells and len(cells) > 1:
+                            rows.append(cells)
+                    if rows:
+                        tbl = doc.add_table(rows=len(rows)+1, cols=len(header))
+                        tbl.style = 'Light Grid Accent 1'
+                        for i, h in enumerate(header):
+                            tbl.cell(0, i).text = h
+                        for ri, row in enumerate(rows):
+                            for ci, cell in enumerate(row):
+                                if ci < len(header):
+                                    tbl.cell(ri+1, ci).text = cell
+                    table_lines = []
+                    in_table = False
+                if line.strip():
+                    p = doc.add_paragraph()
+                    # strip **bold** markers
+                    p.add_run(line.strip().replace('**', ''))
+        # handle trailing table
+        if in_table and len(table_lines) >= 2:
+            header = [h.strip() for h in table_lines[0].strip('|').split('|')]
+            rows = []
+            for tl in table_lines[1:]:
+                cells = [c.strip() for c in tl.strip('|').split('|')]
+                if cells and len(cells) > 1:
+                    rows.append(cells)
+            if rows:
+                tbl = doc.add_table(rows=len(rows)+1, cols=len(header))
+                tbl.style = 'Light Grid Accent 1'
+                for i, h in enumerate(header):
+                    tbl.cell(0, i).text = h
+                for ri, row in enumerate(rows):
+                    for ci, cell in enumerate(row):
+                        if ci < len(header):
+                            tbl.cell(ri+1, ci).text = cell
+    else:
         doc.add_paragraph("—")
 
     # 7. Verification
@@ -265,17 +416,17 @@ def generate_docx(data: dict, output_path: str):
         p = doc.add_paragraph()
         p.add_run('Вердикт: ').bold = True
         p.add_run(v["verdict"])
-    if v.get("status"):
+    if v.get("rca_status"):
         p = doc.add_paragraph()
         p.add_run(f'RCA Integrity: ')
-        p.add_run(v["status"])
+        p.add_run(v["rca_status"])
     if v.get("comment"):
         p = doc.add_paragraph()
         p.add_run('Комментарий: ').bold = True
         p.add_run(v["comment"])
 
     if not v:
-        doc.add_paragraph("Верификация не пройдена (fallback).")
+        doc.add_paragraph("Верификация не пройдена.")
 
     doc.save(output_path)
     return output_path

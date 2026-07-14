@@ -7,7 +7,8 @@ import urllib.parse
 import time
 import re
 
-SEARXNG = "http://localhost:8888/search"
+# SearXNG удалён (14.07.2026) — поиск через web_search не реализован
+# Скрипт сохранён для истории, не используется
 
 MONTH_MAP = {
     'янв': 1, 'фев': 2, 'мар': 3, 'апр': 4, 'май': 5, 'мая': 5,
@@ -15,23 +16,8 @@ MONTH_MAP = {
 }
 
 def search_searxng(query, time_range="year", pageno=1):
-    params = urllib.parse.urlencode({
-        'q': query,
-        'format': 'json',
-        'time_range': time_range,
-        'pageno': pageno,
-        'categories': 'general',
-        'language': 'ru',
-    })
-    url = f"{SEARXNG}?{params}"
-    try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read())
-        return data.get('results', [])
-    except Exception as e:
-        print(f"  Error: {e}")
-        return []
+    print(f"  [SearXNG удалён] Пропускаю запрос: {query[:50]}")
+    return []
 
 def classify_bank(url, title, content):
     text = (url + ' ' + title + ' ' + content).lower()

@@ -1,4 +1,4 @@
-# Verified Inheritance Complaints from SearXNG
+# Verified Inheritance Complaints (archive)
 
 ## 2025-07 (Сбер: 0, Другие: 2)
 1. Совкомбанк - "Не удаётся получить наследство. Банк игнорирует запросы от нотариуса"
