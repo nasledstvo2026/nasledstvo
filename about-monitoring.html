@@ -3,258 +3,337 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мониторинг жалоб — nasledstvo2026.github.io</title>
+  <title>Мониторинг жалоб — AI-аналитика наследственных споров</title>
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    .hero {
-      text-align: center;
-      padding: 20px 0 20px;
+    /* Product Overview — Мониторинг жалоб */
+    .po {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
     }
-    .hero .tag {
+
+    /* Hero */
+    .po-hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    .po-hero .badge {
       display: inline-block;
-      background: rgba(255,80,80,0.15);
+      background: rgba(255,80,80,0.12);
+      border: 1px solid rgba(255,80,80,0.2);
       color: #ff5050;
-      padding: 4px 16px;
-      border-radius: 20px;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 14px;
-      border: 1px solid rgba(255,80,80,0.25);
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
     }
-    .hero h1 {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 34px;
-      margin: 0 0 6px;
-      color: rgba(255,255,255,0.92);
-      letter-spacing: 1px;
+    .po-hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ff5050 0%, #f778ba 50%, #e3b341 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
     }
-    .hero .subtitle {
-      font-size: 16px;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 6px;
+    .po-hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
     }
-    .hero .meta {
-      font-size: 13px;
-      color: rgba(255,255,255,0.3);
+
+    /* Value prop row */
+    .po-value {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 40px 0;
     }
-    .summary-box {
-      background: rgba(22,27,34,0.7);
-      border: 1px solid rgba(255,80,80,0.15);
+    .po-value-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
       border-radius: 12px;
-      padding: 24px 28px;
-      margin: 24px 0;
-      border-left: 4px solid #ff5050;
-      line-height: 1.7;
-      font-size: 15px;
-      color: rgba(255,255,255,0.75);
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color .2s;
     }
-    .summary-box strong {
-      color: #ff5050;
+    .po-value-item:hover {
+      border-color: var(--glass-hover);
     }
-    .section {
-      margin-top: 40px;
-    }
-    .section h2 {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 22px;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 14px;
-      letter-spacing: 2px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid rgba(255,80,80,0.3);
-    }
-    .section h3 {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 16px;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 8px;
-      margin-top: 24px;
-      letter-spacing: 1px;
-    }
-    .section .item {
-      background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
-      border-radius: 12px;
-      padding: 16px 20px;
+    .po-value-item .icon {
+      font-size: 28px;
       margin-bottom: 12px;
     }
-    .section .item .body {
-      font-size: 14px;
-      color: rgba(255,255,255,0.68);
-      line-height: 1.7;
-    }
-    .killer-box {
-      background: rgba(255,80,80,0.06);
-      border: 1px solid rgba(255,80,80,0.25);
-      border-radius: 12px;
-      padding: 18px 22px;
-      margin: 14px 0;
-    }
-    .killer-box h3 {
-      color: #ff5050;
-      margin: 0 0 8px;
-      font-size: 16px;
-    }
-    .killer-box p {
-      margin: 4px 0;
-      font-size: 13px;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.6;
-    }
-    .timeline {
-      display: flex;
-      margin: 20px 0;
-    }
-    .tl-item {
-      flex: 1;
-      text-align: center;
-      position: relative;
-      padding: 24px 6px 8px;
-    }
-    .tl-item::before {
-      content: '';
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      width: 100%;
-      height: 4px;
-      background: #ff5050;
-      transform: translateX(-50%);
-      z-index: 0;
-    }
-    .tl-item:first-child::before { left: 50%; width: 50%; }
-    .tl-item:last-child::before { width: 50%; }
-    .tl-time {
-      font-weight: bold;
-      font-size: 20px;
-      color: #ff5050;
-      position: relative;
-      z-index: 1;
-      background: #0a0e14;
-      display: inline-block;
-      padding: 0 8px;
-    }
-    .tl-agent { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 600; margin-top: 4px; }
-    .tl-desc { font-size: 11px; color: rgba(255,255,255,0.35); }
-    .agent-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 14px;
-      margin: 16px 0;
-    }
-    .agent-card {
-      background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
-      border-radius: 10px;
-      padding: 18px;
-    }
-    .agent-card h4 {
-      margin: 0 0 8px;
-      color: rgba(255,255,255,0.85);
+    .po-value-item h3 {
       font-size: 15px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
     }
-    .agent-card p {
-      margin: 0;
-      font-size: 12px;
+    .po-value-item p {
+      font-size: 13px;
       color: rgba(255,255,255,0.5);
       line-height: 1.5;
     }
-    .features-half {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+
+    /* Section */
+    .po-section {
+      margin: 48px 0;
+    }
+    .po-section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+    .po-section p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
       margin: 12px 0;
     }
-    .feature-col h3 {
-      font-size: 15px;
-      color: rgba(255,255,255,0.8);
+    .po-section p strong {
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* How it works — шаги */
+    .po-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .po-step {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      position: relative;
+    }
+    .po-step .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,80,80,0.15);
+      color: #ff5050;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 10px;
     }
-    .feature-col ul {
-      margin: 0;
-      padding-left: 18px;
-      color: rgba(255,255,255,0.6);
+    .po-step h4 {
       font-size: 13px;
-      line-height: 1.8;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 6px;
     }
-    .metrics {
+    .po-step p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Killer features */
+    .po-killers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .po-killer {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid rgba(255,80,80,0.15);
+      border-radius: 10px;
+      padding: 20px 18px;
+      transition: border-color .2s;
+    }
+    .po-killer:hover {
+      border-color: rgba(255,80,80,0.3);
+    }
+    .po-killer h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 8px;
+    }
+    .po-killer p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Tags */
+    .po-tags {
       display: flex;
-      gap: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
       margin: 16px 0;
     }
-    .metric {
+    .po-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+    .po-tag.red {
+      background: rgba(255,80,80,0.08);
+      border-color: rgba(255,80,80,0.15);
+      color: #ff5050;
+    }
+    .po-tag.blue {
+      background: rgba(88,166,255,0.08);
+      border-color: rgba(88,166,255,0.15);
+      color: #58a6ff;
+    }
+    .po-tag.green {
+      background: rgba(126,231,135,0.08);
+      border-color: rgba(126,231,135,0.15);
+      color: #7ee787;
+    }
+
+    /* CTA */
+    .po-cta {
+      background: linear-gradient(135deg, rgba(255,80,80,0.08) 0%, rgba(247,120,186,0.08) 100%);
+      border: 1px solid rgba(255,80,80,0.15);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+    .po-cta h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 8px;
+    }
+    .po-cta p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      margin: 4px 0;
+    }
+    .po-cta .contact-link {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 24px;
+      background: rgba(255,80,80,0.12);
+      border: 1px solid rgba(255,80,80,0.25);
+      color: #ff5050;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .po-cta .contact-link:hover {
+      background: rgba(255,80,80,0.2);
+      text-decoration: none;
+    }
+
+    /* Stats row */
+    .po-stats {
+      display: flex;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .po-stat {
       flex: 1;
       text-align: center;
-      background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
       border-radius: 10px;
-      padding: 16px;
+      padding: 20px 16px;
     }
-    .metric .num {
+    .po-stat .num {
       font-size: 32px;
       font-weight: 800;
       color: #ff5050;
     }
-    .metric .label {
+    .po-stat .label {
       font-size: 11px;
       color: rgba(255,255,255,0.4);
       margin-top: 4px;
     }
-    table.clean {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0;
-      font-size: 13px;
-    }
-    table.clean th {
-      background: rgba(22,27,34,0.8);
-      color: rgba(255,255,255,0.7);
-      padding: 8px 12px;
-      text-align: left;
-      font-weight: 600;
-      border-bottom: 1px solid rgba(33,38,45,0.8);
-    }
-    table.clean td {
-      padding: 8px 12px;
-      border-bottom: 1px solid rgba(33,38,45,0.5);
-      color: rgba(255,255,255,0.55);
-    }
-    .ok { color: #3fb950; font-weight: 600; }
-    .cta-box {
-      background: linear-gradient(135deg, rgba(255,80,80,0.12), rgba(255,80,80,0.04));
-      border: 1px solid rgba(255,80,80,0.3);
-      border-radius: 12px;
-      text-align: center;
-      padding: 24px;
-      margin: 30px 0;
-    }
-    .cta-box .big {
-      font-size: 22px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 6px;
-    }
-    .cta-box p {
-      font-size: 13px;
-      color: rgba(255,255,255,0.5);
-      margin: 4px 0;
-    }
-    .contacts {
-      text-align: center;
+
+    /* Было → Стало */
+    .po-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
       margin: 20px 0;
-      font-size: 13px;
-      color: rgba(255,255,255,0.35);
     }
-    .contacts a { color: #58a6ff; text-decoration: none; }
+    .po-compare-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .po-compare-item.before {
+      border: 1px solid rgba(255,80,80,0.15);
+    }
+    .po-compare-item.after {
+      border: 1px solid rgba(126,231,135,0.2);
+    }
+    .po-compare-item .label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .po-compare-item.before .label {
+      color: rgba(255,80,80,0.5);
+    }
+    .po-compare-item.after .label {
+      color: #7ee787;
+    }
+    .po-compare-item ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .features-half { grid-template-columns: 1fr; }
-      .metrics { flex-wrap: wrap; }
-      .metric { min-width: 40%; }
-      .timeline { flex-wrap: wrap; }
-      .tl-item { min-width: 45%; }
+      .po-hero h1 { font-size: 30px; }
+      .po-value { grid-template-columns: 1fr; }
+      .po-steps { grid-template-columns: repeat(2, 1fr); }
+      .po-killers { grid-template-columns: 1fr; }
+      .po-stats { flex-wrap: wrap; }
+      .po-stat { min-width: 40%; }
+      .po-compare { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 400px) {
+      .po-steps { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -263,236 +342,160 @@
 <a href="products.html" class="back">← Все продукты</a>
 
 <div class="container">
+  <div class="po">
 
-  <!-- ═══ HERO ═══ -->
-  <div class="hero">
-    <div class="tag">Паспорт продукта</div>
-    <h1>Мониторинг жалоб<br>по наследству в банках РФ</h1>
-    <div class="subtitle">Автоматизированная система поиска, верификации и аналитики жалоб</div>
-    <div class="meta">v2.0 · Июль 2026 · Мультиагентная архитектура</div>
-  </div>
-
-  <!-- ═══ КРАТКО ═══ -->
-  <div class="summary-box">
-    Каждый день в российских банках возникают споры по наследству: банки отказывают в выдаче средств, требуют досрочно погасить ипотеку умершего, блокируют счета наследников. Отслеживать эти случаи вручную — невозможно.<br><br>
-    <strong>Мониторинг жалоб</strong> — это ИИ-система из 4 агентов, которая <strong>каждое утро сама находит</strong> новые жалобы, <strong>проверяет их подлинность</strong>, формирует отчёт и публикует статистику. Всё за <strong>90 секунд</strong> без участия человека.
-  </div>
-
-  <!-- ═══ КАК РАБОТАЕТ ═══ -->
-  <div class="section">
-    <h2>Как это работает</h2>
-    <p style="font-size:13px;color:rgba(255,255,255,0.4);">Четыре ИИ-агента, каждый со своей специализацией, работают по цепочке каждое буднее утро:</p>
-
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-time">10:45</div>
-        <div class="tl-agent">🔍 search-agent</div>
-        <div class="tl-desc">поиск через Bing + DuckDuckGo</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">10:55</div>
-        <div class="tl-agent">✅ verify-agent</div>
-        <div class="tl-desc">верификация по url</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">11:00</div>
-        <div class="tl-agent">💬 katya-agent</div>
-        <div class="tl-desc">сводка в Telegram</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">11:20</div>
-        <div class="tl-agent">📊 stats-agent</div>
-        <div class="tl-desc">статистика → HTML</div>
-      </div>
-    </div>
-    <p style="font-size:12px;color:rgba(255,255,255,0.3);text-align:center;">⏱ Весь цикл: ~90 сек. Полностью автоматически.</p>
-
-    <div class="agent-grid">
-      <div class="agent-card">
-        <h4>🔍 search-agent</h4>
-        <p>Сканирует banki.ru, otzovik.com, pikabu.ru, sravni.ru по 10 целевым запросам. Сливает с историей, убирает дубли.</p>
-      </div>
-      <div class="agent-card">
-        <h4>✅ verify-agent</h4>
-        <p>Открывает каждую ссылку, читает контекст. Отсеивает фейки, рекламу и «не темы». Ставит тег качества.</p>
-      </div>
-      <div class="agent-card">
-        <h4>💬 katya-agent</h4>
-        <p>Формирует сводку только из верифицированных жалоб. Отправляет в Telegram. Прямой стиль, без воды.</p>
-      </div>
-      <div class="agent-card">
-        <h4>📊 stats-agent</h4>
-        <p>Считает статистику: топ банков, динамику по месяцам, распределение. Публикует на GitHub Pages.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ КИЛЛЕР-ФИЧИ ═══ -->
-  <div class="section">
-    <h2>Киллер-фичи</h2>
-
-    <div class="killer-box">
-      <h3>🔥 1. Верификация — единственная система, которая НЕ доверяет данным</h3>
-      <p>Все конкуренты просто собирают упоминания. Мы открываем каждую ссылку, читаем контекст и решаем: это реальная жалоба или фейк/реклама/не тема. Результат: <strong>ни одного фейка в сводке за всё время работы</strong>.</p>
+    <!-- Hero -->
+    <div class="po-hero">
+      <div class="badge">AI-продукт</div>
+      <h1>Мониторинг жалоб<br>по наследству в банках</h1>
+      <p>4 ИИ-агента каждое утро находят, проверяют и доставляют свежие жалобы. Ни одного фейка. Каждый день — сводка за 10 секунд.</p>
     </div>
 
-    <div class="killer-box">
-      <h3>⚡ 2. Сводка за 8 секунд вместо 5 минут</h3>
-      <p>Поиск работает заранее (search-agent в 10:45), верификация проверяет (verify-agent в 10:55). Когда katya-agent формирует сводку в 11:00 — данные уже готовы. <strong>8 секунд</strong> на обработку против 3-5 минут у конкурентов.</p>
-    </div>
-
-    <div class="killer-box">
-      <h3>🛡 3. Отказоустойчивость — ни одного пустого отчёта</h3>
-      <p>Если поиск упал — katya-agent скажет «нет данных», а не отправит пустой лист. Резервное копирование конфига перед каждым изменением. План отката за 5 минут. <strong>99.9% гарантия доставки</strong>.</p>
-    </div>
-
-    <div class="killer-box">
-      <h3>🧩 4. Модульная архитектура — можно наращивать без перестройки</h3>
-      <p>Хотите проверять судебные решения? Добавляем <strong>court-agent</strong>. Уведомления по SMS? <strong>notify-agent</strong>. Интеграция с CRM? API-агент. Существующие агенты не трогаем.</p>
-    </div>
-  </div>
-
-  <!-- ═══ ВСЕ ФИЧИ ═══ -->
-  <div class="section">
-    <h2>Все фичи продукта</h2>
-
-    <div class="features-half">
-      <div class="feature-col">
-        <h3>🔍 Поиск и сбор</h3>
-        <ul>
-          <li>10 целевых поисковых запросов ежедневно</li>
-          <li>4 площадки: banki.ru, otzovik.com, pikabu.ru, sravni.ru</li>
-          <li>Историческая база: Декабрь 2025 → сегодня</li>
-          <li>Автоматическая дедупликация по url</li>
-          <li>Bing + DuckDuckGo, не блокируются в РФ</li>
-        </ul>
+    <!-- Value props -->
+    <div class="po-value">
+      <div class="po-value-item">
+        <div class="icon">🔍</div>
+        <h3>Не ищешь — находишь</h3>
+        <p>10 запросов по 4 площадкам каждое утро. Дубли отсечены, фейки отброшены. Только то, что реально важно.</p>
       </div>
-      <div class="feature-col">
-        <h3>✅ Верификация</h3>
-        <ul>
-          <li>Каждая ссылка открывается и проверяется</li>
-          <li>Три тега: verified / needs_review / rejected</li>
-          <li>Отсев рекламы, статей юристов, не-тем</li>
-          <li>Тематический фильтр: ТОЛЬКО наследство</li>
-          <li>Rejected не попадают в сводку</li>
-        </ul>
+      <div class="po-value-item">
+        <div class="icon">✅</div>
+        <h3>Проверка каждой ссылки</h3>
+        <p>Другие просто собирают упоминания. Мы открываем каждый url, читаем контекст, решаем — жалоба это или нет.</p>
+      </div>
+      <div class="po-value-item">
+        <div class="icon">📊</div>
+        <h3>Аналитика без ручной работы</h3>
+        <p>Топ банков, динамика по месяцам, хронология. Автоматически обновляется после каждого поиска.</p>
       </div>
     </div>
 
-    <div class="features-half">
-      <div class="feature-col">
-        <h3>💬 Доставка и UX</h3>
-        <ul>
-          <li>Telegram: сводка каждое утро в 11:00</li>
-          <li>Структурированный формат: банк → суть → ссылка</li>
-          <li>Личный агент с прямым стилем, без воды</li>
-          <li>Ответы на вопросы по базе жалоб</li>
-          <li>0 спама, 0 фейков в ленте</li>
-        </ul>
-      </div>
-      <div class="feature-col">
-        <h3>📊 Аналитика</h3>
-        <ul>
-          <li>Публичная страница на GitHub Pages</li>
-          <li>Топ банков-нарушителей с визуализацией</li>
-          <li>Помесячная динамика (бары)</li>
-          <li>Полная хронология всех жалоб</li>
-          <li>Автообновление после каждого поиска</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ ЦИФРЫ ═══ -->
-  <div class="section">
-    <h2>Цифры и метрики</h2>
-
-    <div class="metrics">
-      <div class="metric"><div class="num">10</div><div class="label">секунд — время сводки</div></div>
-      <div class="metric"><div class="num">4</div><div class="label">ИИ-агента в системе</div></div>
-      <div class="metric"><div class="num">100%</div><div class="label">жалоб проверяется</div></div>
-      <div class="metric"><div class="num">0</div><div class="label">пустых отчётов</div></div>
-    </div>
-
-    <h3>Было → Стало</h3>
-    <table class="clean">
-      <tr><th>Метрика</th><th>Было</th><th>Стало</th></tr>
-      <tr><td>Архитектура</td><td>1 агент на всё</td><td class="ok">4 специализированных агента</td></tr>
-      <tr><td>Верификация</td><td>отсутствовала</td><td class="ok">каждый url проверяется</td></tr>
-      <tr><td>Время доставки сводки</td><td>3–5 минут</td><td class="ok">8–10 секунд</td></tr>
-      <tr><td>Резервирование</td><td>дублирующий cron</td><td class="ok">отказоустойчивая цепочка</td></tr>
-      <tr><td>Данные</td><td>каждый раз новый поиск</td><td class="ok">shared-хранилище, переиспользование</td></tr>
-      <tr><td>Личность</td><td>общий помощник</td><td class="ok">выделенный агент</td></tr>
-    </table>
-  </div>
-
-  <!-- ═══ ТЕХСТЕК ═══ -->
-  <div class="section">
-    <h2>Технологический стек</h2>
-
-    <div class="features-half">
-      <div class="feature-col">
-        <h3>Инфраструктура</h3>
-        <table class="clean" style="font-size:12px;">
-          <tr><td>Платформа</td><td>OpenClaw</td></tr>
-          <tr><td>Модель</td><td>DeepSeek Chat</td></tr>
-          <tr><td>Поиск</td><td>SearXNG (Bing + DuckDuckGo)</td></tr>
-          <tr><td>Хостинг</td><td>GitHub Pages</td></tr>
-          <tr><td>Связь</td><td>Telegram Bot API</td></tr>
-        </table>
-      </div>
-      <div class="feature-col">
-        <h3>Безопасность</h3>
-        <table class="clean" style="font-size:12px;">
-          <tr><td>Агенты</td><td>изолированные сессии</td></tr>
-          <tr><td>Данные</td><td>локально, не уходят наружу</td></tr>
-          <tr><td>Бэкапы</td><td>перед каждым изменением</td></tr>
-          <tr><td>Откат</td><td>5 минут, план утверждён</td></tr>
-          <tr><td>Сайт</td><td>HTTPS, GitHub Pages</td></tr>
-        </table>
+    <!-- How it works -->
+    <div class="po-section">
+      <h2>Как это работает</h2>
+      <div class="po-steps">
+        <div class="po-step">
+          <div class="num">1</div>
+          <h4>Поиск</h4>
+          <p>4 агента сканируют banki.ru, otzovik.com, pikabu.ru, sravni.ru</p>
+        </div>
+        <div class="po-step">
+          <div class="num">2</div>
+          <h4>Верификация</h4>
+          <p>Каждая ссылка открывается и проверяется. Фейки отсеиваются</p>
+        </div>
+        <div class="po-step">
+          <div class="num">3</div>
+          <h4>Сводка</h4>
+          <p>Человекопонятный дайджест в Telegram — за 8 секунд</p>
+        </div>
+        <div class="po-step">
+          <div class="num">4</div>
+          <h4>Статистика</h4>
+          <p>Публичная страница с топами, графиками и историей</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══ КОМУ ═══ -->
-  <div class="section">
-    <h2>Кому подойдёт</h2>
-    <div class="agent-grid">
-      <div class="agent-card">
-        <h4>🏦 Банки</h4>
-        <p>Мониторинг репутации в контексте наследственных споров. Раннее выявление проблемных кейсов.</p>
-      </div>
-      <div class="agent-card">
-        <h4>⚖️ Юристы</h4>
-        <p>Свежие кейсы по наследственным спорам с банками. База для судебной практики и консультаций.</p>
-      </div>
-      <div class="agent-card">
-        <h4>🏛 Нотариусы</h4>
-        <p>Статистика проблемных банков. Понимание, куда чаще всего жалуются наследники.</p>
-      </div>
-      <div class="agent-card">
-        <h4>📊 Аналитики</h4>
-        <p>Динамика жалоб по месяцам, топ банков, распределение. Данные для отчётов и презентаций.</p>
+    <!-- Killer features -->
+    <div class="po-section">
+      <h2>Почему это единственная работающая система</h2>
+      <div class="po-killers">
+        <div class="po-killer">
+          <h4>🔥 Верификация — не доверяем ни одной ссылке</h4>
+          <p>Все конкуренты собирают упоминания слепо. Мы читаем каждую — реклама, статья юриста или реальная жалоба. Ни одного фейка в сводке за всё время.</p>
+        </div>
+        <div class="po-killer">
+          <h4>⚡ Сводка за 8 секунд вместо 5 минут</h4>
+          <p>Поиск и верификация работают заранее. Когда формируется дайджест — данные уже готовы. В 30 раз быстрее конкурентов.</p>
+        </div>
+        <div class="po-killer">
+          <h4>🛡 Ни одного пустого отчёта</h4>
+          <p>Если поиск упал — агент скажет «нет данных», а не отправит пустой лист. Откат за 5 минут. 99.9% гарантия доставки.</p>
+        </div>
+        <div class="po-killer">
+          <h4>🧩 Модульная архитектура</h4>
+          <p>Хотите судебные решения? Добавляем court-agent. SMS-уведомления? notify-agent. Существующие агенты не трогаем.</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══ CTA ═══ -->
-  <div class="cta-box">
-    <p class="big">Готовы к внедрению?</p>
-    <p>Продукт работает в продакшене с декабря 2025 года.</p>
-    <p>Добавление нового клиента — 1 день. Интеграция с вашей CRM — 3 дня.</p>
-  </div>
+    <!-- Stats -->
+    <div class="po-section">
+      <h2>Цифры</h2>
+      <div class="po-stats">
+        <div class="po-stat">
+          <div class="num">10</div>
+          <div class="label">секунд — время сводки</div>
+        </div>
+        <div class="po-stat">
+          <div class="num">4</div>
+          <div class="label">ИИ-агента</div>
+        </div>
+        <div class="po-stat">
+          <div class="num">100%</div>
+          <div class="label">жалоб проверяется</div>
+        </div>
+        <div class="po-stat">
+          <div class="num">0</div>
+          <div class="label">пустых отчётов</div>
+        </div>
+      </div>
+    </div>
 
-  <div class="contacts">
-    <p>По вопросам внедрения: <a href="https://t.me/Kirill_syst">@Kirill_syst</a> (Telegram)</p>
-    <p>Продукт: <a href="https://nasledstvo2026.github.io/nasledstvo/stats-inheritance.html">nasledstvo2026.github.io/nasledstvo/stats-inheritance.html</a></p>
-  </div>
+    <!-- Было → Стало -->
+    <div class="po-section">
+      <h2>Было → Стало</h2>
+      <div class="po-compare">
+        <div class="po-compare-item before">
+          <div class="label">До</div>
+          <ul>
+            <li>1 агент на всё</li>
+            <li>Верификация отсутствовала</li>
+            <li>3–5 минут на сводку</li>
+            <li>Новое сканирование каждый раз</li>
+          </ul>
+        </div>
+        <div class="po-compare-item after">
+          <div class="label">После</div>
+          <ul>
+            <li>4 специализированных агента</li>
+            <li>Каждый url проверяется</li>
+            <li>8–10 секунд на сводку</li>
+            <li>Общее хранилище, переиспользование</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-  <div class="footer">
-    <span class="tech">Паспорт продукта «Мониторинг жалоб» v2.0 · Июль 2026</span>
-  </div>
+    <!-- Tech stack -->
+    <div class="po-section">
+      <h2>Технологии</h2>
+      <div class="po-tags">
+        <span class="po-tag blue">OpenClaw</span>
+        <span class="po-tag red">DeepSeek API</span>
+        <span class="po-tag green">SearXNG</span>
+        <span class="po-tag">Bing + DuckDuckGo</span>
+        <span class="po-tag">Telegram</span>
+        <span class="po-tag">GitHub Pages</span>
+      </div>
+      <p style="font-size:13px; color:rgba(255,255,255,0.4); margin-top:4px;">4 изолированных агента, каждый со своей специализацией. Полностью автоматический цикл. В продакшене с декабря 2025.</p>
+    </div>
 
+    <!-- CTA -->
+    <div class="po-cta">
+      <h3>Готовы к внедрению?</h3>
+      <p>Продукт работает в продакшене. Добавление нового клиента — 1 день.</p>
+      <p>Интеграция с вашей CRM — 3 дня.</p>
+      <a href="https://t.me/Kirill_syst" class="contact-link">📩 Связаться с разработчиком</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer" style="text-align:center; padding-top:24px; border-top:1px solid var(--glass-border);">
+      <span class="tech">Мониторинг жалоб · v2.0 · Июль 2026</span>
+    </div>
+
+  </div>
 </div>
 
 </body>
