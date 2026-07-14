@@ -23,8 +23,8 @@ ui:
   default_locale: ""
 
 outgoing:
-  request_timeout: 10.0
-  max_request_timeout: 15.0
+  request_timeout: 15.0
+  max_request_timeout: 30.0
 
 engines:
   - name: google
@@ -38,7 +38,7 @@ engines:
   - name: bing
     engine: bing
     shortcut: bi
-    disabled: false
+    disabled: true
   - name: brave
     engine: brave
     shortcut: bv
@@ -46,4 +46,4 @@ engines:
   - name: startpage
     engine: startpage
     shortcut: sp
-    disabled: false
+    disabled: true

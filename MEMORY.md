@@ -398,13 +398,14 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - Задача читает файл перед поиском, пропускает дубликаты, дописывает новые
 - timeout увеличен с 180 до 300 сек
 
-### SearXNG (17.06.2026)
-- Установлен в Docker на локальном VPS
-- Адрес: http://localhost:8888
-- JSON API: /search?q=...&format=json
-- Использует: Google, Bing, DuckDuckGo (все сразу)
-- Заменил web_search и хардкодные URL во всех задачах на 3 запроса к SearXNG
-- config: ~/searxng/settings.yml, docker-compose.yml
+### SearXNG — УДАЛЁН (14.07.2026)
+- Docker-контейнер остановлен и удалён, образ стёрт (-377MB)
+- Причина: все поисковые движки (Google, DuckDuckGo, Яндекс) блокируют запросы с VPS IP в РФ капчами/challenge
+- Заменён на:
+  - direct парсинг banki.ru (parse-banki-v5.py) — для жалоб
+  - web_search (браузерный поиск OpenClaw) — для новостей
+- Промпты cron-задач (Лена, Данил, Роза, Ирина) обновлены 14.07
+- config и docker-compose.yml сохранены в ~/searxng/ на случай если появится прокси
 
 ### Статистика жалоб — автообновление (19.06.2026)
 - Cron "📊 Обновление статистики жалоб (stats-inheritance)" — ежедневно 08:10
@@ -417,7 +418,7 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 #### Конвейер задач Кати
 
 **⏰ 08:00 — Сводка жалоб (isolated, deepseek-chat, 300s)**
-1. 10 запросов к SearXNG + banki.ru напрямую — только за вчера
+1. Парсинг banki.ru (parse-banki-v5.py) — только за вчера
 2. Фильтр: только жалобы людей, выкинуть новости/юристов
 3. Запись в `memory/katya-stats-data.md` — строка `ГГГГ-ММ-ДД | Сбер: X | Другие: N`
 4. Запись в `memory/katya-data.json` — каждая жалоба объектом с date/bank/title/description/url/source
@@ -433,21 +434,11 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 **Итог:** каждая жалоба попадает и в статистику (для таблиц), и в JSON (для хронологии).
 Единственная страница Кати на сайте — stats-inheritance.html.
 
-### Все задачи на SearXNG (17.06.2026, финал 17.06 18:00)
-- Все 7 поисковых задач переведены на SearXNG через web_fetch с format=json
-- **web_search больше НЕ ИСПОЛЬЗУЕТСЯ** ни в одной задаче — DDG bot-detection больше не проблема
-
-#### Катя 08:00 — 10 запросов SearXNG, time_range=day
-- наследство банки жалобы, прямые запросы
-- report-katya.html больше не генерируется (удалён 20.06.2026)
-- Только запись статистики + сводка в Telegram
-
-#### Лена 09:00 — 3 запроса SearXNG, time_range=week
-#### Данил пн/чт — 3 запроса SearXNG, time_range=week
-#### Роза пн 09:00 — 3 запроса SearXNG, time_range=week
-#### Ирина пн 09:06 — 3 запроса SearXNG, time_range=week
-
-Общие улучшения: time_range, чистый JSON, стоп-слова, текстовые маркеры дат, deepseek-chat модель.
+### Все задачи — миграция с SearXNG на web_search (14.07.2026)
+- SearXNG удалён из-за блокировок всех движков с VPS IP в РФ
+- **Катя:** прямой парсинг banki.ru через parse-banki-v5.py (data-module-options JSON) — работает
+- **Лена, Данил, Роза, Ирина:** web_search (браузерный поиск OpenClaw) — fallback
+- web_search не имеет API-ключа Brave, работает с таймаутами — приемлемо для фоновых задач
 
 ## 📊 Система логирования активности (18.06.2026)
 
@@ -525,7 +516,7 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 | 🟢 Ок | **~/.ssh/timeweb** | Удалён (backup есть) |
 | 🟢 Ок | **SSH-ключи** | id_ed25519 с правами 600 |
 | 🟢 Ок | **GitHub** | Только SSH-ключ, без пароля |
-| 🟢 Ок | **SearXNG** | Только 127.0.0.1:8888 |
+| 🟢 Ок | ~~**SearXNG**~~ (удалён) | Был на 127.0.0.1:8888 |
 | 🟢 Ок | **OpenClaw Gateway** | Только 127.0.0.1:18789 |
 | 🟢 Ок | **TLS** | Включён TLSv1.2/1.3, безопасные шифры |
 | 🟡 Сред | **Self-signed SSL сертификат** | Браузеры ругаются. Let's Encrypt — потенциально |
@@ -540,7 +531,7 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 | 631 | ~~CUPS~~ | ❌ закрыт | ❌ |
 | 8766 | aidj-server | 127.0.0.1 | ❌ только через nginx |
 | 8767 | photo-server | 127.0.0.1 | ❌ только через nginx |
-| 8888 | SearXNG | 127.0.0.1 | ❌ |
+| 8888 | ~~SearXNG (удалён)~~ | 127.0.0.1 | ❌ |
 | 18789 | OpenClaw Gateway | 127.0.0.1 | ❌ |
 
 ### Выполненные исправления (28.06.2026)
