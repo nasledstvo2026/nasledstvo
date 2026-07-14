@@ -161,6 +161,29 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 ### Конфиденциальность
 Семейные дела Кирилла — НЕ попадают в отчёты, cron, общие базы, публичные страницы.
 
+## 🤖 «Создать БТ» — Оркестрация BRD
+
+### Триггер вызова
+- Сообщение Кирилла (346428630) содержит «Создать БТ»
+- Лунт распознаёт триггер, маршрутизирует Controller-у (`ba-controller`) через sessions_send
+- Controller управляет пайплайном: Questioner → Compiler → Verifier → .docx
+
+### Правило маршрутизации
+Если сообщение Кирилла (346428630) содержит «Создать БТ»:
+1. Взять md_log с Meta (UUID, user, chat, timestamp)
+2. sessions_send(agentId="ba-controller", message=<md_log>) — Controller запускает Questioner
+3. Ждать ответа от Controller (таймаут 30 мин)
+4. Если Controller вернул .docx — прикрепить к ответу Кириллу
+5. Если Controller вернул ошибку — сообщить Кириллу и предложить попробовать снова
+
+### Жизненный цикл (в Controller)
+```
+Controller → Questioner (интервью, биндинг к чату)
+         → Compiler (RCA + Search)
+         → Verifier (3 проверки, итерации макс 2)
+         → .md → .docx → в чат
+```
+
 ## Tools
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
