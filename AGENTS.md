@@ -178,7 +178,33 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 
 ### Жизненный цикл (в Controller)
 ```
-Controller → Questioner (интервью, биндинг к чату)
+### Правило маршрутизации
+Если сообщение Кирилла (346428630) содержит «Создать БТ»:
+1. Создать md_log с Meta (UUID, user, chat, timestamp), status=created
+2. sessions_send(agentId="ba-controller", message=<md_log>) — Controller получает управление
+3. Ждать ответа от Controller:
+   - Если Controller вернул вопрос от Questioner — переслать вопрос пользователю в чат
+   - Если пользователь ответил — переслать ответ Questioner-у через Controller
+   - Если Controller вернул .docx — прикрепить к ответу и завершить
+   - Если Controller вернул ошибку — сообщить пользователю, предложить попробовать снова
+4. Таймаут всей сессии: 30 мин
+
+### Протокол проксирования Questioner (Лунт → Questioner)
+Поскольку Questioner не может напрямую читать чат, Лунт выступает прокси:
+1. Questioner → Controller → Лунт: вопрос пользователю
+2. Лунт: пересылает вопрос в Telegram-чат
+3. Пользователь → Лунт: ответ на вопрос
+4. Лунт: sessions_send(agentId="ba-controller", message=ответ) → Controller передаёт Questioner-у
+5. Повторять шаги 1-4, пока Questioner не завершит интервью
+6. После завершения интервью Controller запускает Compiler → Verifier → .docx
+
+### Жизненный цикл (в Controller)
+```
+Controller → Questioner (интервью, через прокси Лунт)
+         → Compiler (RCA + Search)
+         → Verifier (3 проверки, итерации макс 2)
+         → .md → .docx → в чат
+```
          → Compiler (RCA + Search)
          → Verifier (3 проверки, итерации макс 2)
          → .md → .docx → в чат

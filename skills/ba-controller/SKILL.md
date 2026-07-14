@@ -28,10 +28,17 @@ description: "BRD Controller — оркестратор мультиагентн
 - iteration: 0
 ```
 
-### Шаг 2: Запустить Questioner
-- sessions_send(agentId="ba-questioner", message=md_log)
-- Таймаут: 600 секунд
-- Получить обратно md_log с заполненным QuestionLog
+### Шаг 2: Запустить Questioner (через прокси Лунт)
+- Questioner не имеет прямого доступа к Telegram-чату
+- Протокол:
+  1. sessions_send(agentId="ba-questioner", message=md_log) — отправить вопрос пользователю
+  2. Questioner вернёт вопрос → Controller передаёт вопрос агенту main (Лунт) через reply
+  3. Лунт пересылает вопрос пользователю в Telegram
+  4. Пользователь отвечает → Лунт присылает ответ Controller-у → Controller передаёт Questioner-у
+  5. Повторять шаги 2-4 пока Questioner не завершит интервью и не вернёт md_log с QuestionLog
+- Таймаут на всё интервью: 600 секунд
+- Если Questioner не уложился → сохранить частичный QuestionLog
+- Флаг завершения интервью: поле status=interview_complete в md_log
 
 ### Шаг 3: Запустить Compiler
 - sessions_send(agentId="ba-compiler", message=md_log)
@@ -79,6 +86,16 @@ description: "BRD Controller — оркестратор мультиагентн
 - Compiler не ответил → повторить 1 раз через 30 сек
 - Verifier не ответил → пропустить верификацию, выдать с пометкой
 - Ошибка .docx → выдать .md лог в чат текстом
+
+## Прокси-протокол: обработка ответов пользователя
+- Controller получает сообщение от Лунт (main-агент) с ответом пользователя
+- Формат от Лунта:
+  ```
+  [USER_RESPONSE] <session_uuid>
+  Ответ: <текст ответа пользователя>
+  ```
+- Controller извлекает session_uuid, находит активную сессию, передаёт ответ Questioner-у
+- Questioner отвечает новым вопросом → Controller → Лунт → пользователь
 
 ## Биндинг
 - Нет. Controller вызывается только через sessions_send.
