@@ -3,125 +3,216 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Создать БТ — Сервис бизнес-требований</title>
+  <title>Создать БТ — AI-ассистент для бизнес-требований</title>
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    .bt-container {
-      max-width: 860px;
+    /* Product Overview — Создать БТ */
+    .po {
+      max-width: 800px;
       margin: 0 auto;
       padding: 20px;
     }
-    .bt-container h1 {
-      font-size: 28px;
-      color: rgba(255,255,255,0.9);
-      margin: 40px 0 16px;
-      letter-spacing: -0.5px;
+
+    /* Hero */
+    .po-hero {
+      text-align: center;
+      padding: 60px 0 40px;
     }
-    .bt-container h2 {
-      font-size: 20px;
-      color: #58a6ff;
-      margin: 32px 0 12px;
-      letter-spacing: 1px;
-    }
-    .bt-container h3 {
-      font-size: 16px;
-      color: rgba(255,255,255,0.8);
-      margin: 24px 0 8px;
-      letter-spacing: 0.5px;
-    }
-    .bt-container p {
-      color: rgba(255,255,255,0.65);
-      line-height: 1.7;
-      font-size: 14px;
-      margin: 8px 0;
-    }
-    .bt-container ul {
-      padding-left: 24px;
-      margin: 8px 0;
-    }
-    .bt-container ul li {
-      color: rgba(255,255,255,0.65);
-      line-height: 1.7;
-      font-size: 14px;
-      margin: 4px 0;
-    }
-    .bt-container strong {
-      color: rgba(255,255,255,0.9);
-    }
-    .bt-container blockquote {
-      border-left: 3px solid rgba(88,166,255,0.3);
-      padding: 8px 14px;
-      margin: 8px 0;
-      color: rgba(255,255,255,0.55);
-      font-size: 14px;
-      background: rgba(22,27,34,0.3);
-      border-radius: 0 6px 6px 0;
-    }
-    .bt-container hr {
-      border: none;
-      border-top: 1px solid rgba(33,38,45,0.6);
-      margin: 24px 0;
-    }
-    .bt-container .tag {
+    .po-hero .badge {
       display: inline-block;
-      background: rgba(88,166,255,0.15);
+      background: rgba(88,166,255,0.12);
+      border: 1px solid rgba(88,166,255,0.2);
       color: #58a6ff;
-      padding: 2px 10px;
-      border-radius: 10px;
-      font-size: 12px;
-      margin: 2px 4px 2px 0;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
     }
-    .bt-container .epic-card {
-      background: rgba(22,27,34,0.5);
-      border: 1px solid rgba(33,38,45,0.5);
-      border-radius: 8px;
-      padding: 16px;
+    .po-hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #58a6ff 0%, #bc8cff 50%, #f778ba 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .po-hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Value prop row */
+    .po-value {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 40px 0;
+    }
+    .po-value-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color .2s;
+    }
+    .po-value-item:hover {
+      border-color: var(--glass-hover);
+    }
+    .po-value-item .icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .po-value-item h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .po-value-item p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    /* Section */
+    .po-section {
+      margin: 48px 0;
+    }
+    .po-section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+    .po-section p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
       margin: 12px 0;
     }
-    .bt-container .epic-card h4 {
+    .po-section p strong {
       color: rgba(255,255,255,0.85);
-      margin: 0 0 8px;
-      font-size: 15px;
     }
-    .bt-container .epic-card p {
+
+    /* How it works — шаги */
+    .po-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .po-step {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      position: relative;
+    }
+    .po-step .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(88,166,255,0.15);
+      color: #58a6ff;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .po-step h4 {
       font-size: 13px;
-      margin: 4px 0;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 6px;
     }
-    .bt-container .epic-card .stat {
-      display: inline-block;
-      margin-right: 12px;
+    .po-step p {
       font-size: 12px;
       color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+      margin: 0;
     }
-    .bt-container .project-stats {
+
+    /* Tags */
+    .po-tags {
       display: flex;
-      gap: 16px;
       flex-wrap: wrap;
+      gap: 8px;
       margin: 16px 0;
     }
-    .bt-container .project-stats .stat-box {
-      background: rgba(22,27,34,0.5);
-      border: 1px solid rgba(33,38,45,0.5);
-      border-radius: 8px;
-      padding: 12px 20px;
-      flex: 1;
-      min-width: 100px;
-      text-align: center;
-    }
-    .bt-container .project-stats .stat-box .num {
-      font-size: 24px;
-      color: #58a6ff;
-      font-weight: 600;
-    }
-    .bt-container .project-stats .stat-box .label {
+    .po-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.5);
       font-size: 12px;
-      color: rgba(255,255,255,0.45);
-      margin-top: 4px;
+      padding: 4px 12px;
+      border-radius: 6px;
     }
+    .po-tag.blue {
+      background: rgba(88,166,255,0.08);
+      border-color: rgba(88,166,255,0.15);
+      color: #58a6ff;
+    }
+    .po-tag.purple {
+      background: rgba(188,140,255,0.08);
+      border-color: rgba(188,140,255,0.15);
+      color: #bc8cff;
+    }
+    .po-tag.green {
+      background: rgba(126,231,135,0.08);
+      border-color: rgba(126,231,135,0.15);
+      color: #7ee787;
+    }
+
+    /* CTA */
+    .po-cta {
+      background: linear-gradient(135deg, rgba(88,166,255,0.08) 0%, rgba(188,140,255,0.08) 100%);
+      border: 1px solid rgba(88,166,255,0.15);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+    .po-cta h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 8px;
+    }
+    .po-cta p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .bt-container { padding: 12px; }
-      .bt-container .project-stats { gap: 8px; }
+      .po-hero h1 { font-size: 30px; }
+      .po-value { grid-template-columns: 1fr; }
+      .po-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 400px) {
+      .po-steps { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -130,160 +221,96 @@
 <a href="index.html" class="back">← На главную</a>
 
 <div class="container">
-  <div class="bt-container">
-    <h1>Создать БТ</h1>
-    <p style="font-size:16px; color:rgba(255,255,255,0.7);">Мультиагентный сервис в Telegram для формирования бизнес-требований высокого уровня зрелости</p>
-    <p><span class="tag">v3.1 final</span> <span class="tag">08.07.2026</span> <span class="tag">✅ утверждено</span></p>
+  <div class="po">
 
-    <hr>
-
-    <div class="project-stats">
-      <div class="stat-box"><div class="num">5</div><div class="label">эпиков</div></div>
-      <div class="stat-box"><div class="num">28</div><div class="label">историй</div></div>
-      <div class="stat-box"><div class="num">28 FR</div><div class="label">функц. требований</div></div>
-      <div class="stat-box"><div class="num">15 NFR</div><div class="label">нефункц. требований</div></div>
-      <div class="stat-box"><div class="num">4</div><div class="label">агента</div></div>
-      <div class="stat-box"><div class="num">7</div><div class="label">блоков шаблона</div></div>
+    <!-- Hero -->
+    <div class="po-hero">
+      <div class="badge">AI-продукт</div>
+      <h1>Business Requirements Document<br>за 15 минут</h1>
+      <p>Вместо пустого шаблона — диалог с AI-экспертом. Он слушает, уточняет, проверяет и выдаёт готовый документ.</p>
     </div>
 
-    <hr>
-
-    <h2>О проекте</h2>
-
-    <p><strong>«Создать БТ»</strong> — сервис, который решает проблему низкой культуры работы с бизнес-требованиями. Владельцы продуктов и бизнес-аналитики тратят много времени, используют разные шаблоны, формулируют поверхностные требования без анализа корневых причин.</p>
-
-    <p>Сервис заменяет статический шаблон и пустой документ на <strong>динамический диалог</strong> с AI-агентом в Telegram. Пользователь не заполняет форму — он разговаривает с экспертом, который слушает, уточняет, углубляется, контролирует качество — и в итоге выдаёт готовый документ.</p>
-
-    <hr>
-
-    <h2>Мультиагентная архитектура</h2>
-
-    <p>В основе — 4 специализированных AI-агента, работающих последовательно через единый Session Context:</p>
-
-    <ul>
-      <li><strong>Агент-опросчик</strong> — ведёт диалог, задаёт вопросы по 7 блокам шаблона, адаптирует глубину (L1→L2→L3) в зависимости от полноты ответов</li>
-      <li><strong>Агент-составитель</strong> — формирует текст БТ по утверждённому шаблону без лишней художественности</li>
-      <li><strong>Агент-контролёр</strong> — проверяет каждый раздел на полноту и глубину; при поверхностном ответе возвращает на доработку</li>
-      <li><strong>Агент-генератор</strong> — создаёт DOCX и веб-версию, публикует на GitHub Pages</li>
-    </ul>
-
-    <p><strong>Канал взаимодействия:</strong> Telegram (основной) → мультиагентный пайплайн на OpenClaw + DeepSeek API → генерация DOCX (python-docx) → публикация на GitHub Pages.</p>
-
-    <p><strong>Безопасность:</strong> аутентификация по Telegram user ID, белый список пользователей (whitelist.json), шифрование сессий AES-256, Cloudflare Tunnel (HTTPS), API-ключи в переменных окружения.</p>
-
-    <hr>
-
-    <h2>Ключевые отличия</h2>
-
-    <ul>
-      <li><strong>Динамическая глубина:</strong> при поверхностном ответе агент задаёт уточняющие вопросы, а не принимает «как есть». Три уровня: L1 (открывающий) → L2 (углубляющий) → L3 (корневой)</li>
-      <li><strong>Контроль качества в реальном времени:</strong> контролёр проверяет каждый раздел на полноту и возвращает на доработку, если блок заполнен поверхностно</li>
-      <li><strong>Самообучаемость:</strong> с каждым новым БТ сервис накапливает опыт — анализирует паттерны вопросов и ответов, качество опроса растёт от сессии к сессии</li>
-      <li><strong>Единый формат:</strong> утверждённый шаблон из 7 блоков, неменяемый после ввода в эксплуатацию</li>
-      <li><strong>Двойной формат выдачи:</strong> DOCX (для Jira) + веб-страница на GitHub Pages — идентичное содержание</li>
-      <li><strong>Жёсткий шаблон:</strong> без лишней художественности, только по делу</li>
-    </ul>
-
-    <hr>
-
-    <h2>Шаблон БТ (7 блоков)</h2>
-
-    <p>Агент последовательно проходит по каждому блоку, задавая вопросы с динамической глубиной. При полном ответе — фиксирует и идёт дальше. При поверхностном — уточняет:</p>
-
-    <ul>
-      <li><strong>Блок 1 — Контекст и проблема:</strong> контекст инициативы → проблемная область → последствия бездействия</li>
-      <li><strong>Блок 2 — Цель и измерение:</strong> бизнес-цель → критерии успеха (SMART)</li>
-      <li><strong>Блок 3 — Стейкхолдеры и влияние:</strong> заинтересованные стороны → их интересы и влияние</li>
-      <li><strong>Блок 4 — Решение:</strong> ключевые функциональные возможности → пользовательские сценарии → граничные случаи</li>
-      <li><strong>Блок 5 — Требования к качеству и ограничения:</strong> качественные характеристики → ограничения</li>
-      <li><strong>Блок 6 — Приёмка:</strong> критерии приёмки (Given-When-Then)</li>
-      <li><strong>Блок 7 — Риски и митигации:</strong> идентифицированные риски (собираются в течение всего диалога) → митигации</li>
-    </ul>
-
-    <hr>
-
-    <h2>Пользователи</h2>
-
-    <p><strong>Первичные:</strong> владельцы продуктов (Катя, Лена, Данил, Роман, Кирилл) и бизнес-аналитики — инициируют новые инициативы, формируют БТ.</p>
-    <p><strong>Вторичные:</strong> разработчики (получают чёткие требования) и руководители (оценивают трудозатраты по документированным данным).</p>
-
-    <hr>
-
-    <h2>Эпики (5 эпиков, 28 историй)</h2>
-
-    <div class="epic-card">
-      <h4>Эпик 1 — Управление доступом и сессиями</h4>
-      <p>7 историй · FR1–FR5, FR26–FR28. Начало и продолжение сессии, автосохранение черновиков, белый список, изоляция данных, шифрование.</p>
+    <!-- Value props -->
+    <div class="po-value">
+      <div class="po-value-item">
+        <div class="icon">⏱️</div>
+        <h3>Не заполняешь форму — разговариваешь</h3>
+        <p>Никаких гугл-доков и пустых шаблонов. Отвечаешь на вопросы голосом или текстом — агент собирает требования сам.</p>
+      </div>
+      <div class="po-value-item">
+        <div class="icon">🎯</div>
+        <h3>Не симптомы, а корни</h3>
+        <p>Поверхностные ответы не проходят. Агент копает глубже, пока не найдёт системную причину — не «не хватает рук», а «нет шины данных».</p>
+      </div>
+      <div class="po-value-item">
+        <div class="icon">📄</div>
+        <h3>Готовый .docx через 15 минут</h3>
+        <p>После интервью получаешь структурированный документ: проблема, цель, метрики, импакты, источники. Без доработок.</p>
+      </div>
     </div>
 
-    <div class="epic-card">
-      <h4>Эпик 2 — Динамический опрос по шаблону БТ</h4>
-      <p>7 историй · FR6–FR11. Адаптивный опрос по 7 блокам, L1→L2→L3, сбор рисков, возврат к блокам.</p>
+    <!-- How it works -->
+    <div class="po-section">
+      <h2>Как это работает</h2>
+      <div class="po-steps">
+        <div class="po-step">
+          <div class="num">1</div>
+          <h4>Пишешь «Создать БТ»</h4>
+          <p>В Telegram — любой чат, где есть бот</p>
+        </div>
+        <div class="po-step">
+          <div class="num">2</div>
+          <h4>Отвечаешь на вопросы</h4>
+          <p>5–20 вопросов от AI-интервьюера</p>
+        </div>
+        <div class="po-step">
+          <div class="num">3</div>
+          <h4>AI собирает и проверяет</h4>
+          <p>4 агента: опрос → синтез → аудит → документ</p>
+        </div>
+        <div class="po-step">
+          <div class="num">4</div>
+          <h4>Получаешь .docx</h4>
+          <p>Готовый BRD в чат — через 15 минут</p>
+        </div>
+      </div>
     </div>
 
-    <div class="epic-card">
-      <h4>Эпик 3 — Контроль качества и черновик</h4>
-      <p>6 историй · FR12–FR16. Составитель, контролёр, проверка полноты, возврат на доработку.</p>
+    <!-- Why this matters -->
+    <div class="po-section">
+      <h2>Почему это меняет правила</h2>
+      <p><strong>Проблема:</strong> 90% бизнес-требований пишутся «от фонаря». Автор описывает симптомы, а не корни. Разработчики получают расплывчатые формулировки. Продукт строят не на том.</p>
+      <p><strong>Решение:</strong> AI-аналитик не принимает ответы на веру. Он использует методологию 5 Whys + SPIN-опрос, чтобы добраться до системной причины. Проверяет полноту каждого блока. Если ответ поверхностный — задаёт уточняющий вопрос, а не записывает «как есть».</p>
+      <p><strong>Результат:</strong> документ, который не стыдно отдать разработке. Проблема → цель → метрики — как единое уравнение. Без человеческого фактора в корневой причине. С источниками и импакт-картой.</p>
     </div>
 
-    <div class="epic-card">
-      <h4>Эпик 4 — Генерация и публикация</h4>
-      <p>5 историй · FR17–FR21. DOCX (python-docx), веб-версия, GitHub Pages, ссылки в Telegram.</p>
+    <!-- Tech stack (минимально) -->
+    <div class="po-section">
+      <h2>Технологии</h2>
+      <div class="po-tags">
+        <span class="po-tag blue">OpenClaw</span>
+        <span class="po-tag purple">DeepSeek API</span>
+        <span class="po-tag green">Telegram</span>
+        <span class="po-tag">python-docx</span>
+        <span class="po-tag">Web Search</span>
+      </div>
+      <p style="font-size:13px; color:rgba(255,255,255,0.4); margin-top:4px;">Мультиагентный пайплайн на OpenClaw: 4 агента (Controller → Questioner → Compiler → Verifier), 2 итерации аудита, поиск релевантных источников в вебе.</p>
     </div>
 
-    <div class="epic-card">
-      <h4>Эпик 5 — Самообучение</h4>
-      <p>4 истории · FR22–FR25. history.json, анализ паттернов, повышение качества от сессии к сессии.</p>
+    <!-- CTA -->
+    <div class="po-cta">
+      <h3>Готов попробовать?</h3>
+      <p>Напиши «Создать БТ» в чат с Лунтом — и через 15 минут у тебя будет готовый BRD.</p>
+      <div class="po-tags" style="justify-content:center;">
+        <span class="po-tag">2 итерации аудита</span>
+        <span class="po-tag">SMART-цели</span>
+        <span class="po-tag">Impact Mapping</span>
+      </div>
     </div>
 
-    <hr>
-
-    <h2>Инфраструктура</h2>
-
-    <ul>
-      <li><strong>VPS</strong> vm-f13581 (Linux) — хостинг сервиса</li>
-      <li><strong>OpenClaw</strong> — оркестрация мультиагентного пайплайна</li>
-      <li><strong>DeepSeek API</strong> — LLM для работы всех агентов</li>
-      <li><strong>Telegram Bot API</strong> — канал взаимодействия с пользователем</li>
-      <li><strong>Cloudflare Tunnel</strong> — HTTPS-доступ к VPS</li>
-      <li><strong>GitHub Pages</strong> — публикация DOCX и веб-версий</li>
-      <li><strong>python-docx</strong> — генерация DOCX-файлов</li>
-    </ul>
-
-    <hr>
-
-    <h2>MVP Scope</h2>
-
-    <p><strong>Входит:</strong> Telegram-бот, динамический опрос по 7 блокам, мультиагентный пайплайн (опросчик → составитель → контролёр → генератор), генерация DOCX, публикация на GitHub Pages, хранение истории сессий, самообучаемость.</p>
-
-    <p><strong>Вне MVP:</strong> интеграция с Jira, мультиязычность, веб-интерфейс управления сессиями, аналитическая панель, Party Mode, Advanced Elicitation.</p>
-
-    <hr>
-
-    <h2>Целевые метрики</h2>
-
-    <ul>
-      <li>Полнота разделов БТ: <strong>7/7 блоков</strong> заполнены</li>
-      <li>Время ответа агента: <strong>&lt;5 сек</strong> (95-й перцентиль)</li>
-      <li>Генерация DOCX: <strong>&lt;30 сек</strong></li>
-      <li>Публикация на GitHub Pages: <strong>&lt;60 сек</strong></li>
-      <li>Доступность: <strong>99%</strong> в рабочее время</li>
-      <li>Одновременных сессий: до <strong>20</strong></li>
-      <li>Хранение сессий: не менее <strong>500</strong> завершённых БТ</li>
-    </ul>
-
-    <hr>
-
-    <h2>Статус реализации</h2>
-
-    <p>Проект прошёл полный цикл BMAD-планирования (9 воркфлоу, ~700 KB артефактов). Архитектура, UX-дизайн, декомпозиция на эпики и stories готовы. Readiness assessment: 🟡 CONDITIONAL PASS (3 minor issues: формулировка FR17 с указанием библиотеки, субъективная метрика в FR7/FR8, UX→Arch маппинг).</p>
-
-    <p>Первый спринт — Эпик 1 (Управление доступом и сессиями). Проект готов к реализации.</p>
-
-    <hr>
-
-    <div class="footer">
-      <span class="tech">Создать БТ · v3.1 (final) · 08.07.2026 · BMAD full cycle: ✅ 9/9 workflows</span>
+    <!-- Footer -->
+    <div class="footer" style="text-align:center; padding-top:24px; border-top:1px solid var(--glass-border);">
+      <span class="tech">Создать БТ · v4 · 14.07.2026</span>
     </div>
 
   </div>
