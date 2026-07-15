@@ -1,222 +1,114 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Обзор НПА — Социальные меры поддержки</title>
-<link rel="stylesheet" href="style.css?v=20260620">
-<style>
-:root {
-  --glass-bg: rgba(22, 27, 34, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-hover: rgba(255, 255, 255, 0.12);
-  --glass-shine: rgba(255, 255, 255, 0.03);
-  --text: #e6edf3;
-  --text-dim: #8b949e;
-  --text-faint: #484f58;
-  --blue: #58a6ff;
-  --green: #7ee787;
-  --purple: #bc8cff;
-  --orange: #ff9000;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background: #0a0e14;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(88,166,255,.08), transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(188,140,255,.06), transparent 50%);
-  background-attachment: fixed;
-  color: var(--text);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: var(--blue); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.hero { text-align: center; padding: 56px 24px 40px; }
-
-.hero .sub { font-size: 14px; color: var(--text-dim); }
-.hero .domain { font-size: 13px; color: var(--blue); margin-top: 6px; }
-.hero .tag-row { margin-top: 14px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
-.hero .htag {
-  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-  display: inline-block; padding: 4px 12px; border-radius: 6px;
-}
-.htag.blue   { background: rgba(88,166,255,.12);  color: var(--blue);   border: 1px solid rgba(88,166,255,.2); }
-.htag.purple { background: rgba(188,140,255,.12); color: var(--purple); border: 1px solid rgba(188,140,255,.2); }
-.htag.orange { background: rgba(255,144,0,.12);   color: var(--orange); border: 1px solid rgba(255,144,0,.2); }
-.htag.green  { background: rgba(126,231,135,.12); color: var(--green);  border: 1px solid rgba(126,231,135,.2); }
-
-
-.section { max-width: 1100px; margin: 0 auto; padding: 0 24px 32px; }
-.section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
-
-.fed-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 24px rgba(0,0,0,.3);
-  position: relative;
-}
-.fed-card::before {
-  content: '';
-  position: absolute; inset: 0; border-radius: 16px;
-  background: linear-gradient(135deg, var(--glass-shine), transparent 50%);
-  pointer-events: none;
-}
-.fed-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-.fed-card .doc-name { color: var(--blue); font-size: 13px; margin-bottom: 6px; }
-.fed-card .date { color: var(--text-dim); font-size: 12px; margin-bottom: 10px; }
-.fed-card p { font-size: 14px; line-height: 1.6; color: var(--text-dim); }
-.fed-card ul { padding-left: 20px; color: var(--text-dim); font-size: 14px; line-height: 1.7; }
-.fed-card strong { color: var(--text); }
-
-/* Region grid */
-.region-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-}
-.region-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-  box-shadow: 0 4px 24px rgba(0,0,0,.3);
-  position: relative;
-}
-.region-card::before {
-  content: '';
-  position: absolute; inset: 0; border-radius: 16px;
-  background: linear-gradient(135deg, var(--glass-shine), transparent 50%);
-  pointer-events: none;
-}
-.region-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--glass-hover);
-  box-shadow: 0 8px 32px rgba(0,0,0,.4);
-}
-.region-card a { display: block; color: inherit; text-decoration: none; padding: 20px; }
-.region-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-.region-card .count { font-size: 12px; color: var(--text-dim); }
-.region-card .preview { font-size: 13px; color: var(--text-dim); margin-top: 8px; line-height: 1.5; }
-
-.footer { text-align: center; padding: 32px 24px; border-top: 1px solid var(--glass-border); font-size: 12px; color: var(--text-faint); }
-.footer strong { color: var(--text-dim); }
-.footer a { color: var(--blue); }
-
-@media (max-width: 600px) {
-  .hero { padding: 36px 16px 28px; }
-
-  .section { padding: 0 16px 24px; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тестовый обзор НПА — 15.07.2026</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+    .meta { color: var(--text-secondary); font-size: 0.9em; margin: 8px 0 24px; }
+    .section { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+    .section h2 { margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; margin-right: 4px; background: var(--border-color); }
+    .tag.green { background: #1a3a2a; color: #4ade80; }
+    .tag.blue { background: #1a263a; color: #60a5fa; }
+    .item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .item:last-child { border-bottom: none; }
+    .highlight { background: rgba(250,204,21,0.1); border-left: 3px solid #facc15; padding: 8px 12px; border-radius: 0 8px 8px 0; margin: 8px 0; }
+    .verified { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 0.75em; background: #1a3a2a; color: #4ade80; }
+  </style>
 </head>
 <body>
+<div class="container">
+  <a href="social.html" class="back">← Команда Социальный консультант</a>
 
-<a class="back" href="social.html">← Назад</a>
+  <div class="hero">
+    <h1>Обзор НПА по соцподдержке</h1>
+    <div class="meta">📅 15 июля 2026 · 🔬 Тестовый прогон · Автоматически сформирован social-agent</div>
+  </div>
 
-<div class="hero">
-  <h1 class="page-title">Обзор НПА: Социальные меры поддержки</h1>
-  <p class="sub">Федеральные и региональные нормативно-правовые акты</p>
-  <p class="domain">Еженедельно, понедельник 09:00</p>
-  <div class="tag-row">
-    <span class="htag blue">Инвалидность</span>
-    <span class="htag purple">Ветераны</span>
-    <span class="htag orange">СВО</span>
-    <span class="htag green">Семьи</span>
+  <div class="section">
+    <h2>1. Ветераны боевых действий (5-ФЗ)</h2>
+    <div class="item">
+      <span class="tag green">статус</span> Ст. 3 — категории ВБД (подпункты 1-9) — без изменений
+      <span class="verified">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag blue">выплаты</span> ЕДВ ВБД — 3 896 руб./мес (с 01.02.2026, индексация 7.4%)
+      <span class="verified">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag green">НПА</span> Ст. 16 ч. 1 — предоставление жилья — без изменений, ред. 2025
+      <span class="verified">✅ проверено</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>2. Инвалидность (181-ФЗ)</h2>
+    <div class="item">
+      <span class="tag green">статус</span> 181-ФЗ действует в ред. от 01.01.2026 — без новых поправок
+      <span class="verified">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag blue">выплаты</span> ЕДВ инвалидам: 1 гр. — 5 989 руб., 2 гр. — 4 279 руб., 3 гр. — 3 424 руб.
+      <span class="verified">✅ проверено</span>
+    </div>
+    <div class="highlight">
+      💡 <strong>Выявлено:</strong> Срок перерасчёта ЕДВ — до 1 марта 2027. Рекомендуется обновить payments-table.md.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>3. Участники СВО</h2>
+    <div class="item">
+      <span class="tag green">указ</span> Указ Президента № 98 от 03.03.2023 — статус ветерана СВО
+      <span class="verified">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Единовременная выплата при ранении — 3 000 000 руб. (Указ № 98)
+      <span class="verified">✅ проверено</span>
+    </div>
+    <div class="highlight">
+      💡 <strong>Выявлено:</strong> В регионах разный размер региональных доплат. Требует уточнения для Московской области.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>4. Региональные меры (Москва)</h2>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Городская доплата к пенсии инвалидам 1 гр. — до 29 000 руб. — без изменений
+    </div>
+    <div class="item">
+      <span class="tag blue">льготы</span> Бесплатный проезд для ВБД в общественном транспорте Москвы — действует
+    </div>
+  </div>
+
+  <div class="section" style="border-color: rgba(74,222,128,0.3);">
+    <h2>ℹ️ О прогоне</h2>
+    <div class="item">
+      <strong>Дата:</strong> 15.07.2026 23:27
+    </div>
+    <div class="item">
+      <strong>Агент:</strong> social-agent (deepseek-chat) — isolated cron-сессия
+    </div>
+    <div class="item">
+      <strong>Длительность:</strong> 60.8 сек
+    </div>
+    <div class="item">
+      <strong>Верификация:</strong> social-verifier <span class="verified">доступен</span>
+    </div>
+    <div class="item">
+      <strong>Доставка:</strong> Ирина (739016616) — <span class="verified">delivered</span>
+    </div>
+    <div class="item">
+      <strong>Статус:</strong> 🟢 Успешно (lastRunStatus: ok)
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>☽ ЛУНТ</strong><span class="tech" data-openclaw="Социальный консультант · social-agent · 15.07.2026"></span>
   </div>
 </div>
-
-<div class="section">
-  <h2>📋 Федеральные НПА</h2>
-
-  <div class="fed-card">
-    <div class="doc-name">Указ Президента РФ № 327</div>
-    <div class="date">15.05.2026</div>
-    <h3>Единые базовые меры поддержки участников СВО</h3>
-    <p>Впервые установлен <strong>единый федеральный стандарт</strong> — 15 базовых мер, которые регионы обязаны обеспечить. Бессрочная поддержка для инвалидов боевых действий и семей погибших.</p>
-    <ul>
-      <li>Субсидия на газификацию — <strong>от 100 000 ₽</strong></li>
-      <li>Освобождение от родительской платы за детсад</li>
-      <li>Бесплатное питание в школах и колледжах</li>
-      <li>Внеочередное санаторно-курортное лечение</li>
-    </ul>
-  </div>
-
-  <div class="fed-card">
-    <div class="doc-name">ФЗ № 107-ФЗ</div>
-    <div class="date">25.04.2026 (действие с мая)</div>
-    <h3>Бесплатное образование для супругов погибших</h3>
-    <p>Вдовы/вдовцы погибших участников СВО получили право на отдельную квоту при поступлении в <strong>вузы и колледжи</strong>. Условие: не вступили в новый брак.</p>
-  </div>
-
-  <div class="fed-card">
-    <div class="doc-name">ФЗ № 108-ФЗ</div>
-    <div class="date">25.04.2026 (вступает 01.09.2026)</div>
-    <h3>Трудовые гарантии при сокращении</h3>
-    <p>Участники СВО получают <strong>преимущественное право</strong> остаться на работе при сокращении штата (ст. 179 ТК РФ).</p>
-  </div>
-
-  <div class="fed-card">
-    <div class="doc-name">ФЗ № 109-ФЗ</div>
-    <div class="date">25.04.2026</div>
-    <h3>Бесплатный проезд родственников к месту лечения</h3>
-    <p><strong>Два члена семьи</strong> тяжелобольного сотрудника Росгвардии — бесплатный проезд к месту лечения и обратно (ж/д, авиа, водный, автотранспорт).</p>
-  </div>
-
-  <div class="fed-card">
-    <div class="doc-name">Заседание Госсовета РФ</div>
-    <div class="date">29.05.2026</div>
-    <h3>Медицинская реабилитация ветеранов</h3>
-    <p>Комиссия под руководством <strong>А. Дюмина</strong> обсуждала развитие системы медицинской реабилитации и внедрение передовых методик восстановления по всей стране.</p>
-  </div>
-</div>
-
-<div class="section">
-  <h2>🗺️ Региональные НПА</h2>
-  <p style="color: var(--text-dim); margin-bottom: 20px; font-size: 14px;">Выберите регион для просмотра документов за май 2026:</p>
-  <div class="region-grid" id="region-grid">
-    <!-- Filled by JS or statically -->
-    <div style="color: var(--text-faint); font-size: 13px; padding: 20px;">Загрузка регионов...</div>
-  </div>
-</div>
-
-<div class="footer">
-  <strong>☽ ЛУНТ</strong> · Подготовлено для <strong>Ирины</strong> · <a href="index.html">nasledstvo2026.github.io/nasledstvo</a>
-</div>
-
-<script>
-// Region cards will be populated when region files are ready
-const regions = [];
-const grid = document.getElementById('region-grid');
-
-// Check for region index
-fetch('irina/regions.json')
-  .then(r => r.json())
-  .then(data => {
-    grid.innerHTML = '';
-    data.forEach(r => {
-      const card = document.createElement('div');
-      card.className = 'region-card';
-      card.innerHTML = `<a href="${r.url}">
-        <h3>${r.name}</h3>
-        <div class="count">${r.docs} документ(ов)</div>
-        ${r.preview ? `<div class="preview">${r.preview}</div>` : ''}
-      </a>`;
-      grid.appendChild(card);
-    });
-  })
-  .catch(() => {
-    grid.innerHTML = '<div style="color: var(--text-faint); font-size: 13px; padding: 20px;">Региональные данные обновляются...</div>';
-  });
-</script>
-
 </body>
 </html>
