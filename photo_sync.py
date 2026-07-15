@@ -14,7 +14,7 @@ from datetime import datetime
 # --- Пути ---
 WORKSPACE = Path.home() / '.openclaw' / 'workspace'
 PHOTO_HTML = WORKSPACE / 'photo.html'
-PHOTO_DIR = WORKSPACE / 'photo_files'
+PHOTO_DIR = WORKSPACE / 'photos'
 STATE_FILE = WORKSPACE / 'photo-state.json'
 DROPBOX_PATH = '/photo'
 
@@ -75,7 +75,7 @@ def generate_photo_html(webp_files):
     cards = []
     for wf in sorted(webp_files):
         cards.append(f'''    <div class="photo-card">
-      <img src="photo_files/{wf}" alt="{Path(wf).stem}">
+      <img src="photos/{wf}" alt="{Path(wf).stem}">
     </div>''')
     return '\n'.join(cards)
 
