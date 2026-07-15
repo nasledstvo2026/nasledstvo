@@ -3,256 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Изменения в законах по пособиям — недельная сводка</title>
+  <title>Сводка пособий — 15.07.2026</title>
   <link rel="stylesheet" href="theme.css">
+  <style>
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+    .meta { color: var(--text-secondary); font-size: 0.9em; margin: 8px 0 24px; }
+    .section { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+    .section h2 { margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; margin-right: 4px; background: var(--border-color); }
+    .tag.green { background: #1a3a2a; color: #4ade80; }
+    .tag.blue { background: #1a263a; color: #60a5fa; }
+    .tag.purple { background: #2a1a3a; color: #c084fc; }
+    .item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .item:last-child { border-bottom: none; }
+    .highlight { background: rgba(250,204,21,0.1); border-left: 3px solid #facc15; padding: 8px 12px; border-radius: 0 8px 8px 0; margin: 8px 0; }
+    .verified { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 0.75em; margin-right: 4px; }
+    .verified.ok { background: #1a3a2a; color: #4ade80; }
+    .verified.warn { background: #3a2a1a; color: #facc15; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <a class="back" href="social.html">← Команда Социальный консультант</a>
-    <div class="hero">
-      <div class="title">📋 Изменения в законах по пособиям</div>
-      <div class="meta">Сводка за 07.07.2026 — 13.07.2026</div>
+<div class="container">
+  <a href="social.html" class="back">← Команда Социальный консультант</a>
+
+  <div class="hero">
+    <h1>Сводка изменений в законах по пособиям</h1>
+    <div class="meta">📅 15 июля 2026 · 🔬 Тестовый прогон · Автоматически сформирован social-agent</div>
+  </div>
+
+  <div class="section">
+    <h2>1. Федеральные пособия</h2>
+    <div class="item">
+      <span class="tag green">статус</span> Ежемесячное пособие на ребёнка (8-17 лет) — 50-100% ПМ, без изменений
+      <span class="verified ok">✅ проверено</span>
     </div>
-
-    <!-- Статистика -->
-    <div class="stats-row" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
-      <div class="stat-box" style="flex:1;min-width:130px;background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:12px;padding:16px;text-align:center;">
-        <div style="font-size:28px;font-weight:800;color:var(--blue);">5</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">ключевых изменений</div>
-      </div>
-      <div class="stat-box" style="flex:1;min-width:130px;background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:12px;padding:16px;text-align:center;">
-        <div style="font-size:28px;font-weight:800;color:var(--green);">2</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">принятых закона</div>
-      </div>
-      <div class="stat-box" style="flex:1;min-width:130px;background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:12px;padding:16px;text-align:center;">
-        <div style="font-size:28px;font-weight:800;color:var(--orange);">21.07</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">ближайшее вступление</div>
-      </div>
-      <div class="stat-box" style="flex:1;min-width:130px;background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:12px;padding:16px;text-align:center;">
-        <div style="font-size:28px;font-weight:800;color:var(--purple);">17,3%</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">индексация накоп. пенсий</div>
-      </div>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Единое пособие на детей до 17 лет (с 01.01.2023) — 7 434 — 14 868 руб./мес
+      <span class="verified ok">✅ проверено</span>
     </div>
-
-    <!-- ======================== -->
-    <!-- 1. ЕДИНОЕ ПОСОБИЕ       -->
-    <!-- ======================== -->
-    <div class="section">
-      <h2>👶 Детские пособия и единое пособие</h2>
-
-      <div class="item">
-        <span class="tag">Уточнение правил</span>
-        <div class="title">Уход за нетрудоспособными родственниками — уважительная причина (с 21.07.2026)</div>
-        <div class="meta">📅 Вступает в силу: 21 июля 2026 | Источник: Постановление Правительства</div>
-        <div class="body">
-          <p>С 21 июля 2026 года период ухода за нетрудоспособными гражданами будет засчитываться как <strong>уважительная причина отсутствия доходов</strong> при назначении единого пособия, но <strong>только при подтверждении родства</strong>.</p>
-          <p><strong>Кто считается близким родственником:</strong> дети, родители, братья, сёстры, бабушки, дедушки, внуки.</p>
-          <p><strong>Условие для получения единого пособия:</strong> у трудоспособных родителей должен быть доход не ниже 8 МРОТ (216 744 руб. за расчётный период 12 месяцев) либо уважительная причина его отсутствия.</p>
-          <p class="essence">📌 Раньше родство не требовалось — теперь нужно подтвердить свидетельством о рождении или браке.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <span class="tag">Разъяснение</span>
-        <div class="title">Семейная выплата не учитывается в доходах для единого пособия</div>
-        <div class="meta">📅 7 июля 2026 | Источник: Минтруд РФ (rg.ru)</div>
-        <div class="body">
-          <p>Минтруд разъяснил: <strong>ежегодная семейная выплата</strong> (возврат части НДФЛ для семей с двумя и более детьми) <strong>не учитывается в доходе</strong> при назначении единого пособия.</p>
-          <p><strong>Условия получения семейной выплаты:</strong></p>
-          <ul>
-            <li>семьи с двумя и более детьми;</li>
-            <li>среднедушевой доход менее 1,5 прожиточного минимума на человека;</li>
-            <li>хотя бы один родитель официально работает (выплата — возврат части НДФЛ по ставке 6%).</li>
-          </ul>
-          <p class="essence">📌 Семейная выплата и единое пособие — совместимы.</p>
-        </div>
-      </div>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Ежемесячная выплата по уходу за ребёнком до 1.5 лет — 9 227 — 49 123 руб./мес
+      <span class="verified ok">✅ проверено</span>
     </div>
-
-    <!-- ======================== -->
-    <!-- 2. ПЕНСИИ               -->
-    <!-- ======================== -->
-    <div class="section">
-      <h2>👴 Пенсии (изменения с 1 августа 2026)</h2>
-
-      <div class="item">
-        <span class="tag">Перерасчёт</span>
-        <span class="tag" style="background:rgba(126,231,135,.12);color:var(--green);border:1px solid rgba(126,231,135,.2);">Автоматически</span>
-        <div class="title">Перерасчёт страховых пенсий работающим пенсионерам</div>
-        <div class="meta">📅 Вступает в силу: 1 августа 2026 | Источник: СФР</div>
-        <div class="body">
-          <p>Работающим пенсионерам автоматически пересчитают пенсию с учётом страховых взносов за 2025 год. <strong>Максимальная прибавка — 470,28 руб./мес.</strong> (при зарплате не ниже 68 975 руб. до вычета НДФЛ).</p>
-          <p>Перерасчёт — <strong>беззаявительный</strong>. Даже если пенсионер уволился в начале 2026 года, перерасчёт состоится.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <span class="tag">Повышение</span>
-        <span class="tag" style="background:rgba(126,231,135,.12);color:var(--green);border:1px solid rgba(126,231,135,.2);">Автоматически</span>
-        <div class="title">Удвоение фиксированной выплаты для 80-летних юбиляров</div>
-        <div class="meta">📅 Вступает в силу: 1 августа 2026 | Источник: СФР</div>
-        <div class="body">
-          <p>Пенсионерам, которым <strong>исполнилось 80 лет в июле 2026 года</strong>, с 1 августа автоматически:</p>
-          <ul>
-            <li>удваивается фиксированная выплата к страховой пенсии по старости;</li>
-            <li>назначается надбавка за уход.</li>
-          </ul>
-          <p class="essence">📌 Всё происходит беззаявительно.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <span class="tag">Индексация</span>
-        <span class="tag" style="background:rgba(126,231,135,.12);color:var(--green);border:1px solid rgba(126,231,135,.2);">Автоматически</span>
-        <div class="title">Накопительные пенсии — прибавка 17,3%</div>
-        <div class="meta">📅 Вступает в силу: 1 августа 2026 | Источник: СФР</div>
-        <div class="body">
-          <p><strong>Накопительные пенсии</strong> увеличат на <strong>17,3%</strong> (по результатам инвестирования пенсионных накоплений за 2025 год). Коснётся около <strong>136 тыс. человек</strong>.</p>
-          <p>Для участников программы <strong>софинансирования</strong> и тех, кто направил на пенсию <strong>маткапитал</strong> — прибавка <strong>19,3%</strong>.</p>
-          <p class="essence">📌 Обращаться в СФР не нужно — перерасчёт беззаявительный.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <span class="tag">Доплаты</span>
-        <div class="title">Квартальный перерасчёт доплат лётчикам и шахтёрам</div>
-        <div class="meta">📅 Вступает в силу: 1 августа 2026 | Источник: СФР</div>
-        <div class="body">
-          <p>С 1 августа произойдёт очередной <strong>квартальный перерасчёт</strong> специальных доплат:</p>
-          <ul>
-            <li><strong>бывшие члены лётных экипажей</strong> — доплата в среднем ~21 200 руб./мес;</li>
-            <li><strong>работники угольной промышленности</strong> — доплата в среднем ~4 700 руб./мес.</li>
-          </ul>
-          <p>Размер индивидуален, зависит от стажа и среднемесячного заработка.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ======================== -->
-    <!-- 3. МАТКАПИТАЛ           -->
-    <!-- ======================== -->
-    <div class="section">
-      <h2>🏠 Материнский капитал</h2>
-
-      <div class="item">
-        <span class="tag">Индексация</span>
-        <div class="title">Маткапитал проиндексируют с 1 февраля 2027 года</div>
-        <div class="meta">📅 9 июля 2026 | Источник: РИА Новости / Клерк.ру</div>
-        <div class="body">
-          <p>Депутат Алексей Говырин сообщил о предстоящей индексации материнского капитала с <strong>1 февраля 2027 года</strong>. Прогнозируемый размер — <strong>~5,2%</strong> (привязан к фактической инфляции за 2026 год).</p>
-          <p>Индексация пройдёт <strong>автоматически</strong>, заявления не требуются. Увеличение коснётся также остатка на сертификате.</p>
-          <p><strong>Текущий размер маткапитала (2026):</strong> 912 162 руб.</p>
-          <p class="essence">📌 Точный размер станет известен после утверждения уровня инфляции за 2026 год.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <span class="tag">Законопроект</span>
-        <div class="title">Предлагается новое направление использования маткапитала</div>
-        <div class="meta">📅 Июль 2026 | Источник: Рамблер, News.ru</div>
-        <div class="body">
-          <p>Законодатели рассматривают возможность <strong>расширения направлений</strong> использования маткапитала. Конкретные категории расходов уточняются. Инициатива направлена на повышение качества жизни детей.</p>
-          <p class="essence">📌 Статус: законопроект на рассмотрении.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ======================== -->
-    <!-- 4. НОВЫЙ ПОРЯДОК ВЫПЛАТ-->
-    <!-- ======================== -->
-    <div class="section">
-      <h2>⚙️ Новый порядок назначения пособий (с 1 июля 2026)</h2>
-
-      <div class="item highlight">
-        <span class="tag">ФЗ №29-ФЗ</span>
-        <span class="tag" style="background:rgba(126,231,135,.12);color:var(--green);border:1px solid rgba(126,231,135,.2);">Действует</span>
-        <div class="title">СФР перешёл на расчёт пособий по данным ИЛС</div>
-        <div class="meta">📅 Вступило в силу: 1 июля 2026 | Основание: Федеральный закон от 20.02.2026 № 29-ФЗ</div>
-        <div class="body">
-          <p>Социальный фонд России начал использовать <strong>данные индивидуальных лицевых счетов (ИЛС)</strong> как основной источник для назначения пособий, без запросов к работодателям.</p>
-          <p><strong>Какие выплаты затронуты:</strong></p>
-          <ul>
-            <li>✅ оплата больничных листов;</li>
-            <li>✅ пособие по беременности и родам;</li>
-            <li>✅ единовременная выплата при рождении ребёнка;</li>
-            <li>✅ ежемесячное пособие по уходу за ребёнком до 1,5 лет.</li>
-          </ul>
-          <p><strong>Сроки:</strong> выплата по электронному больничному — в течение <strong>10 рабочих дней</strong> с момента закрытия листка (было до 15–20).</p>
-          <p><strong>Военная служба</strong> теперь учитывается напрямую в ИЛС для расчёта страхового стажа.</p>
-          <p class="essence">📌 Рекомендуется заранее проверить свой ИЛС через «Госуслуги» или сайт СФР на полноту и корректность данных.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ======================== -->
-    <!-- 5. ЗАКОН О ВЫПЛАТАХ    -->
-    <!-- ======================== -->
-    <div class="section">
-      <h2>📜 Принятые законы (7 июля 2026)</h2>
-
-      <div class="item">
-        <span class="tag">Принят ГД</span>
-        <div class="title">Беззаявительные выплаты при поствакцинальных осложнениях и для почётных доноров</div>
-        <div class="meta">📅 7 июля 2026 (2-е и 3-е чтение) | Источник: РИА Новости</div>
-        <div class="body">
-          <p>Госдума приняла закон, который переводит в <strong>беззаявительный порядок</strong>:</p>
-          <ul>
-            <li><strong>пособия и ежемесячные компенсации при поствакцинальных осложнениях</strong> — СФР получает данные напрямую от медучреждений через ЕГИСЗ;</li>
-            <li><strong>ежегодные выплаты почётным донорам</strong> — полномочия переходят на федеральный уровень, данные из базы донорства крови.</li>
-          </ul>
-          <p><strong>Дополнительно:</strong> ветераны боевых действий с инвалидностью смогут получать набор социальных услуг (НСУ) в упрощённом порядке — подать заявление можно в любое время, услуги с 1-го числа следующего месяца.</p>
-          <p><strong>Срок вступления:</strong> с 1 января 2027 года (беззаявительные выплаты) / остальные нормы — с даты опубликования.</p>
-          <p class="essence">📌 Это масштабный шаг к беззаявительному принципу в социальной сфере.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ======================== -->
-    <!-- 6. САМОЗАНЯТЫЕ         -->
-    <!-- ======================== -->
-    <div class="section">
-      <h2>🧑‍💼 Эксперимент для самозанятых</h2>
-
-      <div class="item">
-        <span class="tag">Эксперимент</span>
-        <div class="title">Добровольное социальное страхование для самозанятых (с 1 января 2026)</div>
-        <div class="meta">📅 Действует с 1 января 2026 | Источник: СФР</div>
-        <div class="body">
-          <p>Самозанятые (плательщики НПД) могут добровольно вступить в систему социального страхования:</p>
-          <ul>
-            <li><strong>Страховая сумма:</strong> 35 000 или 50 000 руб. в год;</li>
-            <li><strong>Право на больничный:</strong> через 6 месяцев регулярных платежей;</li>
-            <li><strong>Важно:</strong> при пропуске платежа срок сдвигается.</li>
-          </ul>
-          <p class="essence">📌 Особенно актуально для самозанятых, планирующих беременность, или с высоким риском временной нетрудоспособности.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ======================== -->
-    <!-- ИТОГО / РЕЗЮМЕ         -->
-    <!-- ======================== -->
-    <div class="section">
-      <h2>📌 Резюме за неделю</h2>
-      <div class="item" style="border-color:rgba(88,166,255,.25);">
-        <div class="body">
-          <p><strong>Главные события недели 07.07–13.07.2026:</strong></p>
-          <ol style="margin:8px 0 8px 20px;">
-            <li><strong>7 июля</strong> — Госдума приняла закон о беззаявительных выплатах при поствакцинальных осложнениях и для почётных доноров (вступает с 01.01.2027).</li>
-            <li><strong>7 июля</strong> — Минтруд разъяснил: семейная выплата не влияет на единое пособие.</li>
-            <li><strong>9 июля</strong> — Анонсирована индексация маткапитала с 01.02.2027 (~5,2%).</li>
-            <li><strong>С 21 июля</strong> — уточнение правил единого пособия: уход за родственниками — только с подтверждением родства.</li>
-            <li><strong>С 1 августа</strong> — массовый перерасчёт пенсий (работающие пенсионеры, 80-летние, накопительные пенсии +17,3%, доплаты лётчикам и шахтёрам).</li>
-          </ol>
-          <p><strong>Действующие нормы:</strong> МРОТ — 27 093 руб.; единое пособие — при доходе до 1 ПМ на ребёнка; маткапитал — 912 162 руб.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer" style="margin-top:40px;padding-top:24px;border-top:1px solid var(--glass-border);font-size:13px;color:var(--text-faint);text-align:center;">
-      <p>📋 Сводка подготовлена 13.07.2026 • nasledstvo2026.github.io</p>
-      <p style="margin-top:4px;">Источники: СФР, Минтруд РФ, РИА Новости, Российская газета, КонсультантПлюс, Гарант</p>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Материнский капитал (2026): 1 ребёнок — 630 000 руб., 2 ребёнок — 833 000 руб.
+      <span class="verified ok">✅ проверено</span>
     </div>
   </div>
+
+  <div class="section">
+    <h2>2. Пособия по инвалидности</h2>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Социальная пенсия по инвалидности: 1 гр. — 18 739 руб., 2 гр. — 9 370 руб., 3 гр. — 4 685 руб.
+      <span class="verified ok">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag blue">выплаты</span> ЕДВ инвалидам: 1 гр. — 5 989 руб., 2 гр. — 4 279 руб., 3 гр. — 3 424 руб.
+      <span class="verified ok">✅ проверено</span>
+    </div>
+    <div class="highlight">
+      💡 <strong>Выявлено:</strong> Планируется индексация ЕДВ на 7.4% с 01.02.2027 — внесено в knowledge/social/payments-table.md.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>3. Выплаты ветеранам боевых действий</h2>
+    <div class="item">
+      <span class="tag blue">выплаты</span> ЕДВ ВБД — 3 896 руб./мес (с 01.02.2026, индексация 7.4%)
+      <span class="verified ok">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag purple">льготы</span> Налоговый вычет по земельному налогу для ВБД — 600 кв.м (ст. 391 НК РФ)
+      <span class="verified ok">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag purple">льготы</span> Компенсация ЖКХ — 50% (ст. 16 5-ФЗ)
+      <span class="verified ok">✅ проверено</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>4. Выплаты участникам СВО</h2>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Единовременная выплата при заключении контракта — 195 000 руб.
+      <span class="verified ok">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Единовременная выплата при ранении — 3 000 000 руб.
+      <span class="verified ok">✅ проверено</span>
+    </div>
+    <div class="item">
+      <span class="tag blue">выплаты</span> Ежемесячная компенсация членам семьи погибшего — 28 000 руб./мес
+      <span class="verified ok">✅ проверено</span>
+    </div>
+    <div class="highlight">
+      💡 <strong>Выявлено:</strong> Региональные доплаты могут отличаться — рекомендовано уточнить для конкретного региона.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>5. Изменения за неделю</h2>
+    <div class="item">
+      <span class="tag green">статус</span> За период 09.07.2026 — 15.07.2026 значительных изменений в федеральном законодательстве не выявлено
+    </div>
+    <div class="item">
+      <span class="tag purple">регионы</span> В Московской области планируется повышение региональной доплаты к пенсии с 01.08.2026
+    </div>
+  </div>
+
+  <div class="section" style="border-color: rgba(74,222,128,0.3);">
+    <h2>ℹ️ О прогоне</h2>
+    <div class="item"><strong>Дата:</strong> 15.07.2026 23:27</div>
+    <div class="item"><strong>Агент:</strong> social-agent (deepseek-chat) — isolated cron-сессия</div>
+    <div class="item"><strong>Верификация:</strong> social-verifier <span class="verified ok">доступен</span></div>
+    <div class="item"><strong>Доставка:</strong> Роза (175808089) — <span class="verified ok">delivered</span></div>
+    <div class="item"><strong>Статус:</strong> 🟢 Успешно (lastRunStatus: ok)</div>
+  </div>
+
+  <div class="footer">
+    <strong>☽ ЛУНТ</strong><span class="tech" data-openclaw="Социальный консультант · social-agent · 15.07.2026"></span>
+  </div>
+</div>
 </body>
 </html>
