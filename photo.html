@@ -409,6 +409,14 @@ const STATUS_URL = BASE_URL + '/status';
 
 let syncing = false;
 
+function sendLog(action, data) {
+  fetch(BASE_URL + '/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: action, data: data || {}, ts: new Date().toISOString() })
+  }).catch(() => {});
+}
+
 function syncPhotos() {
   if (syncing) return;
   syncing = true;
@@ -423,6 +431,8 @@ function syncPhotos() {
   status.className = 'sync-status';
   details.textContent = '';
 
+  sendLog('sync_photos', { action: 'start' });
+
   // 1. Запускаем синхронизацию
   fetch(SYNC_URL, { method: 'GET', cache: 'no-store' })
     .then(r => {
@@ -434,6 +444,7 @@ function syncPhotos() {
       status.textContent = '❌ Ошибка подключения к серверу';
       status.className = 'sync-status error';
       details.textContent = 'Сервер синхронизации недоступен. Попробуй позже.';
+      sendLog('sync_photos', { action: 'fetch_error', error: err.message });
       finish();
     });
 }
@@ -453,15 +464,18 @@ function pollStatus(retries = 20) {
           if (n > 0) {
             status.textContent = '✅ Добавлено ' + n + ' фото!';
             details.textContent = 'Обнови страницу через минуту, чтобы увидеть новые фото.';
+            sendLog('sync_photos', { action: 'complete', new: n });
           } else {
             status.textContent = '✅ Новых фото нет';
             details.textContent = 'Все файлы актуальны.';
+            sendLog('sync_photos', { action: 'complete', new: 0 });
           }
           status.className = 'sync-status success';
         } else {
           status.textContent = '❌ Ошибка: ' + (r.error || 'неизвестная');
           status.className = 'sync-status error';
           details.textContent = 'Попробуй ещё раз позже.';
+          sendLog('sync_photos', { action: 'error', error: r.error });
         }
         finish();
         return;
