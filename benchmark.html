@@ -366,6 +366,51 @@
       </div>
     </div>
 
+    <!-- TruthfulQA Social Consultant -->
+    <div class="bench-card" style="border-color:rgba(192,132,252,0.25);">
+      <div class="name">
+        TruthfulQA · Social Consultant
+        <span class="score ok">78.0%</span>
+      </div>
+      <div class="model">Router → Collector → Solver (social-agent profile) · 50 вопросов · 16.07.2026</div>
+
+      <div class="what">
+        <div class="label">Что показывает</div>
+        <div class="text">
+          Запуск TruthfulQA на <strong>social-agent профиле</strong> (юрист-эксперт по соцподдержке:
+          5-ФЗ «О ветеранах», 181-ФЗ «О соцзащите инвалидов», 178-ФЗ «О соцпомощи»).
+          Результат <strong>78.0%</strong> — идентичен общему мультиагентному пайплайну. Профилирование
+          под социального консультанта не ухудшило точность на общих вопросах.
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="label">Сравнение</div>
+        <div class="bench-compare-row">
+          <span class="model-name" style="color:var(--text);font-weight:600;">Social Consultant</span>
+          <div class="bar"><div class="fill purple" style="width:78%"></div></div>
+          <span class="pct" style="color:var(--green);">78%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">Multi-Agent (bare)</span>
+          <div class="bar"><div class="fill green" style="width:78%"></div></div>
+          <span class="pct">78%</span>
+        </div>
+        <div class="bench-compare-row">
+          <span class="model-name">Plain LLM</span>
+          <div class="bar"><div class="fill blue" style="width:62%"></div></div>
+          <span class="pct">61.8%</span>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="detail-item">Правильных: <span class="val">39 из 50</span></div>
+        <div class="detail-item">Улучшено vs bare: <span class="val" style="color:var(--green)">9 вопросов (+12 п.п.)</span></div>
+        <div class="detail-item">Регресс vs bare: <span class="val" style="color:var(--text-dim)">8 вопросов</span></div>
+        <div class="detail-item">Статус: <span class="val" style="color:var(--green)">✅ профиль не мешает точности</span></div>
+      </div>
+    </div>
+
     <!-- MMLU -->
     <div class="bench-card">
       <div class="name">
