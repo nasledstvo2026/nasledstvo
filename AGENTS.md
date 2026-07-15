@@ -188,27 +188,93 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
    - Если Controller вернул .docx — прикрепить к ответу и завершить
    - Если Controller вернул ошибку — сообщить пользователю, предложить попробовать снова
 4. Таймаут всей сессии: 30 мин
+## 🤖 «Создать БТ» — Оркестрация BRD (v2, исправлено 15.07.2026)
 
-### Протокол проксирования Questioner (Лунт → Questioner)
-Поскольку Questioner не может напрямую читать чат, Лунт выступает прокси:
-1. Questioner → Controller → Лунт: вопрос пользователю
-2. Лунт: пересылает вопрос в Telegram-чат
-3. Пользователь → Лунт: ответ на вопрос
-4. Лунт: sessions_send(agentId="ba-controller", message=ответ) → Controller передаёт Questioner-у
-5. Повторять шаги 1-4, пока Questioner не завершит интервью
-6. После завершения интервью Controller запускает Compiler → Verifier → .docx
+### Триггер вызова
+- Сообщение Кирилла (346428630) содержит «Создать БТ»
+- Лунт распознаёт триггер, запускает пайплайн через Controller
+- Controller управляет: Questioner → Compiler → Verifier → .docx
 
-### Жизненный цикл (в Controller)
+### ЕДИНЫЙ ПРОТОКОЛ (строго, шаг за шагом)
+
+Когда Кирилл пишет «Создать БТ»:
+
+**ШАГ 1 — Старт**
+- Создать UUID: `auto-brd-<YYYYMMDD>-<HHMM>`
+- Записать в лог: `scripts/brd-log.sh start "<UUID>"`
+- Сформировать md_log:
 ```
-Controller → Questioner (интервью, через прокси Лунт)
-         → Compiler (RCA + Search)
-         → Verifier (3 проверки, итерации макс 2)
-         → .md → .docx → в чат
+# BRD Session: <UUID>
+## Meta
+- user: Кирилл (346428630)
+- chat: telegram:346428630
+- created: <timestamp>
+- status: created
+- iteration: 0
 ```
-         → Compiler (RCA + Search)
-         → Verifier (3 проверки, итерации макс 2)
-         → .md → .docx → в чат
+- Отправить Controller-у: `sessions_send(agentId="ba-controller", message=md_log)`
+- **Лунт ждёт ответ от Controller** (timeout 30 мин)
+
+**ШАГ 2 — Проксирование вопросов Questioner**
+Когда Controller присылает сообщение с вопросом от Questioner, Лунт распознаёт это по отсутствию маркеров завершения (`.docx`, `APPROVED`, `REVISION_NEEDED`).
+
+**Правило:** ВСЁ, что приходит от Controller и НЕ является:
+- `.docx` файлом
+- Словом `APPROVED` / `REVISION_NEEDED` / `Ошибка`
+- Явным служебным сообщением (`Сессия завершена`, `Принято`, `OK`)
+
+→ **ЭТО ВОПРОС ПОЛЬЗОВАТЕЛЮ.** Отправить его в Telegram-чат как есть.
+
+Протокол одного цикла вопрос-ответ:
 ```
+Questioner → Controller → Лунт (sessions_send answer)
+    ↓
+Лунт отсылает вопрос в Telegram-чат Кириллу
+    ↓
+Кирилл отвечает в Telegram
+    ↓
+Лунт НЕ обрабатывает ответ сам, а передаёт его:
+  sessions_send(agentId="ba-controller", message="[USER_RESPONSE] <UUID>\nОтвет: <текст ответа>")
+    ↓
+Controller передаёт ответ Questioner-у
+    ↓
+Questioner задаёт следующий вопрос (цикл повторяется с ШАГА 2)
+```
+
+**ШАГ 3 — Завершение интервью**
+- Questioner завершает опрос → Controller получает QuestionLog + Summary
+- Controller → Compiler → Verifier → .docx
+- Controller присылает Лунту сообщение с `.docx` и текстом «✅ БТ готов»
+- Лунт отправляет файл и текст в Telegram-чат
+- Лог: `scripts/brd-log.sh complete "<UUID> - файл отправлен"`
+
+**ШАГ 4 — Ошибки**
+- Если Controller не ответил 30 мин → «Ошибка, попробуйте снова»
+- Если Questioner молчит 5+ мин → «Интервью прервалось, напишите «Создать БТ» ещё раз»
+- Любая ошибка → лог: `scripts/brd-log.sh error "<текст ошибки>"`
+
+### Пример проксирования (конкретный алгоритм для Лунта)
+
+```
+1. Получаю от Controller: "Вопрос 1: Что конкретно происходит?"
+2. Это не .docx, не APPROVED, не служебное → ЭТО ВОПРОС
+3. Отправляю в Telegram: "Вопрос 1: Что конкретно происходит?"
+4. Кирилл отвечает: "Я бизнес-аналитик..."
+5. Пересылаю Controller-у:
+   sessions_send(agentId="ba-controller", message="[USER_RESPONSE] auto-brd-20260715-0926\nОтвет: Я бизнес-аналитик...")
+6. Controller отвечает следующим вопросом → возвращаюсь к шагу 2
+7. Когда Controller отвечает с .docx → отправляю Кириллу "✅ БТ готов"
+```
+
+### 🚫 Запреты
+- НЕ отвечать на вопрос Questioner самому (Лунт — не пользователь)
+- НЕ обрабатывать ответ Кирилла как свой запрос — только проксировать
+- НЕ ждать больше 30 мин — abort
+- НЕ отправлять служебные сообщения Controller/Questioner/Compiler/Verifier в Telegram (сообщения с `Принято`, `OK`, `Agent-to-agent` и т.п.)
+
+### Диагностика
+- Лог сессии: `memory/brd-logs/brd-<YYYY-MM>.log`
+- При ошибке: `cat memory/brd-logs/brd-$(date '+%Y-%m').log | tail -10`
 
 ## Tools
 

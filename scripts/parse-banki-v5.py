@@ -13,9 +13,9 @@ from datetime import datetime, timedelta
 from html import unescape
 
 SHARED = '/home/user1/.openclaw/agents/shared'
-RAW_FILE = os.path.join(SHARED, 'katya-raw.json')
+RAW_FILE = os.path.join(SHARED, 'katya-banki-raw.json')
 DATA_FILE = os.path.join(SHARED, 'katya-data.json')
-STATS_FILE = os.path.join(SHARED, 'katya-stats-data.md')
+STATS_FILE = os.path.join(SHARED, 'katya-stats-banki.md')
 
 # Строгие ключевые слова — ТОЛЬКО наследство
 INCLUDE = {
