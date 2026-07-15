@@ -345,6 +345,7 @@
     <span class="icon">⟳</span>&nbsp; Обновить
   </button>
   <div class="sync-status" id="syncStatus"></div>
+  <div class="sync-details" id="syncDetails"></div>
 
   <div class="photo-grid">
     <div class="photo-card">
@@ -398,9 +399,10 @@
 </div>
 
 <script>
-// Photo Sync Button
-// HTTPS через Tailscale Funnel
-const SYNC_URL = 'https://vm-f13581.tail31d188.ts.net/sync';
+// Photo Sync — через Cloudflare Tunnel (HTTPS)
+const BASE_URL = 'https://sox-digital-initially-finals.trycloudflare.com';
+const SYNC_URL = BASE_URL + '/sync';
+const STATUS_URL = BASE_URL + '/status';
 
 let syncing = false;
 
@@ -410,68 +412,87 @@ function syncPhotos() {
 
   const btn = document.getElementById('syncBtn');
   const status = document.getElementById('syncStatus');
+  const details = document.getElementById('syncDetails');
 
   btn.disabled = true;
   btn.classList.add('spinning');
-  status.textContent = 'Синхронизирую...';
+  status.textContent = '⟳ Синхронизирую...';
   status.className = 'sync-status';
+  details.textContent = '';
 
-  // Открываем в новом окне (HTTPS, без mixed-content проблем)
-  const win = window.open(SYNC_URL, 'photoSync', 'width=520,height=480,menubar=no,toolbar=no,location=no');
+  // 1. Запускаем синхронизацию
+  fetch(SYNC_URL, { method: 'GET', cache: 'no-store' })
+    .then(r => {
+      status.textContent = '⏳ Загружаю новые фото...';
+      // 2. Начинаем опрос статуса
+      return pollStatus();
+    })
+    .catch(err => {
+      status.textContent = '❌ Ошибка подключения к серверу';
+      status.className = 'sync-status error';
+      details.textContent = 'Сервер синхронизации недоступен. Попробуй позже.';
+      finish();
+    });
+}
 
-  if (!win) {
-    status.textContent = '☝️ Разреши всплывающие окна для этого сайта';
-    status.className = 'sync-status error';
-    syncing = false;
-    btn.disabled = false;
-    btn.classList.remove('spinning');
-    return;
-  }
+function pollStatus(retries = 20) {
+  return fetch(STATUS_URL, { cache: 'no-store' })
+    .then(r => r.json())
+    .then(data => {
+      const btn = document.getElementById('syncBtn');
+      const status = document.getElementById('syncStatus');
+      const details = document.getElementById('syncDetails');
 
-  // Раз в 3 секунды проверяем статус (если окно не закрылось)
-  const pollTimer = setInterval(async () => {
-    try {
-      if (win.closed) {
-        clearInterval(pollTimer);
-        status.textContent = '✅ Готово! Обнови страницу';
-        status.className = 'sync-status success';
-        syncing = false;
-        btn.disabled = false;
-        btn.classList.remove('spinning');
+      if (!data.running && data.last_result) {
+        const r = data.last_result;
+        const n = r.new || 0;
+        if (r.success) {
+          if (n > 0) {
+            status.textContent = '✅ Добавлено ' + n + ' фото!';
+            details.textContent = 'Обнови страницу через минуту, чтобы увидеть новые фото.';
+          } else {
+            status.textContent = '✅ Новых фото нет';
+            details.textContent = 'Все файлы актуальны.';
+          }
+          status.className = 'sync-status success';
+        } else {
+          status.textContent = '❌ Ошибка: ' + (r.error || 'неизвестная');
+          status.className = 'sync-status error';
+          details.textContent = 'Попробуй ещё раз позже.';
+        }
+        finish();
         return;
       }
-      // Пробуем дёрнуть статус напрямую
-      const resp = await fetch(SYNC_URL.replace('/sync', '/status'));
-      const data = await resp.json();
-      if (!data.running) {
-        clearInterval(pollTimer);
-        const n = data.last_result?.new || 0;
-        if (n > 0) {
-          status.textContent = '✅ Добавлено ' + n + ' фото. Обнови страницу';
-        } else {
-          status.textContent = '✅ Новых фото нет';
-        }
-        status.className = 'sync-status success';
-        syncing = false;
-        btn.disabled = false;
-        btn.classList.remove('spinning');
-      }
-    } catch(e) {
-      // Игнорируем ошибки при опросе
-    }
-  }, 3000);
 
-  // Таймаут опроса — 30 секунд
-  setTimeout(() => {
-    clearInterval(pollTimer);
-    if (syncing) {
-      status.textContent = '✅ Задача запущена. Проверь окно синхронизации';
-      status.className = 'sync-status success';
-      syncing = false;
-      btn.disabled = false;
-      btn.classList.remove('spinning');
-    }
-  }, 35000);
+      if (retries > 0) {
+        status.textContent = '⏳ Ожидание... (' + (21 - retries) + '/' + 20 + ')';
+        return new Promise(resolve => setTimeout(resolve, 2000))
+          .then(() => pollStatus(retries - 1));
+      }
+
+      // Таймаут
+      status.textContent = '⏱ Время вышло';
+      status.className = 'sync-status';
+      details.textContent = 'Синхронизация всё ещё выполняется. Обнови страницу через пару минут.';
+      finish();
+    })
+    .catch(err => {
+      if (retries > 0) {
+        return new Promise(resolve => setTimeout(resolve, 2000))
+          .then(() => pollStatus(retries - 1));
+      }
+      const status = document.getElementById('syncStatus');
+      status.textContent = '❌ Ошибка при проверке статуса';
+      status.className = 'sync-status error';
+      finish();
+    });
+}
+
+function finish() {
+  const btn = document.getElementById('syncBtn');
+  btn.disabled = false;
+  btn.classList.remove('spinning');
+  syncing = false;
 }
 </script>
 
