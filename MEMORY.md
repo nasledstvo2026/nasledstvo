@@ -714,3 +714,30 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - Binding: peer 311760717 → katrin-agent (добавлен 02.07.2026)
 - agentToAgent: enabled=true (в config с 28.06.2026)
 - Все сообщения Катрин теперь идут в katrin-agent (не main)
+
+### 16.07.2026 — Социальный консультант: полная настройка + обновление OpenClaw
+
+#### Проблема и исправление
+- **Проблема:** social-agent использовал glm-5.1 (z.ai), который выдавал 429 (пакет истёк). Роза получила ошибку.
+- **Фикс:** прописана модель `deepseek/deepseek-chat` в конфиге openclaw.json для social-agent. Gateway перезагружен.
+
+#### Жёсткая верификация
+- AGENTS.md social-agent переписан: перед любым ответом — ОБЯЗАТЕЛЬНО отправить факты в social-verifier через sessions_send
+- **agentId="social-verifier"** (а не sessionKey) — поправлено после того как social-agent не нашёл сессию
+- Без вердикта — ответ не выдавать. Исключение: verifier недоступен → «⚠️ без аудита»
+- AGENTS.md закоммичен в репозиторий: `knowledge/social-agent-AGENTS.md`
+
+#### Новые скиллы (через Skill Workshop, все Applied)
+- **social-category-matcher** — категоризация вопросов (инвалидность/ВБД/СВО), маппинг на выплаты и НПА
+- **inheritance-bank-complaint-analyst** — полный цикл анализа жалоб по наследству в банках РФ
+- **katrin-tender-expert** — обновлён (классификация запросов, жёсткая верификация через auditor-agent)
+
+#### OpenClaw 2026.7.2-beta.1
+- Версия: 2026.7.1 (2d2ddc4) → 2026.7.2-beta.1 (a911e58)
+- Исправлен симлинк: /usr/bin/openclaw → /home/user1/.npm-global/bin/openclaw
+- Плагины: clickclack (2026.7.2-beta.1) ✅, zai (2026.7.2-beta.1) ✅, deepseek (2026.7.1) ⚠️ (стабильная, работает)
+- Memory index отключён (нет OpenAI API ключа для эмбеддингов — не влияет на работу)
+- Gateway стабилен, конфиг валиден
+
+#### Технический долг
+- Memory search выдаёт `index metadata is missing` — без OpenAI ключа не работает. Если нужен — понадобится OpenAI API ключ.
