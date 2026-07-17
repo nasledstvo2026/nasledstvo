@@ -207,10 +207,12 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - Git add + commit + push (только tracks.json, mp3 в .gitignore)
 - **ВАЖНО:** tracks.json на VPS и на GitHub синхронизировать (на GitHub — для aidj-player.html)
 
-### Модели LLM
-- **deepseek/deepseek-v4-flash** — primary модель (чат в Telegram + новые сессии) с 19.06.2026
-- **deepseek/deepseek-chat** — fallback для чата + ВСЕ cron-задачи (дёшево, изолированно)
-- GLM-5.1 убрана из primary по указанию Кирилла (19.06.2026)
+### Модели LLM (обновлено 17.07.2026)
+- **deepseek/deepseek-v4-pro** — primary: чат Telegram + новые сессии + german-agent + social-agent + social-verifier + katrin-agent + auditor-agent
+- **deepseek/deepseek-v4-flash** — cron-задачи: Катя (осн./резерв), статистика жалоб
+- **deepseek/deepseek-chat** — cron-задачи: Лена, Данил, Катрин (LegalMCP), бэкап, tasks, AI DJ
+- **social-agent и social-verifier переведены с chat на pro (17.07.2026)**
+- deepseek-v4-pro — дороже ($2/$8 за млн), но качество анализа принципиально выше
 
 ### Дизайн сайта
 - `theme.css` — glass-morphism dark theme (#0a0e14 фон, #161b22 карточки, #21262d бордеры), DESKTOP-FIRST
@@ -273,8 +275,8 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 | 6 | 📊 Данил: вклады 1991 (чт) | четверг 10:00 | deepseek-chat | Данил |
 | 7 | 💾 Бэкап полный (git push) | воскресенье 03:00 | deepseek-chat | Кирилл |
 | 8 | 📋 Катрин: 44-ФЗ/224-ФЗ (LegalMCP) | пн/ср/пт 09:30 | deepseek-chat | Катрин |
-|  | 📋 Роза: пособия | понедельник 09:03 | deepseek-chat | Роза |
-|  | 📋 Ирина: НПА | понедельник 09:06 | deepseek-chat | Ирина |
+|  | 📋 Роза: пособия | понедельник 08:00 (isolated) | deepseek-chat | Роза |
+|  | 📋 Ирина: НПА | понедельник 08:15 (isolated) | deepseek-chat | Ирина |
   | 🔘 Отчёт по токенам (bash) | ежедневно 03:30 | — | tokens.html (локально) |
   | 🔄 Обновление tasks.html (Health Index) | каждые 3 часа | deepseek-chat 120s | tasks.html (авто: last_run из Gateway + Health Index) |
   | 🤖 AI DJ мониторинг туннеля | каждые 3 часа | deepseek-chat 60s | — (проверка, что туннель жив) |
@@ -718,8 +720,7 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 ### 16.07.2026 — Социальный консультант: полная настройка + обновление OpenClaw
 
 #### Проблема и исправление
-- **Проблема:** social-agent использовал glm-5.1 (z.ai), который выдавал 429 (пакет истёк). Роза получила ошибку.
-- **Фикс:** прописана модель `deepseek/deepseek-chat` в конфиге openclaw.json для social-agent. Gateway перезагружен.
+- **social-agent + social-verifier переведены на pro** (17.07.2026), работают в связке
 
 #### Жёсткая верификация
 - AGENTS.md social-agent переписан: перед любым ответом — ОБЯЗАТЕЛЬНО отправить факты в social-verifier через sessions_send
