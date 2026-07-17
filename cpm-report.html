@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPM-анализ: ИТ-разработка</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .critical { color: #ff6b6b; font-weight: bold; }
+    .warning { color: #ffd93d; }
+    .safe { color: #6bff6b; }
+    .anomaly-critical { border-left: 4px solid #ff4757; padding-left: 12px; }
+    .anomaly-high { border-left: 4px solid #ffd93d; padding-left: 12px; }
+    .anomaly-medium { border-left: 4px solid #ffa502; padding-left: 12px; }
+    .anomaly-low { border-left: 4px solid #5352ed; padding-left: 12px; }
+    .gantt-bar { height: 20px; border-radius: 4px; margin: 2px 0; position: relative; }
+    .gantt-critical { background: linear-gradient(90deg, #ff4757, #ff6b81); }
+    .gantt-normal { background: linear-gradient(90deg, #5352ed, #7c6ff7); }
+    .gantt-done { background: linear-gradient(90deg, #2ed573, #7bed9f); }
+    .gantt-labels { display: flex; font-size: 13px; color: #aaa; margin-bottom: 16px; justify-content: space-between; }
+    .gantt-row { display: flex; align-items: center; margin: 4px 0; }
+    .gantt-name { width: 220px; font-size: 13px; color: #ccc; flex-shrink: 0; }
+    .gantt-track { flex: 1; position: relative; height: 24px; background: rgba(255,255,255,0.03); border-radius: 4px; }
+    .gantt-item { position: absolute; height: 18px; top: 3px; border-radius: 3px; font-size: 10px; color: #fff; display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; }
+    .progress-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.1); margin-top: 4px; }
+    .progress-fill { height: 100%; border-radius: 3px; }
+    .metric-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 16px; text-align: center; }
+    .metric-value { font-size: 28px; font-weight: 700; }
+    .metric-label { font-size: 12px; color: #888; margin-top: 4px; }
+    .slack-0 { color: #ff4757; font-weight: 700; }
+    .link-type { display: inline-block; background: rgba(83,82,237,0.3); padding: 1px 6px; border-radius: 3px; font-size: 11px; margin: 0 2px; }
+    .delta-plus { color: #ff6b6b; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th { background: rgba(255,255,255,0.05); padding: 10px 12px; text-align: left; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 10px 12px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 13px; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .path-arrow { color: #ff6b6b; margin: 0 8px; }
+    .section { margin-bottom: 32px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .badge-red { background: rgba(255,71,87,0.2); color: #ff4757; }
+    .badge-yellow { background: rgba(255,217,61,0.2); color: #ffd93d; }
+    .badge-green { background: rgba(46,213,115,0.2); color: #2ed573; }
+    .badge-blue { background: rgba(83,82,237,0.2); color: #5352ed; }
+    .forecast-box { background: linear-gradient(135deg, rgba(255,71,87,0.1), rgba(255,107,107,0.05)); border: 1px solid rgba(255,71,87,0.3); border-radius: 8px; padding: 20px; text-align: center; }
+    .forecast-label { font-size: 13px; color: #888; margin-bottom: 8px; }
+    .forecast-dates { display: flex; justify-content: center; gap: 40px; align-items: center; margin: 12px 0; }
+    .forecast-plan { font-size: 24px; font-weight: 700; color: #2ed573; }
+    .forecast-actual { font-size: 28px; font-weight: 700; color: #ff4757; }
+    .forecast-delta { font-size: 16px; color: #ff6b6b; }
+    .network-diagram { font-family: 'Courier New', monospace; background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; line-height: 1.8; font-size: 13px; white-space: pre; overflow-x: auto; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <a href="index.html" class="back">← На главную</a>
+
+  <div class="hero">
+    <h1>📅 CPM-анализ проекта</h1>
+    <p>ИТ-разработка · 8 задач · статус-дата 17 июля 2026</p>
+    <div class="tag">Герман</div>
+    <div class="tag">schedule_control_and_risks</div>
+  </div>
+
+  <!-- Ключевые метрики -->
+  <div style="display:grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 24px 0;">
+    <div class="metric-card">
+      <div class="metric-value safe">39 WD</div>
+      <div class="metric-label">Плановая длительность</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value critical">26.08.2026</div>
+      <div class="metric-label">Прогноз финиша</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value warning">+2 WD</div>
+      <div class="metric-label">Отклонение</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">75%</div>
+      <div class="metric-label">Задач на крит. пути</div>
+    </div>
+  </div>
+
+  <!-- Прогноз финиша -->
+  <div class="section">
+    <div class="forecast-box">
+      <div class="forecast-label">ПРОГНОЗ ЗАВЕРШЕНИЯ ПРОЕКТА</div>
+      <div class="forecast-dates">
+        <div>
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">Базовый план</div>
+          <div class="forecast-plan">24.08.2026</div>
+        </div>
+        <div style="font-size:24px;color:#888;">→</div>
+        <div>
+          <div style="font-size:12px;color:#ff6b6b;margin-bottom:4px;">Прогноз (с учётом отставания)</div>
+          <div class="forecast-actual">26.08.2026</div>
+          <div class="forecast-delta">+2 рабочих дня</div>
+        </div>
+      </div>
+      <div style="font-size:13px;color:#aaa;">Причина: задача T2 «Сбор ИТ-требований» — 60% вместо 80%</div>
+    </div>
+  </div>
+
+  <!-- Сетевая модель -->
+  <div class="section">
+    <h2>1. Сетевая модель (прямой проход CPM)</h2>
+    <div class="network-diagram">
+T1 [WD1–WD5]     Инициация и устав                    5d  01.07–07.07
+  ↓ FS+0
+T2 [WD6–WD15]    Сбор ИТ-требований и Аналитика      10d  08.07–21.07
+  ↓ FS+0          ↘ FS+2
+T3 [WD16–WD20]     T8 [WD18–WD21]  Подготовка докум.  4d  24.07–29.07
+  ├ FS+0
+T4 [WD21–WD32]   Backend-модули                       12d  29.07–13.08
+  ↓ FS+0
+T6 [WD33–WD37]   Интеграционное тестирование (QA)      5d  14.08–20.08
+  ↓ FS+0
+T7 [WD38–WD39]   Приёмо-сдаточные испытания (UAT)      2d  21.08–24.08
+
+T5 [WD21–WD30]   Frontend-интерфейс                   10d  29.07–11.08  ← от T3, без последователей ⚠
+    </div>
+  </div>
+
+  <!-- Диаграмма Ганта (текстовая) -->
+  <div class="section">
+    <h2>2. Диаграмма Ганта</h2>
+    <div style="font-size:13px; color:#aaa; margin-bottom: 12px;">
+      <span style="color:#2ed573;">■</span> Завершено &nbsp;
+      <span style="color:#ff4757;">■</span> Критический путь &nbsp;
+      <span style="color:#5352ed;">■</span> Резерв &nbsp;
+      <span style="color:#888;">▬</span> Плановый срок
+    </div>
+    <div class="gantt-labels">
+      <span>Июль</span><span></span><span></span><span></span><span>Август</span>
+    </div>
+
+    <div class="gantt-row">
+      <div class="gantt-name">1. Инициация и устав</div>
+      <div class="gantt-track">
+        <div class="gantt-item gantt-done" style="left:0%;width:13%;">5d ✅</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-name">2. ИТ-требования 🔴</div>
+      <div class="gantt-track">
+        <div class="gantt-item gantt-done" style="left:15%;width:16%;">60%</div>
+        <div class="gantt-item gantt-critical" style="left:31%;width:10%;opacity:0.4;">+2d</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-name">3. Архитектура БД 🔴</div>
+      <div class="gantt-track">
+        <div class="gantt-item gantt-critical" style="left:41%;width:13%;">5d</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-name">4. Backend 🔴</div>
+      <div class="gantt-track">
+        <div class="gantt-item gantt-critical" style="left:54%;width:31%;">12d</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-name">5. Frontend 🟢</div>
+      <div class="gantt-track">
+        <div class="gantt-item gantt-normal" style="left:54%;width:26%;">10d · slack 9</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-name">6. QA-тестирование 🔴</div>
+      <div class="gantt-track">
+        <div class="gantt-item gantt-critical" style="left:85%;width:13%;">5d</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-name">7. UAT 🔴</div>
+      <div class="gantt-track">
+        <div class="gantt-item gantt-critical" style="left:97%;width:6%;">2d</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-name">8. Документация 🟢</div>
+      <div class="gantt-track">
+        <div class="gantt-item gantt-normal" style="left:46%;width:10%;">4d · slack 18</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Резервы времени -->
+  <div class="section">
+    <h2>3. Резервы времени (CPM — прямой/обратный проход)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Задача</th>
+          <th>Длит.</th>
+          <th>ES</th>
+          <th>EF</th>
+          <th>LS</th>
+          <th>LF</th>
+          <th>Total Slack</th>
+          <th>Free Slack</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td><td>Инициация и устав</td><td>5d</td>
+          <td>01.07</td><td>07.07</td><td>01.07</td><td>07.07</td>
+          <td class="slack-0">0</td><td>0</td>
+          <td><span class="badge badge-red">КРИТ</span></td>
+        </tr>
+        <tr>
+          <td>2</td><td>Сбор ИТ-требований</td><td>10d</td>
+          <td>08.07</td><td>21.07</td><td>08.07</td><td>21.07</td>
+          <td class="slack-0">0</td><td>0</td>
+          <td><span class="badge badge-red">КРИТ</span></td>
+        </tr>
+        <tr>
+          <td>3</td><td>Архитектура БД</td><td>5d</td>
+          <td>22.07</td><td>28.07</td><td>22.07</td><td>28.07</td>
+          <td class="slack-0">0</td><td>0</td>
+          <td><span class="badge badge-red">КРИТ</span></td>
+        </tr>
+        <tr>
+          <td>4</td><td>Backend-модули</td><td>12d</td>
+          <td>29.07</td><td>13.08</td><td>29.07</td><td>13.08</td>
+          <td class="slack-0">0</td><td>0</td>
+          <td><span class="badge badge-red">КРИТ</span></td>
+        </tr>
+        <tr style="background:rgba(83,82,237,0.05);">
+          <td>5</td><td>Frontend-интерфейс</td><td>10d</td>
+          <td>29.07</td><td>11.08</td><td>11.08</td><td>24.08</td>
+          <td class="safe">9</td><td>9</td>
+          <td><span class="badge badge-green">РЕЗЕРВ</span></td>
+        </tr>
+        <tr>
+          <td>6</td><td>QA-тестирование</td><td>5d</td>
+          <td>14.08</td><td>20.08</td><td>14.08</td><td>20.08</td>
+          <td class="slack-0">0</td><td>0</td>
+          <td><span class="badge badge-red">КРИТ</span></td>
+        </tr>
+        <tr>
+          <td>7</td><td>UAT</td><td>2d</td>
+          <td>21.08</td><td>24.08</td><td>21.08</td><td>24.08</td>
+          <td class="slack-0">0</td><td>0</td>
+          <td><span class="badge badge-red">КРИТ</span></td>
+        </tr>
+        <tr style="background:rgba(83,82,237,0.05);">
+          <td>8</td><td>Документация</td><td>4d</td>
+          <td>24.07</td><td>29.07</td><td>12.08</td><td>24.08</td>
+          <td class="safe">18</td><td>18</td>
+          <td><span class="badge badge-green">РЕЗЕРВ</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Критический путь -->
+  <div class="section">
+    <h2>4. Критический путь (TS = 0)</h2>
+    <div style="background: rgba(255,71,87,0.08); border: 1px solid rgba(255,71,87,0.2); border-radius: 8px; padding: 20px; text-align: center; font-size: 18px;">
+      <span style="color:#ff6b6b;">T1</span><span class="path-arrow">→</span>
+      <span style="color:#ff6b6b;">T2</span><span class="path-arrow">→</span>
+      <span style="color:#ff6b6b;">T3</span><span class="path-arrow">→</span>
+      <span style="color:#ff6b6b;">T4</span><span class="path-arrow">→</span>
+      <span style="color:#ff6b6b;">T6</span><span class="path-arrow">→</span>
+      <span style="color:#ff6b6b;">T7</span>
+    </div>
+    <p style="font-size:13px;color:#888;margin-top:8px;">
+      Длина: <strong>39 рабочих дней</strong> (01.07–24.08).<br>
+      Задержка любого звена критического пути на <em>Δ</em> дней = сдвиг финиша на <em>Δ</em> дней.
+    </p>
+  </div>
+
+  <!-- Сравнение с Baseline -->
+  <div class="section">
+    <h2>5. Отклонения от Baseline</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Задача</th><th>BL Finish</th><th>Прогноз</th><th>ΔFinish</th><th>Статус</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Инициация и устав</td><td>07.07</td><td>07.07</td><td>0</td><td>✅ Завершено</td></tr>
+        <tr style="background:rgba(255,107,107,0.08);"><td>2</td><td>ИТ-требования</td><td>21.07</td><td><span class="critical">23.07</span></td><td class="delta-plus">+2 WD</td><td>⚠ Отстаёт</td></tr>
+        <tr style="background:rgba(255,107,107,0.05);"><td>3</td><td>Архитектура БД</td><td>28.07</td><td><span class="critical">30.07</span></td><td class="delta-plus">+2 WD</td><td>⚠ Под угрозой</td></tr>
+        <tr style="background:rgba(255,107,107,0.05);"><td>4</td><td>Backend</td><td>13.08</td><td><span class="critical">17.08</span></td><td class="delta-plus">+2 WD</td><td>⚠ Под угрозой</td></tr>
+        <tr><td>5</td><td>Frontend</td><td>11.08</td><td>11.08</td><td>0</td><td>🟢 В резерве</td></tr>
+        <tr style="background:rgba(255,107,107,0.05);"><td>6</td><td>QA</td><td>20.08</td><td><span class="critical">24.08</span></td><td class="delta-plus">+2 WD</td><td>⚠ Под угрозой</td></tr>
+        <tr style="background:rgba(255,71,87,0.1);"><td>7</td><td>UAT</td><td><strong>24.08</strong></td><td><span class="critical" style="font-size:16px;">26.08</span></td><td class="delta-plus" style="font-size:16px;font-weight:700;">+2 WD</td><td>🔴 Срыв срока</td></tr>
+        <tr><td>8</td><td>Документация</td><td>29.07</td><td>29.07</td><td>0</td><td>🟢 В резерве</td></tr>
+      </tbody>
+    </table>
+
+    <div style="font-size:13px;color:#aaa;margin-top:12px;">
+      <strong>Формула:</strong> ΔFinish = Finish<sub>текущий</sub> − BL_Finish<br>
+      <strong>Каскадный сдвиг:</strong> отставание T2 (+2 WD) передаётся по цепочке критического пути на все последующие задачи.
+    </div>
+  </div>
+
+  <!-- Аномалии -->
+  <div class="section">
+    <h2>6. Аномалии в данных</h2>
+    <div class="anomaly-critical" style="margin-bottom:12px;">
+      <strong>🔴 Критическая — T8: противоречие дат</strong><br>
+      <span style="color:#aaa;">ActualStart = 24.07.2026, но StatusDate = 17.07.2026 и %Complete = 50%.<br>
+      Задача не может стартовать в будущем и одновременно быть выполненной наполовину. Либо StatusDate неактуальна, либо %Complete завышен.</span>
+    </div>
+    <div class="anomaly-high" style="margin-bottom:12px;">
+      <strong>🟡 Высокая — T2: отставание на критическом пути</strong><br>
+      <span style="color:#aaa;">60% вместо плановых 80% на статус-дату. 8 WD прошло (08.07–17.07), выполнено 6 из 10.<br>
+      Отставание = 2 WD. Первопричина сдвига всего критического пути.</span>
+    </div>
+    <div class="anomaly-medium" style="margin-bottom:12px;">
+      <strong>🟡 Средняя — T5 (Frontend): нет последователей</strong><br>
+      <span style="color:#aaa;">Frontend не привязан к тестированию. Скорее всего, пропущена связь T5 → T6.</span>
+    </div>
+    <div class="anomaly-low">
+      <strong>🟢 Низкая — T8 (Документация): нет последователей</strong><br>
+      <span style="color:#aaa;">Документация не привязана к UAT. Вероятно, нужна связь T8 → T7.</span>
+    </div>
+  </div>
+
+  <!-- Рекомендации -->
+  <div class="section">
+    <h2>7. Рекомендации</h2>
+    <div class="item">
+      <div class="title">1. T2 — дожать аналитику</div>
+      <div class="body">
+        Отставание 2 WD на критическом пути. Уточнить реальный % выполнения.
+        Варианты: добавить ресурс на аналитику, либо принять +2 WD и пересогласовать сроки с заказчиком.
+      </div>
+    </div>
+    <div class="item">
+      <div class="title">2. T8 — исправить данные</div>
+      <div class="body">
+        Если задача ещё не начиналась → очистить ActualStart, PercentComplete = 0.<br>
+        Если задача реально идёт → ActualStart должен быть ≤ 17.07.2026.
+      </div>
+    </div>
+    <div class="item">
+      <div class="title">3. Добавить связи</div>
+      <div class="body">
+        <span class="link-type">T5 → T6 (FS+0)</span> — Frontend должен участвовать в интеграционном тестировании.<br>
+        <span class="link-type">T8 → T7 (FS+0)</span> — Документация должна быть готова до приёмки.
+      </div>
+    </div>
+    <div class="item">
+      <div class="title">4. Проверить ресурсы на 29.07</div>
+      <div class="body">
+        T4 и T5 стартуют одновременно. Возможна перегрузка ресурса на стыке T3 → T4+T5.
+        Для проверки нужен <code>resources.csv</code>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Сводка -->
+  <div class="section">
+    <h2>📊 Сводка</h2>
+    <div style="display:grid; grid-template-columns: repeat(2,1fr); gap:12px;">
+      <div class="metric-card">
+        <div class="metric-label">Плановый финиш</div>
+        <div class="metric-value safe" style="font-size:22px;">24.08.2026</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Прогноз</div>
+        <div class="metric-value critical" style="font-size:22px;">26.08.2026</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Отклонение</div>
+        <div class="metric-value" style="color:#ffd93d;font-size:22px;">Δ = +2 дня</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Причина</div>
+        <div style="font-size:13px;color:#ff6b6b;margin-top:8px;">T2: 60% вместо 80%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Анализ выполнен агентом <strong>Герман</strong> · skill: schedule_control_and_risks<br>
+    Методология: PMBOK · CPM · EVM<br>
+    Источник: Трофимов В.В. и др. «Управление проектами с MS Project», 2007</p>
+  </div>
+
+</div>
+</body>
+</html>
