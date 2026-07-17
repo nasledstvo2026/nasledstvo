@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Герман — Календарно-сетевое планирование</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .po { max-width: 800px; margin: 0 auto; padding: 20px; }
+    .po-hero { text-align: center; padding: 60px 0 40px; }
+    .po-hero .badge {
+      display: inline-block; background: rgba(0,217,255,0.12); border: 1px solid rgba(0,217,255,0.2);
+      color: #00d9ff; font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .po-hero h1 {
+      font-size: 40px; font-weight: 800; letter-spacing: -1px; line-height: 1.15;
+      background: linear-gradient(135deg, #00d9ff 0%, #5352ed 60%, #bc8cff 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px;
+    }
+    .po-hero p { font-size: 18px; color: rgba(255,255,255,0.55); line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+    .po-value { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 40px 0; }
+    .po-value-item {
+      background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+      border-radius: 12px; padding: 24px 20px; text-align: center;
+    }
+    .po-value-item .icon { font-size: 28px; margin-bottom: 12px; }
+    .po-value-item h3 { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+    .po-value-item p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+    .po-section { margin: 48px 0; }
+    .po-section h2 { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 16px; }
+    .po-section p, .po-section li { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin: 8px 0; }
+    .po-section li strong { color: rgba(255,255,255,0.85); }
+
+    .po-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
+    .po-step {
+      background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+      border-radius: 10px; padding: 20px 16px; text-align: center;
+    }
+    .po-step .num {
+      width: 28px; height: 28px; border-radius: 50%; background: rgba(0,217,255,0.15);
+      color: #00d9ff; font-size: 12px; font-weight: 700; display: inline-flex;
+      align-items: center; justify-content: center; margin-bottom: 10px;
+    }
+    .po-step h4 { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 6px; }
+    .po-step p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; margin: 0; }
+
+    .po-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .po-tag { display: inline-block; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); font-size: 12px; padding: 4px 12px; border-radius: 6px; }
+    .po-tag.cyan { background: rgba(0,217,255,0.08); border-color: rgba(0,217,255,0.15); color: #00d9ff; }
+    .po-tag.purple { background: rgba(188,140,255,0.08); border-color: rgba(188,140,255,0.15); color: #bc8cff; }
+    .po-tag.red { background: rgba(255,107,107,0.08); border-color: rgba(255,107,107,0.15); color: #ff6b6b; }
+
+    .po-formula { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 8px; padding: 16px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.8; }
+
+    .po-cta {
+      background: linear-gradient(135deg, rgba(0,217,255,0.08), rgba(83,82,237,0.08));
+      border: 1px solid rgba(0,217,255,0.15); border-radius: 12px; padding: 32px; text-align: center; margin: 48px 0;
+    }
+    .po-cta h3 { font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 8px; }
+    .po-cta p { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th { background: rgba(255,255,255,0.05); padding: 10px 12px; text-align: left; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 10px 12px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 13px; color: rgba(255,255,255,0.65); }
+
+    @media (max-width: 768px) {
+      .po-value, .po-steps { grid-template-columns: repeat(2, 1fr); }
+      .po-hero h1 { font-size: 28px; }
+    }
+    @media (max-width: 400px) {
+      .po-value, .po-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="sber.html" class="back">← Вернуться назад</a>
+
+<div class="container">
+  <div class="po">
+
+    <div class="po-hero">
+      <div class="badge">AI-агент</div>
+      <h1>Герман</h1>
+      <p>Специалист по календарно-сетевому планированию. Контроль календарных отклонений от базового плана и проактивный поиск рисков на критическом пути в ИТ-проектах по методологии PMBOK.</p>
+    </div>
+
+    <div class="po-value">
+      <div class="po-value-item">
+        <div class="icon">🕸️</div>
+        <h3>Метод критического пути</h3>
+        <p>Прямой и обратный проход CPM, расчёт ES/EF/LS/LF для каждой задачи, идентификация критического пути с нулевым Total Slack.</p>
+      </div>
+      <div class="po-value-item">
+        <div class="icon">⏱️</div>
+        <h3>Мониторинг резервов</h3>
+        <p>Total Slack и Free Slack для каждой задачи. Сигнализация при приближении резерва к нулю — задача может войти в критический путь.</p>
+      </div>
+      <div class="po-value-item">
+        <div class="icon">📉</div>
+        <h3>Отклонения от Baseline</h3>
+        <p>ΔFinish = Finish<sub>тек</sub> − BL_Finish. Каскадный анализ: отставание на критическом пути → сдвиг всех последующих задач.</p>
+      </div>
+    </div>
+
+    <div class="po-section">
+      <h2>Как это работает</h2>
+      <div class="po-steps">
+        <div class="po-step">
+          <div class="num">1</div>
+          <h4>Передаёшь CSV</h4>
+          <p>tasks.csv + project_params.csv с WBS, длительностями, связями и базовым планом</p>
+        </div>
+        <div class="po-step">
+          <div class="num">2</div>
+          <h4>CPM-расчёт</h4>
+          <p>Прямой и обратный проход, Total Slack, Free Slack. Выделение критического пути.</p>
+        </div>
+        <div class="po-step">
+          <div class="num">3</div>
+          <h4>Поиск аномалий</h4>
+          <p>Проверка целостности: даты, проценты, отсутствие связей, противоречия.</p>
+        </div>
+        <div class="po-step">
+          <div class="num">4</div>
+          <h4>Сводка и рекомендации</h4>
+          <p>Отчёт: статус → риски → рекомендации. Чётко, по цифрам, без воды.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="po-section">
+      <h2>Математический аппарат</h2>
+
+      <h3 style="color:#00d9ff; font-size:15px; margin-top:24px;">Прямой проход (Forward Pass)</h3>
+      <div class="po-formula">
+EF<sub>i</sub> = ES<sub>i</sub> + D<sub>i</sub><br>
+ES<sub>j</sub> = max(EF<sub>p</sub> + Lag<sub>p,j</sub>) &nbsp; ∀ p ∈ P(j)
+      </div>
+
+      <h3 style="color:#bc8cff; font-size:15px; margin-top:20px;">Обратный проход (Backward Pass)</h3>
+      <div class="po-formula">
+LS<sub>i</sub> = LF<sub>i</sub> − D<sub>i</sub><br>
+LF<sub>i</sub> = min(LS<sub>s</sub> − Lag<sub>i,s</sub>) &nbsp; ∀ s ∈ S(i)
+      </div>
+
+      <h3 style="color:#ff6b6b; font-size:15px; margin-top:20px;">Резервы времени</h3>
+      <div class="po-formula">
+Total Slack: &nbsp; TS<sub>i</sub> = LS<sub>i</sub> − ES<sub>i</sub> = LF<sub>i</sub> − EF<sub>i</sub><br>
+Free Slack: &nbsp; FS<sub>i</sub> = min(ES<sub>s</sub>) − EF<sub>i</sub>
+      </div>
+
+      <h3 style="color:#ffd93d; font-size:15px; margin-top:20px;">Отклонения от базового плана</h3>
+      <div class="po-formula">
+ΔFinish = Finish<sub>текущий</sub> − BL_Finish<br>
+ΔDuration = Duration<sub>текущая</sub> − BL_Duration
+      </div>
+
+      <h3 style="color:#2ed573; font-size:15px; margin-top:20px;">Метод освоенного объёма (EVM)</h3>
+      <div class="po-formula">
+CV = EV − AC &nbsp; | &nbsp; SV = EV − PV<br>
+CPI = EV / AC &nbsp; | &nbsp; SPI = EV / PV
+      </div>
+    </div>
+
+    <div class="po-section">
+      <h2>Входные данные (CSV)</h2>
+      <table>
+        <thead><tr><th>Файл</th><th>Обязательность</th><th>Назначение</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#fff;">tasks.csv</td><td>✅ Обязательный</td><td>WBS: ID, название, длительность, связи, базовые и фактические даты</td></tr>
+          <tr><td style="color:#fff;">project_params.csv</td><td>✅ Обязательный</td><td>Дата старта, статус-дата, рабочие дни, календарь исключений</td></tr>
+          <tr><td style="color:#fff;">resources.csv</td><td>⚪ Опциональный</td><td>Ресурсы: названия, тип, доступность — для проверки перегрузки</td></tr>
+          <tr><td style="color:#fff;">costs.csv</td><td>⚪ Опциональный</td><td>Затраты: PV, AC, EV для EVM-анализа</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="po-section">
+      <h2>4 типа связей между задачами</h2>
+      <table>
+        <thead><tr><th>Тип</th><th>Рус.</th><th>Логика</th><th>Пример</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#00d9ff;">FS (Finish-to-Start)</td><td>ОН — Окончание-Начало</td><td>B начинается после A</td><td>Дизайн → Вёрстка</td></tr>
+          <tr><td style="color:#bc8cff;">FF (Finish-to-Finish)</td><td>ОО — Окончание-Окончание</td><td>B заканчивается с A</td><td>Поливка бетона → Опалубка снята</td></tr>
+          <tr><td style="color:#ff6b6b;">SS (Start-to-Start)</td><td>НН — Начало-Начало</td><td>B стартует с A</td><td>Отопление начато → Вентиляция начата</td></tr>
+          <tr><td style="color:#ffd93d;">SF (Start-to-Finish)</td><td>НО — Начало-Окончание</td><td>B заканчивается, когда A стартует</td><td>Регламентные работы после запуска системы</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="po-section">
+      <h2>Чек-лист контроля качества плана</h2>
+      <ul style="list-style:none;padding:0;">
+        <li>✅ Все ли задачи имеют предшественников (кроме первой вехи)?</li>
+        <li>✅ Нет ли «повисших» задач без последователей?</li>
+        <li>✅ Выделен ли критический путь?</li>
+        <li>✅ Зафиксирован ли базовый план?</li>
+        <li>✅ Проверены ли ресурсы на перегрузку?</li>
+        <li>✅ Введены ли фактические данные для отслеживания?</li>
+        <li>✅ Какие отклонения выявлены? Каков прогноз по финишу?</li>
+      </ul>
+    </div>
+
+    <div class="po-section">
+      <h2>Технологии</h2>
+      <div class="po-tags">
+        <span class="po-tag cyan">PMBOK</span>
+        <span class="po-tag purple">CPM</span>
+        <span class="po-tag red">EVM</span>
+        <span class="po-tag">OpenClaw</span>
+        <span class="po-tag">DeepSeek</span>
+        <span class="po-tag">PERT</span>
+      </div>
+      <p style="font-size:13px; color:rgba(255,255,255,0.4);">
+        Герман — постоянный AI-агент на OpenClaw. Модель: deepseek-v4-pro.
+        Доступ: через Telegram (Кирилл) или sessions_send из main-агента (Лунт).
+        Skill: schedule_control_and_risks.md + cpm-msproject-analysis/SKILL.md.
+      </p>
+    </div>
+
+    <div class="po-cta">
+      <h3>Готов к анализу твоего проекта</h3>
+      <p>Пришли tasks.csv через Telegram — получи развёрнутый CPM-отчёт с критическим путём, резервами и прогнозом финиша.</p>
+      <div class="po-tags" style="justify-content:center;">
+        <span class="po-tag cyan">CPM</span>
+        <span class="po-tag purple">Total Slack</span>
+        <span class="po-tag red">Baseline Δ</span>
+      </div>
+    </div>
+
+    <div class="footer" style="text-align:center; padding-top:24px; border-top:1px solid var(--glass-border);">
+      <span class="tech">Герман · v1 · 17.07.2026</span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
