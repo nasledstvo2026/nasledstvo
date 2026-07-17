@@ -19,6 +19,7 @@
 5. **Перед деструктивной операцией — явное предупреждение:** «Я собираюсь сделать X. Это сломает Y.»
 6. **Если 5+ сообщений без результата — признать тупик и перезайти с другой стороны.**
 7. **Если Кирилл говорит «нет» или уточняет — остановиться и переспросить, не продолжать старую линию.**
+8. **Задал вопрос → жди ответа.** Если я спросил «Хочешь X?» или «Применить?» — не делаю X пока Кирилл явно не ответит «да». Не продолжаю действие без подтверждения.
 
 ### Публикация через GitHub
 - **20.06.2026:** Полный переход на GitHub Pages. Timeweb отключён.
@@ -228,14 +229,23 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - **verify-agent переведён с flash на pro (17.07.2026)** — flash давал 6 ошибок timeout подряд; pro + timeout 1200s
 - deepseek-v4-pro — дороже ($2/$8 за млн), но качество анализа принципиально выше
 
-### «Консультант по наследственным делам» — complaint-agent (создан 17.07.2026)
-- **Агент:** complaint-agent, id в конфиге, bindings: Катя (932052526) + Лена (254785028)
+-### «Консультант по наследственным делам» — complaint-agent (создан 17.07.2026)
+- **Агент:** complaint-agent, id в конфиге, bindings: Катя (932052526)
 - **Модель:** deepseek-v4-flash
 - **AGENTS.md:** /home/user1/.openclaw/agents/complaint-agent/AGENTS.md
 - **Роль:** отвечает на запросы в чат — сводка, статистика, фильтр по банку
-- **Данные:** читает katya-verified.json, katya-data.json (cron-задачи производят под main)
-- **Cron:** 4 задачи пайплайна остались под main (ограничение cron-тула — нельзя создать задачу для чужого agentId)
+- **Данные:** читает katya-verified.json, katya-data.json
+- **Cron:** 4 задачи пайплайна жалоб (search → verify → katya → stats) под complaint-agent
 - **Архитектура:** cron производят → complaint-agent читает и отвечает
+
+### «Новости наследства» — lena-chat-agent (создан 18.07.2026)
+- **Агент:** lena-chat-agent, id в конфиге, bindings: Лена (254785028)
+- **Модель:** deepseek-v4-flash
+- **AGENTS.md:** /home/user1/.openclaw/agents/lena-chat-agent/AGENTS.md
+- **Роль:** отвечает на запросы в чат — сводка новостей, поиск по темам
+- **Данные:** читает lena-verified.json, lena-raw.json
+- **Cron:** 3 задачи пайплайна новостей (search → verify → html) под lena-chat-agent
+- **Архитектура:** идентична complaint-agent, но изолирована — свой JSON, свой контекст
 
 ### Дизайн сайта
 - `theme.css` — glass-morphism dark theme (#0a0e14 фон, #161b22 карточки, #21262d бордеры), DESKTOP-FIRST
@@ -294,6 +304,10 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 | 1a | 📋 katya-agent: сводка жалоб | пн–пт 11:00 | deepseek-v4-flash | 1c743749 → Катя |
 | 2 | 📊 stats-agent: статистика жалоб | ежедневно 11:20 | deepseek-v4-flash | 497b9eab → сайт |
 | ⚡ | **Все 4 — под complaint-agent** (созданы complaint-agent'ом 17.07) |
+| 3a | 🔍 lena-search-agent: поиск новостей | ежедневно 02:00 | deepseek-v4-flash | 87d3aaef → lena-raw.json |
+| 3b | 🔍 lena-verify-agent: верификация | ежедневно 02:10 | deepseek-v4-flash | ad4d79bb → lena-verified.json |
+| 3c | 📋 lena-html-agent: HTML + публикация | ежедневно 02:20 | deepseek-v4-flash | 43ce4092 → Лена + сайт |
+| ⚡ | **Все 3 — под lena-chat-agent** (созданы 18.07) |
 | 3 | 📰 Лена: дайджест новостей | ежедневно 09:00 (isolated) | deepseek-chat 300s | Лена |
 | 4 | 💰 РЖД 1Р-37R итоги торгов | будни 23:55 (isolated) | deepseek-chat | Лена |
 | 5 | 📊 Данил: вклады 1991 (пн) | понедельник 10:00 | deepseek-chat | Данил |

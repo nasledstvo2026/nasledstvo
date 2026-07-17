@@ -279,7 +279,7 @@ Questioner задаёт следующий вопрос (цикл повторя
 ## 🔍 «Консультант по наследственным делам» — complaint-agent
 
 ### Маршрутизация
-- Катя (932052526) и Лена (254785028) — сообщения автоматически идут в complaint-agent через bindings
+- Катя (932052526) — сообщения автоматически идут в complaint-agent через bindings
 - Кирилл может отправить запрос: `sessions_send(agentId="complaint-agent", ...)`
 
 ### Возможности агента
@@ -288,9 +288,26 @@ Questioner задаёт следующий вопрос (цикл повторя
 - «Сколько жалоб на [банк]» — фильтр по банку
 
 ### Архитектура
-- Cron-задачи (search → verify → katya → stats) производят данные под main
+- Cron-задачи (search → verify → katya → stats) производят данные под complaint-agent
 - complaint-agent только читает данные и отвечает в чат
-- Bindings: 932052526 → complaint-agent, 254785028 → complaint-agent
+- Bindings: 932052526 → complaint-agent
+
+## 🔍 «Новости наследства» — lena-chat-agent
+
+### Маршрутизация
+- Лена (254785028) — сообщения автоматически идут в lena-chat-agent через bindings
+- Кирилл может отправить запрос: `sessions_send(agentId="lena-chat-agent", ...)`
+
+### Возможности агента
+- «Сводка за сегодня/вчера» — новости из lena-verified.json
+- «Новости за неделю» — все новости за 7 дней
+- «Что нового по [тема]» — поиск по ключевым словам
+
+### Архитектура
+- Cron-задачи (search → verify → html) производят данные под lena-chat-agent
+- lena-chat-agent только читает данные и отвечает в чат
+- Bindings: 254785028 → lena-chat-agent
+- Идентичен complaint-agent по логике, но изолирован — свои данные, свой контекст
 
 ## Tools
 
