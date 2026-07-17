@@ -276,6 +276,22 @@ Questioner задаёт следующий вопрос (цикл повторя
 - Лог сессии: `memory/brd-logs/brd-<YYYY-MM>.log`
 - При ошибке: `cat memory/brd-logs/brd-$(date '+%Y-%m').log | tail -10`
 
+## 🔍 «Консультант по наследственным делам» — complaint-agent
+
+### Маршрутизация
+- Катя (932052526) и Лена (254785028) — сообщения автоматически идут в complaint-agent через bindings
+- Кирилл может отправить запрос: `sessions_send(agentId="complaint-agent", ...)`
+
+### Возможности агента
+- «Сводка за сегодня/вчера» — группировка по банкам из katya-verified.json
+- «Статистика за неделю/месяц» — агрегация из katya-data.json
+- «Сколько жалоб на [банк]» — фильтр по банку
+
+### Архитектура
+- Cron-задачи (search → verify → katya → stats) производят данные под main
+- complaint-agent только читает данные и отвечает в чат
+- Bindings: 932052526 → complaint-agent, 254785028 → complaint-agent
+
 ## Tools
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.

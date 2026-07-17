@@ -217,11 +217,21 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - **ВАЖНО:** tracks.json на VPS и на GitHub синхронизировать (на GitHub — для aidj-player.html)
 
 ### Модели LLM (обновлено 17.07.2026)
-- **deepseek/deepseek-v4-pro** — primary: чат Telegram + новые сессии + german-agent + social-agent + social-verifier + katrin-agent + auditor-agent
-- **deepseek/deepseek-v4-flash** — cron-задачи: Катя (осн./резерв), статистика жалоб
+- **deepseek/deepseek-v4-pro** — primary: чат Telegram + новые сессии + german-agent + social-agent + social-verifier + katrin-agent + auditor-agent + **verify-agent (cron, с 17.07.2026)**
+- **deepseek/deepseek-v4-flash** — cron-задачи: Катя/katya-agent (осн./резерв), статистика жалоб, search-agent (сбор), **complaint-agent (чат)**
 - **deepseek/deepseek-chat** — cron-задачи: Лена, Данил, Катрин (LegalMCP), бэкап, tasks, AI DJ
 - **social-agent и social-verifier переведены с chat на pro (17.07.2026)**
+- **verify-agent переведён с flash на pro (17.07.2026)** — flash давал 6 ошибок timeout подряд; pro + timeout 1200s
 - deepseek-v4-pro — дороже ($2/$8 за млн), но качество анализа принципиально выше
+
+### «Консультант по наследственным делам» — complaint-agent (создан 17.07.2026)
+- **Агент:** complaint-agent, id в конфиге, bindings: Катя (932052526) + Лена (254785028)
+- **Модель:** deepseek-v4-flash
+- **AGENTS.md:** /home/user1/.openclaw/agents/complaint-agent/AGENTS.md
+- **Роль:** отвечает на запросы в чат — сводка, статистика, фильтр по банку
+- **Данные:** читает katya-verified.json, katya-data.json (cron-задачи производят под main)
+- **Cron:** 4 задачи пайплайна остались под main (ограничение cron-тула — нельзя создать задачу для чужого agentId)
+- **Архитектура:** cron производят → complaint-agent читает и отвечает
 
 ### Дизайн сайта
 - `theme.css` — glass-morphism dark theme (#0a0e14 фон, #161b22 карточки, #21262d бордеры), DESKTOP-FIRST
@@ -275,9 +285,11 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 
 | # | Задача | Расписание | Модель | Кому |
 |---|--------|-----------|--------|------|
-| 1a | 📋 Катя: сводка жалоб (осн.) | ежедневно 11:00 | deepseek-chat → deepseek-v4-flash | Катя |
-| 1b | 📋 Катя: сводка жалоб (резерв) | ежедневно 11:15 | deepseek-chat → deepseek-v4-flash | Катя |
-| 2 | 📊 Статистика жалоб (stats-inheritance) | ежедневно 11:20 | deepseek-chat → deepseek-v4-flash | — |
+| 0a | 🔍 search-agent: сбор жалоб | пн–пт 10:45 | deepseek-v4-flash | a2edcaaa |
+| 0b | 🔍 verify-agent: верификация | пн–пт 10:55 | **deepseek-v4-pro** (1200s) | c4fe5cce |
+| 1a | 📋 katya-agent: сводка жалоб | пн–пт 11:00 | deepseek-v4-flash | 1c743749 → Катя |
+| 2 | 📊 stats-agent: статистика жалоб | ежедневно 11:20 | deepseek-v4-flash | 497b9eab → сайт |
+| ⚡ | **Все 4 — под complaint-agent** (созданы complaint-agent'ом 17.07) |
 | 3 | 📰 Лена: дайджест новостей | ежедневно 09:00 (isolated) | deepseek-chat 300s | Лена |
 | 4 | 💰 РЖД 1Р-37R итоги торгов | будни 23:55 (isolated) | deepseek-chat | Лена |
 | 5 | 📊 Данил: вклады 1991 (пн) | понедельник 10:00 | deepseek-chat | Данил |
