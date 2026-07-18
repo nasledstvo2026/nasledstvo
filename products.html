@@ -7,237 +7,115 @@
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
   <style>
+    .hero { text-align: center; margin-bottom: 40px; }
+    .hero h1 {
+      font-size: 38px; font-weight: 800; letter-spacing: -1px; margin: 0 0 16px 4px; padding: 0;
+      color: transparent;
+      background: linear-gradient(90deg,#ff5050,#ff9000,#bc8cff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
     .hero-subtitle {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 16px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 8px;
-      line-height: 1.5;
+      font-size: 16px; color: rgba(255,255,255,0.6); margin-top: 8px; line-height: 1.5;
     }
-    .section {
-      margin-top: 40px;
-    }
-    .section h2 {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 20px;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 12px;
-      letter-spacing: 2px;
-    }
-    .section h3 {
-      font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-      font-size: 16px;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 8px;
-      margin-top: 24px;
-      letter-spacing: 1px;
-    }
-    .section .item {
-      background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 12px;
-    }
-    .section .item .title {
-      font-size: 15px;
-      color: #58a6ff;
-      margin-bottom: 6px;
-    }
-    .section .item .meta {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 6px;
-    }
-    .section .item .body {
-      font-size: 14px;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.6;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 18px;
-      margin-top: 20px;
-    }
-    .product-card {
-      background: rgba(22,27,34,0.6);
-      border: 1px solid rgba(33,38,45,0.8);
-      border-radius: 12px;
-      padding: 22px;
-      transition: border-color .2s, transform .2s;
-      position: relative;
-      overflow: hidden;
-    }
-    .product-card:hover {
-      border-color: rgba(255,80,80,0.5);
-      transform: translateY(-2px);
-    }
-    .product-card .accent {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-    }
-    .product-card .accent.blue   { background: linear-gradient(180deg, #58a6ff, #1e64dc); }
-    .product-card .accent.green  { background: linear-gradient(180deg, #7ee787, #1eb450); }
-    .product-card .accent.purple { background: linear-gradient(180deg, #bc8cff, #8c50e6); }
-    .product-card .accent.orange { background: linear-gradient(180deg, #ff9000, #dc7800); }
-    .product-card .accent.pink   { background: linear-gradient(180deg, #f778ba, #dc328c); }
-    .product-card .accent.cyan   { background: linear-gradient(180deg, #56d4dd, #14b4be); }
-    .product-card .accent.red    { background: linear-gradient(180deg, #ff5050, #c82828); }
-    .product-card .icon { font-size: 32px; margin-bottom: 10px; }
-    .product-card .name {
-      font-size: 16px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 6px;
-    }
-    .product-card .name a {
-      color: #58a6ff;
-      text-decoration: none;
-    }
-    .product-card .name a:hover { text-decoration: underline; }
-    .product-card .desc {
-      font-size: 13px;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    .product-card .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .product-card .tags span {
-      font-size: 11px;
-      padding: 2px 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.45);
-    }
-    .product-card .status {
-      font-size: 11px;
-      margin-top: 10px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-    .product-card .status.live      { color: #3fb950; }
-    .product-card .status.beta      { color: #d29922; }
-    .product-card .status.dev       { color: #8b949e; }
-    /* ─── products-like: как плашка Продукты на index ─── */
-    .cards .card.products-like.bg-image,
-    .card.products-like.bg-image {
-      background-image: url('assets/products-bg.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 140px;
-      min-height: 140px;
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 4px 24px rgba(0,0,0,.3);
-      margin-bottom: 30px;
-    }
-    .card.products-like.bg-image::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      pointer-events: none;
-      display: block !important;
-    }
-    .card.products-like.red.bg-image {
-      border: 1.5px solid rgba(255,80,80,0.55);
-      background: linear-gradient(145deg, rgba(30,100,220,0.28) 0%, rgba(22,27,34,0.6) 55%);
-    }
-    .card.products-like.red.bg-image::before {
-      background: linear-gradient(135deg, rgba(255,80,80,0.35) 0%, rgba(10,14,20,0.65) 70%);
-    }
-    .card.products-like.red.bg-image .card-header {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding-bottom: 22px;
-    }
-    .card.products-like.red.bg-image .card-header-row {
-      margin-bottom: 0;
-    }
-    .card.products-like.red.bg-image.aura h2 {
-      color: white;
-    }
-    .card.products-like.bg-image a {
-      display: block;
-      color: inherit;
-      text-decoration: none;
-    }
-    .card.products-like.bg-image:hover {
-      transform: translateY(-3px);
-      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-    }
-
-    @media (max-width: 768px) {
-      .product-grid { grid-template-columns: 1fr; }
-    }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+    .card.aura { min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
+    .card.aura .desc { font-size: 14px; color: rgba(255,255,255,0.55); margin-top: 4px; line-height: 1.5; padding: 0 20px 16px; }
+    .card.aura a { text-decoration: none; color: inherit; display: block; padding: 20px 20px 0; }
+    a.card-link { text-decoration: none; }
+    @media (max-width: 768px) { .cards { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
-<a href="index.html" class="back">← На главную</a>
-
 <div class="container">
 
-  <h1 style="font-size:38px;font-weight:800;letter-spacing:-1px;margin:0 0 16px 4px;padding:0;color:transparent;background:linear-gradient(90deg,#ff5050,#ff9000,#bc8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;">Продукты</h1>
+<a class="back" href="index.html">← На главную</a>
 
-  <p style="text-align:center;margin:0 0 12px;color:var(--text-dim);font-size:16px;">
-    Экосистема цифровых продуктов nasledstvo2026
-  </p>
-  <p style="text-align:center;margin:0 0 24px;color:rgba(255,255,255,0.45);font-size:13px;">
-    Мониторинг жалоб · Медицина · Правовая аналитика · Развлечения
-  </p>
+<div class="hero">
+  <h1>Продукты</h1>
+  <p class="hero-subtitle">Экосистема цифровых продуктов nasledstvo2026</p>
+</div>
 
-  <!-- ════════════ ПЛАШКА МОНИТОРИНГ ЖАЛОБ ════════════ -->
-  <a href="about-monitoring.html">
-    <div class="card products-like red aura bg-image monitoring">
-      <div class="card-header">
-        <div class="card-header-row">
-          <h2>Мониторинг жалоб</h2>
-        </div>
-      </div>
+<div class="cards" style="max-width:900px;margin:0 auto;">
+
+  <!-- Мониторинг жалоб -->
+  <a href="about-monitoring.html" class="card-link">
+    <div class="card red aura">
+      <div class="card-header"><div class="card-header-row"><h2>Мониторинг жалоб</h2></div></div>
+      <div class="desc">Жалобы на банки РФ по наследственным делам. 4 ИИ-агента: поиск, верификация, сводка, статистика.</div>
     </div>
   </a>
 
-  <!-- ════════════ ВСЕ ПРОДУКТЫ ════════════ -->
-  <div class="section">
-    <h2>📦 Все продукты</h2>
-    <div class="product-grid">
-
-      <div class="product-card"><div class="accent red"></div><div class="icon">📰</div><div class="name"><a href="product-lena.html">Консультант по наследству</a></div><div class="desc">Мониторинг новостей наследственного права + облигации РЖД 1Р-37R. 6 cron-агентов, 1 чат-агент для Лены.</div><div class="tags"><span>#новости</span><span>#наследство</span><span>#РЖД</span><span>#cron</span></div><div class="status live">✅ В продакшене</div></div>
-
-      <div class="product-card"><div class="accent blue"></div><div class="icon">🏛</div><div class="name"><a href="about-inheritance.html">Наследство</a></div><div class="desc">Мониторинг жалоб на банки РФ по наследственным делам. 4 ИИ-агента: поиск, верификация, сводка, статистика.</div><div class="tags"><span>#жалобы</span><span>#банки</span><span>#аналитика</span></div><div class="status live">✅ В продакшене</div></div>
-
-      <div class="product-card"><div class="accent green"></div><div class="icon">🤝</div><div class="name"><a href="about-social.html">Социальный консультант</a></div><div class="desc">ИИ-ассистент по пособиям, льготам и выплатам РФ. Мониторинг законов, персонализированные консультации.</div><div class="tags"><span>#пособия</span><span>#социалка</span><span>#льготы</span></div><div class="status beta">🔶 Бета</div></div>
-
-      <div class="product-card"><div class="accent purple"></div><div class="icon">🎧</div><div class="name"><a href="about-aidj.html">AI DJ</a></div><div class="desc">ИИ-диджей: BPM/Key детекция, beat-synced кроссфейды. 100+ треков, веб-плеер с Club EQ.</div><div class="tags"><span>#музыка</span><span>#DJ</span><span>#аудио</span></div><div class="status live">✅ В продакшене</div></div>
-
-      <div class="product-card"><div class="accent pink"></div><div class="icon">📸</div><div class="name"><a href="about-photo.html">Фото</a></div><div class="desc">Каталог креативных фото-проектов.</div><div class="tags"><span>#фото</span><span>#креатив</span></div><div class="status live">✅ В продакшене</div></div>
-
-      <div class="product-card"><div class="accent green"></div><div class="icon">🏥</div><div class="name"><a href="about-medhelp.html">MedHelp</a></div><div class="desc">Ассистент для врача-рентгенолога. Протоколы КТ/МРТ/ПЭТ-КТ, верификация фактов.</div><div class="tags"><span>#медицина</span><span>#рентгенология</span><span>#КТ</span></div><div class="status beta">🔶 MVP готов</div></div>
-
-      <div class="product-card"><div class="accent orange"></div><div class="icon">📋</div><div class="name"><a href="about-bt.html">Создать БТ</a></div><div class="desc">Конструктор бизнес-требований. Генерация документов за минуты по шаблонам.</div><div class="tags"><span>#БТ</span><span>#документы</span><span>#шаблоны</span></div><div class="status live">✅ В продакшене</div></div>
-
-      <div class="product-card"><div class="accent purple"></div><div class="icon">💊</div><div class="name"><a href="about-zakupki.html">ФармТендер</a></div><div class="desc">Мониторинг госзакупок ЛП/МИ. Парсинг zakupki.gov.ru, визуализация на сайте.</div><div class="tags"><span>#закупки</span><span>#44-ФЗ</span><span>#223-ФЗ</span><span>#фарма</span></div><div class="status live">✅ В продакшене</div></div>
-
+  <!-- Наследство -->
+  <a href="about-inheritance.html" class="card-link">
+    <div class="card blue aura">
+      <div class="card-header"><div class="card-header-row"><h2>Наследство</h2></div></div>
+      <div class="desc">Кластер наследственного права: жалобы, новости, дайджесты, компенсации вкладов СССР.</div>
     </div>
-  </div>
+  </a>
 
-  <div class="footer">
-    <span class="tech">Экосистема продуктов · Июль 2026</span>
-  </div>
+  <!-- Консультант по наследству -->
+  <a href="product-lena.html" class="card-link">
+    <div class="card green aura">
+      <div class="card-header"><div class="card-header-row"><h2>Консультант по наследству</h2></div></div>
+      <div class="desc">Мониторинг новостей наследственного права + облигации РЖД 1Р-37R. 6 cron-агентов, 1 чат-агент для Лены.</div>
+    </div>
+  </a>
+
+  <!-- Социальный консультант -->
+  <a href="about-social.html" class="card-link">
+    <div class="card cyan aura">
+      <div class="card-header"><div class="card-header-row"><h2>Социальный консультант</h2></div></div>
+      <div class="desc">ИИ-ассистент по пособиям, льготам и выплатам РФ. Мониторинг законов, персонализированные консультации.</div>
+    </div>
+  </a>
+
+  <!-- AI DJ -->
+  <a href="about-aidj.html" class="card-link">
+    <div class="card purple aura">
+      <div class="card-header"><div class="card-header-row"><h2>AI DJ</h2></div></div>
+      <div class="desc">ИИ-диджей: BPM/Key детекция, beat-synced кроссфейды. 100+ треков, веб-плеер с Club EQ.</div>
+    </div>
+  </a>
+
+  <!-- Фото -->
+  <a href="about-photo.html" class="card-link">
+    <div class="card pink aura">
+      <div class="card-header"><div class="card-header-row"><h2>Фото</h2></div></div>
+      <div class="desc">Каталог креативных фото-проектов.</div>
+    </div>
+  </a>
+
+  <!-- MedHelp -->
+  <a href="about-medhelp.html" class="card-link">
+    <div class="card orange aura">
+      <div class="card-header"><div class="card-header-row"><h2>MedHelp</h2></div></div>
+      <div class="desc">Ассистент для врача-рентгенолога. Протоколы КТ/МРТ/ПЭТ-КТ, верификация фактов.</div>
+    </div>
+  </a>
+
+  <!-- Создать БТ -->
+  <a href="about-bt.html" class="card-link">
+    <div class="card red aura">
+      <div class="card-header"><div class="card-header-row"><h2>Создать БТ</h2></div></div>
+      <div class="desc">Конструктор бизнес-требований. Генерация документов за минуты по шаблонам.</div>
+    </div>
+  </a>
+
+  <!-- ФармТендер -->
+  <a href="about-zakupki.html" class="card-link">
+    <div class="card purple aura">
+      <div class="card-header"><div class="card-header-row"><h2>ФармТендер</h2></div></div>
+      <div class="desc">Мониторинг госзакупок ЛП/МИ. Парсинг zakupki.gov.ru, визуализация на сайте.</div>
+    </div>
+  </a>
 
 </div>
 
+<div class="footer">
+  <span class="tech">Экосистема продуктов · Июль 2026</span>
+</div>
+
+</div>
 </body>
 </html>
