@@ -18,9 +18,9 @@ description: "Дайджест новостей по наследству + РЖ
 ## Источники
 1. **LegalMCP** (legalmcp.ru) — для законодательных изменений по наследству (ГК РФ, ФЗ о нотариате, НК РФ)
 2. **web_search** — поиск новостей, законодательных проектов
-3. **banki.ru / rg.ru / notariat.ru** — ключевые площадки
-4. **MOEX ISS API** — данные по облигациям РЖД 1Р-37R
-5. **rusbonds.ru / cbonds.ru** — справочные данные по бондам
+3. **Домены для search-agent:** tass.ru, rbc.ru, kommersant.ru, vedomosti.ru, rg.ru, pravo.gov.ru, notariat.ru, banki.ru, duma.gov.ru, consultant.ru, garant.ru, nalog.gov.ru, sfr.gov.ru, mintrud.gov.ru
+4. **MOEX ISS API** — данные по облигациям РЖД 1Р-37R (rzd-search-agent → rzd-raw.json)
+5. **rusbonds.ru / cbonds.ru** — справочные данные по бондам (fallback для search-agent)
 
 ## База знаний новостей (knowledge/lena/news-knowledge.md)
 Что должна содержать:
@@ -41,8 +41,15 @@ description: "Дайджест новостей по наследству + РЖ
 6. Источники данных: MOEX ISS API (get_board_stateboard), rusbonds.ru
 
 ## Расписание
-- **Ежедневно 09:00** — дайджест новостей (web_search + LegalMCP)
-- **Будни 23:55** — итоги торгов РЖД 1Р-37R (MOEX ISS)
+- **Ежедневно 02:00 МСК** — поиск новостей (lena-search-agent, cron)
+- **Ежедневно 02:10 МСК** — верификация новостей (lena-verify-agent, cron)
+- **Ежедневно 02:20 МСК** — HTML-отчёт + публикация (lena-html-agent, cron)
+- **Будни 23:50 МСК** — сбор данных MOEX (rzd-search-agent, cron)
+- **Будни 23:55 МСК** — валидация + аналитика РЖД (rzd-verify-agent, cron)
+- **Будни 23:58 МСК** — HTML-отчёт РЖД + публикация (rzd-html-agent, cron)
+
+## Директива для cron-промптов
+**Все cron-промпты (search, verify, html) ДОЛЖНЫ ссылаться на этот SKILL.md и knowledge/lena/news-knowledge.md как на authoritative source.**
 
 ## Принципы
 1. Лена — консультант для граждан. Язык простой, понятный.
@@ -52,4 +59,5 @@ description: "Дайджест новостей по наследству + РЖ
 5. Ссылки на источники обязательны
 6. Отчёты публикуются через publish-report.sh → GitHub Pages
 7. В дайджесте не более 7 новостей (1-2 Главное + 3-5 Коротко)
-8. LegalMCP: только для проверки законодательных изменений (не для новостей)
+8. LegalMCP: для проверки законодательных изменений (verify-agent, importance==main + категория law)
+9. Лимиты: search ≤15 новостей, verify ≤10, html ≤7 (2+5)
