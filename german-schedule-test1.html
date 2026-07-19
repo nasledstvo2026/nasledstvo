@@ -143,7 +143,7 @@
     </div>
 
     <div class="info-block" style="border-left: 3px solid rgba(255,152,0,0.5);">
-      <h3>⚠️ Оценка рисков</h3>
+      <h3>⚠️ Оценка рисков и план митигации</h3>
       
       <div style="margin: 16px 0;">
         <h4 style="color:#ff9800; font-size:14px; margin-bottom:8px;">🟠 Высокие риски</h4>
@@ -154,6 +154,12 @@
         <p style="margin-top:2px;">
           Самый длинный этап требует участия стейкхолдеров. Типичное бутылочное горлышко аналитической фазы: отпуск согласующего в августе → +2–3 недели к расписанию.
         </p>
+        <p style="margin-top:6px; color:#2ed573; font-size:12px; font-weight:600;">📋 Митигация:</p>
+        <ul style="margin:4px 0 0 16px; font-size:12px; color:rgba(255,255,255,0.55); line-height:1.7;">
+          <li>Декомпозировать «Согласование» на 3 этапа по 5–6 дней с промежуточными ревью</li>
+          <li>До 27.07 согласовать календарь доступности всех стейкхолдеров на август</li>
+          <li>Назначить ответственного за эскалацию при задержке >2 дней</li>
+        </ul>
 
         <p style="color:rgba(255,255,255,0.75); font-weight:600; margin-top:12px;">
           R4. Единственная точка отказа
@@ -161,6 +167,12 @@
         <p style="margin-top:2px;">
           Всего 2 задачи + 1 веха. Один исполнитель = весь проект. Болезнь, отпуск, перегрузка → полная остановка.
         </p>
+        <p style="margin-top:6px; color:#2ed573; font-size:12px; font-weight:600;">📋 Митигация:</p>
+        <ul style="margin:4px 0 0 16px; font-size:12px; color:rgba(255,255,255,0.55); line-height:1.7;">
+          <li>Назначить backup-исполнителя с долей загрузки ≥30% на период проекта</li>
+          <li>Документировать требования в OpenProject (bus factor >1)</li>
+          <li>При расширении WBS распределить задачи между минимум 2 участниками</li>
+        </ul>
       </div>
 
       <div style="margin: 16px 0;">
@@ -172,6 +184,12 @@
         <p style="margin-top:2px;">
           Нет зафиксированного базового плана → нельзя применять Earned Value Management: SV = EV − PV, SPI = EV / PV не рассчитать. ΔFinish относительно Baseline неизвестен.
         </p>
+        <p style="margin-top:6px; color:#2ed573; font-size:12px; font-weight:600;">📋 Митигация:</p>
+        <ul style="margin:4px 0 0 16px; font-size:12px; color:rgba(255,255,255,0.55); line-height:1.7;">
+          <li>Зафиксировать Baseline в OpenProject до 27.07 (команда: Создать baseline)</li>
+          <li>Настроить еженедельный мониторинг: SV, SPI, ΔFinish</li>
+          <li>При отклонении SPI <0.9 — запускать анализ причин и корректирующие действия</li>
+        </ul>
 
         <p style="color:rgba(255,255,255,0.75); font-weight:600; margin-top:12px;">
           R6. Неполный охват фаз
@@ -179,6 +197,12 @@
         <p style="margin-top:2px;">
           Определена только фаза «Аналитика». Что после 01.09? Разработка? Тестирование? Проект выглядит незавершённым — либо это подпроект, либо фазы не внесены в WBS.
         </p>
+        <p style="margin-top:6px; color:#2ed573; font-size:12px; font-weight:600;">📋 Митигация:</p>
+        <ul style="margin:4px 0 0 16px; font-size:12px; color:rgba(255,255,255,0.55); line-height:1.7;">
+          <li>Провести сессию по уточнению полного жизненного цикла проекта</li>
+          <li>Добавить в WBS фазы: Разработка → Тестирование → Внедрение</li>
+          <li>Определить контрольные вехи за 01.09 с привязкой к общему roadmap</li>
+        </ul>
       </div>
     </div>
 
