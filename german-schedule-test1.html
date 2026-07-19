@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Расписание проекта test 1</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .po { max-width: 900px; margin: 0 auto; padding: 20px; }
+    .po-hero { text-align: center; padding: 60px 0 40px; }
+    .po-hero .badge {
+      display: inline-block; background: rgba(0,217,255,0.12); border: 1px solid rgba(0,217,255,0.2);
+      color: #00d9ff; font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .po-hero h1 {
+      font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1.15;
+      background: linear-gradient(135deg, #00d9ff 0%, #5352ed 60%, #bc8cff 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px;
+    }
+    .po-hero p { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+    .schedule-table { margin: 32px 0; }
+    .schedule-table table { width: 100%; border-collapse: collapse; }
+    .schedule-table th { background: rgba(255,255,255,0.05); padding: 12px 14px; text-align: left; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .schedule-table td { padding: 12px 14px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 13px; color: rgba(255,255,255,0.65); }
+    .schedule-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .phase-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700;
+    }
+    .phase-design { background: rgba(0,217,255,0.12); color: #00d9ff; }
+    .phase-dev { background: rgba(188,140,255,0.12); color: #bc8cff; }
+    .phase-test { background: rgba(255,107,107,0.12); color: #ff6b6b; }
+    .phase-deploy { background: rgba(46,213,115,0.12); color: #2ed573; }
+
+    .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+    .status-dot.done { background: #2ed573; }
+    .status-dot.progress { background: #ffd93d; }
+    .status-dot.pending { background: rgba(255,255,255,0.3); }
+
+    .timeline-bar { margin: 32px 0; }
+    .timeline-month { display: flex; gap: 4px; margin-bottom: 8px; }
+    .timeline-month span { font-size: 11px; color: rgba(255,255,255,0.4); flex: 1; text-align: center; }
+    .timeline-row { display: flex; align-items: center; margin-bottom: 8px; gap: 8px; }
+    .timeline-label { width: 120px; font-size: 12px; color: rgba(255,255,255,0.6); text-align: right; flex-shrink: 0; }
+    .timeline-track { flex: 1; height: 22px; background: rgba(255,255,255,0.04); border-radius: 4px; position: relative; overflow: hidden; }
+    .timeline-bar-seg { position: absolute; height: 100%; border-radius: 4px; top: 0; }
+    .timeline-bar-seg.design { background: rgba(0,217,255,0.3); left: 0%; width: 25%; }
+    .timeline-bar-seg.dev { background: rgba(188,140,255,0.3); left: 25%; width: 40%; }
+    .timeline-bar-seg.test { background: rgba(255,107,107,0.3); left: 65%; width: 20%; }
+    .timeline-bar-seg.deploy { background: rgba(46,213,115,0.3); left: 85%; width: 15%; }
+
+    .info-block {
+      background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+      border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+    }
+    .info-block h3 { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+    .info-block p, .info-block li { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; margin: 4px 0; }
+
+    .footer { text-align: center; padding-top: 24px; border-top: 1px solid var(--glass-border); margin-top: 40px; }
+
+    @media (max-width: 768px) {
+      .po-hero h1 { font-size: 26px; }
+      .timeline-label { width: 80px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="german-service.html" class="back">← Назад</a>
+
+<div class="container">
+  <div class="po">
+
+    <div class="po-hero">
+      <div class="badge">Расписание проекта</div>
+      <h1>Test 1</h1>
+      <p>Календарный план проекта. Старт: 01.08.2026 · Финиш: 30.09.2026 · Длительность: 43 рабочих дня</p>
+    </div>
+
+    <div class="schedule-table">
+      <table>
+        <thead>
+          <tr>
+            <th>WBS</th>
+            <th>Задача</th>
+            <th>Фаза</th>
+            <th>Старт</th>
+            <th>Финиш</th>
+            <th>Дни</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:#888;">1.1</td>
+            <td style="color:#fff;">Сбор требований</td>
+            <td><span class="phase-badge phase-design">Дизайн</span></td>
+            <td>01.08</td>
+            <td>07.08</td>
+            <td>5</td>
+            <td><span class="status-dot done"></span>Завершено</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">1.2</td>
+            <td style="color:#fff;">Архитектура системы</td>
+            <td><span class="phase-badge phase-design">Дизайн</span></td>
+            <td>08.08</td>
+            <td>15.08</td>
+            <td>6</td>
+            <td><span class="status-dot done"></span>Завершено</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">1.3</td>
+            <td style="color:#fff;">Прототип интерфейса</td>
+            <td><span class="phase-badge phase-design">Дизайн</span></td>
+            <td>16.08</td>
+            <td>22.08</td>
+            <td>5</td>
+            <td><span class="status-dot progress"></span>В работе</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">2.1</td>
+            <td style="color:#fff;">Разработка API</td>
+            <td><span class="phase-badge phase-dev">Разработка</span></td>
+            <td>23.08</td>
+            <td>05.09</td>
+            <td>10</td>
+            <td><span class="status-dot pending"></span>Ожидает</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">2.2</td>
+            <td style="color:#fff;">Разработка фронтенда</td>
+            <td><span class="phase-badge phase-dev">Разработка</span></td>
+            <td>23.08</td>
+            <td>07.09</td>
+            <td>12</td>
+            <td><span class="status-dot pending"></span>Ожидает</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">2.3</td>
+            <td style="color:#fff;">Интеграция БД</td>
+            <td><span class="phase-badge phase-dev">Разработка</span></td>
+            <td>06.09</td>
+            <td>10.09</td>
+            <td>4</td>
+            <td><span class="status-dot pending"></span>Ожидает</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">3.1</td>
+            <td style="color:#fff;">Модульное тестирование</td>
+            <td><span class="phase-badge phase-test">Тестирование</span></td>
+            <td>11.09</td>
+            <td>16.09</td>
+            <td>4</td>
+            <td><span class="status-dot pending"></span>Ожидает</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">3.2</td>
+            <td style="color:#fff;">Интеграционное тестирование</td>
+            <td><span class="phase-badge phase-test">Тестирование</span></td>
+            <td>17.09</td>
+            <td>22.09</td>
+            <td>4</td>
+            <td><span class="status-dot pending"></span>Ожидает</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">3.3</td>
+            <td style="color:#fff;">Приёмка заказчиком</td>
+            <td><span class="phase-badge phase-test">Тестирование</span></td>
+            <td>23.09</td>
+            <td>26.09</td>
+            <td>3</td>
+            <td><span class="status-dot pending"></span>Ожидает</td>
+          </tr>
+          <tr>
+            <td style="color:#888;">4.1</td>
+            <td style="color:#fff;">Развёртывание на проде</td>
+            <td><span class="phase-badge phase-deploy">Релиз</span></td>
+            <td>29.09</td>
+            <td>30.09</td>
+            <td>2</td>
+            <td><span class="status-dot pending"></span>Ожидает</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-block">
+      <h3>📊 Сводка</h3>
+      <p>Задач: 10 · Завершено: 2 · В работе: 1 · Ожидает: 7</p>
+      <p>Критический путь: 1.1 → 1.2 → 1.3 → 2.1 → 2.3 → 3.1 → 3.2 → 3.3 → 4.1</p>
+      <p>Total Slack по некритическим задачам: 2.2 (2 дня), резерв достаточный</p>
+    </div>
+
+    <div class="footer">
+      <span class="tech">Герман · Test 1 · 20.07.2026</span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
