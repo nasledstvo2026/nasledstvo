@@ -6,6 +6,8 @@
   <title>Расписание проекта test 1</title>
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
+  <!-- Frappe Gantt -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.min.css">
   <style>
     .po { max-width: 900px; margin: 0 auto; padding: 20px; }
     .po-hero { text-align: center; padding: 60px 0 40px; }
@@ -40,17 +42,138 @@
     .status-dot.progress { background: #ffd93d; }
     .status-dot.pending { background: rgba(255,255,255,0.3); }
 
-    .timeline-bar { margin: 32px 0; }
-    .timeline-month { display: flex; gap: 4px; margin-bottom: 8px; }
-    .timeline-month span { font-size: 11px; color: rgba(255,255,255,0.4); flex: 1; text-align: center; }
-    .timeline-row { display: flex; align-items: center; margin-bottom: 8px; gap: 8px; }
-    .timeline-label { width: 120px; font-size: 12px; color: rgba(255,255,255,0.6); text-align: right; flex-shrink: 0; }
-    .timeline-track { flex: 1; height: 22px; background: rgba(255,255,255,0.04); border-radius: 4px; position: relative; overflow: hidden; }
-    .timeline-bar-seg { position: absolute; height: 100%; border-radius: 4px; top: 0; }
-    .timeline-bar-seg.design { background: rgba(0,217,255,0.3); left: 0%; width: 25%; }
-    .timeline-bar-seg.dev { background: rgba(188,140,255,0.3); left: 25%; width: 40%; }
-    .timeline-bar-seg.test { background: rgba(255,107,107,0.3); left: 65%; width: 20%; }
-    .timeline-bar-seg.deploy { background: rgba(46,213,115,0.3); left: 85%; width: 15%; }
+    /* ─── Gantt Chart ─── */
+    .gantt-container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px 16px 16px;
+      margin: 32px 0;
+      overflow-x: auto;
+    }
+    .gantt-container h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 16px;
+    }
+    .gantt-toggle {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      padding: 4px;
+      width: fit-content;
+    }
+    .gantt-toggle button {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.45);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .gantt-toggle button.active {
+      background: rgba(0,217,255,0.15);
+      color: #00d9ff;
+    }
+    .gantt-toggle button:hover {
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* Frappe Gantt dark theme overrides */
+    #gantt-chart { width: 100%; min-height: 220px; }
+
+    #gantt-chart .grid-header {
+      fill: rgba(255,255,255,0.03);
+      stroke: rgba(255,255,255,0.06);
+    }
+    #gantt-chart .grid-row {
+      fill: transparent;
+      stroke: rgba(255,255,255,0.04);
+    }
+    #gantt-chart .grid-row:nth-child(even) {
+      fill: rgba(255,255,255,0.015);
+    }
+    #gantt-chart .row-line {
+      stroke: rgba(255,255,255,0.04);
+    }
+    #gantt-chart .tick line {
+      stroke: rgba(255,255,255,0.06);
+    }
+    #gantt-chart .tick text {
+      fill: rgba(255,255,255,0.35);
+      font-size: 10px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    #gantt-chart .today-highlight {
+      fill: rgba(0,217,255,0.04);
+      stroke: rgba(0,217,255,0.2);
+      stroke-width: 1px;
+    }
+    #gantt-chart .bar-group text {
+      fill: rgba(255,255,255,0.7);
+      font-size: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    /* Summary bar (phase) */
+    #gantt-chart .bar-wrapper.summary .bar {
+      fill: rgba(0,217,255,0.18);
+      stroke: rgba(0,217,255,0.35);
+      stroke-width: 1.5px;
+      stroke-dasharray: none;
+    }
+    #gantt-chart .bar-wrapper.summary .bar-progress {
+      fill: rgba(0,217,255,0.08);
+    }
+    /* Task bar */
+    #gantt-chart .bar-wrapper.task .bar {
+      fill: rgba(188,140,255,0.22);
+      stroke: rgba(188,140,255,0.4);
+      stroke-width: 1px;
+    }
+    #gantt-chart .bar-wrapper.task .bar-progress {
+      fill: rgba(188,140,255,0.35);
+    }
+    /* Milestone */
+    #gantt-chart .bar-wrapper.milestone .bar {
+      fill: rgba(46,213,115,0.3);
+      stroke: #2ed573;
+      stroke-width: 2px;
+    }
+    #gantt-chart .bar-wrapper.milestone .bar-progress {
+      fill: rgba(46,213,115,0.5);
+    }
+    /* Dependency arrows */
+    #gantt-chart .arrow {
+      stroke: rgba(255,255,255,0.15);
+      stroke-width: 1.2px;
+    }
+    /* Handle (drag circle) */
+    #gantt-chart .handle {
+      fill: rgba(255,255,255,0.5);
+      stroke: rgba(255,255,255,0.2);
+    }
+    /* Popup */
+    .gantt .details-container {
+      background: #161b22 !important;
+      border: 1px solid rgba(255,255,255,0.12) !important;
+      border-radius: 8px !important;
+      color: rgba(255,255,255,0.8) !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+    }
+    /* View mode buttons (if shown) */
+    #gantt-chart foreignObject .btn-group button {
+      background: rgba(255,255,255,0.06) !important;
+      border-color: rgba(255,255,255,0.1) !important;
+      color: rgba(255,255,255,0.6) !important;
+    }
 
     .info-block {
       background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
@@ -60,10 +183,11 @@
     .info-block p, .info-block li { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; margin: 4px 0; }
 
     .footer { text-align: center; padding-top: 24px; border-top: 1px solid var(--glass-border); margin-top: 40px; }
+    .footer .tech { color: rgba(255,255,255,0.4); }
 
     @media (max-width: 768px) {
       .po-hero h1 { font-size: 26px; }
-      .timeline-label { width: 80px; font-size: 10px; }
+      .gantt-container { padding: 12px 8px; }
     }
   </style>
 </head>
@@ -80,13 +204,20 @@
       <p>Календарный план проекта. Старт: 27.07.2026 · Финиш: 01.09.2026 · Длительность: 27 рабочих дней</p>
     </div>
 
-    <div class="schedule-table">
+    <!-- Переключатель Таблица / Гант -->
+    <div class="gantt-toggle">
+      <button id="btn-table" class="active" onclick="switchView('table')">📋 Таблица</button>
+      <button id="btn-gantt" onclick="switchView('gantt')">📊 Гант</button>
+    </div>
+
+    <!-- Таблица WBS -->
+    <div id="view-table" class="schedule-table">
       <table>
         <thead>
           <tr>
             <th>WBS</th>
             <th>Задача</th>
-            <th>Фаза</th>
+            <th>Тип</th>
             <th>Старт</th>
             <th>Финиш</th>
             <th>Дни</th>
@@ -132,6 +263,15 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Диаграмма Ганта -->
+    <div id="view-gantt" class="gantt-container" style="display:none;">
+      <h3>📊 Диаграмма Ганта</h3>
+      <svg id="gantt-chart"></svg>
+      <p style="margin-top:16px; font-size:11px; color:rgba(255,255,255,0.3); text-align:center;">
+        🟦 Фаза &nbsp; 🟣 Задание &nbsp; 🟢 Ключевой момент &nbsp; — Зависимости показаны стрелками. Перетаскивайте задачи для изменения дат.
+      </p>
     </div>
 
     <div class="info-block">
@@ -212,6 +352,119 @@
 
   </div>
 </div>
+
+<!-- Frappe Gantt JS -->
+<script src="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.min.js"></script>
+<script>
+  // ─── Project Data (единый источник) ───
+  const projectTasks = [
+    {
+      id: '1',
+      name: 'Аналитика',
+      start: '2026-07-27',
+      end: '2026-08-31',
+      progress: 0,
+      custom_class: 'summary'
+    },
+    {
+      id: '1.1',
+      name: 'Разработка системной аналитики',
+      start: '2026-07-27',
+      end: '2026-08-05',
+      progress: 0,
+      dependencies: '1',
+      custom_class: 'task'
+    },
+    {
+      id: '1.2',
+      name: 'Согласование системной аналитики',
+      start: '2026-08-06',
+      end: '2026-08-31',
+      progress: 0,
+      dependencies: '1.1',
+      custom_class: 'task'
+    },
+    {
+      id: '2',
+      name: 'Аналитика завершена',
+      start: '2026-09-01',
+      end: '2026-09-01',
+      progress: 0,
+      dependencies: '1.2',
+      custom_class: 'milestone'
+    }
+  ];
+
+  // ─── Init Gantt ───
+  let gantt = null;
+
+  function initGantt() {
+    if (gantt) return;
+    gantt = new Gantt("#gantt-chart", projectTasks, {
+      view_mode: 'Day',
+      date_format: 'YYYY-MM-DD',
+      bar_height: 28,
+      bar_corner_radius: 3,
+      arrow_curve: 4,
+      padding: 18,
+      header_height: 50,
+      column_width: 30,
+      step: 24,
+      view_modes: ['Day', 'Week', 'Month'],
+      on_click: function(task) {
+        const start = new Date(task.start);
+        const end = new Date(task.end);
+        const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+        const typeMap = { summary: 'Фаза', task: 'Задание', milestone: 'Ключевой момент' };
+        alert(
+          '📋 ' + task.name + '\n\n' +
+          '🆔 WBS: ' + task.id + '\n' +
+          '📁 Тип: ' + (typeMap[task.custom_class] || '—') + '\n' +
+          '📅 Старт: ' + start.toLocaleDateString('ru-RU') + '\n' +
+          '🏁 Финиш: ' + end.toLocaleDateString('ru-RU') + '\n' +
+          '⏱ Дней: ' + days + '\n' +
+          '📊 Прогресс: ' + Math.round(task.progress) + '%\n' +
+          (task.dependencies ? '🔗 Зависимость: ' + task.dependencies : '')
+        );
+      },
+      on_date_change: function(task, start, end) {
+        console.log('Date changed:', task.id, start, end);
+      },
+      on_progress_change: function(task, progress) {
+        console.log('Progress changed:', task.id, progress);
+      },
+      on_view_change: function(mode) {
+        console.log('View mode:', mode);
+      }
+    });
+  }
+
+  // ─── View Switcher ───
+  function switchView(view) {
+    const tableEl = document.getElementById('view-table');
+    const ganttEl = document.getElementById('view-gantt');
+    const btnTable = document.getElementById('btn-table');
+    const btnGantt = document.getElementById('btn-gantt');
+
+    if (view === 'table') {
+      tableEl.style.display = '';
+      ganttEl.style.display = 'none';
+      btnTable.classList.add('active');
+      btnGantt.classList.remove('active');
+    } else {
+      tableEl.style.display = 'none';
+      ganttEl.style.display = '';
+      btnTable.classList.remove('active');
+      btnGantt.classList.add('active');
+      initGantt();
+    }
+  }
+
+  // ─── Auto-init if URL hash contains #gantt ───
+  if (window.location.hash === '#gantt') {
+    switchView('gantt');
+  }
+</script>
 
 </body>
 </html>
