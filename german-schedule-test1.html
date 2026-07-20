@@ -168,56 +168,66 @@
 
     <!-- ═══ Сводка ═══ -->
     <div class="info-block">
-      <h3>📊 Сводка</h3>
+      <h3>📊 Сводка <span style="display:inline-block;margin-left:8px;padding:2px 10px;background:rgba(46,213,115,0.12);border-radius:10px;font-size:10px;color:#2ed573;font-weight:600;vertical-align:middle;">● LIVE</span></h3>
       <p>Рабочих пакетов: 4 · Фаз: 1 · Заданий: 2 · Ключевых моментов: 1</p>
       <p>Критический путь: <span id="critical-path-text"></span></p>
-      <p>Прогресс: <span id="overall-progress">0</span>% · Все задачи в статусе «Ожидает» · Проект на стадии планирования</p>
-      <p style="margin-top:8px; font-size:12px; color:rgba(255,255,255,0.35);">Данные из OpenProject (ID #3 · test-1) · Обновлено 20.07.2026</p>
+      <p>Прогресс: <span id="overall-progress">0</span>% · Все задачи в статусе «Новое» · Проект не стартовал</p>
+      <p style="margin-top:8px; font-size:12px; color:rgba(255,255,255,0.35);">📡 Live-данные из OpenProject API (ID #3 · test-1) · CPM: german-agent · Обновлено: <span id="update-time">20.07.2026 10:50</span></p>
     </div>
 
-    <!-- ═══ Риски ═══ -->
-    <div class="info-block" style="border-left: 3px solid rgba(255,152,0,0.5);">
-      <h3>⚠️ Оценка рисков и план митигации</h3>
+    <!-- ═══ CPM-анализ Германа ═══ -->
+    <div class="info-block" style="border-left: 3px solid rgba(46,213,115,0.6);">
+      <h3>🧠 CPM-анализ — Герман <span style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:4px;">агент-планировщик</span></h3>
+      <p style="margin-bottom:12px; color:#2ed573; font-weight:600;">Результат: все задачи на критическом пути (Total Slack = 0)</p>
+      <p style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px;">Прямой/обратный проход CPM. Ни грамма резерва — жёсткая линейная цепочка #47 → #48 → #50.</p>
+
       <div class="schedule-table" style="margin:16px 0 0;">
         <table>
           <thead>
-            <tr><th style="width:30px;">#</th><th style="width:90px;">Уровень</th><th>Риск</th><th style="width:50%;">План митигации</th><th style="width:80px;">Агент</th></tr>
+            <tr><th style="width:30px;">#</th><th style="width:90px;">Уровень</th><th>Риск</th><th style="width:50%;">Рекомендация</th><th style="width:80px;">Метрика</th></tr>
           </thead>
           <tbody>
             <tr>
-              <td style="color:#ff9800; font-weight:700;">R3</td>
-              <td><span style="color:#ff9800; font-weight:700;">🟠 Высокий</span></td>
-              <td style="color:#fff;">«Согласование» — 18 дней внешней зависимости.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Самый длинный этап, требует стейкхолдеров. Отпуск в августе → +2–3 недели.</span></td>
-              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Декомпозировать на 3 этапа по 5–6 дней с промежуточными ревью<br>2. До 27.07 согласовать календарь доступности стейкхолдеров на август<br>3. Назначить ответственного за эскалацию при задержке >2 дней</td>
-              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">german-agent</td>
+              <td style="color:#f85149; font-weight:700;">R1</td>
+              <td><span style="color:#f85149; font-weight:700;">🔴 Критический</span></td>
+              <td style="color:#fff;">Критический путь = весь проект.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Все три задачи имеют TS=0. Любая задержка любой задачи — срыв всего проекта.</span></td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Назначить ответственных на #47 и #48 — это №1<br>2. Ввести ежедневный мониторинг #47 с алертом при задержке ≥2 дн<br>3. Подготовить план эскалации</td>
+              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">TS=0 дн</td>
             </tr>
             <tr>
-              <td style="color:#ff9800; font-weight:700;">R4</td>
+              <td style="color:#ff9800; font-weight:700;">R2</td>
               <td><span style="color:#ff9800; font-weight:700;">🟠 Высокий</span></td>
-              <td style="color:#fff;">Единственная точка отказа.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">2 задачи + 1 веха. Один исполнитель = весь проект.</span></td>
-              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Назначить backup-исполнителя с загрузкой ≥30% на период проекта<br>2. Документировать требования в OpenProject (bus factor >1)<br>3. При расширении WBS распределить задачи между ≥2 участниками</td>
-              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">german-agent</td>
+              <td style="color:#fff;">Согласование — 18 дней без промежуточных вех.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Одна задача на 18 рабочих дней без точек контроля. Если к 20 августа буксует — узнаешь только 31-го.</span></td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Разбить на 2–3 этапа с промежуточными вехами<br>2. Пример: «Черновик согласован» (12 дн) → «Финальное согласование» (6 дн)<br>3. Настроить алерт при задержке >2 дней на каждом этапе</td>
+              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">18 дн<br>без вех</td>
+            </tr>
+            <tr>
+              <td style="color:#ff9800; font-weight:700;">R3</td>
+              <td><span style="color:#ff9800; font-weight:700;">🟠 Высокий</span></td>
+              <td style="color:#fff;">Нет ответственных.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Ни на одной задаче не назначен assignee. Никто не отвечает за результат.</span></td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Назначить assignee на #47 и #48<br>2. Определить RACI-матрицу<br>3. Внести в OpenProject до старта (27.07)</td>
+              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">0 из 4</td>
+            </tr>
+            <tr>
+              <td style="color:#ffd93d; font-weight:700;">R4</td>
+              <td><span style="color:#ffd93d; font-weight:700;">🟡 Средний</span></td>
+              <td style="color:#fff;">Нет базового плана (baseline).<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Невозможно применить EVM: SPI, SV, ΔFinish.</span></td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Зафиксировать baseline в OpenProject до 27.07<br>2. Настроить еженедельный отчёт: SV, SPI<br>3. При SPI < 0.9 → корректирующие действия</td>
+              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">Нет baseline</td>
             </tr>
             <tr>
               <td style="color:#ffd93d; font-weight:700;">R5</td>
               <td><span style="color:#ffd93d; font-weight:700;">🟡 Средний</span></td>
-              <td style="color:#fff;">Отсутствует базовый план (Baseline).<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Невозможно применить EVM: SV, SPI, ΔFinish не рассчитать.</span></td>
-              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Зафиксировать Baseline в OpenProject до 27.07<br>2. Настроить еженедельный мониторинг: SV, SPI, ΔFinish<br>3. При SPI <0.9 — анализ причин и корректирующие действия</td>
-              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">german-agent</td>
-            </tr>
-            <tr>
-              <td style="color:#ffd93d; font-weight:700;">R6</td>
-              <td><span style="color:#ffd93d; font-weight:700;">🟡 Средний</span></td>
-              <td style="color:#fff;">Неполный охват фаз.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Только «Аналитика». Что после 01.09 — неизвестно.</span></td>
-              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Провести сессию по уточнению полного жизненного цикла<br>2. Добавить в WBS фазы: Разработка → Тестирование → Внедрение<br>3. Определить контрольные вехи за 01.09 с привязкой к roadmap</td>
-              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">german-agent</td>
+              <td style="color:#fff;">Нулевой параллелизм.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Одна цепочка без распараллеливания. Упала задача — упал проект.</span></td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Рассмотреть частичное начало согласования до финала разработки<br>2. Выделить независимые блоки<br>3. При расширении WBS добавить параллельные задачи</td>
+              <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">1 цепочка</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <div class="footer"><span class="tech">Герман · Test 1 · 20.07.2026</span></div>
+    <div class="footer"><span class="tech">Герман · Test 1 · OpenProject API · CPM live · <span id="footer-time">20.07.2026 10:50 МСК</span></span></div>
 
   </div>
 </div>
