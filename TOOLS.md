@@ -2,6 +2,15 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
+## SearXNG — Self-hosted поисковик (20.07.2026)
+- **Контейнер:** `searxng/searxng:latest`, порт localhost:8888→8080
+- **Docker Compose:** `/home/user1/.openclaw/workspace/searxng/docker-compose.yml`
+- **Конфиг:** `/home/user1/.openclaw/workspace/searxng/settings.yml`
+- **Плагин:** `@openclaw/searxng-plugin` (установлен, enabled)
+- **Статус:** работает 24/7, не блокируется, self-hosted
+- **API:** `http://127.0.0.1:8888/search?q=...&format=json&language=ru-RU`
+- **OpenClaw конфиг:** `tools.web.search.provider = searxng`, `plugins.entries.searxng.config.webSearch.baseUrl = http://localhost:8888`
+
 ## LegalMCP — Юридический MCP-сервер
 - **MCP-токен:** `lmcp_npXn_t9-i6EWaLdqU-xq6RAvwhc0Y1-S6PQ1iQHHPF4`
 - **URL:** https://legalmcp.ru/mcp
