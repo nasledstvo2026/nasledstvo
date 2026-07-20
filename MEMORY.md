@@ -682,6 +682,28 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 
 **Принцип:** все задачи завершаются до 08:00 (начало рабочего дня Катрин). 20-минутные зазоры — на восстановление при ошибках. deepseek-chat, isolated, failureAlert после 2 ошибок.
 
+## 🔍 Web Search — SearXNG (20.07.2026)
+- **Провайдер:** `tools.web.search.provider = searxng`
+- **Base URL:** `plugins.entries.searxng.config.webSearch.baseUrl = http://localhost:8888`
+- **Контейнер:** `searxng/searxng:latest`, порт 8888→8080, docker-compose в `/home/user1/.openclaw/workspace/searxng/`
+- **Конфиг SearXNG:** `/home/user1/.openclaw/workspace/searxng/settings.yml` (Google, DuckDuckGo, Brave — enabled)
+- **Плагин:** `@openclaw/searxng-plugin` (установлен, enabled)
+- **API:** `http://127.0.0.1:8888/search?q=...&format=json&language=ru-RU`
+- **Статус:** работает, не блокируется, self-hosted, без лимитов
+
+### Что НЕ работает для поиска новостей (уроки 20.07.2026)
+- **DuckDuckGo:** bot-detection challenge (не для продакшена)
+- **Прямой HTML-парсинг новостных сайтов:** разная вёрстка, JS-SPA (Дзен, Яндекс.Новости), 0 результатов
+- **RSS-ленты:** только 5 рабочих фидов (tass.ru, garant.ru, consultant.ru, kommersant.ru, vedomosti.ru), почти нет новостей по наследству
+- **Google News:** риск блокировки с российского VPS
+- **Скрипт `collect-lena-news.py`:** создан, но неэффективен (архивный)
+
+### Пайплайн новостей Лены
+- **lena-search-agent** (87d3aaef): deepseek-chat, web_search ×6-8 через SearXNG, 600s timeout, cron 02:00
+- **lena-verify-agent** (ad4d79bb): deepseek-v4-flash, web_fetch, cron 02:10
+- **lena-html-agent** (43ce4092): deepseek-v4-flash, HTML + публикация + доставка Лене (254785028), cron 02:20
+- **Файлы:** `agents/shared/lena-raw.json` → `agents/shared/lena-verified.json` → `report-lena.html`
+
 ## 🔗 Как делаются ссылки на плашках (index.html)
 
 ### Плашка с текстом (обычная ссылка)
