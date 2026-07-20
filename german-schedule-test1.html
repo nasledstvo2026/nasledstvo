@@ -6,10 +6,17 @@
   <title>Расписание проекта test 1</title>
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
-  <!-- Frappe Gantt -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.min.css">
   <style>
-    .po { max-width: 900px; margin: 0 auto; padding: 20px; }
+    /* ─── Gantt variables ─── */
+    :root {
+      --gantt-bar-h: 22px;
+      --gantt-row-h: 32px;
+      --gantt-left-w: 360px;
+      --gantt-day-w: 36px;
+      --gantt-header-h: 48px;
+    }
+
+    .po { max-width: 960px; margin: 0 auto; padding: 20px; }
     .po-hero { text-align: center; padding: 60px 0 40px; }
     .po-hero .badge {
       display: inline-block; background: rgba(0,217,255,0.12); border: 1px solid rgba(0,217,255,0.2);
@@ -23,15 +30,26 @@
     }
     .po-hero p { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 600px; margin: 0 auto; }
 
-    .schedule-table { margin: 32px 0; }
+    /* ─── View toggle ─── */
+    .view-toggle {
+      display: flex; gap: 4px; margin: 0 0 24px;
+      background: rgba(255,255,255,0.04); border-radius: 8px; padding: 4px; width: fit-content;
+    }
+    .view-toggle button {
+      background: none; border: none; color: rgba(255,255,255,0.45);
+      font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+    }
+    .view-toggle button.active { background: rgba(0,217,255,0.15); color: #00d9ff; }
+    .view-toggle button:hover { color: rgba(255,255,255,0.8); }
+
+    /* ─── WBS table ─── */
+    .schedule-table { margin: 0 0 32px; }
     .schedule-table table { width: 100%; border-collapse: collapse; }
-    .schedule-table th { background: rgba(255,255,255,0.05); padding: 12px 14px; text-align: left; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .schedule-table th { background: rgba(255,255,255,0.05); padding: 12px 14px; text-align: left; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .schedule-table td { padding: 12px 14px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 13px; color: rgba(255,255,255,0.65); }
     .schedule-table tr:hover td { background: rgba(255,255,255,0.02); }
 
-    .phase-badge {
-      display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700;
-    }
+    .phase-badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
     .phase-design { background: rgba(0,217,255,0.12); color: #00d9ff; }
     .phase-dev { background: rgba(188,140,255,0.12); color: #bc8cff; }
     .phase-test { background: rgba(255,107,107,0.12); color: #ff6b6b; }
@@ -42,139 +60,52 @@
     .status-dot.progress { background: #ffd93d; }
     .status-dot.pending { background: rgba(255,255,255,0.3); }
 
-    /* ─── Gantt Chart ─── */
-    .gantt-container {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 20px 16px 16px;
-      margin: 32px 0;
-      overflow-x: auto;
-    }
-    .gantt-container h3 {
-      font-size: 15px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 16px;
-    }
-    .gantt-toggle {
+    /* ─── Gantt wrap ─── */
+    .gantt-wrap {
       display: flex;
-      gap: 4px;
-      margin-bottom: 24px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 8px;
-      padding: 4px;
-      width: fit-content;
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0 0 12px;
+      background: rgba(10,14,20,.6);
     }
-    .gantt-toggle button {
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.45);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
+    .gantt-left {
+      width: var(--gantt-left-w); min-width: var(--gantt-left-w); flex-shrink: 0;
+      overflow-y: auto; overflow-x: hidden;
+      border-right: 2px solid rgba(255,255,255,.1);
+      scrollbar-width: none;
     }
-    .gantt-toggle button.active {
-      background: rgba(0,217,255,0.15);
-      color: #00d9ff;
+    .gantt-left::-webkit-scrollbar { display: none; }
+    .gantt-left table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .gantt-left thead { position: sticky; top: 0; z-index: 5; }
+    .gantt-left th {
+      background: rgba(22,27,34,.95); color: var(--text-dim); font-size: 10px;
+      font-weight: 600; text-transform: uppercase; letter-spacing: .5px;
+      padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,.08); text-align: left; white-space: nowrap;
     }
-    .gantt-toggle button:hover {
-      color: rgba(255,255,255,0.8);
+    .gantt-left td {
+      padding: 4px 8px; border-bottom: 1px solid rgba(255,255,255,.04);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      color: var(--text-dim); height: var(--gantt-row-h); vertical-align: middle;
     }
+    .gantt-left tr.summary-row td { font-weight: 600; color: var(--text); background: rgba(255,255,255,.03); }
+    .gantt-left tr.milestone-row td .task-name { color: var(--orange); }
+    .gantt-left tr.critical-row td .task-name { color: #f85149; }
+    .gantt-left td.col-id { width: 34px; text-align: center; color: var(--text-faint); }
+    .gantt-left td.col-dur, .gantt-left td.col-start, .gantt-left td.col-finish { font-size: 11px; }
+    .task-indent { display: inline-block; width: 12px; }
 
-    /* Frappe Gantt dark theme overrides */
-    #gantt-chart { width: 100%; min-height: 220px; }
+    .gantt-right { flex: 1; overflow: auto; position: relative; }
+    .gantt-right svg { display: block; }
 
-    #gantt-chart .grid-header {
-      fill: rgba(255,255,255,0.03);
-      stroke: rgba(255,255,255,0.06);
-    }
-    #gantt-chart .grid-row {
-      fill: transparent;
-      stroke: rgba(255,255,255,0.04);
-    }
-    #gantt-chart .grid-row:nth-child(even) {
-      fill: rgba(255,255,255,0.015);
-    }
-    #gantt-chart .row-line {
-      stroke: rgba(255,255,255,0.04);
-    }
-    #gantt-chart .tick line {
-      stroke: rgba(255,255,255,0.06);
-    }
-    #gantt-chart .tick text {
-      fill: rgba(255,255,255,0.35);
-      font-size: 10px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    #gantt-chart .today-highlight {
-      fill: rgba(0,217,255,0.04);
-      stroke: rgba(0,217,255,0.2);
-      stroke-width: 1px;
-    }
-    #gantt-chart .bar-group text {
-      fill: rgba(255,255,255,0.7);
-      font-size: 12px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    /* Summary bar (phase) */
-    #gantt-chart .bar-wrapper.summary .bar {
-      fill: rgba(0,217,255,0.18);
-      stroke: rgba(0,217,255,0.35);
-      stroke-width: 1.5px;
-      stroke-dasharray: none;
-    }
-    #gantt-chart .bar-wrapper.summary .bar-progress {
-      fill: rgba(0,217,255,0.08);
-    }
-    /* Task bar */
-    #gantt-chart .bar-wrapper.task .bar {
-      fill: rgba(188,140,255,0.22);
-      stroke: rgba(188,140,255,0.4);
-      stroke-width: 1px;
-    }
-    #gantt-chart .bar-wrapper.task .bar-progress {
-      fill: rgba(188,140,255,0.35);
-    }
-    /* Milestone */
-    #gantt-chart .bar-wrapper.milestone .bar {
-      fill: rgba(46,213,115,0.3);
-      stroke: #2ed573;
-      stroke-width: 2px;
-    }
-    #gantt-chart .bar-wrapper.milestone .bar-progress {
-      fill: rgba(46,213,115,0.5);
-    }
-    /* Dependency arrows */
-    #gantt-chart .arrow {
-      stroke: rgba(255,255,255,0.15);
-      stroke-width: 1.2px;
-    }
-    /* Handle (drag circle) */
-    #gantt-chart .handle {
-      fill: rgba(255,255,255,0.5);
-      stroke: rgba(255,255,255,0.2);
-    }
-    /* Popup */
-    .gantt .details-container {
-      background: #161b22 !important;
-      border: 1px solid rgba(255,255,255,0.12) !important;
-      border-radius: 8px !important;
-      color: rgba(255,255,255,0.8) !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
-    }
-    /* View mode buttons (if shown) */
-    #gantt-chart foreignObject .btn-group button {
-      background: rgba(255,255,255,0.06) !important;
-      border-color: rgba(255,255,255,0.1) !important;
-      color: rgba(255,255,255,0.6) !important;
-    }
+    .progress-mini { display: inline-block; width: 40px; height: 6px; background: rgba(255,255,255,.06); border-radius: 3px; overflow: hidden; vertical-align: middle; }
+    .progress-mini-fill { height: 100%; border-radius: 3px; }
 
+    .gantt-hint { text-align: center; font-size: 10px; color: rgba(255,255,255,0.2); padding: 4px 0 8px; }
+    .gantt-legend { display: flex; gap: 16px; justify-content: center; font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 24px; }
+    .gantt-legend span { display: flex; align-items: center; gap: 4px; }
+
+    /* ─── Info blocks ─── */
     .info-block {
       background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
       border-radius: 12px; padding: 20px 24px; margin: 24px 0;
@@ -187,7 +118,7 @@
 
     @media (max-width: 768px) {
       .po-hero h1 { font-size: 26px; }
-      .gantt-container { padding: 12px 8px; }
+      :root { --gantt-left-w: 220px; --gantt-day-w: 28px; }
     }
   </style>
 </head>
@@ -205,140 +136,80 @@
     </div>
 
     <!-- Переключатель Таблица / Гант -->
-    <div class="gantt-toggle">
-      <button id="btn-table" class="active" onclick="switchView('table')">📋 Таблица</button>
-      <button id="btn-gantt" onclick="switchView('gantt')">📊 Гант</button>
+    <div class="view-toggle">
+      <button id="btn-table" class="active" onclick="switchView('table')">📋 Таблица WBS</button>
+      <button id="btn-gantt" onclick="switchView('gantt')">📊 Диаграмма Ганта</button>
     </div>
 
-    <!-- Таблица WBS -->
+    <!-- ═══ WBS-таблица ═══ -->
     <div id="view-table" class="schedule-table">
       <table>
         <thead>
-          <tr>
-            <th>WBS</th>
-            <th>Задача</th>
-            <th>Тип</th>
-            <th>Старт</th>
-            <th>Финиш</th>
-            <th>Дни</th>
-            <th>Статус</th>
-          </tr>
+          <tr><th>WBS</th><th>Задача</th><th>Тип</th><th>Старт</th><th>Финиш</th><th>Дни</th><th>Статус</th></tr>
         </thead>
-        <tbody>
-          <tr>
-            <td style="color:#888;">1</td>
-            <td style="color:#fff; font-weight:600;">Аналитика</td>
-            <td><span class="phase-badge phase-design">Фаза</span></td>
-            <td>27.07</td>
-            <td>31.08</td>
-            <td>26</td>
-            <td><span class="status-dot pending"></span>0%</td>
-          </tr>
-          <tr>
-            <td style="color:#888;">1.1</td>
-            <td style="color:#fff;">Разработка системной аналитики</td>
-            <td><span class="phase-badge phase-dev">Задание</span></td>
-            <td>27.07</td>
-            <td>05.08</td>
-            <td>8</td>
-            <td><span class="status-dot pending"></span>0%</td>
-          </tr>
-          <tr>
-            <td style="color:#888;">1.2</td>
-            <td style="color:#fff;">Согласование системной аналитики</td>
-            <td><span class="phase-badge phase-dev">Задание</span></td>
-            <td>06.08</td>
-            <td>31.08</td>
-            <td>18</td>
-            <td><span class="status-dot pending"></span>0%</td>
-          </tr>
-          <tr>
-            <td style="color:#888;">2</td>
-            <td style="color:#fff; font-weight:600;">Аналитика завершена</td>
-            <td><span class="phase-badge phase-deploy">Ключевой момент</span></td>
-            <td>01.09</td>
-            <td>01.09</td>
-            <td>1</td>
-            <td><span class="status-dot pending"></span>0%</td>
-          </tr>
-        </tbody>
+        <tbody id="wbs-tbody"></tbody>
       </table>
     </div>
 
-    <!-- Диаграмма Ганта -->
-    <div id="view-gantt" class="gantt-container" style="display:none;">
-      <h3>📊 Диаграмма Ганта</h3>
-      <svg id="gantt-chart"></svg>
-      <p style="margin-top:16px; font-size:11px; color:rgba(255,255,255,0.3); text-align:center;">
-        🟦 Фаза &nbsp; 🟣 Задание &nbsp; 🟢 Ключевой момент &nbsp; — Зависимости показаны стрелками. Перетаскивайте задачи для изменения дат.
-      </p>
+    <!-- ═══ Диаграмма Ганта (custom SVG) ═══ -->
+    <div id="view-gantt" style="display:none;">
+      <div class="gantt-legend">
+        <span><span style="display:inline-block;width:30px;height:6px;border-radius:2px;background:rgba(0,217,255,0.4);"></span> Фаза</span>
+        <span><span style="display:inline-block;width:30px;height:14px;border-radius:3px;background:rgba(188,140,255,0.35);"></span> Задание</span>
+        <span style="color:#2ed573;">◆ Ключевой момент</span>
+        <span style="color:#f85149;">— Критический путь</span>
+      </div>
+      <div class="gantt-wrap" id="gantt-sync">
+        <div class="gantt-left" id="gantt-sync-left"></div>
+        <div class="gantt-right" id="gantt-sync-right"></div>
+      </div>
+      <div class="gantt-hint">← Скролл по таймлайну → &nbsp;|&nbsp; 🟠 Выходные и праздники &nbsp;|&nbsp; <span style="color:#f85149;">┃</span> Сегодня</div>
     </div>
 
+    <!-- ═══ Сводка ═══ -->
     <div class="info-block">
       <h3>📊 Сводка</h3>
       <p>Рабочих пакетов: 4 · Фаз: 1 · Заданий: 2 · Ключевых моментов: 1</p>
-      <p>Критический путь: 1 → 1.1 → 1.2 → 2 (последовательный, без параллельных задач)</p>
-      <p>Прогресс: 0% · Все задачи в статусе «Ожидает» · Проект на стадии планирования</p>
+      <p>Критический путь: <span id="critical-path-text"></span></p>
+      <p>Прогресс: <span id="overall-progress">0</span>% · Все задачи в статусе «Ожидает» · Проект на стадии планирования</p>
       <p style="margin-top:8px; font-size:12px; color:rgba(255,255,255,0.35);">Данные из OpenProject (ID #3 · test-1) · Обновлено 20.07.2026</p>
     </div>
 
+    <!-- ═══ Риски ═══ -->
     <div class="info-block" style="border-left: 3px solid rgba(255,152,0,0.5);">
       <h3>⚠️ Оценка рисков и план митигации</h3>
-
       <div class="schedule-table" style="margin:16px 0 0;">
         <table>
           <thead>
-            <tr>
-              <th style="width:30px;">#</th>
-              <th style="width:90px;">Уровень</th>
-              <th>Риск</th>
-              <th style="width:50%;">План митигации</th>
-              <th style="width:80px;">Агент</th>
-            </tr>
+            <tr><th style="width:30px;">#</th><th style="width:90px;">Уровень</th><th>Риск</th><th style="width:50%;">План митигации</th><th style="width:80px;">Агент</th></tr>
           </thead>
           <tbody>
             <tr>
               <td style="color:#ff9800; font-weight:700;">R3</td>
               <td><span style="color:#ff9800; font-weight:700;">🟠 Высокий</span></td>
               <td style="color:#fff;">«Согласование» — 18 дней внешней зависимости.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Самый длинный этап, требует стейкхолдеров. Отпуск в августе → +2–3 недели.</span></td>
-              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">
-                1. Декомпозировать на 3 этапа по 5–6 дней с промежуточными ревью<br>
-                2. До 27.07 согласовать календарь доступности стейкхолдеров на август<br>
-                3. Назначить ответственного за эскалацию при задержке >2 дней
-              </td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Декомпозировать на 3 этапа по 5–6 дней с промежуточными ревью<br>2. До 27.07 согласовать календарь доступности стейкхолдеров на август<br>3. Назначить ответственного за эскалацию при задержке >2 дней</td>
               <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">german-agent</td>
             </tr>
             <tr>
               <td style="color:#ff9800; font-weight:700;">R4</td>
               <td><span style="color:#ff9800; font-weight:700;">🟠 Высокий</span></td>
               <td style="color:#fff;">Единственная точка отказа.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">2 задачи + 1 веха. Один исполнитель = весь проект.</span></td>
-              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">
-                1. Назначить backup-исполнителя с загрузкой ≥30% на период проекта<br>
-                2. Документировать требования в OpenProject (bus factor >1)<br>
-                3. При расширении WBS распределить задачи между ≥2 участниками
-              </td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Назначить backup-исполнителя с загрузкой ≥30% на период проекта<br>2. Документировать требования в OpenProject (bus factor >1)<br>3. При расширении WBS распределить задачи между ≥2 участниками</td>
               <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">german-agent</td>
             </tr>
             <tr>
               <td style="color:#ffd93d; font-weight:700;">R5</td>
               <td><span style="color:#ffd93d; font-weight:700;">🟡 Средний</span></td>
               <td style="color:#fff;">Отсутствует базовый план (Baseline).<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Невозможно применить EVM: SV, SPI, ΔFinish не рассчитать.</span></td>
-              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">
-                1. Зафиксировать Baseline в OpenProject до 27.07<br>
-                2. Настроить еженедельный мониторинг: SV, SPI, ΔFinish<br>
-                3. При SPI <0.9 — анализ причин и корректирующие действия
-              </td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Зафиксировать Baseline в OpenProject до 27.07<br>2. Настроить еженедельный мониторинг: SV, SPI, ΔFinish<br>3. При SPI <0.9 — анализ причин и корректирующие действия</td>
               <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">german-agent</td>
             </tr>
             <tr>
               <td style="color:#ffd93d; font-weight:700;">R6</td>
               <td><span style="color:#ffd93d; font-weight:700;">🟡 Средний</span></td>
               <td style="color:#fff;">Неполный охват фаз.<br><span style="font-size:11px; color:rgba(255,255,255,0.45);">Только «Аналитика». Что после 01.09 — неизвестно.</span></td>
-              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">
-                1. Провести сессию по уточнению полного жизненного цикла<br>
-                2. Добавить в WBS фазы: Разработка → Тестирование → Внедрение<br>
-                3. Определить контрольные вехи за 01.09 с привязкой к roadmap
-              </td>
+              <td style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.7;">1. Провести сессию по уточнению полного жизненного цикла<br>2. Добавить в WBS фазы: Разработка → Тестирование → Внедрение<br>3. Определить контрольные вехи за 01.09 с привязкой к roadmap</td>
               <td style="font-size:11px; color:rgba(255,255,255,0.4); text-align:center;">german-agent</td>
             </tr>
           </tbody>
@@ -346,124 +217,465 @@
       </div>
     </div>
 
-    <div class="footer">
-      <span class="tech">Герман · Test 1 · 20.07.2026</span>
-    </div>
+    <div class="footer"><span class="tech">Герман · Test 1 · 20.07.2026</span></div>
 
   </div>
 </div>
 
-<!-- Frappe Gantt JS -->
-<script src="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.min.js"></script>
 <script>
-  // ─── Project Data (единый источник) ───
-  const projectTasks = [
-    {
-      id: '1',
-      name: 'Аналитика',
-      start: '2026-07-27',
-      end: '2026-08-31',
-      progress: 0,
-      custom_class: 'summary'
-    },
-    {
-      id: '1.1',
-      name: 'Разработка системной аналитики',
-      start: '2026-07-27',
-      end: '2026-08-05',
-      progress: 0,
-      dependencies: '1',
-      custom_class: 'task'
-    },
-    {
-      id: '1.2',
-      name: 'Согласование системной аналитики',
-      start: '2026-08-06',
-      end: '2026-08-31',
-      progress: 0,
-      dependencies: '1.1',
-      custom_class: 'task'
-    },
-    {
-      id: '2',
-      name: 'Аналитика завершена',
-      start: '2026-09-01',
-      end: '2026-09-01',
-      progress: 0,
-      dependencies: '1.2',
-      custom_class: 'milestone'
-    }
-  ];
+// ═══════════════════════════════════════════
+//  SCHEDULING ENGINE (из projects.html)
+// ═══════════════════════════════════════════
 
-  // ─── Init Gantt ───
-  let gantt = null;
+const HOLIDAYS = new Set([
+  '2026-01-01','2026-01-02','2026-01-03','2026-01-04','2026-01-05','2026-01-06','2026-01-07','2026-01-08',
+  '2026-02-23','2026-03-08','2026-03-09','2026-05-01','2026-05-09','2026-05-11','2026-06-12','2026-11-04'
+]);
 
-  function initGantt() {
-    if (gantt) return;
-    gantt = new Gantt("#gantt-chart", projectTasks, {
-      view_mode: 'Day',
-      date_format: 'YYYY-MM-DD',
-      bar_height: 28,
-      bar_corner_radius: 3,
-      arrow_curve: 4,
-      padding: 18,
-      header_height: 50,
-      column_width: 30,
-      step: 24,
-      view_modes: ['Day', 'Week', 'Month'],
-      on_click: function(task) {
-        const start = new Date(task.start);
-        const end = new Date(task.end);
-        const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-        const typeMap = { summary: 'Фаза', task: 'Задание', milestone: 'Ключевой момент' };
-        alert(
-          '📋 ' + task.name + '\n\n' +
-          '🆔 WBS: ' + task.id + '\n' +
-          '📁 Тип: ' + (typeMap[task.custom_class] || '—') + '\n' +
-          '📅 Старт: ' + start.toLocaleDateString('ru-RU') + '\n' +
-          '🏁 Финиш: ' + end.toLocaleDateString('ru-RU') + '\n' +
-          '⏱ Дней: ' + days + '\n' +
-          '📊 Прогресс: ' + Math.round(task.progress) + '%\n' +
-          (task.dependencies ? '🔗 Зависимость: ' + task.dependencies : '')
-        );
-      },
-      on_date_change: function(task, start, end) {
-        console.log('Date changed:', task.id, start, end);
-      },
-      on_progress_change: function(task, progress) {
-        console.log('Progress changed:', task.id, progress);
-      },
-      on_view_change: function(mode) {
-        console.log('View mode:', mode);
+const ds = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const isWE = d => { const w=d.getDay(); return w===0||w===6; };
+const isHol = d => HOLIDAYS.has(ds(d));
+const isNW = d => isWE(d)||isHol(d);
+
+function addWD(d,n) {
+  let c=new Date(d);
+  if(n>0){ while(n>0){ c.setDate(c.getDate()+1); if(!isNW(c)) n--; } }
+  else if(n<0){ while(n<0){ c.setDate(c.getDate()-1); if(!isNW(c)) n++; } }
+  return c;
+}
+function prevWD(d) { let r=new Date(d); r.setDate(r.getDate()-1); while(isNW(r)) r.setDate(r.getDate()-1); return r; }
+function wdBetween(a,b) {
+  let c=0; const s=new Date(a); s.setHours(0,0,0,0); const e=new Date(b); e.setHours(0,0,0,0);
+  const d=new Date(s); while(d<=e){if(!isNW(d))c++;d.setDate(d.getDate()+1)} return c;
+}
+function sameDay(a,b) { return new Date(a).toDateString()===new Date(b).toDateString(); }
+function addDays(d,n) { const r=new Date(d); r.setDate(r.getDate()+n); return r; }
+const fmtDate = d => { const dt=new Date(d); return dt.getDate()+'.'+String(dt.getMonth()+1).padStart(2,'0')+'.'+dt.getFullYear(); };
+const fmtShort = d => { const dt=new Date(d); return dt.getDate()+' '+['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'][dt.getMonth()]; };
+const MONTHS_RU = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+
+function scheduleProject(project) {
+  const tasks = project.tasks, idx = {};
+  tasks.forEach(t => idx[t.id] = t);
+  const pStart = new Date(project.startDate); pStart.setHours(0,0,0,0);
+
+  // Topological sort
+  const vis = new Set(), order = [];
+  function visit(id) { if(vis.has(id)) return; vis.add(id); const t=idx[id]; if(t&&t.depends) t.depends.forEach(d=>visit(d.id)); order.push(id); }
+  tasks.forEach(t => visit(t.id));
+
+  // Forward pass
+  for (const id of order) {
+    const t = idx[id];
+    if (t.type==='summary') continue;
+    let earliest = t.startAfter ? new Date(t.startAfter) : new Date(pStart);
+    earliest.setHours(0,0,0,0);
+    if (t.depends && t.depends.length > 0) {
+      for (const dep of t.depends) {
+        const pred = idx[dep.id]; if(!pred||!pred._calcEnd) continue;
+        const lag = dep.lag || 0;
+        let candidate;
+        switch(dep.type||'FS') {
+          case 'FS': candidate = addWD(pred._calcEnd, lag+1); break;
+          case 'SS': candidate = addWD(pred._calcStart||pStart, lag); break;
+          default: candidate = addWD(pred._calcEnd, lag+1);
+        }
+        if (candidate > earliest) earliest = candidate;
       }
-    });
+    }
+    if (earliest < pStart) earliest = new Date(pStart);
+    while (isNW(earliest)) earliest.setDate(earliest.getDate()+1);
+    t._calcStart = new Date(earliest); t._calcStart.setHours(0,0,0,0);
+    if (t.type==='milestone') { t._calcEnd = new Date(t._calcStart); }
+    else { t._calcEnd = addWD(t._calcStart, (t.duration||1)-1); }
+    t._calcEnd.setHours(0,0,0,0);
   }
 
-  // ─── View Switcher ───
-  function switchView(view) {
-    const tableEl = document.getElementById('view-table');
-    const ganttEl = document.getElementById('view-gantt');
-    const btnTable = document.getElementById('btn-table');
-    const btnGantt = document.getElementById('btn-gantt');
+  // Summary
+  for (const id of order) {
+    const t = idx[id]; if(t.type!=='summary'||!t.children) continue;
+    let mn=null, mx=null;
+    for (const cid of t.children) { const c=idx[cid]; if(!c||!c._calcStart) continue; if(!mn||c._calcStart<mn) mn=new Date(c._calcStart); if(!mx||c._calcEnd>mx) mx=new Date(c._calcEnd); }
+    if (mn) { t._calcStart=mn; t._calcEnd=mx||mn; t.duration=wdBetween(mn,mx||mn); }
+  }
 
-    if (view === 'table') {
-      tableEl.style.display = '';
-      ganttEl.style.display = 'none';
-      btnTable.classList.add('active');
-      btnGantt.classList.remove('active');
+  // Critical path (backward pass)
+  let pEnd = new Date(pStart);
+  tasks.forEach(t => { if(t._calcEnd && t._calcEnd>pEnd) pEnd=new Date(t._calcEnd); });
+  tasks.forEach(t => {
+    t._isCritical = false;
+    if (t.type==='summary') return;
+    const succs = tasks.filter(s => s.depends && s.depends.some(d=>d.id===t.id));
+    let lf = new Date(pEnd);
+    for (const s of succs) { if(s._calcStart) { const bound=prevWD(s._calcStart); if(bound<lf) lf=new Date(bound); } }
+    t._lf = lf;
+    if (t.type==='milestone') { t._ls = new Date(lf); }
+    else { let ls=new Date(lf); let rem=(t.duration||1)-1; while(rem>0){ls=prevWD(ls);rem--} t._ls=new Date(ls); }
+    t._isCritical = t._calcStart && t._ls && Math.abs(t._calcStart.getTime()-t._ls.getTime())===0;
+  });
+  tasks.forEach(t => { if(t.type==='milestone'&&t._calcEnd&&sameDay(t._calcEnd,pEnd)) t._isCritical=true; });
+}
+
+// ═══════════════════════════════════════════
+//  PROJECT DATA (Test 1)
+// ═══════════════════════════════════════════
+
+const PROJECT = {
+  id: "test-1",
+  name: "Test 1",
+  startDate: "2026-07-27",
+  description: "Календарный план проекта.",
+  tasks: [
+    { id:"1", name:"Аналитика", type:"summary", owner:"—", status:"pending", pct:0, color:"#00d9ff", children:["1.1","1.2"] },
+    { id:"1.1", name:"Разработка системной аналитики", type:"task", startAfter:"2026-07-27", duration:8, owner:"—", status:"pending", pct:0, color:"#bc8cff", depends:[] },
+    { id:"1.2", name:"Согласование системной аналитики", type:"task", duration:18, owner:"—", status:"pending", pct:0, color:"#bc8cff", depends:[{id:"1.1",type:"FS",lag:0}] },
+    { id:"2", name:"Аналитика завершена", type:"milestone", owner:"—", status:"pending", pct:0, color:"#2ed573", depends:[{id:"1.2",type:"FS",lag:0}] }
+  ]
+};
+
+scheduleProject(PROJECT);
+
+// ═══════════════════════════════════════════
+//  RENDER: WBS Table + Critical path text
+// ═══════════════════════════════════════════
+
+function renderWbsTable() {
+  const tasks = PROJECT.tasks;
+  const idx = {};
+  tasks.forEach(t => idx[t.id] = t);
+
+  // Order: summary → children, then standalone tasks
+  const ordered = orderTasks(tasks);
+  let html = '';
+  ordered.forEach(t => {
+    const typeMap = { summary:'Фаза', task:'Задание', milestone:'Ключевой момент' };
+    const typeClassMap = { summary:'phase-design', task:'phase-dev', milestone:'phase-deploy' };
+    const start = t._calcStart ? fmtDate(t._calcStart) : '—';
+    const end = t._calcEnd ? fmtDate(t._calcEnd) : '—';
+    const dur = t.type==='milestone' ? '1' : (t.duration||wdBetween(t._calcStart,t._calcEnd));
+    const pct = Math.round(t.pct||0);
+    const hasProgress = pct > 0 && pct < 100;
+    const isDone = pct >= 100;
+    const dotClass = isDone ? 'done' : (hasProgress ? 'progress' : 'pending');
+
+    html += `<tr>
+      <td style="color:#888;">${t.id}</td>
+      <td style="color:#fff;${t.type==='summary'?'font-weight:600;':''}">${t.name}</td>
+      <td><span class="phase-badge ${typeClassMap[t.type]||'phase-dev'}">${typeMap[t.type]||'Задание'}</span></td>
+      <td>${start}</td>
+      <td>${end}</td>
+      <td>${dur}</td>
+      <td><span class="status-dot ${dotClass}"></span>${pct}%</td>
+    </tr>`;
+  });
+  document.getElementById('wbs-tbody').innerHTML = html;
+
+  // Critical path text
+  const crit = tasks.filter(t => t._isCritical);
+  const critPath = crit.map(t => t.id).join(' → ');
+  const critNames = crit.map(t => `«${t.name}»`).join(' → ');
+  document.getElementById('critical-path-text').textContent = `${critPath} (${critNames})`;
+
+  // Overall progress
+  const leafs = tasks.filter(t => t.type !== 'summary');
+  const overallPct = leafs.length ? Math.round(leafs.reduce((s,t) => s + t.pct, 0) / leafs.length) : 0;
+  document.getElementById('overall-progress').textContent = overallPct;
+}
+
+function orderTasks(tasks) {
+  const ordered = [];
+  const placed = new Set();
+  for (const t of tasks) {
+    if (placed.has(t.id)) continue;
+    if (t.type === 'summary') {
+      ordered.push(t); placed.add(t.id);
+      if (t.children) {
+        for (const cid of t.children) {
+          const c = tasks.find(x => x.id === cid);
+          if (c && !placed.has(c.id)) { c._indent = 1; ordered.push(c); placed.add(c.id); }
+        }
+      }
     } else {
-      tableEl.style.display = 'none';
-      ganttEl.style.display = '';
-      btnTable.classList.remove('active');
-      btnGantt.classList.add('active');
-      initGantt();
+      ordered.push(t); placed.add(t.id);
+    }
+  }
+  return ordered;
+}
+
+renderWbsTable();
+
+// ═══════════════════════════════════════════
+//  RENDER: Custom SVG Gantt
+// ═══════════════════════════════════════════
+
+const CW = 36;       // day column width
+const RH = 32;       // row height
+const HDR_H = 48;    // header height
+const BAR_H = 20;
+const BAR_R = 4;
+const MS_SIZE = 16;  // milestone diamond
+
+function dateToX(d, dates) {
+  for (let i=0; i<dates.length; i++) { if (sameDay(dates[i], d)) return i*CW; }
+  return -1;
+}
+
+function buildTimeline(dates, ordered) {
+  const nDates = dates.length;
+  const nTasks = ordered.length;
+  const totalW = nDates * CW;
+  const totalH = HDR_H + nTasks * RH;
+  let svg = '';
+
+  // Weekend/holiday stripes
+  for (let i=0; i<nDates.length; i++) {
+    const d = dates[i];
+    if (isHol(d)) {
+      svg += `<rect x="${i*CW}" y="${HDR_H}" width="${CW}" height="${nTasks*RH}" fill="rgba(255,144,0,.08)"/>`;
+    } else if (isWE(d)) {
+      svg += `<rect x="${i*CW}" y="${HDR_H}" width="${CW}" height="${nTasks*RH}" fill="rgba(255,144,0,.04)"/>`;
     }
   }
 
-  // ─── Auto-init if URL hash contains #gantt ───
-  if (window.location.hash === '#gantt') {
-    switchView('gantt');
+  // Horizontal grid
+  for (let i=0; i<=nTasks; i++) {
+    const y = HDR_H + i*RH;
+    svg += `<line x1="0" y1="${y}" x2="${totalW}" y2="${y}" stroke="rgba(255,255,255,.04)"/>`;
   }
+
+  // Vertical grid
+  for (let i=0; i<=nDates; i++) {
+    svg += `<line x1="${i*CW}" y1="${HDR_H}" x2="${i*CW}" y2="${totalH}" stroke="rgba(255,255,255,.03)"/>`;
+  }
+
+  // Header background
+  svg += `<rect x="0" y="0" width="${totalW}" height="${HDR_H}" fill="rgba(22,27,34,.95)"/>`;
+  svg += `<line x1="0" y1="${HDR_H}" x2="${totalW}" y2="${HDR_H}" stroke="rgba(255,255,255,.08)"/>`;
+
+  // Month headers
+  let prevMonth = -1;
+  for (let i=0; i<nDates; i++) {
+    const m = dates[i].getMonth();
+    if (m !== prevMonth) {
+      let span = 1;
+      for (let j=i+1; j<nDates && dates[j].getMonth()===m; j++) span++;
+      const x = i*CW;
+      svg += `<text x="${x+6}" y="16" fill="#8b949e" font-size="11" font-weight="600" font-family="sans-serif">${MONTHS_RU[m]} ${dates[i].getFullYear()}</text>`;
+      svg += `<line x1="${x}" y1="22" x2="${x+span*CW}" y2="22" stroke="rgba(255,255,255,.06)"/>`;
+      prevMonth = m;
+    }
+  }
+
+  // Day headers
+  for (let i=0; i<nDates; i++) {
+    const d = dates[i];
+    const x = i*CW + CW/2;
+    let fill = '#484f58';
+    if (isHol(d)) fill = '#ff9000';
+    else if (isWE(d)) fill = 'rgba(255,144,0,.5)';
+    if (sameDay(d, TODAY)) fill = '#f85149';
+    const label = d.getDate();
+    svg += `<text x="${x}" y="40" fill="${fill}" font-size="10" font-family="sans-serif" text-anchor="middle" ${sameDay(d,TODAY)?'font-weight="800"':''}>${label}</text>`;
+  }
+
+  // Today line
+  const todayX = dateToX(TODAY, dates);
+  if (todayX >= 0) {
+    svg += `<line x1="${todayX+CW/2}" y1="${HDR_H}" x2="${todayX+CW/2}" y2="${totalH}" stroke="#f85149" stroke-width="2" stroke-dasharray="4,3" opacity=".7"/>`;
+  }
+
+  // Dependency arrow marker
+  svg += `<defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="rgba(255,255,255,.4)"/></marker></defs>`;
+
+  // Build id→row index map
+  const idx = {};
+  ordered.forEach((t,i) => idx[t.id] = i);
+
+  // Bars
+  for (let ri=0; ri<ordered.length; ri++) {
+    const t = ordered[ri];
+    if (!t._calcStart || !t._calcEnd) continue;
+    const si = dateToX(t._calcStart, dates);
+    const ei = dateToX(t._calcEnd, dates);
+    if (si<0 || ei<0) continue;
+
+    const y = HDR_H + ri*RH + (RH - BAR_H)/2;
+    const opacity = t.status==='done' ? '.4' : '1';
+
+    if (t.type === 'milestone') {
+      const mx = si + CW/2;
+      const my = HDR_H + ri*RH + RH/2;
+      const s = MS_SIZE/2;
+      const crit = t._isCritical ? ' stroke="#f85149" stroke-width="2"' : '';
+      svg += `<polygon points="${mx},${my-s} ${mx+s},${my} ${mx},${my+s} ${mx-s},${my}" fill="${t.color}"${crit}/>`;
+      svg += `<text x="${mx+s+4}" y="${my+4}" fill="#c9d1d9" font-size="10" font-family="sans-serif">★ ${t.name}</text>`;
+    } else if (t.type === 'summary') {
+      // Summary bar with hooks
+      const bx = si + 2;
+      const bw = (ei - si) + CW - 4;
+      const by = HDR_H + ri*RH + RH/2 - 3;
+      svg += `<rect x="${bx}" y="${by}" width="${bw}" height="6" rx="1" fill="rgba(0,217,255,.35)"/>`;
+      svg += `<polygon points="${bx},${by} ${bx+6},${by} ${bx+3},${by+7}" fill="rgba(0,217,255,.35)"/>`;
+      svg += `<polygon points="${bx+bw},${by} ${bx+bw-6},${by} ${bx+bw-3},${by+7}" fill="rgba(0,217,255,.35)"/>`;
+    } else {
+      // Task bar
+      const bx = si + 1;
+      const bw = Math.max(CW/2, (ei - si) + CW - 2);
+      const crit = t._isCritical ? ' stroke="#f85149" stroke-width="2"' : '';
+
+      svg += `<rect x="${bx}" y="${y}" width="${bw}" height="${BAR_H}" rx="${BAR_R}" fill="${t.color}" opacity="${opacity}"${crit}/>`;
+
+      // Progress fill
+      if (t.pct > 0 && t.pct < 100) {
+        const pw = bw * t.pct / 100;
+        svg += `<rect x="${bx}" y="${y}" width="${pw}" height="${BAR_H}" rx="${BAR_R}" fill="rgba(255,255,255,.2)"/>`;
+        if (pw < bw) {
+          svg += `<rect x="${bx+pw-BAR_R}" y="${y}" width="${BAR_R}" height="${BAR_H}" fill="${t.color}" opacity="${opacity}"/>`;
+        }
+      }
+
+      // Label on bar
+      if (bw > 60) {
+        const lbl = t.pct > 0 ? t.pct+'%' : '';
+        if (lbl) {
+          svg += `<text x="${bx+bw/2}" y="${y+BAR_H/2+4}" fill="white" font-size="10" font-family="sans-serif" text-anchor="middle" font-weight="600">${lbl}</text>`;
+        }
+      }
+    }
+  }
+
+  // Dependency arrows
+  for (let ri=0; ri<ordered.length; ri++) {
+    const t = ordered[ri];
+    if (!t.depends) continue;
+    for (const dep of t.depends) {
+      const fromIdx = idx[dep.id];
+      if (fromIdx === undefined) continue;
+      const from = ordered[fromIdx];
+      if (!from._calcEnd || !t._calcStart) continue;
+
+      const fx = dateToX(from._calcEnd, dates) + CW;
+      const fy = HDR_H + fromIdx*RH + RH/2;
+      const tx = dateToX(t._calcStart, dates);
+      const ty = HDR_H + ri*RH + RH/2;
+
+      const critStroke = (from._isCritical && t._isCritical) ? 'rgba(248,81,73,.5)' : 'rgba(255,255,255,.25)';
+
+      if (dep.type === 'FS' || !dep.type) {
+        const dy = ty - fy;
+        if (Math.abs(dy) < 2) {
+          svg += `<line x1="${fx}" y1="${fy}" x2="${tx}" y2="${ty}" stroke="${critStroke}" stroke-width="1.5" marker-end="url(#arrowhead)"/>`;
+        } else {
+          svg += `<path d="M${fx},${fy} L${fx+10},${fy} L${fx+10},${ty} L${tx},${ty}" fill="none" stroke="${critStroke}" stroke-width="1.5" marker-end="url(#arrowhead)"/>`;
+        }
+      }
+    }
+  }
+
+  return { svg, totalW, totalH };
+}
+
+function buildLeftTable(ordered) {
+  let html = `<table><thead><tr>
+    <th style="width:30px">№</th>
+    <th style="width:180px">Задача</th>
+    <th style="width:40px">Дн.</th>
+    <th style="width:55px">Начало</th>
+    <th style="width:55px">Конец</th>
+    <th style="width:50px">%</th>
+  </tr></thead><tbody>`;
+
+  ordered.forEach((t, i) => {
+    const cls = [];
+    if (t.type==='summary') cls.push('summary-row');
+    if (t.type==='milestone') cls.push('milestone-row');
+    if (t._isCritical) cls.push('critical-row');
+    if (t.status==='done') cls.push('done-row');
+
+    const indent = t._indent ? `<span class="task-indent">${'└'.repeat(t._indent)}</span>` : '';
+    const dur = t.type==='milestone' ? '—' : (t.duration||0)+'д';
+    const start = t._calcStart ? fmtDate(t._calcStart) : '—';
+    const end = t._calcEnd ? fmtDate(t._calcEnd) : '—';
+    const pColor = t.pct>=80?'#2ed573':t.pct>=40?'#58a6ff':'#484f58';
+
+    html += `<tr class="${cls.join(' ')}">
+      <td class="col-id">${i+1}</td>
+      <td><span class="task-name">${indent}${t.name}</span></td>
+      <td class="col-dur">${dur}</td>
+      <td class="col-start">${start}</td>
+      <td class="col-finish">${end}</td>
+      <td><span class="progress-mini"><span class="progress-mini-fill" style="width:${t.pct}%;background:${pColor}"></span></span> ${t.pct}%</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>`;
+  return html;
+}
+
+function renderGantt() {
+  const tasks = PROJECT.tasks;
+  const ordered = orderTasks(tasks);
+
+  // Date range
+  let minD = new Date(PROJECT.startDate), maxD = new Date(PROJECT.startDate);
+  tasks.forEach(t => { if(t._calcStart&&t._calcStart<minD) minD=new Date(t._calcStart); if(t._calcEnd&&t._calcEnd>maxD) maxD=new Date(t._calcEnd); });
+  const start = addDays(minD, -2);
+  const end = addDays(maxD, 5);
+  const days = Math.ceil((end-start)/864e5)+1;
+  const dates = [];
+  for (let i=0; i<days; i++) dates.push(addDays(start, i));
+
+  const {svg, totalW, totalH} = buildTimeline(dates, ordered);
+  const leftTable = buildLeftTable(ordered);
+
+  document.getElementById('gantt-sync-left').innerHTML = leftTable;
+  document.getElementById('gantt-sync-right').innerHTML = `<svg width="${totalW}" height="${totalH}" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`;
+
+  // Sync scroll
+  const left = document.getElementById('gantt-sync-left');
+  const right = document.getElementById('gantt-sync-right');
+  if (left && right) {
+    left.addEventListener('scroll', () => { right.scrollTop = left.scrollTop; });
+    right.addEventListener('scroll', () => { left.scrollTop = right.scrollTop; });
+  }
+}
+
+// ═══════════════════════════════════════════
+//  VIEW SWITCHER
+// ═══════════════════════════════════════════
+
+let ganttRendered = false;
+
+function switchView(view) {
+  const tableEl = document.getElementById('view-table');
+  const ganttEl = document.getElementById('view-gantt');
+  const btnTable = document.getElementById('btn-table');
+  const btnGantt = document.getElementById('btn-gantt');
+
+  if (view === 'table') {
+    tableEl.style.display = '';
+    ganttEl.style.display = 'none';
+    btnTable.classList.add('active');
+    btnGantt.classList.remove('active');
+  } else {
+    tableEl.style.display = 'none';
+    ganttEl.style.display = '';
+    btnTable.classList.remove('active');
+    btnGantt.classList.add('active');
+    if (!ganttRendered) { renderGantt(); ganttRendered = true; }
+    // Re-render to fix any layout shifts
+    setTimeout(() => {
+      const right = document.getElementById('gantt-sync-right');
+      if (right) right.scrollTop = 0;
+    }, 50);
+  }
+}
+
+// Auto-switch via URL hash
+if (window.location.hash === '#gantt') {
+  switchView('gantt');
+}
 </script>
 
 </body>
