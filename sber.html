@@ -6,70 +6,76 @@
   <title>Сбер — nasledstvo2026.github.io</title>
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .hero { text-align: center; margin-bottom: 40px; }
+    .hero h1 {
+      font-size: 38px; font-weight: 800; letter-spacing: -1px; margin: 0 0 16px 4px; padding: 0;
+      color: transparent;
+      background: linear-gradient(90deg,#ff5050,#ff9000,#bc8cff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: 16px; color: rgba(255,255,255,0.6); margin-top: 8px; line-height: 1.5;
+    }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+    .card.aura { min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
+    .card.aura .desc { font-size: 14px; color: rgba(255,255,255,0.55); margin-top: 4px; line-height: 1.5; padding: 0 20px 16px; }
+    .card.aura a { text-decoration: none; color: inherit; display: block; padding: 20px 20px 0; }
+    a.card-link { text-decoration: none; }
+    @media (max-width: 768px) { .cards { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
 <div class="container">
 
-  <a href="index.html" class="back">← Назад</a>
+<a class="back" href="index.html">← На главную</a>
 
-  <div class="hero">
-    <h1 class="hero-title-serif">СБЕР</h1>
-  </div>
+<div class="hero">
+  <h1>СБЕР</h1>
+  <p class="hero-subtitle">Цифровые сервисы Сбера в экосистеме nasledstvo2026</p>
+</div>
 
-  <div class="cards" style="max-width:900px;margin:0 auto;gap:60px;">
+<div class="cards" style="max-width:900px;margin:0 auto;">
 
-    <!-- Наследство -->
-    <a href="inheritance.html">
-      <div class="card blue aura bg-image">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>Наследство</h2>
-          </div>
-        </div>
-      </div>
-    </a>
+  <!-- Наследство -->
+  <a href="inheritance.html" class="card-link">
+    <div class="card blue aura">
+      <div class="card-header"><div class="card-header-row"><h2>Наследство</h2></div></div>
+      <div class="desc">Мониторинг жалоб, новости, дайджесты, компенсации вкладов СССР в экосистеме Сбера.</div>
+    </div>
+  </a>
 
-    <!-- Социальный консультант -->
-    <a href="social.html">
-      <div class="card green aura bg-image">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>Социальный консультант</h2>
-          </div>
-        </div>
-      </div>
-    </a>
+  <!-- Социальный консультант -->
+  <a href="social.html" class="card-link">
+    <div class="card green aura">
+      <div class="card-header"><div class="card-header-row"><h2>Социальный консультант</h2></div></div>
+      <div class="desc">ИИ-ассистент по пособиям, льготам и выплатам РФ. Персонализированные консультации.</div>
+    </div>
+  </a>
 
-    <!-- Создать БТ -->
-    <a href="bt.html">
-      <div class="card orange aura bg-image">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>Создать БТ</h2>
-          </div>
-        </div>
-      </div>
-    </a>
+  <!-- Создать БТ -->
+  <a href="bt.html" class="card-link">
+    <div class="card orange aura">
+      <div class="card-header"><div class="card-header-row"><h2>Создать БТ</h2></div></div>
+      <div class="desc">Конструктор бизнес-требований. Генерация документов за минуты по шаблонам.</div>
+    </div>
+  </a>
 
-    <!-- Герман -->
-    <a href="german-service.html">
-      <div class="card cyan aura bg-image">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>Герман. Специалист по календарно-сетевому планированию</h2>
-          </div>
-        </div>
-      </div>
-    </a>
-
-  </div>
-
-  <div class="footer">
-    <span class="tech" data-openclaw="OpenClaw 2026.6.9" data-llm="deepseek/deepseek-v4-flash" data-updated="1782924355"></span>
-  </div>
+  <!-- Герман -->
+  <a href="german-service.html" class="card-link">
+    <div class="card cyan aura">
+      <div class="card-header"><div class="card-header-row"><h2>Герман. Специалист по календарно-сетевому планированию</h2></div></div>
+      <div class="desc">Планирование и управление проектами с ИИ-ассистентом.</div>
+    </div>
+  </a>
 
 </div>
 
+<div class="footer">
+  <span class="tech">Экосистема продуктов · Июль 2026</span>
+</div>
+
+</div>
 </body>
 </html>
