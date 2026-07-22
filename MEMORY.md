@@ -297,9 +297,6 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - Роль: ИТ Лидер Трайба
 - При первом обращении: рассказать про синтез данных и PowerPoint, напомнить оценить Кирилла на летнем КпТ
 
-### Александр (459758941)
-- Telegram: @SirG00se
-- Роль: уточняется
 
 ---
 
@@ -307,7 +304,7 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 
 | # | Задача | Расписание | Модель | Кому |
 |---|--------|-----------|--------|------|
-| 0a | 🔍 search-agent: сбор жалоб | пн–пт 10:45 | deepseek-v4-flash | a2edcaaa |
+| 0a | 🔍 search-agent: сбор жалоб (5 источников) | пн–пт 10:45 | deepseek-v4-flash | a2edcaaa |
 | 0b | 🔍 verify-agent: верификация | пн–пт 10:55 | **deepseek-v4-pro** (1200s) | c4fe5cce |
 | 1a | 📋 katya-agent: сводка жалоб | пн–пт 11:00 | deepseek-v4-flash | 1c743749 → Катя |
 | 2 | 📊 stats-agent: статистика жалоб | ежедневно 11:20 | deepseek-v4-flash | 497b9eab → сайт |
@@ -687,6 +684,7 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 - **Base URL:** `plugins.entries.searxng.config.webSearch.baseUrl = http://localhost:8888`
 - **Контейнер:** `searxng/searxng:latest`, порт 8888→8080, docker-compose в `/home/user1/.openclaw/workspace/searxng/`
 - **Конфиг SearXNG:** `/home/user1/.openclaw/workspace/searxng/settings.yml` (Google, DuckDuckGo, Brave — enabled)
+- **limiter: true** (21.07.2026) — встроенный ratelimit SearXNG, паузы ~1-2 сек между запросами к движкам
 - **Плагин:** `@openclaw/searxng-plugin` (установлен, enabled)
 - **API:** `http://127.0.0.1:8888/search?q=...&format=json&language=ru-RU`
 - **Статус:** работает, не блокируется, self-hosted, без лимитов
@@ -700,9 +698,17 @@ git add -A && git commit -m "aidj: updated tunnel URL" && git push
 
 ### Пайплайн новостей Лены
 - **lena-search-agent** (87d3aaef): deepseek-chat, web_search ×6-8 через SearXNG, 600s timeout, cron 02:00
+- **Промпт обновлён 21.07.2026:** добавлен `sleep 3` перед каждым web_search (защита от ratelimit движков)
 - **lena-verify-agent** (ad4d79bb): deepseek-v4-flash, web_fetch, cron 02:10
 - **lena-html-agent** (43ce4092): deepseek-v4-flash, HTML + публикация + доставка Лене (254785028), cron 02:20
 - **Файлы:** `agents/shared/lena-raw.json` → `agents/shared/lena-verified.json` → `report-lena.html`
+
+### Пайплайн жалоб Кати (обновлён 21.07.2026)
+- **Источники (5):** banki.ru (прямой парсинг), pikabu.ru, otzovik.com, findozor.net, 2gis.ru (через SearXNG API → parse-extra-sources.py)
+- **vc.ru удалён** — 0 записей за всё время существования
+- **Возвращены pikabu.ru (12 записей, 15%), otzovik.com (3), findozor.net (1), 2gis.ru (2)** — потеряны 14.07 при миграции как «неработающие», теперь через универсальный SearXNG-поиск с `site:`
+- **Бэкап:** `backups/2026-07-21-katya-sources/`
+- **Скрипты vc.ru:** → `scripts/archived/parse-vcru*.py`
 
 ## 🔗 Как делаются ссылки на плашках (index.html)
 

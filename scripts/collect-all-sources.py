@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
 Сборщик данных со всех источников для Кати.
-Совместим с текущей архитектурой: парсеры пишут в shared-файлы.
-Дополнительно собирает vc.ru.
+Источники: banki.ru (прямой парсинг), pikabu.ru, otzovik.com, findozor.net, 2gis.ru (через SearXNG API).
 
 Запуск: python3 scripts/collect-all-sources.py
 """
@@ -31,71 +30,62 @@ def write_json(path, data):
     return data
 
 
-def run_vcru():
-    """Запускает vc.ru парсер (/timeline, Приёмная) и возвращает результаты"""
-    script = os.path.join(SCRIPTS, 'parse-vcru.py')
+def run_script(name, timeout=90):
+    """Запускает Python-скрипт и возвращает JSON-результат"""
+    script = os.path.join(SCRIPTS, name)
     try:
         result = subprocess.run(
             ['/usr/bin/python3', script],
-            capture_output=True, text=True, timeout=45
+            capture_output=True, text=True, timeout=timeout
         )
         if result.returncode != 0:
+            print(f"[collect] {name} stderr: {result.stderr[:200]}", file=sys.stderr)
             return []
         return json.loads(result.stdout)
+    except json.JSONDecodeError as e:
+        print(f"[collect] {name} JSON error: {e}", file=sys.stderr)
+        return []
     except Exception as e:
-        print(f"[collect] vcru error: {e}", file=sys.stderr)
+        print(f"[collect] {name} error: {e}", file=sys.stderr)
         return []
 
 
-def run_banki():
-    """Запускает banki.ru парсер, читает результат из temp-файла"""
-    script = os.path.join(SCRIPTS, 'parse-banki-v5.py')
-    banki_raw_file = os.path.join(SHARED, 'katya-banki-raw.json')
-    try:
-        result = subprocess.run(
-            ['/usr/bin/python3', script],
-            capture_output=True, text=True, timeout=60
-        )
-    except Exception as e:
-        print(f"[collect] banki run error: {e}", file=sys.stderr)
-    
-    # Читаем результат из отдельного temp-файла (не трогает katya-raw.json)
-    raw = read_json(banki_raw_file)
-    return raw if raw else []
-
-
-def merge(banki_data, vcru_data):
-    """Сливает данные из источников, убирая дубли"""
+def merge(all_data):
+    """Сливает данные из источников, убирая дубли по URL"""
     seen = set()
     merged = []
-    
-    for item in banki_data + vcru_data:
+    for item in all_data:
         url = item.get('url', '')
         if url and url not in seen:
             seen.add(url)
             merged.append(item)
-    
     merged.sort(key=lambda x: x.get('date', ''), reverse=True)
     return merged
 
 
 def main():
     print(f"[collect] Запуск сбора: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", file=sys.stderr)
-    
-    # 1. Banki.ru (основной источник)
+
+    # 1. banki.ru — основной источник, прямой парсинг
     print("[collect] --- banki.ru ---", file=sys.stderr)
-    banki_data = run_banki()
+    banki_data = run_script('parse-banki-v5.py')
     print(f"[collect] banki.ru: {len(banki_data)} результатов", file=sys.stderr)
-    
-    # 2. VC.ru (дополнительный источник)
-    print("[collect] --- vc.ru ---", file=sys.stderr)
-    vcru_data = run_vcru()
-    print(f"[collect] vc.ru: {len(vcru_data)} результатов", file=sys.stderr)
-    
-    # 3. Сливаем новые данные
-    new_data = merge(banki_data, vcru_data)
-    
-    # 4. katya-raw.json — сохраняем историю + добавляем новые
+
+    # 2. pikabu.ru, otzovik.com, findozor.net, 2gis.ru — через SearXNG API
+    print("[collect] --- pikabu/otzovik/findozor/2gis (SearXNG) ---", file=sys.stderr)
+    extra_data = run_script('parse-extra-sources.py', timeout=120)
+    print(f"[collect] extra (SearXNG): {len(extra_data)} результатов", file=sys.stderr)
+
+    # 3. Сливаем
+    new_data = merge(banki_data + extra_data)
+
+    # 4. Статистика по источникам
+    source_counts = {}
+    for d in new_data:
+        s = d.get('source', 'banki.ru')
+        source_counts[s] = source_counts.get(s, 0) + 1
+
+    # 5. katya-raw.json — сохраняем историю + добавляем новые
     existing_raw = read_json(os.path.join(SHARED, 'katya-raw.json')) or []
     seen_raw = {item.get('url', '') for item in existing_raw if item.get('url')}
     for item in new_data:
@@ -104,8 +94,8 @@ def main():
             existing_raw.append(item)
     existing_raw.sort(key=lambda x: x.get('date', ''), reverse=True)
     write_json(os.path.join(SHARED, 'katya-raw.json'), existing_raw)
-    
-    # 5. katya-data.json — добавляем новые записи, сохраняем историю
+
+    # 6. katya-data.json — добавляем новые записи
     existing_data = read_json(os.path.join(SHARED, 'katya-data.json')) or []
     if not isinstance(existing_data, list):
         existing_data = []
@@ -123,24 +113,19 @@ def main():
             added += 1
     existing_data.sort(key=lambda x: x.get('date', ''), reverse=True)
     write_json(os.path.join(SHARED, 'katya-data.json'), existing_data)
-    
-    # 6. Считаем статистику по katya-data.json (полная история)
+
+    # 7. Статистика
     week_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
-    data_for_stats = existing_data  # из katya-data.json
-    total_count = len(data_for_stats)
-    recent_count = sum(1 for item in data_for_stats if item.get('date', '') >= week_ago)
-    
-    # 7. Обновляем статистику
+    total_count = len(existing_data)
+    recent_count = sum(1 for item in existing_data if item.get('date', '') >= week_ago)
+
     stats = {
         'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'total_unique': total_count,
         'recent_new': recent_count,
-        'sources': {
-            'banki.ru': len(banki_data),
-            'vc.ru': len(vcru_data),
-        }
+        'sources': source_counts,
     }
-    
+
     with open(os.path.join(SHARED, 'katya-stats-data.md'), 'w', encoding='utf-8') as f:
         f.write("# Статистика жалоб по наследству\n\n")
         f.write(f"**Обновлено:** {stats['last_updated']}\n\n")
@@ -148,10 +133,10 @@ def main():
         f.write("|----------|--------|\n")
         f.write(f"| Всего в базе | {stats['total_unique']} |\n")
         f.write(f"| Новых (7 дней) | {stats['recent_new']} |\n")
-        f.write(f"| Из banki.ru | {stats['sources']['banki.ru']} |\n")
-        f.write(f"| Из vc.ru | {stats['sources']['vc.ru']} |\n")
-    
-    print(f"[collect] ✓ Готово! Всего: {len(existing_raw)} (+{added} новых) (banki: {len(banki_data)}, vc: {len(vcru_data)})", file=sys.stderr)
+        for src, cnt in sorted(source_counts.items()):
+            f.write(f"| Из {src} | {cnt} |\n")
+
+    print(f"[collect] ✓ Готово! Всего: {len(existing_raw)} (+{added} новых) | Источники: {source_counts}", file=sys.stderr)
 
 
 if __name__ == '__main__':

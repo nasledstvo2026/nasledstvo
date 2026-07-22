@@ -8,7 +8,7 @@ server:
   secret_key: "dd8d633ba7c00e76127ecf067a7af03915f0c0380e03277c865d39564b9719c5"
   bind_address: "0.0.0.0"
   port: 8080
-  limiter: false
+  limiter: true
   image_proxy: false
   method: "GET"
 
