@@ -50,6 +50,14 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - **Поиск ID:** `yt-dlp --print "id,title" "https://my.mail.ru/music/search/<запрос>"`
 - **Guns N' Roses, Rolling Stones** и другие западные группы могут быть недоступны в РФ
 
+## OpenProject Tunnel (23.07.2026)
+- **URL:** https://anytime-assembly-yrs-chemistry.trycloudflare.com
+- **Сервис:** cloudflared-openproject.service
+- **⚠️ МЕНЯЕТСЯ ПРИ РЕСТАРТЕ** — если URL перестал работать, получи новый через:
+  `sudo journalctl -u cloudflared-openproject --no-pager | grep -oP 'https://[a-z0-9-]+\.trycloudflare\.com' | tail -1`
+- **Плашка на сайте:** index.html — OpenProject
+- При обновлении URL — заменить в index.html и перепубликовать
+
 ## GitHub Pages (текущий хостинг)
 
 - **Сайт:** https://nasledstvo2026.github.io/nasledstvo/
