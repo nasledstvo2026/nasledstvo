@@ -1,3 +1,21 @@
+#!/bin/bash
+# generate-activity-report.sh — генерирует activity.html для GitHub Pages
+
+DATE_LABEL="24 июля 2026"
+DATE_ISO="2026-07-24"
+REPORTS_TODAY=5
+ACTIVE_USERS=2
+TOTAL_PAGES=48
+
+# File sizes from ls -la
+KATYA_SIZE=$(du -h /home/user1/.openclaw/workspace/report-katya.html 2>/dev/null | awk '{print $1}')
+STATS_SIZE=$(du -h /home/user1/.openclaw/workspace/stats-inheritance.html 2>/dev/null | awk '{print $1}')
+KATYA_OTHER_SIZE=$(du -h /home/user1/.openclaw/workspace/report-katya-other.html 2>/dev/null | awk '{print $1}')
+LENA_SIZE=$(du -h /home/user1/.openclaw/workspace/report-lena.html 2>/dev/null | awk '{print $1}')
+TASKS_SIZE=$(du -h /home/user1/.openclaw/workspace/tasks.html 2>/dev/null | awk '{print $1}')
+INDEX_SIZE=$(du -h /home/user1/.openclaw/workspace/index.html 2>/dev/null | awk '{print $1}')
+
+cat > /home/user1/.openclaw/workspace/activity.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -52,12 +70,16 @@ cat >> /home/user1/.openclaw/workspace/activity.html << 'HTMLEOF'
     <h2>📄 Отчёты за сегодня</h2>
     <table>
         <tr><th>Отчёт</th><th>Время</th><th>Размер</th></tr>
-        <tr><td><a class="report-link" href="report-katya.html">report-katya.html</a> — жалобы Кати</td><td>07:33</td><td>4.0K</td></tr>
-        <tr><td><a class="report-link" href="stats-inheritance.html">stats-inheritance.html</a> — статистика наследства</td><td>08:11</td><td>20K</td></tr>
-        <tr><td><a class="report-link" href="report-katya-other.html">report-katya-other.html</a> — другие банки Кати</td><td>08:34</td><td>4.0K</td></tr>
-        <tr><td><a class="report-link" href="report-lena.html">report-lena.html</a> — новости Лены</td><td>20:04</td><td>8.0K</td></tr>
-        <tr><td><a class="report-link" href="tasks.html">tasks.html</a> — задачи системы</td><td>21:00</td><td>16K</td></tr>
-        <tr><td><a class="report-link" href="activity.html">activity.html</a> — этот отчёт</td><td>23:50</td><td>—</td></tr>
+HTMLEOF
+
+echo "        <tr><td><a class=\"report-link\" href=\"report-katya.html\">report-katya.html</a> — жалобы Кати</td><td>07:33</td><td>${KATYA_SIZE:-?}</td></tr>" >> /home/user1/.openclaw/workspace/activity.html
+echo "        <tr><td><a class=\"report-link\" href=\"stats-inheritance.html\">stats-inheritance.html</a> — статистика наследства</td><td>08:11</td><td>${STATS_SIZE:-?}</td></tr>" >> /home/user1/.openclaw/workspace/activity.html
+echo "        <tr><td><a class=\"report-link\" href=\"report-katya-other.html\">report-katya-other.html</a> — другие банки Кати</td><td>08:34</td><td>${KATYA_OTHER_SIZE:-?}</td></tr>" >> /home/user1/.openclaw/workspace/activity.html
+echo "        <tr><td><a class=\"report-link\" href=\"report-lena.html\">report-lena.html</a> — новости Лены</td><td>20:04</td><td>${LENA_SIZE:-?}</td></tr>" >> /home/user1/.openclaw/workspace/activity.html
+echo "        <tr><td><a class=\"report-link\" href=\"tasks.html\">tasks.html</a> — задачи системы</td><td>21:00</td><td>${TASKS_SIZE:-?}</td></tr>" >> /home/user1/.openclaw/workspace/activity.html
+echo '        <tr><td><a class="report-link" href="activity.html">activity.html</a> — этот отчёт</td><td>23:50</td><td>—</td></tr>' >> /home/user1/.openclaw/workspace/activity.html
+
+cat >> /home/user1/.openclaw/workspace/activity.html << 'HTMLEOF'
     </table>
 
     <h2>📋 Плановые обновления</h2>
@@ -102,8 +124,14 @@ cat >> /home/user1/.openclaw/workspace/activity.html << 'HTMLEOF'
     </table>
 
     <div class="footer">
-        Сгенерировано Лунтом ☽ · 2026-07-24 23:50 MSK
+HTMLEOF
+echo "        Сгенерировано Лунтом ☽ · ${DATE_ISO} 23:50 MSK" >> /home/user1/.openclaw/workspace/activity.html
+
+cat >> /home/user1/.openclaw/workspace/activity.html << 'HTMLEOF'
     </div>
 </div>
 </body>
 </html>
+HTMLEOF
+
+echo "✅ activity.html generated"
