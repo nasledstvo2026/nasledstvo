@@ -38,7 +38,7 @@ engines:
   - name: bing
     engine: bing
     shortcut: bi
-    disabled: true
+    disabled: false
   - name: brave
     engine: brave
     shortcut: bv
@@ -46,4 +46,4 @@ engines:
   - name: startpage
     engine: startpage
     shortcut: sp
-    disabled: true
+    disabled: false

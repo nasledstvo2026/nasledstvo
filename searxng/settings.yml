@@ -1,49 +1,43 @@
-use_default_settings: true
-
-general:
-  instance_name: "OpenClaw SearXNG"
-  debug: false
-
-server:
-  secret_key: "dd8d633ba7c00e76127ecf067a7af03915f0c0380e03277c865d39564b9719c5"
-  bind_address: "0.0.0.0"
-  port: 8080
-  limiter: true
-  image_proxy: false
-  method: "GET"
-
-search:
-  safe_search: 0
-  formats:
-    - html
-    - json
-
-ui:
-  static_use_hash: true
-  default_locale: ""
-
-outgoing:
-  request_timeout: 15.0
-  max_request_timeout: 30.0
-
 engines:
-  - name: google
-    engine: google
-    shortcut: g
-    disabled: false
-  - name: duckduckgo
-    engine: duckduckgo
-    shortcut: ddg
-    disabled: false
-  - name: bing
-    engine: bing
-    shortcut: bi
-    disabled: true
-  - name: brave
-    engine: brave
-    shortcut: bv
-    disabled: false
-  - name: startpage
-    engine: startpage
-    shortcut: sp
-    disabled: true
+- disabled: false
+  engine: google
+  name: google
+  shortcut: g
+- disabled: false
+  engine: duckduckgo
+  name: duckduckgo
+  shortcut: ddg
+- disabled: false
+  engine: bing
+  name: bing
+  shortcut: bi
+- disabled: false
+  engine: brave
+  name: brave
+  shortcut: bv
+- disabled: false
+  engine: startpage
+  name: startpage
+  shortcut: sp
+general:
+  debug: false
+  instance_name: OpenClaw SearXNG
+outgoing:
+  max_request_timeout: 30.0
+  request_timeout: 15.0
+search:
+  formats:
+  - html
+  - json
+  safe_search: 0
+server:
+  bind_address: 0.0.0.0
+  image_proxy: false
+  limiter: true
+  method: GET
+  port: 8080
+  secret_key: dd8d633ba7c00e76127ecf067a7af03915f0c0380e03277c865d39564b9719c5
+ui:
+  default_locale: ''
+  static_use_hash: true
+use_default_settings: true
