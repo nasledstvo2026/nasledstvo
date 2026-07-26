@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Статистика жалоб по наследству (банки)</title>
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --card: #1a1d28;
+      --card-hover: #212539;
+      --border: #2a2e3e;
+      --text: #e1e4ea;
+      --text-muted: #8892a8;
+      --accent: #4f8cff;
+      --accent-gradient: linear-gradient(135deg, #4f8cff, #a855f7);
+      --green: #34d399;
+      --red: #f87171;
+      --yellow: #fbbf24;
+      --orange: #fb923c;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+    }
+
+    .header {
+      background: var(--accent-gradient);
+      padding: 40px 24px 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* Stat cards row */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-card .number {
+      font-size: 36px;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-card .number.green { background: linear-gradient(135deg, #34d399, #10b981); -webkit-background-clip: text; background-clip: text; }
+    .stat-card .number.red { background: linear-gradient(135deg, #f87171, #ef4444); -webkit-background-clip: text; background-clip: text; }
+    .stat-card .number.yellow { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; }
+    .stat-card .number.orange { background: linear-gradient(135deg, #fb923c, #f97316); -webkit-background-clip: text; background-clip: text; }
+
+    .stat-card .label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Section */
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(42,46,62,0.5);
+      font-size: 14px;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: var(--card-hover); }
+
+    .bank-name {
+      font-weight: 500;
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--border);
+      color: var(--text-muted);
+    }
+
+    .rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; }
+    .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: #fff; }
+    .rank-3 { background: linear-gradient(135deg, #d97706, #b45309); color: #fff; }
+
+    .count-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(79,140,255,0.15);
+      color: var(--accent);
+    }
+
+    .count-badge.high { background: rgba(248,113,113,0.15); color: var(--red); }
+    .count-badge.medium { background: rgba(251,191,36,0.15); color: var(--yellow); }
+
+    /* Bar chart */
+    .bar-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar-label {
+      min-width: 120px;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 24px;
+      background: var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 12px;
+      background: var(--accent-gradient);
+      transition: width 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      min-width: 32px;
+    }
+
+    .bar-fill.green { background: linear-gradient(135deg, #34d399, #10b981); }
+    .bar-fill.red { background: linear-gradient(135deg, #f87171, #ef4444); }
+    .bar-fill.orange { background: linear-gradient(135deg, #fb923c, #f97316); }
+
+    /* Monthly bars */
+    .monthly-grid {
+      display: flex;
+      gap: 4px;
+      align-items: flex-end;
+      height: 120px;
+      padding: 8px 0;
+    }
+
+    .month-bar {
+      flex: 1;
+      background: var(--accent);
+      border-radius: 4px 4px 0 0;
+      min-height: 4px;
+      position: relative;
+      transition: opacity 0.3s;
+      opacity: 0.8;
+    }
+
+    .month-bar:hover { opacity: 1; }
+
+    .month-bar .tooltip {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card-hover);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 10;
+      margin-bottom: 4px;
+    }
+
+    .month-bar:hover .tooltip { display: block; }
+
+    .month-labels {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .month-labels span {
+      flex: 1;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: center;
+      transform: rotate(-45deg);
+      white-space: nowrap;
+    }
+
+    /* Source chips */
+    .source-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .source-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-hover);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+    }
+
+    .source-chip .chip-count {
+      background: var(--accent);
+      color: white;
+      padding: 0 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 18px;
+    }
+
+    /* Status badges */
+    .status-verified { color: var(--green); }
+    .status-rejected { color: var(--red); }
+    .status-review { color: var(--yellow); }
+
+    /* Week cards */
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .week-card {
+      background: var(--card-hover);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .week-card .week-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .week-card .week-count {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 4px 0;
+    }
+
+    .week-card.up .week-count { color: var(--red); }
+    .week-card.down .week-count { color: var(--green); }
+    .week-card.flat .week-count { color: var(--text-muted); }
+
+    /* Meta footer */
+    .meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
+    }
+
+    .meta span {
+      display: inline-block;
+      margin: 0 8px;
+    }
+
+    .meta .sep {
+      color: var(--border);
+    }
+
+    /* Last 7 days */
+    .entry-item {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(42,46,62,0.4);
+    }
+
+    .entry-item:last-child { border-bottom: none; }
+
+    .entry-item .entry-title {
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .entry-item .entry-title a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .entry-item .entry-title a:hover { color: var(--accent); }
+
+    .entry-item .entry-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 12px;
+    }
+
+    .entry-item .entry-bank {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .header { padding: 28px 16px 22px; }
+      .header h1 { font-size: 22px; }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+      .bar-label { min-width: 80px; font-size: 11px; }
+      .month-labels span { font-size: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 Статистика жалоб по наследству</h1>
+  <p>Банки РФ — агрегированные данные из katya-verified</p>
+</div>
+
+<div class="container">
+
+  <!-- Overview stats -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="number">99</div>
+      <div class="label">Всего записей</div>
+    </div>
+    <div class="stat-card">
+      <div class="number green">59</div>
+      <div class="label">✅ Верифицировано</div>
+    </div>
+    <div class="stat-card">
+      <div class="number yellow">24</div>
+      <div class="label">⏳ Требуют проверки</div>
+    </div>
+    <div class="stat-card">
+      <div class="number red">16</div>
+      <div class="label">❌ Отклонено</div>
+    </div>
+  </div>
+
+  <!-- Top 10 Banks -->
+  <div class="section">
+    <h2>Топ-10 банков по числу жалоб</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40px">#</th>
+          <th>Банк</th>
+          <th style="width:80px;text-align:center">Жалоб</th>
+          <th>Доля</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="rank-badge rank-1">1</span></td>
+          <td><span class="bank-name">Сбербанк</span></td>
+          <td style="text-align:center"><span class="count-badge high">16</span></td>
+          <td><div class="bar-track"><div class="bar-fill" style="width:100%">27%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-2">2</span></td>
+          <td><span class="bank-name">ВТБ</span></td>
+          <td style="text-align:center"><span class="count-badge high">10</span></td>
+          <td><div class="bar-track"><div class="bar-fill orange" style="width:62.5%">17%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-3">3</span></td>
+          <td><span class="bank-name">ПСБ</span></td>
+          <td style="text-align:center"><span class="count-badge medium">6</span></td>
+          <td><div class="bar-track"><div class="bar-fill orange" style="width:37.5%">10%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--border)">4</span></td>
+          <td><span class="bank-name">Газпромбанк</span></td>
+          <td style="text-align:center"><span class="count-badge">5</span></td>
+          <td><div class="bar-track"><div class="bar-fill" style="width:31%">8%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--border)">5</span></td>
+          <td><span class="bank-name">Неизвестно</span></td>
+          <td style="text-align:center"><span class="count-badge">4</span></td>
+          <td><div class="bar-track"><div class="bar-fill" style="width:25%">7%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--border)">6</span></td>
+          <td><span class="bank-name">Альфа-Банк</span></td>
+          <td style="text-align:center"><span class="count-badge">4</span></td>
+          <td><div class="bar-track"><div class="bar-fill" style="width:25%">7%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--border)">7</span></td>
+          <td><span class="bank-name">Т-Банк</span></td>
+          <td style="text-align:center"><span class="count-badge">2</span></td>
+          <td><div class="bar-track"><div class="bar-fill green" style="width:12.5%">3%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--border)">7</span></td>
+          <td><span class="bank-name">РСХБ</span></td>
+          <td style="text-align:center"><span class="count-badge">2</span></td>
+          <td><div class="bar-track"><div class="bar-fill green" style="width:12.5%">3%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--border)">7</span></td>
+          <td><span class="bank-name">МТС Банк</span></td>
+          <td style="text-align:center"><span class="count-badge">2</span></td>
+          <td><div class="bar-track"><div class="bar-fill green" style="width:12.5%">3%</div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge" style="background:var(--border)">7</span></td>
+          <td><span class="bank-name">Совкомбанк</span></td>
+          <td style="text-align:center"><span class="count-badge">2</span></td>
+          <td><div class="bar-track"><div class="bar-fill green" style="width:12.5%">3%</div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Monthly dynamics -->
+  <div class="section">
+    <h2>Динамика по месяцам (верифицированные)</h2>
+    <div style="position:relative;padding-top:10px">
+      <div class="monthly-grid">
+        <div class="month-bar" style="height:5%;background:#6366f1"><div class="tooltip">2015-09: 1</div></div>
+        <div style="flex:0.1%"></div>
+        <div class="month-bar" style="height:11%;background:#6366f1"><div class="tooltip">2024-07: 2</div></div>
+        <div class="month-bar" style="height:5%;background:#6366f1"><div class="tooltip">2024-10: 1</div></div>
+        <div class="month-bar" style="height:16%"><div class="tooltip">2025-01: 3</div></div>
+        <div class="month-bar" style="height:16%"><div class="tooltip">2025-03: 3</div></div>
+        <div class="month-bar" style="height:11%"><div class="tooltip">2025-04: 2</div></div>
+        <div class="month-bar" style="height:5%"><div class="tooltip">2025-05: 1</div></div>
+        <div class="month-bar" style="height:16%"><div class="tooltip">2025-06: 3</div></div>
+        <div class="month-bar" style="height:11%"><div class="tooltip">2025-07: 2</div></div>
+        <div class="month-bar" style="height:21%"><div class="tooltip">2025-08: 4</div></div>
+        <div class="month-bar" style="height:11%"><div class="tooltip">2025-09: 2</div></div>
+        <div class="month-bar" style="height:11%"><div class="tooltip">2025-11: 2</div></div>
+        <div class="month-bar" style="height:16%"><div class="tooltip">2025-12: 3</div></div>
+        <div class="month-bar" style="height:21%"><div class="tooltip">2026-01: 4</div></div>
+        <div class="month-bar" style="height:5%"><div class="tooltip">2026-05: 1</div></div>
+        <div class="month-bar" style="height:100%;background:var(--red)"><div class="tooltip">🔥 2026-06: 19</div></div>
+        <div class="month-bar" style="height:32%"><div class="tooltip">2026-07: 6</div></div>
+      </div>
+      <div class="month-labels">
+        <span>2015-09</span><span></span>
+        <span>07.24</span><span>10.24</span>
+        <span>01.25</span><span>03.25</span><span>04.25</span><span>05.25</span><span>06.25</span><span>07.25</span><span>08.25</span><span>09.25</span><span>11.25</span><span>12.25</span>
+        <span>01.26</span><span>05.26</span><span style="color:var(--red);font-weight:600">06.26</span><span>07.26</span>
+      </div>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:var(--text-muted);">
+      🔥 <strong>Июнь 2026</strong> — рекордный всплеск: <strong>19</strong> верифицированных жалоб (32% от всех).
+      Это связано с началом активного мониторинга и запуском парсинга banki.ru в полном объёме.
+    </p>
+  </div>
+
+  <!-- Weekly dynamics -->
+  <div class="section">
+    <h2>Динамика за последние 4 недели</h2>
+    <div class="week-grid">
+      <div class="week-card up">
+        <div class="week-label">29 июн – 5 июл</div>
+        <div class="week-count">11</div>
+        <div style="font-size:11px;color:var(--red)">🔥 пик</div>
+      </div>
+      <div class="week-card down">
+        <div class="week-label">6 июл – 12 июл</div>
+        <div class="week-count">0</div>
+        <div style="font-size:11px;color:var(--green)">затишье</div>
+      </div>
+      <div class="week-card down">
+        <div class="week-label">13 июл – 19 июл</div>
+        <div class="week-count">0</div>
+        <div style="font-size:11px;color:var(--green)">затишье</div>
+      </div>
+      <div class="week-card up">
+        <div class="week-label">20 июл – 26 июл</div>
+        <div class="week-count">3</div>
+        <div style="font-size:11px;color:var(--accent)">возобновление</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Last 7 days entries -->
+  <div class="section">
+    <h2>Последние 7 дней</h2>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px">
+      Источник: katya-data.json (период 20.07 – 26.07.2026)
+    </p>
+    <div>
+      <div class="entry-item">
+        <div class="entry-title"><a href="https://www.banki.ru/insurance/responses/company/response/10003856/" target="_blank">Силком заставляют принять наследство</a></div>
+        <div class="entry-meta">
+          <span class="entry-bank">🏦 Сбербанк (Драйв Клик Банк)</span>
+          <span>📅 24.07.2026</span>
+          <span>📰 banki.ru</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">
+          Автокредит оформлен в дочке Сбера. После смерти заёмщика банк и страховая звонят наследникам, требуя принять наследство, чтобы закрыть долг.
+        </div>
+      </div>
+      <div class="entry-item">
+        <div class="entry-title"><a href="https://www.banki.ru/services/responses/bank/response/13251127/" target="_blank">Банк не дает погасить кредит умершего родственника досрочно</a></div>
+        <div class="entry-meta">
+          <span class="entry-bank">🏦 ВТБ / Почта Банк</span>
+          <span>📅 24.07.2026</span>
+          <span>📰 banki.ru</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">
+          Кредит мигрировал из Почта Банка в ВТБ. Наследник не может досрочно погасить, банки перекладывают ответственность друг на друга.
+        </div>
+      </div>
+      <div class="entry-item">
+        <div class="entry-title"><a href="https://www.banki.ru/services/questions-answers/question/1088000/" target="_blank">Блокировка по 115-ФЗ после получения наследства</a></div>
+        <div class="entry-meta">
+          <span class="entry-bank">🏦 МТС Банк</span>
+          <span>📅 24.07.2026</span>
+          <span>📰 banki.ru</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">
+          После получения наследства наличными и внесения через банкомат — карта заблокирована по 115-ФЗ.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full bank breakdown -->
+  <div class="section">
+    <h2>Полный список банков</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Банк</th>
+          <th style="width:60px;text-align:center">Жалоб</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Сбербанк</td><td style="text-align:center"><span class="count-badge high">16</span></td></tr>
+        <tr><td>ВТБ</td><td style="text-align:center"><span class="count-badge high">10</span></td></tr>
+        <tr><td>ПСБ</td><td style="text-align:center"><span class="count-badge medium">6</span></td></tr>
+        <tr><td>Газпромбанк</td><td style="text-align:center"><span class="count-badge">5</span></td></tr>
+        <tr><td>Неизвестно</td><td style="text-align:center"><span class="count-badge">4</span></td></tr>
+        <tr><td>Альфа-Банк</td><td style="text-align:center"><span class="count-badge">4</span></td></tr>
+        <tr><td>Т-Банк</td><td style="text-align:center"><span class="count-badge">2</span></td></tr>
+        <tr><td>РСХБ</td><td style="text-align:center"><span class="count-badge">2</span></td></tr>
+        <tr><td>МТС Банк</td><td style="text-align:center"><span class="count-badge">2</span></td></tr>
+        <tr><td>Совкомбанк</td><td style="text-align:center"><span class="count-badge">2</span></td></tr>
+        <tr><td>ОТП Банк</td><td style="text-align:center"><span class="count-badge">1</span></td></tr>
+        <tr><td>Почта Банк</td><td style="text-align:center"><span class="count-badge">1</span></td></tr>
+        <tr><td>Ренессанс Банк</td><td style="text-align:center"><span class="count-badge">1</span></td></tr>
+        <tr><td>Уралсиб</td><td style="text-align:center"><span class="count-badge">1</span></td></tr>
+        <tr><td>РайффайзенБанк</td><td style="text-align:center"><span class="count-badge">1</span></td></tr>
+        <tr><td>Ozon Банк</td><td style="text-align:center"><span class="count-badge">1</span></td></tr>
+        <tr><td>Банк Ozon (Ecombank)</td><td style="text-align:center"><span class="count-badge">1</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Sources -->
+  <div class="section">
+    <h2>Источники</h2>
+    <div class="source-chips">
+      <span class="source-chip"><span>banki.ru</span><span class="chip-count">37</span></span>
+      <span class="source-chip"><span>Банки.ру</span><span class="chip-count">12</span></span>
+      <span class="source-chip"><span>pikabu.ru</span><span class="chip-count">5</span></span>
+      <span class="source-chip"><span>otzovik.com</span><span class="chip-count">2</span></span>
+      <span class="source-chip"><span>vc.ru</span><span class="chip-count">1</span></span>
+      <span class="source-chip"><span>ЮрКлуб</span><span class="chip-count">1</span></span>
+      <span class="source-chip"><span>Сравни.ру</span><span class="chip-count">1</span></span>
+    </div>
+    <p style="margin-top:12px;font-size:13px;color:var(--text-muted);">
+      📰 <strong>banki.ru</strong> — основной источник (49 из 59 верифицированных, 83%)
+    </p>
+  </div>
+
+  <!-- Meta -->
+  <div class="meta">
+    <span>🕒 Запуск: 26.07.2026, 23:10 MSK</span>
+    <span class="sep">|</span>
+    <span>🤖 Модель: deepseek/deepseek-v4-flash</span>
+    <span class="sep">|</span>
+    <span>⏱ Время выполнения: &lt; 30 сек</span>
+    <span class="sep">|</span>
+    <span>📊 Данные: katya-verified.json (99 записей)</span>
+    <span class="sep">|</span>
+    <span>📈 Всего жалоб: <strong>59 верифицировано</strong> из 99</span>
+  </div>
+
+</div>
+
+</body>
+</html>
