@@ -14,6 +14,25 @@
 
 ## ⚠️ Правила поведения
 
+## 🧠 26.07.2026 — deepseek-chat deprecated, каскадный сбой пайплайна Лены
+
+### Что произошло
+- DeepSeek API перестал принимать модель `deepseek-chat` — только `deepseek-v4-pro` или `deepseek-v4-flash`
+- 3 cron-задачи Лены (`search-agent`, `verify-agent`, `html-agent`) имели `deepseek-chat` как primary model
+- Fallback `deepseek-v4-pro` тоже падал — провайдерский idle timeout 60с не хватал для v4-pro с reasoning
+- Ночью 26/07 все 3 задачи каскадно упали (9 попыток), только на 4-й сработал fallback
+
+### Что исправлено
+1. **Все 3 cron-задачи Лены**: primary → `deepseek/deepseek-v4-pro`, fallback → `deepseek/deepseek-v4-flash`, timeout → 600s
+2. **Провайдер deepseek**: добавлен `timeoutSeconds: 120` (было 60 по умолчанию)
+3. **Allowlist** (`agents.defaults.models`): удалён `deepseek/deepseek-chat`, остались только v4-flash и v4-pro
+4. Gateway перезагружен, конфиг валиден
+
+### Остаётся открытым
+- SearXNG: все upstream-движки блокируют запросы (Google rate limit, DuckDuckGo CAPTCHA и т.д.) — влияет на сбор новостей
+- OpenClaw 2026.7.1-2: clickclack и zai плагины несовместимы (требуют API >=2026.7.2-beta.1)
+- web search provider не настроен (warning у verify-agent)
+
 ## 🧠 Договорённости с Кириллом (26.06.2026)
 
 ### ⚠️ DeepSeek V4 Flash — утренние таймауты (01.07.2026)
