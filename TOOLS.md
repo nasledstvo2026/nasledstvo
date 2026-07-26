@@ -67,6 +67,15 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - **Загрузка:** `./upload-to-github.sh <local-file> <filename>`
 - **Обновление дат:** `./update-index-github.sh <report-filename> <timestamp>`
 
+## Новый VPS — vm-low4-8 (25.07.2026)
+- **IP:** 213.171.25.85
+- **Пользователь:** user1
+- **Хостнейм:** vm-low4-8
+- **SSH-ключ:** `~/.ssh/new-vps-key` (зашифрован, passphrase в TOOLS.md ниже⚠️)
+- **Passphrase ключа:** Zz1893645
+- **SSH:** `ssh -i ~/.ssh/new-vps-key user1@213.171.25.85`
+- **Скрипт askpass:** `~/.ssh/askpass.sh`
+
 ## What Goes Here
 
 Things like:
