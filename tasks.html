@@ -14,7 +14,8 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">19 активных задач · 27.07.2026 00:00</div>
+    <div class="meta">19 активных задач · 27.07.2026 01:20</div>
+    <div class="sub" style="margin-top:6px;font-size:12px;color:var(--text-faint)">Health Index — данные за последние 24 часа</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -22,7 +23,7 @@
     <h2 style="font-size:14px;margin-bottom:12px;color:var(--text,#c9d1d9);">💡 Легенда</h2>
     <div class="legend-metric">
       <div class="legend-title">⏱ Duration / Timeout</div>
-      <div class="legend-desc">Доля времени выполнения от таймаута</div>
+      <div class="legend-desc">Доля времени выполнения от таймаута задачи</div>
       <div class="legend-items"><span><span class="tl tl-green"></span> &lt;50%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &gt;80%</span></div>
     </div>
     <div class="legend-metric">
@@ -38,12 +39,12 @@
     <div class="legend-sep"></div>
     <div class="legend-metric">
       <div class="legend-title">💎 Cache Hit %</div>
-      <div class="legend-desc"><code>cacheRead / (input + cacheRead) × 100</code> — эффективность системного промпта. Данные из trajectory сессии (сырой ответ DeepSeek API).</div>
+      <div class="legend-desc"><code>cacheRead / (input + cacheRead) × 100</code> — эффективность системного промпта</div>
       <div class="legend-items"><span><span class="tl tl-green"></span> &gt;80%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &lt;50%</span></div>
     </div>
     <div class="legend-metric" style="border:none;margin:0;padding:0;">
       <div class="legend-title">💰 Cost / Run</div>
-      <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code> — тарифы deepseek-chat из openclaw.json.</div>
+      <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code></div>
       <div class="legend-items"><span><span class="tl tl-green"></span> &lt;$0.01</span><span><span class="tl tl-yellow"></span> $0.01–0.05</span><span><span class="tl tl-red"></span> &gt;$0.05</span></div>
     </div>
   </div>
@@ -60,117 +61,137 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><span class="status-dot ok"></span> tasks: обновление Health Index</td>
-            <td>—</td>
-            <td></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> aidj: мониторинг туннеля</td>
-            <td>—</td>
-            <td></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
+
+          <!-- ═══ Лена — Новости наследства ═══ -->
           <tr>
             <td><span class="status-dot ok"></span> lena-search-agent: сбор новостей наследства</td>
-            <td>—</td>
+            <td>Лена</td>
             <td>Ежедневно 02:00</td>
-            <td><span class="metric"><span class="tl tl-green"></span> 32%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 48%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
-            <td><span class="metric"><span class="tl tl-red"></span> +1241 мин</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 95%</span></td>
-            <td>$0.036</td>
+            <td><span class="metric"><span class="tl tl-red"></span> +21 мин</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>$0.050</td>
             <td>26.07 22:41</td>
-            <td class="rec">—</td>
+            <td class="rec">Перешёл на v4-pro (был deepseek-chat). Долгий из-за SearXNG (10 запросов).</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> lena-verify-agent: верификация новостей</td>
-            <td>—</td>
+            <td>Лена</td>
             <td>Ежедневно 02:10</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 7%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
+            <td>$0.008</td>
+            <td>26.07 22:45</td>
             <td class="rec">—</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> lena-html-agent: HTML-дайджест + публикация + Лене</td>
-            <td>—</td>
+            <td>Лена</td>
             <td>Ежедневно 02:20</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 4%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 50%</span></td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
+            <td>$0.004</td>
+            <td>26.07 22:46</td>
+            <td class="rec">Публикация упала — GitHub secrets scanning заблокировал push (backup/ папка с ключами). Нужен .gitignore.</td>
+          </tr>
+
+          <!-- ═══ Катя — Жалобы по наследству ═══ -->
+          <tr>
+            <td><span class="status-dot ok"></span> search-agent: сбор жалоб по наследству</td>
+            <td>Катя</td>
+            <td>Пн–Пт 10:45</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 16%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
+            <td>$0.025</td>
+            <td>26.07 23:04</td>
             <td class="rec">—</td>
           </tr>
           <tr>
-            <td><span class="status-dot ok"></span> tokens: отчёт по токенам</td>
-            <td>—</td>
-            <td>Ежедневно 03:30</td>
+            <td><span class="status-dot ok"></span> verify-agent: верификация жалоб</td>
+            <td>Катя</td>
+            <td>Пн–Пт 10:55</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 29%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
+            <td>$0.023</td>
+            <td>26.07 23:06</td>
+            <td class="rec">17 новых жалоб → 14 verified, 1 needs_review, 2 rejected</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> katya-agent: сводка жалоб Кате</td>
+            <td>Катя</td>
+            <td>Пн–Пт 11:00</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 10%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
+            <td>$0.008</td>
+            <td>26.07 23:10</td>
+            <td class="rec">83 жалобы (59 verified, 24 needs_review). Сбер — 35%.</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> stats-agent: статистика жалоб на сайт</td>
+            <td>Катя</td>
+            <td>Ежедневно 11:20</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 16%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric-na">—</span></td>
-            <td>—</td>
+            <td><span class="metric-na">—</span></td>
+            <td>$0.015</td>
+            <td>26.07 23:12</td>
+            <td class="rec">Опубликовано на GitHub Pages. Исправлен cp-баг.</td>
+          </tr>
+
+          <!-- ═══ РЖД ═══ -->
+          <tr>
+            <td><span class="status-dot ok"></span> rzd-search-agent: сбор MOEX ISS</td>
+            <td>Лена</td>
+            <td>Пн–Пт 23:50</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 4%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>$0.006</td>
+            <td>26.07 22:49</td>
             <td class="rec">—</td>
           </tr>
           <tr>
-            <td><span class="status-dot ok"></span> roza: отчёт по пособиям</td>
-            <td>—</td>
-            <td>Пн 08:00</td>
+            <td><span class="status-dot ok"></span> rzd-verify-agent: валидация + аналитика</td>
+            <td>Лена</td>
+            <td>Пн–Пт 23:55</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 7%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
+            <td>$0.004</td>
+            <td>26.07 22:50</td>
+            <td class="rec">Зафиксировано расхождение даты погашения: MOEX 2028 vs база знаний 2031</td>
           </tr>
           <tr>
-            <td><span class="status-dot ok"></span> irina: отчёт по НПА</td>
-            <td>—</td>
-            <td>Пн 08:15</td>
+            <td><span class="status-dot ok"></span> rzd-html-agent: HTML + публикация + Лене</td>
+            <td>Лена</td>
+            <td>Пн–Пт 23:58</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 12%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
+            <td>$0.009</td>
+            <td>26.07 22:52</td>
+            <td class="rec">Опубликован на GitHub Pages ✅</td>
           </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> katrin: LegalMCP обновление 44-ФЗ/224-ФЗ</td>
-            <td>—</td>
-            <td>Пн–Ср–Пт 09:30</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
+
+          <!-- ═══ Еженедельные ═══ -->
           <tr>
             <td><span class="status-dot ok"></span> danil: отчёт по вкладам СССР (пн)</td>
-            <td>—</td>
+            <td>Данил</td>
             <td>Пн 10:00</td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
@@ -178,96 +199,62 @@
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
             <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> search-agent: сбор жалоб по наследству</td>
-            <td>—</td>
-            <td>Пн–Пт 10:45</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> verify-agent: верификация жалоб</td>
-            <td>—</td>
-            <td>Пн–Пт 10:55</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> katya-agent: сводка жалоб Кате</td>
-            <td>—</td>
-            <td>Пн–Пт 11:00</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> stats-agent: статистика жалоб на сайт</td>
-            <td>—</td>
-            <td>Ежедневно 11:20</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> rzd-search-agent: сбор MOEX ISS</td>
-            <td>—</td>
-            <td>Пн–Пт 23:50</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> rzd-verify-agent: валидация + аналитика</td>
-            <td>—</td>
-            <td>Пн–Пт 23:55</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> rzd-html-agent: HTML + публикация + Лене</td>
-            <td>—</td>
-            <td>Пн–Пт 23:58</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
+            <td class="rec">Ожидает запуска в понедельник</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> danil: отчёт по вкладам СССР (чт)</td>
-            <td>—</td>
+            <td>Данил</td>
             <td>Чт 10:00</td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>—</td>
+            <td class="rec">Ожидает запуска в четверг</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> katrin: LegalMCP обновление 44-ФЗ/224-ФЗ</td>
+            <td>Катрин</td>
+            <td>Пн–Ср–Пт 09:30</td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>25.07 09:30</td>
+            <td class="rec">84 вызова/мес из 100 — близок к лимиту LegalMCP</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> roza: отчёт по пособиям</td>
+            <td>Роза</td>
+            <td>Пн 08:00</td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>—</td>
+            <td class="rec">Ожидает запуска в понедельник</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> irina: отчёт по НПА</td>
+            <td>Ирина</td>
+            <td>Пн 08:15</td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>—</td>
+            <td class="rec">Ожидает запуска в понедельник</td>
+          </tr>
+
+          <!-- ═══ Системные ═══ -->
+          <tr>
+            <td><span class="status-dot ok"></span> tokens: отчёт по токенам</td>
+            <td>—</td>
+            <td>Ежедневно 03:30</td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
@@ -288,12 +275,74 @@
             <td>—</td>
             <td class="rec">—</td>
           </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> aidj: мониторинг туннеля</td>
+            <td>—</td>
+            <td>Каждые 3 ч</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 5%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>$0.009</td>
+            <td>26.07 22:56</td>
+            <td class="rec">Туннель не работает — cloudflared-aidj.service не существует</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot warn"></span> tasks: обновление Health Index</td>
+            <td>—</td>
+            <td>Каждые 4 ч</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 29%</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 33%</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>$0.008</td>
+            <td>27.07 01:20</td>
+            <td class="rec">⚠️ 2 таймаута из 3 запусков. Модель v4-flash, timeout 120s — маловато.</td>
+          </tr>
+
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 27.07.2026 00:00</div>
+  <!-- ═══ Системная информация ═══ -->
+  <div class="section" style="margin-top:20px;padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;">
+    <h2 style="font-size:14px;margin-bottom:8px;">🔧 Системная информация</h2>
+    <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">
+      <div><strong>OpenClaw:</strong> 2026.6.11 (откат с beta.1)</div>
+      <div><strong>Модель по умолчанию:</strong> deepseek/deepseek-v4-flash</div>
+      <div><strong>Поиск:</strong> SearXNG (self-hosted, localhost:8888)</div>
+      <div><strong>Плагины:</strong> несовместимы с версией (clickclack, zai, searxng-plugin, deepseek-provider)</div>
+      <div style="margin-top:8px;color:var(--yellow);">
+        ⚠️ <strong>Известные проблемы:</strong> DeepSeek API timeout при 60с (увеличен до 120с). GitHub push блокируется Secret Scanning из-за backup/ папки с ключами. Cron на 2026.6.11 не стартует через gateway — обход через sessions_spawn.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Health Score ═══ -->
+  <div class="section" style="margin-top:20px;padding:16px 20px;background:rgba(33,38,45,.3);border-radius:10px;">
+    <h2 style="font-size:14px;margin-bottom:12px;">🏥 Health Score — последние 24ч</h2>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:100px;padding:14px;border-radius:10px;background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.2);text-align:center;">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:2px;">✅ Успешные</div>
+        <div style="font-size:28px;font-weight:700;color:#3fb950;">10</div>
+      </div>
+      <div style="flex:1;min-width:100px;padding:14px;border-radius:10px;background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.2);text-align:center;">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:2px;">⚠️ С ошибками</div>
+        <div style="font-size:28px;font-weight:700;color:#d29922;">1</div>
+      </div>
+      <div style="flex:1;min-width:100px;padding:14px;border-radius:10px;background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.2);text-align:center;">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:2px;">❌ Провалы</div>
+        <div style="font-size:28px;font-weight:700;color:#f85149;">1</div>
+      </div>
+      <div style="flex:1;min-width:100px;padding:14px;border-radius:10px;background:rgba(88,166,255,.08);border:1px solid rgba(88,166,255,.2);text-align:center;">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:2px;">💰 Суммарно</div>
+        <div style="font-size:22px;font-weight:700;color:#58a6ff;">$0.157</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 27.07.2026 01:20</div>
 </div>
 
 <style>
@@ -313,6 +362,7 @@
 .rec { font-size: 12px; color: var(--text,#c9d1d9); line-height: 1.45; }
 .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: middle; position: relative; top: -1px; }
 .status-dot.ok   { background: #3fb950; box-shadow: 0 0 5px rgba(63,185,80,.5); }
+.status-dot.warn { background: #d29922; box-shadow: 0 0 5px rgba(210,153,34,.5); }
 .tl { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
 .tl-green  { background: #3fb950; box-shadow: 0 0 4px rgba(63,185,80,.5); }
 .tl-yellow { background: #d29922; box-shadow: 0 0 4px rgba(210,153,34,.5); }
