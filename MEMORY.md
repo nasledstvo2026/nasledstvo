@@ -1,5 +1,28 @@
 # MEMORY.md — Долгосрочная память Лунта
 
+## 🧠 26.07.2026 — Полное восстановление после отката
+
+### Что случилось
+- Gateway упал, OpenClaw откатился с 2026.7.2-beta.1 до **2026.6.11**
+- Все 4 плагина сломаны (clickclack, deepseek-provider, zai, searxng) — несовместимость API
+- DeepSeek API перестал принимать модель `deepseek-chat` (deprecated)
+- Cron: 0 задач, все пропали
+
+### Что сделано
+- **19 cron-задач восстановлены** (список ID в 2026-07-26.md)
+- **Модели**: deepseek-chat → `deepseek/deepseek-v4-flash` для всех (кроме verify-agent — `pro`)
+- **Поиск**: web_search → SearXNG через `exec curl http://127.0.0.1:8888/search` (Bing/DuckDuckGo не используем)
+- **Лена**: промпты обновлены под product-lena.html, боевой прогон ✅
+- **Катя**: промпты обновлены (10 запросов, 3 тега), about-inheritance.html актуализирован, боевой прогон ✅
+- **publish-report.sh**: для stats-agent исправлен вызов (reports/ в корень)
+
+### Известные проблемы на 26.07
+- OpenClaw 2026.6.11 — плагины НЕ работают (нужен апгрейд, но запрещено без письменного OK Кирилла)
+- `cron run` не запускает isolated сессии — обход через `sessions_spawn(mode=run)`
+- web_search не используется — всё через SearXNG curl
+
+---
+
 ## 🖥️ Новый VPS — vm-low4-8 (создан 25.07.2026)
 - **Кодовое имя:** VPS2
 - **Старый сервер:** VPS1 (vm-f13581)
