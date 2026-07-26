@@ -27,3 +27,5 @@ scripts/dropbox-get-*.py
 ssl/
 *.tar.gz
 venv/
+backup/pre-upgrade-*/
+backup/pre-upgrade-*/
