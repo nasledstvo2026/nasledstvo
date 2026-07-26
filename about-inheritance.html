@@ -64,20 +64,20 @@
   </div>
   <div class="summary-box">
     Каждый день в российских банках возникают споры по наследству: банки отказывают в выдаче средств, требуют досрочно погасить ипотеку умершего, блокируют счета наследников. Отслеживать эти случаи вручную — невозможно.<br><br>
-    <strong>Мониторинг жалоб</strong> — это ИИ-система из 5 агентов (4 cron + 1 чат), которая <strong>каждое буднее утро сама находит</strong> новые жалобы, <strong>проверяет их подлинность</strong>, формирует сводку, публикует статистику и <strong>отвечает на вопросы Кати в чате</strong>. Cron-пайплайн отрабатывает за <strong>~6 минут</strong> без участия человека.
+    <strong>Мониторинг жалоб</strong> — это ИИ-система из 5 агентов (4 cron + 1 чат), которая <strong>каждое буднее утро сама находит</strong> новые жалобы, <strong>проверяет их подлинность</strong>, формирует сводку, публикует статистику и <strong>отвечает на вопросы Кати в чате</strong>. Cron-пайплайн отрабатывает за <strong>~8 минут</strong> без участия человека.
   </div>
   <div class="section">
     <h2>Как это работает</h2>
     <p style="font-size:13px;color:rgba(255,255,255,0.4);">Четыре ИИ-агента, каждый со своей специализацией, работают по цепочке каждое буднее утро:</p>
     <div class="timeline">
-      <div class="tl-item"><div class="tl-time">10:45</div><div class="tl-agent">🔍 search-agent</div><div class="tl-desc">поиск через Bing + DuckDuckGo</div></div>
+      <div class="tl-item"><div class="tl-time">10:45</div><div class="tl-agent">🔍 search-agent</div><div class="tl-desc">поиск через SearXNG (self-hosted)</div></div>
       <div class="tl-item"><div class="tl-time">10:55</div><div class="tl-agent">✅ verify-agent</div><div class="tl-desc">верификация по url</div></div>
       <div class="tl-item"><div class="tl-time">11:00</div><div class="tl-agent">💬 katya-agent</div><div class="tl-desc">сводка в Telegram</div></div>
       <div class="tl-item"><div class="tl-time">11:20</div><div class="tl-agent">📊 stats-agent</div><div class="tl-desc">статистика → HTML</div></div>
     </div>
-    <p style="font-size:12px;color:rgba(255,255,255,0.3);text-align:center;">⏱ Весь цикл: ~90 сек. Полностью автоматически.</p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.3);text-align:center;">⏱ Весь цикл: ~8 мин. Полностью автоматически.</p>
     <div class="agent-grid">
-      <div class="agent-card"><h4>🔍 search-agent</h4><p>Сканирует banki.ru, otzovik.com, pikabu.ru, sravni.ru по 10 целевым запросам. Сливает с историей, убирает дубли.</p></div>
+      <div class="agent-card"><h4>🔍 search-agent</h4><p>Сканирует banki.ru, otzovik.com, pikabu.ru, sravni.ru, pravoved.ru, asn-news.ru, 9111.ru по 10 целевым запросам. Сливает с историей, убирает дубли.</p></div>
       <div class="agent-card"><h4>✅ verify-agent</h4><p>Открывает каждую ссылку, читает контекст. Отсеивает фейки, рекламу и «не темы». Ставит тег качества.</p></div>
       <div class="agent-card"><h4>💬 katya-agent</h4><p>Формирует сводку только из верифицированных жалоб. Отправляет в Telegram. Прямой стиль, без воды.</p></div>
       <div class="agent-card"><h4>📊 stats-agent</h4><p>Считает статистику: топ банков, динамику по месяцам, распределение. Публикует на GitHub Pages.</p></div>
@@ -93,7 +93,7 @@
   <div class="section">
     <h2>Все фичи продукта</h2>
     <div class="features-half">
-      <div class="feature-col"><h3>🔍 Поиск и сбор</h3><ul><li>10 целевых запросов ежедневно</li><li>4 площадки: banki.ru, otzovik.com, pikabu.ru, sravni.ru</li><li>Историческая база: Декабрь 2025 → сегодня</li><li>Автоматическая дедупликация по url</li><li>Bing + DuckDuckGo, не блокируются в РФ</li></ul></div>
+      <div class="feature-col"><h3>🔍 Поиск и сбор</h3><ul><li>10 целевых запросов ежедневно</li><li>7 площадок: banki.ru, otzovik.com, pikabu.ru, sravni.ru, pravoved.ru, asn-news.ru, 9111.ru</li><li>Историческая база: Декабрь 2025 → сегодня</li><li>Автоматическая дедупликация по url</li><li>SearXNG (self-hosted, 7+ движков), не блокируется в РФ</li></ul></div>
       <div class="feature-col"><h3>✅ Верификация</h3><ul><li>Каждая ссылка открывается и проверяется</li><li>Три тега: verified / needs_review / rejected</li><li>Отсев рекламы и не-тем</li><li>Тематический фильтр: ТОЛЬКО наследство</li><li>Rejected не попадают в сводку</li></ul></div>
     </div>
     <div class="features-half">
@@ -114,7 +114,7 @@
   <div class="section">
     <h2>Технологический стек</h2>
     <div class="features-half">
-      <div class="feature-col"><h3>Инфраструктура</h3><table class="clean" style="font-size:12px;"><tr><td>Платформа</td><td>OpenClaw</td></tr><tr><td>Модель</td><td>DeepSeek Chat</td></tr><tr><td>Поиск</td><td>web_search (OpenClaw)</td></tr><tr><td>Хостинг</td><td>GitHub Pages</td></tr><tr><td>Связь</td><td>Telegram Bot API</td></tr></table></div>
+      <div class="feature-col"><h3>Инфраструктура</h3><table class="clean" style="font-size:12px;"><tr><td>Платформа</td><td>OpenClaw</td></tr><tr><td>Модель</td><td>DeepSeek V4 Flash (search/katya/stats) + V4 Pro (verify)</td></tr><tr><td>Поиск</td><td>SearXNG (self-hosted, Google News / Brave News / Reuters и др.)</td></tr><tr><td>Хостинг</td><td>GitHub Pages</td></tr><tr><td>Связь</td><td>Telegram Bot API</td></tr></table></div>
       <div class="feature-col"><h3>Безопасность</h3><table class="clean" style="font-size:12px;"><tr><td>Агенты</td><td>изолированные сессии</td></tr><tr><td>Данные</td><td>локально, не уходят наружу</td></tr><tr><td>Бэкапы</td><td>перед каждым изменением</td></tr><tr><td>Откат</td><td>5 минут, план утверждён</td></tr><tr><td>Сайт</td><td>HTTPS, GitHub Pages</td></tr></table></div>
     </div>
   </div>
