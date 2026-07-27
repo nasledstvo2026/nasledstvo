@@ -29,3 +29,13 @@ ssl/
 venv/
 backup/pre-upgrade-*/
 backup/pre-upgrade-*/
+-e 
+# Workspace files (agent)
+AGENTS.md
+SOUL.md
+USER.md
+IDENTITY.md
+MEMORY.md
+TOOLS.md
+HEARTBEAT.md
+memory/
