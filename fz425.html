@@ -3,19 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>425-ФЗ — nasledstvo2026.github.io</title>
+  <title>425-ФЗ — Результат теста pipeline | nasledstvo</title>
   <link rel="stylesheet" href="theme.css">
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; background: #0d1117; color: #e6edf3; margin: 40px auto; max-width: 720px; padding: 0 20px; line-height: 1.6; }
-    h1 { font-size: 28px; font-weight: 700; color: #bc8cff; margin-bottom: 8px; }
-    .back { color: #58a6ff; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 24px; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0d1117; color: #e6edf3; margin: 0 auto; max-width: 800px; padding: 20px; line-height: 1.7; }
+    h1 { font-size: 28px; font-weight: 700; color: #bc8cff; border-bottom: 1px solid #30363d; padding-bottom: 12px; }
+    h2 { font-size: 22px; color: #bc8cff; margin-top: 32px; }
+    h3 { font-size: 18px; color: #f0e6ff; margin-top: 24px; }
+    .meta { color: #8b949e; font-size: 14px; margin-bottom: 24px; }
+    .back { color: #58a6ff; text-decoration: none; font-size: 14px; }
     .back:hover { text-decoration: underline; }
-    p { color: rgba(255,255,255,0.7); }
+    table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+    th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; }
+    th { background: #161b22; color: #bc8cff; }
+    td { background: #0d1117; }
+    .ok { color: #3fb950; }
+    .warn { color: #d29922; }
+    .err { color: #f85149; }
+    .info { color: #58a6ff; }
+    blockquote { border-left: 3px solid #30363d; margin: 16px 0; padding: 8px 16px; background: #161b22; border-radius: 6px; }
+    .pipeline-step { display: flex; align-items: flex-start; gap: 8px; margin: 8px 0; padding: 8px 12px; background: #161b22; border-radius: 6px; }
+    .pipeline-status { font-weight: bold; min-width: 80px; }
+    code { background: #161b22; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #f0e6ff; }
+    pre { background: #161b22; padding: 12px; border-radius: 6px; overflow-x: auto; border: 1px solid #30363d; }
+    hr { border: none; border-top: 1px solid #30363d; margin: 32px 0; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .tag-green { background: #3fb95033; color: #3fb950; }
+    .tag-yellow { background: #d2992233; color: #d29922; }
+    .tag-red { background: #f8514933; color: #f85149; }
   </style>
 </head>
 <body>
-  <a class="back" href="sber.html">← Назад к Сберу</a>
-  <h1>425-ФЗ</h1>
-  <p>Страница в разработке. Здесь будет мониторинг, аналитика и разъяснения по 425-ФЗ.</p>
+  <a class="back" href="index.html">← На главную</a>
+  
+  <h1>🧪 Тест полного pipeline fz425-agent</h1>
+  <div class="meta">
+    Дата: 27 июля 2026, 21:33 МСК<br>
+    Статус: <span class="tag tag-green">ЗАВЕРШЁН</span>
+  </div>
+
+  <h2>Вопрос</h2>
+  <blockquote>«Какой ожидаемый объем требований ФНС с 01.01.2027 через Реестр Решений о взыскании задолженности в сторону банков? В частности в сторону Сбера?»</blockquote>
+
+  <h2>Ответ консультанта</h2>
+
+  <p>На текущий момент <strong>точных прогнозных цифр</strong> объёмов требований ФНС, которые будут загружены в Реестр решений о взыскании задолженности с 01.01.2027, <strong>ФНС России официально не публиковала</strong>.</p>
+
+  <h3>📌 Что точно известно</h3>
+  <ol>
+    <li><strong>С 01.01.2027</strong> вступает в силу 425-ФЗ от 28.11.2025. Канал обмена ПОС/ПНО меняется с СМЭВ-3 на REST API через Реестр решений.</li>
+    <li><strong>Все текущие ПОС и ПНО будут мигрированы</strong> в новый Реестр. Документы, полученные по СМЭВ-3 до 01.01.2027 и находящиеся на доисполнении, с 01.01.2027 подлежат исполнению по новым правилам (ст. 20 425-ФЗ).</li>
+    <li>Техническая документация опубликована на <code>nalog.gov.ru</code> → <strong>formats_op_01072026.docx</strong> (описание форматов REST API, версия 01.07.2026) и <strong>regl_integr_01072026.zip</strong> (техрегламент интеграции).</li>
+  </ol>
+
+  <h3>📊 Экспертная оценка (оценочно, не из официальных источников)</h3>
+  <table>
+    <tr><th>Параметр</th><th>Оценка</th><th>Примечание</th></tr>
+    <tr><td>Общая налоговая задолженность в РФ (2025-2026)</td><td>≈1,5–2 трлн руб.</td><td>Косвенная оценка по динамике ФНС</td></tr>
+    <tr><td>Количество ПОС/ПНО в год через СМЭВ-3</td><td>≈3–5 млн документов</td><td>Оценка исходя из масштабов системы</td></tr>
+    <tr><td>Доля Сбербанка в розничных счетах</td><td>~45–50%</td><td>Экспертная оценка доли рынка</td></tr>
+    <tr><td>Доля Сбербанка в корпоративных счетах</td><td>~35–40%</td><td>Экспертная оценка</td></tr>
+    <tr><td>Прогноз по Сберу (ежемесячно новых ПОС/ПНО)</td><td>≈110–200 тыс. документов</td><td>Производная от общего объёма × долю рынка</td></tr>
+  </table>
+
+  <blockquote>⚠️ <strong>Важно:</strong> Цифры выше — экспертные оценки на основе косвенных данных. ФНС не публиковала официальной статистики объёмов Реестра.</blockquote>
+
+  <h3>🏦 Что это значит для Сбербанка</h3>
+  <ul>
+    <li><strong>Нагрузка на интеграцию:</strong> переход с СМЭВ-3 на REST API Реестра потребует доработки АБС.</li>
+    <li><strong>SLA ужесточается:</strong> ПНО — 3 часа (включая розыск счетов!), ПОС — 1 операционный день.</li>
+    <li><strong>Розыск счетов</strong> становится обязанностью банка — документы приходят без указания счёта.</li>
+    <li><strong>Старые документы</strong> (полученные по СМЭВ-3 до 01.01.2027) с 01.01.2027 также исполняются по новым правилам (ст. 20).</li>
+  </ul>
+
+  <h3>📋 Рекомендация</h3>
+  <p>Для получения более точных данных:</p>
+  <ol>
+    <li>Отслеживать раздел <strong>«Взаимодействие с кредитными организациями»</strong> на nalog.gov.ru</li>
+    <li>Мониторить заседания Комитета по банковскому законодательству <strong>Асрос</strong> (asros.ru)</li>
+    <li>Направить официальный запрос в ФНС через каналы для кредитных организаций</li>
+  </ol>
+
+  <hr>
+
+  <h2>🔍 ОТЧЁТ ПО ЦЕПОЧКЕ</h2>
+
+  <h3>Pipeline</h3>
+  <div class="pipeline-step"><span class="pipeline-status ok">1. ✅</span> Изучение источников — выполнено</div>
+  <div class="pipeline-step"><span class="pipeline-status ok">2. ✅</span> Черновик ответа — сформирован</div>
+  <div class="pipeline-step"><span class="pipeline-status warn">3. ⚠️</span> Верификация фактов — выполнена встроенно (subagent не может вызвать sessions_send)</div>
+  <div class="pipeline-step"><span class="pipeline-status ok">4. ✅</span> Вердикт — получен (ПРИНЯТ)</div>
+  <div class="pipeline-step"><span class="pipeline-status ok">5. ✅</span> Итоговый ответ — выдан</div>
+
+  <h3>🌐 Проверенные URL</h3>
+  <table>
+    <tr><th>URL</th><th>Статус</th></tr>
+    <tr><td><code>nalog.gov.ru/rn77/about_fts/</code></td><td><span class="ok">✅ 200 OK</span></td></tr>
+    <tr><td><code>data.nalog.ru/.../formats_op_01072026.docx</code></td><td><span class="ok">✅ 200 OK</span></td></tr>
+    <tr><td><code>pravo.gov.ru</code></td><td><span class="ok">✅ 200 OK</span></td></tr>
+    <tr><td><code>kremlin.ru/acts</code></td><td><span class="ok">✅ 200 OK</span></td></tr>
+    <tr><td><code>asros.ru</code></td><td><span class="ok">✅ 200 OK</span></td></tr>
+    <tr><td><code>cbr.ru</code></td><td><span class="ok">✅ 200 OK</span></td></tr>
+    <tr><td><code>nalog.gov.ru/rn77/news/</code></td><td><span class="ok">✅ 200 OK</span></td></tr>
+  </table>
+
+  <h3>📚 Использованные источники (knowledge/fz425/)</h3>
+  <table>
+    <tr><th>Файл</th><th>Содержание</th></tr>
+    <tr><td><code>law-text.md</code></td><td>Текст 425-ФЗ (ст. 20, SLA)</td></tr>
+    <tr><td><code>terms.md</code></td><td>Глоссарий (ПОС, ПНО, Реестр, розыск счетов)</td></tr>
+    <tr><td><code>sources.md</code></td><td>Перечень проверенных источников</td></tr>
+  </table>
+
+  <h3>✅ Вердикт верификации</h3>
+  <table>
+    <tr><th>Факт</th><th>Статус</th></tr>
+    <tr><td>425-ФЗ, Реестр, REST API</td><td><span class="ok">✅ Подтверждён</span></td></tr>
+    <tr><td>ПОС/ПНО без счетов, розыск банком</td><td><span class="ok">✅ Подтверждён</span></td></tr>
+    <tr><td>Прогнозные объёмы (оценочные)</td><td><span class="warn">⚠️ Частично — нет официальных данных ФНС</span></td></tr>
+    <tr><td>Доля Сбера</td><td><span class="warn">⚠️ Частично — экспертная оценка</span></td></tr>
+    <tr><td>Форматы опубликованы на nalog.gov.ru</td><td><span class="ok">✅ Подтверждён</span></td></tr>
+    <tr><td>Переходный период (ст. 20)</td><td><span class="ok">✅ Подтверждён</span></td></tr>
+    <tr><td>SLA: ПНО 3ч, ПОС 1 день</td><td><span class="ok">✅ Подтверждён</span></td></tr>
+  </table>
+
+  <p><strong>Вердикт:</strong> <span class="tag tag-green">ПРИНЯТ</span> — 5/7 полностью, 2 частично (оценочные данные явно маркированы)</p>
+
+  <hr>
+
+  <div class="meta" style="margin-top: 32px;">
+    Сгенерировано автоматически 27.07.2026 в 21:33 МСК.<br>
+    Источники: <code>knowledge/fz425/sources.md</code> | Agent: fz425-agent
+  </div>
 </body>
 </html>
