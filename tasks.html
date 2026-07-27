@@ -14,28 +14,7 @@
 
   <div class="hero">
     <h1 class="page-title">Все cron-задачи</h1>
-    <div class="meta">18 активных задач · 27.07.2026 07:14</div>
-  </div>
-
-  <!-- ═══ Блок Health Score ═══ -->
-  <div class="stats-row">
-    <div class="stat-box">
-      <div class="label">Health Score</div>
-      <div class="value" style="color:#d29922;">61%</div>
-      <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">⚠️ Требует внимания</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">✅ Успешных</div>
-      <div class="value" style="color:#3fb950;">7</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">⚠️ С ошибками</div>
-      <div class="value" style="color:#d29922;">2</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">❌ Провалов</div>
-      <div class="value" style="color:#f85149;">1</div>
-    </div>
+    <div class="meta">16 активных задач · 27.07.2026 09:00</div>
   </div>
 
   <!-- ═══ Легенда ═══ -->
@@ -59,24 +38,14 @@
     <div class="legend-sep"></div>
     <div class="legend-metric">
       <div class="legend-title">💎 Cache Hit %</div>
-      <div class="legend-desc"><code>cacheRead / (input + cacheRead) × 100</code> — эффективность системного промпта</div>
+      <div class="legend-desc"><code>cacheRead / (input + cacheRead) × 100</code> — эффективность системного промпта. Данные из trajectory сессии (сырой ответ DeepSeek API).</div>
       <div class="legend-items"><span><span class="tl tl-green"></span> &gt;80%</span><span><span class="tl tl-yellow"></span> 50–80%</span><span><span class="tl tl-red"></span> &lt;50%</span></div>
     </div>
     <div class="legend-metric" style="border:none;margin:0;padding:0;">
       <div class="legend-title">💰 Cost / Run</div>
-      <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code></div>
+      <div class="legend-desc"><code>(input×$0.27 + cache×$0.070 + output×$1.10) / 1M</code> — тарифы deepseek-chat из openclaw.json.</div>
       <div class="legend-items"><span><span class="tl tl-green"></span> &lt;$0.01</span><span><span class="tl tl-yellow"></span> $0.01–0.05</span><span><span class="tl tl-red"></span> &gt;$0.05</span></div>
     </div>
-  </div>
-
-  <!-- ═══ Известные проблемы ═══ -->
-  <div class="section" style="padding:16px 20px;background:rgba(248,81,73,.08);border-radius:10px;margin-bottom:16px;border:1px solid rgba(248,81,73,.2);">
-    <h2 style="font-size:14px;margin-bottom:8px;color:var(--red);">⚠️ Известные проблемы</h2>
-    <ul style="font-size:13px;color:var(--text-dim);line-height:1.6;margin:0;padding-left:20px;">
-      <li><strong style="color:var(--text);">tasks: Health Index</strong> — 14% успешности (1/7), 6 таймаутов подряд. Таймаут 120с маловат.</li>
-      <li><strong style="color:var(--text);">aidj: мониторинг туннеля</strong> — aborted при проверке cloudflared. Туннель нестабилен.</li>
-      <li><strong style="color:var(--text);">lena-search</strong> — высокая стоимость $0.039/run (12 поисковых запросов через SearXNG).</li>
-    </ul>
   </div>
 
   <div class="section">
@@ -92,54 +61,6 @@
         </thead>
         <tbody>
           <tr>
-            <td><span class="status-dot" style="background:#d29922;box-shadow:0 0 5px rgba(210,153,34,.5);"></span> tasks: обновление Health Index</td>
-            <td>—</td>
-            <td>Каждые 15 мин</td>
-            <td><span class="metric"><span class="tl tl-red"></span> 100%</span></td>
-            <td><span class="metric"><span class="tl tl-red"></span> 14%</span></td>
-            <td><span class="metric"><span class="tl tl-yellow"></span> +3 мин</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>27.07 07:14</td>
-            <td class="rec">Увеличить таймаут с 120с до 300с. 6 таймаутов из 7.</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot" style="background:#f85149;box-shadow:0 0 5px rgba(248,81,73,.5);"></span> aidj: мониторинг туннеля</td>
-            <td>—</td>
-            <td>Каждые 30 мин</td>
-            <td><span class="metric"><span class="tl tl-red"></span> 100%</span></td>
-            <td><span class="metric"><span class="tl tl-red"></span> 0%</span></td>
-            <td><span class="metric"><span class="tl tl-red"></span> +76 мин</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>$0.0016</td>
-            <td>27.07 04:29</td>
-            <td class="rec">Туннель не работает. Проверить cloudflared-aidj сервис.</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> roza: отчёт по пособиям</td>
-            <td>—</td>
-            <td>Пн 08:00</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> irina: отчёт по НПА</td>
-            <td>—</td>
-            <td>Пн 08:15</td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>—</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
             <td><span class="status-dot ok"></span> danil: отчёт по вкладам СССР (пн)</td>
             <td>—</td>
             <td>Пн 10:00</td>
@@ -149,6 +70,18 @@
             <td><span class="metric-na">—</span></td>
             <td><span class="metric-na">—</span></td>
             <td>—</td>
+            <td class="rec">—</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> tasks: обновление Health Index</td>
+            <td>—</td>
+            <td></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 67%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +434 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 89%</span></td>
+            <td>$0.013</td>
+            <td>27.07 07:14</td>
             <td class="rec">—</td>
           </tr>
           <tr>
@@ -239,13 +172,13 @@
             <td><span class="status-dot ok"></span> lena-search-agent: сбор новостей наследства</td>
             <td>—</td>
             <td>Ежедневно 02:00</td>
-            <td><span class="metric"><span class="tl tl-green"></span> 3%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> 85%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-yellow"></span> +3 мин</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 96%</span></td>
             <td>$0.039</td>
             <td>27.07 02:03</td>
-            <td class="rec">12 запросов SearXNG. Дорогой агент.</td>
+            <td class="rec">—</td>
           </tr>
           <tr>
             <td><span class="status-dot ok"></span> lena-verify-agent: верификация новостей</td>
@@ -253,9 +186,9 @@
             <td>Ежедневно 02:10</td>
             <td><span class="metric"><span class="tl tl-green"></span> 7%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> +1 мин</span></td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> +2 мин</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 85%</span></td>
-            <td>$0.0043</td>
+            <td><$0.0043</td>
             <td>27.07 02:11</td>
             <td class="rec">—</td>
           </tr>
@@ -267,20 +200,8 @@
             <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
             <td><span class="metric"><span class="tl tl-green"></span> 89%</span></td>
-            <td>$0.0050</td>
+            <td><$0.0050</td>
             <td>27.07 02:20</td>
-            <td class="rec">—</td>
-          </tr>
-          <tr>
-            <td><span class="status-dot ok"></span> tokens: отчёт по токенам</td>
-            <td>—</td>
-            <td>Ежедневно 03:30</td>
-            <td><span class="metric"><span class="tl tl-green"></span> 0%</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
-            <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td><span class="metric-na">—</span></td>
-            <td>27.07 03:30</td>
             <td class="rec">—</td>
           </tr>
           <tr>
@@ -307,12 +228,36 @@
             <td>—</td>
             <td class="rec">—</td>
           </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> roza: отчёт по пособиям</td>
+            <td>—</td>
+            <td>Пн 08:00</td>
+            <td><span class="metric"><span class="tl tl-green"></span> 26%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-red"></span> +20 мин</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 92%</span></td>
+            <td>$0.015</td>
+            <td>27.07 08:19</td>
+            <td class="rec">—</td>
+          </tr>
+          <tr>
+            <td><span class="status-dot ok"></span> irina: отчёт по НПА</td>
+            <td>—</td>
+            <td>Пн 08:15</td>
+            <td><span class="metric"><span class="tl tl-yellow"></span> 68%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 100%</span></td>
+            <td><span class="metric"><span class="tl tl-green"></span> 0 мин</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td><span class="metric-na">—</span></td>
+            <td>27.07 08:15</td>
+            <td class="rec">—</td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 27.07.2026 07:14</div>
+  <div class="footer">☽ Лунт · <a href="index.html">Главная</a> · Сгенерировано 27.07.2026 09:00</div>
 </div>
 
 <style>
