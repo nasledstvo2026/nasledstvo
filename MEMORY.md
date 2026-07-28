@@ -15,6 +15,18 @@
 - Общение: на русском
 - Подход: тёплый, дружелюбный
 
+## Состояние проектов
+
+### fz425-agent + fz425-verifier (мультиагентная верификация)
+- **Статус:** ✅ работает, отдельный агент fz425-verifier через sessions_send
+- **Конфиг:** tools.agentToAgent.enabled=true, allow=['fz425-agent','fz425-verifier'], sessions.visibility=all
+- **Маршрутизация:** Оля (157775002) + Катя (2041168814) → fz425-agent → верификатор
+- **Workspace:** оба агента → /home/user1/nasledstvo/
+- **Протокол:** SKILL.md → sessions_send(agentId="fz425-verifier")
+- **Проблема рестартов:** tools.* изменения требуют gateway restart → сессия теряется
+- **Решение:** gateway.reload.mode = "hot" (включаем 28.07), чекпоинты в MEMORY.md перед опасными операциями
+- **Последнее действие:** включение hot-reload, чекпоинт перед рестартом
+
 ## Предпочтения по моделям
 - Основная: `deepseek/deepseek-v4-flash`
 - Fallback: `deepseek/deepseek-v4-pro`
