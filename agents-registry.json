@@ -1,0 +1,267 @@
+{
+  "version": "1.0",
+  "updated": "2026-07-28 23:40 MSK",
+  "defaultModel": "deepseek/deepseek-v4-flash",
+  "defaultFallback": "deepseek/deepseek-v4-pro",
+  "providers": {
+    "deepseek": {
+      "baseUrl": "https://api.deepseek.com",
+      "api": "openai-completions"
+    }
+  },
+  "users": [
+    { "id": "346428630", "name": "Кирилл", "username": "Kirill_syst", "channel": "telegram" },
+    { "id": "157775002", "name": "Оля", "channel": "telegram" },
+    { "id": "2041168814", "name": "Катя", "channel": "telegram" },
+    { "id": "311760717", "name": "Катрин", "username": "Su_Ri_Mi", "channel": "telegram" },
+    { "name": "Роза", "channel": "telegram", "notes": "социальные выплаты" },
+    { "name": "Ирина", "channel": "telegram", "notes": "социальные выплаты" },
+    { "name": "Лена", "channel": "telegram", "notes": "новости наследства" }
+  ],
+  "products": [
+    {
+      "id": "fz425",
+      "name": "425-ФЗ",
+      "description": "Налоговое взыскание",
+      "color": "#58a6ff",
+      "agents": ["fz425-agent", "fz425-verifier"]
+    },
+    {
+      "id": "inheritance",
+      "name": "Наследство",
+      "description": "Жалобы и консультации по наследству в банках РФ",
+      "color": "#f778ba",
+      "agents": ["inheritance-bank-complaint-analyst", "danil-vklady-expert", "lena-news-expert"]
+    },
+    {
+      "id": "pharm",
+      "name": "ФармТендеролог",
+      "description": "Закупки ЛП/МИ по 44-ФЗ и 223-ФЗ",
+      "color": "#bc8cff",
+      "agents": ["katrin-tender-expert", "katrin-agent-document-verdict"]
+    },
+    {
+      "id": "family",
+      "name": "Семейное право",
+      "description": "Семейное право РФ и психология",
+      "color": "#7ee787",
+      "agents": ["kirill-family-advocate"]
+    },
+    {
+      "id": "social",
+      "name": "Соцподдержка",
+      "description": "Инвалидность, ВБД, СВО, выплаты",
+      "color": "#ff9000",
+      "agents": ["social-category-matcher", "social-verifier"]
+    },
+    {
+      "id": "brd",
+      "name": "BRD-конвейер",
+      "description": "Генерация бизнес-требований",
+      "color": "#56d4dd",
+      "agents": ["ba-controller", "ba-questioner", "ba-compiler", "ba-verifier"]
+    }
+  ],
+  "agents": [
+    {
+      "id": "main",
+      "name": "Феникс",
+      "emoji": "🔥",
+      "type": "gateway",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": "deepseek/deepseek-v4-pro",
+      "role": "Персональный помощник, маршрутизатор",
+      "status": "online",
+      "channel": "telegram:346428630",
+      "schedule": null,
+      "skills": ["danil-vklady-expert", "inheritance-bank-complaint-analyst", "lena-news-expert", "kirill-family-advocate", "social-category-matcher", "katrin-tender-expert", "ba-controller"]
+    },
+    {
+      "id": "fz425-agent",
+      "name": "fz425-agent",
+      "emoji": "⚖️",
+      "type": "gateway",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": "deepseek/deepseek-v4-pro",
+      "role": "Консультант по 425-ФЗ",
+      "status": "online",
+      "product": "fz425",
+      "channel": "telegram → main → fz425-agent",
+      "route": "Оля, Катя → main → fz425-agent",
+      "connectsTo": ["fz425-verifier"],
+      "connectionType": "sessions_send(agentId=\"fz425-verifier\")"
+    },
+    {
+      "id": "fz425-verifier",
+      "name": "fz425-verifier",
+      "emoji": "🔍",
+      "type": "gateway",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Верификатор фактов по 425-ФЗ",
+      "status": "online",
+      "product": "fz425",
+      "channel": "fz425-agent → fz425-verifier",
+      "connectsFrom": ["fz425-agent"],
+      "connectionType": "sessions_send (верификация перед ответом)"
+    },
+    {
+      "id": "katrin-tender-expert",
+      "name": "katrin-tender-expert",
+      "emoji": "💊",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": "deepseek/deepseek-v4-pro",
+      "role": "Эксперт по закупкам ЛП/МИ",
+      "product": "pharm",
+      "channel": "telegram → main → katrin-tender-expert",
+      "route": "Катрин (311760717) → main → katrin-tender-expert",
+      "connectsTo": ["katrin-agent-document-verdict"],
+      "connectionType": "sessions_send(agentId=\"auditor-agent\")"
+    },
+    {
+      "id": "katrin-agent-document-verdict",
+      "name": "auditor-agent",
+      "emoji": "📝",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Юридический аудит документов",
+      "product": "pharm",
+      "connectsFrom": ["katrin-tender-expert"],
+      "connectionType": "sessions_send (аудит фактов)"
+    },
+    {
+      "id": "kirill-family-advocate",
+      "name": "Семейный адвокат",
+      "emoji": "👨‍👧",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": "deepseek/deepseek-v4-pro",
+      "role": "Семейное право РФ + психология",
+      "product": "family",
+      "channel": "telegram → main (триггер «Адвокат», «@адвокат»)",
+      "route": "Кирилл → main → kirill-family-advocate"
+    },
+    {
+      "id": "inheritance-bank-complaint-analyst",
+      "name": "Аналитик жалоб",
+      "emoji": "🏦",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Поиск и анализ жалоб по наследству в банках",
+      "product": "inheritance",
+      "channel": "telegram → main (Катя)",
+      "route": "Катя → main → complaint-analyst",
+      "workspace": "/home/user1/.openclaw/agents/shared/"
+    },
+    {
+      "id": "danil-vklady-expert",
+      "name": "Эксперт по вкладам СССР",
+      "emoji": "💰",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Анализ компенсаций по вкладам СССР 1991",
+      "product": "inheritance",
+      "channel": "telegram → main (Данил)",
+      "route": "Данил → main → danil-vklady-expert"
+    },
+    {
+      "id": "lena-news-expert",
+      "name": "Новостной дайджест",
+      "emoji": "📰",
+      "type": "composite",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Ежедневный дайджест новостей по наследству + РЖД",
+      "product": "inheritance",
+      "channel": "cron",
+      "subAgents": [
+        { "id": "lena-search-agent", "task": "поиск новостей", "schedule": "02:00 ежедневно" },
+        { "id": "lena-verify-agent", "task": "верификация", "schedule": "02:10 ежедневно" },
+        { "id": "lena-html-agent", "task": "HTML-отчёт + публикация", "schedule": "02:20 ежедневно" },
+        { "id": "rzd-search-agent", "task": "сбор MOEX РЖД 1Р-37R", "schedule": "23:50 будни" },
+        { "id": "rzd-verify-agent", "task": "валидация + аналитика РЖД", "schedule": "23:55 будни" },
+        { "id": "rzd-html-agent", "task": "HTML отчёт РЖД + публикация", "schedule": "23:58 будни" }
+      ]
+    },
+    {
+      "id": "social-category-matcher",
+      "name": "Категоризатор соцподдержки",
+      "emoji": "🤝",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Категоризация вопросов: инвалидность/ВБД/СВО",
+      "product": "social",
+      "channel": "telegram → main (Роза, Ирина)",
+      "route": "Роза, Ирина → main → social-agent → social-verifier",
+      "connectsTo": ["social-verifier"],
+      "connectionType": "sessions_send(agentId=\"social-verifier\")"
+    },
+    {
+      "id": "social-verifier",
+      "name": "social-verifier",
+      "emoji": "✅",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Верификатор юридических фактов соцподдержки",
+      "product": "social",
+      "connectsFrom": ["social-category-matcher"],
+      "connectionType": "sessions_send (проверка фактов)"
+    },
+    {
+      "id": "ba-controller",
+      "name": "BRD Controller",
+      "emoji": "🎯",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Оркестратор BRD-конвейера",
+      "product": "brd",
+      "channel": "telegram → main → ba-controller",
+      "route": "Кирилл → main → ba-controller",
+      "connectsTo": ["ba-questioner", "ba-compiler", "ba-verifier"],
+      "connectionType": "sessions_send (цепочка)"
+    },
+    {
+      "id": "ba-questioner",
+      "name": "BRD Questioner",
+      "emoji": "❓",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Интервью с пользователем",
+      "product": "brd",
+      "connectsFrom": ["ba-controller"],
+      "connectionType": "sessions_send"
+    },
+    {
+      "id": "ba-compiler",
+      "name": "BRD Compiler",
+      "emoji": "🏗️",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Системный архитектор, генерация BRD",
+      "product": "brd",
+      "connectsFrom": ["ba-controller"],
+      "connectionType": "sessions_send"
+    },
+    {
+      "id": "ba-verifier",
+      "name": "BRD Verifier",
+      "emoji": "🔎",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Логический аудитор BRD",
+      "product": "brd",
+      "connectsFrom": ["ba-controller"],
+      "connectionType": "sessions_send"
+    }
+  ]
+}
