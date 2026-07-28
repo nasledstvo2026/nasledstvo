@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Статус агентов — nasledstvo2026.github.io</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ─── Дашборд статуса агентов ─── */
+    .status-dashboard {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+    }
+
+    /* Сетка статусов */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+
+    /* Карточка агента */
+    .agent-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s ease, box-shadow .3s ease;
+    }
+    .agent-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--glass-shine), transparent 50%);
+      pointer-events: none;
+    }
+    .agent-card.online {
+      border-color: rgba(126,231,135,0.55);
+      box-shadow: 0 0 24px rgba(126,231,135,0.12);
+    }
+    .agent-card.idle {
+      border-color: rgba(255,144,0,0.55);
+      box-shadow: 0 0 24px rgba(255,144,0,0.08);
+    }
+
+    .agent-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .agent-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .agent-card-icon.main   { background: rgba(255,80,80,.15); }
+    .agent-card-icon.fz425  { background: rgba(88,166,255,.15); }
+    .agent-card-icon.verify { background: rgba(188,140,255,.15); }
+
+    .agent-card-info { flex: 1; min-width: 0; }
+    .agent-card-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .agent-card-role {
+      font-size: 12px;
+      opacity: .65;
+      margin: 0;
+    }
+
+    /* Индикатор статуса */
+    .status-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .status-dot::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.online {
+      background: rgba(126,231,135,.12);
+      color: #7ee787;
+    }
+    .status-dot.online::before {
+      background: #7ee787;
+      box-shadow: 0 0 8px rgba(126,231,135,.6);
+      animation: pulse-dot 2s infinite;
+    }
+    .status-dot.idle {
+      background: rgba(255,144,0,.12);
+      color: #ff9000;
+    }
+    .status-dot.idle::before {
+      background: #ff9000;
+      box-shadow: 0 0 8px rgba(255,144,0,.4);
+      animation: pulse-dot 2s infinite;
+    }
+    .status-dot.offline {
+      background: rgba(120,120,120,.12);
+      color: #888;
+    }
+    .status-dot.offline::before {
+      background: #555;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .6; transform: scale(1.2); }
+    }
+
+    /* Метрики */
+    .agent-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .metric-item {
+      background: rgba(255,255,255,.04);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .metric-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      opacity: .5;
+      margin-bottom: 2px;
+    }
+    .metric-value {
+      font-size: 18px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .metric-value.small {
+      font-size: 13px;
+    }
+
+    /* ─── Схема маршрутизации ─── */
+    .routing-schema {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .routing-schema h3 {
+      margin: 0 0 20px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: .7;
+    }
+    .routing-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .routing-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      min-width: 100px;
+      text-align: center;
+    }
+    .routing-node .emoji { font-size: 28px; }
+    .routing-node .label { font-size: 11px; font-weight: 600; opacity: .7; }
+    .routing-node .sub   { font-size: 10px; opacity: .45; }
+    .routing-arrow {
+      font-size: 22px;
+      opacity: .4;
+      padding: 0 4px;
+    }
+    .routing-node.active {
+      border-color: rgba(126,231,135,0.4);
+      background: rgba(126,231,135,.06);
+    }
+
+    /* ─── Лента верификаций ─── */
+    .verification-log {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .verification-log h3 {
+      margin: 0 0 16px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: .7;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .verification-log h3 .count {
+      font-size: 12px;
+      opacity: .5;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .log-entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .log-entry:last-child { border-bottom: none; }
+    .log-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .log-body { flex: 1; min-width: 0; }
+    .log-query {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .log-meta {
+      font-size: 11px;
+      opacity: .5;
+    }
+    .log-result {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+    .log-result.pass {
+      background: rgba(126,231,135,.1);
+      color: #7ee787;
+    }
+    .log-result.fail {
+      background: rgba(255,80,80,.1);
+      color: #ff5050;
+    }
+    .log-result.pending {
+      background: rgba(255,144,0,.1);
+      color: #ff9000;
+    }
+
+    /* ─── Легенда ─── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,.02);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.04);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      opacity: .7;
+    }
+    .legend-item .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-item .dot.green { background: #7ee787; box-shadow: 0 0 6px rgba(126,231,135,.5); }
+    .legend-item .dot.orange { background: #ff9000; box-shadow: 0 0 6px rgba(255,144,0,.4); }
+    .legend-item .dot.gray { background: #555; }
+
+    /* ─── Last updated timestamp ─── */
+    .last-updated {
+      text-align: center;
+      font-size: 12px;
+      opacity: .4;
+      margin: 24px 0;
+    }
+
+    /* Адаптив */
+    @media (max-width: 600px) {
+      .status-grid { grid-template-columns: 1fr; }
+      .routing-flow { flex-direction: column; }
+      .routing-arrow { transform: rotate(90deg); }
+      .agent-metrics { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <a href="service.html" class="back">← Сервисы</a>
+
+  <div class="hero">
+    <h1>🤖 Статус агентов</h1>
+    <p class="subtitle">Мультиагентная система — живой дашборд</p>
+  </div>
+
+  <div class="status-dashboard">
+
+    <!-- Сетка статусов агентов -->
+    <div class="status-grid">
+
+      <!-- Main Agent: Феникс -->
+      <div class="agent-card online">
+        <div class="agent-card-header">
+          <div class="agent-card-icon main">🔥</div>
+          <div class="agent-card-info">
+            <div class="agent-card-name">
+              Феникс
+              <span class="status-dot online">online</span>
+            </div>
+            <p class="agent-card-role">Main-агент · Персональный помощник</p>
+          </div>
+        </div>
+        <div class="agent-metrics">
+          <div class="metric-item">
+            <div class="metric-label">Статус</div>
+            <div class="metric-value small">🟢 Активен</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Модель</div>
+            <div class="metric-value small">DeepSeek V4 Flash</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- fz425 Agent -->
+      <div class="agent-card online">
+        <div class="agent-card-header">
+          <div class="agent-card-icon fz425">⚖️</div>
+          <div class="agent-card-info">
+            <div class="agent-card-name">
+              fz425-agent
+              <span class="status-dot online">online</span>
+            </div>
+            <p class="agent-card-role">Консультант по 425-ФЗ</p>
+          </div>
+        </div>
+        <div class="agent-metrics">
+          <div class="metric-item">
+            <div class="metric-label">Верификация</div>
+            <div class="metric-value small">✅ Включена</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Маршрутизация</div>
+            <div class="metric-value small">Оля · Катя</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- fz425 Verifier -->
+      <div class="agent-card online">
+        <div class="agent-card-header">
+          <div class="agent-card-icon verify">🔍</div>
+          <div class="agent-card-info">
+            <div class="agent-card-name">
+              fz425-verifier
+              <span class="status-dot online">online</span>
+            </div>
+            <p class="agent-card-role">Верификатор фактов по 425-ФЗ</p>
+          </div>
+        </div>
+        <div class="agent-metrics">
+          <div class="metric-item">
+            <div class="metric-label">Проверок</div>
+            <div class="metric-value">5</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Подтверждено</div>
+            <div class="metric-value">5/5</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Схема маршрутизации -->
+    <div class="routing-schema">
+      <h3>🗺️ Схема маршрутизации</h3>
+      <div class="routing-flow">
+        <div class="routing-node active">
+          <span class="emoji">👤</span>
+          <span class="label">Оля</span>
+          <span class="sub">157775002</span>
+        </div>
+        <div class="routing-node active">
+          <span class="emoji">👤</span>
+          <span class="label">Катя</span>
+          <span class="sub">2041168814</span>
+        </div>
+        <span class="routing-arrow">→</span>
+        <div class="routing-node active">
+          <span class="emoji">⚖️</span>
+          <span class="label">fz425-agent</span>
+          <span class="sub">Консультация</span>
+        </div>
+        <span class="routing-arrow">→</span>
+        <div class="routing-node active">
+          <span class="emoji">🔍</span>
+          <span class="label">fz425-verifier</span>
+          <span class="sub">Проверка фактов</span>
+        </div>
+        <span class="routing-arrow">→</span>
+        <div class="routing-node active">
+          <span class="emoji">✅</span>
+          <span class="label">Ответ</span>
+          <span class="sub">Верифицирован</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Лента последних верификаций -->
+    <div class="verification-log">
+      <h3>📋 Лента верификаций <span class="count">5 записей</span></h3>
+
+      <div class="log-entry">
+        <span class="log-icon">✅</span>
+        <div class="log-body">
+          <div class="log-query">Сроки направления требования об уплате налога</div>
+          <div class="log-meta">28.07.2026 · fz425-verifier</div>
+          <span class="log-result pass">5/5 фактов подтверждено</span>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <span class="log-icon">✅</span>
+        <div class="log-body">
+          <div class="log-query">Порядок взыскания за счёт денежных средств</div>
+          <div class="log-meta">28.07.2026 · fz425-verifier</div>
+          <span class="log-result pass">4/4 фактов подтверждено</span>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <span class="log-icon">✅</span>
+        <div class="log-body">
+          <div class="log-query">Переходный период по 425-ФЗ</div>
+          <div class="log-meta">28.07.2026 · fz425-verifier</div>
+          <span class="log-result pass">3/3 фактов подтверждено</span>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <span class="log-icon">✅</span>
+        <div class="log-body">
+          <div class="log-query">Срок действия решения о взыскании</div>
+          <div class="log-meta">28.07.2026 · fz425-verifier</div>
+          <span class="log-result pass">6/6 фактов подтверждено</span>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <span class="log-icon">✅</span>
+        <div class="log-body">
+          <div class="log-query">Обязанность банка исполнить инкассо</div>
+          <div class="log-meta">28.07.2026 · fz425-verifier</div>
+          <span class="log-result pass">4/4 фактов подтверждено</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Легенда -->
+    <div class="legend">
+      <span class="legend-item"><span class="dot green"></span> Online — агент активен</span>
+      <span class="legend-item"><span class="dot orange"></span> Idle — ожидание</span>
+      <span class="legend-item"><span class="dot gray"></span> Offline — неактивен</span>
+    </div>
+
+    <div class="last-updated">
+      Последнее обновление: 28.07.2026 23:05 MSK · 🔄 статус обновляется агентом Феникс
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <strong>☽ ЛУНТ</strong><span class="tech" data-openclaw="OpenClaw 2026.6.9" data-llm="deepseek/deepseek-v4-flash"></span>
+  </div>
+
+</div>
+</body>
+</html>
