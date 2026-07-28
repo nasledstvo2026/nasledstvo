@@ -13,6 +13,20 @@ Things like:
 - Device nicknames
 - Anything environment-specific
 
+## Инфраструктура
+
+### GitHub Pages
+- Репозиторий: `nasledstvo2026/nasledstvo`
+- Ветка деплоя: `gh-pages` (НЕ master)
+- Домен: `https://nasledstvo2026.github.io/nasledstvo/`
+- Remote: `origin` (git@github.com:nasledstvo2026/nasledstvo.git)
+
+### VPS (Лунт)
+- Хост: vm-low4-8
+- ОС: Linux 6.8.0-136-generic (x64)
+- Node: v22.23.1
+- Gateway: OpenClaw
+
 ## Examples
 
 ```markdown
