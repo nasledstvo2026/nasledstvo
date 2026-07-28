@@ -1,177 +1,236 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Статистика жалоб по наследству в банках РФ</title>
-  <link rel="stylesheet" href="theme.css">
-  <style>
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
-    .stat-card { text-align: center; padding: 20px; border-radius: 12px; }
-    .stat-card.primary { background: var(--accent); color: #fff; }
-    .stat-card.secondary { background: var(--bg-secondary); }
-    .stat-value { font-size: 2.4rem; font-weight: 700; display: block; }
-    .stat-label { font-size: 0.85rem; opacity: 0.8; margin-top: 4px; }
-    .top-banks { width: 100%; border-collapse: collapse; margin: 16px 0; }
-    .top-banks th { text-align: left; padding: 8px 12px; background: var(--accent); color: #fff; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
-    .top-banks td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
-    .top-banks tr:hover td { background: var(--bg-hover); }
-    .rank { font-weight: 700; color: var(--accent); width: 40px; }
-    .bar-cell { display: flex; align-items: center; gap: 8px; }
-    .bar { height: 20px; border-radius: 4px; background: var(--accent); min-width: 4px; transition: width 0.3s; }
-    .bar-label { font-weight: 600; white-space: nowrap; }
-    .dynamics-chart { margin: 20px 0; }
-    .month-bars { display: flex; align-items: flex-end; gap: 6px; height: 160px; padding: 8px 0; }
-    .month-col { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 30px; }
-    .month-bar { width: 100%; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--accent), var(--accent-secondary, var(--accent))); min-height: 4px; transition: height 0.3s; }
-    .month-bar.highlight { background: linear-gradient(180deg, #ff6b6b, #ee5a24); }
-    .month-label { font-size: 0.65rem; margin-top: 4px; text-align: center; white-space: nowrap; transform: rotate(-45deg); transform-origin: left top; }
-    .month-val { font-size: 0.7rem; font-weight: 600; margin-bottom: 2px; }
-    .meta-block { margin-top: 32px; padding: 16px; border-radius: 8px; background: var(--bg-secondary); font-size: 0.8rem; line-height: 1.6; }
-    .meta-block strong { display: inline-block; min-width: 100px; }
-    .source-grid { margin: 16px 0; }
-    .source-stat { display: inline-block; margin: 4px 8px 4px 0; padding: 4px 12px; border-radius: 16px; background: var(--bg-secondary); font-size: 0.8rem; }
-    @media (max-width: 600px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .month-bars { height: 100px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика жалоб по наследству в банках РФ</title>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { color: #1a1a2e; border-bottom: 3px solid #e94560; padding-bottom: 10px; }
+        h2 { color: #16213e; margin-top: 30px; }
+        h3 { color: #0f3460; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .stat-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+        .stat-card .number { font-size: 2.5em; font-weight: bold; color: #e94560; }
+        .stat-card .label { font-size: 0.9em; color: #666; margin-top: 5px; }
+        .stat-card.accent { background: #1a1a2e; color: white; }
+        .stat-card.accent .number { color: #ffd700; }
+        .stat-card.accent .label { color: #ccc; }
+        .bank-list { background: white; border-radius: 10px; padding: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden; }
+        .bank-item { display: flex; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #eee; }
+        .bank-item:last-child { border-bottom: none; }
+        .bank-item .rank { width: 30px; font-weight: bold; color: #666; }
+        .bank-item .name { flex: 1; }
+        .bank-item .count { font-weight: bold; color: #e94560; }
+        .bank-item .bar { flex: 0 0 150px; height: 20px; background: #eee; border-radius: 10px; overflow: hidden; margin-left: 10px; }
+        .bank-item .bar-fill { height: 100%; background: linear-gradient(90deg, #e94560, #0f3460); border-radius: 10px; }
+        .section { background: white; border-radius: 10px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .timeline { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
+        .month { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f0f0f0; border-radius: 6px; }
+        .month .bar-mini { height: 14px; background: #e94560; border-radius: 4px; min-width: 4px; }
+        .meta { font-size: 0.85em; color: #888; margin-top: 30px; padding-top: 15px; border-top: 1px solid #ddd; }
+        .meta span { display: inline-block; margin-right: 20px; }
+        .trend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .trend-card { background: #f9f9f9; border-radius: 8px; padding: 15px; text-align: center; }
+        .trend-card .trend-num { font-size: 2em; font-weight: bold; }
+        .trend-card .trend-label { color: #666; font-size: 0.85em; }
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75em; margin: 2px; }
+        .tag-banki { background: #e8f4fd; color: #1a73e8; }
+        .tag-pikabu { background: #fce8e6; color: #d93025; }
+        .tag-otzovik { background: #fef7e0; color: #f9ab00; }
+        .tag-other { background: #e8f5e9; color: #137333; }
+        @media (max-width: 600px) {
+            .trend-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .bank-item .bar { flex: 0 0 80px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
+<div class="container">
     <h1>📊 Статистика жалоб по наследству в банках РФ</h1>
-    <p class="subtitle">Агрегированные данные из katya-verified.json — жалобы на банки, связанные с наследством</p>
+    <p style="color:#666;">Сводка по всем верифицированным жалобам из katya-verified.json</p>
 
     <!-- Общая статистика -->
-    <h2>Общая статистика</h2>
     <div class="stats-grid">
-      <div class="stat-card primary">
-        <span class="stat-value">59</span>
-        <span class="stat-label">Верифицировано жалоб</span>
-      </div>
-      <div class="stat-card secondary">
-        <span class="stat-value">99</span>
-        <span class="stat-label">Всего записей в базе</span>
-      </div>
-      <div class="stat-card secondary">
-        <span class="stat-value">16</span>
-        <span class="stat-label">Отклонено</span>
-      </div>
-      <div class="stat-card secondary">
-        <span class="stat-value">24</span>
-        <span class="stat-label">Требуют проверки</span>
-      </div>
-      <div class="stat-card secondary">
-        <span class="stat-value">16</span>
-        <span class="stat-label">Уникальных банков</span>
-      </div>
-      <div class="stat-card secondary">
-        <span class="stat-value">2015–2026</span>
-        <span class="stat-label">Период сбора</span>
-      </div>
+        <div class="stat-card accent">
+            <div class="number">63</div>
+            <div class="label">✅ Верифицировано жалоб</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">43</div>
+            <div class="label">📄 Всего обработано</div>
+            <div class="label" style="font-size:0.75em;">(19 отклонено, 24 на проверке)</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">19</div>
+            <div class="label">🏦 Банков в топе</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">2015–2026</div>
+            <div class="label">📅 Период сбора</div>
+        </div>
+    </div>
+
+    <!-- Динамика -->
+    <h2>📈 Динамика</h2>
+    <div class="trend-grid">
+        <div class="trend-card" style="background:#fff3e0;">
+            <div class="trend-num" style="color:#e65100;">7</div>
+            <div class="trend-label">За последние 7 дней (верифицировано)</div>
+        </div>
+        <div class="trend-card" style="background:#e8f5e9;">
+            <div class="trend-num" style="color:#2e7d32;">15</div>
+            <div class="trend-label">За последние 30 дней (верифицировано)</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>📅 По месяцам (верифицированные)</h3>
+        <div class="timeline">
+            <div class="month"><span>2015-09</span><div class="bar-mini" style="width:4px;"></div><span>1</span></div>
+            <div class="month"><span>2024-07</span><div class="bar-mini" style="width:8px;"></div><span>2</span></div>
+            <div class="month"><span>2024-10</span><div class="bar-mini" style="width:4px;"></div><span>1</span></div>
+            <div class="month"><span>2025-01</span><div class="bar-mini" style="width:12px;"></div><span>3</span></div>
+            <div class="month"><span>2025-03</span><div class="bar-mini" style="width:12px;"></div><span>3</span></div>
+            <div class="month"><span>2025-04</span><div class="bar-mini" style="width:8px;"></div><span>2</span></div>
+            <div class="month"><span>2025-05</span><div class="bar-mini" style="width:4px;"></div><span>1</span></div>
+            <div class="month"><span>2025-06</span><div class="bar-mini" style="width:12px;"></div><span>3</span></div>
+            <div class="month"><span>2025-07</span><div class="bar-mini" style="width:8px;"></div><span>2</span></div>
+            <div class="month"><span>2025-08</span><div class="bar-mini" style="width:16px;"></div><span>4</span></div>
+            <div class="month"><span>2025-09</span><div class="bar-mini" style="width:8px;"></div><span>2</span></div>
+            <div class="month"><span>2025-11</span><div class="bar-mini" style="width:8px;"></div><span>2</span></div>
+            <div class="month"><span>2025-12</span><div class="bar-mini" style="width:12px;"></div><span>3</span></div>
+            <div class="month"><span>2026-01</span><div class="bar-mini" style="width:16px;"></div><span>4</span></div>
+            <div class="month"><span>2026-02</span><div class="bar-mini" style="width:4px;"></div><span>1</span></div>
+            <div class="month"><span>2026-04</span><div class="bar-mini" style="width:4px;"></div><span>1</span></div>
+            <div class="month"><span>2026-05</span><div class="bar-mini" style="width:4px;"></div><span>1</span></div>
+            <div class="month" style="background:#ffcdd2;"><span>🔥 2026-06</span><div class="bar-mini" style="width:80px;"></div><span style="font-weight:bold;">20</span></div>
+            <div class="month"><span>2026-07</span><div class="bar-mini" style="width:28px;"></div><span>7</span></div>
+        </div>
+        <p style="color:#888; font-size:0.85em;">🔥 Июнь 2026 — рекордный всплеск: 20 верифицированных жалоб (47% от всех за 2026)</p>
     </div>
 
     <!-- Топ-10 банков -->
-    <h2>Топ-10 банков по числу жалоб</h2>
-    <table class="top-banks">
-      <thead>
-        <tr><th>#</th><th>Банк</th><th>Жалоб</th><th>Доля</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="rank">1</td><td><strong>Сбербанк</strong></td><td>16</td><td><div class="bar-cell"><div class="bar" style="width:100%"></div><span class="bar-label">27.1%</span></div></td></tr>
-        <tr><td class="rank">2</td><td><strong>ВТБ</strong></td><td>10</td><td><div class="bar-cell"><div class="bar" style="width:62.5%"></div><span class="bar-label">16.9%</span></div></td></tr>
-        <tr><td class="rank">3</td><td><strong>ПСБ (Промсвязьбанк)</strong></td><td>6</td><td><div class="bar-cell"><div class="bar" style="width:37.5%"></div><span class="bar-label">10.2%</span></div></td></tr>
-        <tr><td class="rank">4</td><td><strong>Газпромбанк</strong></td><td>5</td><td><div class="bar-cell"><div class="bar" style="width:31.3%"></div><span class="bar-label">8.5%</span></div></td></tr>
-        <tr><td class="rank">5</td><td><strong>Неизвестно</strong></td><td>4</td><td><div class="bar-cell"><div class="bar" style="width:25.0%"></div><span class="bar-label">6.8%</span></div></td></tr>
-        <tr><td class="rank">6</td><td><strong>Альфа-Банк</strong></td><td>4</td><td><div class="bar-cell"><div class="bar" style="width:25.0%"></div><span class="bar-label">6.8%</span></div></td></tr>
-        <tr><td class="rank">7</td><td><strong>Т-Банк</strong></td><td>2</td><td><div class="bar-cell"><div class="bar" style="width:12.5%"></div><span class="bar-label">3.4%</span></div></td></tr>
-        <tr><td class="rank">7</td><td><strong>РСХБ</strong></td><td>2</td><td><div class="bar-cell"><div class="bar" style="width:12.5%"></div><span class="bar-label">3.4%</span></div></td></tr>
-        <tr><td class="rank">7</td><td><strong>МТС Банк</strong></td><td>2</td><td><div class="bar-cell"><div class="bar" style="width:12.5%"></div><span class="bar-label">3.4%</span></div></td></tr>
-        <tr><td class="rank">7</td><td><strong>Совкомбанк</strong></td><td>2</td><td><div class="bar-cell"><div class="bar" style="width:12.5%"></div><span class="bar-label">3.4%</span></div></td></tr>
-      </tbody>
-    </table>
-    <p style="font-size:0.8rem; opacity:0.7;">Остальные банки (&lt;2 жалоб): ОТП Банк, Банк Ozon (Ecombank), Почта Банк, Уралсиб, Ренессанс Банк, РайффайзенБанк — по 1 жалобе каждый.</p>
-
-    <!-- Динамика по месяцам -->
-    <h2>Динамика по месяцам</h2>
-    <div class="dynamics-chart">
-      <div class="month-bars" id="monthChart">
-        <div class="month-col"><div class="month-val">1</div><div class="month-bar" style="height:6px" title="2015-09: 1"></div><div class="month-label">09.15</div></div>
-        <div class="month-col"><div class="month-val">2</div><div class="month-bar" style="height:11px" title="2024-07: 2"></div><div class="month-label">07.24</div></div>
-        <div class="month-col"><div class="month-val">1</div><div class="month-bar" style="height:6px" title="2024-10: 1"></div><div class="month-label">10.24</div></div>
-        <div class="month-col"><div class="month-val">3</div><div class="month-bar" style="height:17px" title="2025-01: 3"></div><div class="month-label">01.25</div></div>
-        <div class="month-col"><div class="month-val">3</div><div class="month-bar" style="height:17px" title="2025-03: 3"></div><div class="month-label">03.25</div></div>
-        <div class="month-col"><div class="month-val">2</div><div class="month-bar" style="height:11px" title="2025-04: 2"></div><div class="month-label">04.25</div></div>
-        <div class="month-col"><div class="month-val">1</div><div class="month-bar" style="height:6px" title="2025-05: 1"></div><div class="month-label">05.25</div></div>
-        <div class="month-col"><div class="month-val">3</div><div class="month-bar" style="height:17px" title="2025-06: 3"></div><div class="month-label">06.25</div></div>
-        <div class="month-col"><div class="month-val">2</div><div class="month-bar" style="height:11px" title="2025-07: 2"></div><div class="month-label">07.25</div></div>
-        <div class="month-col"><div class="month-val">4</div><div class="month-bar" style="height:22px" title="2025-08: 4"></div><div class="month-label">08.25</div></div>
-        <div class="month-col"><div class="month-val">2</div><div class="month-bar" style="height:11px" title="2025-09: 2"></div><div class="month-label">09.25</div></div>
-        <div class="month-col"><div class="month-val">2</div><div class="month-bar" style="height:11px" title="2025-11: 2"></div><div class="month-label">11.25</div></div>
-        <div class="month-col"><div class="month-val">3</div><div class="month-bar" style="height:17px" title="2025-12: 3"></div><div class="month-label">12.25</div></div>
-        <div class="month-col"><div class="month-val">4</div><div class="month-bar" style="height:22px" title="2026-01: 4"></div><div class="month-label">01.26</div></div>
-        <div class="month-col"><div class="month-val">1</div><div class="month-bar" style="height:6px" title="2026-05: 1"></div><div class="month-label">05.26</div></div>
-        <div class="month-col"><div class="month-val" style="color:#ee5a24;font-weight:700;">19</div><div class="month-bar highlight" style="height:100px" title="2026-06: 19 — пик"></div><div class="month-label" style="font-weight:700;color:#ee5a24;">06.26</div></div>
-        <div class="month-col"><div class="month-val">6</div><div class="month-bar" style="height:33px" title="2026-07: 6"></div><div class="month-label">07.26</div></div>
-      </div>
+    <h2>🏆 Топ-10 банков по числу жалоб</h2>
+    <div class="bank-list">
+        <div class="bank-item">
+            <span class="rank">#1</span>
+            <span class="name">🥇 Сбербанк</span>
+            <div class="bar"><div class="bar-fill" style="width:100%;"></div></div>
+            <span class="count">15</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#2</span>
+            <span class="name">🥈 ВТБ</span>
+            <div class="bar"><div class="bar-fill" style="width:60%;"></div></div>
+            <span class="count">9 (с учётом ВТБ/Почта Банк)</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#3</span>
+            <span class="name">🥉 Альфа-Банк</span>
+            <div class="bar"><div class="bar-fill" style="width:40%;"></div></div>
+            <span class="count">6</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#4</span>
+            <span class="name">Газпромбанк</span>
+            <div class="bar"><div class="bar-fill" style="width:33%;"></div></div>
+            <span class="count">5</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#5</span>
+            <span class="name">ПСБ (Промсвязьбанк)</span>
+            <div class="bar"><div class="bar-fill" style="width:40%;"></div></div>
+            <span class="count">6</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#6</span>
+            <span class="name">Т-Банк</span>
+            <div class="bar"><div class="bar-fill" style="width:20%;"></div></div>
+            <span class="count">3</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#7</span>
+            <span class="name">Россельхозбанк (РСХБ)</span>
+            <div class="bar"><div class="bar-fill" style="width:20%;"></div></div>
+            <span class="count">3</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#8</span>
+            <span class="name">МТС Банк</span>
+            <div class="bar"><div class="bar-fill" style="width:13%;"></div></div>
+            <span class="count">2</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#9</span>
+            <span class="name">Совкомбанк</span>
+            <div class="bar"><div class="bar-fill" style="width:13%;"></div></div>
+            <span class="count">2</span>
+        </div>
+        <div class="bank-item">
+            <span class="rank">#10</span>
+            <span class="name">Банк Ozon (Ecombank)</span>
+            <div class="bar"><div class="bar-fill" style="width:7%;"></div></div>
+            <span class="count">1</span>
+        </div>
     </div>
 
-    <!-- Динамика за последние недели -->
-    <h2>Динамика за последние 4 недели</h2>
-    <table class="top-banks">
-      <thead>
-        <tr><th>Неделя</th><th>Жалоб</th><th>События</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>2026-W27</strong><br><small>29.06 – 05.07</small></td><td>11</td><td>Пиковая неделя — массовый сбор архивных жалоб с banki.ru</td></tr>
-        <tr><td><strong>2026-W26</strong><br><small>22.06 – 28.06</small></td><td>9</td><td>Активный сбор — Сбер, ВТБ, Альфа-Банк, РСХБ, Газпромбанк</td></tr>
-        <tr><td><strong>2026-W30</strong><br><small>21.07 – 27.07</small></td><td>3</td><td>Сбербанк (Драйв Клик), ВТБ/Почта Банк, МТС Банк (115-ФЗ)</td></tr>
-        <tr><td><strong>2026-W25</strong><br><small>15.06 – 21.06</small></td><td>1</td><td>РайффайзенБанк — мошеннический кредит на умершего</td></tr>
-      </tbody>
-    </table>
+    <p style="color:#888; font-size:0.85em; margin-top:5px;">Также зафиксированы единичные жалобы на: ОТП Банк, Уралсиб, РайффайзенБанк, Ренессанс Банк, Почта Банк, Драйв Клик Банк (дочка Сбера)</p>
+
+    <!-- Свежие жалобы (7 дней) -->
+    <h2>🆕 Свежие жалобы (последние 7 дней)</h2>
+    <div class="section">
+        <div style="margin-bottom: 12px;">
+            <strong><a href="https://www.banki.ru/insurance/responses/company/response/10003856/" target="_blank">Сбербанк (Драйв Клик Банк)</a></strong><br>
+            <span style="color:#666;">24.07.2026 — Силком заставляют принять наследство</span><br>
+            <small style="color:#888;">Автокредит в дочке Сбера, после смерти заёмщика банк и страховая звонят наследникам с требованиями.</small>
+        </div>
+        <div style="margin-bottom: 12px;">
+            <strong><a href="https://www.banki.ru/services/responses/bank/response/13251127/" target="_blank">ВТБ / Почта Банк</a></strong><br>
+            <span style="color:#666;">24.07.2026 — Банк не дает погасить кредит умершего досрочно</span><br>
+            <small style="color:#888;">Кредит мигрировал из Почта Банка в ВТБ, наследник не может погасить — банки перекидывают друг на друга.</small>
+        </div>
+        <div style="margin-bottom: 12px;">
+            <strong><a href="https://www.banki.ru/services/questions-answers/question/1088000/" target="_blank">МТС Банк</a></strong><br>
+            <span style="color:#666;">24.07.2026 — Блокировка по 115-ФЗ после получения наследства</span><br>
+            <small style="color:#888;">Выдали наследство наличными, после внесения на карту — блокировка по 115-ФЗ.</small>
+        </div>
+    </div>
 
     <!-- Источники -->
-    <h2>Источники данных</h2>
-    <div class="source-grid">
-      <span class="source-stat">🏦 Банки.ру — 45 жалоб</span>
-      <span class="source-stat">📱 Пикабу — 5 жалоб</span>
-      <span class="source-stat">⚖️ АРБ — 1 жалоба</span>
-      <span class="source-stat">📰 vc.ru — 1 жалоба</span>
-      <span class="source-stat">📋 ЮрКлуб — 1 жалоба</span>
-      <span class="source-stat">💰 Сравни.ру — 1 жалоба</span>
-      <span class="source-stat">📝 Отзовик — 2 жалобы</span>
-      <span class="source-stat">🌐 findozor.net — 1 жалоба</span>
-      <span class="source-stat">🗺️ 2ГИС — 1 жалоба</span>
+    <h2>📰 Источники</h2>
+    <div class="section">
+        <p><span class="tag tag-banki">Банки.ру</span> — 53 (84% от всех верифицированных)</p>
+        <p><span class="tag tag-pikabu">Pikabu.ru</span> — 5 (8%)</p>
+        <p><span class="tag tag-otzovik">Otzovik.com</span> — 2</p>
+        <p><span class="tag tag-other">Прочие</span> — 3 (vc.ru, ЮрКлуб, Сравни.ру)</p>
     </div>
 
-    <!-- Ключевые выводы -->
-    <h2>Ключевые выводы</h2>
-    <ul>
-      <li><strong>Сбербанк — абсолютный лидер</strong> по жалобам (27% всех случаев): отказы в выдаче наследства, задержки, проблемы со свидетельствами, давление на наследников через дочерние структуры (Драйв Клик Банк).</li>
-      <li><strong>ВТБ (17%)</strong> — отказы по инвестиционным счетам, ипотечные споры, судебные разбирательства по вкладам умерших.</li>
-      <li><strong>ПСБ (10%)</strong> — хронические задержки выплат (34–50 дней), бездействие, в т.ч. по наследству участников СВО.</li>
-      <li><strong>Всплеск июня 2026</strong> — 19 верифицированных жалоб за месяц (в 6× больше среднего), связан с массовым сбором архивных данных.</li>
-      <li><strong>МТС Банк (свежий кейс)</strong> — блокировка по 115-ФЗ сразу после выдачи наследства наличными.</li>
-      <li>Более <strong>30% жалоб</strong> связаны с отказом/задержкой выдачи наследственных средств при наличии полных документов.</li>
-    </ul>
-
-    <hr style="margin:32px 0;border:none;border-top:1px solid var(--border);">
+    <!-- Типовые проблемы -->
+    <h2>🔍 Типовые проблемы</h2>
+    <div class="section">
+        <ul>
+            <li><strong>Отказ в выдаче наследства</strong> — банк не выплачивает средства даже при наличии свидетельства о праве на наследство (Сбербанк, ВТБ, ПСБ)</li>
+            <li><strong>Затягивание сроков</strong> — 34-50 дней ожидания (ПСБ), 3.5 года (Т-Банк)</li>
+            <li><strong>Проблемы с кредитами умерших</strong> — банки требуют погашения, не списывают долги участников СВО</li>
+            <li><strong>Нарушение прав несовершеннолетних</strong> — отказы в выплате наследства детям (ВТБ, Альфа-Банк)</li>
+            <li><strong>Блокировка по 115-ФЗ</strong> — после получения наследства (МТС Банк)</li>
+            <li><strong>Некомпетентность сотрудников</strong> — противоречивая информация, перекладывание между отделами (Альфа-Банк, ПСБ)</li>
+        </ul>
+    </div>
 
     <!-- Meta -->
-    <h2>О данных</h2>
-    <div class="meta-block">
-      <strong>Дата генерации:</strong> 27.07.2026, 11:20 MSK<br>
-      <strong>Модель:</strong> deepseek/deepseek-v4-flash<br>
-      <strong>Источник данных:</strong> katya-verified.json (99 записей, 59 verified)<br>
-      <strong>Последнее обновление katya-verified:</strong> 27.07.2026<br>
-      <strong>Период охвата:</strong> 25.09.2015 – 24.07.2026<br>
-      <strong>Постоянный URL:</strong> <a href="https://nasledstvo2026.github.io/nasledstvo/stats-inheritance.html" target="_blank">nasledstvo2026.github.io/nasledstvo/stats-inheritance.html</a><br>
-      <strong>Генерация:</strong> stats-agent cron @ 11:20 MSK, 27.07.2026
+    <div class="meta">
+        <span>🕐 Генерация: 2026-07-28 11:20 MSK</span>
+        <span>🤖 Модель: deepseek/deepseek-v4-flash</span>
+        <span>📊 Агент: stats-agent</span>
+        <span>📁 Источники: katya-verified.json (106 записей) + katya-data.json</span>
+        <br><br>
+        <span>⚠️ Данные собираются автоматически из открытых источников. Возможны пропуски.</span>
     </div>
-
-    <p style="margin-top:24px;font-size:0.75rem;opacity:0.5;text-align:center;">
-      🤖 Сгенерировано автоматически агентом stats-agent. Данные собираются ежедневно из katya-search → katya-verify → katya‑data.
-    </p>
-  </div>
+</div>
 </body>
 </html>
