@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как это работает — Nasledstvo2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f2eb;
+            --text: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --accent: #8b4513;
+            --accent-light: #b5651d;
+            --card-bg: #fff;
+            --border: #e0d8cc;
+            --shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Back button */
+        .back-bar {
+            padding: 20px 0;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: var(--accent-light); }
+        .back-btn svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.2s;
+        }
+        .back-btn:hover svg { transform: translateX(-3px); }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Steps */
+        .steps {
+            padding: 20px 0 60px;
+        }
+        .step {
+            display: flex;
+            gap: 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        .step-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .step-content .tag {
+            display: inline-block;
+            background: #fdf2e9;
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        /* Agents section */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 40px 0 30px;
+            color: var(--text);
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding-bottom: 60px;
+        }
+        .agent-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .agent-card .icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.5rem;
+        }
+        .agent-card .icon.legal { background: #fdf2e9; }
+        .agent-card .icon.verify { background: #e9f7ef; }
+        .agent-card .icon.news { background: #e8f0fe; }
+        .agent-card .icon.analysis { background: #fef9e7; }
+        .agent-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .agent-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 40px 0 60px;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .cta-btn:hover { background: var(--accent-light); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .step { flex-direction: column; gap: 16px; padding: 24px; }
+            .agents-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back button -->
+        <div class="back-bar">
+            <a href="service.html" class="back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                Назад к сервисам
+            </a>
+        </div>
+
+        <!-- Hero -->
+        <div class="hero">
+            <h1>Как это работает</h1>
+            <p class="subtitle">
+                Мультиагентная система Nasledstvo2026 — экспертные AI-консультанты
+                работают вместе, чтобы дать точный и проверенный ответ
+            </p>
+        </div>
+
+        <!-- Steps -->
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Вы задаёте вопрос</h3>
+                    <p>Напишите в Telegram боту @Phoenix2026_bot. Ваш запрос автоматически маршрутизируется к нужному агенту — по наследству, 425-ФЗ, закупкам или социальной поддержке.</p>
+                    <span class="tag">Telegram</span>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Агент изучает проблему</h3>
+                    <p>Профильный агент анализирует ваш вопрос, сверяется с базой знаний (законы, НПА, судебная практика) и формирует черновой ответ с конкретными нормами и сроками.</p>
+                    <span class="tag">Анализ</span>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Верификатор проверяет факты</h3>
+                    <p>Перед отправкой ответа каждый факт проходит перекрёстную проверку через отдельного агента-верификатора. Только после подтверждения всех норм и сроков ответ уходит вам.</p>
+                    <span class="tag">Верификация</span>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Вы получаете проверенный ответ</h3>
+                    <p>Ответ содержит ссылки на конкретные статьи законов, сроки (SLA), практические рекомендации. Если данных недостаточно — агент честно скажет «требуется уточнение».</p>
+                    <span class="tag">Результат</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agents -->
+        <h2 class="section-title">Агенты в системе</h2>
+        <div class="agents-grid">
+            <div class="agent-card">
+                <div class="icon legal">⚖️</div>
+                <h4>fz425-agent</h4>
+                <p>Консультант по 425-ФЗ — налоговое взыскание, ПОС, ПНО, Реестр решений, розыск счетов</p>
+            </div>
+            <div class="agent-card">
+                <div class="icon verify">✅</div>
+                <h4>fz425-verifier</h4>
+                <p>Верификатор фактов — перекрёстная проверка норм, сроков SLA и переходного периода</p>
+            </div>
+            <div class="agent-card">
+                <div class="icon news">📰</div>
+                <h4>lena-news-expert</h4>
+                <p>Дайджест новостей по наследству и РЖД, дедупликация и классификация</p>
+            </div>
+            <div class="agent-card">
+                <div class="icon analysis">📊</div>
+                <h4>inheritance-bank-complaint-analyst</h4>
+                <p>Анализ жалоб по наследству в банках РФ, поиск, верификация, сводка</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <a href="service.html" class="cta-btn">← Вернуться к сервисам</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            Nasledstvo2026 · Мультиагентная AI-система · 2026
+        </div>
+    </footer>
+</body>
+</html>
