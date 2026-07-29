@@ -126,6 +126,36 @@
       font-weight: 700;
     }
 
+    .req-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+    }
+    .req-table th {
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.02);
+    }
+    .req-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+    .req-table tr:last-child td { border-bottom: none; }
+    .req-table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
     .diagram-box {
       background: rgba(0,0,0,0.25);
       border-radius: 12px;
@@ -153,6 +183,53 @@
 
   <a href="products.html" class="back">← Все продукты</a>
 
+  <!-- Состав агентов -->
+  <div id="agents" class="arch-section">
+
+    <h2>Агенты сервиса</h2>
+    <p>Три ИИ-агента работают в связке, обеспечивая актуальность и полноту данных.</p>
+
+    <div class="arch-card">
+      <div class="card-title">🔍 search-agent — Поиск и сбор данных</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Параметр</th><th>Значение</th></tr>
+          <tr><td>Скилл</td><td><code>social-search-agent</code></td></tr>
+          <tr><td>Роль</td><td>Поиск законов, НПА и новостей по соцподдержке</td></tr>
+          <tr><td>Источники</td><td>fedpress.ru, garant.ru, consultant.ru</td></tr>
+          <tr><td>Режим</td><td>Ежедневный автоматический поиск (cron)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">✅ verify-agent — Верификация НПА</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Параметр</th><th>Значение</th></tr>
+          <tr><td>Скилл</td><td><code>social-verify-agent</code></td></tr>
+          <tr><td>Роль</td><td>Проверка каждого НПА на актуальность через consultant.ru</td></tr>
+          <tr><td>Формат</td><td>Дата редакции, статус, applicability</td></tr>
+          <tr><td>Принцип</td><td>Только действующие нормы → консультанту</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="card-title">💬 consult-agent — Консультации</div>
+      <div class="card-body">
+        <table class="req-table">
+          <tr><th>Параметр</th><th>Значение</th></tr>
+          <tr><td>Скилл</td><td><code>social-consult-agent</code></td></tr>
+          <tr><td>Роль</td><td>Персонализированные ответы пользователям в Telegram</td></tr>
+          <tr><td>Категории</td><td>Детские, инвалидность, ветераны, СВО, многодетные</td></tr>
+          <tr><td>Источники</td><td>Верифицированные НПА от verify-agent + собственная база</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
   <!-- Рабочий процесс продукта -->
   <div id="workflow" class="arch-section">
 
@@ -164,7 +241,7 @@
       <div class="card-body">
         <div class="diagram-box" style="font-size:12px;">
 ┌───────────────────────────────────────────────────────────────────────────┐
-│              РАБОЧИЙ ПРОЦЕСС «Социальный консультант»                       │
+│              РАБОЧИЙ ПРОЦЕСС «Социальный консультант»                      │
 │                                                                           │
 │  Шаг 1: Запрос                                                            │
 │  ┌───────────────────────────────────────────────────────────────────────┐│
@@ -178,21 +255,21 @@
 │  │ └─ Передача консультанту + категория + ключевые теги                 ││
 │  └──────────────┬────────────────────────────────────────────────────────┘│
 │                 ▼                                                        │
-│  Шаг 3: Поиск (search-agent)                                              │
+│  Шаг 3: 🔍 search-agent                                                  │
 │  ┌───────────────────────────────────────────────────────────────────────┐│
 │  │ ├─ Сканирование fedpress.ru, garant.ru, consultant.ru                 ││
 │  │ ├─ Поиск актуальных редакций НПА по категории                        ││
 │  │ └─ Сбор новостей об изменениях в законодательстве                    ││
 │  └──────────────┬────────────────────────────────────────────────────────┘│
 │                 ▼                                                        │
-│  Шаг 4: Верификация (verify-agent)                                       │
+│  Шаг 4: ✅ verify-agent                                                  │
 │  ┌───────────────────────────────────────────────────────────────────────┐│
 │  │ ├─ Проверка каждого НПА через consultant.ru                          ││
 │  │ ├─ Дата редакции, статус, applicability                              ││
 │  │ └─ Только действующие нормы → консультанту                          ││
 │  └──────────────┬────────────────────────────────────────────────────────┘│
 │                 ▼                                                        │
-│  Шаг 5: Консультация (consult-agent)                                     │
+│  Шаг 5: 💬 consult-agent                                                 │
 │  ┌───────────────────────────────────────────────────────────────────────┐│
 │  │ ├─ Персонализированный ответ под категорию                            ││
 │  │ ├─ Цитаты НПА со ссылками                                             ││
@@ -215,14 +292,14 @@
 ┌─────────────────────────────────────────────────────────────────────┐
 │  Шаг 1: Cron (каждую пятницу 10:00 МСК)                            │
 │         ▼                                                          │
-│  Шаг 2: search-agent                                               │
+│  Шаг 2: 🔍 search-agent                                             │
 │         ├─ Сканирование fedpress.ru, garant.ru, consultant.ru      │
 │         └─ Сбор изменений за неделю                                │
 │         ▼                                                          │
-│  Шаг 3: verify-agent                                               │
+│  Шаг 3: ✅ verify-agent                                             │
 │         └─ Верификация всех найденных НПА                          │
 │         ▼                                                          │
-│  Шаг 4: consult-agent                                              │
+│  Шаг 4: 💬 consult-agent                                            │
 │         ├─ Формирование дайджеста (Markdown)                       │
 │         ├─ Публикация на GitHub Pages                               │
 │         └─ Отправка в Telegram (Роза, Ирина)                       │
