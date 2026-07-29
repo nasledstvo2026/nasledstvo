@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated": "2026-07-28 23:40 MSK",
+  "updated": "2026-07-29 09:27 MSK",
   "defaultModel": "deepseek/deepseek-v4-flash",
   "defaultFallback": "deepseek/deepseek-v4-pro",
   "providers": {
@@ -52,7 +52,7 @@
       "name": "Соцподдержка",
       "description": "Инвалидность, ВБД, СВО, выплаты",
       "color": "#ff9000",
-      "agents": ["social-category-matcher", "social-verifier"]
+      "agents": ["social-search-agent", "social-verify-agent", "social-consult-agent", "social-category-matcher", "social-verifier"]
     },
     {
       "id": "brd",
@@ -65,8 +65,8 @@
   "agents": [
     {
       "id": "main",
-      "name": "Феникс",
-      "emoji": "🔥",
+      "name": "Лунтик",
+      "emoji": "🦞",
       "type": "gateway",
       "model": "deepseek/deepseek-v4-flash",
       "fallback": "deepseek/deepseek-v4-pro",
@@ -188,6 +188,47 @@
       ]
     },
     {
+      "id": "social-search-agent",
+      "name": "search-agent",
+      "emoji": "🔍",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Ежедневный поиск законов и новостей (fedpress.ru, garant.ru, consultant.ru)",
+      "product": "social",
+      "channel": "cron (daily 09:03)",
+      "schedule": "daily 09:03 MSK",
+      "connectsTo": ["social-verify-agent"],
+      "connectionType": "sessions_send (передача НПА на верификацию)"
+    },
+    {
+      "id": "social-verify-agent",
+      "name": "verify-agent",
+      "emoji": "✅",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": null,
+      "role": "Верификация НПА через consultant.ru",
+      "product": "social",
+      "channel": "search-agent → verify-agent",
+      "connectsFrom": ["social-search-agent"],
+      "connectionType": "sessions_send (проверка каждого НПА)"
+    },
+    {
+      "id": "social-consult-agent",
+      "name": "consult-agent",
+      "emoji": "💬",
+      "type": "skill",
+      "model": "deepseek/deepseek-v4-flash",
+      "fallback": "deepseek/deepseek-v4-pro",
+      "role": "Персонализированные консультации по соцподдержке",
+      "product": "social",
+      "channel": "telegram → main (Роза, Ирина)",
+      "route": "Роза, Ирина → main → social-consult-agent",
+      "connectsTo": ["social-verify-agent", "social-category-matcher"],
+      "connectionType": "sessions_send (верификация фактов при необходимости)"
+    },
+    {
       "id": "social-category-matcher",
       "name": "Категоризатор соцподдержки",
       "emoji": "🤝",
@@ -196,21 +237,20 @@
       "fallback": null,
       "role": "Категоризация вопросов: инвалидность/ВБД/СВО",
       "product": "social",
-      "channel": "telegram → main (Роза, Ирина)",
-      "route": "Роза, Ирина → main → social-agent → social-verifier",
-      "connectsTo": ["social-verifier"],
-      "connectionType": "sessions_send(agentId=\"social-verifier\")"
+      "channel": "internal (вызов от consult-agent)",
+      "connectsFrom": ["social-consult-agent"],
+      "connectionType": "sessions_send (категоризация запроса)"
     },
     {
       "id": "social-verifier",
       "name": "social-verifier",
-      "emoji": "✅",
+      "emoji": "🔎",
       "type": "skill",
       "model": "deepseek/deepseek-v4-flash",
       "fallback": null,
       "role": "Верификатор юридических фактов соцподдержки",
       "product": "social",
-      "connectsFrom": ["social-category-matcher"],
+      "connectsFrom": ["social-consult-agent", "social-category-matcher"],
       "connectionType": "sessions_send (проверка фактов)"
     },
     {
