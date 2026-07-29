@@ -3,132 +3,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>РЖД 1Р-37R — итоги торгов 28.07.2026</title>
+  <title>РЖД 1Р-37R — отчёт за 29.07.2026</title>
   <link rel="stylesheet" href="theme.css">
+  <meta name="generated-date" content="2026-07-29">
+  <meta name="generated-time" content="23:58 MSK">
+  <meta name="generated-by" content="deepseek/deepseek-v4-flash">
+  <meta name="agent" content="rzd-html-agent">
+  <meta name="data-source" content="MOEX ISS API + CBR">
+  <style>
+    .flag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin: 2px; }
+    .flag-red { background: rgba(248,81,73,0.2); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+    .flag-yellow { background: rgba(227,179,65,0.2); color: var(--yellow); border: 1px solid rgba(227,179,65,0.3); }
+    .flag-green { background: rgba(126,231,135,0.15); color: var(--green); border: 1px solid rgba(126,231,135,0.25); }
+    .flag-blue { background: rgba(88,166,255,0.2); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+    .discrepancy-item { background: rgba(248,81,73,0.08); border-left: 3px solid var(--red); padding: 8px 12px; margin: 8px 0; border-radius: 0 6px 6px 0; font-size: 0.85rem; }
+    .discrepancy-item.info { background: rgba(227,179,65,0.08); border-left-color: var(--yellow); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .kpi { text-align: center; padding: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; }
+    .kpi-value { font-size: 1.4rem; font-weight: 700; }
+    .kpi-label { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; }
+    .up { color: var(--green); }
+    .down { color: var(--red); }
+    .neutral { color: var(--yellow); }
+    hr { border: none; border-top: 1px solid var(--glass-border); margin: 12px 0; }
+  </style>
 </head>
 <body>
   <div class="container">
     <a class="back" href="inheritance.html">← Назад</a>
-    <div class="hero">
-      <div class="title">🚂 РЖД 1Р-37R · Итоги торгов 28.07.2026</div>
-      <div class="meta">🕒 2026-07-28 23:55 MSK · rzd-verify-agent · Модель: deepseek/deepseek-v4-flash · Источник: MOEX ISS API</div>
-    </div>
 
-    <!-- Сигналы -->
-    <div class="section">
-      <h2>⚠️ Флаги</h2>
-      <div class="item">
-        <div class="body">
-          <p>🟡 <strong>PRICE_ABOVE_NORM</strong> — Цена 108.99% выше нормального диапазона 100–105%</p>
-          <p>🔵 <strong>YIELD_BELOW_NORM</strong> — Доходность 15.46% ниже ожидаемого диапазона 19.25–19.75%</p>
-          <p>🔴 <strong>MATURITY_DISCREPANCY</strong> — Расхождение даты погашения: MOEX 2028-08-24 vs БЗ 26.03.2031</p>
-          <p>🔴 <strong>COUPON_PERIOD_DISCREPANCY</strong> — MOEX: 30 дней, БЗ: 91 день</p>
-          <p>🔴 <strong>ISSUE_SIZE_DISCREPANCY</strong> — MOEX: 28 млрд руб, БЗ: 10 млрд руб</p>
-        </div>
+    <div class="hero">
+      <div class="title">🚂 РЖД 1Р-37R • Итоги торгов</div>
+      <div class="meta">
+        Облигация RU000A10AZ45 · 29 июля 2026<br>
+        <span style="font-size:0.8rem;color:var(--text-faint);">
+          🕐 23:58 MSK · модель: deepseek/deepseek-v4-flash · источник: MOEX ISS + ЦБ РФ
+        </span>
       </div>
     </div>
 
-    <!-- Рыночные данные -->
+    <!-- KPI Strip -->
+    <div class="grid-2">
+      <div class="kpi">
+        <div class="kpi-value up">109.13%</div>
+        <div class="kpi-label">Цена закрытия (LAST)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value up">15.36%</div>
+        <div class="kpi-label">Доходность к погашению (YTM)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value up">+0.20%</div>
+        <div class="kpi-label">Изменение за день</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value" style="color:var(--cyan);">1.36 п.п.</div>
+        <div class="kpi-label">Спред к ключевой ставке</div>
+      </div>
+    </div>
+
+    <!-- Flags -->
+    <div style="margin:16px 0;display:flex;flex-wrap:wrap;gap:4px;">
+      <span class="flag flag-green">✅ Цена выше номинала (109.13%)</span>
+      <span class="flag flag-yellow">⚠️ Объём упал на 79%</span>
+      <span class="flag flag-red">🔴 Расхождение даты погашения (БЗ)</span>
+      <span class="flag flag-red">🔴 Расхождение типа купона (БЗ)</span>
+      <span class="flag flag-blue">📉 Ключевая ставка снижена до 14.00%</span>
+      <span class="flag flag-yellow">⚠️ G-спред расширился до 106 б.п.</span>
+    </div>
+
+    <!-- Section: Рыночные данные -->
     <div class="section">
       <h2>📊 Рыночные данные</h2>
       <div class="item">
         <div class="body">
-          <p>Цена закрытия (LAST): <strong>108.99%</strong> <span class="up">▲ +0.10 (+0.09%)</span></p>
-          <p>Средневзвешенная: <strong>108.71%</strong></p>
-          <p>Максимум (HIGH): <strong>109.21%</strong></p>
-          <p>Минимум (LOW): <strong>108.55%</strong></p>
-          <p>Предыдущее закрытие: <strong>108.88%</strong> (вчера 108.89% верифиц.)</p>
-          <p>Дневной диапазон: <strong>0.66 п.п.</strong> (выше нормы)</p>
-          <p>Доходность к погашению (YTM): <strong>15.46%</strong></p>
-          <p>Доходность по средневзвешенной: <strong>15.63%</strong></p>
-          <p>Эффективная доходность: <strong>15.46%</strong></p>
-          <p>Изменение доходности: <strong>-0.06 п.п.</strong> (снижение vs 27.07)</p>
-          <p>Z-спред: <strong>0.97 п.п.</strong> (по WAPRICE: 1.14 п.п.)</p>
-          <p>G-спред: <strong>96 б.п.</strong></p>
-          <p>Купон: <strong>19.50%</strong> (фикс, 16.03 ₽, период 30 дн.)</p>
-          <p>НКД: <strong>4.27 ₽</strong></p>
-          <p>Следующий купон: <strong>20.08.2026</strong> (расчёт: 29.07.2026)</p>
-          <p>Сделок: <strong>444</strong></p>
-          <p>Объём (штук): <strong>15 719</strong></p>
-          <p>Объём (руб): <strong>17 087 487 ₽</strong></p>
-          <p class="note">ISIN: RU000A10AZ45 · Номинал: 1 000 ₽ · Погашение (MOEX): 2028-08-24 · Оферта: нет</p>
+          <p>Цена закрытия (LAST): <strong class="up">109.13%</strong> <span style="color:var(--text-dim);">(1 091.30 ₽)</span></p>
+          <p>Средневзвешенная: <strong>109.08%</strong> <span style="color:var(--text-dim);">(1 090.80 ₽)</span></p>
+          <p>Изменение за день: <strong class="up">+0.22 п.п. (+0.20%)</strong> <span style="color:var(--text-dim);">(prev close: 108.91%)</span></p>
+          <p>Максимум (HIGH): <strong>109.15%</strong> &nbsp;·&nbsp; Минимум (LOW): <strong>108.71%</strong></p>
+          <p>Дневной диапазон: <strong>0.44 п.п.</strong></p>
+          <p>Доходность к погашению: <strong class="down">15.36%</strong> <span style="color:var(--text-dim);">(— 0.10 п.п. за день)</span></p>
+          <p>Эффективная доходность: <strong>15.36%</strong></p>
+          <p>Сделок: <strong>284</strong> <span style="color:var(--text-dim);">(—36% ко вчера)</span></p>
+          <p>Объём: <strong>3 275 шт.</strong> <span style="color:var(--text-dim);">(3 572 221 ₽, —79% ко вчера)</span></p>
+          <p class="note">ISIN: RU000A10AZ45 · Номинал: 1 000 ₽ · Board: TQCB · Уровень листинга: 2</p>
         </div>
       </div>
     </div>
 
-    <!-- Аналитика -->
+    <!-- Section: Купон -->
+    <div class="section">
+      <h2>💰 Купонная информация</h2>
+      <div class="item">
+        <div class="body">
+          <p>Тип купона: <strong>Фиксированный — 19.50%</strong></p>
+          <p>Купон к выплате: <strong>16.03 ₽</strong> на одну облигацию</p>
+          <p>Период: <strong>30 дней</strong></p>
+          <p>НКД: <strong>4.81 ₽</strong></p>
+          <p>Следующая выплата: <strong>20 августа 2026</strong></p>
+          <p>Эффективная годовая ставка: <strong>19.50%</strong></p>
+          <p class="note">Высокий фиксированный купон делает бумагу привлекательной на фоне снижающейся ключевой ставки</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Доходность и спреды -->
+    <div class="section">
+      <h2>📈 Доходность и спреды</h2>
+      <div class="item">
+        <div class="body">
+          <p>YTM (по LAST): <strong class="down">15.36%</strong> <span style="color:var(--text-dim);">(—0.10 п.п. за день)</span></p>
+          <p>YTM (по средневзвешенной): <strong>15.39%</strong></p>
+          <p>Доходность по пред. средневзвешенной: <strong>15.63%</strong></p>
+          <p>Изменение доходности от пред. средневзвешенной: <strong class="down">—0.24 п.п.</strong></p>
+          <hr>
+          <p>Ключевая ставка ЦБ: <strong>14.00%</strong> <span style="color:var(--text-dim);">(снижена на 25 б.п. 27 июля)</span></p>
+          <p>Спред YTM — КС: <strong class="up" style="color:var(--cyan);">1.36 п.п.</strong> <span style="color:var(--text-dim);">(в диапазоне 1.0–1.5%)</span></p>
+          <hr>
+          <p>Z-спред: <strong>90 б.п.</strong> <span style="color:var(--text-dim);">— кредитный риск низкий</span></p>
+          <p>G-спред: <strong>106 б.п.</strong> <span style="color:var(--yellow);">(+10 б.п. за день)</span></p>
+          <p class="note">Расширение G-спреда может указывать на рост премии за риск или изменение рыночной конъюнктуры</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Аналитика -->
     <div class="section">
       <h2>🔍 Аналитика</h2>
-      
       <div class="item">
         <div class="body">
-          <h3>📈 Дневная динамика</h3>
-          <p>Рост на <strong>+0.09%</strong> — отскок после вчерашнего снижения -0.82%. Порог 0.5% не превышен.</p>
-          <p>Направление: <strong>восстановление</strong> — цена остаётся выше нормального диапазона 100–105%.</p>
+          <p><strong>📉 Ценовой тренд:</strong> восстановление + рост — цена выросла второй день подряд (108.99→109.13). После снижения 27.07 цена восстанавливается.</p>
+          <p><strong>📊 Объём:</strong> <span class="down">резкое падение</span> — число сделок снизилось на 36%, количество бумаг в обороте — на 79%. Активность существенно ниже среднего.</p>
+          <p><strong>🏦 Ключевая ставка:</strong> ЦБ снизил ставку до 14.00% 27 июля — третье снижение в 2026. Доходность облигации 15.36% даёт премию 1.36 п.п. над КС, что в пределах нормы.</p>
+          <p><strong>📌 Доходность:</strong> продолжает снижаться на фоне роста цены. YTM снизилась с 15.46% до 15.36% за день. Тренд — снижение доходности.</p>
+          <p style="color:var(--yellow); margin-top:8px;"><strong>⚠️ Цена выше нормального диапазона:</strong> БЗ указывает норму 100–105%, факт 109.13%. Превышение объяснимо высоким фикс-купоном 19.5% на фоне снижающейся КС.</p>
         </div>
       </div>
+    </div>
 
+    <!-- Section: Расхождения с БЗ -->
+    <div class="section">
+      <h2>🔴 Расхождения с базой знаний</h2>
       <div class="item">
         <div class="body">
-          <h3>💹 Доходность vs Ключевая ставка</h3>
-          <p>Ключевая ставка (оценка): <strong>18.25%</strong></p>
-          <p>Доходность к погашению: <strong>15.46%</strong></p>
-          <p>Спред к КС: <strong>-2.79 п.п.</strong></p>
-          <p>Ожидаемый спред: <strong>1.0–1.5% над КС</strong></p>
-          <p class="note">Доходность существенно ниже КС. Для флоатера с премиальной ценой это ожидаемо: YTM не отражает будущие изменения купона.</p>
+          <p style="margin-bottom:10px;"><strong>Выявлено 3 критических + 1 высокое расхождение</strong> — БЗ описывает другой выпуск либо содержит устаревшие данные:</p>
+
+          <div class="discrepancy-item">
+            <strong>📅 Дата погашения</strong><br>
+            MOEX: <strong>24.08.2028</strong> · БЗ: <strong>26.03.2031</strong> → расхождение ~2.5 года
+          </div>
+          <div class="discrepancy-item">
+            <strong>🏷️ Тип купона</strong><br>
+            MOEX: <strong>Фикс 19.50%</strong> · БЗ: <strong>Флоатер КС+1.25%</strong> → 19.50% ≠ 15.25%
+          </div>
+          <div class="discrepancy-item">
+            <strong>📆 Купонный период</strong><br>
+            MOEX: <strong>30 дней</strong> · БЗ: <strong>91 день</strong> → расхождение в 3×
+          </div>
+          <div class="discrepancy-item">
+            <strong>💰 Объём эмиссии</strong><br>
+            MOEX: <strong>28 млрд ₽</strong> · БЗ: <strong>10 млрд ₽</strong> → превышение в 2.8×
+          </div>
+          <div class="discrepancy-item info">
+            <strong>ℹ️ Диапазон цены</strong><br>
+            Факт: 109.13% · БЗ-норма: 100–105% — выше на 4.13 п.п., объяснимо высоким купоном
+          </div>
+
+          <p style="margin-top:10px; color:var(--text-dim); font-size:0.85rem;">
+            Вывод: MOEX-данные — первичный источник. БЗ требует актуализации для ISIN RU000A10AZ45.
+          </p>
         </div>
       </div>
+    </div>
 
+    <!-- Section: Погашение -->
+    <div class="section">
+      <h2>📅 Погашение</h2>
       <div class="item">
         <div class="body">
-          <h3>📉 Z-спред тренд</h3>
-          <p>Предыдущий: <strong>0.87 п.п.</strong> → Текущий: <strong>0.97 п.п.</strong> → Изменение: <strong>+0.10 п.п.</strong></p>
-          <p>Расширение Z-спреда на 10 б.п. указывает на <strong>рост кредитной премии</strong>.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="body">
-          <h3>📊 Объём торгов</h3>
-          <p>Число сделок: 444 (снижение на <strong>-27.5%</strong> vs вчерашние 827 сделок)</p>
-          <p>Объём в рублях: 17.1 млн ₽</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="body">
-          <h3>🔄 Отклонения от нормального диапазона</h3>
-          <table>
-            <thead>
-              <tr><th>Параметр</th><th>Факт</th><th>Ожидание</th><th>Отклонение</th><th>Вердикт</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Цена</td><td>108.99%</td><td>100–105%</td><td>+3.99 п.п.</td><td>🟡 Отклонение</td></tr>
-              <tr><td>YIELD</td><td>15.46%</td><td>19.25–19.75%</td><td>-3.79..-4.29 п.п.</td><td>🔵 Отклонение</td></tr>
-              <tr><td>Дата погашения</td><td>2028-08-24 (MOEX)</td><td>26.03.2031 (БЗ)</td><td>~2.5 года</td><td>🔴 Несоответствие</td></tr>
-              <tr><td>Купонный период</td><td>30 дней (MOEX)</td><td>91 день (БЗ)</td><td>Расхождение</td><td>🔴 Несоответствие</td></tr>
-              <tr><td>Объём эмиссии</td><td>28 млрд</td><td>10 млрд (БЗ)</td><td>2.8x</td><td>🔴 Несоответствие</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="body">
-          <h3>🔬 Анализ расхождения даты погашения</h3>
-          <p>MOEX: <strong>2028-08-24</strong> vs База знаний: <strong>26.03.2031</strong></p>
-          <p>Возможные причины:</p>
-          <ul>
-            <li>MOEX показывает дату погашения другого транша серии 1Р-37R</li>
-            <li>База знаний содержит некорректные данные</li>
-            <li>Рекомендуется верификация через rusbonds.ru</li>
-          </ul>
+          <p>Дата погашения (MOEX): <strong>24 августа 2028</strong></p>
+          <p>Дюрация (до погашения): <strong>631 день</strong></p>
+          <p>Номинал: <strong>1 000 ₽</strong></p>
+          <p class="note">Расхождение с базой знаний: БЗ указывает 26.03.2031 — разница ~2.5 года, вероятно, неверный ISIN</p>
         </div>
       </div>
     </div>
 
     <div class="footer">
-      <p>nasledstvo2026.github.io/nasledstvo — итоги торгов за 28.07.2026 · Данные: MOEX ISS API</p>
+      <p>nasledstvo2026.github.io/nasledstvo · Отчёт сгенерирован 29.07.2026 в 23:58 MSK</p>
+      <p style="font-size:0.75rem;color:var(--text-faint);">deepseek/deepseek-v4-flash · rzd-html-agent · данные MOEX ISS + ЦБ РФ</p>
     </div>
   </div>
 </body>

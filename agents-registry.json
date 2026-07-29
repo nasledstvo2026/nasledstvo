@@ -15,7 +15,7 @@
     { "id": "2041168814", "name": "Катя", "channel": "telegram" },
     { "id": "311760717", "name": "Катрин", "username": "Su_Ri_Mi", "channel": "telegram" },
     { "name": "Роза", "channel": "telegram", "notes": "социальные выплаты" },
-    { "name": "Ирина", "channel": "telegram", "notes": "социальные выплаты" },
+    { "id": "739016616", "name": "Ирина", "channel": "telegram", "notes": "социальные выплаты" },
     { "name": "Лена", "channel": "telegram", "notes": "новости наследства" }
   ],
   "products": [
