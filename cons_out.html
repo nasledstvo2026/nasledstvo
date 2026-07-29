@@ -23,8 +23,14 @@
     .consultant-card p { margin: 0; font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
     .summary-box { background: rgba(22,27,34,0.7); border: 1px solid rgba(86,212,221,0.15); border-radius: 12px; padding: 24px 28px; margin: 24px 0; border-left: 4px solid #56d4dd; line-height: 1.7; font-size: 15px; color: rgba(255,255,255,0.75); }
     .summary-box strong { color: #56d4dd; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; margin: 24px 0; }
+    .card.aura { min-height: 160px; display: flex; flex-direction: column; justify-content: center; }
+    .card.aura .desc { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; line-height: 1.5; padding: 0 20px 16px; }
+    .card.aura a { text-decoration: none; color: inherit; display: block; padding: 20px 20px 0; }
+    a.card-link { text-decoration: none; }
     .contacts { text-align: center; margin: 20px 0; font-size: 13px; color: rgba(255,255,255,0.35); }
     .contacts a { color: #58a6ff; text-decoration: none; }
+    @media (max-width: 768px) { .cards { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -39,6 +45,37 @@
 
   <div class="summary-box">
     <strong>Внешние консультанты</strong> — пул привлечённых специалистов по различным направлениям: налоговое право, социальная поддержка, закупки, ИТ-архитектура и другие экспертизы. Связаться с консультантом можно через Telegram или электронную почту.
+  </div>
+
+  <div class="section">
+    <h2>Сервисы для консультантов</h2>
+    <div class="cards">
+
+      <!-- MedHelp -->
+      <a href="medhelp.html" class="card-link">
+        <div class="card green aura">
+          <div class="card-header"><div class="card-header-row"><h2>MedHelp</h2></div></div>
+          <div class="desc">Ассистент для врача-рентгенолога. Протоколы КТ/МРТ/ПЭТ-КТ, верификация фактов.</div>
+        </div>
+      </a>
+
+      <!-- OpenProject -->
+      <a href="https://anytime-assembly-yrs-chemistry.trycloudflare.com" class="card-link" target="_blank">
+        <div class="card blue aura">
+          <div class="card-header"><div class="card-header-row"><h2>OpenProject</h2></div></div>
+          <div class="desc">Управление проектами: WBS, задачи, Gantt, ресурсы. Интеграция с Германом.</div>
+        </div>
+      </a>
+
+      <!-- ФармТендер -->
+      <a href="zakupki.html" class="card-link">
+        <div class="card purple aura">
+          <div class="card-header"><div class="card-header-row"><h2>ФармТендер</h2></div></div>
+          <div class="desc">Мониторинг госзакупок ЛП/МИ. Парсинг zakupki.gov.ru, визуализация на сайте.</div>
+        </div>
+      </a>
+
+    </div>
   </div>
 
   <div class="section">
