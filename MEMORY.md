@@ -32,6 +32,15 @@
 - Основная: `deepseek/deepseek-v4-flash`
 - Fallback: `deepseek/deepseek-v4-pro`
 
+## 🖥️ VPS (vm-f13581, Лунт)
+- **RAM:** 3.8 GB (доступно ~2.7G), **Swap:** 4 GB, **Диск:** 30G (7.3G free, 75%)
+- **Отключённые сервисы:** aidj-player, aidj-server, photo-server, cloudflared-photo, nginx, multipathd
+- **Удалённые пакеты:** openproject, snapd (+ canonical-livepatch), catdoc/libev4t64/unrtf
+- **Удалённые проекты:** OpenProject (Docker), HuggingFace whisper-модели, torproxy, puppeteer, python3.10
+- **Оставлены (критичные):** openclaw-gateway, caddy, postgresql@16-main, docker (searxng), fail2ban, cloudflared-dashboard, tailscale, unattended-upgrades, rsyslog
+- **DeepSeek provider:** 2026.6.11 (актуальный — 2026.7.1, не обновляли)
+- **OpenClaw:** 2026.6.11 (актуальный новее — не обновляли)
+
 ## ⚙️ Workflow деплоя (GitHub Pages)
 - Ветка: `gh-pages` (НЕ master)
 - Домен: `https://nasledstvo2026.github.io/nasledstvo/`
@@ -48,5 +57,6 @@
 - **2026-07-26** — Установлено железное правило: никаких самостоятельных изменений/созданий без явного "да" от Кирилла.
 - **2026-07-26** — Настроены модели: primary deepseek-v4-flash, fallback deepseek-v4-pro.
 - **2026-07-26** — Исследовали VPS Лунтика, перевели Telegram на прямое подключение (без Cloudflare Worker). Включили richMessages, pollingStallThreshold, выключили native commands. Tailscale попробовали, но решили не использовать.
+- **2026-07-30** — Глубокая очистка VPS. Диск с 92% до 75% (освобождено 7.3G), RAM +125 MB. Удалены: OpenProject (Docker), snapd/livepatch, torproxy, huggingface/whisper, puppeteer, python3.10. Отключены: aidj, фото, nginx, multipathd. Очищены: npm-кэш, системные логи, apt-мусор. Swap увеличен с 2G до 4G. Перезагрузка VPS — все сервисы поднялись.
 - **2026-07-30** — Добавлено железное правило: никаких поспешных выводов и формулировок без фактической проверки. «Безопасно», «можно», «работает» — только после исследования.
 - **2026-07-28** — Настроена мультиагентная верификация для fz425-agent. Отдельный агент fz425-verifier вызывается через sessions_send, проверяет факты по 425-ФЗ перед ответом пользователю. 5/5 фактов подтверждены. Маршрутизация: Оля (157775002) и Катя (2041168814) → fz425-agent → верификатор → ответ. Конфиг: tools.agentToAgent.enabled=true, allow=['fz425-agent','fz425-verifier'], sessions.visibility=all. Проблема: гейтвей убивает сессию при перезапуске (no hot-reload для tools.*). Решение: фоновая команда systemctl restart. fz425-verifier.workspace = /home/user1/nasledstvo/.
