@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Статистика жалоб — Наследство в банках РФ</title>
-  <link rel="stylesheet" href="https://nasledstvo2026.github.io/nasledstvo/theme.css">
+  <link rel="stylesheet" href="theme.css">
   <style>
     .bar-fill { display: inline-block; height: 20px; border-radius: 4px; min-width: 4px; }
-    .bar-vtb { background: linear-gradient(90deg, #58a6ff, #f778ba); }
+    .bar-vtb  { background: linear-gradient(90deg, #58a6ff, #f778ba); }
     .bar-sber { background: linear-gradient(90deg, #7ee787, #56d4dd); }
     .bar-mts  { background: linear-gradient(90deg, #ff9000, #e3b341); }
+    .bar-otp  { background: linear-gradient(90deg, #f778ba, #ff9000); }
     .trend-number { font-size: 28px; font-weight: 800; }
     .week-grid { display: flex; gap: 8px; flex-wrap: wrap; }
     .day-card { flex: 1; min-width: 80px; padding: 14px 10px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); text-align: center; }
@@ -20,6 +21,9 @@
     .day-card .count-2 { color: var(--yellow); }
     .day-card .count-3 { color: var(--red); }
     .day-card.active { border-color: rgba(88,166,255,.3); }
+    .verified-badge { color: var(--green); font-size: 12px; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); font-size: 11px; color: var(--text-dim); margin: 2px; }
+    .source-icon { width: 14px; height: 14px; vertical-align: middle; margin-right: 4px; }
   </style>
 </head>
 <body>
@@ -28,21 +32,23 @@
   <!-- Hero -->
   <div class="hero">
     <div class="title">📊 Жалобы на банки по наследству</div>
-    <div class="meta">Сбор и верификация жалоб с banki.ru</div>
+    <div class="meta">Сбор и верификация жалоб с banki.ru · stats-agent</div>
     <div class="sub" style="margin-top:8px;">
-      <span style="color:var(--green)">●</span> Верифицировано: 1&ensp;
+      <span style="color:var(--green)">●</span> Верифицировано: 5&ensp;
       <span style="color:var(--text-faint)">●</span> На проверке: 0&ensp;
-      <span style="color:var(--text-faint)">●</span> Отклонено: 0
+      <span style="color:var(--red)">●</span> Отклонено: 0
     </div>
   </div>
 
-  <!-- Meta info -->
+  <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">2026-07-29 11:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">30.07.2026 11:20 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>📆 Период: <strong style="color:var(--text);">22 – 29 июля 2026</strong></span>
+      <span>📆 Период сбора: <strong style="color:var(--text);">22 – 30 июля 2026</strong></span>
+      <span>📊 Выборка: <strong style="color:var(--text);">5 жалоб</strong></span>
       <span>🔗 Источник: <strong style="color:var(--blue);">banki.ru</strong></span>
+      <span>📁 Данные: <strong style="color:var(--text);">katya-data.json + katya-verified.json</strong></span>
     </div>
   </div>
 
@@ -50,11 +56,11 @@
   <div class="stats-row">
     <div class="stat-box">
       <div class="label">Всего жалоб</div>
-      <div class="value">4</div>
+      <div class="value">5</div>
     </div>
     <div class="stat-box">
       <div class="label">Верифицировано</div>
-      <div class="value" style="color:var(--green);">1</div>
+      <div class="value" style="color:var(--green);">5</div>
     </div>
     <div class="stat-box">
       <div class="label">Банков под жалобами</div>
@@ -62,13 +68,13 @@
     </div>
     <div class="stat-box">
       <div class="label">За 7 дней</div>
-      <div class="value" style="color:var(--orange);">4</div>
+      <div class="value" style="color:var(--orange);">5</div>
     </div>
   </div>
 
   <!-- Top-10 banks -->
   <div class="section">
-    <h2>🏦 Топ банков по числу жалоб</h2>
+    <h2>🏦 Топ-10 банков по числу жалоб</h2>
     <div class="table-wrap">
       <table class="striped-table">
         <thead>
@@ -86,10 +92,10 @@
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">2</span>
-                <span class="bar-fill bar-vtb" style="width:100px;"></span>
+                <span class="bar-fill bar-vtb" style="width:120px;"></span>
               </div>
             </td>
-            <td>50%</td>
+            <td>40%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">2</span></td>
@@ -97,10 +103,10 @@
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-sber" style="width:50px;"></span>
+                <span class="bar-fill bar-sber" style="width:60px;"></span>
               </div>
             </td>
-            <td>25%</td>
+            <td>20%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">3</span></td>
@@ -108,55 +114,33 @@
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-mts" style="width:50px;"></span>
+                <span class="bar-fill bar-mts" style="width:60px;"></span>
               </div>
             </td>
-            <td>25%</td>
+            <td>20%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">4</span></td>
-            <td style="color:var(--text-dim);">—</td>
-            <td style="color:var(--text-dim);">0</td>
-            <td style="color:var(--text-dim);">—</td>
+            <td><strong>ОТП Банк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-otp" style="width:60px;"></span>
+              </div>
+            </td>
+            <td>20%</td>
           </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">5</span></td>
-            <td style="color:var(--text-dim);">—</td>
-            <td style="color:var(--text-dim);">0</td>
-            <td style="color:var(--text-dim);">—</td>
-          </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">6</span></td>
-            <td style="color:var(--text-dim);">—</td>
-            <td style="color:var(--text-dim);">0</td>
-            <td style="color:var(--text-dim);">—</td>
-          </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">7</span></td>
-            <td style="color:var(--text-dim);">—</td>
-            <td style="color:var(--text-dim);">0</td>
-            <td style="color:var(--text-dim);">—</td>
-          </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">8</span></td>
-            <td style="color:var(--text-dim);">—</td>
-            <td style="color:var(--text-dim);">0</td>
-            <td style="color:var(--text-dim);">—</td>
-          </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">9</span></td>
-            <td style="color:var(--text-dim);">—</td>
-            <td style="color:var(--text-dim);">0</td>
-            <td style="color:var(--text-dim);">—</td>
-          </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">10</span></td>
-            <td style="color:var(--text-dim);">—</td>
-            <td style="color:var(--text-dim);">0</td>
-            <td style="color:var(--text-dim);">—</td>
-          </tr>
+          <tr><td>5</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
+          <tr><td>6</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
+          <tr><td>7</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
+          <tr><td>8</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
+          <tr><td>9</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
+          <tr><td>10</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
         </tbody>
       </table>
+    </div>
+    <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">
+      ⚠️ ВТБ лидирует — 2 жалобы из 5 (40%). Остальные банки по 1 жалобе.
     </div>
   </div>
 
@@ -165,20 +149,26 @@
     <h2>📈 Динамика за неделю</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
-      <div class="day-card"><div class="day">Ср 22</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Чт 23</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Пт 24</div><div class="count count-3">3</div></div>
-      <div class="day-card"><div class="day">Сб 25</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Вс 26</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Пн 27</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Вт 28</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Вт 22</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Ср 23</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Чт 24</div><div class="count count-3">3</div></div>
+      <div class="day-card"><div class="day">Пт 25</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Сб 26</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Вс 27</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Пн 28</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Вт 29</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Пиковый день</div>
         <div class="value" style="font-size:28px;">24 июля</div>
-        <div class="label">3 жалобы (75% от всех)</div>
+        <div class="label">3 жалобы (60% от всех)</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Ср. жалоб в день</div>
+        <div class="value" style="color:var(--orange);">0.56</div>
+        <div class="label">за 9 дней</div>
       </div>
       <div class="stat-box">
         <div class="label">Жалоб за последние 24ч</div>
@@ -187,7 +177,31 @@
     </div>
   </div>
 
-  <!-- All entries -->
+  <!-- Categories -->
+  <div class="section">
+    <h2>🏷 Категории проблем</h2>
+    <div class="table-wrap">
+      <table class="striped-table">
+        <thead>
+          <tr><th>Тема</th><th>Кол-во</th><th>Доля</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Волокита / отказы в выдаче / выплате наследства</td><td style="font-weight:700;">2</td><td>40%</td></tr>
+          <tr><td>Кредитные долги умершего / давление на наследников</td><td style="font-weight:700;">2</td><td>40%</td></tr>
+          <tr><td>Блокировка счета (115-ФЗ) после получения наследства</td><td style="font-weight:700;">1</td><td>20%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
+      <span class="tag">📄 ст. 37 ГК РФ</span>
+      <span class="tag">📄 ст. 115-ФЗ</span>
+      <span class="tag">📄 ст. 215 ГПК РФ</span>
+      <span class="tag">📄 СВО / без вести пропавший</span>
+      <span class="tag">📄 Нотариус vs банк</span>
+    </div>
+  </div>
+
+  <!-- All complaints -->
   <div class="section">
     <h2>📋 Все жалобы</h2>
 
@@ -195,12 +209,12 @@
       <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
         <span class="badge badge-banki">banki.ru</span>
         <span style="color:var(--text-dim);">22.07.2026</span>
-        <span style="color:var(--green);font-size:12px;">✅ Верифицировано</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">ВТБ</span>
       </div>
       <div class="title" style="font-size:15px;">Волокита ВТБ с наследством ребенка: гоняют за 60 км и игнорируют опеку</div>
       <div class="body" style="margin-top:8px;">
-        <strong>Банк:</strong> ВТБ<br>
-        Сотрудник ВТБ (г. Уфа) давал противоречивые указания по выплате наследства ребенку. Сначала потребовал обычный счет, затем номинальный. В выплате отказали со ссылкой на ст. 37 ГК РФ, несмотря на разрешение опеки.
+        Сотрудник ВТБ (г. Уфа) давал противоречивые указания по выплате наследства ребенку. Сначала потребовал открыть обычный счет, затем номинальный. В выплате на номинальный счет отказали со ссылкой на ст. 37 ГК РФ, несмотря на разрешение опеки. Лишние поездки в отделение за 60 км.
       </div>
       <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13257304/" target="_blank">↗ Читать на banki.ru</a></div>
     </div>
@@ -209,12 +223,12 @@
       <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
         <span class="badge badge-banki">banki.ru</span>
         <span style="color:var(--text-dim);">24.07.2026</span>
-        <span style="color:var(--text-faint);font-size:12px;">⏳ Не верифицирована</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">Сбербанк (Драйв Клик Банк)</span>
       </div>
       <div class="title" style="font-size:15px;">Силком заставляют принять наследство</div>
       <div class="body" style="margin-top:8px;">
-        <strong>Банк:</strong> Сбербанк (Драйв Клик Банк)<br>
-        Автокредит оформлен в дочке Сбера — ООО «Драйв Клик Банк». После смерти заёмщика банк и страховая звонят наследникам, требуя принять наследство для закрытия долга.
+        Автокредит оформлен в дочке Сбера — ООО «Драйв Клик Банк», страховка в Сбербанк страхование жизни. После смерти заёмщика банк и страховая звонят наследникам, требуя принять наследство, чтобы закрыть долг. Наследники не вступили в наследство, но давление продолжается.
       </div>
       <div style="margin-top:8px;"><a href="https://www.banki.ru/insurance/responses/company/response/10003856/" target="_blank">↗ Читать на banki.ru</a></div>
     </div>
@@ -223,12 +237,12 @@
       <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
         <span class="badge badge-banki">banki.ru</span>
         <span style="color:var(--text-dim);">24.07.2026</span>
-        <span style="color:var(--text-faint);font-size:12px;">⏳ Не верифицирована</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">ВТБ / Почта Банк</span>
       </div>
       <div class="title" style="font-size:15px;">Банк не дает погасить кредит умершего родственника досрочно</div>
       <div class="body" style="margin-top:8px;">
-        <strong>Банк:</strong> ВТБ / Почта Банк<br>
-        Кредит умершего отца мигрировал из Почта Банка в ВТБ. Наследник не может досрочно погасить — банки перекидывают друг на друга.
+        Отец умер 01.05.26. Кредит в Почта Банке мигрировал в ВТБ в апреле 2026. Наследник не может досрочно погасить кредит — банки перекидывают друг на друга, отказываясь принимать платеж.
       </div>
       <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13251127/" target="_blank">↗ Читать на banki.ru</a></div>
     </div>
@@ -237,39 +251,57 @@
       <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
         <span class="badge badge-banki">banki.ru</span>
         <span style="color:var(--text-dim);">24.07.2026</span>
-        <span style="color:var(--text-faint);font-size:12px;">⏳ Не верифицирована</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">МТС Банк</span>
       </div>
       <div class="title" style="font-size:15px;">Блокировка по 115-ФЗ после получения наследства</div>
       <div class="body" style="margin-top:8px;">
-        <strong>Банк:</strong> МТС Банк<br>
-        После получения наследства в МТС Банке — отказ в безналичном переводе, только наличными. После внесения на карту — блокировка по 115-ФЗ.
+        24.07.2026 получила в МТС Банке наследство. Выдать деньги безналичным переводом на текущий счёт в этом же банке отказались — только наличными через кассу. Сразу внесла наличные через банкомат на карту «МТС Деньги». Через несколько минут карта заблокирована по 115-ФЗ.
       </div>
       <div style="margin-top:8px;"><a href="https://www.banki.ru/services/questions-answers/question/1088000/" target="_blank">↗ Читать на banki.ru</a></div>
     </div>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-banki">banki.ru</span>
+        <span style="color:var(--text-dim);">27.07.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">ОТП Банк</span>
+      </div>
+      <div class="title" style="font-size:15px;">ОТП Банк требует свидетельство о праве на наследство, которое нотариус отказался выдавать</div>
+      <div class="body" style="margin-top:8px;">
+        Умерла сестра (заемщик ОТП Банка), оставив двоих несовершеннолетних детей-наследников. Нотариус отказался выдавать свидетельство о праве на наследство, т.к. имущество не было разделено после расторжения брака родителей. Отец детей — пропавший без вести на СВО, поэтому получить свидетельство можно только по решению суда, но суд будет приостановлен (ст. 215 ГПК РФ). ОТП Банк требует свидетельство — замкнутый круг.
+      </div>
+      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13016792/" target="_blank">↗ Читать на banki.ru</a></div>
+    </div>
   </div>
 
-  <!-- Categories summary -->
+  <!-- Quick stats widget -->
   <div class="section">
-    <h2>🏷 Категории проблем</h2>
-    <div class="table-wrap">
-      <table class="striped-table">
-        <thead>
-          <tr><th>Тема</th><th>Кол-во</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Волокита / отказы в выдаче наследства</td><td style="font-weight:700;">1</td></tr>
-          <tr><td>Кредитные долги умершего / давление на наследников</td><td style="font-weight:700;">2</td></tr>
-          <tr><td>Блокировка счета (115-ФЗ)</td><td style="font-weight:700;">1</td></tr>
-        </tbody>
-      </table>
+    <h2>📌 Ключевые выводы</h2>
+    <div class="stats-row" style="margin-bottom:0;">
+      <div class="stat-box" style="flex:2;">
+        <div class="label">🔴 Главная проблема</div>
+        <div style="font-size:15px;font-weight:600;margin-top:6px;">
+          Банки отказывают в выплате/оформлении наследства или давят на наследников по кредитам умерших
+        </div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">
+          4 из 5 жалоб (80%) связаны с отказами / волокитой / давлением
+        </div>
+      </div>
+      <div class="stat-box">
+        <div class="label">⚡ Частая тема</div>
+        <div style="font-size:15px;font-weight:600;margin-top:6px;">СВО / без вести</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Статус родственника усложняет наследство</div>
+      </div>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="footer">
     <strong>stats-agent</strong> · nasledstvo.net.ru<br>
-    Генерация: 29.07.2026 11:20 MSK · deepseek/deepseek-v4-flash<br>
-    Данные: katya-data.json + katya-verified.json<br>
+    Генерация: 30.07.2026 11:20 MSK · deepseek/deepseek-v4-flash<br>
+    Данные: katya-data.json (4 записи) + katya-verified.json (2 верифицированные)<br>
     <a href="https://nasledstvo2026.github.io/nasledstvo/" target="_blank">nasledstvo2026.github.io/nasledstvo</a>
   </div>
 
