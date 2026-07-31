@@ -11,6 +11,7 @@
     .bar-sber { background: linear-gradient(90deg, #7ee787, #56d4dd); }
     .bar-mts  { background: linear-gradient(90deg, #ff9000, #e3b341); }
     .bar-otp  { background: linear-gradient(90deg, #f778ba, #ff9000); }
+    .bar-psb  { background: linear-gradient(90deg, #58a6ff, #7ee787); }
     .trend-number { font-size: 28px; font-weight: 800; }
     .week-grid { display: flex; gap: 8px; flex-wrap: wrap; }
     .day-card { flex: 1; min-width: 80px; padding: 14px 10px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); text-align: center; }
@@ -24,6 +25,7 @@
     .verified-badge { color: var(--green); font-size: 12px; }
     .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); font-size: 11px; color: var(--text-dim); margin: 2px; }
     .source-icon { width: 14px; height: 14px; vertical-align: middle; margin-right: 4px; }
+    .sub-note { font-size: 12px; color: var(--text-dim); margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -34,7 +36,7 @@
     <div class="title">📊 Жалобы на банки по наследству</div>
     <div class="meta">Сбор и верификация жалоб с banki.ru · stats-agent</div>
     <div class="sub" style="margin-top:8px;">
-      <span style="color:var(--green)">●</span> Верифицировано: 5&ensp;
+      <span style="color:var(--green)">●</span> Верифицировано: 6&ensp;
       <span style="color:var(--text-faint)">●</span> На проверке: 0&ensp;
       <span style="color:var(--red)">●</span> Отклонено: 0
     </div>
@@ -43,10 +45,10 @@
   <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">30.07.2026 11:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">31.07.2026 11:28 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>📆 Период сбора: <strong style="color:var(--text);">22 – 30 июля 2026</strong></span>
-      <span>📊 Выборка: <strong style="color:var(--text);">5 жалоб</strong></span>
+      <span>📆 Период сбора: <strong style="color:var(--text);">22 – 31 июля 2026</strong></span>
+      <span>📊 Выборка: <strong style="color:var(--text);">6 жалоб</strong></span>
       <span>🔗 Источник: <strong style="color:var(--blue);">banki.ru</strong></span>
       <span>📁 Данные: <strong style="color:var(--text);">katya-data.json + katya-verified.json</strong></span>
     </div>
@@ -56,18 +58,18 @@
   <div class="stats-row">
     <div class="stat-box">
       <div class="label">Всего жалоб</div>
-      <div class="value">5</div>
+      <div class="value">6</div>
     </div>
     <div class="stat-box">
       <div class="label">Верифицировано</div>
-      <div class="value" style="color:var(--green);">5</div>
+      <div class="value" style="color:var(--green);">6</div>
     </div>
     <div class="stat-box">
       <div class="label">Банков под жалобами</div>
-      <div class="value">4</div>
+      <div class="value">5</div>
     </div>
     <div class="stat-box">
-      <div class="label">За 7 дней</div>
+      <div class="label">За 7 дней (24–31.07)</div>
       <div class="value" style="color:var(--orange);">5</div>
     </div>
   </div>
@@ -95,7 +97,7 @@
                 <span class="bar-fill bar-vtb" style="width:120px;"></span>
               </div>
             </td>
-            <td>40%</td>
+            <td>33%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">2</span></td>
@@ -106,10 +108,21 @@
                 <span class="bar-fill bar-sber" style="width:60px;"></span>
               </div>
             </td>
-            <td>20%</td>
+            <td>17%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">3</span></td>
+            <td><strong>ПСБ</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-psb" style="width:60px;"></span>
+              </div>
+            </td>
+            <td>17%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">4</span></td>
             <td><strong>МТС Банк</strong></td>
             <td>
               <div class="bar-cell">
@@ -117,10 +130,10 @@
                 <span class="bar-fill bar-mts" style="width:60px;"></span>
               </div>
             </td>
-            <td>20%</td>
+            <td>17%</td>
           </tr>
           <tr>
-            <td><span style="color:var(--text-faint);">4</span></td>
+            <td><span style="color:var(--text-faint);">5</span></td>
             <td><strong>ОТП Банк</strong></td>
             <td>
               <div class="bar-cell">
@@ -128,9 +141,8 @@
                 <span class="bar-fill bar-otp" style="width:60px;"></span>
               </div>
             </td>
-            <td>20%</td>
+            <td>17%</td>
           </tr>
-          <tr><td>5</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
           <tr><td>6</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
           <tr><td>7</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
           <tr><td>8</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
@@ -140,39 +152,86 @@
       </table>
     </div>
     <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">
-      ⚠️ ВТБ лидирует — 2 жалобы из 5 (40%). Остальные банки по 1 жалобе.
+      ⚠️ ВТБ лидирует — 2 жалобы из 6 (33%, включая мигрировавший кредит Почта Банка). Остальные банки по 1 жалобе.
     </div>
   </div>
 
-  <!-- Dynamics -->
+  <!-- Weekly dynamics -->
   <div class="section">
-    <h2>📈 Динамика за неделю</h2>
+    <h2>📈 Динамика за неделю (24–31 июля)</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
-      <div class="day-card"><div class="day">Вт 22</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Ср 23</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Чт 24</div><div class="count count-3">3</div></div>
-      <div class="day-card"><div class="day">Пт 25</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Сб 26</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Вс 27</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Пн 28</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Вт 29</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Пт 24</div><div class="count count-3">3</div></div>
+      <div class="day-card"><div class="day">Сб 25</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Вс 26</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Пн 27</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Вт 28</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Ср 29</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Чт 30</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Пт 31</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Пиковый день</div>
         <div class="value" style="font-size:28px;">24 июля</div>
-        <div class="label">3 жалобы (60% от всех)</div>
+        <div class="label">3 жалобы (60% от недели)</div>
       </div>
       <div class="stat-box">
         <div class="label">Ср. жалоб в день</div>
-        <div class="value" style="color:var(--orange);">0.56</div>
-        <div class="label">за 9 дней</div>
+        <div class="value" style="color:var(--orange);">0.63</div>
+        <div class="label">за 7 дней</div>
       </div>
       <div class="stat-box">
         <div class="label">Жалоб за последние 24ч</div>
         <div class="value" style="color:var(--text-faint);">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Предыдущие 7 дней</div>
+        <div class="value" style="color:var(--text-faint);">1</div>
+        <div class="label">неполные данные (с 22.07)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monthly dynamics -->
+  <div class="section">
+    <h2>📅 Динамика за месяц (июль 2026)</h2>
+
+    <div class="week-grid" style="margin-bottom:20px;">
+      <div class="day-card"><div class="day">Ср 22</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Чт 23</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Пт 24</div><div class="count count-3">3</div></div>
+      <div class="day-card"><div class="day">Сб 25</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Вс 26</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Пн 27</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Вт 28</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Ср 29</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Чт 30</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Пт 31</div><div class="count count-0">0</div></div>
+    </div>
+    <div class="sub-note">⚠️ Сбор данных начат 22.07.2026 — первые 10 дней июля вне выборки.</div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="label">Всего за месяц</div>
+        <div class="value">6</div>
+        <div class="label">за 10 дней наблюдения</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Пиковый день месяца</div>
+        <div class="value" style="font-size:28px;">24 июля</div>
+        <div class="label">3 жалобы (50% от всех)</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Ср. жалоб в день</div>
+        <div class="value" style="color:var(--orange);">0.60</div>
+        <div class="label">за период наблюдения</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Выходные (сб–вс)</div>
+        <div class="value" style="color:var(--green);">1</div>
+        <div class="label">26.07 — ПСБ</div>
       </div>
     </div>
   </div>
@@ -186,9 +245,9 @@
           <tr><th>Тема</th><th>Кол-во</th><th>Доля</th></tr>
         </thead>
         <tbody>
-          <tr><td>Волокита / отказы в выдаче / выплате наследства</td><td style="font-weight:700;">2</td><td>40%</td></tr>
-          <tr><td>Кредитные долги умершего / давление на наследников</td><td style="font-weight:700;">2</td><td>40%</td></tr>
-          <tr><td>Блокировка счета (115-ФЗ) после получения наследства</td><td style="font-weight:700;">1</td><td>20%</td></tr>
+          <tr><td>Волокита / отказы в выдаче / выплате наследства</td><td style="font-weight:700;">3</td><td>50%</td></tr>
+          <tr><td>Кредитные долги умершего / давление на наследников</td><td style="font-weight:700;">2</td><td>33%</td></tr>
+          <tr><td>Блокировка счета (115-ФЗ) после получения наследства</td><td style="font-weight:700;">1</td><td>17%</td></tr>
         </tbody>
       </table>
     </div>
@@ -198,6 +257,8 @@
       <span class="tag">📄 ст. 215 ГПК РФ</span>
       <span class="tag">📄 СВО / без вести пропавший</span>
       <span class="tag">📄 Нотариус vs банк</span>
+      <span class="tag">📄 Несовершеннолетние наследники</span>
+      <span class="tag">📄 Опека</span>
     </div>
   </div>
 
@@ -264,6 +325,20 @@
     <div class="item">
       <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
         <span class="badge badge-banki">banki.ru</span>
+        <span style="color:var(--text-dim);">26.07.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">ПСБ</span>
+      </div>
+      <div class="title" style="font-size:15px;">Перевод на счёт несовершеннолетнего ребенка (ПСБ)</div>
+      <div class="body" style="margin-top:8px;">
+        Представитель наследницы (вдова и несовершеннолетний ребёнок погибшего в СВО) подал в ПСБ 14 июля документы для перечисления наследственных денег на счёт ребёнка. Срок заключения договора купли-продажи квартиры с привлечением средств через опеку — до 1 августа. Перевод согласован 21 июля, но по состоянию на 28 июля деньги так и не поступили — срыв сделки.
+      </div>
+      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13256971/" target="_blank">↗ Читать на banki.ru</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-banki">banki.ru</span>
         <span style="color:var(--text-dim);">27.07.2026</span>
         <span class="verified-badge">✅ Верифицировано</span>
         <span class="tag">ОТП Банк</span>
@@ -286,13 +361,13 @@
           Банки отказывают в выплате/оформлении наследства или давят на наследников по кредитам умерших
         </div>
         <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">
-          4 из 5 жалоб (80%) связаны с отказами / волокитой / давлением
+          5 из 6 жалоб (83%) связаны с отказами / волокитой / давлением
         </div>
       </div>
       <div class="stat-box">
         <div class="label">⚡ Частая тема</div>
-        <div style="font-size:15px;font-weight:600;margin-top:6px;">СВО / без вести</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Статус родственника усложняет наследство</div>
+        <div style="font-size:15px;font-weight:600;margin-top:6px;">СВО / несовершеннолетние</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Статус родственника и опека усложняют наследство</div>
       </div>
     </div>
   </div>
@@ -300,8 +375,8 @@
   <!-- Footer -->
   <div class="footer">
     <strong>stats-agent</strong> · nasledstvo.net.ru<br>
-    Генерация: 30.07.2026 11:20 MSK · deepseek/deepseek-v4-flash<br>
-    Данные: katya-data.json (4 записи) + katya-verified.json (2 верифицированные)<br>
+    Генерация: 31.07.2026 11:28 MSK · deepseek/deepseek-v4-flash<br>
+    Данные: katya-data.json (5 записей, 24–31.07) + katya-verified.json (3 верифицированные)<br>
     <a href="https://nasledstvo2026.github.io/nasledstvo/" target="_blank">nasledstvo2026.github.io/nasledstvo</a>
   </div>
 
