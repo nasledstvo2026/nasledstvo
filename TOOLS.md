@@ -27,6 +27,20 @@ Things like:
 - Node: v22.23.1
 - Gateway: OpenClaw
 
+### VPS Феникс (соседний OpenClaw)
+- IP: `213.171.25.85` | пользователь: `user1` | hostname: `vm-low4-8` (НЕ vm-f13581)
+- Ключ: `~/.ssh/fenix` (права 600) — идентичен `new-vps-key`
+- Passphrase ключа: в `~/.ssh/askpass.sh`
+- SSH: `SSH_ASKPASS=~/.ssh/askpass.sh SSH_ASKPASS_REQUIRE=force ssh -i ~/.ssh/fenix user1@213.171.25.85`
+- OpenClaw 2026.6.11, порт 18789, systemd user unit `openclaw-gateway.service`
+- Workspace: `/home/user1/phoenix/` | fz425-agent: `/home/user1/phoenix/fz425-agent/`
+- Перезапуск: ТОЛЬКО `bash ~/phoenix/safe-restart.sh` (НЕ systemctl restart!)
+- Команда «почини Феникса» → SSH-подключение + диагностика (статус, логи, диск/RAM)
+- ⚠️ fail2ban банит IP на ~10 мин после перебора пользователей — не перебирать
+- ⚠️ `openclaw tui` на Фениксе перезаписывает openclaw.json — не трогать конфиг из TUI
+- ⚠️ НЕ ставить `tools.allow: ['message']` — такого инструмента нет, агенты становятся немыми
+- Маршрутизация: «Федор» в начале сообщения → fz425-agent; иначе main (подробности: memory/2026-08-01.md)
+
 ## Examples
 
 ```markdown
