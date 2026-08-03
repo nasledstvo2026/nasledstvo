@@ -17,7 +17,11 @@ Things like:
 
 ### GitHub Pages
 - Репозиторий: `nasledstvo2026/nasledstvo`
-- Ветка деплоя: `gh-pages` (НЕ master)
+- Ветка для пуша: `master` (workflow деплоит из master → gh-pages)
+- ⚠️ НИКОГДА не пушить напрямую в `gh-pages` — воркфлоу не запустится, страница не обновится
+- Workflow: `.github/workflows/deploy-pages.yml`, триггер: `push → master`
+- Процесс: `git add` → `git commit` → `git push origin master` → ждать деплой (~30 сек)
+- Проверка: `curl -s https://nasledstvo2026.github.io/nasledstvo/ | grep -c 'ключевое_слово'`
 - Домен: `https://nasledstvo2026.github.io/nasledstvo/`
 - Remote: `origin` (git@github.com:nasledstvo2026/nasledstvo.git)
 
