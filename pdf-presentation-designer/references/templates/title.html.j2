@@ -1,0 +1,21 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<div class="slide">
+  <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; max-width: 800px; position: relative; z-index: 1;">
+    <div class="slide-title" style="font-size: 44px; line-height: 1.1;">
+      {{ title | upper }}
+    </div>
+    <div style="font-size: 32px; font-weight: 300; color: var(--accent-light); margin-top: 8px; line-height: 1.2;">
+      {{ subtitle }}
+    </div>
+    <div class="decor-line" style="margin-top: 24px;"></div>
+    <div style="font-size: 18px; color: var(--text-muted); margin-top: 24px; max-width: 600px;">
+      {{ description }}
+    </div>
+  </div>
+  <div class="footer">
+    <span>{{ footer | default('Отдел сопровождения дирекции радиоэлектроники') }}</span>
+    <span>{{ classification | default('Конфиденциально') }}</span>
+  </div>
+</div>
+{% endblock %}

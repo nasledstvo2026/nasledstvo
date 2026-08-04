@@ -1,0 +1,131 @@
+/* ═════════════════════════════════════════════════════════════════════
+   PDF Presentation Designer — Design Tokens
+   Три темы: dark (default), light, accent
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* ── Тёмно-синяя корпоративная (default) ────────────────────── */
+:root,
+[data-theme="dark"] {
+  /* Фоны */
+  --bg-primary:    #0B1F3F;
+  --bg-secondary:  #112B50;
+  --bg-card:       #16335C;
+  --bg-card-hover: #1A3D6E;
+  --bg-overlay:    rgba(11, 31, 63, 0.92);
+
+  /* Текст */
+  --text-primary:    #FFFFFF;
+  --text-secondary:  #CCD6E8;
+  --text-muted:      #8899BB;
+
+  /* Акценты */
+  --accent:          #3B82F6;
+  --accent-light:    #60A5FA;
+  --accent-glow:     rgba(59, 130, 246, 0.25);
+
+  /* Семантические */
+  --success:         #22C55E;
+  --success-bg:      rgba(34, 197, 94, 0.12);
+  --warning:         #F59E0B;
+  --warning-bg:      rgba(245, 158, 11, 0.12);
+  --danger:          #EF4444;
+  --danger-bg:       rgba(239, 68, 68, 0.12);
+
+  /* Линии и границы */
+  --border:          rgba(255, 255, 255, 0.08);
+  --border-card:     rgba(255, 255, 255, 0.06);
+  --decor-line:      var(--accent);
+
+  /* Типографика */
+  --font:            'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono:       'Cascadia Code', 'Fira Code', monospace;
+  --h1:              26px;
+  --h2:              22px;
+  --h3:              16px;
+  --body:            13px;
+  --small:           11px;
+  --caption:         9px;
+  --kpi-value:       34px;
+  --kpi-label:       10px;
+
+  /* Геометрия */
+  --radius-card:     12px;
+  --radius-sm:       6px;
+  --radius-pill:     999px;
+  --padding-card:    22px;
+  --padding-sm:      12px;
+  --gap:             16px;
+  --gap-sm:           6px;
+  --margin:           48px;
+  --margin-top:       40px;
+
+  /* Тени */
+  --shadow-card:     0 4px 24px rgba(0, 0, 0, 0.3);
+  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.2);
+
+  /* Слайд */
+  --slide-width:     1280px;
+  --slide-height:    720px;
+}
+
+/* ── Светлая тема ────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg-primary:    #F8FAFC;
+  --bg-secondary:  #F1F5F9;
+  --bg-card:       #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --bg-overlay:    rgba(248, 250, 252, 0.95);
+
+  --text-primary:    #0F172A;
+  --text-secondary:  #475569;
+  --text-muted:      #94A3B8;
+
+  --accent:          #2563EB;
+  --accent-light:    #3B82F6;
+  --accent-glow:     rgba(37, 99, 235, 0.12);
+
+  --success:         #16A34A;
+  --success-bg:      rgba(22, 163, 74, 0.08);
+  --warning:         #D97706;
+  --warning-bg:      rgba(217, 119, 6, 0.08);
+  --danger:          #DC2626;
+  --danger-bg:       rgba(220, 38, 38, 0.08);
+
+  --border:          rgba(0, 0, 0, 0.06);
+  --border-card:     rgba(0, 0, 0, 0.04);
+  --decor-line:      var(--accent);
+
+  --shadow-card:     0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Акцентная (внешние заказчики) ──────────────────────────── */
+[data-theme="accent"] {
+  --bg-primary:    #0F172A;
+  --bg-secondary:  #1E293B;
+  --bg-card:       #1E293B;
+  --bg-card-hover: #273548;
+  --bg-overlay:    rgba(15, 23, 42, 0.94);
+
+  --text-primary:    #F1F5F9;
+  --text-secondary:  #CBD5E1;
+  --text-muted:      #64748B;
+
+  --accent:          #F59E0B;
+  --accent-light:    #FBBF24;
+  --accent-glow:     rgba(245, 158, 11, 0.2);
+
+  --success:         #22C55E;
+  --success-bg:      rgba(34, 197, 94, 0.12);
+  --warning:         #F59E0B;
+  --warning-bg:      rgba(245, 158, 11, 0.12);
+  --danger:          #EF4444;
+  --danger-bg:       rgba(239, 68, 68, 0.12);
+
+  --border:          rgba(255, 255, 255, 0.06);
+  --border-card:     rgba(255, 255, 255, 0.04);
+  --decor-line:      var(--accent);
+
+  --shadow-card:     0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.3);
+}

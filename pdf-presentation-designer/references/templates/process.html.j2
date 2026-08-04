@@ -1,0 +1,47 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<div class="slide">
+  <div class="slide-title">{{ title }}</div>
+  <div class="decor-line"></div>
+
+  <div class="flex-row" style="margin-top: 44px; position: relative; align-items: flex-start; justify-content: center;">
+    {% for step in steps %}
+    <div style="flex: 1; text-align: center; position: relative; max-width: 280px;
+                margin-right: {{ '0' if loop.last else '0' }};">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--accent);
+                  margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;
+                  font-size: 24px; font-weight: 700; color: var(--text-primary);">
+        {{ "%02d" % loop.index }}
+      </div>
+      {% if step.icon %}
+      <div style="margin-bottom: 10px;">{{ icon(step.icon, 44) }}</div>
+      {% endif %}
+      <div style="font-size: 16px; font-weight: 700; color: var(--accent-light); margin-bottom: 6px;">
+        {{ step.label }}
+      </div>
+      {% if step.description %}
+      <div style="font-size: var(--small); color: var(--text-muted); line-height: 1.5; max-width: 260px; margin: 0 auto;">
+        {{ step.description }}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Соединительная линия -->
+  <div style="position: absolute; top: 196px; left: 180px; right: 180px; height: 2px; background: var(--border);"></div>
+
+  {% if details %}
+  <div style="margin-top: 36px; font-size: var(--body); color: var(--text-secondary); line-height: 1.8; padding-left: 80px;">
+    {% for d in details %}
+    <div style="margin-bottom: 6px;">• {{ d }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="footer">
+    <span>{{ footer | default('Отдел сопровождения дирекции радиоэлектроники') }}</span>
+    <span class="page-num">{{ page_num }}</span>
+  </div>
+</div>
+{% endblock %}

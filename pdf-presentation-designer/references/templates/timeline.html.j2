@@ -1,0 +1,41 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<div class="slide">
+  <div class="slide-title">{{ title }}</div>
+  <div class="decor-line"></div>
+
+  <div style="margin-top: 30px; padding-left: 28px; position: relative;">
+    <div style="position: absolute; left: 27px; top: 10px; bottom: 10px; width: 2px; background: var(--accent);"></div>
+
+    {% for event in events %}
+    <div style="position: relative; padding-left: 48px; margin-bottom: {{ '28px' if not loop.last else '0' }}; min-height: 72px;">
+      <div style="position: absolute; left: 12px; top: 6px; width: 28px; height: 28px; border-radius: 50%;
+                  background: var(--accent); display: flex; align-items: center; justify-content: center;
+                  font-size: 12px; color: var(--text-primary); font-weight: 700;">
+        {{ "%02d" % loop.index }}
+      </div>
+      <div class="flex-row" style="align-items: flex-start;">
+        {% if event.icon %}
+        <div style="margin-right: 16px; flex-shrink: 0;">{{ icon(event.icon, 36) }}</div>
+        {% endif %}
+        <div>
+          <div style="font-size: var(--h3); font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">
+            {{ event.label }}
+          </div>
+          {% if event.description %}
+          <div style="font-size: var(--small); color: var(--text-muted); line-height: 1.5; max-width: 860px;">
+            {{ event.description }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="footer">
+    <span>{{ footer | default('Отдел сопровождения дирекции радиоэлектроники') }}</span>
+    <span class="page-num">{{ page_num }}</span>
+  </div>
+</div>
+{% endblock %}

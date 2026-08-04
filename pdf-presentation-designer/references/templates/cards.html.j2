@@ -1,0 +1,41 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<div class="slide">
+  <div class="slide-title">{{ title }}</div>
+  <div class="decor-line"></div>
+
+  <div class="flex-row" style="margin-top: 30px; height: 400px;">
+    {% for card in cards %}
+    <div style="flex: 1; background: var(--bg-card); border-radius: var(--radius-card); padding: 24px 20px;
+                display: flex; flex-direction: column; align-items: center; text-align: center;
+                box-shadow: var(--shadow-card); margin-right: {{ '16px' if not loop.last else '0' }};">
+      {% if card.icon %}
+      <div style="margin-bottom: 12px;">{{ icon(card.icon, 44) }}</div>
+      {% endif %}
+      <div style="font-size: 16px; font-weight: 700; color: var(--accent-light); margin-bottom: 14px;">
+        {{ card.label | upper }}
+      </div>
+      <div style="font-size: var(--small); color: var(--text-secondary); line-height: 1.6; width: 100%;">
+        {% if card.points %}
+        <div class="text-left">
+          {% for p in card.points %}
+          <div style="margin-bottom: 8px; padding-left: 14px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-light);">▸</span>
+            {{ p }}
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{ card.text }}
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="footer">
+    <span>{{ footer | default('Отдел сопровождения дирекции радиоэлектроники') }}</span>
+    <span class="page-num">{{ page_num }}</span>
+  </div>
+</div>
+{% endblock %}

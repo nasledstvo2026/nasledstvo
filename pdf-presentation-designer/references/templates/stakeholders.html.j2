@@ -1,0 +1,44 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<div class="slide">
+  <div class="slide-title">{{ title }}</div>
+  <div class="decor-line"></div>
+
+  <div class="flex-row" style="margin-top: 30px;">
+    {% for group, icon_name, items, gtitle in [
+      (internal, 'building', internal, internal_title),
+      (external, 'globe', external, external_title)
+    ] %}
+    <div style="flex: 1; background: var(--bg-card); border-radius: var(--radius-card); padding: 24px 22px;
+                box-shadow: var(--shadow-card); margin-right: {{ '16px' if loop.first else '0' }};">
+      <div class="flex-row" style="align-items: center; margin-bottom: 20px;">
+        <div style="width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--accent);
+                    display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+          {{ icon(icon_name, 22) }}
+        </div>
+        <span style="font-size: 16px; font-weight: 700; color: var(--text-primary);">
+          {{ gtitle | default('СТЕЙКХОЛДЕРЫ') }}
+        </span>
+      </div>
+      {% for s in items %}
+      <div style="margin-bottom: 10px; padding-left: 16px; position: relative; font-size: var(--small); color: var(--text-secondary);">
+        <span style="position: absolute; left: 0; color: var(--accent-light);">•</span>
+        {{ s }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if note %}
+  <div style="margin-top: 22px; font-size: 11px; color: var(--accent-light); text-align: center; font-weight: 600;">
+    {{ note }}
+  </div>
+  {% endif %}
+
+  <div class="footer">
+    <span>{{ footer | default('Отдел сопровождения дирекции радиоэлектроники') }}</span>
+    <span class="page-num">{{ page_num }}</span>
+  </div>
+</div>
+{% endblock %}

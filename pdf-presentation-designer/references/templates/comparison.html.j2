@@ -1,0 +1,44 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<div class="slide">
+  <div class="slide-title">{{ title }}</div>
+  <div class="decor-line"></div>
+
+  <div class="flex-row" style="margin-top: 30px;">
+    {% for col in [left, right] %}
+    <div style="flex: 1; background: var(--bg-card); border-radius: var(--radius-card); padding: 24px 22px;
+                box-shadow: var(--shadow-card); margin-right: {{ '16px' if not loop.last else '0' }};">
+      {% if col.icon %}
+      <div style="margin-bottom: 10px;">{{ icon(col.icon, 36) }}</div>
+      {% endif %}
+      <div style="font-size: 16px; font-weight: 700; color: var(--accent-light); margin-bottom: 16px;">
+        {{ col.label | upper }}
+      </div>
+      <div style="font-size: var(--small); color: var(--text-secondary); line-height: 1.7;">
+        {% if col.points %}
+        {% for p in col.points %}
+        <div style="margin-bottom: 10px; padding-left: 16px; position: relative;">
+          <span style="position: absolute; left: 0; color: var(--accent-light);">•</span>
+          {{ p }}
+        </div>
+        {% endfor %}
+        {% else %}
+        {{ col.text }}
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if note %}
+  <div style="margin-top: 20px; font-size: var(--small); color: var(--accent-light); text-align: center; font-weight: 600;">
+    {{ note }}
+  </div>
+  {% endif %}
+
+  <div class="footer">
+    <span>{{ footer | default('Отдел сопровождения дирекции радиоэлектроники') }}</span>
+    <span class="page-num">{{ page_num }}</span>
+  </div>
+</div>
+{% endblock %}

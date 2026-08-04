@@ -1,0 +1,222 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<style>
+  @page { size: 1280px 920px; }
+  .page {
+    width: 1280px;
+    height: 920px;
+    padding: 36px 44px;
+    position: relative;
+    overflow: hidden;
+    font-size: 11px;
+    line-height: 1.45;
+    display: flex; flex-direction: column;
+  }
+  .page::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+  h1 { font-size: 28px; font-weight: 700; color: var(--text-primary); margin: 0 0 2px 0; letter-spacing: -0.01em; }
+  h2 { font-size: 15px; font-weight: 700; color: var(--accent-light); margin: 0 0 6px 0; text-transform: uppercase; }
+  h3 { font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 0 0 4px 0; }
+  .subtitle { font-size: 16px; font-weight: 300; color: var(--accent-light); margin-bottom: 4px; }
+  .decor { width: 60px; height: 2px; background: var(--decor-line); border-radius: 2px; margin-bottom: 18px; }
+  .grid-2 { display: flex; flex-direction: row; }
+  .grid-3 { display: flex; flex-direction: row; }
+  .grid-4 { display: flex; flex-direction: row; }
+  .col { flex: 1; }
+  .card {
+    background: var(--bg-card); border-radius: var(--radius-card); padding: 14px;
+    box-shadow: var(--shadow-card); margin-right: 12px; margin-bottom: 0;
+  }
+  .card:last-child { margin-right: 0; }
+  .kpi-mini {
+    background: var(--bg-card); border-radius: var(--radius-sm); padding: 10px 8px;
+    box-shadow: var(--shadow-sm); text-align: center;
+    border-top: 2px solid var(--accent);
+    margin-right: 8px;
+  }
+  .kpi-mini:last-child { margin-right: 0; }
+  .kpi-val { font-size: 22px; font-weight: 800; color: var(--accent); }
+  .kpi-lbl { font-size: 8px; color: var(--text-muted); margin-top: 2px; }
+  .tag { display: inline-block; background: var(--accent); color: var(--text-primary); border-radius: 3px; padding: 1px 6px; font-size: 8px; font-weight: 600; margin-right: 4px; }
+  .section { margin-bottom: 16px; position: relative; z-index: 1; }
+  .footer { border-top: 1px solid var(--border); padding-top: 8px; font-size: 9px; color: var(--text-muted); display: flex; justify-content: space-between; margin-top: auto; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { margin-bottom: 3px; padding-left: 12px; position: relative; }
+  li::before { content: '▸'; position: absolute; left: 0; color: var(--accent-light); font-size: 8px; }
+</style>
+
+<div class="page">
+  <!-- Заголовок -->
+  <div class="section">
+    <h1>ОТДЕЛ СОПРОВОЖДЕНИЯ ДИРЕКЦИИ РАДИОЭЛЕКТРОНИКИ</h1>
+    <div class="subtitle">Операционная поддержка бизнес-процессов</div>
+    <div class="decor"></div>
+  </div>
+
+  <!-- Основная сетка: 2 колонки -->
+  <div class="grid-2" style="margin-bottom: 12px;">
+    <!-- Левая колонка -->
+    <div class="col" style="margin-right: 16px;">
+      <!-- Миссия -->
+      <div class="section">
+        <h2>МИССИЯ</h2>
+        <p style="margin: 0; color: var(--text-secondary);">Централизованное сервисное звено дирекции. Единая точка входа для смежных управлений. Бесперебойное обеспечение административных, закупочных и финансовых процессов.</p>
+      </div>
+
+      <!-- Закупки -->
+      <div class="section">
+        <h2>УПРАВЛЕНИЕ ЗАКУПКАМИ</h2>
+        <div class="grid-3">
+          {% for step in [
+            {"icon":"clipboard-text","label":"Заявка","desc":"Размещение в системе"},
+            {"icon":"package","label":"Номенклатура","desc":"Заведение и ведение"},
+            {"icon":"file-contract","label":"Договор","desc":"Заключение с поставщиками"}
+          ] %}
+          <div class="card" style="flex: 1;">
+            <div style="text-align: center;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--accent); margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--text-primary);">{{ "%02d" % loop.index }}</div>
+              <div style="font-weight: 700; color: var(--accent-light); margin-bottom: 2px; font-size: 10px;">{{ step.label }}</div>
+              <div style="font-size: 9px; color: var(--text-muted);">{{ step.desc }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Командировки -->
+      <div class="section">
+        <h2>ОРГАНИЗАЦИЯ КОМАНДИРОВОК</h2>
+        <div class="grid-3">
+          {% for step in [
+            {"icon":"calendar-check","label":"Заявка в 1С","desc":"Оформление и запуск"},
+            {"icon":"ticket","label":"Билеты и отели","desc":"Бронирование"},
+            {"icon":"check-circle","label":"Закрытие","desc":"Отчётные документы"}
+          ] %}
+          <div class="card" style="flex: 1;">
+            <div style="text-align: center;">
+              <div style="margin-bottom: 4px;">{{ icon(step.icon, 28) }}</div>
+              <div style="font-weight: 700; color: var(--accent-light); margin-bottom: 2px; font-size: 10px;">{{ step.label }}</div>
+              <div style="font-size: 9px; color: var(--text-muted);">{{ step.desc }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Админподдержка -->
+      <div class="section">
+        <h2>АДМИНИСТРАТИВНАЯ ПОДДЕРЖКА</h2>
+        <div class="grid-3">
+          {% for card in [
+            {"icon":"identification-card","label":"Пропуска","points":["Оформление и учёт","Контроль сроков","Единая база"]},
+            {"icon":"shopping-cart","label":"Хоззакупки","points":["Закупка нужд","Потребности УР","Бюджетирование"]},
+            {"icon":"monitor","label":"Оргтехника","points":["Оснащение сотрудников","В день выхода","Инвентаризация"]}
+          ] %}
+          <div class="card" style="flex: 1;">
+            <div style="display: flex; align-items: center; margin-bottom: 6px;">
+              {{ icon(card.icon, 22) }}
+              <span style="font-weight: 700; color: var(--accent-light); margin-left: 6px; font-size: 10px;">{{ card.label }}</span>
+            </div>
+            <ul>
+              {% for p in card.points %}<li style="font-size: 9px;">{{ p }}</li>{% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Правая колонка -->
+    <div class="col">
+      <!-- Авансовые отчёты -->
+      <div class="section">
+        <h2>ФИНАНСОВО-ОТЧЁТНАЯ ДИСЦИПЛИНА</h2>
+        <div class="grid-2">
+          {% for col_data in [
+            {"icon":"wallet","label":"СОБСТВЕННЫЕ СРЕДСТВА","points":["Формирование авансовых отчётов","Контроль первичной документации","Соблюдение сроков закрытия","Утверждение в системе"]},
+            {"icon":"coins","label":"ЗАКУПКА ПРОИЗВОДСТВА","points":["Закрытие отчётов для производства","Привязка к ЖЦ закупки","Сверка с договорной базой","Финансовый контроль"]}
+          ] %}
+          <div class="card" style="flex: 1;">
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+              {{ icon(col_data.icon, 24) }}
+              <span style="font-weight: 700; color: var(--accent-light); margin-left: 6px; font-size: 10px;">{{ col_data.label }}</span>
+            </div>
+            <ul>
+              {% for p in col_data.points %}<li style="font-size: 9px;">{{ p }}</li>{% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </div>
+        <div style="text-align: center; font-size: 9px; color: var(--accent-light); font-weight: 600; margin-top: 6px;">🔄 Полный цикл: от выдачи аванса до утверждения отчёта</div>
+      </div>
+
+      <!-- Взаимодействие -->
+      <div class="section">
+        <h2>КОНТУР ВЗАИМОДЕЙСТВИЯ</h2>
+        <div class="grid-2">
+          {% for col_data in [
+            {"icon":"building","label":"ВНУТРЕННИЕ","members":["Смежные управления","Дирекция","Подразделения УР","Финансовый отдел"]},
+            {"icon":"globe","label":"ВНЕШНИЕ","members":["Поставщики","Транспортные компании","Гостиницы","Контролирующие органы"]}
+          ] %}
+          <div class="card" style="flex: 1;">
+            <div style="display: flex; align-items: center; margin-bottom: 6px;">
+              {{ icon(col_data.icon, 22) }}
+              <span style="font-weight: 700; color: var(--accent-light); margin-left: 6px; font-size: 10px;">{{ col_data.label }}</span>
+            </div>
+            <ul>
+              {% for item in col_data.members %}<li style="font-size: 9px;">{{ item }}</li>{% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </div>
+        <div style="text-align: center; font-size: 9px; color: var(--accent-light); font-weight: 600; margin-top: 6px;">🔄 Регламентированные цепочки | 📞 Единое окно для внешних запросов</div>
+      </div>
+
+      <!-- KPI -->
+      <div class="section">
+        <h2>КЛЮЧЕВЫЕ ПОКАЗАТЕЛИ</h2>
+        <div class="grid-4">
+          {% for m in [
+            {"value":"< 3 дней","label":"Срок обработки заявки","color":"var(--success)"},
+            {"value":"≥ 95%","label":"Командировок закрыто в срок","color":"var(--success)"},
+            {"value":"> 1 200","label":"Документооборот в месяц","color":"var(--accent)"},
+            {"value":"80+","label":"Активных договоров","color":"var(--accent)"}
+          ] %}
+          <div class="kpi-mini" style="flex: 1;">
+            <div class="kpi-val" style="color: {{ m.color }};">{{ m.value }}</div>
+            <div class="kpi-lbl">{{ m.label }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="grid-4" style="margin-top: 8px;">
+          {% for m in [
+            {"value":"< 4 ч","label":"SLA пропуска","color":"var(--success)"},
+            {"value":"100%","label":"Оснащение техникой в день выхода","color":"var(--success)"},
+            {"value":"< 5 дней","label":"Закрытие авансового отчёта","color":"var(--warning)"},
+            {"value":"0","label":"Просроченных договоров","color":"var(--success)"}
+          ] %}
+          <div class="kpi-mini" style="flex: 1;">
+            <div class="kpi-val" style="color: {{ m.color }};">{{ m.value }}</div>
+            <div class="kpi-lbl">{{ m.label }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Футер -->
+  <div class="footer">
+    <span>Отдел сопровождения дирекции радиоэлектроники | Конфиденциально</span>
+    <span>{{ contacts_footer | default('📧 email@company.ru  📞 +7 (XXX) XXX-XX-XX  📍 Москва') }}</span>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<style>
+  @page {
+    size: 1280px 720px;
+    margin: 0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    width: 1280px;
+  }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    padding: 44px 48px 0 48px;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .slide:last-child { page-break-after: avoid; }
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .slide-title {
+    font-size: var(--h1);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .decor-line {
+    width: 80px;
+    height: 3px;
+    background: var(--decor-line);
+    border-radius: var(--radius-pill);
+    margin-bottom: 28px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 16px;
+    left: 48px;
+    right: 48px;
+    font-size: var(--caption);
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .flex-row { display: flex; flex-direction: row; }
+  .flex-col { display: flex; flex-direction: column; }
+  .text-center { text-align: center; }
+  .text-left { text-align: left; }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>
