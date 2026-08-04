@@ -7,10 +7,12 @@
   <link rel="stylesheet" href="theme.css">
   <style>
     .bar-fill { display: inline-block; height: 20px; border-radius: 4px; min-width: 4px; }
+    .bar-sber  { background: linear-gradient(90deg, #7ee787, #2ea043); }
     .bar-tbank { background: linear-gradient(90deg, #ffd33d, #ff9000); }
     .bar-gpb   { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
     .bar-rs    { background: linear-gradient(90deg, #ff7b72, #f85149); }
-    .bar-otp   { background: linear-gradient(90deg, #f778ba, #ff9000); }
+    .bar-psb   { background: linear-gradient(90deg, #bc8cff, #8957e5); }
+    .bar-unk   { background: linear-gradient(90deg, #8b949e, #484f58); }
     .trend-number { font-size: 28px; font-weight: 800; }
     .week-grid { display: flex; gap: 8px; flex-wrap: wrap; }
     .day-card { flex: 1; min-width: 72px; padding: 14px 10px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); text-align: center; }
@@ -32,9 +34,9 @@
   <!-- Hero -->
   <div class="hero">
     <div class="title">📊 Жалобы на банки по наследству</div>
-    <div class="meta">Сбор и верификация жалоб с banki.ru · stats-agent</div>
+    <div class="meta">Сбор и верификация жалоб с banki.ru, pikabu.ru, kurskcity.ru · stats-agent</div>
     <div class="sub" style="margin-top:8px;">
-      <span style="color:var(--green)">●</span> Верифицировано: 5&ensp;
+      <span style="color:var(--green)">●</span> Верифицировано: 10&ensp;
       <span style="color:var(--text-faint)">●</span> На проверке: 0&ensp;
       <span style="color:var(--red)">●</span> Отклонено: 0
     </div>
@@ -43,16 +45,16 @@
   <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">03.08.2026 11:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">04.08.2026 11:20 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>📆 Период сбора: <strong style="color:var(--text);">30.06 – 03.08.2026</strong></span>
-      <span>📊 Выборка: <strong style="color:var(--text);">5 жалоб</strong></span>
-      <span>🔗 Источник: <strong style="color:var(--blue);">banki.ru</strong></span>
+      <span>📆 Период выборки: <strong style="color:var(--text);">30.06 – 03.08.2026</strong></span>
+      <span>📊 Жалоб в выборке: <strong style="color:var(--text);">10</strong></span>
+      <span>🔗 Источники: <strong style="color:var(--blue);">banki.ru · pikabu.ru · kurskcity.ru</strong></span>
       <span>📁 Данные: <strong style="color:var(--text);">katya-data.json + katya-verified.json</strong></span>
     </div>
     <div class="sub-note" style="margin-top:8px;">
-      ⚠️ katya-data.json зафиксирован 03.08.2026 (generatedAt 10:55 MSK, период 27.07–03.08): в окне 7 дней 1 жалоба (ОТП Банк, 27.07) — новых с прошлого запуска (02.08) нет.<br>
-      ⚠️ katya-verified.json актуализирован: теперь 4 записи (Газпромбанк, Т-Банк ×2, Русский Стандарт, 30.06–17.07). Жалобы из отчёта от 02.08 (ВТБ, Сбер/Драйв Клик, МТС, ПСБ) в актуальной выборке отсутствуют.
+      ⚠️ katya-data.json зафиксирован 04.08.2026 (generatedAt 10:55 MSK, окно 28.07–04.08): 5 верифицированных за 7 дней (Сбербанк ×3, ПСБ, цессионный кредитор).<br>
+      ⚠️ katya-verified.json актуализирован: 10 записей (30.06–03.08). С прошлого запуска (03.08) появилась серия pikabu-историй про Сбербанк (01–03.08, сокрытие ПИФов/брокерских счетов); жалоба ОТП Банк и записи из отчёта от 02.08 в актуальной выборке отсутствуют.
     </div>
   </div>
 
@@ -60,19 +62,19 @@
   <div class="stats-row">
     <div class="stat-box">
       <div class="label">Всего жалоб</div>
-      <div class="value">5</div>
+      <div class="value">10</div>
     </div>
     <div class="stat-box">
       <div class="label">Верифицировано</div>
-      <div class="value" style="color:var(--green);">5</div>
+      <div class="value" style="color:var(--green);">10</div>
     </div>
     <div class="stat-box">
       <div class="label">Банков под жалобами</div>
-      <div class="value">4</div>
+      <div class="value">6</div>
     </div>
     <div class="stat-box">
-      <div class="label">За 7 дней (27.07–03.08)</div>
-      <div class="value" style="color:var(--orange);">1</div>
+      <div class="label">За 7 дней (28.07–04.08)</div>
+      <div class="value" style="color:var(--orange);">5</div>
     </div>
   </div>
 
@@ -92,50 +94,70 @@
         <tbody>
           <tr>
             <td><span style="color:var(--text-faint);">1</span></td>
-            <td><strong>Т-Банк</strong></td>
+            <td><strong>Сбербанк</strong></td>
             <td>
               <div class="bar-cell">
-                <span style="font-weight:700;">2</span>
-                <span class="bar-fill bar-tbank" style="width:120px;"></span>
+                <span style="font-weight:700;">4</span>
+                <span class="bar-fill bar-sber" style="width:120px;"></span>
               </div>
             </td>
             <td>40%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">2</span></td>
-            <td><strong>Газпромбанк</strong></td>
+            <td><strong>Т-Банк</strong></td>
             <td>
               <div class="bar-cell">
-                <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-gpb" style="width:60px;"></span>
+                <span style="font-weight:700;">2</span>
+                <span class="bar-fill bar-tbank" style="width:60px;"></span>
               </div>
             </td>
             <td>20%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">3</span></td>
+            <td><strong>Газпромбанк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-gpb" style="width:30px;"></span>
+              </div>
+            </td>
+            <td>10%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">4</span></td>
             <td><strong>Русский Стандарт</strong></td>
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-rs" style="width:60px;"></span>
+                <span class="bar-fill bar-rs" style="width:30px;"></span>
               </div>
             </td>
-            <td>20%</td>
+            <td>10%</td>
           </tr>
           <tr>
-            <td><span style="color:var(--text-faint);">4</span></td>
-            <td><strong>ОТП Банк</strong></td>
+            <td><span style="color:var(--text-faint);">5</span></td>
+            <td><strong>ПСБ</strong></td>
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-otp" style="width:60px;"></span>
+                <span class="bar-fill bar-psb" style="width:30px;"></span>
               </div>
             </td>
-            <td>20%</td>
+            <td>10%</td>
           </tr>
-          <tr><td>5</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
-          <tr><td>6</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">6</span></td>
+            <td><strong>не указан (новый кредитор по цессии)</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-unk" style="width:30px;"></span>
+              </div>
+            </td>
+            <td>10%</td>
+          </tr>
           <tr><td>7</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
           <tr><td>8</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
           <tr><td>9</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
@@ -144,52 +166,52 @@
       </table>
     </div>
     <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">
-      ⚠️ Т-Банк лидирует — 2 жалобы из 5 (40%), обе от вдов с несовершеннолетними детьми. Остальные банки по 1 жалобе.
+      ⚠️ Сбербанк лидирует — 4 жалобы из 10 (40%), из них 3 подряд (01–03.08) — серия pikabu-историй о сокрытии ПИФов, брокерских счетов и ИСЖ умерших. Остальные банки — по 1–2 жалобы.
     </div>
   </div>
 
   <!-- Weekly dynamics -->
   <div class="section">
-    <h2>📈 Динамика за неделю (27.07 – 03.08)</h2>
+    <h2>📈 Динамика за неделю (28.07 – 04.08)</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
-      <div class="day-card"><div class="day">Пн 27</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Вт 28</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Ср 29</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Чт 30</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Пт 31</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Сб 01</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Вс 02</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Пн 03</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Пт 31</div><div class="count count-2">2</div></div>
+      <div class="day-card"><div class="day">Сб 01</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Вс 02</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Пн 03</div><div class="count count-1">1</div></div>
+      <div class="day-card active"><div class="day">Вт 04</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
-        <div class="label">Единственная жалоба недели</div>
-        <div class="value" style="font-size:28px;">27 июля</div>
-        <div class="label">ОТП Банк — замкнутый круг со свидетельством</div>
+        <div class="label">Всего за неделю</div>
+        <div class="value" style="color:var(--orange);">5</div>
+        <div class="label">28.07–04.08, все верифицированы</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Пиковый день</div>
+        <div class="value" style="font-size:28px;">31 июля</div>
+        <div class="label">2 жалобы: ПСБ + цессионный кредитор</div>
       </div>
       <div class="stat-box">
         <div class="label">Ср. жалоб в день</div>
-        <div class="value" style="color:var(--orange);">0.13</div>
+        <div class="value" style="color:var(--orange);">0.63</div>
         <div class="label">за 8 дней наблюдения</div>
       </div>
       <div class="stat-box">
-        <div class="label">Жалоб за последние 24ч</div>
-        <div class="value" style="color:var(--text-faint);">0</div>
-        <div class="label">за 02–03.08 новых нет</div>
-      </div>
-      <div class="stat-box">
-        <div class="label">Предыдущая неделя</div>
-        <div class="value" style="color:var(--text-faint);">0</div>
-        <div class="label">20–26.07 — в katya-data нет</div>
+        <div class="label">За последние 24ч</div>
+        <div class="value" style="color:var(--green);">1</div>
+        <div class="label">03.08 — Сбербанк (банковская тайна)</div>
       </div>
     </div>
   </div>
 
   <!-- Monthly dynamics -->
   <div class="section">
-    <h2>📅 Динамика за месяц (июль 2026)</h2>
+    <h2>📅 Динамика за месяц (июль 2026 + июнь/август)</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
       <div class="day-card"><div class="day">1</div><div class="count count-0">0</div></div>
@@ -222,31 +244,48 @@
       <div class="day-card"><div class="day">28</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">29</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">30</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">31</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">31</div><div class="count count-2">2</div></div>
     </div>
-    <div class="sub-note">⚠️ В выборку также входит 1 жалоба от 30.06.2026 (Русский Стандарт) — за пределами июля. Данные katya-verified.json покрывают период с 30.06.</div>
+    <div class="sub-note">⚠️ В выборку также входят: 1 жалоба от 30.06.2026 (Русский Стандарт — проценты по кредиту умершего) и 3 жалобы 01–03.08.2026 (Сбербанк — серия про сокрытие ПИФов/брокерских счетов). Полный охват katya-verified.json: 30.06 – 03.08.2026.</div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Всего за июль</div>
-        <div class="value">4</div>
-        <div class="label">из 5 в выборке; ещё 1 — 30.06</div>
+        <div class="value">6</div>
+        <div class="label">из 10 в выборке; ещё 1 — 30.06, 3 — август</div>
       </div>
       <div class="stat-box">
         <div class="label">Пиковый день месяца</div>
-        <div class="value" style="font-size:28px;">нет</div>
-        <div class="label">по 1 жалобе: 05, 16, 17, 27.07</div>
+        <div class="value" style="font-size:28px;">31 июля</div>
+        <div class="label">2 жалобы; по 1: 05, 16, 17, 27.07</div>
       </div>
       <div class="stat-box">
         <div class="label">Ср. жалоб в день</div>
-        <div class="value" style="color:var(--orange);">0.13</div>
-        <div class="label">за 31 день</div>
+        <div class="value" style="color:var(--orange);">0.19</div>
+        <div class="label">за июль (31 день)</div>
       </div>
       <div class="stat-box">
-        <div class="label">Выходные (сб–вс)</div>
-        <div class="value" style="color:var(--green);">1</div>
-        <div class="label">05.07 (вс) — Т-Банк</div>
+        <div class="label">Август (01–03.08)</div>
+        <div class="value" style="color:var(--red);">3</div>
+        <div class="label">все — Сбербанк, все за 3 дня</div>
       </div>
+    </div>
+  </div>
+
+  <!-- Sources -->
+  <div class="section">
+    <h2>🔗 Источники жалоб</h2>
+    <div class="table-wrap">
+      <table class="striped-table">
+        <thead>
+          <tr><th>Источник</th><th>Жалоб</th><th>Доля</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>banki.ru (отзывы/ответы банков)</td><td style="font-weight:700;">6</td><td>60%</td></tr>
+          <tr><td>pikabu.ru (серия «Наследование», Сбербанк)</td><td style="font-weight:700;">3</td><td>30%</td></tr>
+          <tr><td>kurskcity.ru (региональные новости)</td><td style="font-weight:700;">1</td><td>10%</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -259,40 +298,114 @@
           <tr><th>Тема</th><th>Кол-во</th><th>Доля</th></tr>
         </thead>
         <tbody>
-          <tr><td>Отказ / волокита при выдаче или выплате наследства</td><td style="font-weight:700;">3</td><td>60%</td></tr>
-          <tr><td>Проблемы с выплатой средств наследникам</td><td style="font-weight:700;">1</td><td>20%</td></tr>
-          <tr><td>Кредитные долги умершего / рост процентов</td><td style="font-weight:700;">1</td><td>20%</td></tr>
-          <tr><td>Несовершеннолетние наследники / опека</td><td style="font-weight:700;">2</td><td>40%</td></tr>
+          <tr><td>Отказ / волокита при выдаче или выплате наследства</td><td style="font-weight:700;">5</td><td>50%</td></tr>
+          <tr><td>Сокрытие активов / инвестпродукты (ПИФы, брокерские счета, ИСЖ)</td><td style="font-weight:700;">3</td><td>30%</td></tr>
+          <tr><td>Кредитные долги умершего / взыскание через суд</td><td style="font-weight:700;">2</td><td>20%</td></tr>
+          <tr><td>Несовершеннолетние наследники / опека</td><td style="font-weight:700;">1</td><td>10%</td></tr>
+          <tr><td>СВО / погибший на СВО</td><td style="font-weight:700;">1</td><td>10%</td></tr>
         </tbody>
       </table>
     </div>
     <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
-      <span class="tag">📄 ст. 215 ГПК РФ</span>
-      <span class="tag">📄 СВО / без вести пропавший</span>
+      <span class="tag">📄 Банковская тайна</span>
+      <span class="tag">📄 ПИФы / ОПИФы</span>
+      <span class="tag">📄 Брокерские счета</span>
+      <span class="tag">📄 ИСЖ (инвестстрахование жизни)</span>
+      <span class="tag">📄 Запрос нотариуса</span>
+      <span class="tag">📄 СВО / погибший на СВО</span>
       <span class="tag">📄 Несовершеннолетние наследники</span>
-      <span class="tag">📄 Нотариус vs банк</span>
       <span class="tag">📄 Округление долей (копейки)</span>
-      <span class="tag">📄 Инвестиционный счёт</span>
-      <span class="tag">📄 Опека</span>
+      <span class="tag">📄 Цессия долга</span>
+      <span class="tag">📄 Суд / взыскание</span>
     </div>
   </div>
 
   <!-- All complaints -->
   <div class="section">
-    <h2>📋 Все жалобы</h2>
+    <h2>📋 Все жалобы (10)</h2>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-pikabu">pikabu.ru</span>
+        <span style="color:var(--text-dim);">03.08.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">Сбербанк</span>
+      </div>
+      <div class="title" style="font-size:15px;">Наследование. Продолжение: Сбер отказывает в выписках по закрытым счетам умершей (банковская тайна)</div>
+      <div class="body" style="margin-top:8px;">
+        Запросы нотариуса в депозитарий «ИНФИНИТУМ», НРД, Сбер Управление Активами, УК «Первая», ФНС и Депозитарий Сбербанка — отрицательные. Сбер готов дать выписки только по счетам, на которые есть свидетельство о праве на наследство; по закрытым до смерти счетам — отказ (банковская тайна). Автор готовит иск о раскрытии движения средств по всем счетам.
+      </div>
+      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/nasledovanie_prodolzhenie_14210486" target="_blank">↗ Читать на pikabu.ru</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-pikabu">pikabu.ru</span>
+        <span style="color:var(--text-dim);">02.08.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">Сбербанк</span>
+      </div>
+      <div class="title" style="font-size:15px;">Ответ на пост «Наследование»: Сбер скрывал брокерские счета и ПИФы умершей, деньги по ИСЖ «растворились»</div>
+      <div class="body" style="margin-top:8px;">
+        Мать умерла в марте 2023 (клиент Сбербанк Премьер). Менеджер подтверждал наличие счетов, вкладов, ПИФов и брокерских счетов, но после смерти банк утаивал активы — деньги автор «выбивал» около 2 лет. Договор ИСЖ банк расторг в одностороннем порядке без возврата взносов (~50–100 тыс. руб./год); выплату по страховому случаю получить невозможно.
+      </div>
+      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/otvet_na_post_nasledovanie_14205441" target="_blank">↗ Читать на pikabu.ru</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-pikabu">pikabu.ru</span>
+        <span style="color:var(--text-dim);">01.08.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">Сбербанк</span>
+      </div>
+      <div class="title" style="font-size:15px;">Наследование: Сбер «не нашёл» паи ПИФов умершей матери (половина накоплений)</div>
+      <div class="body" style="margin-top:8px;">
+        Мать умерла в декабре 2024; сбережения — счета и паи ПИФов, купленные через приложение и в офисе Сбера. По запросу нотариуса банк подтвердил только счета и карты (~1/2 накоплений), о паях — ничего. Дочерние инвестструктуры ответили «средств не найдено». Автор потратил 25 тыс. руб. на юристов (4 письма) — без результата.
+      </div>
+      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/nasledovanie_14203561" target="_blank">↗ Читать на pikabu.ru</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-banki">banki.ru</span>
+        <span style="color:var(--text-dim);">31.07.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">ПСБ</span>
+      </div>
+      <div class="title" style="font-size:15px;">Переводы по наследству погибшего на СВО: ПСБ не выплачивает средства со счетов отца (Набережные Челны)</div>
+      <div class="body" style="margin-top:8px;">
+        Родственница погибшего на СВО отца 17.07.2026 подала в ПСБ заявление о выдаче средств со счетов. Сотрудница 40 минут не отвечала на вопросы — ни суммы, ни сроков. Предоставлены все документы (нотариус, реквизиты, паспорт), но обещанные 3 дня прошли, деньги не переведены. Автор грозит судом за препятствование семье погибшего.
+      </div>
+      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13247063/" target="_blank">↗ Читать на banki.ru</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-other">kurskcity.ru</span>
+        <span style="color:var(--text-dim);">31.07.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">не указан (новый кредитор по цессии)</span>
+      </div>
+      <div class="title" style="font-size:15px;">Банк отказался брать деньги у курян и взыскал долг умершей матери через суд</div>
+      <div class="body" style="margin-top:8px;">
+        Жительница Суджанского района умерла в 2025, оставив долг ~50 тыс. руб. (кредит 137 тыс. под 19%, право требования перешло по цессии). Родственники хотели погасить добровольно, но банк отказался принимать платежи до свидетельства нотариуса и подал иск: 61,8 тыс. руб. взысканы с мужа и несовершеннолетнего сына, принявших наследство; дочь, отказавшаяся от наследства, освобождена.
+      </div>
+      <div style="margin-top:8px;"><a href="https://kurskcity.ru/news/citynews/279607" target="_blank">↗ Читать на kurskcity.ru</a></div>
+    </div>
 
     <div class="item">
       <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
         <span class="badge badge-banki">banki.ru</span>
         <span style="color:var(--text-dim);">27.07.2026</span>
         <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">ОТП Банк</span>
+        <span class="tag">Сбербанк</span>
       </div>
-      <div class="title" style="font-size:15px;">ОТП Банк требует свидетельство о праве на наследство, которое нотариус отказался выдавать</div>
+      <div class="title" style="font-size:15px;">Получение наследства: Сбербанк затягивает выплату, ссылаясь на «ошибку в долях» (Киров)</div>
       <div class="body" style="margin-top:8px;">
-        Умерла сестра (заемщик ОТП Банка), оставив двоих несовершеннолетних детей-наследников. Нотариус отказался выдавать свидетельство о праве на наследство из-за неразделённого имущества после развода. Отец детей — пропавший без вести на СВО. ОТП Банк требует свидетельство, но получить его невозможно: суд приостановят по ст. 215 ГПК РФ — замкнутый круг.
+        24.07.2026 наследник принёс в отделение (Киров, ул. Владимирская, 23) документы на 1/2 доли; вторая половина была выплачена неделей ранее. Ответ банка: «ошибка в указанных долях — обратитесь к нотариусу». Автор утверждает, что документы в порядке, брат уже получил свою долю: «Попользоваться чужими денежными средствами? Уже 6 мес пользуется». Оценка 4, документы прикреплены.
       </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13016792/" target="_blank">↗ Читать на banki.ru</a></div>
+      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13255533/" target="_blank">↗ Читать на banki.ru</a></div>
     </div>
 
     <div class="item">
@@ -304,7 +417,7 @@
       </div>
       <div class="title" style="font-size:15px;">Т-Банк удерживает наследство вдовы с тремя детьми из-за копеек остатка (обращение №745359761)</div>
       <div class="body" style="margin-top:8px;">
-        Вдова с тремя детьми (двое несовершеннолетних) предоставила все документы от нотариуса. Банк отказывается выплачивать деньги, требуя «Соглашение о разделе имущества»: рублёвый остаток на инвестиционном счёте не делится ровно на 4 наследников без копеек. Сотрудники 5 раз подтверждали, что пакет в порядке, но заявление об отказе от неделимых копеек игнорируют. Нотариус в шоке от правовой безграмотности банка.
+        Вдова с тремя детьми (двое несовершеннолетних) предоставила все документы от нотариуса. Банк отказывается выплачивать деньги, требуя «Соглашение о разделе имущества»: рублёвый остаток на инвестиционном счёте не делится ровно на 4 наследников без копеек. Сотрудники 5 раз подтверждали, что пакет в порядке, но заявление об отказе от неделимых копеек игнорируют. Нотариус в шоке от правовой безграмотности банка. Официальный срок рассмотрения истёк 3 июня.
       </div>
       <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13140069/" target="_blank">↗ Читать на banki.ru</a></div>
     </div>
@@ -318,7 +431,7 @@
       </div>
       <div class="title" style="font-size:15px;">Банк отказывается выдавать наследство!! (Газпромбанк, Владивосток)</div>
       <div class="body" style="margin-top:8px;">
-        В отделении Газпромбанка (Владивосток, ул. Русская 37А) клиенту отказались выдать законное наследство, несмотря на паспорт и свидетельство о праве на наследство по закону. Автор намерен жаловаться в Центральный банк и Роспотребнадзор, требует проверки. Комментарий модератора от 28.07.2026.
+        В отделении Газпромбанка (Владивосток, ул. Русская 37А) клиенту отказались выдать законное наследство, несмотря на паспорт и свидетельство о праве на наследство по закону. Автор намерен жаловаться в Центральный банк и Роспотребнадзор, требует проверки. Оценка 1, отзыв проверен, комментарий модератора от 28.07.2026.
       </div>
       <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13229108/" target="_blank">↗ Читать на banki.ru</a></div>
     </div>
@@ -359,16 +472,21 @@
       <div class="stat-box" style="flex:2;">
         <div class="label">🔴 Главная проблема</div>
         <div style="font-size:15px;font-weight:600;margin-top:6px;">
-          Банки отказывают в выплате/оформлении наследства или ставят невыполнимые условия
+          Банки отказывают/затягивают выплату наследства или скрывают активы умерших
         </div>
         <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">
-          4 из 5 жалоб (80%) — отказы / волокита / барьеры при выдаче наследства
+          8 из 10 жалоб (80%) — отказы, волокита и сокрытие активов при выдаче наследства
         </div>
       </div>
       <div class="stat-box">
-        <div class="label">⚡ Частая тема</div>
-        <div style="font-size:15px;font-weight:600;margin-top:6px;">Вдовы и несовершеннолетние</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">3 из 5 жалоб — наследники-дети, опека, СВО</div>
+        <div class="label">⚡ Новая серия</div>
+        <div style="font-size:15px;font-weight:600;margin-top:6px;">Сбербанк и инвестпродукты</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">3 pikabu-истории (01–03.08): ПИФы, брокерские счета, ИСЖ, банковская тайна</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">🕊 Уязвимые категории</div>
+        <div style="font-size:15px;font-weight:600;margin-top:6px;">Вдовы, дети, СВО</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Т-Банк (вдова, 3 детей), ПСБ (семья погибшего на СВО), несовершеннолетний наследник (цессия)</div>
       </div>
     </div>
   </div>
@@ -376,8 +494,8 @@
   <!-- Footer -->
   <div class="footer">
     <strong>stats-agent</strong> · nasledstvo.net.ru<br>
-    Генерация: 03.08.2026 11:20 MSK · deepseek/deepseek-v4-flash<br>
-    Данные: katya-data.json (1 запись, 27.07–03.08) + katya-verified.json (4 верифицированные, 30.06–17.07)<br>
+    Генерация: 04.08.2026 11:20 MSK · deepseek/deepseek-v4-flash<br>
+    Данные: katya-data.json (5 записей, 28.07–04.08) + katya-verified.json (10 верифицированных, 30.06–03.08)<br>
     <a href="https://nasledstvo2026.github.io/nasledstvo/" target="_blank">nasledstvo2026.github.io/nasledstvo</a>
   </div>
 
