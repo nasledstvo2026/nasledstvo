@@ -6,102 +6,185 @@
   <title>Цифровые продукты — nasledstvo2026.github.io</title>
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ═══════════════════════════════════════════════
+       CSS Particles — перенесено с aidj.html
+       ═══════════════════════════════════════════════ */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255, 80, 80, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 144, 0, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .bg-glow {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(255, 80, 80, 0.07), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate;
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      right: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(188, 140, 255, 0.06), transparent 60%);
+      animation: glow-drift 12s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes glow-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 5%) scale(1.1); }
+    }
+    .particles {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #ff5050;
+      border-radius: 50%;
+      opacity: 0;
+      animation: particle-float 8s infinite;
+      box-shadow: 0 0 6px #ff5050;
+    }
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+    .particle:nth-child(2) { left: 25%; animation-delay: 1.2s; animation-duration: 9s; width: 2px; height: 2px; background: #ff9000; box-shadow: 0 0 6px #ff9000; }
+    .particle:nth-child(3) { left: 40%; animation-delay: 2.5s; animation-duration: 6s; background: #bc8cff; box-shadow: 0 0 6px #bc8cff; }
+    .particle:nth-child(4) { left: 55%; animation-delay: 0.8s; animation-duration: 8s; width: 4px; height: 4px; }
+    .particle:nth-child(5) { left: 70%; animation-delay: 3.1s; animation-duration: 7.5s; background: #ff9000; box-shadow: 0 0 6px #ff9000; }
+    .particle:nth-child(6) { left: 85%; animation-delay: 1.8s; animation-duration: 9.5s; width: 2px; height: 2px; }
+    .particle:nth-child(7) { left: 50%; animation-delay: 4.2s; animation-duration: 6.5s; background: #bc8cff; box-shadow: 0 0 6px #bc8cff; }
+    .particle:nth-child(8) { left: 15%; animation-delay: 5.0s; animation-duration: 8.2s; width: 3px; height: 3px; }
+    .particle:nth-child(9) { left: 65%; animation-delay: 3.8s; animation-duration: 7.2s; }
+    .particle:nth-child(10) { left: 35%; animation-delay: 6.0s; animation-duration: 8.8s; background: #ff9000; box-shadow: 0 0 6px #ff9000; }
+    .particle:nth-child(11) { left: 5%; animation-delay: 0.5s; animation-duration: 9.2s; width: 2px; height: 2px; }
+    .particle:nth-child(12) { left: 75%; animation-delay: 2.2s; animation-duration: 7.8s; background: #bc8cff; box-shadow: 0 0 6px #bc8cff; }
+    .particle:nth-child(13) { left: 90%; animation-delay: 4.8s; animation-duration: 6.2s; }
+    .particle:nth-child(14) { left: 30%; animation-delay: 5.5s; animation-duration: 8.5s; width: 3px; height: 3px; }
+    .particle:nth-child(15) { left: 45%; animation-delay: 1.5s; animation-duration: 7.0s; background: #ff9000; box-shadow: 0 0 6px #ff9000; }
+    @keyframes particle-float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+    .container { position: relative; z-index: 2; }
+    .hero { text-align: center; margin-bottom: 40px; }
+    .hero h1 {
+      font-size: 38px; font-weight: 800; letter-spacing: -1px; margin: 0 0 16px 4px; padding: 0;
+      color: transparent;
+      background: linear-gradient(90deg,#ff5050,#ff9000,#bc8cff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: 16px; color: rgba(255,255,255,0.6); margin-top: 8px; line-height: 1.5;
+    }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+    .card.aura { min-height: 200px; display: flex; flex-direction: column; justify-content: center; }
+    .card.aura .desc { font-size: 14px; color: rgba(255,255,255,0.55); margin-top: 4px; line-height: 1.5; padding: 0 20px 16px; }
+    .card.aura a { text-decoration: none; color: inherit; display: block; padding: 20px 20px 0; }
+    a.card-link { text-decoration: none; }
+    .card.aura.clickable { cursor: pointer; }
+    @media (max-width: 768px) { .cards { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
+  <!-- Animated Background (aidj-style) -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="particles">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  </div>
+
 <div class="container">
 
-  <div class="hero">
-    <h1 class="hero-title-serif">ЦИФРОВЫЕ ПРОДУКТЫ</h1>
+<div class="hero">
+  <h1>ЦИФРОВЫЕ ПРОДУКТЫ</h1>
+  <p class="hero-subtitle">Экосистема цифровых продуктов</p>
+</div>
+
+<div class="cards" style="max-width:900px;margin:0 auto;">
+
+  <!-- О сервисах -->
+  <a href="products.html" class="card-link">
+    <div class="card red aura">
+      <div class="card-header"><div class="card-header-row"><h2>О сервисах…</h2></div></div>
+      <div class="desc">Обзор всех продуктов экосистемы: мониторинг, аналитика, AI-ассистенты, креативные сервисы.</div>
+    </div>
+  </a>
+
+  <!-- Сбер -->
+  <a href="dashboards.html" class="card-link">
+    <div class="card orange aura">
+      <div class="card-header"><div class="card-header-row"><h2>Дашборды</h2></div></div>
+      <div class="desc">Цифровые сервисы Сбера: наследство, соцконсультант, БТ, планирование.</div>
+    </div>
+  </a>
+
+  <!-- Внешние консультанты -->
+  <a href="cons_out.html" class="card-link">
+    <div class="card cyan aura">
+      <div class="card-header"><div class="card-header-row"><h2>Внешние цифровые консультанты</h2></div></div>
+      <div class="desc">Специалисты и эксперты, привлечённые для решения задач экосистемы.</div>
+    </div>
+  </a>
+
+  <!-- Сервисы -->
+  <a href="service.html" class="card-link">
+    <div class="card cyan aura">
+      <div class="card-header"><div class="card-header-row"><h2>Сервисы</h2></div></div>
+      <div class="desc">Внутренние сервисы и инструменты экосистемы.</div>
+    </div>
+  </a>
+
+  <!-- AI DJ -->
+  <a href="https://nasledstvo2026.github.io/nasledstvo/aidj.html" class="card-link">
+    <div class="card purple aura">
+      <div class="card-header"><div class="card-header-row"><h2>AI DJ</h2></div></div>
+      <div class="desc">ИИ-диджей: BPM/Key детекция, beat-synced кроссфейды. 100+ треков, веб-плеер с Club EQ.</div>
+    </div>
+  </a>
+
+  <!-- Фото -->
+  <a href="https://nasledstvo2026.github.io/nasledstvo/photo.html" class="card-link">
+    <div class="card pink aura">
+      <div class="card-header"><div class="card-header-row"><h2>Фото</h2></div></div>
+      <div class="desc">Каталог креативных фото-проектов.</div>
+    </div>
+  </a>
+
+  <!-- AURA -->
+  <div class="card orange aura clickable" onclick="openAuraModal()">
+    <div class="card-header"><div class="card-header-row"><h2>AURA</h2></div></div>
+    <div class="desc">Девочки не плачут. Девочки выбирают, кто сегодня платит.</div>
   </div>
 
-  <div class="cards" style="max-width:900px;margin:0 auto;gap:150px;">
-
-    <!-- Продукты (описание) -->
-    <a href="products.html">
-      <div class="card red aura bg-image products">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>Описание продуктов</h2>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <!-- Сбер -->
-    <a href="sber.html">
-      <div class="card orange aura bg-image sber">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>Сбер</h2>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <!-- Сервисы -->
-    <a href="service.html">
-      <div class="card cyan bg-image">
-      </div>
-    </a>
-
-    <!-- AI DJ -->
-    <a href="https://nasledstvo2026.github.io/nasledstvo/aidj.html">
-      <div class="card purple bg-image">
-      </div>
-    </a>
-
-    <!-- Фото -->
-    <a href="https://nasledstvo2026.github.io/nasledstvo/photo.html">
-      <div class="card pink bg-image">
-      </div>
-    </a>
-
-    <!-- MedHelp -->
-    <a href="medhelp.html">
-      <div class="card green aura bg-image medhelp">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>MedHelp</h2>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <!-- Создать БТ -->
-    <a href="bt.html">
-      <div class="card orange aura bg-image">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>Создать БТ</h2>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <!-- AURA -->
-    <div class="card orange aura bg-image" onclick="openAuraModal()">
-      <div class="card-header">
-        <div class="card-header-row">
-          <h2>AURA</h2>
-        </div>
-      </div>
-    </div>
-
-    <!-- 44-ФЗ / 223-ФЗ → ФармТендер -->
-    <div class="card purple aura bg-image">
-      <a href="zakupki.html">
-        <div class="card-header">
-          <div class="card-header-row">
-            <h2>ФармТендер</h2>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- OSINT: удалена 04.07 -->
-
-  </div>
+</div>
 
   <div class="section" style="max-width:900px;margin:0 auto;padding:0 24px;">
     <h2>🔥 Феникс — AI-консультант по 425-ФЗ</h2>
@@ -131,14 +214,13 @@
     </a>
   </div>
 
-  <div class="footer">
-    <span class="tech" data-openclaw="OpenClaw 2026.6.9" data-llm="deepseek/deepseek-v4-flash" data-updated="1782924355"></span>
-  </div>
+<div class="footer">
+  <span class="tech">Экосистема продуктов · Июль 2026</span>
+</div>
 
 </div>
 <script>
 function openAuraModal() {
-  // Create overlay
   var overlay = document.createElement('div');
   overlay.id = 'auraOverlay';
   overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;';
@@ -148,32 +230,20 @@ function openAuraModal() {
       document.body.style.overflow = '';
     }
   };
-
-  // Create modal
   var modal = document.createElement('div');
   modal.style.cssText = 'background:linear-gradient(145deg,rgba(30,30,50,0.95),rgba(10,10,20,0.98));border:1.5px solid rgba(255,144,0,0.4);border-radius:20px;padding:48px 40px 40px;max-width:480px;width:90%;text-align:center;box-shadow:0 0 60px rgba(255,144,0,0.15);position:relative;';
-
-  // Title
   var title = document.createElement('div');
   title.textContent = 'A U R A';
   title.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:42px;font-weight:700;letter-spacing:14px;text-transform:uppercase;color:#ff9000;text-shadow:0 0 30px rgba(255,144,0,0.3);margin-bottom:24px;';
-
-  // Subtitle
   var sub = document.createElement('div');
   sub.textContent = 'Девочки не плачут. Девочки выбирают, кто сегодня платит.';
   sub.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:20px;';
-
-  // Body
   var body = document.createElement('div');
   body.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;';
   body.innerHTML = '🔒 Доступ в систему строго ограничен. Пожалуйста, введи свой персональный';
-
-  // VIP PASS label
   var passLabel = document.createElement('div');
   passLabel.textContent = 'VIP PASS';
   passLabel.style.cssText = 'font-family:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;font-size:16px;font-weight:700;color:#ff9000;letter-spacing:6px;text-transform:uppercase;margin-top:16px;margin-bottom:14px;text-shadow:0 0 20px rgba(255,144,0,0.25);';
-
-  // Input
   var input = document.createElement('input');
   input.type = 'text';
   input.maxLength = 5;
@@ -183,7 +253,6 @@ function openAuraModal() {
   input.onblur = function() { this.style.borderColor = 'rgba(255,144,0,0.3)'; };
   input.oninput = function() {
     if (this.value.length === 5) {
-      // Hide input, show message
       passLabel.style.display = 'none';
       this.style.display = 'none';
       var result = document.createElement('div');
@@ -192,7 +261,6 @@ function openAuraModal() {
       modal.appendChild(result);
     }
   };
-
   modal.appendChild(title);
   modal.appendChild(sub);
   modal.appendChild(body);
@@ -206,4 +274,3 @@ function openAuraModal() {
 
 </body>
 </html>
-
