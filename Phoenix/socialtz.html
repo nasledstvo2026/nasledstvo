@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ТЗ: Социальный консультант на Фениксе</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d2e;
+    --border: #2a2d3e;
+    --text: #e1e1e6;
+    --text-secondary: #a0a0b0;
+    --accent: #7c5cfc;
+    --accent-glow: rgba(124,92,252,0.15);
+    --green: #2ea44f;
+    --red: #f85149;
+    --yellow: #d2991d;
+    --code-bg: #161822;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  header {
+    background: linear-gradient(135deg, var(--card), #1e1f3a);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 0;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .meta-card {
+    display: inline-flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .meta-card span { display: flex; align-items: center; gap: 0.4rem; }
+  .status-badge {
+    background: rgba(210,153,29,0.15);
+    color: var(--yellow);
+    padding: 0.15rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+  }
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.8rem;
+    color: #c4b5fd;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1rem 0 0.5rem;
+    color: var(--text);
+  }
+  p { margin: 0.6rem 0; }
+  ul, ol { padding-left: 1.5rem; margin: 0.6rem 0; }
+  li { margin: 0.3rem 0; }
+  strong { color: #fff; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  th {
+    background: var(--code-bg);
+    font-weight: 600;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+  }
+  code {
+    background: var(--code-bg);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+  }
+  .constraint-list li::marker { color: var(--red); }
+  .req-list { list-style: none; padding: 0; }
+  .req-item {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0.5rem;
+  }
+  .req-item:last-child { border-bottom: none; }
+  .req-num {
+    color: var(--accent);
+    font-weight: 600;
+    min-width: 2rem;
+  }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .checklist li::before {
+    content: "☐";
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+  }
+  .context-block {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin: 1rem 0;
+  }
+  .flow-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 0.85rem;
+    margin: 0.8rem 0;
+    white-space: pre-wrap;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+  @media (max-width: 640px) {
+    .container { padding: 1rem; }
+    section { padding: 1.2rem; margin: 1rem 0; }
+    header h1 { font-size: 1.4rem; }
+    .meta-card { flex-direction: column; gap: 0.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>📋 ТЗ: Социальный консультант на Фениксе</h1>
+    <div class="meta-card">
+      <span>👤 <strong>Автор:</strong> ИИ-Аналитик DeepSeek v4</span>
+      <span class="status-badge">⏳ Ожидает согласования</span>
+      <span>📅 <strong>Дата:</strong> 2026-08-05</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- 1. Контекст -->
+<section>
+  <h2>1. Контекст задачи</h2>
+
+  <p>Создать на OpenClaw-инстансе «Феникс» (<code>213.171.25.85</code>) агента «Социальный консультант» для автоматического консультирования по вопросам социальной поддержки в РФ.</p>
+
+  <div class="context-block">
+    <p><strong>Целевая аудитория:</strong> Ирина (@irina_mltsva, Telegram ID: 739016616). Чат прямой, существующий канал с Фениксом. Новый бот/канал не создавать.</p>
+    <p><strong>Предметная область:</strong> инвалидность, ВБД, СВО, выплаты, льготы, региональные меры поддержки.</p>
+  </div>
+
+  <h3>Описание предметной области</h3>
+  <p><strong>Мера социальной поддержки</strong> — установленная законом или иным нормативным актом форма помощи государства гражданам определённых категорий. Мера может быть выражена в деньгах, льготах, услугах или натуральной помощи.</p>
+
+  <h4>Уровни законодательства</h4>
+  <p>Меры поддержки устанавливаются на трёх уровнях: федеральный, региональный, муниципальный. Для целей агента анализируются первые два:</p>
+  <table>
+    <tr><th>Уровень</th><th>Кто устанавливает</th><th>Пример документа</th><th>Действие</th></tr>
+    <tr><td>Федеральный</td><td>Президент РФ, Правительство РФ, Федеральное Собрание</td><td>5-ФЗ «О ветеранах», 181-ФЗ «О социальной защите инвалидов»</td><td>На всей территории РФ</td></tr>
+    <tr><td>Региональный (на примере Москвы)</td><td>Мэр Москвы, Правительство Москвы, Мосгордума</td><td>Закон г. Москвы № 70, Указы Мэра, Постановления Правительства Москвы</td><td>Только в Москве</td></tr>
+  </table>
+  <p>Обработке подлежат: федеральные законы, указы Президента, постановления Правительства, приказы ведомств, региональные законы и постановления, регламенты.</p>
+
+  <h4>Особенности категорий</h4>
+
+  <p><strong>1. Ветераны боевых действий (ВБД)</strong></p>
+  <p>Базовый документ: статья 3 Федерального закона от 12.01.1995 № 5-ФЗ «О ветеранах». Меры поддержки зависят от категории ветерана. В соответствии со статьёй 16 5-ФЗ выделяют:</p>
+  <p><em>Категория 1</em> — лица, указанные в подпунктах 1–4, 8 пункта 1 статьи 3 5-ФЗ:</p>
+  <ul>
+    <li>Сотрудники госбезопасности, ОВД, Минобороны, ФСБ, Нацгвардии, Следственного комитета, прокуратуры, противопожарной службы, УИС</li>
+    <li>Участники разминирования территорий в 1945–1951</li>
+    <li>Участники отражения нападения на Дагестан в 1999 году в составе отрядов самообороны</li>
+    <li>Добровольцы, участвующие в СВО</li>
+    <li>Участники военных операций в Афганистане</li>
+    <li>Участники военных операций на территории ДНР и ЛНР с 11 мая 2014 года</li>
+    <li>Лица, заключившие контракт с ЧВК, содействующими ВС РФ в ходе СВО</li>
+  </ul>
+  <p><em>Категория 2</em> — лица, указанные в подпункте 5 пункта 1 статьи 3 5-ФЗ:</p>
+  <ul>
+    <li>Гражданский персонал воинских частей ВС СССР и ВС РФ на территориях других государств в период ведения боевых действий, получившие ранение либо удостоенные наград</li>
+  </ul>
+  <p><em>Категория 3</em> — лица, указанные в подпунктах 6, 7 и 9 пункта 1 статьи 3 5-ФЗ:</p>
+  <ul>
+    <li>Лица, не состоящие на военной службе, но направленные для выполнения профессиональных задач в зону боевых действий и отработавшие установленный срок либо откомандированные досрочно по уважительной причине</li>
+  </ul>
+
+  <p><strong>2. Люди с инвалидностью</strong></p>
+  <p>Базовый документ: Федеральный закон № 181-ФЗ «О социальной защите инвалидов». Меры различаются по группам инвалидности (I, II, III), есть специфические меры для детей-инвалидов и меры, зависящие от причины инвалидности.</p>
+
+  <p><strong>3. Участники СВО и члены их семей</strong></p>
+  <p>Базовый пакет: Указы Президента РФ, федеральные законы о статусе военнослужащих. Меры постоянно меняются, часть мер адресована семьям, а не самим участникам.</p>
+
+  <h4>Источники информации (в порядке убывания приоритета)</h4>
+  <ol>
+    <li><a href="https://www.garant.ru/">garant.ru</a> — справочно-правовая система, актуальные редакции НПА</li>
+    <li><a href="https://docs.cntd.ru/">docs.cntd.ru</a> — электронный фонд нормативно-технической и правовой информации</li>
+    <li><a href="https://www.consultant.ru/">consultant.ru</a> — справочно-правовая система, обзоры изменений законодательства</li>
+    <li><a href="https://sfr.gov.ru/">sfr.gov.ru</a> — официальный сайт Социального фонда России</li>
+    <li>Официальные сайты правительств регионов, региональных департаментов труда и социальной защиты населения</li>
+    <li><a href="https://www.nalog.gov.ru/">nalog.gov.ru</a> — сайт Федеральной налоговой службы (налоговые льготы)</li>
+  </ol>
+
+  <h3>Архитектурный подход</h3>
+  <p><strong>Stateless isolation</strong> через <code>sessions_spawn</code> (как у fz425-agent). Без RAG — трёхуровневая модель поиска (категоризация → файлы БЗ → web).</p>
+
+  <h4>Flow запроса</h4>
+  <div class="flow-block">Ирина (Telegram) → Gateway Феникса → main (курьер)
+  → распознавание sender ID
+  → sessions_spawn("social-consult-agent", isolated, stateless)
+  → категоризация + чтение БЗ
+  → sessions_send("social-verify-agent")
+  → верифицированный ответ → Ирине</div>
+
+  <h4>Связь с существующей архитектурой Феникса</h4>
+  <ul>
+    <li>✅ <strong>Уже есть и НЕ трогаем:</strong> fz425-agent + fz425-verifier, safe-restart.sh, main-агент</li>
+    <li>🆕 <strong>Добавляем:</strong> social-consult-agent (рядом с fz425-agent), social-verify-agent (рядом с fz425-verifier), биндинг Ирины в main</li>
+    <li>⚠️ Конфликты не ожидаются — агенты изолированы по workspace и trigger</li>
+  </ul>
+
+  <h4>Зависимости от Лунтика (vm-f13581)</h4>
+  <ul>
+    <li><code>~/.openclaw/workspace/skills/social-category-matcher/SKILL.md</code></li>
+    <li><code>~/.openclaw/workspace/skills/social-verifier-protocol/SKILL.md</code></li>
+  </ul>
+  <p>Предоставляются через SSH или прямым копированием.</p>
+</section>
+
+<!-- 2. Функциональные требования -->
+<section>
+  <h2>2. Функциональные требования</h2>
+  <p><strong>Всего требований: 50</strong></p>
+
+  <h3>Этап 1. Подготовка инфраструктуры (Феникс)</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">1.</span> Создать workspace <code>/home/user1/phoenix/social-consult-agent/</code></li>
+    <li class="req-item"><span class="req-num">2.</span> Скопировать с Лунтика скилл <code>social-category-matcher</code> в skills Феникса</li>
+    <li class="req-item"><span class="req-num">3.</span> Скопировать с Лунтика скилл <code>social-verifier-protocol</code> в skills Феникса</li>
+    <li class="req-item"><span class="req-num">4.</span> Создать структуру <code>knowledge/</code> с начальными файлами БЗ</li>
+    <li class="req-item"><span class="req-num">5.</span> Создать <code>SKILL.md</code> для social-consult-agent</li>
+  </ul>
+
+  <h3>Этап 2. Конфигурация агентов (Феникс)</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">6.</span> Добавить <code>social-consult-agent</code> в agents.list openclaw.json</li>
+    <li class="req-item"><span class="req-num">7.</span> Добавить <code>social-verify-agent</code> в agents.list openclaw.json</li>
+    <li class="req-item"><span class="req-num">8.</span> Обновить <code>main.subagents.allowAgents</code> — добавить social-consult-agent</li>
+    <li class="req-item"><span class="req-num">9.</span> Обновить <code>agentToAgent.allow</code> — добавить social-consult-agent и social-verify-agent</li>
+    <li class="req-item"><span class="req-num">10.</span> Обновить биндинги main: sender_id=739016616 → sessions_spawn("social-consult-agent")</li>
+  </ul>
+
+  <h3>Этап 3. Наполнение базы знаний (Феникс)</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">11.</span> Заполнить <code>federal-law.md</code> — основные статьи 181-ФЗ, 5-ФЗ и др.</li>
+    <li class="req-item"><span class="req-num">12.</span> Заполнить <code>payments-table.md</code> — актуальные размеры выплат на 2026 год</li>
+    <li class="req-item"><span class="req-num">13.</span> Заполнить <code>categories.md</code> — категории граждан и их права</li>
+    <li class="req-item"><span class="req-num">14.</span> Заполнить <code>svo-decrees.md</code> — указы и НПА по СВО</li>
+    <li class="req-item"><span class="req-num">15.</span> Заполнить <code>terms.md</code> — глоссарий</li>
+    <li class="req-item"><span class="req-num">16.</span> Создать пустой <code>social-npa-db.json</code> для cron-обновлений</li>
+  </ul>
+
+  <h3>Этап 4. Тестирование (Феникс → Лунтик)</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">17.</span> Тест 1 — «Какие выплаты положены инвалиду II группы?»</li>
+    <li class="req-item"><span class="req-num">18.</span> Тест 2 — «Льготы для ветерана боевых действий»</li>
+    <li class="req-item"><span class="req-num">19.</span> Тест 3 — «Выплаты семье мобилизованного»</li>
+    <li class="req-item"><span class="req-num">20.</span> Тест 4 — запрос не по теме (вежливый отказ)</li>
+    <li class="req-item"><span class="req-num">21.</span> Тест 5 — запрос на стыке категорий</li>
+  </ul>
+
+  <h3>Этап 5. Приёмка (Лунтик)</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">22.</span> Проверить корректность категоризации (≥ 4/5 тестов)</li>
+    <li class="req-item"><span class="req-num">23.</span> Проверить stateless isolation</li>
+    <li class="req-item"><span class="req-num">24.</span> Проверить верификацию (все факты с вердиктом)</li>
+    <li class="req-item"><span class="req-num">25.</span> Проверить наличие ссылок на НПА (100%)</li>
+    <li class="req-item"><span class="req-num">26.</span> Предоставить отчёт Кириллу</li>
+  </ul>
+
+  <h3>Основная задача social-consult-agent</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">27.</span> Содержать в актуальном состоянии исчерпывающий перечень мер соцподдержки для трёх категорий (инвалидность, ВБД, СВО) на основе НПА и официальных источников</li>
+  </ul>
+
+  <h3>Подзадача 1. Поиск нормативных документов</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">28.</span> Поиск нормативных документов на федеральном и региональном уровне</li>
+    <li class="req-item"><span class="req-num">29.</span> Источники: garant.ru, consultant.ru, docs.cntd.ru, sfr.gov.ru, publication.pravo.gov.ru</li>
+    <li class="req-item"><span class="req-num">30.</span> Охватывать действующие НПА, проекты и анонсы изменений</li>
+  </ul>
+
+  <h3>Подзадача 2. Анализ и структурирование</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">31.</span> Извлекать информацию в структурированном формате (категория, вид поддержки, размер, условия, НПА-основание, срок)</li>
+    <li class="req-item"><span class="req-num">32.</span> Переводить нормативный язык на общедоступный, сохраняя точность и ссылки</li>
+  </ul>
+
+  <h3>Подзадача 3. Актуализация</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">33.</span> Проверять информацию на актуальность перед каждым ответом</li>
+    <li class="req-item"><span class="req-num">34.</span> Ежегодно обновлять размеры выплат при индексации</li>
+    <li class="req-item"><span class="req-num">35.</span> Отслеживать изменения в законодательстве и отражать их в БЗ</li>
+  </ul>
+
+  <h3>Логика обработки запроса</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">36.</span> Принимать вопрос Ирины через sessions_spawn от main</li>
+    <li class="req-item"><span class="req-num">37.</span> Категоризировать вопрос через social-category-matcher</li>
+    <li class="req-item"><span class="req-num">38.</span> Читать релевантные файлы БЗ</li>
+    <li class="req-item"><span class="req-num">39.</span> Для кросс-категорийных вопросов — читать несколько файлов</li>
+    <li class="req-item"><span class="req-num">40.</span> Web-поиск если в БЗ нет ответа</li>
+    <li class="req-item"><span class="req-num">41.</span> Верифицировать результаты web-поиска</li>
+    <li class="req-item"><span class="req-num">42.</span> Формировать черновик со ссылками на статьи НПА</li>
+    <li class="req-item"><span class="req-num">43.</span> Отправлять факты на верификацию в social-verify-agent</li>
+    <li class="req-item"><span class="req-num">44.</span> После вердикта — отправлять ответ Ирине</li>
+    <li class="req-item"><span class="req-num">45.</span> Суммы выплат с датой актуальности</li>
+    <li class="req-item"><span class="req-num">46.</span> Нет точных данных — «требует уточнения»</li>
+  </ul>
+
+  <h3>Логика работы social-verify-agent</h3>
+  <ul class="req-list">
+    <li class="req-item"><span class="req-num">47.</span> Принимать факты через sessions_send</li>
+    <li class="req-item"><span class="req-num">48.</span> Проверять факты: garant.ru → docs.cntd.ru → consultant.ru → sfr.gov.ru</li>
+    <li class="req-item"><span class="req-num">49.</span> Вердикт: ✅ подтверждено / ❌ опровергнуто / 🔄 уточнено / ❓ не проверено</li>
+    <li class="req-item"><span class="req-num">50.</span> Следовать протоколу social-verifier-protocol</li>
+  </ul>
+</section>
+
+<!-- 3. Ограничения -->
+<section>
+  <h2>3. Ограничения и правила</h2>
+  <ol class="constraint-list">
+    <li>НЕ трогать fz425-agent и fz425-verifier — работают штатно</li>
+    <li>НЕ консультировать по темам вне соцподдержки — вежливый отказ</li>
+    <li>НЕ додумывать данные — «требует уточнения»</li>
+    <li>НЕ создавать новый Telegram-канал/бот</li>
+    <li>НЕ использовать RAG / embedding-поиск (отдельное ТЗ)</li>
+    <li>НЕ внедрять ежедневный cron для БЗ в этом ТЗ (следующая итерация)</li>
+    <li>НЕ интегрировать Розу (вторая итерация)</li>
+    <li>Каждый запрос — чистый sessions_spawn isolated с cleanup=delete</li>
+    <li>main НЕ консультирует — только маршрутизирует</li>
+    <li>Время ответа ≤ 30 секунд</li>
+    <li>100% фактов проходят верификацию перед отправкой</li>
+    <li>100% ответов содержат ссылки на статьи НПА</li>
+    <li>Конфигурацию Феникса править через SSH, не через TUI</li>
+    <li>Перезапуск Феникса — только через safe-restart.sh</li>
+  </ol>
+</section>
+
+<!-- 4. Критерии приемки -->
+<section>
+  <h2>4. Критерии приёмки</h2>
+  <ul class="checklist">
+    <li><strong>Тест 1:</strong> «Какие выплаты положены инвалиду II группы?» — категоризация, точные суммы с датой, ссылки на НПА</li>
+    <li><strong>Тест 2:</strong> «Льготы для ветерана боевых действий» — категоризация, перечень льгот, ссылки на 5-ФЗ</li>
+    <li><strong>Тест 3:</strong> «Выплаты семье мобилизованного» — категоризация СВО, ссылки на указы</li>
+    <li><strong>Тест 4:</strong> Запрос не по теме — вежливый отказ без консультации</li>
+    <li><strong>Тест 5:</strong> Запрос на стыке категорий — чтение нескольких файлов БЗ, корректный ответ</li>
+    <li><strong>Stateless isolation:</strong> два последовательных запроса — контекст не накапливается</li>
+    <li>100% ответов содержат ссылки на статьи НПА</li>
+    <li>100% фактов проходят верификацию перед отправкой</li>
+    <li>Время ответа ≤ 30 секунд</li>
+    <li>Все 5 тестов пройдены (категоризация ≥ 4/5)</li>
+  </ul>
+</section>
+
+</div>
+
+<footer>
+  ТЗ v1.0 · 2026-08-05 · Лунтик 🦞 · <a href="https://nasledstvo2026.github.io/nasledstvo/">nasledstvo2026.github.io</a>
+</footer>
+
+</body>
+</html>
