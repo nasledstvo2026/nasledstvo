@@ -275,12 +275,8 @@
     <li>⚠️ Конфликты не ожидаются — агенты изолированы по workspace и trigger</li>
   </ul>
 
-  <h4>Зависимости от Лунтика (vm-f13581)</h4>
-  <ul>
-    <li><code>~/.openclaw/workspace/skills/social-category-matcher/SKILL.md</code></li>
-    <li><code>~/.openclaw/workspace/skills/social-verifier-protocol/SKILL.md</code></li>
-  </ul>
-  <p>Предоставляются через SSH или прямым копированием.</p>
+  <h4>Автономность</h4>
+  <p><strong>Феникс не зависит от Лунтика в runtime.</strong> Все скиллы и БЗ создаются и хранятся локально на Фениксе.</p>
 </section>
 
 <!-- 2. Функциональные требования -->
@@ -291,8 +287,8 @@
   <h3>Этап 1. Подготовка инфраструктуры (Феникс)</h3>
   <ul class="req-list">
     <li class="req-item"><span class="req-num">1.</span> Создать workspace <code>/home/user1/phoenix/social-consult-agent/</code></li>
-    <li class="req-item"><span class="req-num">2.</span> Скопировать с Лунтика скилл <code>social-category-matcher</code> в skills Феникса</li>
-    <li class="req-item"><span class="req-num">3.</span> Скопировать с Лунтика скилл <code>social-verifier-protocol</code> в skills Феникса</li>
+    <li class="req-item"><span class="req-num">2.</span> Создать скилл <code>social-category-matcher</code> в skills Феникса (логика категоризации: инвалидность / ВБД / СВО / не тема)</li>
+    <li class="req-item"><span class="req-num">3.</span> Создать скилл <code>social-verifier-protocol</code> в skills Феникса (формат запроса → проверка → вердикт)</li>
     <li class="req-item"><span class="req-num">4.</span> Создать структуру <code>knowledge/</code> с начальными файлами БЗ</li>
     <li class="req-item"><span class="req-num">5.</span> Создать <code>SKILL.md</code> для social-consult-agent</li>
   </ul>
