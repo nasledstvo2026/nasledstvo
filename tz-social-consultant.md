@@ -77,10 +77,7 @@
 - Добавляем: social-consult-agent (рядом с fz425-agent), social-verify-agent (рядом с fz425-verifier), биндинг Ирины в main
 - Конфликты не ожидаются — агенты изолированы по workspace и trigger
 
-**Зависимости от Лунтика (vm-f13581):**
-- `~/.openclaw/workspace/skills/social-category-matcher/SKILL.md`
-- `~/.openclaw/workspace/skills/social-verifier-protocol/SKILL.md`
-Предоставляются через SSH или прямым копированием.
+**Автономность:** Феникс не зависит от Лунтика в runtime. Все скиллы и БЗ создаются и хранятся локально на Фениксе.
 </context>
 
 ## 2. Функциональные требования
@@ -88,8 +85,8 @@
 
 ### Этап 1. Подготовка инфраструктуры (Феникс)
 - Требование 1: Создать workspace `/home/user1/phoenix/social-consult-agent/`
-- Требование 2: Скопировать с Лунтика скилл `social-category-matcher` в skills Феникса
-- Требование 3: Скопировать с Лунтика скилл `social-verifier-protocol` в skills Феникса
+- Требование 2: Создать скилл `social-category-matcher` в skills Феникса (логика категоризации: инвалидность / ВБД / СВО / не тема)
+- Требование 3: Создать скилл `social-verifier-protocol` в skills Феникса (формат запроса → проверка → вердикт)
 - Требование 4: Создать структуру knowledge/ с начальными файлами БЗ:
   ```
   knowledge/
