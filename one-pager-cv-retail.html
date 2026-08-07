@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #1a1a1a;
+    background: #fff;
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+  }
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 18mm 20mm 12mm;
+  }
+
+  /* Header */
+  .header-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 8mm;
+  }
+  .brand-block {
+    background: #21a038;
+    color: #fff;
+    padding: 5mm 8mm;
+    border-radius: 4mm 0 0 4mm;
+    flex-shrink: 0;
+  }
+  .brand-block .sber {
+    font-size: 14pt;
+    font-weight: 900;
+    letter-spacing: 0.5pt;
+  }
+  .brand-block .sub {
+    font-size: 7pt;
+    opacity: 0.85;
+    margin-top: 1pt;
+  }
+  .header-line {
+    flex: 1;
+    height: 0.6mm;
+    background: #21a038;
+    border-radius: 0 0.3mm 0.3mm 0;
+  }
+
+  /* Title */
+  .meeting-label {
+    font-size: 7.5pt;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1.5pt;
+    margin-bottom: 2mm;
+  }
+  h1 {
+    font-size: 19pt;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #111;
+    margin-bottom: 4mm;
+    max-width: 85%;
+  }
+  h1 span {
+    color: #21a038;
+  }
+
+  /* Agenda */
+  .agenda-box {
+    background: #f4faf5;
+    border-left: 3mm solid #21a038;
+    padding: 4mm 6mm;
+    margin-bottom: 6mm;
+    border-radius: 0 2mm 2mm 0;
+  }
+  .agenda-box .label {
+    font-size: 7pt;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 1pt;
+    margin-bottom: 1.5mm;
+  }
+  .agenda-box p {
+    font-size: 9.5pt;
+    line-height: 1.4;
+    color: #222;
+  }
+
+  /* Cases grid */
+  .cases-title {
+    font-size: 8pt;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 1pt;
+    margin-bottom: 3mm;
+  }
+  .cases-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 2.5mm;
+    flex: 1;
+    margin-bottom: 5mm;
+  }
+  .case-card {
+    background: #fafafa;
+    border: 0.3mm solid #e8e8e8;
+    border-radius: 2mm;
+    padding: 3mm 4mm;
+    display: flex;
+    flex-direction: column;
+    transition: none;
+  }
+  .case-card .case-num {
+    font-size: 7pt;
+    font-weight: 700;
+    color: #21a038;
+    margin-bottom: 0.5mm;
+  }
+  .case-card .case-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 1mm;
+    line-height: 1.2;
+  }
+  .case-card .case-desc {
+    font-size: 7pt;
+    color: #555;
+    line-height: 1.35;
+    flex: 1;
+  }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 3mm;
+    border-top: 0.3mm solid #e0e0e0;
+  }
+  .footer .cta {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #21a038;
+  }
+  .footer .meta {
+    font-size: 6.5pt;
+    color: #999;
+    text-align: right;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header-bar">
+    <div class="brand-block">
+      <div class="sber">СБЕР</div>
+      <div class="sub">Computer Vision</div>
+    </div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="meeting-label">Анонс встречи</div>
+
+  <h1>
+    <span>Computer Vision</span><br>
+    в продуктовом ритейле
+  </h1>
+
+  <div class="agenda-box">
+    <div class="label">Повестка</div>
+    <p>Совместный поиск возможных вариантов использования технологии Сбера «Computer Vision» в продуктовом ритейле с целью выхода на пилот по апробации.</p>
+  </div>
+
+  <div class="cases-title">Возможные варианты применения</div>
+
+  <div class="cases-grid">
+    <div class="case-card">
+      <div class="case-num">01</div>
+      <div class="case-title">Контроль полок</div>
+      <div class="case-desc">Робот-уборщик со встроенными камерами сканирует полки на пустоты и несоответствия планограмме, собирая данные для нейромаркетинга.</div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-num">02</div>
+      <div class="case-title">Контроль цен</div>
+      <div class="case-desc">Робот распознаёт текст на ценниках и сверяет с актуальными ценами в базе, сигнализируя о расхождениях.</div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-num">03</div>
+      <div class="case-title">Контроль зоны свежести и скоропорта</div>
+      <div class="case-desc">Камеры у рыбного и мясного прилавков отслеживают время в каждой степени переработки и качество льда, оповещая персонал при отклонениях.</div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-num">04</div>
+      <div class="case-title">Контроль эффективности персонала</div>
+      <div class="case-desc">Трекинг перемещений сотрудников и времени выполнения задач для объективной оценки индивидуальной эффективности.</div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-num">05</div>
+      <div class="case-title">Распределение потока по кассирам</div>
+      <div class="case-desc">Анализ входящего потока покупателей для проактивного прогнозирования загруженности касс вместо дорогостоящего подсчёта очередей.</div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-num">06</div>
+      <div class="case-title">Камера терминала Сбера: фиксация эмоций</div>
+      <div class="case-desc">Оценка реакции покупателей с привязкой к чеку и кассиру. Контроль качества обслуживания, анализ удовлетворённости.</div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-num">07</div>
+      <div class="case-title">Антикража</div>
+      <div class="case-desc">Поведенческий анализ траекторий и жестов покупателей для выявления подозрительных сценариев, характерных для хищений.</div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-num">08</div>
+      <div class="case-title">Антифрод на кассе</div>
+      <div class="case-desc">Видеосопоставление сканируемых товаров с фискальными данными для предотвращения непробития, подмены или сговора.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="cta">→ Выход на пилот по апробации</div>
+    <div class="meta">
+      Сбер · Computer Vision<br>
+      Август 2026
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
