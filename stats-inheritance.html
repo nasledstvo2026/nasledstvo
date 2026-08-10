@@ -9,8 +9,6 @@
     .bar-fill { display: inline-block; height: 20px; border-radius: 4px; min-width: 4px; }
     .bar-sber  { background: linear-gradient(90deg, #7ee787, #2ea043); }
     .bar-tbank { background: linear-gradient(90deg, #ffd33d, #ff9000); }
-    .bar-gpb   { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
-    .bar-rs    { background: linear-gradient(90deg, #ff7b72, #f85149); }
     .bar-psb   { background: linear-gradient(90deg, #bc8cff, #8957e5); }
     .bar-vtb   { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
     .bar-multi { background: linear-gradient(90deg, #ffd33d, #ff9000); }
@@ -36,9 +34,9 @@
   <!-- Hero -->
   <div class="hero">
     <div class="title">📊 Жалобы на банки по наследству</div>
-    <div class="meta">Сбор и верификация жалоб с banki.ru, pikabu.ru, kurskcity.ru · stats-agent</div>
+    <div class="meta">Сбор и верификация жалоб с banki.ru, pikabu.ru, kurskcity.ru, argumenti.ru · stats-agent</div>
     <div class="sub" style="margin-top:8px;">
-      <span style="color:var(--green)">●</span> Верифицировано: 14&ensp;
+      <span style="color:var(--green)">●</span> Верифицировано: 15&ensp;
       <span style="color:var(--text-faint)">●</span> На проверке: 0&ensp;
       <span style="color:var(--red)">●</span> Отклонено: 0
     </div>
@@ -47,16 +45,16 @@
   <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">09.08.2026 11:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">10.08.2026 11:20 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>📆 Период выборки: <strong style="color:var(--text);">27.07 – 05.08.2026</strong></span>
-      <span>📊 Жалоб в выборке: <strong style="color:var(--text);">14</strong></span>
-      <span>🔗 Источники: <strong style="color:var(--blue);">banki.ru · pikabu.ru · kurskcity.ru</strong></span>
+      <span>📆 Период выборки: <strong style="color:var(--text);">27.07 – 08.08.2026</strong></span>
+      <span>📊 Жалоб в выборке: <strong style="color:var(--text);">15</strong></span>
+      <span>🔗 Источники: <strong style="color:var(--blue);">banki.ru · pikabu.ru · kurskcity.ru · argumenti.ru</strong></span>
       <span>📁 Данные: <strong style="color:var(--text);">katya-data.json + katya-verified.json</strong></span>
     </div>
     <div class="sub-note" style="margin-top:8px;">
-      ⚠️ katya-data.json НЕ изменился с запуска 07.08 (generatedAt 07.08 10:55 MSK, окно 31.07–07.08): 12 верифицированных за 7 дней (Сбербанк ×5, ПСБ ×2, Т-Банк ×2, ВТБ, Альфа-банк/Т-Банк/ВТБ, цессионный кредитор).<br>
-      ⚠️ katya-verified.json: 14 записей (27.07–05.08), все верифицированы. Новых жалоб за последние сутки (08.08–09.08) НЕТ — последняя запись в выборке от 05.08 (Т-Банк, «Как Т-Банк выдавал мне наследство 3,5 года», banki.ru отзыв 13054137). Серия pikabu про Сбербанк (ПИФы/брокерские счета/ИСЖ/банковская тайна), ВТБ и Верховный суд, СВО-эпизоды ПСБ и Сбербанка, двойное взыскание Т-Банка — в выборке сохранены.
+      ✅ katya-data.json ОБНОВЛЁН: generatedAt 10.08 10:55 MSK, окно 03.08–10.08: 6 верифицированных за 7 дней (Сбербанк ×2, ВТБ ×2, Т-Банк, Альфа-банк/Т-Банк/ВТБ).<br>
+      ✅ katya-verified.json: 15 записей (27.07–08.08), все верифицированы. Новое с прошлого запуска (09.08): <strong style="color:var(--green);">1 запись</strong> — 08.08, ВТБ (argumenti.ru, перевод $140 тыс. по мёртвой доверенности). Остальные эпизоды (серия pikabu про Сбербанк: ПИФы/брокерские счета/ИСЖ/банковская тайна; ВТБ и Верховный суд; СВО-эпизоды ПСБ и Сбербанка; двойное взыскание Т-Банка; цессионный кредитор) — в выборке сохранены.
     </div>
   </div>
 
@@ -64,19 +62,19 @@
   <div class="stats-row">
     <div class="stat-box">
       <div class="label">Всего жалоб</div>
-      <div class="value">14</div>
+      <div class="value">15</div>
     </div>
     <div class="stat-box">
       <div class="label">Верифицировано</div>
-      <div class="value" style="color:var(--green);">14</div>
+      <div class="value" style="color:var(--green);">15</div>
     </div>
     <div class="stat-box">
       <div class="label">Банков упомянуто</div>
       <div class="value">6</div>
     </div>
     <div class="stat-box">
-      <div class="label">За 7 дней (31.07–07.08)</div>
-      <div class="value" style="color:var(--orange);">12</div>
+      <div class="label">За 7 дней (03.08–10.08)</div>
+      <div class="value" style="color:var(--orange);">6</div>
     </div>
   </div>
 
@@ -103,7 +101,7 @@
                 <span class="bar-fill bar-sber" style="width:140px;"></span>
               </div>
             </td>
-            <td>43%</td>
+            <td>40%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">2</span></td>
@@ -114,10 +112,21 @@
                 <span class="bar-fill bar-psb" style="width:70px;"></span>
               </div>
             </td>
-            <td>21%</td>
+            <td>20%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">3</span></td>
+            <td><strong>ВТБ</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">2</span>
+                <span class="bar-fill bar-vtb" style="width:47px;"></span>
+              </div>
+            </td>
+            <td>13%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">4</span></td>
             <td><strong>Т-Банк</strong></td>
             <td>
               <div class="bar-cell">
@@ -125,18 +134,7 @@
                 <span class="bar-fill bar-tbank" style="width:47px;"></span>
               </div>
             </td>
-            <td>14%</td>
-          </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">4</span></td>
-            <td><strong>ВТБ</strong></td>
-            <td>
-              <div class="bar-cell">
-                <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-vtb" style="width:23px;"></span>
-              </div>
-            </td>
-            <td>7%</td>
+            <td>13%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">5</span></td>
@@ -168,46 +166,45 @@
       </table>
     </div>
     <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">
-      ⚠️ Сбербанк лидирует — 6 жалоб из 14 (43%): серия pikabu (01–03.08) о сокрытии ПИФов, брокерских счетов и ИСЖ умерших + эпизоды 31.07 (Химки, удержание средств инвалида после решения суда) и 03.08 (отказ списывать долги погибшего на СВО мужа). ПСБ — 3 жалобы, две из них — семьи погибших на СВО (30.07 Новозыбков, 31.07 Набережные Челны). Т-Банк — 2 жалобы: двойное взыскание кредита умершего (31.07) и волокита с выдачей наследства 3,5 года (05.08). ВТБ — жалоба, дошедшая до Верховного суда (вклад 1 млн ₽).
+      ⚠️ Сбербанк лидирует — 6 жалоб из 15 (40%): серия pikabu (01–03.08) о сокрытии ПИФов, брокерских счетов и ИСЖ умерших + эпизоды 31.07 (Химки, удержание средств инвалида после решения суда) и 03.08 (отказ списывать долги погибшего на СВО мужа). ПСБ — 3 жалобы, две из них — семьи погибших на СВО (30.07 Новозыбков, 31.07 Набережные Челны). ВТБ — 2: жалоба, дошедшая до Верховного суда (вклад 1 млн ₽), и новая — перевод $140 тыс. по мёртвой доверенности (08.08, argumenti.ru). Т-Банк — 2: двойное взыскание кредита умершего (31.07) и волокита с выдачей наследства 3,5 года (05.08).
     </div>
   </div>
 
   <!-- Weekly dynamics -->
   <div class="section">
-    <h2>📈 Динамика за неделю (31.07 – 07.08)</h2>
+    <h2>📈 Динамика за неделю (03.08 – 10.08)</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
-      <div class="day-card"><div class="day">Пт 31</div><div class="count" style="color:var(--red);">5</div></div>
-      <div class="day-card"><div class="day">Сб 01</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Вс 02</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Пн 03</div><div class="count count-2">2</div></div>
       <div class="day-card"><div class="day">Вт 04</div><div class="count count-2">2</div></div>
       <div class="day-card"><div class="day">Ср 05</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Чт 06</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Пт 07</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Сб 09</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Сб 08</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Вс 09</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Пн 10</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Всего за неделю</div>
-        <div class="value" style="color:var(--orange);">12</div>
-        <div class="label">31.07–07.08, все верифицированы</div>
+        <div class="value" style="color:var(--orange);">6</div>
+        <div class="label">03.08–10.08, все верифицированы (katya-data.json)</div>
       </div>
       <div class="stat-box">
-        <div class="label">Пиковый день</div>
-        <div class="value" style="font-size:28px;">31 июля</div>
-        <div class="label">5 жалоб: ПСБ ×2, Сбербанк, Т-Банк, цессионный кредитор</div>
+        <div class="label">Пиковые дни</div>
+        <div class="value" style="font-size:28px;">03 и 04 авг</div>
+        <div class="label">по 2 жалобы: Сбербанк ×2 · ВТБ + Альфа/Т-Банк/ВТБ</div>
       </div>
       <div class="stat-box">
         <div class="label">Ср. жалоб в день</div>
-        <div class="value" style="color:var(--orange);">1.5</div>
-        <div class="label">за 8 дней наблюдения</div>
+        <div class="value" style="color:var(--orange);">0.86</div>
+        <div class="label">за 7 дней наблюдения</div>
       </div>
       <div class="stat-box">
         <div class="label">За последние 24ч</div>
         <div class="value" style="color:var(--text-dim);">0</div>
-        <div class="label">новых нет; последняя — 05.08 (Т-Банк, «3,5 года»)</div>
+        <div class="label">новых нет; последняя — 08.08 (ВТБ, argumenti.ru)</div>
       </div>
     </div>
   </div>
@@ -249,7 +246,7 @@
       <div class="day-card"><div class="day">30</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">31</div><div class="count" style="color:var(--red);">5</div></div>
     </div>
-    <div class="sub-note">⚠️ Сетка — июль 2026. В выборку также входят 7 жалоб за август (01–05.08): Сбербанк ×3 (серия про ПИФы/брокерские счета + СВО-списание), ВТБ (Верховный суд), Альфа-банк/Т-Банк/ВТБ и Т-Банк («3,5 года»). Полный охват katya-verified.json: 27.07 – 05.08.2026.</div>
+    <div class="sub-note">⚠️ Сетка — июль 2026. Всего за июль в выборке: 7 жалоб (27.07 Сбербанк Киров; 30.07 ПСБ СВО; 31.07 — пик: ПСБ ×2, Сбербанк, Т-Банк, цессионный кредитор).</div>
 
     <div class="week-grid" style="margin:12px 0 20px;">
       <div class="day-card"><div class="day">Авг 01</div><div class="count count-1">1</div></div>
@@ -259,15 +256,16 @@
       <div class="day-card"><div class="day">Авг 05</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Авг 06</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 07</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 08</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Авг 09</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 08</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Авг 09</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Авг 10</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Всего за июль</div>
         <div class="value">7</div>
-        <div class="label">из 14 в выборке; ещё 7 — август (01–05.08)</div>
+        <div class="label">из 15 в выборке; ещё 8 — август (01–10.08)</div>
       </div>
       <div class="stat-box">
         <div class="label">Пиковый день месяца</div>
@@ -280,9 +278,9 @@
         <div class="label">за июль (31 день)</div>
       </div>
       <div class="stat-box">
-        <div class="label">Август (01–09.08)</div>
-        <div class="value" style="color:var(--red);">7</div>
-        <div class="label">7 жалоб за 5 дней; 06–09.08 — новых нет</div>
+        <div class="label">Август (01–10.08)</div>
+        <div class="value" style="color:var(--red);">8</div>
+        <div class="label">8 жалоб за 10 дней; свежая — 08.08 (ВТБ, $140 тыс.)</div>
       </div>
     </div>
   </div>
@@ -296,9 +294,10 @@
           <tr><th>Источник</th><th>Жалоб</th><th>Доля</th></tr>
         </thead>
         <tbody>
-          <tr><td>banki.ru (отзывы/ответы банков, в т.ч. СВО-эпизоды ПСБ и Сбербанка, Т-Банк «3,5 года»)</td><td style="font-weight:700;">8</td><td>57%</td></tr>
-          <tr><td>pikabu.ru (серия «Наследование», Сбербанк; ВТБ и Верховный суд)</td><td style="font-weight:700;">5</td><td>36%</td></tr>
-          <tr><td>kurskcity.ru (региональные новости)</td><td style="font-weight:700;">1</td><td>7%</td></tr>
+          <tr><td>banki.ru (отзывы/ответы банков: СВО-эпизоды ПСБ и Сбербанка, Т-Банк «3,5 года», двойное взыскание)</td><td style="font-weight:700;">8</td><td>53%</td></tr>
+          <tr><td>pikabu.ru (серия «Наследование», Сбербанк; ВТБ и Верховный суд; Альфа/Т-Банк/ВТБ и ИИС)</td><td style="font-weight:700;">5</td><td>33%</td></tr>
+          <tr><td>kurskcity.ru (региональные новости, цессия)</td><td style="font-weight:700;">1</td><td>7%</td></tr>
+          <tr><td>argumenti.ru (расследование: перевод $140 тыс. по мёртвой доверенности)</td><td style="font-weight:700;">1</td><td>7%</td></tr>
         </tbody>
       </table>
     </div>
@@ -313,10 +312,11 @@
           <tr><th>Тема</th><th>Кол-во</th><th>Доля</th></tr>
         </thead>
         <tbody>
-          <tr><td>Отказ / волокита при выдаче или выплате наследства</td><td style="font-weight:700;">7</td><td>50%</td></tr>
-          <tr><td>Сокрытие активов / инвестпродукты (ПИФы, брокерские счета, ИСЖ, ИИС)</td><td style="font-weight:700;">4</td><td>29%</td></tr>
-          <tr><td>СВО / погибший на СВО</td><td style="font-weight:700;">3</td><td>21%</td></tr>
-          <tr><td>Кредитные долги умершего / взыскание через суд</td><td style="font-weight:700;">2</td><td>14%</td></tr>
+          <tr><td>Отказ / волокита при выдаче или выплате наследства</td><td style="font-weight:700;">7</td><td>47%</td></tr>
+          <tr><td>Сокрытие активов / инвестпродукты (ПИФы, брокерские счета, ИСЖ, ИИС)</td><td style="font-weight:700;">4</td><td>27%</td></tr>
+          <tr><td>СВО / погибший на СВО</td><td style="font-weight:700;">3</td><td>20%</td></tr>
+          <tr><td>Кредитные долги умершего / взыскание через суд</td><td style="font-weight:700;">2</td><td>13%</td></tr>
+          <tr><td>Перевод по мёртвой доверенности (новое, 08.08)</td><td style="font-weight:700;">1</td><td>7%</td></tr>
           <tr><td>Спор до Верховного суда / защита прав потребителя</td><td style="font-weight:700;">1</td><td>7%</td></tr>
           <tr><td>Несовершеннолетние наследники</td><td style="font-weight:700;">1</td><td>7%</td></tr>
         </tbody>
@@ -328,6 +328,8 @@
       <span class="tag">📄 Брокерские счета</span>
       <span class="tag">📄 ИИС</span>
       <span class="tag">📄 ИСЖ (инвестстрахование жизни)</span>
+      <span class="tag">📄 Мёртвая доверенность</span>
+      <span class="tag">📄 $140 тыс. (ВТБ)</span>
       <span class="tag">📄 Запрос нотариуса</span>
       <span class="tag">📄 СВО / погибший на СВО</span>
       <span class="tag">📄 Верховный суд РФ</span>
@@ -341,7 +343,22 @@
 
   <!-- All complaints -->
   <div class="section">
-    <h2>📋 Все жалобы (14)</h2>
+    <h2>📋 Все жалобы (15)</h2>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-other">argumenti.ru</span>
+        <span style="color:var(--text-dim);">08.08.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">ВТБ</span>
+        <span class="tag" style="border-color:rgba(88,166,255,.4);color:var(--blue);">🆕 с 09.08</span>
+      </div>
+      <div class="title" style="font-size:15px;">Деньги после смерти: почему наследницы оспаривают действия нотариуса и судов</div>
+      <div class="body" style="margin-top:8px;">
+        Владелец счёта в ВТБ умер; через два дня после его смерти сотрудница банка по доверенности перевела со счёта покойного 140 тыс. долларов на счёт вдовы, хотя доверенность прекращается со смертью доверителя. Дочери наследодателя считают перевод ничтожной сделкой и оспаривают действия нотариуса Юлии Крыловой, которая выдала свидетельства о праве на наследство на спорные средства, уже зная о судебном иске. Суды нижестоящих инстанций поддержали нотариуса (в текстах решений нашли дословные совпадения с возражениями ответчика), наследницы продолжают обжалование.
+      </div>
+      <div style="margin-top:8px;"><a href="https://argumenti.ru/society/dengi-posle-smerti-pochemu-naslednicy-osparivayut-deystviya-notariusa-i-sudov-1005705" target="_blank">↗ Читать на argumenti.ru</a></div>
+    </div>
 
     <div class="item">
       <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
@@ -362,20 +379,6 @@
         <span class="badge badge-pikabu">pikabu.ru</span>
         <span style="color:var(--text-dim);">04.08.2026</span>
         <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">ВТБ</span>
-      </div>
-      <div class="title" style="font-size:15px;">ВТБ не выдал наследницам вклад умершего клиента (1 млн ₽) — спор дошёл до Верховного суда</div>
-      <div class="body" style="margin-top:8px;">
-        Две дочери умершего вкладчика с нотариальными свидетельствами не смогли получить депозит отца на 1 млн руб. ВТБ дважды письменно отказал («документов якобы недостаточно»). Деньги перечислены только после обращения в суд — спустя почти шесть месяцев. Верховный суд РФ признал наследников потребителями (Определение № 2-КГ23-6-К3): апелляция обязала банк выплатить каждой дочери по 100 тыс. руб. штрафа и по 500 руб. морального вреда.
-      </div>
-      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/vtb_ne_vyidal_naslednitsam_vklad_umershego_klienta__spor_doshyol_do_verkhovnogo_suda_14212557" target="_blank">↗ Читать на pikabu.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-pikabu">pikabu.ru</span>
-        <span style="color:var(--text-dim);">04.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
         <span class="tag">Альфа-банк, Т-Банк (Тинькофф), ВТБ</span>
       </div>
       <div class="title" style="font-size:15px;">Ответ на пост про ВТБ: банки намеренно затягивают выплаты наследства; Альфа и Тинькофф не ответили на запросы нотариуса про ИИС-счета умершего</div>
@@ -383,6 +386,20 @@
         Комментарий + личная история (г. Кемерово): Альфа-банк и Тинькофф игнорировали запросы нотариуса по ИИС-счетам умершего отца — только на третий письменный запрос ответили «счета не найдены», хотя на карту Тинькофф приходила зарплата. Сожительница потратила деньги с карты на похороны — банк потребовал вернуть «как было». Наследники отказались от наследства, не сумев выяснить состав активов. Вывод авторов: банки затягивают выплаты намеренно — «чужие деньги работают на них».
       </div>
       <div style="margin-top:8px;"><a href="https://pikabu.ru/story/otvet_na_post_vtb_ne_vyidal_naslednitsam_vklad_umershego_klienta__spor_doshyol_do_verkhovnogo_suda_14213564" target="_blank">↗ Читать на pikabu.ru</a></div>
+    </div>
+
+    <div class="item">
+      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
+        <span class="badge badge-pikabu">pikabu.ru</span>
+        <span style="color:var(--text-dim);">04.08.2026</span>
+        <span class="verified-badge">✅ Верифицировано</span>
+        <span class="tag">ВТБ</span>
+      </div>
+      <div class="title" style="font-size:15px;">ВТБ не выдал наследницам вклад умершего клиента (1 млн ₽) — спор дошёл до Верховного суда</div>
+      <div class="body" style="margin-top:8px;">
+        Две дочери умершего вкладчика с нотариальными свидетельствами не смогли получить депозит отца на 1 млн руб. ВТБ дважды письменно отказал («документов якобы недостаточно»). Деньги перечислены только после обращения в суд — спустя почти шесть месяцев. Верховный суд РФ признал наследников потребителями (Определение № 2-КГ23-6-К3): апелляция обязала банк выплатить каждой дочери по 100 тыс. руб. штрафа и по 500 руб. морального вреда.
+      </div>
+      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/vtb_ne_vyidal_naslednitsam_vklad_umershego_klienta__spor_doshyol_do_verkhovnogo_suda_14212557" target="_blank">↗ Читать на pikabu.ru</a></div>
     </div>
 
     <div class="item">
@@ -545,10 +562,10 @@
     <h2>💡 Главное</h2>
     <div class="stats-row">
       <div class="stat-box">
-        <div class="label">📉 Новое за 24ч</div>
-        <div style="font-size:15px;font-weight:600;margin-top:6px;">0 записей</div>
+        <div class="label">🆕 Новое с 09.08</div>
+        <div style="font-size:15px;font-weight:600;margin-top:6px;">1 запись — ВТБ, 08.08</div>
         <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">
-          Данные не изменились с запуска 07.08 (katya-data.json: generatedAt 07.08 10:55). Последняя жалоба — 05.08
+          argumenti.ru: перевод $140 тыс. со счёта умершего по мёртвой доверенности; katya-data.json обновлён (generatedAt 10.08 10:55)
         </div>
       </div>
       <div class="stat-box">
@@ -557,13 +574,13 @@
           Банки отказывают/затягивают выплату наследства или скрывают активы умерших
         </div>
         <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">
-          11 из 14 жалоб (79%) — отказы, волокита (7) и сокрытие активов (4) при выдаче наследства
+          11 из 15 жалоб (73%) — отказы, волокита (7) и сокрытие активов (4) при выдаче наследства
         </div>
       </div>
       <div class="stat-box">
-        <div class="label">⚡ Новое в выборке</div>
-        <div style="font-size:15px;font-weight:600;margin-top:6px;">Нет с запуска 07.08</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Последняя добавленная запись: Т-Банк (05.08, «3,5 года»): наследство с июля 2021, акции и деньги не выданы</div>
+        <div class="label">⚡ Окно 7 дней (03–10.08)</div>
+        <div style="font-size:15px;font-weight:600;margin-top:6px;">6 жалоб, все верифицированы</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Сбербанк ×2, ВТБ ×2, Т-Банк, Альфа-банк/Т-Банк/ВТБ; пик 03–04.08 (по 2)</div>
       </div>
       <div class="stat-box">
         <div class="label">⚖️ Прецедент</div>
@@ -576,8 +593,8 @@
   <!-- Footer -->
   <div class="footer">
     <strong>stats-agent</strong> · nasledstvo.net.ru<br>
-    Генерация: 09.08.2026 11:20 MSK · deepseek/deepseek-v4-flash<br>
-    Данные: katya-data.json (12 записей, 31.07–07.08) + katya-verified.json (14 верифицированных, 27.07–05.08)<br>
+    Генерация: 10.08.2026 11:20 MSK · deepseek/deepseek-v4-flash<br>
+    Данные: katya-data.json (6 записей, 03.08–10.08) + katya-verified.json (15 верифицированных, 27.07–08.08)<br>
     <a href="https://nasledstvo2026.github.io/nasledstvo/" target="_blank">nasledstvo2026.github.io/nasledstvo</a>
   </div>
 
