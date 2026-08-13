@@ -41,43 +41,47 @@
     <div class="sub" style="margin-top:8px;">
       <span style="color:var(--green)">●</span> Верифицировано: 20&ensp;
       <span style="color:var(--yellow)">●</span> На проверке: 1&ensp;
-      <span style="color:var(--red)">●</span> Отклонено: 0
+      <span style="color:var(--red)">●</span> Отклонено (дубликаты): 3
     </div>
   </div>
 
   <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">12.08.2026 11:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">13.08.2026 11:20 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>📆 Период выборки: <strong style="color:var(--text);">17.07 – 12.08.2026</strong></span>
-      <span>📊 Жалоб в выборке: <strong style="color:var(--text);">21</strong></span>
+      <span>📆 Период выборки: <strong style="color:var(--text);">17.07 – 13.08.2026</strong></span>
+      <span>📊 Записей в архиве: <strong style="color:var(--text);">24 (21 принято)</strong></span>
       <span>🔗 Источники: <strong style="color:var(--blue);">banki.ru · pikabu.ru · kurskcity.ru · argumenti.ru · kp.ru</strong></span>
       <span>📁 Данные: <strong style="color:var(--text);">katya-data.json + katya-verified.json</strong></span>
     </div>
     <div class="sub-note" style="margin-top:8px;">
-      ✅ katya-data.json ОБНОВЛЁН: generatedAt 12.08 10:55 MSK, окно 05.08–12.08: 5 верифицированных за 7 дней (Т-Банк ×2, ВТБ, Совкомбанк, не указан) + 1 на проверке (Сбербанк, 07.08).<br>
-      ✅ katya-verified.json: 21 запись (17.07–12.08): 20 верифицированы, 1 на проверке. Новое с прошлого запуска (11.08): <strong style="color:var(--green);">2 записи</strong> — 12.08 Совкомбанк (затягивание процедуры выдачи наследства: документы ушли на «проверку», крайний срок 11.08 прошёл), 12.08 Хабаровский край (выморочное наследство: суд взыскал 1,31 млн ₽ долга по кредиту с РФ через Росимущество — kp.ru).
+      ✅ katya-data.json ОБНОВЛЁН: generatedAt 13.08 10:55 MSK, окно 05.08–13.08: 5 верифицированных за 7 дней (Т-Банк ×2, ВТБ, Совкомбанк, не указан) + 1 на проверке (Сбербанк, 07.08).<br>
+      ✅ katya-verified.json: 24 записи (17.07–13.08): 20 верифицированы, 1 на проверке, <strong style="color:var(--red);">3 отклонены как дубликаты</strong>. С прошлого запуска (12.08): +3 записи, все отклонены — Сбербанк 06.08 (дубль жалобы из Кирова, response 13255533), Сбербанк 12.08 (дубль pikabu «Наследование. Продолжение»), kurskcity 09.08 (дубль истории про цессионного кредитора). <strong style="color:var(--text);">Новых верифицированных жалоб с 12.08 нет</strong>.
     </div>
   </div>
 
   <!-- Stats row -->
   <div class="stats-row">
     <div class="stat-box">
-      <div class="label">Всего жалоб</div>
-      <div class="value">21</div>
+      <div class="label">Записей в архиве</div>
+      <div class="value">24</div>
+      <div class="label">21 принято · 3 дубликата отклонено</div>
     </div>
     <div class="stat-box">
       <div class="label">Верифицировано</div>
       <div class="value" style="color:var(--green);">20</div>
+      <div class="label">+ 1 на проверке (Сбербанк, 07.08)</div>
     </div>
     <div class="stat-box">
       <div class="label">Банков упомянуто</div>
       <div class="value">9</div>
+      <div class="label">8 наименованных + «не указан» ×2</div>
     </div>
     <div class="stat-box">
-      <div class="label">За 7 дней (05.08–12.08)</div>
+      <div class="label">За 7 дней (05.08–13.08)</div>
       <div class="value" style="color:var(--orange);">5+1</div>
+      <div class="label">5 верифицированных + 1 на проверке</div>
     </div>
   </div>
 
@@ -141,7 +145,7 @@
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">5</span></td>
-            <td><strong>Совкомбанк</strong> <span style="color:var(--blue);font-size:11px;">🆕</span></td>
+            <td><strong>Совкомбанк</strong></td>
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
@@ -185,7 +189,7 @@
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">9</span></td>
-            <td><strong>не указан (выморочное наследство, Хабаровск)</strong> <span style="color:var(--blue);font-size:11px;">🆕</span></td>
+            <td><strong>не указан (выморочное наследство, Хабаровск)</strong></td>
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
@@ -199,13 +203,13 @@
       </table>
     </div>
     <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">
-      ⚠️ Сбербанк лидирует — 7 жалоб из 21 (33%): серия pikabu (01–03.08) о сокрытии ПИФов, брокерских счетов и ИСЖ умерших + эпизоды 31.07 (Химки, удержание средств инвалида после решения суда), 03.08 (отказ списывать долги погибшего на СВО мужа) и 07.08 (списание со счёта умершего приставом по поддельному исполнительному листу — на проверке). ПСБ — 4 жалобы, три из них — семьи погибших на СВО (24.07 вдова, 30.07 Новозыбков, 31.07 Набережные Челны). Т-Банк — 3: двойное взыскание кредита умершего (31.07), волокита с выдачей наследства 3,5 года (05.08) и долг по карте, возникший через 2 года после смерти клиента (05.08). ВТБ — 2: жалоба, дошедшая до Верховного суда (вклад 1 млн ₽), и перевод $140 тыс. по мёртвой доверенности (08.08, argumenti.ru). Новое: Совкомбанк (12.08, затягивание процедуры выдачи наследства) и Хабаровск (12.08, выморочное наследство — kp.ru, новый источник).
+      ⚠️ Сбербанк лидирует — 7 жалоб из 21 (33%): серия pikabu (01–03.08) о сокрытии ПИФов, брокерских счетов и ИСЖ умерших + эпизоды 31.07 (Химки, удержание средств инвалида после решения суда), 03.08 (отказ списывать долги погибшего на СВО мужа) и 07.08 (списание со счёта умершего приставом по поддельному исполнительному листу — на проверке). ПСБ — 4 жалобы, три из них — семьи погибших на СВО (24.07 вдова, 30.07 Новозыбков, 31.07 Набережные Челны). Т-Банк — 3: двойное взыскание кредита умершего (31.07), волокита с выдачей наследства 3,5 года (05.08) и долг по карте, возникший через 2 года после смерти клиента (05.08). ВТБ — 2: жалоба, дошедшая до Верховного суда (вклад 1 млн ₽), и перевод $140 тыс. по мёртвой доверенности (08.08, argumenti.ru). Совкомбанк (12.08) — затягивание процедуры выдачи наследства: документы ушли на «проверку», крайний срок 11.08 прошёл. 3 дубликата (Сбербанк ×2, курскcity) отклонены и в топ не вошли.
     </div>
   </div>
 
   <!-- Weekly dynamics -->
   <div class="section">
-    <h2>📈 Динамика за неделю (05.08 – 12.08)</h2>
+    <h2>📈 Динамика за неделю (05.08 – 13.08)</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
       <div class="day-card"><div class="day">Вт 05</div><div class="count count-2">2</div></div>
@@ -215,14 +219,15 @@
       <div class="day-card"><div class="day">Сб 09</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Вс 10</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Пн 11</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Вт 12</div><div class="count count-2">2</div></div>
+      <div class="day-card"><div class="day">Вт 12</div><div class="count count-2">2</div></div>
+      <div class="day-card active"><div class="day">Ср 13</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Всего за неделю</div>
         <div class="value" style="color:var(--orange);">5+1</div>
-        <div class="label">05.08–12.08: 5 верифицированы, 1 на проверке (katya-data.json)</div>
+        <div class="label">05.08–13.08: 5 верифицированы, 1 на проверке (katya-data.json)</div>
       </div>
       <div class="stat-box">
         <div class="label">Пиковые дни</div>
@@ -236,9 +241,13 @@
       </div>
       <div class="stat-box">
         <div class="label">За последние 24ч</div>
-        <div class="value" style="color:var(--green);">2</div>
-        <div class="label">12.08: Совкомбанк + Хабаровск (обе верифицированы)</div>
+        <div class="value" style="color:var(--text-dim);">0</div>
+        <div class="label">12.08 11:20 – 13.08 11:20: новых записей нет</div>
       </div>
+    </div>
+
+    <div class="sub-note">
+      📉 Сравнение с предыдущей неделей (29.07–04.08): было <strong style="color:var(--text);">11</strong> верифицированных → стало <strong style="color:var(--text);">5+1</strong> (−55%). Снижение частично объяснимо тем, что 31.07 был аномальный пик (5 жалоб: ПСБ ×2, Сбербанк, Т-Банк, цессионный кредитор). За 13.08 данных пока нет — выборка katya-data.json закрыта на 10:55 MSK.
     </div>
   </div>
 
@@ -293,14 +302,15 @@
       <div class="day-card"><div class="day">Авг 09</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 10</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 11</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Авг 12</div><div class="count count-2">2</div></div>
+      <div class="day-card"><div class="day">Авг 12</div><div class="count count-2">2</div></div>
+      <div class="day-card active"><div class="day">Авг 13</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Всего за июль</div>
         <div class="value">9</div>
-        <div class="label">из 21 в выборке; ещё 12 — август (01–12.08)</div>
+        <div class="label">из 21 принятой записи; ещё 12 — август (01–13.08)</div>
       </div>
       <div class="stat-box">
         <div class="label">Пиковый день месяца</div>
@@ -313,9 +323,9 @@
         <div class="label">за июль (31 день)</div>
       </div>
       <div class="stat-box">
-        <div class="label">Август (01–12.08)</div>
+        <div class="label">Август (01–13.08)</div>
         <div class="value" style="color:var(--red);">12</div>
-        <div class="label">11 верифицированных + 1 на проверке (07.08, Сбербанк); +2 сегодня</div>
+        <div class="label">11 верифицированных + 1 на проверке (07.08, Сбербанк) · +33% к июлю</div>
       </div>
     </div>
   </div>
@@ -333,397 +343,11 @@
           <tr><td>pikabu.ru (серия «Наследование», Сбербанк; ВТБ и Верховный суд; Альфа/Т-Банк/ВТБ и ИИС)</td><td style="font-weight:700;">5</td><td>24%</td></tr>
           <tr><td>kurskcity.ru (региональные новости, цессия)</td><td style="font-weight:700;">1</td><td>5%</td></tr>
           <tr><td>argumenti.ru (расследование: перевод $140 тыс. по мёртвой доверенности)</td><td style="font-weight:700;">1</td><td>5%</td></tr>
-          <tr><td>kp.ru (Хабаровск: выморочное наследство, взыскание долга с РФ через Росимущество) <span style="color:var(--blue);">🆕</span></td><td style="font-weight:700;">1</td><td>5%</td></tr>
+          <tr><td>kp.ru (Хабаровск: выморочное наследство, взыскание долга с РФ через Росимущество)</td><td style="font-weight:700;">1</td><td>5%</td></tr>
         </tbody>
       </table>
     </div>
-  </div>
-
-  <!-- Categories -->
-  <div class="section">
-    <h2>🏷 Категории проблем</h2>
-    <div class="table-wrap">
-      <table class="striped-table">
-        <thead>
-          <tr><th>Тема</th><th>Кол-во</th><th>Доля</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Отказ / волокита при выдаче или выплате наследства</td><td style="font-weight:700;">10</td><td>48%</td></tr>
-          <tr><td>Кредитные долги умершего / взыскание через суд</td><td style="font-weight:700;">5</td><td>24%</td></tr>
-          <tr><td>Сокрытие активов / инвестпродукты (ПИФы, брокерские счета, ИСЖ, ИИС)</td><td style="font-weight:700;">4</td><td>19%</td></tr>
-          <tr><td>СВО / погибший на СВО</td><td style="font-weight:700;">4</td><td>19%</td></tr>
-          <tr><td>Перевод по мёртвой доверенности</td><td style="font-weight:700;">1</td><td>5%</td></tr>
-          <tr><td>Спор до Верховного суда / защита прав потребителя</td><td style="font-weight:700;">1</td><td>5%</td></tr>
-          <tr><td>Несовершеннолетние наследники</td><td style="font-weight:700;">1</td><td>5%</td></tr>
-          <tr><td>Списание со счёта умершего приставами (на проверке)</td><td style="font-weight:700;">1</td><td>5%</td></tr>
-          <tr><td>Выморочное наследство <span style="color:var(--blue);">🆕</span></td><td style="font-weight:700;">1</td><td>5%</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
-      <span class="tag">📄 Банковская тайна</span>
-      <span class="tag">📄 ПИФы / ОПИФы</span>
-      <span class="tag">📄 Брокерские счета</span>
-      <span class="tag">📄 ИИС</span>
-      <span class="tag">📄 ИСЖ (инвестстрахование жизни)</span>
-      <span class="tag">📄 Мёртвая доверенность</span>
-      <span class="tag">📄 $140 тыс. (ВТБ)</span>
-      <span class="tag">📄 Запрос нотариуса</span>
-      <span class="tag">📄 СВО / погибший на СВО</span>
-      <span class="tag">📄 Верховный суд РФ</span>
-      <span class="tag">📄 Цессия долга</span>
-      <span class="tag">📄 Выморочное наследство</span>
-      <span class="tag">📄 Росимущество</span>
-      <span class="tag">📄 Несовершеннолетние наследники</span>
-      <span class="tag">📄 Ошибка в долях</span>
-      <span class="tag">📄 Решение суда / исполнительное производство</span>
-      <span class="tag">📄 Двойное взыскание</span>
-      <span class="tag">📄 Пристав / поддельный исполнительный лист</span>
-      <span class="tag">📄 Кредитная карта после смерти</span>
-      <span class="tag">📄 Коллекторы</span>
-    </div>
-  </div>
-
-  <!-- All complaints -->
-  <div class="section">
-    <h2>📋 Все жалобы (21)</h2>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">12.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Совкомбанк</span>
-        <span class="tag" style="border-color:rgba(88,166,255,.4);color:var(--blue);">🆕 с 11.08</span>
-      </div>
-      <div class="title" style="font-size:15px;">Банк затягивает процедуру получения наследства</div>
-      <div class="body" style="margin-top:8px;">
-        Наследник в середине июля обратился в отделение Совкомбанка со свидетельством о праве на наследство от нотариуса. Сотрудники сначала отправили его ждать закрытия вклада родственника, затем отправили документы на проверку, не уведомив о её сроках. На горячей линии назвали крайний срок 11 августа, но по состоянию на 12 августа уведомления так и нет. Жалоба на затягивание процедуры выдачи наследства и отсутствие информации о сроках.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13293969/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-other">kp.ru</span>
-        <span style="color:var(--text-dim);">12.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">не указан</span>
-        <span class="tag" style="border-color:rgba(88,166,255,.4);color:var(--blue);">🆕 с 11.08</span>
-      </div>
-      <div class="title" style="font-size:15px;">В Хабаровском крае суд признал наследство выморочным</div>
-      <div class="body" style="margin-top:8px;">
-        Банк требовал взыскать с наследников умершего заёмщика задолженность по кредиту 1 342 390,54 руб. Дети и мать должника заявили, что наследство не принимали. Суд установил, что наследство (16,41 руб. на счёте, карабин и ружьё) не принято и признано выморочным, перешло государству. Суд частично удовлетворил иск: с РФ через Росимущество взыскано 1 312 016,41 руб. за счёт этих активов, в остальной части отказано. Апелляция и кассация оставили решение в силе.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.hab.kp.ru/online/news/7117930/" target="_blank">↗ Читать на kp.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-other">argumenti.ru</span>
-        <span style="color:var(--text-dim);">08.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">ВТБ</span>
-      </div>
-      <div class="title" style="font-size:15px;">Деньги после смерти: почему наследницы оспаривают действия нотариуса и судов</div>
-      <div class="body" style="margin-top:8px;">
-        Владелец счёта в ВТБ умер; через два дня после его смерти сотрудница банка по доверенности перевела со счёта покойного 140 тыс. долларов на счёт вдовы, хотя доверенность прекращается со смертью доверителя. Дочери наследодателя считают перевод ничтожной сделкой и оспаривают действия нотариуса Юлии Крыловой, которая выдала свидетельства о праве на наследство на спорные средства, уже зная о судебном иске. Суды нижестоящих инстанций поддержали нотариуса (в текстах решений нашли дословные совпадения с возражениями ответчика), наследницы продолжают обжалование.
-      </div>
-      <div style="margin-top:8px;"><a href="https://argumenti.ru/society/dengi-posle-smerti-pochemu-naslednicy-osparivayut-deystviya-notariusa-i-sudov-1005705" target="_blank">↗ Читать на argumenti.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">07.08.2026</span>
-        <span class="review-badge">⚠ На проверке (needs_review)</span>
-        <span class="tag">Сбербанк</span>
-      </div>
-      <div class="title" style="font-size:15px;">«Пристав списал деньги со счета умершего человека». Как наследница вернула украденные мошенниками деньги</div>
-      <div class="body" style="margin-top:8px;">
-        Муж умер в 2017 году, оставив вклады в Сбербанке. Через три года со счетов умершего списали крупные суммы — мошенники подделали исполнительный лист, пристав наложил арест и списал деньги. Банк не проверил подлинность документа. Наследница через суд взыскала ущерб с ФССП; деньги со Сбербанка суды не взыскивали. Запись ожидает верификации.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/news/daytheme/?id=11025629" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">05.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Т-Банк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Как Т-Банк выдавал мне наследство 3,5 года</div>
-      <div class="body" style="margin-top:8px;">
-        Наследники вступили в наследство в июле 2021 (нотариус оформила всё по закону); в наследственной массе были счета в двух банках-брокерах: Т-Банк и Открытие. Открытие приняло документы и за неделю перевело акции. Т-Банк же 3,5 года «водил за нос»: каждый раз подключался новый сотрудник со своим видением — «не отказывает, но и выдать не может», замкнутый круг. Основной посыл — «переделывайте свидетельство о наследстве», хотя наследственная масса не делилась на 3 наследников. Деньги и акции не выданы до сих пор.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13054137/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">05.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Т-Банк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Как Т-банк воюет с мертвыми</div>
-      <div class="body" style="margin-top:8px;">
-        Отзыв (оценка 1): отец умер в 2023 году, весной 2026-го на его имя пришло письмо из Т-Банка о задолженности по кредитной карте. Выяснилось, что траты по карте начались в 2025 году — через два года после смерти клиента. Банк знал о смерти, но не заблокировал счета (нет свидетельства о смерти). Оператор требовал погасить задолженность с родственников, угрожал изъятием имущества. Затем подключились коллекторы. Автор жалуется, что банк требует долг, возникший после смерти заёмщика.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13284199/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-pikabu">pikabu.ru</span>
-        <span style="color:var(--text-dim);">04.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Альфа-банк, Т-Банк (Тинькофф), ВТБ</span>
-      </div>
-      <div class="title" style="font-size:15px;">Ответ на пост про ВТБ: банки намеренно затягивают выплаты наследства; Альфа и Тинькофф не ответили на запросы нотариуса про ИИС-счета умершего</div>
-      <div class="body" style="margin-top:8px;">
-        Комментарий + личная история (г. Кемерово): Альфа-банк и Тинькофф игнорировали запросы нотариуса по ИИС-счетам умершего отца — только на третий письменный запрос ответили «счета не найдены», хотя на карту Тинькофф приходила зарплата. Сожительница потратила деньги с карты на похороны — банк потребовал вернуть «как было». Наследники отказались от наследства, не сумев выяснить состав активов. Вывод авторов: банки затягивают выплаты намеренно — «чужие деньги работают на них».
-      </div>
-      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/otvet_na_post_vtb_ne_vyidal_naslednitsam_vklad_umershego_klienta__spor_doshyol_do_verkhovnogo_suda_14213564" target="_blank">↗ Читать на pikabu.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-pikabu">pikabu.ru</span>
-        <span style="color:var(--text-dim);">04.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">ВТБ</span>
-      </div>
-      <div class="title" style="font-size:15px;">ВТБ не выдал наследницам вклад умершего клиента (1 млн ₽) — спор дошёл до Верховного суда</div>
-      <div class="body" style="margin-top:8px;">
-        Две дочери умершего вкладчика с нотариальными свидетельствами не смогли получить депозит отца на 1 млн руб. ВТБ дважды письменно отказал («документов якобы недостаточно»). Деньги перечислены только после обращения в суд — спустя почти шесть месяцев. Верховный суд РФ признал наследников потребителями (Определение № 2-КГ23-6-К3): апелляция обязала банк выплатить каждой дочери по 100 тыс. руб. штрафа и по 500 руб. морального вреда.
-      </div>
-      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/vtb_ne_vyidal_naslednitsam_vklad_umershego_klienta__spor_doshyol_do_verkhovnogo_suda_14212557" target="_blank">↗ Читать на pikabu.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-pikabu">pikabu.ru</span>
-        <span style="color:var(--text-dim);">03.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Сбербанк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Наследование. Продолжение: Сбер отказывает в выписках по закрытым счетам умершей (банковская тайна)</div>
-      <div class="body" style="margin-top:8px;">
-        Запросы нотариуса в депозитарий «ИНФИНИТУМ», НРД, Сбер Управление Активами, УК «Первая», ФНС — отрицательные. Сбер готов дать выписки только по счетам, на которые есть свидетельство о праве на наследство; по закрытым до смерти счетам — отказ (банковская тайна). Автор готовит иск о раскрытии движения средств по всем счетам.
-      </div>
-      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/nasledovanie_prodolzhenie_14210486" target="_blank">↗ Читать на pikabu.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">03.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Сбербанк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Не ожидала такого от Сбера! Замкнутый круг вокруг списания долгов погибшего мужа</div>
-      <div class="body" style="margin-top:8px;">
-        Муж погиб на СВО. По федеральному закону долги погибшего супруга должны списываться — другие банки списали без проблем. Сбербанк почти месяц создаёт замкнутый круг: отказывается списывать долги, заявляя «в законе нет», несмотря на документы от нотариуса.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13272689/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-pikabu">pikabu.ru</span>
-        <span style="color:var(--text-dim);">02.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Сбербанк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Ответ на пост «Наследование»: Сбер скрывал брокерские счета и ПИФы умершей, деньги по ИСЖ «растворились»</div>
-      <div class="body" style="margin-top:8px;">
-        Мать автора умерла в марте 2023, была клиентом Сбербанк Премьер. Менеджер при жизни подтвердил наличие счетов, вкладов, ПИФов и брокерских счетов — после смерти банк утаивал активы: деньги с брокерских счетов и ОПИФов автор «выбивал» около 2 лет. Договор ИСЖ (взносы ~50–100 тыс. руб./год) банк расторг в одностороннем порядке без выплаты внесённых денег; выплату по страховому случаю получить тоже не удалось — куда делись деньги, в Сбере не ответили.
-      </div>
-      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/otvet_na_post_nasledovanie_14205441" target="_blank">↗ Читать на pikabu.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-pikabu">pikabu.ru</span>
-        <span style="color:var(--text-dim);">01.08.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Сбербанк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Наследование: Сбер «не нашёл» паи ПИФов умершей матери (половина накоплений)</div>
-      <div class="body" style="margin-top:8px;">
-        Мать автора умерла в декабре 2024; сбережения — банковские счета и паи ПИФов, купленные онлайн в приложении Сбера и в офисе под руководством менеджера. По запросу нотариуса Сбер подтвердил только счета и карты (~1/2 накоплений), данных о паях не предоставил; дочерние инвестструктуры ответили «средств не найдено». Доступ к приложению умершей не дали. Автор потратил 25 тыс. руб. на юристов (4 письма: 2 в Сбер, ЦБ РФ, налоговая) — результат тот же.
-      </div>
-      <div style="margin-top:8px;"><a href="https://pikabu.ru/story/nasledovanie_14203561" target="_blank">↗ Читать на pikabu.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">31.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Сбербанк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Банк незаконно удерживает денежные средства инвалида 2 группы после вступления в силу решения суда</div>
-      <div class="body" style="margin-top:8px;">
-        Суд признал за матерью (инвалид 2 группы, 71 год) право собственности в порядке наследования на деньги со вклада (сберегательный сертификат); решение вступило в силу в начале июля. При обращении в офис Сбербанка в Химках 30.07 — некомпетентность и отказ: банк сослался на SMS «в решении суда не признано право собственности». Средства удерживаются.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13264411/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">31.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">ПСБ</span>
-      </div>
-      <div class="title" style="font-size:15px;">ПСБ затягивает выплату наследства по решению суда: отправил документы на «проверку» и диктует, куда подавать заявления</div>
-      <div class="body" style="margin-top:8px;">
-        17.07 наследники пришли в офис ПСБ с решением суда на руках. Банк не принял заявление на выплату — отправил решение на внутреннюю «проверку законности и обоснованности» (сослался на регламент). Сотрудник перезвонил только 20.07. После этого сотрудники банка «диктуют», когда и куда подавать заявления, сроки не соблюдаются, выплата затягивается.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13272950/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">31.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Т-Банк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Дело о наследстве</div>
-      <div class="body" style="margin-top:8px;">
-        Наследница вступила в наследство по кредиту мужа. Сотрудники банка по телефону убедили переводить деньги на счёт умершего для закрытия кредита; через год банк подал на неё в суд с требованием вернуть всю сумму, а после выплаты напрямую банку приставы снова требуют деньги — двойное взыскание.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13264406/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">31.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">ПСБ</span>
-      </div>
-      <div class="title" style="font-size:15px;">Переводы по наследству погибшего на СВО: ПСБ не выплачивает средства со счетов отца (Набережные Челны)</div>
-      <div class="body" style="margin-top:8px;">
-        Родственница погибшего на СВО отца приехала из другого города в офис ПСБ (Набережные Челны): сотрудница 40 минут не отвечала на вопросы — ни сумму на счету, ни срок перевода не назвала; на горячей линии до филиала дозвониться не смогли. Обещанные по регламенту 3 дня прошли, деньги не переведены. Автор грозит судом о препятствовании семье погибшего в получении средств.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13247063/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-other">kurskcity.ru</span>
-        <span style="color:var(--text-dim);">31.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">не указан (новый кредитор по цессии)</span>
-      </div>
-      <div class="title" style="font-size:15px;">Банк отказался брать деньги у курян и взыскал долг умершей матери через суд</div>
-      <div class="body" style="margin-top:8px;">
-        Жительница Суджанского района взяла потребительский кредит 137 тыс. руб. в 2021 году, умерла в 2025, осталась должна ~50 тыс. руб. Право требования перешло к новой кредитной организации. Родственники хотели погасить долг — банк отказался принимать платежи, сославшись на необходимость решить вопрос в суде. Банк подал иск: суд обязал мужа и несовершеннолетнего сына (приняли наследство — долю в квартире) выплатить 61,8 тыс. руб. + госпошлину; дочь, отказавшаяся от наследства в пользу брата, освобождена от выплат.
-      </div>
-      <div style="margin-top:8px;"><a href="https://kurskcity.ru/news/citynews/279607" target="_blank">↗ Читать на kurskcity.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">30.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">ПСБ</span>
-      </div>
-      <div class="title" style="font-size:15px;">Жалоба на нарушение сроков выплаты наследственных денежных средств участника СВО</div>
-      <div class="body" style="margin-top:8px;">
-        16.07 обратилась в отделение ПСБ (г. Новозыбков) за получением денежных средств погибшего на СВО сына по свидетельству о праве на наследство; предоставила все документы, но банк нарушает сроки выплаты.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13262239/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">27.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Сбербанк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Получение наследства: Сбербанк затягивает выплату, ссылаясь на «ошибку в долях» (Киров)</div>
-      <div class="body" style="margin-top:8px;">
-        24.07 наследник принёс в отделение Сбербанка (г. Киров, ул. Владимирская, 23) документы от нотариуса на наследство 1/2 доли; вторая половина уже была выплачена брату неделей ранее. Банк ответил: «В наследственном документе ошибка в указанных долях — обратитесь к нотариусу». Автор утверждает, что документы в порядке, и заявляет, что выплата тянется уже 6 месяцев. Оценка 4, отзыв проверен, документы прикреплены.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13255533/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">24.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">ПСБ</span>
-      </div>
-      <div class="title" style="font-size:15px;">Выплата наследства погибшего на СВО</div>
-      <div class="body" style="margin-top:8px;">
-        Отзыв (оценка 1, документы прикреплены): вдова погибшего на СВО (Смирнова Екатерина Константиновна) более трёх месяцев не может получить наследство мужа — участника СВО. Документы на наследство подала в конце апреля, после рассмотрения были звонки от сотрудников банка с требованиями, но выплата так и не произведена.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/13281337/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-
-    <div class="item">
-      <div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;">
-        <span class="badge badge-banki">banki.ru</span>
-        <span style="color:var(--text-dim);">17.07.2026</span>
-        <span class="verified-badge">✅ Верифицировано</span>
-        <span class="tag">Озон Банк</span>
-      </div>
-      <div class="title" style="font-size:15px;">Банк не выплачивает наследство</div>
-      <div class="body" style="margin-top:8px;">
-        Отзыв (оценка 1): в банке обслуживался умерший клиент (скончался 13.01.2025). 11.08.2025 лично в офис подано заявление на выплату наследства от сына (1/2) и вдовы (1/2), приложены права на наследство от нотариуса. Сотрудники обещали выплату в течение 7 дней, но наследство так и не выплачено в полном объёме.
-      </div>
-      <div style="margin-top:8px;"><a href="https://www.banki.ru/services/responses/bank/response/12498852/" target="_blank">↗ Читать на banki.ru</a></div>
-    </div>
-  </div>
-
-  <!-- Insights -->
-  <div class="section">
-    <h2>💡 Главное</h2>
-    <div class="stats-row">
-      <div class="stat-box">
-        <div class="label">🆕 Новое с 11.08</div>
-        <div style="font-size:15px;font-weight:600;margin-top:6px;">2 записи в katya-verified.json</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">
-          Совкомбанк (12.08, затягивание процедуры), Хабаровск (12.08, выморочное наследство — kp.ru, новый источник); katya-data.json обновлён (generatedAt 12.08 10:55)
-        </div>
-      </div>
-      <div class="stat-box">
-        <div class="label">🚨 Главная тема</div>
-        <div style="font-size:15px;font-weight:600;margin-top:6px;">
-          Банки отказывают/затягивают выплату наследства или скрывают активы умерших
-        </div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">
-          14 из 21 жалоб (67%) — отказы, волокита (10) и сокрытие активов (4) при выдаче наследства
-        </div>
-      </div>
-      <div class="stat-box">
-        <div class="label">⚡ Окно 7 дней (05–12.08)</div>
-        <div style="font-size:15px;font-weight:600;margin-top:6px;">5 жалоб + 1 на проверке</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Т-Банк ×2 (05.08), ВТБ (08.08), Совкомбанк + Хабаровск (12.08); Сбербанк (07.08) — на проверке; пики 05 и 12.08 (по 2)</div>
-      </div>
-      <div class="stat-box">
-        <div class="label">⚖️ Прецедент</div>
-        <div style="font-size:15px;font-weight:600;margin-top:6px;">ВТБ и Верховный суд</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Наследники = потребители (№ 2-КГ23-6-К3): вклад 1 млн ₽ + штрафы после суда</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    <strong>stats-agent</strong> · nasledstvo.net.ru<br>
-    Генерация: 12.08.2026 11:20 MSK · deepseek/deepseek-v4-flash<br>
-    Данные: katya-data.json (5 записей + 1 на проверке, 05.08–12.08) + katya-verified.json (21 запись: 20 верифицированных, 1 на проверке; 17.07–12.08)<br>
-    <a href="https://nasledstvo2026.github.io/nasledstvo/" target="_blank">nasledstvo2026.github.io/nasledstvo</a>
+    <div class="sub-note">Доли посчитаны от 21 принятой записи. 3 отклонённых дубликата в статистику источников не включены.</div>
   </div>
 
 </div>
