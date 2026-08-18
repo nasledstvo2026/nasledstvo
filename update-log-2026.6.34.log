@@ -1,0 +1,70 @@
+│
+◇  Config warnings ───────────────────────────────────────────────────────╮
+│                                                                         │
+│  - plugins.entries.clickclack: plugin clickclack: plugin requires       │
+│    plugin API >=2026.7.2-beta.1, but this host is 2026.6.33; skipping   │
+│    discovery                                                            │
+│  - plugins: plugin searxng-plugin: plugin requires plugin API           │
+│    >=2026.7.1, but this host is 2026.6.33; skipping discovery           │
+│  - plugins.entries.zai: plugin zai: plugin requires plugin API          │
+│    >=2026.7.2-beta.1, but this host is 2026.6.33; skipping discovery    │
+│  - plugins.entries.zai: plugin not installed: zai — install the         │
+│    official external plugin with: openclaw plugins install              │
+│    @openclaw/zai-provider                                               │
+│  - plugins.entries.clickclack: plugin not installed: clickclack —       │
+│    install the official external plugin with: openclaw plugins install  │
+│    @openclaw/clickclack                                                 │
+│                                                                         │
+├─────────────────────────────────────────────────────────────────────────╯
+Updating OpenClaw...
+
+Stopping managed gateway service before package update...
+Stopped systemd service: openclaw-gateway.service
+
+Update Result: OK
+  Root: /home/user1/.npm-global/lib/node_modules/openclaw
+  Before: 2026.6.33
+  After: 2026.6.34
+
+Steps:
+  ✓ global update (17.2s)
+  ✓ global install swap (796ms)
+  ✓ openclaw doctor (25.44s)
+
+Total time: 54.27s
+Update channel will be set to extended-stable.
+
+Updating plugins...
+Disabled "clickclack" after plugin update failure; OpenClaw will continue without it. Failed to update clickclack: plugin "clickclack" requires plugin API >=2026.7.2-beta.1, but this OpenClaw runtime exposes 2026.6.34. Upgrade OpenClaw or install a compatible plugin version and retry.
+Installing @openclaw/deepseek-provider@2026.6.34 into /home/user1/.openclaw/npm/projects/openclaw-deepseek-provider-2481ed984b__openclaw-generation__openclaw-deepseek-provider-2026.6.34-openclaw-deep-bdd8de9cff…
+Linked peerDependency "openclaw" -> /home/user1/.npm-global/lib/node_modules/openclaw
+Plugin manifest id "deepseek" differs from npm package name "@openclaw/deepseek-provider"; using manifest id as the config key.
+Installing @openclaw/llama-cpp-provider@2026.6.34 into /home/user1/.openclaw/npm/projects/openclaw-llama-cpp-provider-15b2d859e6__openclaw-generation__openclaw-llama-cpp-provider-2026.6.34-openclaw-lla-ca75a6e486…
+Linked peerDependency "openclaw" -> /home/user1/.npm-global/lib/node_modules/openclaw
+Plugin manifest id "llama-cpp" differs from npm package name "@openclaw/llama-cpp-provider"; using manifest id as the config key.
+Disabled "searxng" after plugin update failure; OpenClaw will continue without it. Failed to update searxng: plugin "searxng" requires plugin API >=2026.7.1, but this OpenClaw runtime exposes 2026.6.34. Upgrade OpenClaw or install a compatible plugin version and retry.
+Disabled "zai" after plugin update failure; OpenClaw will continue without it. Failed to update zai: plugin "zai" requires plugin API >=2026.7.2-beta.1, but this OpenClaw runtime exposes 2026.6.34. Upgrade OpenClaw or install a compatible plugin version and retry.
+Installed missing configured plugin "deepinfra" from @openclaw/deepinfra-provider@2026.6.34.
+Config warnings:
+- plugins: plugin: ignored plugins.load.paths entry that points at OpenClaw's current bundled plugin directory; remove this redundant path or run openclaw doctor --fix
+- plugins.entries.clickclack: plugin clickclack: plugin requires plugin API >=2026.7.2-beta.1, but this host is 2026.6.34; skipping discovery
+- plugins: plugin searxng-plugin: plugin requires plugin API >=2026.7.1, but this host is 2026.6.34; skipping discovery
+- plugins.entries.zai: plugin zai: plugin requires plugin API >=2026.7.2-beta.1, but this host is 2026.6.34; skipping discovery
+- plugins.entries.zai: plugin not installed: zai — install the official external plugin with: openclaw plugins install @openclaw/zai-provider
+- plugins.entries.clickclack: plugin not installed: clickclack — install the official external plugin with: openclaw plugins install @openclaw/clickclack
+- plugins.entries.searxng: plugin not installed: searxng — install the official external plugin with: openclaw plugins install @openclaw/searxng-plugin
+Config warnings:
+- plugins: plugin: ignored plugins.load.paths entry that points at OpenClaw's current bundled plugin directory; remove this redundant path or run openclaw doctor --fix
+- plugins.entries.clickclack: plugin clickclack: plugin requires plugin API >=2026.7.2-beta.1, but this host is 2026.6.34; skipping discovery
+- plugins: plugin searxng-plugin: plugin requires plugin API >=2026.7.1, but this host is 2026.6.34; skipping discovery
+- plugins.entries.zai: plugin zai: plugin requires plugin API >=2026.7.2-beta.1, but this host is 2026.6.34; skipping discovery
+- plugins.entries.zai: plugin not installed: zai — install the official external plugin with: openclaw plugins install @openclaw/zai-provider
+- plugins.entries.clickclack: plugin not installed: clickclack — install the official external plugin with: openclaw plugins install @openclaw/clickclack
+- plugins.entries.searxng: plugin not installed: searxng — install the official external plugin with: openclaw plugins install @openclaw/searxng-plugin
+npm plugins: 2 updated, 0 unchanged, 4 skipped.
+
+Restarting service...
+Gateway: restarted and verified.
+Daemon restart completed.
+
+Upgraded! Peter fixed stuff. Blame him if it breaks.
