@@ -49,7 +49,7 @@
 - **Удалённые проекты:** OpenProject (Docker), HuggingFace whisper-модели, torproxy, puppeteer, python3.10
 - **Оставлены (критичные):** openclaw-gateway, caddy, postgresql@16-main, docker (searxng), fail2ban, cloudflared-dashboard, tailscale, unattended-upgrades, rsyslog
 - **DeepSeek provider:** 2026.6.11 (актуальный — 2026.7.1, не обновляли)
-- **OpenClaw:** 2026.6.11 (актуальный новее — не обновляли)
+- **OpenClaw:** 2026.6.34 (extended-stable, обновлён 2026-08-18)
 
 ## ⚙️ Workflow деплоя (GitHub Pages)
 - Ветка: `gh-pages` (НЕ master)
@@ -63,6 +63,7 @@
 - **Правило:** инфраструктурные факты (ветка, домен) — в TOOLS.md, а не в голове
 
 ## Хронология
+- **2026-08-18** — Обновление OpenClaw Лунтика 2026.6.33 → 2026.6.34 (extended-stable). Феникс: безопасный рестарт (heap 2.06ГБ→366МБ, очередь irina-router обнулена). Таймауты deepseek-v4-pro (LLM idle 120s) на обеих машинах. 8 правок кронов: перенос из пика в off-peak (MSK 09:00-13:00 и 04:00-07:00) + verify-agent pro→flash. DeepSeek ввёл peak/off-peak тарифы.
 - **2026-08-06** — Социальный консультант на Фениксе принят. 5/5 тестов, SLA 120 сек, среднее 61 сек. Агенты: social-consult-agent (v4-flash), social-verify-agent (v4-flash). БЗ: 7 файлов, 317 строк. Биндинг: Ирина (739016616) → main → social-consult-agent. Оптимизация верификатора: garant.ru+sfr.gov.ru, лимит 3 поиска, только ключевые факты.
 - **2026-08-01** — Починен Феникс (соседний OpenClaw на 213.171.25.85): gateway был остановлен, tools.allow ['message'] ломал агентов. Настроена маршрутизация: «Федор» в начале → fz425-agent, иначе → main. Все 3 теста пройдены. Конфликт с TUI Кирилла (перезаписал фикс) — договорились: конфиг правлю я через SSH.
 - **2026-07-26** — Первый запуск. Знакомство с Кириллом. Определили имя, роль и вайб.
