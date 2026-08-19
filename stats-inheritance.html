@@ -14,10 +14,13 @@
     .bar-psb   { background: linear-gradient(90deg, #bc8cff, #8957e5); }
     .bar-sovkom{ background: linear-gradient(90deg, #ff7b72, #da3633); }
     .bar-yandex{ background: linear-gradient(90deg, #ffcc33, #fc3f1d); }
+    .bar-dv    { background: linear-gradient(90deg, #79c0ff, #0d419d); }
+    .bar-rs    { background: linear-gradient(90deg, #f778ba, #bf4b8a); }
+    .bar-ozon  { background: linear-gradient(90deg, #56d4dd, #007a8a); }
     .bar-unk   { background: linear-gradient(90deg, #8b949e, #484f58); }
     .trend-number { font-size: 28px; font-weight: 800; }
     .week-grid { display: flex; gap: 8px; flex-wrap: wrap; }
-    .day-card { flex: 1; min-width: 72px; padding: 14px 10px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); text-align: center; }
+    .day-card { flex: 1; min-width: 64px; padding: 14px 10px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); text-align: center; }
     .day-card .day { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
     .day-card .count { font-size: 22px; font-weight: 700; margin-top: 4px; }
     .day-card .count-0 { color: var(--text-faint); }
@@ -38,29 +41,30 @@
   <!-- Hero -->
   <div class="hero">
     <div class="title">📊 Жалобы на банки по наследству</div>
-    <div class="meta">Сбор и верификация жалоб с banki.ru, pravda.ru, kp.ru · stats-agent</div>
+    <div class="meta">Сбор и верификация жалоб с banki.ru, pravda.ru · stats-agent</div>
     <div class="sub" style="margin-top:8px;">
-      <span style="color:var(--green)">●</span> Верифицировано: 8&ensp;
-      <span style="color:var(--yellow)">●</span> На проверке: 0&ensp;
-      <span style="color:var(--red)">●</span> Отклонено: 0
+      <span style="color:var(--green)">●</span> Верифицировано в архиве: 11&ensp;
+      <span style="color:var(--yellow)">●</span> В окне 13–19.08: 6 (все verified)&ensp;
+      <span style="color:var(--red)">●</span> На проверке: 0 · Отклонено: 0
     </div>
   </div>
 
   <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">18.08.2026 11:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">19.08.2026 08:27 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>📆 Период выборки: <strong style="color:var(--text);">11.08 – 17.08.2026 (окно 7 дней)</strong></span>
-      <span>🕐 generatedAt данных: <strong style="color:var(--text);">17.08.2026 10:55 MSK</strong></span>
-      <span>🔗 Источники: <strong style="color:var(--blue);">banki.ru · pravda.ru · kp.ru</strong></span>
+      <span>📆 Период выборки: <strong style="color:var(--text);">13.08 – 19.08.2026 (окно 7 дней)</strong></span>
+      <span>🕐 generatedAt данных: <strong style="color:var(--text);">19.08.2026 07:55 MSK</strong></span>
+      <span>🔗 Источники: <strong style="color:var(--blue);">banki.ru · pravda.ru</strong></span>
       <span>📁 Данные: <strong style="color:var(--text);">katya-data.json + katya-verified.json</strong></span>
     </div>
     <div class="sub-note" style="margin-top:8px;">
-      ✅ katya-data.json: <strong style="color:var(--text);">8 записей за 11.08–17.08</strong>, все верифицированы (totalVerified 8, needsReview 0, rejected 0).<br>
-      ✅ katya-verified.json: <strong style="color:var(--text);">3 записи</strong> (все verified) — ПСБ (13.08), ВТБ (14.08), Яндекс Банк (14.08). Все три присутствуют в katya-data.json; остальные 5 записей data.json (Сбербанк ×2, Совкомбанк, «не указан» ×2) в verified-архив пока не перенесены, хотя в метаданных значатся верифицированными.<br>
-      ⚠️ Записи «не указан» ×2 (12.08) — это <strong style="color:var(--text);">одна и та же история</strong> про выморочное наследство в Хабаровском крае (взыскание 1,31 млн ₽ с РФ через Росимущество), опубликованная в двух СМИ: pravda.ru и kp.ru. Фактически уникальных кейсов — 7.<br>
-      ℹ️ По сравнению с запуском 17.08 данные <strong style="color:var(--text);">не изменились</strong>: katya-data.json всё ещё сгенерирован 17.08 10:55 (окно 11–17.08), новых жалоб за 15–18.08 не появилось — последняя запись датирована 14.08. Верифицированный архив также без изменений (3 записи).
+      ✅ katya-data.json: <strong style="color:var(--text);">6 записей за 13–19.08</strong>, все верифицированы (totalVerified 6, needsReview 0, rejected 0). Банки: ПСБ ×2, ВТБ ×2, Сбербанк, Яндекс Банк.<br>
+      ✅ katya-verified.json: <strong style="color:var(--text);">11 записей</strong> (все verified), охват 14.06–17.08, 9 банков. В архив вошли 3 записи текущего окна (Сбербанк 15.08, ПСБ 17.08, ВТБ 17.08); ещё 3 записи окна (ПСБ 13.08, ВТБ 14.08, Яндекс Банк 14.08) в архив не перенесены, хотя значатся верифицированными.<br>
+      ℹ️ Объединённая выборка без дублей по URL: <strong style="color:var(--text);">14 записей, 10 банков</strong> — на ней построены топ-10 и месячная динамика.<br>
+      ⚠️ Запись «не указан» (12.08, pravda.ru) — не жалоба на банк, а новость о суде: выморочное наследство в Хабаровском крае, взыскание 1,31 млн ₽ с РФ через Росимущество. Оставлена в архиве как релевантный кейс.<br>
+      ℹ️ Сравнение с запуском 18.08: окно сместилось 11–17.08 → 13–19.08 (в окне было 8 записей, стало 6: ушли записи 11–12.08 — Сбербанк ×2, Совкомбанк, «не указан» ×2; добавились Сбербанк 15.08, ПСБ 17.08, ВТБ 17.08). Верифицированный архив пересобран: было 3 записи, стало 11 — состав полностью заменён (прежние ПСБ 13.08, ВТБ 14.08, Яндекс 14.08 в архив не перенесены).
     </div>
   </div>
 
@@ -68,23 +72,23 @@
   <div class="stats-row">
     <div class="stat-box">
       <div class="label">Записей за окно</div>
-      <div class="value">8</div>
-      <div class="label">11.08–17.08 · 7 уникальных кейсов</div>
+      <div class="value">6</div>
+      <div class="label">13.08–19.08 · все верифицированы</div>
     </div>
     <div class="stat-box">
-      <div class="label">Верифицировано</div>
-      <div class="value" style="color:var(--green);">8</div>
-      <div class="label">0 на проверке · 0 отклонено</div>
+      <div class="label">В архиве verified</div>
+      <div class="value" style="color:var(--green);">11</div>
+      <div class="label">14.06–17.08 · 0 на проверке · 0 отклонено</div>
     </div>
     <div class="stat-box">
-      <div class="label">Банков упомянуто</div>
-      <div class="value">5</div>
-      <div class="label">5 наименованных + «не указан» ×2</div>
+      <div class="label">Банков в окне</div>
+      <div class="value">4</div>
+      <div class="label">ПСБ, ВТБ, Сбербанк, Яндекс Банк</div>
     </div>
     <div class="stat-box">
       <div class="label">За последние 24ч</div>
       <div class="value" style="color:var(--text-dim);">0</div>
-      <div class="label">17.08 11:20 – 18.08 11:20: новых записей нет</div>
+      <div class="label">18.08 08:27 – 19.08 08:27: новых записей нет (последняя — 17.08)</div>
     </div>
   </div>
 
@@ -104,58 +108,58 @@
         <tbody>
           <tr>
             <td><span style="color:var(--text-faint);">1</span></td>
-            <td><strong>Сбербанк</strong></td>
+            <td><strong>ПСБ</strong></td>
             <td>
               <div class="bar-cell">
-                <span style="font-weight:700;">2</span>
-                <span class="bar-fill bar-sber" style="width:80px;"></span>
+                <span style="font-weight:700;">4</span>
+                <span class="bar-fill bar-psb" style="width:320px;"></span>
               </div>
             </td>
-            <td>25%</td>
+            <td>28.6%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">2</span></td>
-            <td><strong>не указан (выморочное наследство, Хабаровск)</strong></td>
+            <td><strong>ВТБ</strong></td>
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">2</span>
-                <span class="bar-fill bar-unk" style="width:80px;"></span>
+                <span class="bar-fill bar-vtb" style="width:160px;"></span>
               </div>
             </td>
-            <td>25%</td>
+            <td>14.3%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">3</span></td>
+            <td><strong>Сбербанк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-sber" style="width:80px;"></span>
+              </div>
+            </td>
+            <td>7.1%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">4</span></td>
+            <td><strong>Т-Банк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-tbank" style="width:80px;"></span>
+              </div>
+            </td>
+            <td>7.1%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">5</span></td>
             <td><strong>Совкомбанк</strong></td>
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-sovkom" style="width:40px;"></span>
+                <span class="bar-fill bar-sovkom" style="width:80px;"></span>
               </div>
             </td>
-            <td>12.5%</td>
-          </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">4</span></td>
-            <td><strong>ПСБ</strong></td>
-            <td>
-              <div class="bar-cell">
-                <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-psb" style="width:40px;"></span>
-              </div>
-            </td>
-            <td>12.5%</td>
-          </tr>
-          <tr>
-            <td><span style="color:var(--text-faint);">5</span></td>
-            <td><strong>ВТБ</strong></td>
-            <td>
-              <div class="bar-cell">
-                <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-vtb" style="width:40px;"></span>
-              </div>
-            </td>
-            <td>12.5%</td>
+            <td>7.1%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">6</span></td>
@@ -163,110 +167,160 @@
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-yandex" style="width:40px;"></span>
+                <span class="bar-fill bar-yandex" style="width:80px;"></span>
               </div>
             </td>
-            <td>12.5%</td>
+            <td>7.1%</td>
           </tr>
-          <tr><td>7</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
-          <tr><td>8</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
-          <tr><td>9</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
-          <tr><td>10</td><td style="color:var(--text-dim);">—</td><td style="color:var(--text-dim);">0</td><td style="color:var(--text-dim);">—</td></tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">7</span></td>
+            <td><strong>Дальневосточный Банк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-dv" style="width:80px;"></span>
+              </div>
+            </td>
+            <td>7.1%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">8</span></td>
+            <td><strong>Банк Русский Стандарт</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-rs" style="width:80px;"></span>
+              </div>
+            </td>
+            <td>7.1%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">9</span></td>
+            <td><strong>Банк Ozon</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-ozon" style="width:80px;"></span>
+              </div>
+            </td>
+            <td>7.1%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">10</span></td>
+            <td><strong>не указан (выморочное наследство, Хабаровск)</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">1</span>
+                <span class="bar-fill bar-unk" style="width:80px;"></span>
+              </div>
+            </td>
+            <td>7.1%</td>
+          </tr>
         </tbody>
       </table>
     </div>
     <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">
-      ⚠️ Лидер — <strong style="color:var(--text);">Сбербанк</strong> (2 жалобы, 12.08): отказ выдать наследство наличными — «перевод на счёт в течение 12 рабочих дней» + отказ в выписке по счетам; «счетов/вкладов в Байкальском банке не обнаружено» при сберкнижках на руках → пришлось судиться. «Не указан» ×2 (12.08) — один кейс: Хабаровск, выморочное наследство (pravda.ru + kp.ru). <strong style="color:var(--text);">Совкомбанк</strong> (12.08): документы ушли на «проверку» без уведомления о сроках, крайний срок 11.08 прошёл. <strong style="color:var(--text);">ПСБ</strong> (13.08): банк не выдаёт средства наследнику, не работал вход в мобильное приложение; в отзыве — низкая оценка (в более ранней версии кейса — признание ошибок и возмещение процентов). <strong style="color:var(--text);">ВТБ</strong> (14.08): проверка сроком 3 месяца при нотариусе в 100 метрах от отделения; решено после обращения в народный рейтинг. <strong style="color:var(--text);">Яндекс Банк</strong> (14.08): 2 дня шаблонных ответов при полностью завершённом нотариальном этапе, требование повторного «запроса нотариуса».
+      📊 Ранжирование по объединённой выборке: verified-архив (11) + записи окна, отсутствующие в архиве (3) = <strong style="color:var(--text);">14 записей, 10 банков</strong>, дубли по URL исключены. Лидер — <strong style="color:var(--text);">ПСБ</strong> (4): 24.07 ×2 (вдова участника СВО ждёт выплату более 3 месяцев; проблемы в отделении Екатеринбурга), 17.08 (сроки перечисления до 2 недель + требование согласия всех наследников) и 13.08 из окна (банк не выдаёт средства, не работает вход в приложение). <strong style="color:var(--text);">ВТБ</strong> (2): 14.08 — «проверка» сроком 3 месяца при нотариусе в 100 метрах, решено после обращения в народный рейтинг; 17.08 — отказ принимать наличные по унаследованному кредиту. По одной жалобе: <strong style="color:var(--text);">Сбербанк</strong> (задержка более 3 месяцев, выплачен 1 из 3 вкладов), <strong style="color:var(--text);">Т-Банк</strong> (кредитка умершего в 2023 г. «ожила» в 2025 г.), <strong style="color:var(--text);">Совкомбанк</strong> (страховка не выплачена, банк «не помнит» обращение), <strong style="color:var(--text);">Яндекс Банк</strong> (2 дня шаблонных ответов при готовых свидетельствах), <strong style="color:var(--text);">Дальневосточный Банк</strong> (2 дня в отделении, «не работает компьютер»), <strong style="color:var(--text);">Русский Стандарт</strong> (3-й визит в офис ради размещения доли), <strong style="color:var(--text);">Банк Ozon</strong> (не выплачивает с 11.08.2025).
     </div>
   </div>
 
   <!-- Weekly dynamics -->
   <div class="section">
-    <h2>📈 Динамика за неделю (11.08 – 17.08)</h2>
+    <h2>📈 Динамика за неделю (13.08 – 19.08)</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
-      <div class="day-card"><div class="day">Вт 11</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Ср 12</div><div class="count count-5">5</div></div>
       <div class="day-card"><div class="day">Чт 13</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Пт 14</div><div class="count count-2">2</div></div>
-      <div class="day-card"><div class="day">Сб 15</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Сб 15</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Вс 16</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Пн 17</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Пн 17</div><div class="count count-2">2</div></div>
+      <div class="day-card"><div class="day">Вт 18</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Ср 19</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Всего за неделю</div>
-        <div class="value" style="color:var(--orange);">8</div>
-        <div class="label">11.08–17.08 · 7 уникальных кейсов (Хабаровск в 2 СМИ)</div>
+        <div class="value" style="color:var(--orange);">6</div>
+        <div class="label">13.08–19.08 · все верифицированы</div>
       </div>
       <div class="stat-box">
-        <div class="label">Пиковый день</div>
-        <div class="value" style="font-size:28px;">12 авг</div>
-        <div class="label">5 записей: Сбербанк ×2, Совкомбанк, Хабаровск ×2 СМИ</div>
+        <div class="label">Пиковые дни</div>
+        <div class="value" style="font-size:26px;">14 и 17 авг</div>
+        <div class="label">по 2: 14.08 — ВТБ, Яндекс Банк; 17.08 — ПСБ, ВТБ</div>
       </div>
       <div class="stat-box">
         <div class="label">Ср. жалоб в день</div>
-        <div class="value" style="color:var(--orange);">1.14</div>
-        <div class="label">8 записей за 7 дней наблюдения</div>
+        <div class="value" style="color:var(--orange);">0.86</div>
+        <div class="label">6 записей за 7 дней наблюдения</div>
       </div>
       <div class="stat-box">
         <div class="label">Тихие дни</div>
-        <div class="value" style="font-size:28px;">11, 15–17</div>
-        <div class="label">по 0 записей; последняя жалоба — 14.08</div>
+        <div class="value" style="font-size:28px;">16, 18–19</div>
+        <div class="label">по 0 записей; последняя жалоба — 17.08</div>
       </div>
     </div>
 
     <div class="sub-note">
-      📈 Сравнение с запуском 16.08 (окно 08–14.08, 11 записей): окно сместилось, поэтому числа не сопоставимы напрямую. Из 11 прежних записей в текущей выборке остались 7 (Сбербанк ×2, Совкомбанк, «не указан» ×2, ВТБ, ПСБ), добавлена Яндекс Банк (14.08); вышли Т-Банк ×2, МТС Банк и ВТБ/argumenti.ru (датированы 08–10.08). Пик 12.08 (5 записей) — устойчив для обоих окон. С запуска 17.08 данных не менялось: новые жалобы за 15–18.08 не поступали (последняя — 14.08).
+      📈 Сравнение с запуском 18.08 (окно 11–17.08, 8 записей): окно сместилось, поэтому числа сопоставимы лишь частично. Из прежних 8 записей в текущем окне остались 3 (ПСБ 13.08, ВТБ 14.08, Яндекс 14.08), добавились Сбербанк 15.08, ПСБ 17.08, ВТБ 17.08; ушли записи 11–12.08 (Сбербанк ×2, Совкомбанк, «не указан» ×2). Новые жалобы за 18–19.08 не поступали.
     </div>
   </div>
 
   <!-- Monthly dynamics -->
   <div class="section">
-    <h2>📅 Динамика за месяц (август 2026, доступное окно)</h2>
+    <h2>📅 Динамика за месяц (по объединённой выборке, 14.06 – 19.08)</h2>
 
-    <div class="week-grid" style="margin-bottom:8px;">
-      <div class="day-card na"><div class="day">Авг 01</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 02</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 03</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 04</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 05</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 06</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 07</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 08</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 09</div><div class="count count-0">—</div></div>
-      <div class="day-card na"><div class="day">Авг 10</div><div class="count count-0">—</div></div>
+    <div class="week-grid" style="margin-bottom:12px;">
+      <div class="day-card"><div class="day">Июнь</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Июль</div><div class="count count-3">4</div></div>
+      <div class="day-card active"><div class="day">Август</div><div class="count count-5">9</div></div>
+      <div class="day-card na"><div class="day">Сент</div><div class="count count-0">—</div></div>
+    </div>
+    <div class="sub-note">Июнь — Банк Ozon (14.06); июль — Русский Стандарт (21.07), ПСБ ×2 (24.07), Дальневосточный (28.07); август — 9 записей (детали ниже). Полнота месяцев ограничена составом архивов: verified-архив покрывает 14.06–17.08, katya-data.json — только окно 13–19.08.</div>
+
+    <div class="week-grid" style="margin-bottom:8px;margin-top:16px;">
+      <div class="day-card"><div class="day">Авг 01</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 02</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 03</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 04</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 05</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Авг 06</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 07</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Авг 08</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 09</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 10</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 11</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 12</div><div class="count count-5">5</div></div>
+      <div class="day-card"><div class="day">Авг 12</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Авг 13</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Авг 14</div><div class="count count-2">2</div></div>
-      <div class="day-card"><div class="day">Авг 15</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 15</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Авг 16</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Авг 17</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 17</div><div class="count count-2">2</div></div>
+      <div class="day-card"><div class="day">Авг 18</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Авг 19</div><div class="count count-0">0</div></div>
     </div>
-    <div class="sub-note">⚠️ katya-data.json хранит только окно 7 дней (11.08–17.08) — дни 01–10.08 вне выборки помечены «—». Полная месячная статистика недоступна из текущих файлов. Новых записей за 18.08 нет — окно не сдвинулось с прошлого запуска.</div>
+    <div class="sub-note">По дням августа (объединённая выборка): 05.08 — Т-Банк, 07.08 — Совкомбанк, 12.08 — «не указан» (Хабаровск, новость), 13.08 — ПСБ, 14.08 — ВТБ + Яндекс Банк, 15.08 — Сбербанк, 17.08 — ПСБ + ВТБ. Дни 20–31.08 — впереди, в выборку не входят.</div>
 
     <div class="stats-row" style="margin-top:12px;">
       <div class="stat-box">
-        <div class="label">За август (доступно)</div>
-        <div class="value">8</div>
-        <div class="label">11.08–17.08: 7 уникальных кейсов</div>
+        <div class="label">Всего за 3 месяца</div>
+        <div class="value">14</div>
+        <div class="label">14.06–19.08 · 10 банков</div>
       </div>
       <div class="stat-box">
-        <div class="label">Пик месяца (окно)</div>
-        <div class="value" style="font-size:28px;">12 авг</div>
-        <div class="label">5 записей; 14.08 — 2 (ВТБ, Яндекс Банк)</div>
+        <div class="label">Август (по 19.08)</div>
+        <div class="value" style="color:var(--orange);">9</div>
+        <div class="label">6 из окна + 3 из архива (05, 07, 12.08)</div>
       </div>
       <div class="stat-box">
-        <div class="label">Ср. жалоб в день</div>
-        <div class="value" style="color:var(--orange);">1.14</div>
-        <div class="label">за доступное окно (7 дней)</div>
+        <div class="label">Пиковый день августа</div>
+        <div class="value" style="font-size:26px;">14 и 17 авг</div>
+        <div class="label">по 2 записи</div>
       </div>
       <div class="stat-box">
-        <div class="label">Справочно (запуск 16.08)</div>
-        <div class="value" style="font-size:28px;">окно 08–14.08: 11</div>
-        <div class="label">прежнее окно шире за счёт записей 08–10.08 (Т-Банк ×2, МТС, ВТБ/argumenti.ru)</div>
+        <div class="label">Ср. записей в месяц</div>
+        <div class="value" style="color:var(--orange);">4.7</div>
+        <div class="label">14 записей / 3 неполных месяца</div>
       </div>
     </div>
   </div>
@@ -280,13 +334,12 @@
           <tr><th>Источник</th><th>Записей</th><th>Доля</th></tr>
         </thead>
         <tbody>
-          <tr><td>banki.ru (отзывы/ответы банков: Сбербанк ×2, Совкомбанк, ПСБ, ВТБ, Яндекс Банк)</td><td style="font-weight:700;">6</td><td>75%</td></tr>
-          <tr><td>pravda.ru (Хабаровск: выморочное наследство, взыскание долга с РФ через Росимущество)</td><td style="font-weight:700;">1</td><td>12.5%</td></tr>
-          <tr><td>kp.ru (Хабаровск: выморочное наследство — дубль истории с pravda.ru)</td><td style="font-weight:700;">1</td><td>12.5%</td></tr>
+          <tr><td>banki.ru (отзывы и вопросы-ответы банков: ПСБ ×4, ВТБ ×2, Сбербанк, Т-Банк, Совкомбанк, Яндекс Банк, Дальневосточный, Русский Стандарт, Ozon)</td><td style="font-weight:700;">13</td><td>92.9%</td></tr>
+          <tr><td>pravda.ru (Хабаровск: выморочное наследство, взыскание долга с РФ через Росимущество)</td><td style="font-weight:700;">1</td><td>7.1%</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="sub-note">Доли посчитаны от 8 записей katya-data.json. Запись «не указан» ×2 (pravda.ru + kp.ru) — один кейс: при подсчёте уникальных жалоб учитывать как 1.</div>
+    <div class="sub-note">Доли посчитаны от 14 записей объединённой выборки (verified-архив 11 + записи окна, отсутствующие в архиве, 3). Запись «не указан» (pravda.ru) — судебная новость, а не отзыв о банке.</div>
   </div>
 
 </div>
