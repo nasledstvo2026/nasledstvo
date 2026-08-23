@@ -47,7 +47,7 @@
 - **Отключённые сервисы:** aidj-player, aidj-server, photo-server, cloudflared-photo, nginx, multipathd
 - **Удалённые пакеты:** openproject, snapd (+ canonical-livepatch), catdoc/libev4t64/unrtf
 - **Удалённые проекты:** OpenProject (Docker), HuggingFace whisper-модели, torproxy, puppeteer, python3.10
-- **Оставлены (критичные):** openclaw-gateway, caddy, postgresql@16-main, docker (searxng), fail2ban, cloudflared-dashboard, tailscale, unattended-upgrades, rsyslog
+- **Оставлены (критичные):** openclaw-gateway, caddy, postgresql@16-main, fail2ban, cloudflared-dashboard, tailscale, unattended-upgrades, rsyslog
 - **DeepSeek provider:** 2026.6.11 (актуальный — 2026.7.1, не обновляли)
 - **OpenClaw:** 2026.6.34 (extended-stable, обновлён 2026-08-18)
 
@@ -63,6 +63,9 @@
 - **Правило:** инфраструктурные факты (ветка, домен) — в TOOLS.md, а не в голове
 
 ## Хронология
+- **2026-08-23** — Миграция поиска с SearXNG на Яндекс.XML через XMLRiver. SearXNG (docker) погашен: его движки google/ddg/bing/brave забанены с VPS IP (отдавал только википедию), нативный web_search (DuckDuckGo) тоже лежит. Кроны lena-search-agent и search-agent переведены на curl к xmlriver.com/search_yandex/xml (user=22347, ключ вшит в промпты). Тариф Базовый ₽25/1000, расход ~₽40-90/мес. Тест: 472000 результатов по «наследство вклад банк», sortby=tm (свежесть) работает. Docker-файлы SearXNG сохранены в workspace/searxng/ (вернуть можно compose up -d).
+- **2026-08-23 (п.2 LLM-стабильность)** — Бэкапы: backups/openclaw.json.bak-20260823, backups/*.prompt.bak-20260823.md. Промпты lena/search → двухэтапная обработка (python-фильтр без LLM → один LLM-отбор), groups-on-page 20→10. Откат промптов: восстановить текст из .bak через cron update.
+- **2026-08-23 (XMLRiver отключён)** — XMLRiver не даёт свежесть (новости=вечнозелёный справочник, жалобы=старьё 2018-2025). Переход на белые домены (полностью автономная схема, без внешних API). Бэкапы: backups/*.prompt.bak-xmlriver-20260823.md. Откат: вернуть эти .bak через cron update.
 - **2026-08-22** — DeepSeek меняет тарификацию: с 00:00 Пекина 23.08.2026 (= 19:00 МСК 22.08) на выходных (сб+вс) пик/off-peak отменяется — весь день считается по off-peak. Будни (пн–пт) — без изменений. Проанализированы все 15 кронов: правки НЕ нужны — 10 кронов и так ходят только по будням (search/verify/katya/rzd×3 = 1-5; roza/irina = пн; danil×2 = пн/чт), а 5 ежедневных (lena×3 02:00–02:20, stats 08:20, social-search 08:30) на выходных дешевеют автоматически. Вывод: чистый бонус, менять расписания не требуется.
 - **2026-08-18** — Обновление OpenClaw Лунтика 2026.6.33 → 2026.6.34 (extended-stable). Феникс: безопасный рестарт (heap 2.06ГБ→366МБ, очередь irina-router обнулена). Таймауты deepseek-v4-pro (LLM idle 120s) на обеих машинах. 8 правок кронов: перенос из пика в off-peak (MSK 09:00-13:00 и 04:00-07:00) + verify-agent pro→flash. DeepSeek ввёл peak/off-peak тарифы.
 - **2026-08-06** — Социальный консультант на Фениксе принят. 5/5 тестов, SLA 120 сек, среднее 61 сек. Агенты: social-consult-agent (v4-flash), social-verify-agent (v4-flash). БЗ: 7 файлов, 317 строк. Биндинг: Ирина (739016616) → main → social-consult-agent. Оптимизация верификатора: garant.ru+sfr.gov.ru, лимит 3 поиска, только ключевые факты.

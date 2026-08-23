@@ -49,6 +49,16 @@ Things like:
 - Мониторинг прогона: «прогон жив?» / «статус прогона» → SSH `bash ~/check-run.sh` (вердикт по model-fetch активности + load/RAM/диск/xlsx: ✅ завершён / 🟢 идёт / 🔴 стоит). model-fetch — главный признак реальной работы subagent'а (xlsx/лог оркестратора обновляются только при завершении региона).
 - Интерактивный: tmux-сессия `monitor` (htop), подключение: `ssh -i ~/.ssh/fenix user1@213.171.25.85 -t tmux attach -t monitor`
 
+### Поиск (XMLRiver Яндекс.XML)
+- Эндпоинт: `https://xmlriver.com/search_yandex/xml?user=22347&key=***&query=...`
+- user=22347, ключ вшит в промпты кронов lena-search-agent и search-agent
+- ⚠️ XMLRiver НЕстабилен с этого VPS: запросы иногда висят >12с (http=000), иногда отвечают за 2с. В промптах кронов уже стоит `-m 15`; при 2+ таймаутах подряд агент переключается на прямой сбор RSS/sitemap белых доменов.
+- Тариф Базовый ₽25/1000 (Яндекс.XML), расход ~₽40-90/мес
+- Параметры: `lr=225` (РФ), `sortby=tm` (свежесть) / `rlv` (релевантность), `groupby` для плоской выдачи
+- Ответ — XML (тэги <url>, <title>, <passage> внутри <doc>/<group>)
+- Кабинет/пополнение: https://xmlriver.com/account/
+- SearXNG (docker) погашен 2026-08-23; файлы сохранены в workspace/searxng/ (вернуть: `docker compose up -d`)
+
 ## Examples
 
 ```markdown
