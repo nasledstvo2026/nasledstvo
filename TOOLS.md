@@ -59,6 +59,15 @@ Things like:
 - Кабинет/пополнение: https://xmlriver.com/account/
 - SearXNG (docker) погашен 2026-08-23; файлы сохранены в workspace/searxng/ (вернуть: `docker compose up -d`)
 
+### Сбор новостей Лены (lena-search-agent)
+- Реестр источников: `knowledge/lena/sources.json` — 14 доменов; whitelist генерится из ключей реестра
+- Выходные файлы: `agents/shared/lena-raw.json` → `lena-verified.json` (verifier) → `lena-news-seen.md` (дедуп)
+- `/tmp`-пути Лены: `lena_raw_sources.txt` / `lena_filtered.json` (НЕ пересекаются с search-agent)
+- Сбор по типу источника: `rss` / `html` / `sitemap`
+- ⚠️ Ограничения: tass.ru — JS-челлендж (Forbidden), pravo.gov.ru — JS-only (API http 000), nalog.gov.ru — через rn77-зеркало
+- Кроны (МСК): lena-search-agent 02:00 → lena-verify-agent 02:10 → lena-html-agent 02:20
+- Бэкапы/откат прогона 24.08: `backups/*.bak-20260824-004356.*`
+
 ## Examples
 
 ```markdown
