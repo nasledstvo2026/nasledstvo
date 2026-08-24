@@ -1,9 +1,9 @@
 {
-  "tass.ru":       { "type": "html", "url": "https://tass.ru/obschestvo", "note": "разделы: /obschestvo, /ekonomika" },
+  "tass.ru":       { "type": "rss", "url": "https://tass.ru/rss/v2.xml", "note": "RSS-лента (HTML за JS-челленджем)" },
   "rbc.ru":        { "type": "rss", "url": "https://rssexport.rbc.ru/rbcnews/news/30/full.rss", "note": "главные новости; шум отсекается тематическим фильтром" },
-  "kommersant.ru": { "type": "html", "url": "https://www.kommersant.ru/news", "note": "лента новостей" },
-  "vedomosti.ru":  { "type": "html", "url": "https://www.vedomosti.ru/news", "note": "лента новостей" },
-  "rg.ru":         { "type": "sitemap", "url": "https://rg.ru/sitemap.xml", "note": "sitemap за 8 дней, фильтр по слагам наслед*" },
+  "kommersant.ru": { "type": "rss", "url": "https://www.kommersant.ru/RSS/news.xml", "note": "RSS-лента (HTML /news отдаёт 404)" },
+  "vedomosti.ru":  { "type": "rss", "url": "https://www.vedomosti.ru/rss/news", "note": "RSS-лента (HTML /news отдаёт 404)" },
+  "rg.ru":         { "type": "sitemap", "url": "https://rg.ru/sitemaps/index.xml", "note": "3 уровня: sitemap.xml → index.xml (sitemapindex по дням) → daily ?date_start=&date_end= (urlset c lastmod). Брать последние 8 daily, фильтр по слагам наслед*" },
   "pravo.gov.ru":  { "type": "html", "url": "http://publication.pravo.gov.ru/", "note": "официальное опубликование, поиск по наследству" },
   "notariat.ru":   { "type": "html", "url": "https://notariat.ru/ru-ru/news/", "note": "лента ФНП" },
   "banki.ru":      { "type": "html", "url": "https://www.banki.ru/news/lenta/", "note": "лента новостей" },
@@ -12,5 +12,5 @@
   "garant.ru":     { "type": "html", "url": "https://www.garant.ru/hotlaw/federal/", "note": "hotlaw: новые нормативные акты" },
   "nalog.gov.ru":  { "type": "html", "url": "https://www.nalog.gov.ru/news/", "note": "лента новостей ФНС" },
   "sfr.gov.ru":    { "type": "html", "url": "https://sfr.gov.ru/press_center/", "note": "новости СФР" },
-  "mintrud.gov.ru":{ "type": "html", "url": "https://mintrud.gov.ru/news/", "note": "новости Минтруда" }
+  "mintrud.gov.ru":{ "type": "rss", "url": "https://mintrud.gov.ru/news/rss/official", "note": "RSS-лента (50 новостей)" }
 }
