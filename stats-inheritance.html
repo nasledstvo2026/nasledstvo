@@ -7,9 +7,8 @@
   <link rel="stylesheet" href="theme.css">
   <style>
     .bar-fill { display: inline-block; height: 20px; border-radius: 4px; min-width: 4px; }
-    .bar-vtb   { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
-    .bar-sovkom{ background: linear-gradient(90deg, #ff7b72, #da3633); }
-    .bar-unk   { background: linear-gradient(90deg, #8b949e, #484f58); }
+    .bar-sber   { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
+    .bar-sovkom { background: linear-gradient(90deg, #ff7b72, #da3633); }
     .week-grid { display: flex; gap: 8px; flex-wrap: wrap; }
     .day-card { flex: 1; min-width: 64px; padding: 14px 10px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); text-align: center; }
     .day-card .day { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -20,8 +19,6 @@
     .day-card .count-3 { color: var(--red); }
     .day-card.na { opacity: .45; }
     .day-card.active { border-color: rgba(88,166,255,.3); }
-    .verified-badge { color: var(--green); font-size: 12px; }
-    .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); font-size: 11px; color: var(--text-dim); margin: 2px; }
     .sub-note { font-size: 12px; color: var(--text-dim); margin-top: 8px; }
   </style>
 </head>
@@ -36,26 +33,26 @@
       <span style="color:var(--green)">●</span> Верифицировано в окне: 2&ensp;
       <span style="color:var(--yellow)">●</span> На проверке: 0&ensp;
       <span style="color:var(--red)">●</span> Отклонено: 0&ensp;
-      <span style="color:var(--green)">●</span> В архиве verified: 4 (новостные материалы)
+      <span style="color:var(--green)">●</span> В архиве verified: 1 (дубликат жалобы окна)
     </div>
   </div>
 
   <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">24.08.2026 08:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">25.08.2026 08:20 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>📆 Период выборки: <strong style="color:var(--text);">18.08 – 24.08.2026 (окно 7 дней)</strong></span>
-      <span>🕐 generatedAt данных: <strong style="color:var(--text);">24.08.2026 08:08 MSK</strong></span>
+      <span>📆 Период выборки: <strong style="color:var(--text);">19.08 – 25.08.2026 (окно 7 дней)</strong></span>
+      <span>🕐 generatedAt данных: <strong style="color:var(--text);">25.08.2026 08:01 MSK</strong></span>
       <span>🔗 Источники: <strong style="color:var(--blue);">banki.ru</strong></span>
       <span>📁 Данные: <strong style="color:var(--text);">katya-data.json + katya-verified.json</strong></span>
     </div>
     <div class="sub-note" style="margin-top:8px;">
-      ✅ katya-data.json: <strong style="color:var(--text);">2 записи за 18–24.08</strong> (totalVerified 2, needsReview 0, rejected 0). Банки: ВТБ ×1, Совкомбанк ×1.<br>
-      ✅ katya-verified.json: <strong style="color:var(--text);">4 записи</strong> (все verified), даты 02.08–17.08, банк не указан — новостные материалы banki.ru по теме наследства (долги наследников, пересмотр наследства, обязательная доля, вклад в наследство).<br>
-      ℹ️ Объединённая выборка по текущим файлам: <strong style="color:var(--text);">6 записей</strong> — 2 жалобы на банки + 4 новости без привязки к банку. Топ банков строится по 2 жалобам окна.<br>
-      ⚠️ В отличие от запуска 23.08: архивы перегенерированы 24.08 в 08:08. Verified-архив сокращён с 16 до 4 записей (ранее: 9 банков + «не указан» ×2, охват 14.06–19.08) — теперь в нём только новостные материалы. Жалобы прошлых окон (ПСБ ×4, Сбербанк, Т-Банк и др.) в текущих файлах отсутствуют, поэтому топ-10 по текущим данным содержит только банки из окна 18–24.08.<br>
-      ℹ️ Новых жалоб за 20–24.08 нет: последняя — 19.08 (Совкомбанк, игнорирование запросов нотариуса). Данные за 25–31.08 появятся при следующей генерации katya-data.json (окно 25–31.08).
+      ✅ katya-data.json: <strong style="color:var(--text);">2 записи за 19–25.08</strong> (totalVerified 2, needsReview 0, rejected 0). Банки: Совкомбанк ×1, Сбербанк ×1.<br>
+      ✅ katya-verified.json: <strong style="color:var(--text);">1 запись</strong> (verified), дата 21.08, Сбербанк — это та же жалоба, что уже входит в окно (URL banki.ru/response/13316680). Дубликат, новых жалоб не добавляет; новостных материалов в архиве сейчас нет.<br>
+      ℹ️ Объединённая выборка по текущим файлам: <strong style="color:var(--text);">2 уникальные жалобы</strong> на 2 банка. Топ банков строится по ним.<br>
+      ⚠️ В отличие от запуска 24.08: verified-архив перегенерирован — вместо 4 новостных материалов (02.08–17.08: долги наследников, пересмотр наследства, обязательная доля, вклад в наследство) теперь в нём только жалоба Сбербанка от 21.08. Прежние жалобы прошлых окон (ВТБ 18.08 и др.) в текущих файлах отсутствуют.<br>
+      ℹ️ Новых жалоб за 22–25.08 нет: последняя — 21.08 (Сбербанк, компенсация на похороны). Данные за 26.08+ появятся при следующей генерации katya-data.json.
     </div>
   </div>
 
@@ -64,22 +61,22 @@
     <div class="stat-box">
       <div class="label">Записей за окно</div>
       <div class="value">2</div>
-      <div class="label">18.08–24.08 · 2 verified · 0 на проверке · 0 отклонено</div>
+      <div class="label">19.08–25.08 · 2 verified · 0 на проверке · 0 отклонено</div>
     </div>
     <div class="stat-box">
       <div class="label">В архиве verified</div>
-      <div class="value" style="color:var(--green);">4</div>
-      <div class="label">Новости banki.ru, 02.08–17.08, банк не указан</div>
+      <div class="value" style="color:var(--green);">1</div>
+      <div class="label">Сбербанк 21.08 — дубликат жалобы окна, уникальных не добавляет</div>
     </div>
     <div class="stat-box">
       <div class="label">Банков в окне</div>
       <div class="value">2</div>
-      <div class="label">ВТБ, Совкомбанк</div>
+      <div class="label">Совкомбанк, Сбербанк</div>
     </div>
     <div class="stat-box">
       <div class="label">За последние 24ч</div>
       <div class="value" style="color:var(--text-dim);">0</div>
-      <div class="label">23.08 08:20 – 24.08 08:20: новых записей нет (последняя — 19.08, Совкомбанк)</div>
+      <div class="label">24.08 08:20 – 25.08 08:20: новых записей нет (последняя — 21.08, Сбербанк)</div>
     </div>
   </div>
 
@@ -99,11 +96,11 @@
         <tbody>
           <tr>
             <td><span style="color:var(--text-faint);">1</span></td>
-            <td><strong>ВТБ</strong></td>
+            <td><strong>Сбербанк</strong></td>
             <td>
               <div class="bar-cell">
                 <span style="font-weight:700;">1</span>
-                <span class="bar-fill bar-vtb" style="width:80px;"></span>
+                <span class="bar-fill bar-sber" style="width:80px;"></span>
               </div>
             </td>
             <td>50.0%</td>
@@ -123,34 +120,34 @@
       </table>
     </div>
     <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">
-      📊 Ранжирование по текущим данным (katya-data.json, окно 18–24.08): <strong style="color:var(--text);">2 банка, по 1 жалобе</strong>. <strong style="color:var(--text);">ВТБ</strong> (18.08): наследница получила минимум в 2 раза меньше денег, чем было у умершего мужа на счёте, — обращение CR-16932659 передано специалистам. <strong style="color:var(--text);">Совкомбанк</strong> (19.08): игнорирование запросов нотариуса о счетах покойного (ответ не поступил с 26.06.2026, запросы дублировались 16.07.2026) — мать-инвалид II группы не может вступить в наследство. Топ-10 приведён не полностью: в текущих файлах другие банки отсутствуют (архив жалоб прошлых окон перегенерирован 24.08, см. блок meta).
+      📊 Ранжирование по текущим данным (katya-data.json + katya-verified.json, окно 19–25.08): <strong style="color:var(--text);">2 банка, по 1 жалобе</strong>. <strong style="color:var(--text);">Сбербанк</strong> (21.08): отказ выдать компенсацию на похороны по постановлению нотариуса (ст. 1174 ГК РФ) в отделении №8635/0311 г. Большой Камень со ссылкой на «ошибку программы» — обращение №260821-7000-090207, срок ответа до 01.09. <strong style="color:var(--text);">Совкомбанк</strong> (19.08): игнорирование запросов нотариуса о счетах покойного (с 26.06.2026, дублированы 16.07.2026) — мать-инвалид II группы не может вступить в наследство. Топ-10 приведён не полностью: в текущих файлах другие банки отсутствуют (архив перегенерирован, жалобы прошлых окон не сохранены).
     </div>
   </div>
 
   <!-- Weekly dynamics -->
   <div class="section">
-    <h2>📈 Динамика за неделю (18.08 – 24.08)</h2>
+    <h2>📈 Динамика за неделю (19.08 – 25.08)</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
-      <div class="day-card"><div class="day">Пн 18</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Вт 19</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Ср 20</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Чт 21</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Пт 22</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Сб 23</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Вс 24</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Ср 19</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Чт 20</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Пт 21</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Сб 22</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Вс 23</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Пн 24</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Вт 25</div><div class="count count-0">0</div></div>
     </div>
 
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Всего за неделю</div>
         <div class="value" style="color:var(--orange);">2</div>
-        <div class="label">18.08–24.08 · 2 verified</div>
+        <div class="label">19.08–25.08 · 2 verified</div>
       </div>
       <div class="stat-box">
-        <div class="label">Пиковый день</div>
-        <div class="value" style="font-size:26px;">18–19 авг</div>
-        <div class="label">по 1 жалобе: 18.08 ВТБ, 19.08 Совкомбанк; всплесков нет</div>
+        <div class="label">Пиковые дни</div>
+        <div class="value" style="font-size:26px;">19 и 21 авг</div>
+        <div class="label">по 1 жалобе: 19.08 Совкомбанк, 21.08 Сбербанк; всплесков нет</div>
       </div>
       <div class="stat-box">
         <div class="label">Ср. жалоб в день</div>
@@ -159,31 +156,31 @@
       </div>
       <div class="stat-box">
         <div class="label">Тихие дни</div>
-        <div class="value" style="font-size:28px;">20–24</div>
-        <div class="label">5 дней подряд без записей</div>
+        <div class="value" style="font-size:28px;">20, 22–24</div>
+        <div class="label">4 дня без записей (25.08 — текущий день, пока 0)</div>
       </div>
     </div>
 
     <div class="sub-note">
-      📈 Сравнение с запуском 23.08: окно сместилось с 15–21.08 на 18–24.08, katya-data.json перегенерирован 24.08 08:08. В новом окне остались 2 жалобы (18.08 ВТБ, 19.08 Совкомбанк), которые уже были в прошлой выборке; записи 15–17.08 (ПСБ, Сбербанк, Банк России, вопрос правоведу) вышли за пределы окна. За 20–24.08 новых жалоб нет.
+      📈 Сравнение с запуском 24.08: окно сместилось с 18–24.08 на 19–25.08, katya-data.json перегенерирован 25.08 08:01. Совкомбанк (19.08) остался в выборке; ВТБ (18.08) вышел за пределы окна; добавилась новая жалоба Сбербанка (21.08) — отказ в выплате компенсации на похороны по ст. 1174 ГК РФ. За 22–25.08 новых жалоб нет.
     </div>
   </div>
 
   <!-- Monthly dynamics -->
   <div class="section">
-    <h2>📅 Динамика за месяц (по текущим файлам, 02.08 – 19.08)</h2>
+    <h2>📅 Динамика за месяц (по текущим файлам, 19.08 – 21.08)</h2>
 
     <div class="week-grid" style="margin-bottom:12px;">
       <div class="day-card"><div class="day">Июнь</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Июль</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Август</div><div class="count count-2">6</div></div>
+      <div class="day-card active"><div class="day">Август</div><div class="count count-2">2</div></div>
       <div class="day-card na"><div class="day">Сент</div><div class="count count-0">—</div></div>
     </div>
-    <div class="sub-note">Август — 6 записей: 4 новостные (02.08, 10.08, 14.08, 17.08, verified-архив) + 2 жалобы на банки (18.08 ВТБ, 19.08 Совкомбанк). Июнь и июль в текущих файлах отсутствуют (архив перегенерирован 24.08: прежние записи за 14.06–31.07 в него не вошли).</div>
+    <div class="sub-note">Август — 2 жалобы на банки: 19.08 Совкомбанк, 21.08 Сбербанк. Verified-архив (1 запись от 21.08) — дубликат, в месячную динамику отдельно не считается. Июнь, июль и новостные материалы в текущих файлах отсутствуют (архив перегенерирован 25.08).</div>
 
     <div class="week-grid" style="margin-bottom:8px;margin-top:16px;">
       <div class="day-card"><div class="day">Авг 01</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 02</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Авг 02</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 03</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 04</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 05</div><div class="count count-0">0</div></div>
@@ -191,44 +188,45 @@
       <div class="day-card"><div class="day">Авг 07</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 08</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 09</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 10</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Авг 10</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 11</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 12</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 13</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 14</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Авг 14</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 15</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 16</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 17</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Авг 18</div><div class="count count-1">1</div></div>
+      <div class="day-card"><div class="day">Авг 17</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 18</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 19</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Авг 20</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 21</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 21</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">Авг 22</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">Авг 23</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Авг 24</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">Авг 24</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">Авг 25</div><div class="count count-0">0</div></div>
     </div>
-    <div class="sub-note">По дням августа (объединённая выборка): 02.08 — новость «как оставить вклад в наследство», 10.08 — «обязательная доля», 14.08 — «пересмотр наследства спустя годы», 17.08 — «долги в наследство», 18.08 — жалоба на ВТБ, 19.08 — жалоба на Совкомбанк. Дни 20–24.08 — без записей; 25–31.08 в выборку не входят до следующей генерации katya-data.json.</div>
+    <div class="sub-note">По дням августа (объединённая выборка): 19.08 — жалоба на Совкомбанк (игнорирование запросов нотариуса), 21.08 — жалоба на Сбербанк (компенсация на похороны, ст. 1174 ГК РФ). Остальные дни — без записей; 26–31.08 в выборку не входят до следующей генерации katya-data.json.</div>
 
     <div class="stats-row" style="margin-top:12px;">
       <div class="stat-box">
         <div class="label">Всего в текущих файлах</div>
-        <div class="value">6</div>
-        <div class="label">02.08–19.08 · 2 жалобы + 4 новости</div>
+        <div class="value">2</div>
+        <div class="label">19.08–21.08 · 2 уникальные жалобы (verified-архив — дубликат)</div>
       </div>
       <div class="stat-box">
         <div class="label">Жалоб на банки</div>
         <div class="value" style="color:var(--orange);">2</div>
-        <div class="label">ВТБ, Совкомбанк · обе в окне 18–24.08</div>
+        <div class="label">Совкомбанк, Сбербанк · обе в окне 19–25.08</div>
       </div>
       <div class="stat-box">
-        <div class="label">Пиковый день августа</div>
-        <div class="value" style="font-size:26px;">нет</div>
-        <div class="label">по 1 записи в 6 разных днях, всплесков нет</div>
+        <div class="label">Пиковые дни августа</div>
+        <div class="value" style="font-size:26px;">19 и 21</div>
+        <div class="label">по 1 жалобе, всплесков нет</div>
       </div>
       <div class="stat-box">
         <div class="label">Ср. записей в месяц</div>
-        <div class="value" style="color:var(--orange);">6.0</div>
-        <div class="label">только август (неполный, по 19.08)</div>
+        <div class="value" style="color:var(--orange);">2.0</div>
+        <div class="label">только август (неполный, по 21.08)</div>
       </div>
     </div>
   </div>
@@ -242,12 +240,11 @@
           <tr><th>Источник</th><th>Записей</th><th>Доля</th></tr>
         </thead>
         <tbody>
-          <tr><td>banki.ru — отзывы и вопросы-ответы: ВТБ (18.08, выплата меньше суммы на счёте), Совкомбанк (19.08, игнорирование запросов нотариуса)</td><td style="font-weight:700;">2</td><td>33.3%</td></tr>
-          <tr><td>banki.ru — новостные материалы по наследству (verified-архив: 02.08, 10.08, 14.08, 17.08)</td><td style="font-weight:700;">4</td><td>66.7%</td></tr>
+          <tr><td>banki.ru — отзывы: Совкомбанк (19.08, игнорирование запросов нотариуса), Сбербанк (21.08, отказ в компенсации на похороны по ст. 1174 ГК РФ)</td><td style="font-weight:700;">2</td><td>100%</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="sub-note">Все 6 записей объединённой выборки — banki.ru (100% источников). Доли посчитаны от 6 записей (2 жалобы + 4 новости). Новостные записи не привязаны к конкретному банку и не учитываются в топе банков.</div>
+    <div class="sub-note">Все 2 записи объединённой выборки — banki.ru (100% источников). Запись из katya-verified.json (21.08, Сбербанк, response/13316680) идентична жалобе окна и учтена один раз. Новостные материалы, бывшие в архиве на 24.08, в текущих файлах отсутствуют.</div>
   </div>
 
 </div>
