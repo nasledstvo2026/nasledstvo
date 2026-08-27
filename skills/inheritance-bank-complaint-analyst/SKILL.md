@@ -17,35 +17,69 @@ description: "Анализ жалоб по наследству в банках 
 
 ### Этап 1. Поиск жалоб (search)
 
-**Источники (по приоритету):**
+**Состав источников — утверждён 28.08.2026 (FR-01), проверено живыми пробами.**
+Отчёт: `docs/complaints-monitoring/source-parsing-2026-08-27.md`.
+Перепроверить источники: `python3 scripts/katya_source_probe.py`.
 
-#### 1.1 Banki.ru AJAX API
-```
-GET https://www.banki.ru/services/responses/list/ajax/
-```
-- Получает последние отзывы (без пагинации)
-- Фильтр: текст содержит «наследств» или «наследник»
+❗ **Правило темпа:** не быстрее **1 запроса в 2 секунды** к одному домену.
+Пачка запросов (78 за 9 с) → banki.ru банит IP на ~1,5 часа (`http=000`).
+Проверено: 55 карточек подряд с `sleep 2` — ни одного отказа.
+Все запросы: `curl -s -L --compressed -m 20 -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36'`.
 
-#### 1.2 Banki.ru — страницы топ-15 банков
+#### Ядро 1: banki.ru — двухступенчатый разбор
 ```
-GET https://www.banki.ru/services/responses/bank/{slug}/
+а) https://www.banki.ru/services/responses/list/?page=N     # N=1..3 (до 6), 25 отзывов/стр
+б) https://www.banki.ru/services/responses/bank/response/<id>/   # карточка, полный текст
 ```
-- Слаги банков: `sberbank`, `vtb`, `alfabank`, `tcs` (Т-Банк), `gazprombank`, `sovcombank`, `psb`, `rshb`, `pochtabank`, `uralsib`, `raiffeisen`, `ozon`, `yandex`, `mts`, `rencredit`
-- Искать: «наследств», «наследник» на странице
-- Пауза между банками: 3-5 сек
+- в ленте есть заголовки и дата-время (`2026-08-27 15:24:47`) → фильтр по дате без открытия карточек
+- тема в ленте **не видна** (заголовки вида «Отзыв») → карточки качать обязательно (лимит 60/прогон)
+- карточка: ~60 КБ, полный текст + `datePublished`
+- объём: **50–75 отзывов/сутки** (стр.1 — сегодня/вчера, стр.6 — −2 дня)
+- ❌ не работает: `?search=` (игнорируется), `/services/responses/list/ajax/` (без ссылок и текста), `sitemap.xml` (404)
+- опция сужения: `?rate[]=1&rate[]=2` (плохие оценки) — может срезать жалобы с нейтральной оценкой
 
-#### 1.3 SearXNG (Google)
-- `http://localhost:8888/search?q=<query>&format=json&language=ru-RU`
-- Запросы:
-  - `site:banki.ru/services/responses/bank/response/ наследство отказ`
-  - `site:banki.ru/services/responses/bank/response/ умер наследство`
-  - `site:banki.ru наследство не выдают деньги`
-  - `site:banki.ru отказ в выдаче наследства банк`
-  - `site:banki.ru/services/questions-answers/ наследство`
-- Пауза между запросами: 15-30 сек
+#### Ядро 2: pravoved.ru
+```
+а) https://pravoved.ru/questions/            # 15 свежих вопросов, ~20 % тематических
+б) https://pravoved.ru/search/?q=<запрос>     # релевантное, но архив 2016–2021
+в) https://pravoved.ru/question/<id>/        # карточка, datePublished ISO
+```
+- ⚠️ **пагинации нет** ни в ленте, ни в поиске (`?page=2` отдаёт то же), сортировки по дате нет
+- следствие: одна утренняя проходка теряет часть потока; для полноты нужен опрос каждые 2–4 часа (решение не принято)
+- запросы поиска: «наследство банк», «вклад умершего», «завещание счет банк»
+- если `web_fetch` вернул блок «похожие вопросы» — брать `og:description` через curl
 
-#### 1.4 Otzovik.com, Pikabu.ru (через SearXNG)
-- Те же запросы с `site:otzovik.com` и `site:pikabu.ru`
+#### Дополнительно
+```
+pikabu.ru:    https://pikabu.ru/tag/Наследство  (+ ?page=2)   — только лента
+advgazeta.ru: https://www.advgazeta.ru/novosti/                    — HTML (RSS 404)
+```
+- pikabu: текст поста без JS **недоступен** (201 КБ / ~350 слов, `og:description` нет) → классификация по заголовку и сниппету из ленты
+
+#### ❌ Не использовать (проверено 27–28.08.2026)
+| Домен | Причина |
+|---|---|
+| 9111.ru | `http 447` — блок IP VPS на ленте и поиске |
+| otzovik.com | лента — JS-заглушка (6 КБ/145 слов), поиск 404; карточки читаются, но списка свежих нет |
+| sravni.ru | тег 404, поиск — 1 упоминание на 471 КБ, `/novosti/` → `/mag/` |
+| asn-news.ru | лента живая, наследственных тем нет |
+| kp.ru | поиск и RSS 404 |
+| SearXNG / web_search | погашен 23.08.2026 / провайдер отключён |
+
+**Тематический фильтр (python, без LLM):** стемы `наследств`, `наследник`, `наследодател`,
+`завещан`, `вклад умерш`, `смерти вкладчика` + отсев всего, что есть в `katya-extra-seen.json`.
+
+<details>
+<summary>Исторические способы сбора (не работают, оставлены для контекста)</summary>
+
+- Banki.ru AJAX API `/services/responses/list/ajax/` — с августа 2026 отдаёт 167 КБ без ссылок и текста
+- Страницы топ-15 банков `/services/responses/bank/{slug}/` — слаги: `sberbank`, `vtb`, `alfabank`,
+  `tcs`, `gazprombank`, `sovcombank`, `psb`, `rshb`, `pochtabank`, `uralsib`, `raiffeisen`, `ozon`,
+  `yandex`, `mts`, `rencredit` (можно использовать точечно, пауза 3–5 с)
+- SearXNG `http://localhost:8888/search?q=<query>&format=json` — погашен 23.08.2026
+- Запросы вида `site:banki.ru наследство отказ` — требуют внешнего поисковика
+
+</details>
 
 **Формат результата (katya-raw.json):**
 ```json
