@@ -119,27 +119,44 @@ otzovik.com — N:
 
 ### Этап 4. Статистика и публикация
 
-1. Прочитать `katya-data.json` (исторические данные)
-2. Посчитать:
-   - Всего жалоб за всё время
-   - По банкам (Сбер, ВТБ, Альфа, и т.д.)
-   - Помесячно
-   - По годам
-   - Топ-3 по количеству
-3. Сформировать `stats-inheritance.html` по шаблону:
+1. Синхронизировать базу (идемпотентно): `python3 /home/user1/.openclaw/workspace/scripts/katya_merge.py`
+2. Прочитать `katya-data.json` (накопительная база всех жалоб, список) и `katya-summary-7d.json` (готовые агрегаты `base` и `window`)
+3. Посчитать по агрегатам `base`:
+   - Всего жалоб за всё время (`base.total`, период `firstDate`–`lastDate`)
+   - По банкам (`base.byBank`, названия уже канонизированы)
+   - Помесячно (`base.byMonth`), по источникам (`base.bySource`)
+   - Топ-10 банков
+   - Отдельным блоком — окно 7 дней из `window`
+4. Сформировать `stats-inheritance.html` по шаблону:
    - Скопировать структуру из shared/stats-inheritance.html
    - Менять ТОЛЬКО текстовые данные (цифры, даты, ссылки)
    - НЕ менять классы, теги, стили
-4. Сохранить в `/tmp/stats-inheritance.html`
-5. Опубликовать:
+5. Сохранить в `/home/user1/.openclaw/workspace/reports/stats-inheritance.html`
+6. Опубликовать:
    ```bash
-   /home/user1/.openclaw/workspace/publish-report.sh /tmp/stats-inheritance.html stats-inheritance.html
+   cd /home/user1/.openclaw/workspace && bash publish-report.sh reports/stats-inheritance.html stats-inheritance.html
    ```
 
-### Правила дедупликации
-- По полю `url` — если URL уже есть в `katya-data.json`, не добавлять
-- Перед записью делать backup: `cp katya-data.json katya-data.json.backup.$(date +%Y%m%d-%H%M%S)`
-- Только дописывать, никогда не перезаписывать целиком
+### Правила накопления базы (FR-17) — ЖЕЛЕЗНОЕ
+`katya-data.json` — накопительная база ВСЕХ жалоб за всё время. Единственный разрешённый способ записи:
+
+```bash
+python3 /home/user1/.openclaw/workspace/scripts/katya_merge.py        # обычный прогон
+python3 /home/user1/.openclaw/workspace/scripts/katya_merge.py --dry-run   # посмотреть, что изменится
+```
+
+Скрипт сам делает: бэкап базы → дедуп по нормализованному URL (без www/слеша/utm) → дополнение
+новыми verified/needs_review → канонизация названий банков и источников → пересчёт сводки за 7 дней
+в `katya-summary-7d.json` → дополнение seen-листа `katya-extra-seen.json`. Запись атомарная,
+если записей стало бы меньше — прогон отменяется (exit 3).
+
+- ❌ НИКОГДА не писать в `katya-data.json` через write/edit/python — ни агенту, ни человеку
+- ❌ НИКОГДА не хранить в `katya-data.json` сводку «за N дней» — окно живёт только в `katya-summary-7d.json`
+- ✅ Дедуп по `url`; rejected в базу не попадают (но попадают в seen-лист)
+- ✅ Тесты скрипта: `python3 /home/user1/.openclaw/workspace/scripts/test_katya_merge.py` (21 кейс)
+- 📌 История вопроса: в июле 2026 формулировка «обнови katya-data.json — агрегированные данные за
+  7 дней» превратила базу из 82 записей в 2. Восстановлено 27.08.2026 (124 записи), правило
+  зафиксировано скриптом.
 
 ### Ключевые слова для поиска
 - наследство + банк + отказ
@@ -150,8 +167,10 @@ otzovik.com — N:
 
 ## Источники
 - `/home/user1/.openclaw/agents/shared/katya-raw.json` — сырые результаты поиска
-- `/home/user1/.openclaw/agents/shared/katya-verified.json` — верифицированные
-- `/home/user1/.openclaw/agents/shared/katya-data.json` — вся история
+- `/home/user1/.openclaw/agents/shared/katya-verified.json` — верифицированные (окно прогона)
+- `/home/user1/.openclaw/agents/shared/katya-data.json` — накопительная база всех жалоб (только через `katya_merge.py`)
+- `/home/user1/.openclaw/agents/shared/katya-summary-7d.json` — агрегаты: окно 7 дней + вся база
+- `/home/user1/.openclaw/agents/shared/katya-extra-seen.json` — seen-лист обработанных URL (только через `katya_merge.py`)
 - `/home/user1/.openclaw/agents/shared/stats-inheritance.html` — шаблон отчёта
 - `publish-report.sh` — скрипт публикации на GitHub Pages
 

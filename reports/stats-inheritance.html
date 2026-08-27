@@ -9,6 +9,8 @@
     .bar-fill { display: inline-block; height: 20px; border-radius: 4px; min-width: 4px; }
     .bar-sber   { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
     .bar-other  { background: linear-gradient(90deg, #7ee787, #56d4dd); }
+    .bar-src    { background: linear-gradient(90deg, #d2a8ff, #8957e5); }
+    .bar-month  { background: linear-gradient(90deg, #ffa657, #f0883e); }
     .week-grid { display: flex; gap: 8px; flex-wrap: wrap; }
     .day-card { flex: 1; min-width: 60px; padding: 14px 10px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); text-align: center; }
     .day-card .day { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -20,6 +22,18 @@
     .day-card.na { opacity: .45; }
     .day-card.active { border-color: rgba(88,166,255,.3); }
     .sub-note { font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.6; }
+    .entry-list { list-style: none; margin: 0; padding: 0; }
+    .entry-list li { padding: 12px 14px; border-radius: 10px; background: var(--glass-bg); border: 1px solid var(--glass-border); margin-bottom: 10px; }
+    .entry-list .e-title { font-weight: 600; color: var(--text); font-size: 14px; }
+    .entry-list .e-meta { font-size: 12px; color: var(--text-dim); margin: 4px 0 6px; }
+    .entry-list .e-desc { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
+    .entry-list a { color: var(--blue); text-decoration: none; font-size: 12px; }
+    .entry-list a:hover { text-decoration: underline; }
+    .month-row { display: flex; align-items: center; gap: 10px; padding: 4px 0; font-size: 13px; }
+    .month-row .m-label { width: 64px; color: var(--text-dim); flex-shrink: 0; }
+    .month-row .m-count { width: 28px; text-align: right; font-weight: 700; color: var(--text); flex-shrink: 0; }
+    .month-row .m-bar { flex: 1; }
+    .month-row.highlight .m-label { color: var(--orange); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -28,61 +42,55 @@
   <!-- Hero -->
   <div class="hero">
     <div class="title">📊 Жалобы на банки по наследству</div>
-    <div class="meta">Сбор и верификация жалоб с banki.ru и pravoved.ru · stats-agent</div>
+    <div class="meta">Накопительная база katya-data.json · stats-agent</div>
     <div class="sub" style="margin-top:8px;">
-      <span style="color:var(--green)">●</span> Верифицировано в окне: 2&ensp;
-      <span style="color:var(--yellow)">●</span> На проверке в окне: 0&ensp;
-      <span style="color:var(--red)">●</span> Отклонено: 0&ensp;
-      <span style="color:var(--blue)">●</span> В архиве verified: 6 записей (4 verified + 2 needs_review), из них 2 — дубликаты жалоб окна
+      <span style="color:var(--green)">●</span> Верифицировано (verified): 120&ensp;
+      <span style="color:var(--yellow)">●</span> На проверке (needs_review): 4&ensp;
+      <span style="color:var(--blue)">●</span> За последние 7 дней: 2 (обе verified)
     </div>
   </div>
 
   <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">27.08.2026 08:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">27.08.2026 20:09 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>📆 Период выборки: <strong style="color:var(--text);">20.08 – 27.08.2026 (окно 7 дней)</strong></span>
-      <span>🕐 generatedAt данных: <strong style="color:var(--text);">27.08.2026 07:55 MSK</strong></span>
-      <span>🔗 Источники: <strong style="color:var(--blue);">banki.ru, pravoved.ru</strong></span>
-      <span>📁 Данные: <strong style="color:var(--text);">katya-data.json + katya-verified.json</strong></span>
-    </div>
-    <div class="sub-note" style="margin-top:8px;">
-      ✅ katya-data.json: <strong style="color:var(--text);">2 записи за 20–27.08</strong> (totalVerified 2, needsReview 0, rejected 0). По банкам: Сбербанк ×1, банк не указан ×1.<br>
-      ✅ katya-verified.json: <strong style="color:var(--text);">6 записей</strong> (4 verified, 2 needs_review, 0 rejected). Обе записи окна продублированы в архиве (те же URL) — новых не добавляют. Уникальных записей в текущих файлах: <strong style="color:var(--text);">6</strong>.<br>
-      ℹ️ Объединённая выборка: <strong style="color:var(--text);">6 уникальных жалоб</strong> (4 verified + 2 needs_review) → 1 идентифицированный банк (Сбербанк ×2) + 4 жалобы без указания банка.<br>
-      ⚠️ Отличия от запуска 25.08: архив перегенерирован и теперь содержит 6 записей (в т.ч. 5 с pravoved.ru); Совкомбанк (19.08) из прежнего окна в текущих файлах отсутствует; жалоба 20.08 (автокредит, pravoved.ru) теперь входит и в окно, и в архив.<br>
-      ℹ️ Новых жалоб за 22–27.08 нет: последняя — 21.08 (Сбербанк, компенсация на похороны). Данные за 28.08+ появятся при следующей генерации katya-data.json.
+      <span>🕐 generatedAt данных: <strong style="color:var(--text);">27.08.2026 20:09 MSK</strong></span>
+      <span>📁 База: <strong style="color:var(--text);">katya-data.json — 124 записи</strong></span>
+      <span>🔄 Синхронизация: <strong style="color:var(--text);">katya_merge.py OK</strong> (seenBefore 131 → seenAfter 131, warnings 0)</span>
     </div>
   </div>
 
-  <!-- Stats row -->
-  <div class="stats-row">
-    <div class="stat-box">
-      <div class="label">Записей за окно</div>
-      <div class="value">2</div>
-      <div class="label">20.08–27.08 · 2 verified · 0 на проверке · 0 отклонено</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">В архиве verified</div>
-      <div class="value" style="color:var(--green);">6</div>
-      <div class="label">4 verified + 2 needs_review; 2 — дубликаты жалоб окна</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">Банков в окне</div>
-      <div class="value">1</div>
-      <div class="label">Сбербанк ×1 + 1 жалоба без указания банка (автокредит)</div>
-    </div>
-    <div class="stat-box">
-      <div class="label">За последние 24ч</div>
-      <div class="value" style="color:var(--text-dim);">0</div>
-      <div class="label">26.08 08:20 – 27.08 08:20: новых записей нет (последняя — 21.08, Сбербанк)</div>
-    </div>
-  </div>
-
-  <!-- Top-10 banks -->
+  <!-- 1. Общая статистика по всей базе -->
   <div class="section">
-    <h2>🏦 Топ-10 банков по числу жалоб</h2>
+    <h2>📋 Общая статистика по всей базе</h2>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="label">Всего жалоб в базе</div>
+        <div class="value" style="color:var(--orange);">124</div>
+        <div class="label">накопительно, с момента запуска сбора</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Период</div>
+        <div class="value" style="font-size:26px;">14.01.2025 – 21.08.2026</div>
+        <div class="label">первая и последняя жалобы в базе</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Верифицировано</div>
+        <div class="value" style="color:var(--green);">120</div>
+        <div class="label">96.8% от базы</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">На проверке</div>
+        <div class="value" style="color:var(--yellow);">4</div>
+        <div class="label">3.2% от базы</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Топ-10 банков -->
+  <div class="section">
+    <h2>🏦 Топ-10 банков по числу жалоб (вся база)</h2>
     <div class="table-wrap">
       <table class="striped-table">
         <thead>
@@ -99,34 +107,216 @@
             <td><strong>Сбербанк</strong></td>
             <td>
               <div class="bar-cell">
-                <span style="font-weight:700;">2</span>
-                <span class="bar-fill bar-sber" style="width:80px;"></span>
+                <span style="font-weight:700;">38</span>
+                <span class="bar-fill bar-sber" style="width:200px;"></span>
               </div>
             </td>
-            <td>33.3%</td>
+            <td>30.6%</td>
           </tr>
           <tr>
             <td><span style="color:var(--text-faint);">2</span></td>
-            <td><strong>Банк не указан</strong> <span style="color:var(--text-faint);font-size:12px;">(агрегировано)</span></td>
+            <td><strong>ВТБ</strong></td>
             <td>
               <div class="bar-cell">
-                <span style="font-weight:700;">4</span>
-                <span class="bar-fill bar-other" style="width:160px;"></span>
+                <span style="font-weight:700;">15</span>
+                <span class="bar-fill bar-sber" style="width:79px;"></span>
               </div>
             </td>
-            <td>66.7%</td>
+            <td>12.1%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">3</span></td>
+            <td><strong>ПСБ</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">13</span>
+                <span class="bar-fill bar-sber" style="width:68px;"></span>
+              </div>
+            </td>
+            <td>10.5%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">4</span></td>
+            <td><strong>Совкомбанк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">7</span>
+                <span class="bar-fill bar-other" style="width:37px;"></span>
+              </div>
+            </td>
+            <td>5.6%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">5</span></td>
+            <td><strong>Альфа-Банк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">6</span>
+                <span class="bar-fill bar-other" style="width:32px;"></span>
+              </div>
+            </td>
+            <td>4.8%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">6</span></td>
+            <td><strong>Т-Банк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">6</span>
+                <span class="bar-fill bar-other" style="width:32px;"></span>
+              </div>
+            </td>
+            <td>4.8%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">7</span></td>
+            <td><strong>Газпромбанк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">5</span>
+                <span class="bar-fill bar-other" style="width:26px;"></span>
+              </div>
+            </td>
+            <td>4.0%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">8</span></td>
+            <td><strong>Ozon Банк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">3</span>
+                <span class="bar-fill bar-other" style="width:16px;"></span>
+              </div>
+            </td>
+            <td>2.4%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">9</span></td>
+            <td><strong>Банк Санкт-Петербург</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">2</span>
+                <span class="bar-fill bar-other" style="width:11px;"></span>
+              </div>
+            </td>
+            <td>1.6%</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--text-faint);">10</span></td>
+            <td><strong>МТС Банк</strong></td>
+            <td>
+              <div class="bar-cell">
+                <span style="font-weight:700;">2</span>
+                <span class="bar-fill bar-other" style="width:11px;"></span>
+              </div>
+            </td>
+            <td>1.6%</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div style="margin-top:12px;font-size:13px;color:var(--text-dim);">
-      📊 Ранжирование по объединённой выборке (katya-data.json + katya-verified.json, 6 уникальных записей): идентифицирован только <strong style="color:var(--text);">1 банк — Сбербанк (2 жалобы)</strong>: 21.08 — отказ выдать компенсацию на похороны по постановлению нотариуса (ст. 1174 ГК РФ), отделение №8635/0311 г. Большой Камень, «ошибка программы», обращение №260821-7000-090207 (banki.ru, окно); 25.02 — отказ принимать справку о праве на наследство для снятия накопительной пенсии умершего по программе ПДС (pravoved.ru, архив). Остальные 4 жалобы — без указания банка: 20.08 — требование досрочного погашения автокредита умершего (pravoved.ru, окно), 12.08 — кража сотрудницей банка средств со вклада умершего (pravoved.ru, needs_review), 21.07 — банки 2,5 мес не отвечают на запросы нотариуса (pravoved.ru), 01.08 — претензии кредиторов к наследнику (pravoved.ru, needs_review). Полноценный топ-10 невозможен: в текущих файлах других идентифицированных банков нет.
+      ⚪ Банк не определён: <strong style="color:var(--text);">14 жалоб (11.3%)</strong> — вне топа, показаны отдельной строкой.
+      Также в базе (по 2 жалобы): Почта Банк, РСХБ, Уралсиб, Яндекс Банк; (по 1): Банк России, Дальневосточный Банк, Райффайзенбанк, Ренессанс Банк, Русский Стандарт.
     </div>
   </div>
 
-  <!-- Weekly dynamics -->
+  <!-- 3. Динамика по месяцам -->
   <div class="section">
-    <h2>📈 Динамика за неделю (20.08 – 27.08)</h2>
+    <h2>📅 Динамика по месяцам (вся база)</h2>
+    <div class="month-row"><div class="m-label">янв 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:48px;"></span></div><div class="m-count">7</div></div>
+    <div class="month-row"><div class="m-label">фев 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:14px;"></span></div><div class="m-count">2</div></div>
+    <div class="month-row"><div class="m-label">мар 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:21px;"></span></div><div class="m-count">3</div></div>
+    <div class="month-row"><div class="m-label">апр 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:55px;"></span></div><div class="m-count">8</div></div>
+    <div class="month-row"><div class="m-label">май 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:41px;"></span></div><div class="m-count">6</div></div>
+    <div class="month-row"><div class="m-label">июн 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:28px;"></span></div><div class="m-count">4</div></div>
+    <div class="month-row"><div class="m-label">июл 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:21px;"></span></div><div class="m-count">3</div></div>
+    <div class="month-row"><div class="m-label">авг 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:28px;"></span></div><div class="m-count">4</div></div>
+    <div class="month-row"><div class="m-label">сен 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:21px;"></span></div><div class="m-count">3</div></div>
+    <div class="month-row"><div class="m-label">окт 2025</div><div class="m-bar"><span class="bar-fill" style="width:4px;background:rgba(255,255,255,.08);"></span></div><div class="m-count">0</div></div>
+    <div class="month-row"><div class="m-label">ноя 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:14px;"></span></div><div class="m-count">2</div></div>
+    <div class="month-row"><div class="m-label">дек 2025</div><div class="m-bar"><span class="bar-fill bar-month" style="width:21px;"></span></div><div class="m-count">3</div></div>
+    <div class="month-row"><div class="m-label">янв 2026</div><div class="m-bar"><span class="bar-fill bar-month" style="width:28px;"></span></div><div class="m-count">4</div></div>
+    <div class="month-row"><div class="m-label">фев 2026</div><div class="m-bar"><span class="bar-fill bar-month" style="width:7px;"></span></div><div class="m-count">1</div></div>
+    <div class="month-row"><div class="m-label">мар 2026</div><div class="m-bar"><span class="bar-fill bar-month" style="width:7px;"></span></div><div class="m-count">1</div></div>
+    <div class="month-row"><div class="m-label">апр 2026</div><div class="m-bar"><span class="bar-fill" style="width:4px;background:rgba(255,255,255,.08);"></span></div><div class="m-count">0</div></div>
+    <div class="month-row"><div class="m-label">май 2026</div><div class="m-bar"><span class="bar-fill bar-month" style="width:7px;"></span></div><div class="m-count">1</div></div>
+    <div class="month-row"><div class="m-label">июн 2026</div><div class="m-bar"><span class="bar-fill bar-month" style="width:179px;"></span></div><div class="m-count">26</div></div>
+    <div class="month-row"><div class="m-label">июл 2026</div><div class="m-bar"><span class="bar-fill bar-month" style="width:117px;"></span></div><div class="m-count">17</div></div>
+    <div class="month-row highlight"><div class="m-label">авг 2026</div><div class="m-bar"><span class="bar-fill bar-month" style="width:200px;"></span></div><div class="m-count">29</div></div>
+    <div class="sub-note" style="margin-top:10px;">
+      📈 Пик активности — <strong style="color:var(--text);">август 2026 (29 жалоб)</strong>, далее июнь 2026 (26) и июль 2026 (17). Октябрь 2025 и апрель 2026 — без жалоб (0). Масштаб баров: 200px = 29 жалоб (максимум месяца).
+    </div>
+  </div>
+
+  <!-- 4. Источники -->
+  <div class="section">
+    <h2>🔗 Источники жалоб (вся база)</h2>
+    <div class="table-wrap">
+      <table class="striped-table">
+        <thead>
+          <tr><th>Источник</th><th>Жалоб</th><th>Доля</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-banki">banki.ru</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">91</span><span class="bar-fill bar-src" style="width:200px;"></span></div></td>
+            <td>73.4%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">pikabu.ru</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">17</span><span class="bar-fill bar-src" style="width:37px;"></span></div></td>
+            <td>13.7%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">pravoved.ru</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">6</span><span class="bar-fill bar-src" style="width:13px;"></span></div></td>
+            <td>4.8%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">otzovik.com</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">3</span><span class="bar-fill bar-src" style="width:7px;"></span></div></td>
+            <td>2.4%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">2gis.ru</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">2</span><span class="bar-fill bar-src" style="width:4px;"></span></div></td>
+            <td>1.6%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">advgazeta.ru</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">1</span><span class="bar-fill bar-src" style="width:4px;"></span></div></td>
+            <td>0.8%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">argumenti.ru</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">1</span><span class="bar-fill bar-src" style="width:4px;"></span></div></td>
+            <td>0.8%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">findozor.net</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">1</span><span class="bar-fill bar-src" style="width:4px;"></span></div></td>
+            <td>0.8%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">kp.ru</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">1</span><span class="bar-fill bar-src" style="width:4px;"></span></div></td>
+            <td>0.8%</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-other">kurskcity.ru</span></td>
+            <td><div class="bar-cell"><span style="font-weight:700;">1</span><span class="bar-fill bar-src" style="width:4px;"></span></div></td>
+            <td>0.8%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sub-note">Основной канал — отзывы на banki.ru (73.4%). Масштаб баров: 200px = 91 жалоба (максимум источника).</div>
+  </div>
+
+  <!-- 5. Окно 7 дней -->
+  <div class="section">
+    <h2>🕐 За последние 7 дней (20.08 – 27.08.2026)</h2>
 
     <div class="week-grid" style="margin-bottom:20px;">
       <div class="day-card"><div class="day">Чт 20</div><div class="count count-1">1</div></div>
@@ -141,124 +331,50 @@
 
     <div class="stats-row">
       <div class="stat-box">
-        <div class="label">Всего за неделю</div>
+        <div class="label">Новых жалоб за окно</div>
         <div class="value" style="color:var(--orange);">2</div>
-        <div class="label">20.08–27.08 · 2 verified</div>
+        <div class="label">20.08–27.08 · 2 verified · 0 на проверке</div>
       </div>
       <div class="stat-box">
-        <div class="label">Пиковые дни</div>
-        <div class="value" style="font-size:26px;">20 и 21 авг</div>
-        <div class="label">по 1 жалобе: 20.08 автокредит (pravoved.ru), 21.08 Сбербанк (banki.ru); всплесков нет</div>
+        <div class="label">По банкам</div>
+        <div class="value" style="font-size:24px;">Сбербанк ×1</div>
+        <div class="label">+1 жалоба без указания банка (не определён)</div>
       </div>
       <div class="stat-box">
-        <div class="label">Ср. жалоб в день</div>
-        <div class="value" style="color:var(--orange);">0.25</div>
-        <div class="label">2 записи за 8 дней наблюдения (окно 20–27.08)</div>
+        <div class="label">По дням</div>
+        <div class="value" style="font-size:24px;">20 и 21 авг</div>
+        <div class="label">по 1 жалобе, далее 22–27.08 тихо</div>
       </div>
       <div class="stat-box">
-        <div class="label">Тихие дни</div>
-        <div class="value" style="font-size:28px;">22–27</div>
-        <div class="label">6 дней подряд без записей (27.08 — текущий день, пока 0)</div>
+        <div class="label">Источники окна</div>
+        <div class="value" style="font-size:24px;">banki.ru, pravoved.ru</div>
+        <div class="label">по 1 жалобе (50/50)</div>
       </div>
     </div>
 
+    <ul class="entry-list" style="margin-top:14px;">
+      <li>
+        <div class="e-title">Сбербанк нарушает ст. 1174 ГК РФ и не выдает компенсацию на похороны из-за ошибки в программе</div>
+        <div class="e-meta">📅 21.08.2026 · 🏦 Сбербанк · 🔗 banki.ru · ✅ verified</div>
+        <div class="e-desc">Наследница 21.08.2026 обратилась в отделение Сбербанка №8635/0311 (г. Большой Камень) за выдачей денег со сберкнижки умершей на основании постановления нотариуса о возмещении расходов на похороны (ст. 1174 ГК РФ). Сотрудники отказали, сославшись на то, что «программа не даёт вывести компенсацию из-за отсутствия наследственных документов», хотя постановление нотариуса — самостоятельное достаточное основание для выплаты. Зарегистрировано обращение №260821-7000-090207 со сроком рассмотрения до 1 сентября.</div>
+        <div style="margin-top:6px;"><a href="https://www.banki.ru/services/responses/bank/response/13316680/" target="_blank">banki.ru — читать отзыв →</a></div>
+      </li>
+      <li>
+        <div class="e-title">Банк требует оплатить весь автокредит умершего сразу после вступления в наследство</div>
+        <div class="e-meta">📅 20.08.2026 · 🏦 не определён · 🔗 pravoved.ru · ✅ verified</div>
+        <div class="e-desc">Наследник (Роман) вступил в наследство, в составе которого — автокредит умершего. Банк предоставил отсрочку платежей на полгода, а после её окончания потребовал погасить всю сумму кредита единовременно. Юрист пояснил: требование досрочного погашения всей суммы незаконно — по ст. 1175 ГК РФ наследник отвечает по долгам в пределах стоимости наследства, банк не вправе менять условия договора (позиция Верховного суда).</div>
+        <div style="margin-top:6px;"><a href="https://pravoved.ru/question/5026251/" target="_blank">pravoved.ru — читать вопрос →</a></div>
+      </li>
+    </ul>
     <div class="sub-note">
-      📈 Сравнение с запуском 25.08: окно сместилось с 19–25.08 на 20–27.08, katya-data.json перегенерирован 27.08 07:55. Из выборки выпал Совкомбанк (19.08) — в текущих файлах его нет. Добавилась жалоба 20.08 (pravoved.ru): банк требует единовременно погасить автокредит умершего (ст. 1175 ГК РФ, позиция ВС — платить по графику). Сбербанк (21.08) остался в выборке. За 22–27.08 новых жалоб нет.
+      ℹ️ Общая статистика по всей базе при этом не обнуляется: 124 жалобы — накопительно. В окне 2 записи (обе verified), за 22–27.08 новых жалоб нет.
     </div>
-  </div>
-
-  <!-- Monthly dynamics -->
-  <div class="section">
-    <h2>📅 Динамика за месяц (по текущим файлам, февраль – август 2026)</h2>
-
-    <div class="week-grid" style="margin-bottom:12px;">
-      <div class="day-card"><div class="day">Фев</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Мар</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Апр</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Май</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Июн</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Июл</div><div class="count count-1">1</div></div>
-      <div class="day-card active"><div class="day">Авг</div><div class="count count-4">4</div></div>
-      <div class="day-card na"><div class="day">Сент</div><div class="count count-0">—</div></div>
-    </div>
-    <div class="sub-note">По месяцам (объединённая выборка, 6 уникальных записей): <strong style="color:var(--text);">август — 4</strong> (01.08 претензии кредиторов, 12.08 кража со вклада, 20.08 автокредит, 21.08 Сбербанк/похороны), <strong style="color:var(--text);">июль — 1</strong> (21.07 игнорирование запросов нотариуса), <strong style="color:var(--text);">февраль — 1</strong> (25.02 Сбербанк/ПДС). Март–июнь и новостные материалы в текущих файлах отсутствуют.</div>
-
-    <div class="week-grid" style="margin-bottom:8px;margin-top:16px;">
-      <div class="day-card"><div class="day">Авг 01</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Авг 02</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 03</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 04</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 05</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 06</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 07</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 08</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 09</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 10</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 11</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 12</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Авг 13</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 14</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 15</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 16</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 17</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 18</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 19</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 20</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Авг 21</div><div class="count count-1">1</div></div>
-      <div class="day-card"><div class="day">Авг 22</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 23</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 24</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 25</div><div class="count count-0">0</div></div>
-      <div class="day-card"><div class="day">Авг 26</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">Авг 27</div><div class="count count-0">0</div></div>
-    </div>
-    <div class="sub-note">По дням августа (объединённая выборка): 01.08 — претензии кредиторов к наследнику (needs_review), 12.08 — кража со вклада умершего сотрудницей банка (needs_review), 20.08 — автокредит: требование досрочного погашения (verified), 21.08 — Сбербанк: компенсация на похороны, ст. 1174 ГК РФ (verified). Остальные дни — без записей; 28–31.08 в выборку не входят до следующей генерации katya-data.json.</div>
-
-    <div class="stats-row" style="margin-top:12px;">
-      <div class="stat-box">
-        <div class="label">Всего в текущих файлах</div>
-        <div class="value">6</div>
-        <div class="label">4 verified + 2 needs_review; дубликаты окна учтены один раз</div>
-      </div>
-      <div class="stat-box">
-        <div class="label">Жалоб на банки</div>
-        <div class="value" style="color:var(--orange);">6</div>
-        <div class="label">Сбербанк ×2 · банк не указан ×4</div>
-      </div>
-      <div class="stat-box">
-        <div class="label">Пиковые дни августа</div>
-        <div class="value" style="font-size:26px;">01, 12, 20, 21</div>
-        <div class="label">по 1 жалобе, всплесков нет</div>
-      </div>
-      <div class="stat-box">
-        <div class="label">Ср. записей в месяц</div>
-        <div class="value" style="color:var(--orange);">2.0</div>
-        <div class="label">6 записей за 3 месяца с данными (фев, июл, авг)</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sources -->
-  <div class="section">
-    <h2>🔗 Источники жалоб</h2>
-    <div class="table-wrap">
-      <table class="striped-table">
-        <thead>
-          <tr><th>Источник</th><th>Записей</th><th>Доля</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><span class="badge badge-banki">banki.ru</span> — отзыв: Сбербанк (21.08, отказ в компенсации на похороны по ст. 1174 ГК РФ)</td><td style="font-weight:700;">1</td><td>16.7%</td></tr>
-          <tr><td><span class="badge badge-other">pravoved.ru</span> — 5 записей: 20.08 автокредит (досрочное погашение), 12.08 кража со вклада умершего (needs_review), 01.08 претензии кредиторов (needs_review), 21.07 игнорирование запросов нотариуса, 25.02 Сбербанк/ПДС</td><td style="font-weight:700;">5</td><td>83.3%</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sub-note">В окне 20–27.08 источники: banki.ru 1 (50%), pravoved.ru 1 (50%). Всего уникальных записей по объединённой выборке: 6. Записи, присутствующие и в окне, и в архиве (21.08 Сбербанк, 20.08 автокредит), учтены один раз.</div>
   </div>
 
   <!-- Footer -->
   <div class="footer">
-    Сформировано <strong>stats-agent</strong> · 27.08.2026 08:20 MSK · модель deepseek/deepseek-v4-flash<br>
-    Данные: katya-data.json (окно 20–27.08) + katya-verified.json (архив) · <a href="https://nasledstvo2026.github.io/nasledstvo/">nasledstvo.net.ru</a>
+    Сформировано <strong>stats-agent</strong> · 27.08.2026 20:09 MSK · модель deepseek/deepseek-v4-flash<br>
+    Данные: katya-data.json + katya-summary-7d.json (124 записи в базе) · <a href="https://nasledstvo2026.github.io/nasledstvo/">nasledstvo.net.ru</a>
   </div>
 
 </div>
