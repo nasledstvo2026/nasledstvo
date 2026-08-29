@@ -1,0 +1,20 @@
+{
+  "_comment": "Эталон raw (мин. порог записей) по источникам для сверки lena_healthcheck.py. Пороги — первичная оценка по истории прогонов; корректировать по факту. 0 = источник легально пустой/недоступен (rg sitemap отдаёт только тематические слаги; nalog/pravo — JS/404).",
+  "tass.ru": 50,
+  "rbc.ru": 20,
+  "kommersant.ru": 150,
+  "vedomosti.ru": 150,
+  "ria.ru": 50,
+  "lenta.ru": 150,
+  "interfax.ru": 15,
+  "mintrud.gov.ru": 30,
+  "rg.ru": 0,
+  "notariat.ru": 8,
+  "banki.ru": 40,
+  "duma.gov.ru": 8,
+  "consultant.ru": 15,
+  "garant.ru": 8,
+  "nalog.gov.ru": 0,
+  "sfr.gov.ru": 8,
+  "pravo.gov.ru": 0
+}

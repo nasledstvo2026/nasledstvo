@@ -60,10 +60,10 @@ Things like:
 - SearXNG (docker) погашен 2026-08-23; файлы сохранены в workspace/searxng/ (вернуть: `docker compose up -d`)
 
 ### Сбор новостей Лены (lena-search-agent)
-- Реестр источников: `knowledge/lena/sources.json` — 14 доменов; whitelist генерится из ключей реестра
+- Реестр источников: `knowledge/lena/sources.json` — 17 доменов; whitelist генерится из ключей реестра
 - Выходные файлы: `agents/shared/lena-raw.json` → `lena-verified.json` (verifier) → `lena-news-seen.md` (дедуп)
 - `/tmp`-пути Лены: `lena_raw_sources.txt` / `lena_filtered.json` (НЕ пересекаются с search-agent)
-- Сбор по типу источника: `rss` (rbc/tass/kommersant/vedomosti/mintrud) / `html` / `sitemap` (rg — 3 уровня)
+- Сбор по типу источника: `rss` (rbc/tass/kommersant/vedomosti/mintrud/ria/lenta/interfax) / `html` (banki.ru: + жалобы /services/responses/ + вопросы /services/questions-answers/) / `sitemap` (rg — 3 уровня)
 - ⚠️ Все curl с `-A` (User-Agent): tass.ru без UA отдаёт 403, с UA — RSS 200. pravo.gov.ru — JS-only (API http 000), nalog.gov.ru — через rn77-зеркало
 - Тематический фильтр на Этапе 1 (python, без LLM): стемы наследств/наследник/наследодател/наследован/наследуем/завещан/завещател/выморочн (без «наслед*»→наследие, без «умерш/вдов»=некрологи). Этап 2 — БЕЗ web_fetch (иначе падение LLM)
 - Кроны (МСК): lena-search-agent 02:00 → lena-verify-agent 02:10 → lena-html-agent 02:20
