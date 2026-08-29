@@ -46,16 +46,16 @@
     <div class="sub" style="margin-top:8px;">
       <span style="color:var(--green)">●</span> Верифицировано (verified): 130&ensp;
       <span style="color:var(--yellow)">●</span> На проверке (needs_review): 4&ensp;
-      <span style="color:var(--blue)">●</span> За последние 7 дней: 1 (verified)
+      <span style="color:var(--blue)">●</span> За последние 7 дней: 0
     </div>
   </div>
 
   <!-- Meta block -->
   <div class="item" style="padding:14px 20px;margin-bottom:24px;">
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-dim);">
-      <span>🕒 Запуск: <strong style="color:var(--text);">28.08.2026 08:20 MSK</strong></span>
+      <span>🕒 Запуск: <strong style="color:var(--text);">29.08.2026 08:20 MSK</strong></span>
       <span>🤖 Модель: <strong style="color:var(--text);">deepseek/deepseek-v4-flash</strong></span>
-      <span>🕐 generatedAt данных: <strong style="color:var(--text);">28.08.2026 08:20 MSK</strong></span>
+      <span>🕐 generatedAt данных: <strong style="color:var(--text);">29.08.2026 08:20 MSK</strong></span>
       <span>📁 База: <strong style="color:var(--text);">katya-data.json — 134 записи</strong></span>
       <span>🔄 Синхронизация: <strong style="color:var(--text);">katya_merge.py OK</strong> (baseBefore 134 → baseAfter 134, added 0, duplicates 10, warnings 0)</span>
     </div>
@@ -284,46 +284,43 @@
 
   <!-- 5. Окно 7 дней -->
   <div class="section">
-    <h2>🕐 За последние 7 дней (21.08.2026 – 28.08.2026)</h2>
+    <h2>🕐 За последние 7 дней (22.08.2026 – 29.08.2026)</h2>
+    <div class="sub-note" style="font-size:14px;color:var(--text);padding:12px 0;">
+      😴 За окно новых жалоб нет (window.total = 0). Общая статистика по базе не обнуляется — см. блоки выше.
+    </div>
     <div class="stats-row">
       <div class="stat-box">
         <div class="label">Новых жалоб</div>
-        <div class="value" style="color:var(--green);">1</div>
-        <div class="label">verified: 1 · needs_review: 0</div>
+        <div class="value" style="color:var(--text-faint);">0</div>
+        <div class="label">verified: 0 · needs_review: 0</div>
       </div>
       <div class="stat-box">
         <div class="label">Банков в окне</div>
-        <div class="value" style="font-size:26px;">1</div>
-        <div class="label">Сбербанк — 1</div>
+        <div class="value" style="font-size:26px;color:var(--text-faint);">0</div>
+        <div class="label">новых упоминаний нет</div>
       </div>
     </div>
 
     <div class="week-grid" style="margin-top:16px;">
-      <div class="day-card na"><div class="day">21.08</div><div class="count count-1">1</div></div>
       <div class="day-card"><div class="day">22.08</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">23.08</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">24.08</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">25.08</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">26.08</div><div class="count count-0">0</div></div>
       <div class="day-card"><div class="day">27.08</div><div class="count count-0">0</div></div>
-      <div class="day-card active"><div class="day">28.08</div><div class="count count-0">0</div></div>
+      <div class="day-card"><div class="day">28.08</div><div class="count count-0">0</div></div>
+      <div class="day-card active"><div class="day">29.08</div><div class="count count-0">0</div></div>
     </div>
 
     <h3 style="margin-top:20px;font-size:15px;color:var(--text);">Жалобы за окно</h3>
-    <ul class="entry-list">
-      <li>
-        <div class="e-title">Сбербанк нарушает ст. 1174 ГК РФ и не выдает компенсацию на похороны из-за ошибки в программе</div>
-        <div class="e-meta">📅 21.08.2026 · 🏦 Сбербанк · 🔗 <a href="https://www.banki.ru/services/responses/bank/response/13316680/" target="_blank">banki.ru — отзыв №13316680</a> · ✅ verified</div>
-        <div class="e-desc">Наследница обратилась в отделение Сбербанка №8635/0311 (г. Большой Камень) за выдачей денег со сберкнижки умершей на основании постановления нотариуса о возмещении расходов на похороны (ст. 1174 ГК РФ). Сотрудники отказали, сославшись на «программу», хотя постановление нотариуса — самостоятельное основание для выплаты до истечения 6 месяцев. Зарегистрировано обращение №260821-7000-090207, срок рассмотрения до 1 сентября.</div>
-      </li>
-    </ul>
+    <div class="sub-note">Список пуст — за последние 7 дней новых жалоб не собрано.</div>
   </div>
 
   <!-- Footer -->
   <div class="item" style="padding:14px 20px;margin-top:24px;">
     <div style="font-size:12px;color:var(--text-dim);line-height:1.7;">
-      📊 Отчёт сгенерирован stats-agent · 28.08.2026 08:20 MSK · модель deepseek/deepseek-v4-flash<br>
-      База: 134 записи (katya-data.json) · период 13.03.2020 – 21.08.2026 · за 7 дней: 1 жалоба<br>
+      📊 Отчёт сгенерирован stats-agent · 29.08.2026 08:20 MSK · модель deepseek/deepseek-v4-flash<br>
+      База: 134 записи (katya-data.json) · период 13.03.2020 – 21.08.2026 · за 7 дней: 0 жалоб<br>
       Публикация: GitHub Pages (nasledstvo2026.github.io/nasledstvo/stats-inheritance.html)
     </div>
   </div>
