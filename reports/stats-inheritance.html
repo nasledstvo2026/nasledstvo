@@ -7,20 +7,9 @@
   <link rel="stylesheet" href="theme.css">
   <style>
     .bar-fill { display: inline-block; height: 20px; border-radius: 4px; min-width: 4px; }
-    .bar-sber   { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
     .bar-other  { background: linear-gradient(90deg, #7ee787, #56d4dd); }
     .bar-src    { background: linear-gradient(90deg, #d2a8ff, #8957e5); }
     .bar-month  { background: linear-gradient(90deg, #ffa657, #f0883e); }
-    .week-grid { display: flex; gap: 8px; flex-wrap: wrap; }
-    .day-card { flex: 1; min-width: 60px; padding: 14px 10px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); text-align: center; }
-    .day-card .day { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
-    .day-card .count { font-size: 22px; font-weight: 700; margin-top: 4px; }
-    .day-card .count-0 { color: var(--text-faint); }
-    .day-card .count-1 { color: var(--green); }
-    .day-card .count-2 { color: var(--yellow); }
-    .day-card .count-3, .day-card .count-4 { color: var(--red); }
-    .day-card.na { opacity: .45; }
-    .day-card.active { border-color: rgba(88,166,255,.3); }
     .sub-note { font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.6; }
     .entry-list { list-style: none; margin: 0; padding: 0; }
     .entry-list li { padding: 12px 14px; border-radius: 10px; background: var(--glass-bg); border: 1px solid var(--glass-border); margin-bottom: 10px; }
@@ -39,7 +28,7 @@
 <body>
   <div class="container">
     <h1>📊 Статистика жалоб: наследство в банках РФ</h1>
-    <p class="sub-note">Автоматический отчёт stats-agent · <span id="gen-time">2026-09-01 08:20 (МСК)</span> · Модель: deepseek/deepseek-v4-flash</p>
+    <p class="sub-note">Автоматический отчёт stats-agent · <span id="gen-time">2026-09-02 08:20 (МСК)</span> · Модель: deepseek/deepseek-v4-flash</p>
 
     <section class="card">
       <h2>1. Общая статистика по всей базе</h2>
@@ -57,69 +46,71 @@
       <table class="table" style="width:100%; border-collapse:collapse; margin-top:10px;">
         <thead><tr><th style="text-align:left; padding:6px 8px;">Банк</th><th style="text-align:right; padding:6px 8px;">Жалоб</th><th style="padding:6px 8px;">Доля</th></tr></thead>
         <tbody>
-          <tr><td style="padding:6px 8px;">1. Сбербанк</td><td style="text-align:right; padding:6px 8px;">44</td><td style="padding:6px 8px;"><span class="bar-fill bar-sber" style="width:88%;"></span> 29.3%</td></tr>
-          <tr><td style="padding:6px 8px;">2. ВТБ</td><td style="text-align:right; padding:6px 8px;">16</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:32%;"></span> 10.7%</td></tr>
-          <tr><td style="padding:6px 8px;">3. ПСБ</td><td style="text-align:right; padding:6px 8px;">13</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:26%;"></span> 8.7%</td></tr>
-          <tr><td style="padding:6px 8px;">4. Совкомбанк</td><td style="text-align:right; padding:6px 8px;">7</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:14%;"></span> 4.7%</td></tr>
-          <tr><td style="padding:6px 8px;">5. Альфа-Банк</td><td style="text-align:right; padding:6px 8px;">6</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:12%;"></span> 4.0%</td></tr>
-          <tr><td style="padding:6px 8px;">6. Т-Банк</td><td style="text-align:right; padding:6px 8px;">6</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:12%;"></span> 4.0%</td></tr>
-          <tr><td style="padding:6px 8px;">7. Газпромбанк</td><td style="text-align:right; padding:6px 8px;">5</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:10%;"></span> 3.3%</td></tr>
-          <tr><td style="padding:6px 8px;">8. Ozon Банк</td><td style="text-align:right; padding:6px 8px;">3</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:6%;"></span> 2.0%</td></tr>
-          <tr><td style="padding:6px 8px;">9. Банк Санкт-Петербург</td><td style="text-align:right; padding:6px 8px;">2</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:4%;"></span> 1.3%</td></tr>
-          <tr><td style="padding:6px 8px;">10. МТС Банк</td><td style="text-align:right; padding:6px 8px;">2</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:4%;"></span> 1.3%</td></tr>
+          <tr><td style="padding:6px 8px;">1. Сбербанк</td><td style="text-align:right; padding:6px 8px;">44</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:100%;"></span> 29.3%</td></tr>
+<tr><td style="padding:6px 8px;">2. ВТБ</td><td style="text-align:right; padding:6px 8px;">16</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:36%;"></span> 10.7%</td></tr>
+<tr><td style="padding:6px 8px;">3. ПСБ</td><td style="text-align:right; padding:6px 8px;">13</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:30%;"></span> 8.7%</td></tr>
+<tr><td style="padding:6px 8px;">4. Совкомбанк</td><td style="text-align:right; padding:6px 8px;">7</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:16%;"></span> 4.7%</td></tr>
+<tr><td style="padding:6px 8px;">5. Альфа-Банк</td><td style="text-align:right; padding:6px 8px;">6</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:14%;"></span> 4.0%</td></tr>
+<tr><td style="padding:6px 8px;">6. Т-Банк</td><td style="text-align:right; padding:6px 8px;">6</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:14%;"></span> 4.0%</td></tr>
+<tr><td style="padding:6px 8px;">7. Газпромбанк</td><td style="text-align:right; padding:6px 8px;">5</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:11%;"></span> 3.3%</td></tr>
+<tr><td style="padding:6px 8px;">8. Ozon Банк</td><td style="text-align:right; padding:6px 8px;">3</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:7%;"></span> 2.0%</td></tr>
+<tr><td style="padding:6px 8px;">9. Банк Санкт-Петербург</td><td style="text-align:right; padding:6px 8px;">2</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:5%;"></span> 1.3%</td></tr>
+<tr><td style="padding:6px 8px;">10. МТС Банк</td><td style="text-align:right; padding:6px 8px;">2</td><td style="padding:6px 8px;"><span class="bar-fill bar-other" style="width:5%;"></span> 1.3%</td></tr>
+
         </tbody>
       </table>
       <div class="sub-note" style="margin-top:10px;">⚠️ Не определён: <b>33</b> жалобы (22.0% базы) — показано отдельно, в топ не входит.</div>
-      <div class="sub-note">Прочие банки (по 2–1 жалобы): Почта Банк (2), РСХБ (2), Уралсиб (2), Яндекс Банк (2), Банк России (1), Дальневосточный Банк (1), Райффайзенбанк (1), Ренессанс Банк (1), Русский Стандарт (1).</div>
+<div class="sub-note">Прочие банки: Почта Банк (2), РСХБ (2), Уралсиб (2), Яндекс Банк (2), Банк России (1), Дальневосточный Банк (1), Райффайзенбанк (1), Ренессанс Банк (1), Русский Стандарт (1).</div>
     </section>
 
     <section class="card">
       <h2>3. Динамика по месяцам</h2>
-      <div class="sub-note">Жалобы по месяцам (полный период 2013–2026; 2014–2015, 2017-06…2018-09, 2025-10, 2026-04 — без жалоб, пропущены)</div>
+      <div class="sub-note">Жалобы по месяцам (полный период 2013–2026; месяцы без жалоб пропущены)</div>
       <table class="table" style="width:100%; border-collapse:collapse; margin-top:10px; font-size:13px;">
         <tbody>
           <tr><td style="padding:3px 8px;">2013-12</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2016-02</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2016-04</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2016-09</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2017-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2017-12</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2018-10</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2019-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2019-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:7%;"></span> 2</td></tr>
-          <tr><td style="padding:3px 8px;">2020-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2020-04</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2020-07</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2020-11</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2021-01</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2021-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2021-12</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2022-06</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2022-07</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:7%;"></span> 2</td></tr>
-          <tr><td style="padding:3px 8px;">2022-10</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2023-01</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2023-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px; color:var(--blue);">2025-01</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:28%;"></span> 8</td></tr>
-          <tr><td style="padding:3px 8px;">2025-02</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
-          <tr><td style="padding:3px 8px;">2025-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
-          <tr><td style="padding:3px 8px;">2025-04</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:28%;"></span> 8</td></tr>
-          <tr><td style="padding:3px 8px;">2025-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:21%;"></span> 6</td></tr>
-          <tr><td style="padding:3px 8px;">2025-06</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:14%;"></span> 4</td></tr>
-          <tr><td style="padding:3px 8px;">2025-07</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
-          <tr><td style="padding:3px 8px;">2025-08</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:17%;"></span> 5</td></tr>
-          <tr><td style="padding:3px 8px;">2025-09</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
-          <tr><td style="padding:3px 8px;">2025-11</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:7%;"></span> 2</td></tr>
-          <tr><td style="padding:3px 8px;">2025-12</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
-          <tr><td style="padding:3px 8px;">2026-01</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:14%;"></span> 4</td></tr>
-          <tr><td style="padding:3px 8px;">2026-02</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2026-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px;">2026-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
-          <tr><td style="padding:3px 8px; color:var(--red);">2026-06</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:90%;"></span> 26</td></tr>
-          <tr><td style="padding:3px 8px; color:var(--red);">2026-07</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:59%;"></span> 17</td></tr>
-          <tr><td style="padding:3px 8px; color:var(--red);">2026-08</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:100%;"></span> 29</td></tr>
+<tr><td style="padding:3px 8px;">2016-02</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2016-04</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2016-09</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2017-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2017-12</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2018-10</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2019-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2019-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:7%;"></span> 2</td></tr>
+<tr><td style="padding:3px 8px;">2020-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2020-04</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2020-07</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2020-11</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2021-01</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2021-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2021-12</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2022-06</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2022-07</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:7%;"></span> 2</td></tr>
+<tr><td style="padding:3px 8px;">2022-10</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2023-01</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px;">2023-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-01</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:28%;"></span> 8</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-02</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-04</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:28%;"></span> 8</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:21%;"></span> 6</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-06</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:14%;"></span> 4</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-07</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-08</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:17%;"></span> 5</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-09</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-11</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:7%;"></span> 2</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2025-12</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:10%;"></span> 3</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2026-01</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:14%;"></span> 4</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2026-02</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2026-03</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px; color:var(--blue);">2026-05</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:3%;"></span> 1</td></tr>
+<tr><td style="padding:3px 8px; color:var(--red);">2026-06</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:90%;"></span> 26</td></tr>
+<tr><td style="padding:3px 8px; color:var(--red);">2026-07</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:59%;"></span> 17</td></tr>
+<tr><td style="padding:3px 8px; color:var(--red);">2026-08</td><td style="padding:3px 8px;"><span class="bar-fill bar-month" style="width:100%;"></span> 29</td></tr>
+
         </tbody>
       </table>
-      <div class="sub-note">Максимум: <b>2026-08 — 29 жалоб</b> (пик активности). Всплеск сбора: июнь–август 2026 (72 жалобы, 48% базы).</div>
+      <div class="sub-note">Максимум: <b>2026-08 — 29 жалоб</b> (пик активности). Всплеск сбора: июнь–август 2026 (72 жалоб, ~48% базы).</div>
     </section>
 
     <section class="card">
@@ -128,22 +119,23 @@
       <table class="table" style="width:100%; border-collapse:collapse; margin-top:10px;">
         <tbody>
           <tr><td style="padding:6px 8px;">banki.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:100%;"></span> 91</td><td style="text-align:right; padding:6px 8px;">60.7%</td></tr>
-          <tr><td style="padding:6px 8px;">pravoved.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:35%;"></span> 32</td><td style="text-align:right; padding:6px 8px;">21.3%</td></tr>
-          <tr><td style="padding:6px 8px;">pikabu.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:19%;"></span> 17</td><td style="text-align:right; padding:6px 8px;">11.3%</td></tr>
-          <tr><td style="padding:6px 8px;">otzovik.com</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:3%;"></span> 3</td><td style="text-align:right; padding:6px 8px;">2.0%</td></tr>
-          <tr><td style="padding:6px 8px;">2gis.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:2%;"></span> 2</td><td style="text-align:right; padding:6px 8px;">1.3%</td></tr>
-          <tr><td style="padding:6px 8px;">advgazeta.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
-          <tr><td style="padding:6px 8px;">argumenti.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
-          <tr><td style="padding:6px 8px;">findozor.net</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
-          <tr><td style="padding:6px 8px;">kp.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
-          <tr><td style="padding:6px 8px;">kurskcity.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
+<tr><td style="padding:6px 8px;">pravoved.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:35%;"></span> 32</td><td style="text-align:right; padding:6px 8px;">21.3%</td></tr>
+<tr><td style="padding:6px 8px;">pikabu.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:19%;"></span> 17</td><td style="text-align:right; padding:6px 8px;">11.3%</td></tr>
+<tr><td style="padding:6px 8px;">otzovik.com</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:3%;"></span> 3</td><td style="text-align:right; padding:6px 8px;">2.0%</td></tr>
+<tr><td style="padding:6px 8px;">2gis.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:2%;"></span> 2</td><td style="text-align:right; padding:6px 8px;">1.3%</td></tr>
+<tr><td style="padding:6px 8px;">advgazeta.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
+<tr><td style="padding:6px 8px;">argumenti.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
+<tr><td style="padding:6px 8px;">findozor.net</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
+<tr><td style="padding:6px 8px;">kp.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
+<tr><td style="padding:6px 8px;">kurskcity.ru</td><td style="padding:6px 8px;"><span class="bar-fill bar-src" style="width:1%;"></span> 1</td><td style="text-align:right; padding:6px 8px;">0.7%</td></tr>
+
         </tbody>
       </table>
       <div class="sub-note">Ядро базы — banki.ru (жалобы на банки) + pravoved.ru (юридические вопросы).</div>
     </section>
 
     <section class="card">
-      <h2>5. За последние 7 дней (25.08.2026 — 01.09.2026)</h2>
+      <h2>5. За последние 7 дней (26.08.2026 — 02.09.2026)</h2>
       <div class="sub-note" style="font-size:14px; color:var(--text);"><b>За окно новых жалоб нет</b> (0).</div>
       <div class="sub-note">Общая статистика по базе при этом не обнуляется: всего в базе 150 жалоб, период 04.12.2013 — 21.08.2026.</div>
     </section>
@@ -151,10 +143,10 @@
     <section class="card">
       <h2>6. Meta</h2>
       <div class="sub-note">
-        Дата/время запуска: <b>2026-09-01 08:20 (МСК)</b><br>
+        Дата/время запуска: <b>2026-09-02 08:20 (МСК)</b><br>
         Модель: <b>deepseek/deepseek-v4-flash</b><br>
         Всего записей в базе: <b>150</b> · verified: 146 · needs_review: 4<br>
-        Окно агрегации: 2026-08-25 — 2026-09-01 · Синхронизация базы: katya_merge.py (добавлено 0, дубликатов отсеяно 9, бэкап создан)
+        Окно агрегации: 26.08.2026 — 02.09.2026 · Синхронизация базы: katya_merge.py (добавлено 0, дубликатов отсеяно 0, бэкап создан)
       </div>
     </section>
 
