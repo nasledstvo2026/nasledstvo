@@ -13,7 +13,7 @@
   "duma.gov.ru":   { "type": "html", "url": "http://duma.gov.ru/news/", "note": "новости и законопроекты" },
   "consultant.ru": { "type": "html", "url": "https://www.consultant.ru/legalnews/", "note": "embedded JSON с publishedAt" },
   "garant.ru":     { "type": "html", "url": "https://www.garant.ru/hotlaw/federal/", "note": "hotlaw: новые нормативные акты" },
-  "nalog.gov.ru":  { "type": "html", "url": "https://www.nalog.gov.ru/news/", "note": "лента новостей ФНС" },
+  "nalog.gov.ru":  { "type": "html", "url": "https://www.nalog.gov.ru/rn77/news/", "note": "лента ФНС через rn77-зеркало (news/ отдаёт 404)" },
   "sfr.gov.ru":    { "type": "html", "url": "https://sfr.gov.ru/press_center/", "note": "новости СФР" },
   "mintrud.gov.ru":{ "type": "rss", "url": "https://mintrud.gov.ru/news/rss/official", "note": "RSS-лента (50 новостей)" }
 }
