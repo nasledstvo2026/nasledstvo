@@ -1,5 +1,9 @@
 # AGENTS.md - Your Workspace
 
+## Маршрутизация агентов (триггеры)
+
+- Если сообщение от Кирилла начинается с «Адвокат» или «@адвокат» — перешли запрос агенту `kirill-family-advocate` через `sessions_send(agentId="kirill-family-advocate")`, дождись ответа и верни его как есть.
+
 This folder is home. Treat it that way.
 
 ## First Run
