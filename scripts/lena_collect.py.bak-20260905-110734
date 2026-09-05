@@ -21,7 +21,6 @@ SOURCES_PATH = f"{WORKSPACE}/knowledge/lena/sources.json"
 SEEN_PATH = "/home/user1/.openclaw/agents/shared/lena-news-seen.md"
 RAW_OUT = "/tmp/lena_raw_sources.txt"
 FILTERED_OUT = "/tmp/lena_filtered.json"
-RAW_JSON_OUT = "/home/user1/.openclaw/agents/shared/lena-raw.json"
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0"
 TIMEOUT = 25
@@ -392,44 +391,9 @@ def filter_stage(raw, domains):
     return filtered
 
 
-def save_results(filtered):
-    """Детерминированная запись результата: lena-raw.json + seen.md. Без LLM.
-
-    Правило целостности данных держим в коде, а не в промпте: даже если модель
-    на финальном шаге упадёт, канонический lena-raw.json будет записан всегда.
-    """
-    # 1) lena-raw.json — всегда перезаписываем (даже пустым массивом)
-    with open(RAW_JSON_OUT, "w", encoding="utf-8") as f:
-        json.dump(filtered, f, ensure_ascii=False, indent=2)
-
-    # 2) seen.md — дописываем только новые URL (дедуп, чтобы не плодить строки)
-    if not filtered:
-        return
-    seen_urls = set()
-    try:
-        with open(SEEN_PATH, encoding="utf-8") as f:
-            for line in f:
-                for token in line.split("|"):
-                    token = token.strip()
-                    if token.startswith("http"):
-                        seen_urls.add(token)
-    except FileNotFoundError:
-        pass
-    new_lines = []
-    for it in filtered:
-        if it["url"] in seen_urls:
-            continue
-        seen_urls.add(it["url"])
-        new_lines.append(f"# {it['date']} | {it['title']} | {it['url']} | {it['source']}")
-    if new_lines:
-        with open(SEEN_PATH, "a", encoding="utf-8") as f:
-            f.write("\n".join(new_lines) + "\n")
-
-
 def main():
     raw, domains = collect()
     filtered = filter_stage(raw, domains)
-    save_results(filtered)
     print("=== COLLECT DONE ===")
     print(f"raw={len(raw)}")
     print(f"whitelist_domains={len(domains)}")
