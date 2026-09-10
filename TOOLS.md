@@ -25,6 +25,14 @@ Things like:
 - Домен: `https://nasledstvo2026.github.io/nasledstvo/`
 - Remote: `origin` (git@github.com:nasledstvo2026/nasledstvo.git)
 
+### Web GUI (Control UI) — доступ
+- **Приватно (штатный способ):** `https://vm-f13581.tail31d188.ts.net` — `tailscale serve` → 127.0.0.1:18789, доступно только внутри tailnet. В конфиге gateway `auth.allowTailscale: true`
+- Токен (если страница запросит): в `gateway.auth.token` файла `~/.openclaw/openclaw.json`; альтернатива — `openclaw dashboard --no-open`
+- Проверка: `curl -sI https://vm-f13581.tail31d188.ts.net/` → 200
+- ⚠️ `trycloudflare.com` у Кирилла не открывается без VPN (запись 28.06) — публичные quick-туннели как канал не работают
+- **`cloudflared-dashboard.service` — погашен 10.09.2026** (stop + disable + mask). Unit сохранён: `/etc/systemd/system/cloudflared-dashboard.service.disabled`
+- Вернуть туннель (если понадобится): `sudo rm /etc/systemd/system/cloudflared-dashboard.service` (снять symlink на /dev/null) → `sudo mv /etc/systemd/system/cloudflared-dashboard.service.disabled /etc/systemd/system/cloudflared-dashboard.service` → `sudo systemctl daemon-reload && sudo systemctl enable --now cloudflared-dashboard.service`
+
 ### VPS (Лунт)
 - Хост: vm-low4-8
 - ОС: Linux 6.8.0-136-generic (x64)
