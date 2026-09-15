@@ -38,6 +38,13 @@
 - **Последнее действие:** включение hot-reload, чекпоинт перед рестартом
 - **2026-08-01** — Обновление OpenClaw с 2026.6.11 до 2026.6.33 (extended-stable). 169 PR изменений. Чекпоинт перед npm install.
 
+### Барбершоп-советник (arkadiy-barber-consultant)
+- **Статус:** в разработке. ТЗ v1.5 (15.09.2026) — три контура: рост + финансы + дизайн/интерьер (Модуль C).
+- **Workspace:** `~/.openclaw/agents/arkadiy-barber-consultant/workspace/`; состояние — `barbershop-service/state.md`.
+- **Готово:** ТЗ v1.5; референсы раздела C (нормативы СП 2.1.3678-20 + интерьеры); этап 1 (каркас, state.md) — 15.09.2026.
+- **Дальше:** бенчмарки/growth-кейсы (этап 3) → навык barbershop-advisor (этап 2) → верификатор (этап 5) → подключение Аркадия (sender_id, этап 7).
+- **Маршрутизация:** владелец (Аркадий) → main напрямую, без триггера; приватность по sender_id.
+
 ## Предпочтения по моделям
 - Основная: `deepseek/deepseek-v4-flash`
 - Fallback: `deepseek/deepseek-v4-pro`
@@ -64,6 +71,7 @@
 - **Правило:** инфраструктурные факты (ветка, домен) — в TOOLS.md, а не в голове
 
 ## Хронология
+- **2026-09-15 (барбершоп-советник — ТЗ v1.5 + этап 1 + референсы раздела C)** — Кирилл запросил расширить барбершоп-советник на дизайн/интерьер (Аркадий планирует ремонт). ТЗ → v1.5: добавлен Модуль C «Дизайн и интерьер» (4 блока) + правило честности (эстетика не верифицируется / нормативы верифицируются). Выполнен этап 1 (каркас: state.md + структура) и часть этапа 3 по разделу C: нормативы СП 2.1.3678-20 (ключевой вывод — нет жёсткой нормы площади на кресло, старый СанПиН 2.1.2.2631-10 утратил силу с 01.01.2021) + референсы интерьеров (4 архетипа + 5 салонов). Инструменты: web_search отключён, DDG html банит, XMLRiver-ключ в промптах кронов неактивен → работа по прямым доменам (consultant/cepportal) + внутренний поиск сайтов (WordPress `?s=`). Подробно: agents/arkadiy-barber-consultant/workspace/barbershop-service/state.md, memory/2026-09-15.md.
 - **2026-09-10 (доступ к web GUI)** — Кирилл попросил ссылку на Control UI. Публичная (`williams-chicago-beatles-hdtv.trycloudflare.com/#token=…`) признана опасной и неудобной. Выяснено: у Лунтика уже есть приватный вход через Tailscale — **`https://vm-f13581.tail31d188.ts.net`** (`tailscale serve` → 127.0.0.1:18789, tailnet-only; в gateway `auth.allowTailscale: true`). Публичный туннель `cloudflared-dashboard.service` погашен (stop+disable+mask, unit → `.disabled`); проверено: публичный URL → 530, tailnet → 200. **Правило: наружу gateway не светим, доступ к GUI — только через Tailscale.**
 - **2026-08-29 (social-verify-agent: 13-дневный fallback закрыт)** — Крон `social-search-daily` (Лунтик) 13 дней писал `verify=agent-not-found→main`: `sessions_send(agentId="social-verify-agent")` не находил агента. Диагноз: `social-verify-agent` был зарегистрирован **только на Фениксе** (для конвейера Ирины), а крон и база `social-npa-db.json` — на Лунтике; sessions_send не работает между машинами. Фикс: агент зарегистрирован на Лунтике (`openclaw agents add social-verify-agent --workspace ~/.openclaw/agents/social-verify-agent/workspace --model deepseek/deepseek-v4-flash`, skills-symlink на общий workspace), конфиг применился hot-reload без рестарта. Проверка: из свежей cron-сессии вызов прошёл (агент ответил, видит скилл `social-verifier-protocol`); текущая долгоживущая main-сессия держит старый кеш конфига — это ожидаемо. SKILL.md `social-search-agent` обновлён (fallback → штатный вызов). Бэкап: `~/.openclaw/backups/openclaw.json.bak-20260829-pre-social-verify`.
 - **2026-08-27 (починка базы жалоб Кати)** — Накопительная база `katya-data.json` восстановлена: 2 → **124 жалобы** (14.01.2025–21.08.2026, 20 банков) из 14 бэкапов. Корень проблемы (промпт «агрегированные данные за 7 дней») устранён: правило «дополняй, не перезаписывай» вынесено из промпта в код — `scripts/katya_merge.py` (append-only, дедуп по URL, бэкап, атомарная запись, guard от уменьшения базы, канонизация банков/источников, идемпотентность). Окно 7 дней → отдельный `katya-summary-7d.json`. Тесты `scripts/test_katya_merge.py` — 21/21. Обновлены 4 крона (verify вызывает скрипт, stats страхует повторным вызовом, search чистит по seen, katya read-only) + SKILL.md. Отчёт: `docs/complaints-monitoring/katya-base-fix-2026-08-27.md`. **Урок: правила целостности данных держать в коде, а не в формулировке промпта — промпт дрейфует тихо.**

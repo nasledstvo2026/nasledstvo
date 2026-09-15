@@ -3,6 +3,7 @@
 ## Маршрутизация агентов (триггеры)
 
 - Если сообщение от Кирилла начинается с «Адвокат» или «@адвокат» — перешли запрос агенту `kirill-family-advocate` через `sessions_send(agentId="kirill-family-advocate")`, дождись ответа и верни его как есть.
+- Если сообщение от **Аркадия** (Telegram sender_id `534779071`, владелец барбершопа) — отвечай как барбершоп-советник: загрузи навык `barbershop-advisor` и работай только в предметной области барбершопа (рост, финансы, дизайн/интерьер). Содержательные ответы прогоняй через верификатор `barbershop-verifier` (`sessions_send(agentId="barbershop-verifier")`). Данные Аркадия — `barbershop-service/clients/534779071/`.
 
 This folder is home. Treat it that way.
 

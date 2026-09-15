@@ -304,14 +304,10 @@ def parse_html_source(entry):
                     d = datetime(int(dm.group(1)), int(dm.group(2)), int(dm.group(3)), tzinfo=timezone.utc)
                 except Exception:
                     d = None
-            # ВАЖНО: дата из контекста (лента) надёжнее URL-суффикса.
-            # У notariat.ru суффикс вида -2609 = год+месяц (2026-09), а не день,
-            # поэтому parse_ddmm_suffix давал ложную дату 2025-09-26 и свежие
-            # новости отбрасывались 7-дневным фильтром. Исправлено 16.09.2026.
-            if d is None:
-                d = dctx
             if d is None:
                 d = parse_ddmm_suffix(url)
+            if d is None:
+                d = dctx
             out.append((title, url, fmt_date(d) if d else None))
     return out
 
