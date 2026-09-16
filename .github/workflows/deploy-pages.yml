@@ -28,6 +28,7 @@ jobs:
       - name: Remove broken symlinks
         run: |
           rm -f mamkin-analitik/_bmad/core mamkin-analitik/_bmad/bmm
+          find . -path ./.git -prune -o -xtype l -delete
       - name: Prepare artifact (copy with excludes)
         run: |
           mkdir -p _site
