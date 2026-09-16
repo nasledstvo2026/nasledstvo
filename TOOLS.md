@@ -57,6 +57,14 @@ Things like:
 - Мониторинг прогона: «прогон жив?» / «статус прогона» → SSH `bash ~/check-run.sh` (вердикт по model-fetch активности + load/RAM/диск/xlsx: ✅ завершён / 🟢 идёт / 🔴 стоит). model-fetch — главный признак реальной работы subagent'а (xlsx/лог оркестратора обновляются только при завершении региона).
 - Интерактивный: tmux-сессия `monitor` (htop), подключение: `ssh -i ~/.ssh/fenix user1@213.171.25.85 -t tmux attach -t monitor`
 
+### Сбор жалоб по наследству (search-agent / katya)
+- banki.ru: лента `/services/responses/list/?page=N` (25 отзывов/стр., пагинация до N=13 = ~7 дней), карточки `/services/responses/bank/response/<id>/`
+- ⚠️ Лимит на IP ~50 запросов подряд (13 стр. ленты + ~37 карточек) → затем http=000 на ~1,5 ч. Феникс (другой IP) даёт ещё ~55 карточек, потом банит и его
+- ⚠️ ld+json в карточках banki содержит literal control-чары → `json.loads(..., strict=False)`, иначе Review-блок не парсится и body=0/банк=None
+- Дата карточки: `itemprop="datePublished" content=...` (в старом скрипте был неверный regex → date=None)
+- Запасной egress: Феникс (`ssh -i ~/.ssh/fenix user1@213.171.25.85`) — curl там отдаёт полные карточки banki
+- pravoved.ru: после ~30 запросов отдаёт 429 (rate-limit), лента без пагинации
+
 ### Поиск (XMLRiver Яндекс.XML)
 - Эндпоинт: `https://xmlriver.com/search_yandex/xml?user=22347&key=***&query=...`
 - user=22347, ключ вшит в промпты кронов lena-search-agent и search-agent
