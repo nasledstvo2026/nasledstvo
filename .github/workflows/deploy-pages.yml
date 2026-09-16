@@ -27,8 +27,8 @@ jobs:
         uses: actions/configure-pages@v6
       - name: Remove broken symlinks
         run: |
-          rm -f mamkin-analitik/_bmad/core mamkin-analitik/_bmad/bmm
-          find . -path ./.git -prune -o -xtype l -delete
+          rm -f mamkin-analitik/_bmad/core mamkin-analitik/_bmad/bmm barbershop-service
+          find . -xtype l -delete || true
       - name: Prepare artifact (copy with excludes)
         run: |
           mkdir -p _site
