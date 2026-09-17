@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 900" font-family="DejaVu Sans, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="900" fill="#f8fafc"/>
+
+  <text x="40" y="42" font-size="22" font-weight="700" fill="#172033">Исполнительное производство: workflow по шести ФЗ</text>
+  <text x="40" y="64" font-size="13" fill="#5b6475">ВХОД — источники ИД, порождаемые шестью ФЗ: УПК, НК, 229-ФЗ, 127-ФЗ.</text>
+  <text x="40" y="82" font-size="12" fill="#94a3b8">ГК (14-ФЗ, ст. 855) и 603-ФЗ исполнительных документов НЕ порождают — работают на этапах распределения и обращения взыскания.</text>
+
+  <!-- ===== ВХОД: 4 источника от шести ФЗ ===== -->
+  <text x="560" y="104" font-size="13" font-weight="700" fill="#172033" text-anchor="middle">ВХОД — источники исполнительных документов</text>
+
+  <!-- 1. Суд / УПК -->
+  <rect x="42" y="116" width="240" height="102" rx="10" fill="#fde68a" stroke="#64748b" stroke-width="1.5"/>
+  <text x="162" y="138" font-size="12" font-weight="700" fill="#172033" text-anchor="middle">Суд (УПК 174-ФЗ)</text>
+  <text x="162" y="158" font-size="11" fill="#334155" text-anchor="middle">приговор: штраф, конфискация,</text>
+  <text x="162" y="174" font-size="11" fill="#334155" text-anchor="middle">гражд. иск → исп. лист</text>
+  <text x="162" y="192" font-size="11" fill="#334155" text-anchor="middle">арест имущества (ст. 115)</text>
+
+  <!-- 2. ФНС / НК -->
+  <rect x="307" y="116" width="240" height="102" rx="10" fill="#fde68a" stroke="#64748b" stroke-width="1.5"/>
+  <text x="427" y="138" font-size="12" font-weight="700" fill="#172033" text-anchor="middle">ФНС (НК 146-ФЗ)</text>
+  <text x="427" y="158" font-size="11" fill="#334155" text-anchor="middle">акт о взыскании (ст. 47)</text>
+  <text x="427" y="174" font-size="11" fill="#334155" text-anchor="middle">судебный акт (ст. 48)</text>
+  <text x="427" y="192" font-size="11" fill="#5b6475" text-anchor="middle">→ постановление налоговика</text>
+
+  <!-- 3. Пристав / 229-ФЗ -->
+  <rect x="572" y="116" width="240" height="102" rx="10" fill="#fde68a" stroke="#64748b" stroke-width="1.5"/>
+  <text x="692" y="138" font-size="12" font-weight="700" fill="#172033" text-anchor="middle">Пристав (229-ФЗ)</text>
+  <text x="692" y="158" font-size="11" fill="#334155" text-anchor="middle">постановление (ст. 12 п. 7)</text>
+  <text x="692" y="174" font-size="11" fill="#334155" text-anchor="middle">исп. сбор (ст. 112)</text>
+  <text x="692" y="192" font-size="11" fill="#334155" text-anchor="middle">расходы по ИД (ст. 117)</text>
+
+  <!-- 4. Арб. суд / 127-ФЗ -->
+  <rect x="837" y="116" width="240" height="102" rx="10" fill="#fde68a" stroke="#64748b" stroke-width="1.5"/>
+  <text x="957" y="138" font-size="12" font-weight="700" fill="#172033" text-anchor="middle">Арб. суд (127-ФЗ)</text>
+  <text x="957" y="158" font-size="11" fill="#334155" text-anchor="middle">судакты в банкротстве:</text>
+  <text x="957" y="174" font-size="11" fill="#334155" text-anchor="middle">субсидиарка (ст. 61.11),</text>
+  <text x="957" y="192" font-size="11" fill="#334155" text-anchor="middle">убытки управляющего</text>
+
+  <!-- стрелки источников -> ИД -->
+  <line x1="162" y1="218" x2="500" y2="326" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="427" y1="218" x2="540" y2="326" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="692" y1="218" x2="580" y2="326" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="957" y1="218" x2="620" y2="326" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ИД -->
+  <rect x="430" y="330" width="260" height="70" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="560" y="356" font-size="13" font-weight="700" fill="#172033" text-anchor="middle">ИСПОЛНИТЕЛЬНЫЙ ДОКУМЕНТ</text>
+  <text x="560" y="377" font-size="11.5" fill="#334155" text-anchor="middle">ст. 12 229-ФЗ</text>
+
+  <!-- стрелка ИД -> процесс -->
+  <line x1="560" y1="400" x2="560" y2="426" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 229-ФЗ process -->
+  <rect x="350" y="430" width="420" height="240" rx="10" fill="#c7d2fe" stroke="#64748b" stroke-width="1.5"/>
+  <text x="560" y="454" font-size="13" font-weight="700" fill="#172033" text-anchor="middle">229-ФЗ — ИСПОЛНИТЕЛЬНОЕ ПРОИЗВОДСТВО</text>
+  <text x="560" y="482" font-size="12" fill="#172033" text-anchor="middle">1) возбуждение ИП</text>
+  <text x="560" y="507" font-size="12" fill="#172033" text-anchor="middle">2) обращение взыскания (ст. 69, 70)</text>
+  <text x="560" y="532" font-size="12" fill="#172033" text-anchor="middle">3) распределение взысканного (ст. 111)</text>
+  <text x="560" y="557" font-size="12" fill="#172033" text-anchor="middle">4) окончание ИП</text>
+
+  <!-- стрелка процесс -> выход -->
+  <line x1="560" y1="670" x2="560" y2="706" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ВЫХОД -->
+  <rect x="410" y="710" width="300" height="80" rx="10" fill="#99f6e4" stroke="#64748b" stroke-width="1.5"/>
+  <text x="560" y="736" font-size="13" font-weight="700" fill="#172033" text-anchor="middle">ВЫХОД — исполнение требований</text>
+  <text x="560" y="758" font-size="11.5" fill="#334155" text-anchor="middle">деньги / имущество → взыскателю</text>
+
+  <!-- ===== SIDE FACTORS ===== -->
+
+  <!-- 603-ФЗ -->
+  <rect x="50" y="480" width="220" height="80" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="160" y="505" font-size="12" font-weight="700" fill="#172033" text-anchor="middle">603-ФЗ — ограничение</text>
+  <text x="160" y="527" font-size="11" fill="#334155" text-anchor="middle">ст. 101: единое пособие</text>
+  <text x="160" y="545" font-size="11" fill="#5b6475" text-anchor="middle">нельзя обратить взыскание</text>
+  <line x1="270" y1="520" x2="346" y2="507" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="308" y="500" font-size="10" fill="#5b6475" text-anchor="middle">ст. 101</text>
+
+  <!-- ГК 855 -->
+  <rect x="850" y="510" width="250" height="95" rx="10" fill="#bfdbfe" stroke="#64748b" stroke-width="1.5"/>
+  <text x="975" y="534" font-size="12" font-weight="700" fill="#172033" text-anchor="middle">ГК (14-ФЗ) ст. 855</text>
+  <text x="975" y="556" font-size="11" fill="#334155" text-anchor="middle">очередность списания</text>
+  <text x="975" y="576" font-size="11" fill="#5b6475" text-anchor="middle">(налог ФНС — ст. 46 НК)</text>
+  <line x1="850" y1="555" x2="774" y2="532" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="812" y="524" font-size="10" fill="#5b6475" text-anchor="middle">↔ ст. 111</text>
+
+  <!-- 127-ФЗ stop -->
+  <rect x="850" y="640" width="250" height="150" rx="10" fill="#fecaca" stroke="#64748b" stroke-width="1.5"/>
+  <text x="975" y="664" font-size="12" font-weight="700" fill="#172033" text-anchor="middle">127-ФЗ — банкротство (стоп)</text>
+  <text x="975" y="686" font-size="11" fill="#334155" text-anchor="middle">приостан. ИП: ст. 63, 96</text>
+  <text x="975" y="706" font-size="11" fill="#334155" text-anchor="middle">прекращ. ИП: ст. 126</text>
+  <text x="975" y="726" font-size="11" fill="#334155" text-anchor="middle">ФНС — уполном. орган</text>
+  <text x="975" y="746" font-size="11" fill="#334155" text-anchor="middle">требования → реестр (ст. 134)</text>
+  <line x1="850" y1="675" x2="774" y2="560" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="792" y="615" font-size="10" fill="#5b6475" text-anchor="middle">прерывает ИП</text>
+
+  <!-- ===== LEGEND ===== -->
+  <g font-size="11" fill="#334155">
+    <rect x="40" y="856" width="14" height="14" rx="3" fill="#fde68a" stroke="#64748b"/>
+    <text x="60" y="868">ВХОД (источники ИД от ФЗ)</text>
+    <rect x="248" y="856" width="14" height="14" rx="3" fill="#c7d2fe" stroke="#64748b"/>
+    <text x="268" y="868">процесс 229-ФЗ</text>
+    <rect x="368" y="856" width="14" height="14" rx="3" fill="#99f6e4" stroke="#64748b"/>
+    <text x="388" y="868">ВЫХОД</text>
+    <rect x="458" y="856" width="14" height="14" rx="3" fill="#fecaca" stroke="#64748b"/>
+    <text x="478" y="868">стоп (банкротство)</text>
+    <rect x="608" y="856" width="14" height="14" rx="3" fill="#bfdbfe" stroke="#64748b"/>
+    <text x="628" y="868">регулятор (очередность)</text>
+    <rect x="776" y="856" width="14" height="14" rx="3" fill="#e2e8f0" stroke="#64748b"/>
+    <text x="796" y="868">ограничитель (603-ФЗ)</text>
+  </g>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 720" font-family="DejaVu Sans, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1180" height="720" fill="#f8fafc"/>
+
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#172033">Взаимосвязи ФЗ в предметной области «исполнительное производство»</text>
+  <text x="40" y="66" font-size="13" fill="#5b6475">Центр — 229-ФЗ «Об исполнительном производстве». Сплошная линия — основная нормативная связь, пунктир — сопутствующая, стрелка — «вносит изменения».</text>
+
+  <!-- ===== EDGES ===== -->
+
+  <!-- 1. 603-ФЗ -> 229-ФЗ -->
+  <line x1="590" y1="174" x2="590" y2="336" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="600" y="248" font-size="12" fill="#334155" text-anchor="start">вносит изменения</text>
+  <text x="600" y="264" font-size="11" fill="#5b6475" text-anchor="start">(ст. 101 — единое пособие)</text>
+
+  <!-- 2. 229-ФЗ <-> ГК (855) -->
+  <line x1="590" y1="380" x2="260" y2="247" stroke="#64748b" stroke-width="2"/>
+  <text x="418" y="300" font-size="12" fill="#334155" text-anchor="middle">очередность</text>
+  <text x="418" y="316" font-size="11" fill="#5b6475" text-anchor="middle">(ст. 111 ↔ ст. 855 ГК)</text>
+
+  <!-- 3. 229-ФЗ <-> 127-ФЗ -->
+  <line x1="590" y1="380" x2="260" y2="577" stroke="#64748b" stroke-width="2"/>
+  <text x="430" y="466" font-size="12" fill="#334155" text-anchor="middle">приостановл./прекращ. ИП</text>
+  <text x="430" y="482" font-size="11" fill="#5b6475" text-anchor="middle">(ст. 63, 96, 126)</text>
+
+  <!-- 4. 229-ФЗ <-> НК (47-48) -->
+  <line x1="590" y1="380" x2="930" y2="247" stroke="#64748b" stroke-width="2"/>
+  <text x="755" y="300" font-size="12" fill="#334155" text-anchor="middle">взыскание налога</text>
+  <text x="755" y="316" font-size="11" fill="#5b6475" text-anchor="middle">(ст. 47–48, через пристава)</text>
+
+  <!-- 5. 229-ФЗ <-> УПК (115) -->
+  <line x1="590" y1="380" x2="930" y2="577" stroke="#64748b" stroke-width="2"/>
+  <text x="758" y="466" font-size="12" fill="#334155" text-anchor="middle">арест (ст. 115)</text>
+  <text x="758" y="482" font-size="11" fill="#5b6475" text-anchor="middle">исполнение приговора</text>
+
+  <!-- secondary edges -->
+  <line x1="260" y1="247" x2="930" y2="247" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="6 5"/>
+  <text x="470" y="236" font-size="11" fill="#5b6475" text-anchor="middle">ст. 46 НК → ст. 855 ГК</text>
+  <text x="470" y="251" font-size="11" fill="#5b6475" text-anchor="middle">бюджет — 3-я очередь</text>
+
+  <line x1="260" y1="577" x2="260" y2="247" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="6 5"/>
+  <text x="250" y="415" font-size="11" fill="#5b6475" text-anchor="end">ст. 1 127-ФЗ → ГК</text>
+
+  <line x1="260" y1="577" x2="930" y2="247" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="6 5"/>
+  <text x="600" y="430" font-size="11" fill="#5b6475" text-anchor="middle">налоги в реестре</text>
+
+  <line x1="260" y1="577" x2="930" y2="577" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="6 5"/>
+  <text x="595" y="570" font-size="11" fill="#5b6475" text-anchor="middle">соотношение арестов (ст. 115)</text>
+
+  <!-- ===== NODES ===== -->
+
+  <rect x="470" y="340" width="240" height="80" rx="10" fill="#c7d2fe" stroke="#64748b" stroke-width="1.5"/>
+  <text x="590" y="372" font-size="15" font-weight="700" fill="#172033" text-anchor="middle">229-ФЗ</text>
+  <text x="590" y="394" font-size="12" fill="#334155" text-anchor="middle">Об исполнительном производстве</text>
+
+  <rect x="480" y="100" width="220" height="74" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="590" y="127" font-size="14" font-weight="700" fill="#172033" text-anchor="middle">603-ФЗ</text>
+  <text x="590" y="149" font-size="11.5" fill="#334155" text-anchor="middle">изм.: ст. 101 (единое пособие)</text>
+
+  <rect x="150" y="210" width="220" height="74" rx="10" fill="#99f6e4" stroke="#64748b" stroke-width="1.5"/>
+  <text x="260" y="237" font-size="14" font-weight="700" fill="#172033" text-anchor="middle">ГК ч.2 (14-ФЗ)</text>
+  <text x="260" y="259" font-size="11.5" fill="#334155" text-anchor="middle">ст. 855 — очередность списания</text>
+
+  <rect x="150" y="540" width="220" height="74" rx="10" fill="#fecaca" stroke="#64748b" stroke-width="1.5"/>
+  <text x="260" y="567" font-size="14" font-weight="700" fill="#172033" text-anchor="middle">127-ФЗ</text>
+  <text x="260" y="589" font-size="11.5" fill="#334155" text-anchor="middle">О несостоятельности (банкротстве)</text>
+
+  <rect x="820" y="210" width="220" height="74" rx="10" fill="#bfdbfe" stroke="#64748b" stroke-width="1.5"/>
+  <text x="930" y="237" font-size="14" font-weight="700" fill="#172033" text-anchor="middle">НК ч.1 (146-ФЗ)</text>
+  <text x="930" y="259" font-size="11.5" fill="#334155" text-anchor="middle">взыскание налогов (ст. 46–48)</text>
+
+  <rect x="820" y="540" width="220" height="74" rx="10" fill="#fde68a" stroke="#64748b" stroke-width="1.5"/>
+  <text x="930" y="567" font-size="14" font-weight="700" fill="#172033" text-anchor="middle">УПК РФ (174-ФЗ)</text>
+  <text x="930" y="589" font-size="11.5" fill="#334155" text-anchor="middle">арест имущества, ст. 115</text>
+</svg>
