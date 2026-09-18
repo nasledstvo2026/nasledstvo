@@ -57,6 +57,11 @@ Things like:
 - Мониторинг прогона: «прогон жив?» / «статус прогона» → SSH `bash ~/check-run.sh` (вердикт по model-fetch активности + load/RAM/диск/xlsx: ✅ завершён / 🟢 идёт / 🔴 стоит). model-fetch — главный признак реальной работы subagent'а (xlsx/лог оркестратора обновляются только при завершении региона).
 - Интерактивный: tmux-сессия `monitor` (htop), подключение: `ssh -i ~/.ssh/fenix user1@213.171.25.85 -t tmux attach -t monitor`
 
+### Статистика жалоб (stats-agent)
+- Генератор отчёта: `scripts/stats_inheritance_gen.py` → `reports/stats-inheritance.html` (читает ТОЛЬКО агрегаты `/home/user1/.openclaw/agents/shared/katya-summary-7d.json`)
+- Пайплайн: `scripts/katya_merge.py` (синк базы, идемпотентно) → генератор → `bash publish-report.sh reports/stats-inheritance.html stats-inheritance.html`
+- ⚠️ `publish-report.sh` делает `git add -A` — любые мусорные файлы в workspace (напр. `advg.out`/`advg.err` от 18.09.2026) уезжают в коммит Pages. Проверять `git status` перед публикацией
+
 ### Сбор жалоб по наследству (search-agent / katya)
 - banki.ru: лента `/services/responses/list/?page=N` (25 отзывов/стр., пагинация до N=13 = ~7 дней), карточки `/services/responses/bank/response/<id>/`
 - ⚠️ Лимит на IP ~50 запросов подряд (13 стр. ленты + ~37 карточек) → затем http=000 на ~1,5 ч. Феникс (другой IP) даёт ещё ~55 карточек, потом банит и его
