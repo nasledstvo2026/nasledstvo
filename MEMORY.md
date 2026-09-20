@@ -58,7 +58,7 @@
 - **Оставлены (критичные):** openclaw-gateway, caddy, postgresql@16-main, fail2ban, tailscale, unattended-upgrades, rsyslog
 - **Погашены 10.09.2026:** cloudflared-dashboard (публичный quick-туннель GUI на trycloudflare) — stop + disable + **mask**; unit сохранён как `/etc/systemd/system/cloudflared-dashboard.service.disabled`. Вернуть: снять mask (rm symlink /dev/null) + вернуть unit-файл + enable + start
 - **DeepSeek provider:** 2026.6.11 (актуальный — 2026.7.1, не обновляли)
-- **OpenClaw:** 2026.6.34 (extended-stable, обновлён 2026-08-18)
+- **OpenClaw:** 2026.7.34 (extended-stable, обновлён 2026-09-20)
 
 ## ⚙️ Workflow деплоя (GitHub Pages)
 - Ветка: `gh-pages` (НЕ master)

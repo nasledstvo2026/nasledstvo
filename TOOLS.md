@@ -44,7 +44,7 @@ Things like:
 - Ключ: `~/.ssh/fenix` (права 600) — идентичен `new-vps-key`
 - Passphrase ключа: в `~/.ssh/askpass.sh`
 - SSH: `SSH_ASKPASS=~/.ssh/askpass.sh SSH_ASKPASS_REQUIRE=force ssh -i ~/.ssh/fenix user1@213.171.25.85`
-- OpenClaw 2026.6.11, порт 18789, systemd user unit `openclaw-gateway.service`
+- OpenClaw 2026.7.34 (обновлён 20.09.2026), порт 18789, systemd user unit `openclaw-gateway.service`
 - Workspace: `/home/user1/phoenix/` | fz425-agent: `/home/user1/phoenix/fz425-agent/`
 - Перезапуск: ТОЛЬКО `bash ~/phoenix/safe-restart.sh` (НЕ systemctl restart!)
 - Команда «почини Феникса» → SSH-подключение + диагностика (статус, логи, диск/RAM)
