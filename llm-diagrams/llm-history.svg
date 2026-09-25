@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="800" viewBox="0 0 1800 800">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+<rect x="0" y="0" width="1800" height="800" rx="0" fill="#f8fafc" stroke="none" stroke-width="1"/>
+<text x="60" y="66" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="34" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Как появились большие языковые модели (LLM)</text>
+<text x="60" y="100" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">От идеи «искусственного нейрона» до чат-помощников: 80 лет истории</text>
+<text x="60" y="152" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Пять корней, из которых выросла идея:</text>
+<rect x="60" y="166" width="305.8" height="36" rx="18" fill="#fde68a" stroke="#64748b" stroke-width="1"/>
+<text x="212.9" y="190" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#3f2d05" opacity="1">Нейробиология (как работает мозг)</text>
+<rect x="379.8" y="166" width="245.6" height="36" rx="18" fill="#fde68a" stroke="#64748b" stroke-width="1"/>
+<text x="502.6" y="190" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#3f2d05" opacity="1">Логика и теория вычислений</text>
+<rect x="639.4000000000001" y="166" width="297.2" height="36" rx="18" fill="#fde68a" stroke="#64748b" stroke-width="1"/>
+<text x="788.0000000000001" y="190" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#3f2d05" opacity="1">Теория вероятностей и статистика</text>
+<rect x="950.6000000000001" y="166" width="280.0" height="36" rx="18" fill="#fde68a" stroke="#64748b" stroke-width="1"/>
+<text x="1090.6000000000001" y="190" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#3f2d05" opacity="1">Лингвистика (язык как система)</text>
+<rect x="1244.6000000000001" y="166" width="168.2" height="36" rx="18" fill="#fde68a" stroke="#64748b" stroke-width="1"/>
+<text x="1328.7" y="190" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#3f2d05" opacity="1">Теория информации</text>
+<text x="60" y="226" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="20" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Дорога во времени</text>
+<line x1="90" y1="400" x2="1706" y2="400" stroke="#94a3b8" stroke-width="4"/>
+<circle cx="118" cy="400" r="9" fill="#64748b"/>
+<line x1="118" y1="382" x2="118" y2="336" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="10" y="240" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="118" y="266" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">1943</text>
+<text x="118" y="286" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Модель нейрона</text>
+<text x="118" y="304" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Маккаллок и Питтс:</text>
+<text x="118" y="319" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">первая формула «клетки мозга»</text>
+<circle cx="236" cy="400" r="9" fill="#64748b"/>
+<line x1="236" y1="418" x2="236" y2="500" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="128" y="508" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="236" y="534" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">1950</text>
+<text x="236" y="554" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Тест Тьюринга</text>
+<text x="236" y="572" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Вопрос: «может ли</text>
+<text x="236" y="587" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">машина думать?»</text>
+<circle cx="354" cy="400" r="9" fill="#64748b"/>
+<line x1="354" y1="382" x2="354" y2="336" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="246" y="240" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="354" y="266" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">1957</text>
+<text x="354" y="286" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Перцептрон</text>
+<text x="354" y="304" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Розенблатт: первая</text>
+<text x="354" y="319" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">обучаемая нейросеть</text>
+<circle cx="472" cy="400" r="9" fill="#64748b"/>
+<line x1="472" y1="418" x2="472" y2="500" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="364" y="508" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="472" y="534" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">1969</text>
+<text x="472" y="554" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">«Зима ИИ»</text>
+<text x="472" y="572" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Минский и Пейперт показали</text>
+<text x="472" y="587" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">пределы перцептрона</text>
+<circle cx="590" cy="400" r="9" fill="#64748b"/>
+<line x1="590" y1="382" x2="590" y2="336" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="482" y="240" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="590" y="266" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">1986</text>
+<text x="590" y="286" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Обратное распространение</text>
+<text x="590" y="304" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Сети снова учатся,</text>
+<text x="590" y="319" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">но данных и мощности мало</text>
+<circle cx="708" cy="400" r="9" fill="#64748b"/>
+<line x1="708" y1="418" x2="708" y2="500" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="600" y="508" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="708" y="534" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">1997</text>
+<text x="708" y="554" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">LSTM · Deep Blue</text>
+<text x="708" y="572" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Память для последовательностей;</text>
+<text x="708" y="587" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">компьютер бьёт Каспарова</text>
+<circle cx="826" cy="400" r="9" fill="#64748b"/>
+<line x1="826" y1="382" x2="826" y2="336" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="718" y="240" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="826" y="266" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">2006</text>
+<text x="826" y="286" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Глубокое обучение</text>
+<text x="826" y="304" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Хинтон: много слоёв</text>
+<text x="826" y="319" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">дают прорыв в качестве</text>
+<circle cx="944" cy="400" r="9" fill="#64748b"/>
+<line x1="944" y1="418" x2="944" y2="500" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="836" y="508" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="944" y="534" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">2013</text>
+<text x="944" y="554" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Слова-векторы</text>
+<text x="944" y="572" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">word2vec: текст</text>
+<text x="944" y="587" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">превращают в числа</text>
+<circle cx="1062" cy="400" r="9" fill="#4338ca"/>
+<line x1="1062" y1="382" x2="1062" y2="336" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="954" y="240" width="216" height="92" rx="10" fill="#c7d2fe" stroke="#64748b" stroke-width="1"/>
+<text x="1062" y="266" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#312e81" opacity="1">2017</text>
+<text x="1062" y="286" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#312e81" opacity="1">ТРАНСФОРМЕР</text>
+<text x="1062" y="304" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">«Attention is All You Need»</text>
+<text x="1062" y="319" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">— главный перелом</text>
+<circle cx="1180" cy="400" r="9" fill="#64748b"/>
+<line x1="1180" y1="418" x2="1180" y2="500" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="1072" y="508" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="1180" y="534" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">2018</text>
+<text x="1180" y="554" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">GPT-1 и BERT</text>
+<text x="1180" y="572" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Предобучение на текстах</text>
+<text x="1180" y="587" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">всего интернета</text>
+<circle cx="1298" cy="400" r="9" fill="#64748b"/>
+<line x1="1298" y1="382" x2="1298" y2="336" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="1190" y="240" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="1298" y="266" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">2020</text>
+<text x="1298" y="286" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">GPT-3</text>
+<text x="1298" y="304" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">175 млрд параметров:</text>
+<text x="1298" y="319" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">пишет почти как человек</text>
+<circle cx="1416" cy="400" r="9" fill="#64748b"/>
+<line x1="1416" y1="418" x2="1416" y2="500" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="1308" y="508" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="1416" y="534" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">2022</text>
+<text x="1416" y="554" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">ChatGPT + RLHF</text>
+<text x="1416" y="572" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Обучение на похвале людей;</text>
+<text x="1416" y="587" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">ИИ выходит к массам</text>
+<circle cx="1534" cy="400" r="9" fill="#64748b"/>
+<line x1="1534" y1="382" x2="1534" y2="336" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="1426" y="240" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="1534" y="266" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">2023-24</text>
+<text x="1534" y="286" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">GPT-4, LLaMA</text>
+<text x="1534" y="304" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">Мультимодальность, открытые</text>
+<text x="1534" y="319" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">модели, гонка компаний</text>
+<circle cx="1652" cy="400" r="9" fill="#64748b"/>
+<line x1="1652" y1="418" x2="1652" y2="500" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="1544" y="508" width="216" height="92" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+<text x="1652" y="534" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">2025-26</text>
+<text x="1652" y="554" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Рассуждающие модели</text>
+<text x="1652" y="572" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">LLM «думают» по шагам</text>
+<text x="1652" y="587" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="11.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">и работают как агенты</text>
+<text x="60" y="676" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="20" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Что сделало LLM возможными: три условия встретились вместе</text>
+<rect x="60" y="700" width="420" height="72" rx="12" fill="#bfdbfe" stroke="#64748b" stroke-width="1"/>
+<text x="270" y="730" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Огромные текстовые данные</text>
+<text x="270" y="754" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">интернет, книги, код —</text>
+<line x1="484" y1="736" x2="528" y2="736" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="532" y="700" width="420" height="72" rx="12" fill="#99f6e4" stroke="#64748b" stroke-width="1"/>
+<text x="742" y="730" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Мощные видеокарты (GPU)</text>
+<text x="742" y="754" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">миллиарды вычислений</text>
+<line x1="956" y1="736" x2="1000" y2="736" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1004" y="700" width="420" height="72" rx="12" fill="#c7d2fe" stroke="#64748b" stroke-width="1"/>
+<text x="1214" y="730" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#172033" opacity="1">Алгоритмы: Transformer</text>
+<text x="1214" y="754" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13.5" font-weight="normal" text-anchor="middle" fill="#5b6475" opacity="1">и обучение на подсказках</text>
+<line x1="1428" y1="736" x2="1472" y2="736" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1500" y="700" width="240" height="72" rx="12" fill="#312e81" stroke="#312e81" stroke-width="1"/>
+<text x="1620" y="732" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#ffffff" opacity="1">LLM</text>
+<text x="1620" y="754" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="13" font-weight="normal" text-anchor="middle" fill="#c7d2fe" opacity="1">языковая модель</text>
+</svg>

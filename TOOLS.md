@@ -119,3 +119,9 @@ Add whatever helps you do your job. This is your cheat sheet.
 ## Related
 
 - [Agent workspace](/concepts/agent-workspace)
+
+### MEDIA-вложения в Telegram (важный урок 25.09.2026)
+- ⚠️ Для отправителей с deny `group:fs` (например Мария, 1431548892) локальные MEDIA-пути из workspace НЕ проходят → «⚠️ Media failed.»
+- Причина: `resolveAgentScopedOutboundMediaAccess` при запрете read-fs оставляет только managed-media root `~/.openclaw/media/outbound`
+- ✅ Решение: копировать файл в `~/.openclaw/media/outbound/<name>.png` и указывать этот абсолютный путь в MEDIA:
+- Проверено: 25.09.2026 диаграммы для Марии ушли только после копирования в media/outbound

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="760" viewBox="0 0 1500 760">
+<rect x="0" y="0" width="1500" height="760" rx="0" fill="#f8fafc" stroke="none" stroke-width="1"/>
+<text x="60" y="66" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="32" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Топ-10 LLM в сентябре 2026 года</text>
+<text x="60" y="100" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Самые сильные модели каждой компании по индексу интеллекта Artificial Analysis</text>
+<text x="60" y="170" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">1.</text>
+<text x="100" y="170" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Claude Opus 5.5</text>
+<text x="100" y="190" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Anthropic · США</text>
+<rect x="480" y="150" width="821.6666666666666" height="30" rx="6" fill="#312e81" stroke="#312e81" stroke-width="1"/>
+<text x="1313.6666666666665" y="172" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">58</text>
+<text x="60" y="225" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">2.</text>
+<text x="100" y="225" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">GPT-6 Astra</text>
+<text x="100" y="245" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">OpenAI · США</text>
+<rect x="480" y="205" width="750.8333333333334" height="30" rx="6" fill="#312e81" stroke="#312e81" stroke-width="1"/>
+<text x="1242.8333333333335" y="227" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">53</text>
+<text x="60" y="280" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">3.</text>
+<text x="100" y="280" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Muse Spark 1.3</text>
+<text x="100" y="300" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Meta · США</text>
+<rect x="480" y="260" width="680.0" height="30" rx="6" fill="#312e81" stroke="#312e81" stroke-width="1"/>
+<text x="1172.0" y="282" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">48</text>
+<text x="60" y="335" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">4.</text>
+<text x="100" y="335" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Grok 4.7</text>
+<text x="100" y="355" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">xAI · США</text>
+<rect x="480" y="315" width="651.6666666666666" height="30" rx="6" fill="#4338ca" stroke="#4338ca" stroke-width="1"/>
+<text x="1143.6666666666665" y="337" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">46</text>
+<text x="60" y="390" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">5.</text>
+<text x="100" y="390" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">MiMo-V2.6-Pro</text>
+<text x="100" y="410" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Xiaomi · Китай</text>
+<rect x="480" y="370" width="651.6666666666666" height="30" rx="6" fill="#4338ca" stroke="#4338ca" stroke-width="1"/>
+<text x="1143.6666666666665" y="392" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">46</text>
+<text x="60" y="445" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">6.</text>
+<text x="100" y="445" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Qwen3.8 Max</text>
+<text x="100" y="465" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Alibaba · Китай</text>
+<rect x="480" y="425" width="637.5" height="30" rx="6" fill="#4338ca" stroke="#4338ca" stroke-width="1"/>
+<text x="1129.5" y="447" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">45</text>
+<text x="60" y="500" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">7.</text>
+<text x="100" y="500" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">GLM-5.3</text>
+<text x="100" y="520" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Z.ai (Zhipu) · Китай</text>
+<rect x="480" y="480" width="637.5" height="30" rx="6" fill="#818cf8" stroke="#818cf8" stroke-width="1"/>
+<text x="1129.5" y="502" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">45</text>
+<text x="60" y="555" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">8.</text>
+<text x="100" y="555" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Kimi K3</text>
+<text x="100" y="575" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Moonshot AI · Китай</text>
+<rect x="480" y="535" width="623.3333333333334" height="30" rx="6" fill="#818cf8" stroke="#818cf8" stroke-width="1"/>
+<text x="1115.3333333333335" y="557" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">44</text>
+<text x="60" y="610" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">9.</text>
+<text x="100" y="610" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">Gemini 3.8 Flash</text>
+<text x="100" y="630" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Google · США</text>
+<rect x="480" y="590" width="580.8333333333334" height="30" rx="6" fill="#818cf8" stroke="#818cf8" stroke-width="1"/>
+<text x="1072.8333333333335" y="612" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">41</text>
+<text x="60" y="665" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#5b6475" opacity="1">10.</text>
+<text x="100" y="665" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="18" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">DeepSeek V4.1 Flash</text>
+<text x="100" y="685" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">DeepSeek · Китай</text>
+<rect x="480" y="645" width="552.5" height="30" rx="6" fill="#818cf8" stroke="#818cf8" stroke-width="1"/>
+<text x="1044.5" y="667" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="16" font-weight="bold" text-anchor="start" fill="#172033" opacity="1">39</text>
+<line x1="480" y1="150" x2="480" y2="700" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="60" y="730" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Источник: Artificial Analysis Intelligence Index, 25.09.2026. Рейтинг меняется каждую неделю — это снимок на сегодня.</text>
+<text x="60" y="748" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="12.5" font-weight="normal" text-anchor="start" fill="#5b6475" opacity="1">Максимум шкалы — 60 баллов.</text>
+</svg>
