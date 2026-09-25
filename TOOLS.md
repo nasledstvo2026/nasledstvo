@@ -74,15 +74,9 @@ Things like:
 - Запасной egress: Феникс (`ssh -i ~/.ssh/fenix user1@213.171.25.85`) — curl там отдаёт полные карточки banki
 - pravoved.ru: после ~30 запросов отдаёт 429 (rate-limit), лента без пагинации
 
-### Поиск (XMLRiver Яндекс.XML)
-- Эндпоинт: `https://xmlriver.com/search_yandex/xml?user=22347&key=***&query=...`
-- user=22347, ключ вшит в промпты кронов lena-search-agent и search-agent
-- ⚠️ XMLRiver НЕстабилен с этого VPS: запросы иногда висят >12с (http=000), иногда отвечают за 2с. В промптах кронов уже стоит `-m 15`; при 2+ таймаутах подряд агент переключается на прямой сбор RSS/sitemap белых доменов.
-- Тариф Базовый ₽25/1000 (Яндекс.XML), расход ~₽40-90/мес
-- Параметры: `lr=225` (РФ), `sortby=tm` (свежесть) / `rlv` (релевантность), `groupby` для плоской выдачи
-- Ответ — XML (тэги <url>, <title>, <passage> внутри <doc>/<group>)
-- Кабинет/пополнение: https://xmlriver.com/account/
-- SearXNG (docker) погашен 2026-08-23; файлы сохранены в workspace/searxng/ (вернуть: `docker compose up -d`)
+### Поиск (внешние API — выведены из схемы)
+- XMLRiver (Яндекс.XML) и SearXNG **выведены из схемы** (23–28.08.2026): ключ XMLRiver невалиден (code 42), SearXNG погашен. Сбор полностью автономный — curl по белым доменам (rss/sitemap/html), без внешних поисковых API.
+- `web_search`-провайдер не настроен → у всех агентов пайплайна `web_search` убран из `toolsAllow` (25.09.2026).
 
 ### Сбор новостей Лены (lena-search-agent)
 - Реестр источников: `knowledge/lena/sources.json` — 17 доменов; whitelist генерится из ключей реестра
