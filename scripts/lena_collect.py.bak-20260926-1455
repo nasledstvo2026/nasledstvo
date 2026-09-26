@@ -10,7 +10,6 @@ LLM не используется.
 
 Запуск: python3 scripts/lena_collect.py
 """
-import html as _html
 import json, re, ssl, sys
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -173,21 +172,8 @@ def parse_ddmm_suffix(url):
 
 # ---------- парсеры источников ----------
 
-def clean_text(s):
-    """Убрать HTML-теги, декодировать сущности, схлопнуть пробелы.
-
-    html.unescape нужен для pravo.gov.ru — он отдаёт кириллицу как
-    числовые сущности (&#x417;&#x430; = «За»), иначе фильтр их не видит.
-    """
-    return re.sub(r"\s+", " ", _html.unescape(re.sub(r"<[^>]+>", " ", s or ""))).strip()
-
-
 def parse_rss(text):
-    """Возвращает список (title, url, date_str, summary) из RSS/Atom.
-
-    summary — текст description + content:encoded (полный текст, если есть).
-    По нему тоже идёт тематический фильтр (не только по заголовку).
-    """
+    """Возвращает список (title, url, date_str) из RSS/Atom."""
     out = []
     try:
         root = ET.fromstring(text)
@@ -199,14 +185,8 @@ def parse_rss(text):
         pub = it.findtext("pubDate") or ""
         if not title or not link:
             continue
-        desc = it.findtext("description") or ""
-        # content:encoded — полный текст в некоторых фидах (rbc, kommersant)
-        for el in it:
-            if el.tag.endswith("encoded"):
-                desc = (el.text or "") or desc
-        summary = clean_text(desc)
         d = normalize_date(pub)
-        out.append((title.strip(), link.strip(), fmt_date(d) if d else None, summary))
+        out.append((title.strip(), link.strip(), fmt_date(d) if d else None))
     return out
 
 
@@ -254,18 +234,18 @@ def parse_rg_sitemap(entry):
                 lm = (lastmod.text or "") if lastmod is not None else ""
                 title = re.sub(r"[-_]+", " ", loc.rstrip("/").split("/")[-1]).strip()
                 d = normalize_date(lm)
-                out.append((title, loc, fmt_date(d) if d else None, ""))
+                out.append((title, loc, fmt_date(d) if d else None))
         except Exception as e:
             log(f"  [rg] daily fail {du}: {e}")
     return out
 
 
 def extract_links_dated(html, base):
-    """Возвращает (title, url, date, summary) — дату и сниппет ищет в контексте ссылки."""
+    """Возвращает (title, url, date) — дату ищет в контексте ссылки (120 симв. вокруг)."""
     out = []
     for m in re.finditer(r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', html, re.S | re.I):
         href, inner = m.group(1), m.group(2)
-        text = _html.unescape(re.sub(r"<[^>]+>", "", inner))
+        text = re.sub(r"<[^>]+>", "", inner)
         text = re.sub(r"\s+", " ", text).strip()
         if len(text) < 18:
             continue
@@ -275,11 +255,10 @@ def extract_links_dated(html, base):
             url = base + href
         else:
             continue
-        s = max(0, m.start() - 250)
-        e = min(len(html), m.end() + 250)
+        s = max(0, m.start() - 120)
+        e = min(len(html), m.end() + 120)
         d = find_date_in_text(html[s:e])
-        summary = clean_text(html[s:e])
-        out.append((text, url, d, summary))
+        out.append((text, url, d))
     return out
 
 
@@ -310,16 +289,11 @@ def parse_html_source(entry):
                     if not l.startswith("http"):
                         l = "https://www.consultant.ru" + (l if l.startswith("/") else "/" + l)
                     d = normalize_date(pd)
-                    summary = clean_text(j.get("description") or j.get("anons") or "")
-                    out.append((t.strip(), l, fmt_date(d) if d else None, summary))
+                    out.append((t.strip(), l, fmt_date(d) if d else None))
             continue
         # общий случай: ссылки + дата из URL или контекста
         seen_urls = set()
-        for title, url, dctx, summary in extract_links_dated(text, base):
-            # notariat.ru: только новостные ссылки (/ru-ru/news/...), отсечь
-            # навигацию («Безопасная проверка QR», site-map, login и т.п.)
-            if "notariat.ru" in u and "/ru-ru/news/" not in url:
-                continue
+        for title, url, dctx in extract_links_dated(text, base):
             if url in seen_urls:
                 continue
             seen_urls.add(url)
@@ -338,7 +312,7 @@ def parse_html_source(entry):
                 d = dctx
             if d is None:
                 d = parse_ddmm_suffix(url)
-            out.append((title, url, fmt_date(d) if d else None, summary))
+            out.append((title, url, fmt_date(d) if d else None))
     return out
 
 
@@ -356,14 +330,14 @@ def collect():
         log(f"[{typ}] {dom}")
         try:
             if typ == "rss":
-                for title, u, d, summ in parse_rss(fetch_text(url)):
-                    raw.append({"title": title, "url": u, "date": d, "source": dom, "summary": summ})
+                for title, u, d in parse_rss(fetch_text(url)):
+                    raw.append({"title": title, "url": u, "date": d, "source": dom})
             elif typ == "sitemap":
-                for title, u, d, summ in parse_rg_sitemap(cfg):
-                    raw.append({"title": title, "url": u, "date": d, "source": dom, "summary": summ})
+                for title, u, d in parse_rg_sitemap(cfg):
+                    raw.append({"title": title, "url": u, "date": d, "source": dom})
             else:
-                for title, u, d, summ in parse_html_source(cfg):
-                    raw.append({"title": title, "url": u, "date": d, "source": dom, "summary": summ})
+                for title, u, d in parse_html_source(cfg):
+                    raw.append({"title": title, "url": u, "date": d, "source": dom})
         except Exception as e:
             log(f"  [!] {dom}: {e}")
 
@@ -410,12 +384,10 @@ def filter_stage(raw, domains):
                 continue
         except Exception:
             continue
-        # Тематический фильтр по заголовку + телу (summary). Тело берём из уже
-        # скачанных description/сниппетов — без доп. HTTP и без LLM на этапе 1.
-        hay = (r["title"] + " " + (r.get("summary") or "")).lower()
-        if not any(t in hay for t in THEMES):
+        low = r["title"].lower()
+        if not any(t in low for t in THEMES):
             continue
-        filtered.append({"title": r["title"], "url": r["url"], "date": r["date"], "source": r["source"], "summary": r.get("summary", "")})
+        filtered.append({"title": r["title"], "url": r["url"], "date": r["date"], "source": r["source"]})
 
     filtered.sort(key=lambda x: x["date"], reverse=True)
 
