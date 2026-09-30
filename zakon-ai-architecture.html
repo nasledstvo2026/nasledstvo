@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЗаконИИ — архитектурный скетч</title>
+<style>
+  :root{
+    --neutral:#4b5563; --border:#d1d5db; --bg:#f8fafc;
+    --input:#2563eb; --process:#7c3aed; --storage:#0d9488;
+    --external:#d97706; --risk:#dc2626; --quality:#0891b2;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;padding:28px;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#1e293b;}
+  .wrap{max-width:1200px;margin:0 auto;}
+  h1{font-size:22px;margin:0 0 4px;}
+  .sub{color:#64748b;font-size:13px;margin-bottom:20px;}
+  svg{width:100%;height:auto;background:#fff;border:1px solid var(--border);border-radius:10px;}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:#475569;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:12px;height:12px;border-radius:3px;display:inline-block;}
+  .note{margin-top:14px;font-size:12.5px;color:#475569;line-height:1.6;}
+  .note code{background:#e2e8f0;padding:1px 5px;border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>«ЗаконИИ» — сервис мониторинга законодательства для МСП</h1>
+  <div class="sub">Архитектурный скетч · слой сбора → хранения → ИИ-аналитики → доставки · интеграция с ИИ-Ассистентом Точка Банка</div>
+
+  <svg viewBox="0 0 1200 1080" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Архитектура ЗаконИИ">
+    <defs>
+      <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,3 L0,6 Z" fill="#94a3b8"/>
+      </marker>
+      <marker id="arrB" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,3 L0,6 Z" fill="#d97706"/>
+      </marker>
+    </defs>
+
+    <!-- CONNECTORS FIRST (behind boxes) -->
+    <!-- sources -> ingestion -->
+    <g stroke="#94a3b8" stroke-width="1.6" fill="none">
+      <path d="M120,168 C120,195 120,195 120,216" marker-end="url(#arr)"/>
+      <path d="M360,168 C360,195 360,195 360,216" marker-end="url(#arr)"/>
+      <path d="M600,168 C600,195 600,195 600,216" marker-end="url(#arr)"/>
+      <path d="M840,168 C840,195 840,195 840,216" marker-end="url(#arr)"/>
+      <path d="M1080,168 C1080,195 1080,195 1080,216" marker-end="url(#arr)"/>
+    </g>
+    <!-- ingestion -> storage -->
+    <g stroke="#94a3b8" stroke-width="1.6" fill="none">
+      <path d="M200,300 C200,322 200,322 200,344" marker-end="url(#arr)"/>
+      <path d="M600,300 C600,322 600,322 600,344" marker-end="url(#arr)"/>
+      <path d="M980,300 C980,322 980,322 980,344" marker-end="url(#arr)"/>
+    </g>
+    <!-- storage -> ai -->
+    <g stroke="#94a3b8" stroke-width="1.6" fill="none">
+      <path d="M200,444 C200,470 200,470 200,496" marker-end="url(#arr)"/>
+      <path d="M600,444 C600,470 600,470 600,496" marker-end="url(#arr)"/>
+      <path d="M980,444 C980,470 980,470 980,496" marker-end="url(#arr)"/>
+    </g>
+    <!-- ai -> service -->
+    <g stroke="#94a3b8" stroke-width="1.6" fill="none">
+      <path d="M200,600 C200,626 200,626 200,652" marker-end="url(#arr)"/>
+      <path d="M600,600 C600,626 600,626 600,652" marker-end="url(#arr)"/>
+      <path d="M1000,600 C1000,626 1000,626 1000,652" marker-end="url(#arr)"/>
+    </g>
+    <!-- service -> channels -->
+    <g stroke="#94a3b8" stroke-width="1.6" fill="none">
+      <path d="M200,748 C200,772 200,772 200,796" marker-end="url(#arr)"/>
+      <path d="M600,748 C600,772 600,772 600,796" marker-end="url(#arr)"/>
+      <path d="M1000,748 C1000,772 1000,772 1000,796" marker-end="url(#arr)"/>
+    </g>
+
+    <!-- quality side links -->
+    <g stroke="#0891b2" stroke-width="1.6" fill="none" stroke-dasharray="5 4">
+      <path d="M460,540 L460,930 L1030,930 L1030,796" marker-end="url(#arr)"/>
+    </g>
+    <!-- bank link -->
+    <g stroke="#d97706" stroke-width="2" fill="none">
+      <path d="M1140,560 C1130,700 1120,760 1100,800" marker-end="url(#arrB)"/>
+    </g>
+
+    <!-- ===== LAYER 1: SOURCES (input) ===== -->
+    <g font-family="inherit">
+      <text x="24" y="60" font-size="13" font-weight="700" fill="#475569">ИСТОЧНИКИ ПРАВА (внешние, доверенные)</text>
+      <g>
+        <rect x="24" y="76" width="192" height="80" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+        <text x="120" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#1d4ed8">pravo.gov.ru</text>
+        <text x="120" y="130" text-anchor="middle" font-size="11" fill="#475569">офиц. публикация НПА</text>
+        <text x="120" y="144" text-anchor="middle" font-size="11" fill="#475569">RSS / API / sitemap</text>
+      </g>
+      <g>
+        <rect x="264" y="76" width="192" height="80" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+        <text x="360" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#1d4ed8">СПС-системы</text>
+        <text x="360" y="130" text-anchor="middle" font-size="11" fill="#475569">Гарант · Консультант+</text>
+        <text x="360" y="144" text-anchor="middle" font-size="11" fill="#475569">диффы редакций</text>
+      </g>
+      <g>
+        <rect x="504" y="76" width="192" height="80" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+        <text x="600" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#1d4ed8">Регуляторы</text>
+        <text x="600" y="130" text-anchor="middle" font-size="11" fill="#475569">ФНС · ЦБ · Минтруд</text>
+        <text x="600" y="144" text-anchor="middle" font-size="11" fill="#475569">письма, разъяснения</text>
+      </g>
+      <g>
+        <rect x="744" y="76" width="192" height="80" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+        <text x="840" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#1d4ed8">Судебная практика</text>
+        <text x="840" y="130" text-anchor="middle" font-size="11" fill="#475569">ВС · арбитраж</text>
+        <text x="840" y="144" text-anchor="middle" font-size="11" fill="#475569">риск-кейсы</text>
+      </g>
+      <g>
+        <rect x="984" y="76" width="192" height="80" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+        <text x="1080" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#1d4ed8">Отраслевые НПА</text>
+        <text x="1080" y="130" text-anchor="middle" font-size="11" fill="#475569">санпин, госуслуги</text>
+        <text x="1080" y="144" text-anchor="middle" font-size="11" fill="#475569">региональные акты</text>
+      </g>
+    </g>
+
+    <!-- ===== LAYER 2: INGESTION (process) ===== -->
+    <g>
+      <text x="24" y="206" font-size="13" font-weight="700" fill="#475569">КОНВЕЙЕР СБОРА И НОРМАЛИЗАЦИИ</text>
+      <g>
+        <rect x="24" y="220" width="352" height="80" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+        <text x="200" y="252" text-anchor="middle" font-size="13" font-weight="600" fill="#5b21b6">Collector / Crawler</text>
+        <text x="200" y="270" text-anchor="middle" font-size="11" fill="#475569">политинг источников · дедуп</text>
+        <text x="200" y="284" text-anchor="middle" font-size="11" fill="#475569">очередь задач (Celery / RabbitMQ)</text>
+      </g>
+      <g>
+        <rect x="424" y="220" width="352" height="80" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+        <text x="600" y="252" text-anchor="middle" font-size="13" font-weight="600" fill="#5b21b6">Нормализация</text>
+        <text x="600" y="270" text-anchor="middle" font-size="11" fill="#475569">PDF/DOCX/HTML → текст</text>
+        <text x="600" y="284" text-anchor="middle" font-size="11" fill="#475569">реквизиты · структура · версии</text>
+      </g>
+      <g>
+        <rect x="824" y="220" width="352" height="80" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+        <text x="1000" y="252" text-anchor="middle" font-size="13" font-weight="600" fill="#5b21b6">Реестр изменений</text>
+        <text x="1000" y="270" text-anchor="middle" font-size="11" fill="#475569">диффинг редакций</text>
+        <text x="1000" y="284" text-anchor="middle" font-size="11" fill="#475569">даты вступления в силу</text>
+      </g>
+    </g>
+
+    <!-- ===== LAYER 3: STORAGE (storage) ===== -->
+    <g>
+      <text x="24" y="334" font-size="13" font-weight="700" fill="#475569">ХРАНЕНИЕ</text>
+      <g>
+        <rect x="24" y="348" width="352" height="88" rx="8" fill="#f0fdfa" stroke="#0d9488"/>
+        <text x="200" y="378" text-anchor="middle" font-size="13" font-weight="600" fill="#0f766e">PostgreSQL</text>
+        <text x="200" y="396" text-anchor="middle" font-size="11" fill="#475569">метаданные НПА · версии</text>
+        <text x="200" y="412" text-anchor="middle" font-size="11" fill="#475569">профили бизнеса · подписки</text>
+        <text x="200" y="426" text-anchor="middle" font-size="11" fill="#475569">алерты · аудит</text>
+      </g>
+      <g>
+        <rect x="424" y="348" width="352" height="88" rx="8" fill="#f0fdfa" stroke="#0d9488"/>
+        <text x="600" y="378" text-anchor="middle" font-size="13" font-weight="600" fill="#0f766e">pgvector</text>
+        <text x="600" y="396" text-anchor="middle" font-size="11" fill="#475569">эмбеддинги статей/норм</text>
+        <text x="600" y="412" text-anchor="middle" font-size="11" fill="#475569">семантический поиск</text>
+        <text x="600" y="426" text-anchor="middle" font-size="11" fill="#475569">чанки + ссылка на норму</text>
+      </g>
+      <g>
+        <rect x="824" y="348" width="352" height="88" rx="8" fill="#f0fdfa" stroke="#0d9488"/>
+        <text x="1000" y="378" text-anchor="middle" font-size="13" font-weight="600" fill="#0f766e">Object Storage</text>
+        <text x="1000" y="396" text-anchor="middle" font-size="11" fill="#475569">исходники (PDF, снимки)</text>
+        <text x="1000" y="412" text-anchor="middle" font-size="11" fill="#475569">архив правок</text>
+      </g>
+    </g>
+
+    <!-- ===== LAYER 4: AI (process) ===== -->
+    <g>
+      <text x="24" y="486" font-size="13" font-weight="700" fill="#475569">ИИ-СЛОЙ (LLM + NLP)</text>
+      <g>
+        <rect x="24" y="500" width="192" height="92" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+        <text x="120" y="530" text-anchor="middle" font-size="13" font-weight="600" fill="#5b21b6">Структуризация</text>
+        <text x="120" y="548" text-anchor="middle" font-size="11" fill="#475569">NER: нормы, сроки,</text>
+        <text x="120" y="562" text-anchor="middle" font-size="11" fill="#475569">штрафы, обязанности</text>
+        <text x="120" y="576" text-anchor="middle" font-size="11" fill="#475569">классификация по ОКВЭД</text>
+      </g>
+      <g>
+        <rect x="264" y="500" width="192" height="92" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+        <text x="360" y="530" text-anchor="middle" font-size="13" font-weight="600" fill="#5b21b6">Диффинг изменений</text>
+        <text x="360" y="548" text-anchor="middle" font-size="11" fill="#475569">что именно поменялось</text>
+        <text x="360" y="562" text-anchor="middle" font-size="11" fill="#475569">«до → после»</text>
+        <text x="360" y="576" text-anchor="middle" font-size="11" fill="#475569">оценка критичности</text>
+      </g>
+      <g>
+        <rect x="504" y="500" width="192" height="92" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+        <text x="600" y="530" text-anchor="middle" font-size="13" font-weight="600" fill="#5b21b6">RAG-ответы</text>
+        <text x="600" y="548" text-anchor="middle" font-size="11" fill="#475569">«что мне грозит?»</text>
+        <text x="600" y="562" text-anchor="middle" font-size="11" fill="#475569">извлечение по чанкам</text>
+        <text x="600" y="576" text-anchor="middle" font-size="11" fill="#475569">цитирование нормы</text>
+      </g>
+      <g>
+        <rect x="744" y="500" width="192" height="92" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+        <text x="840" y="530" text-anchor="middle" font-size="13" font-weight="600" fill="#5b21b6">Суммаризация</text>
+        <text x="840" y="548" text-anchor="middle" font-size="11" fill="#475569">простыми словами</text>
+        <text x="840" y="562" text-anchor="middle" font-size="11" fill="#475569">дайджест на неделю</text>
+      </g>
+      <g>
+        <rect x="984" y="500" width="192" height="92" rx="8" fill="#f5f3ff" stroke="#7c3aed"/>
+        <text x="1080" y="530" text-anchor="middle" font-size="13" font-weight="600" fill="#5b21b6">Оценка влияния</text>
+        <text x="1080" y="548" text-anchor="middle" font-size="11" fill="#475569">релевантно ли бизнесу</text>
+        <text x="1080" y="562" text-anchor="middle" font-size="11" fill="#475569">риск штрафа/доимки</text>
+      </g>
+    </g>
+
+    <!-- ===== LAYER 5: SERVICE (neutral) ===== -->
+    <g>
+      <text x="24" y="642" font-size="13" font-weight="700" fill="#475569">СЕРВИСНЫЙ СЛОЙ (бизнес-логика)</text>
+      <g>
+        <rect x="24" y="656" width="288" height="84" rx="8" fill="#f8fafc" stroke="#4b5563"/>
+        <text x="168" y="686" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Профиль бизнеса</text>
+        <text x="168" y="704" text-anchor="middle" font-size="11" fill="#475569">ОКВЭД · режим налогообложения</text>
+        <text x="168" y="718" text-anchor="middle" font-size="11" fill="#475569">штат · регион · сфера</text>
+      </g>
+      <g>
+        <rect x="360" y="656" width="288" height="84" rx="8" fill="#f8fafc" stroke="#4b5563"/>
+        <text x="504" y="686" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Матчинг «изменение ↔ бизнес»</text>
+        <text x="504" y="704" text-anchor="middle" font-size="11" fill="#475569">правила релевантности</text>
+        <text x="504" y="718" text-anchor="middle" font-size="11" fill="#475569">приоритизация рисков</text>
+      </g>
+      <g>
+        <rect x="696" y="656" width="240" height="84" rx="8" fill="#f8fafc" stroke="#4b5563"/>
+        <text x="816" y="686" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Алерты / дайджесты</text>
+        <text x="816" y="704" text-anchor="middle" font-size="11" fill="#475569">push · e-mail · мессенджер</text>
+        <text x="816" y="718" text-anchor="middle" font-size="11" fill="#475569">расписание доставки</text>
+      </g>
+      <g>
+        <rect x="984" y="656" width="192" height="84" rx="8" fill="#f8fafc" stroke="#4b5563"/>
+        <text x="1080" y="686" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Чек-листы</text>
+        <text x="1080" y="704" text-anchor="middle" font-size="11" fill="#475569">что сделать, чтобы</text>
+        <text x="1080" y="718" text-anchor="middle" font-size="11" fill="#475569">не попасть на штраф</text>
+      </g>
+    </g>
+
+    <!-- ===== LAYER 6: CHANNELS ===== -->
+    <g>
+      <text x="24" y="786" font-size="13" font-weight="700" fill="#475569">КАНАЛЫ ДОСТАВКИ</text>
+      <g>
+        <rect x="24" y="800" width="192" height="72" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+        <text x="120" y="832" text-anchor="middle" font-size="13" font-weight="600" fill="#1d4ed8">Веб-дашборд</text>
+        <text x="120" y="850" text-anchor="middle" font-size="11" fill="#475569">лента изменений</text>
+      </g>
+      <g>
+        <rect x="264" y="800" width="192" height="72" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+        <text x="360" y="832" text-anchor="middle" font-size="13" font-weight="600" fill="#1d4ed8">Telegram-бот</text>
+        <text x="360" y="850" text-anchor="middle" font-size="11" fill="#475569">алерты + вопрос-ответ</text>
+      </g>
+      <g>
+        <rect x="504" y="800" width="192" height="72" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+        <text x="600" y="832" text-anchor="middle" font-size="13" font-weight="600" fill="#1d4ed8">Public API</text>
+        <text x="600" y="850" text-anchor="middle" font-size="11" fill="#475569">webhook · REST</text>
+      </g>
+      <g>
+        <rect x="744" y="800" width="432" height="72" rx="8" fill="#fff7ed" stroke="#d97706"/>
+        <text x="960" y="832" text-anchor="middle" font-size="13" font-weight="600" fill="#c2410c">ИИ-Ассистент Точка Банка</text>
+        <text x="960" y="850" text-anchor="middle" font-size="11" fill="#475569">виджет в экосистеме банка · SSO · данные клиента (ОКВЭД)</text>
+      </g>
+    </g>
+
+    <!-- ===== SIDE: QUALITY & TRUST ===== -->
+    <g>
+      <rect x="24" y="900" width="1000" height="76" rx="8" fill="#ecfeff" stroke="#0891b2"/>
+      <text x="40" y="928" font-size="13" font-weight="700" fill="#0e7490">КОНТУР КАЧЕСТВА И ДОВЕРИЯ (cross-cutting)</text>
+      <text x="40" y="948" font-size="11.5" fill="#155e75">human-in-the-loop: валидация юристом критичных алертов · evals на галлюцинации · версионирование промптов · трассировка «утверждение → статья НПА» · ролевая модель доступа (РСП/ПДн)</text>
+    </g>
+
+    <!-- ===== SIDE: BANK ===== -->
+    <g>
+      <rect x="1040" y="880" width="140" height="96" rx="8" fill="#fff7ed" stroke="#d97706"/>
+      <text x="1110" y="908" text-anchor="middle" font-size="12" font-weight="700" fill="#c2410c">Точка Банк</text>
+      <text x="1110" y="926" text-anchor="middle" font-size="10.5" fill="#475569">SSO / API-шлюз</text>
+      <text x="1110" y="942" text-anchor="middle" font-size="10.5" fill="#475569">ОКВЭД клиента</text>
+      <text x="1110" y="958" text-anchor="middle" font-size="10.5" fill="#475569">биллинг / подписка</text>
+    </g>
+  </svg>
+
+  <div class="legend">
+    <span><i class="dot" style="background:#2563eb"></i>Источники и каналы</span>
+    <span><i class="dot" style="background:#7c3aed"></i>Обработка и ИИ</span>
+    <span><i class="dot" style="background:#0d9488"></i>Хранилища</span>
+    <span><i class="dot" style="background:#d97706"></i>Интеграция с банком</span>
+    <span><i class="dot" style="background:#0891b2"></i>Качество / доверие</span>
+  </div>
+
+  <div class="note">
+    Стек: <code>Python (FastAPI)</code> · <code>PostgreSQL + pgvector</code> · <code>Celery/RabbitMQ</code> · <code>Redis</code> ·
+    LLM (комбинация: универсальная модель для суммаризации/RAG + лёгкая/локальная для классификации и NER) · Kubernetes / облако банка.
+  </div>
+</div>
+</body>
+</html>
