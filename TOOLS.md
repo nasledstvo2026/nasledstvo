@@ -65,6 +65,7 @@ Things like:
 ### Сбор жалоб по наследству (search-agent / katya)
 - ⚠️ banki.ru: дефолтная лента `/services/responses/list/?page=N` — ЭТО КУРИРУЕМАЯ ВЫБОРКА ~25 отзывов/СУТКИ (свежайший имеет задержку ~15ч). За 7 дней (N=1..18, 450 отзывов) наследственных тем — 0.
 - ✅ ПОЛНЫЙ поток — `/services/responses/list/?type=all&page=N` (25 отзывов за ~25 мин ≈ 1400/сутки; неизвестный type тоже падает в all). Наследственных ≈0,3% (1 на ~300). За 7 дней это ~10 000 отзывов / ~400 страниц → полный обход нереален под лимитом IP.
+- ✅ (01.10.2026) В HTML ленты banki есть `data-module-options='{...}'` (HTML-escaped JSON, ключ `responses.data[]`) с ПОЛНЫМ текстом отзыва (`title`, `text`), `company.name` (банк) и `dateCreate`. Карточки качать НЕ нужно — экономит десятки запросов и снимает риск бана IP. Парсер: `max(re.findall(r"data-module-options='(.*?)'\s", h, re.S), key=len)` → `json.loads(html.unescape(blob))['responses']['data']`.
 - У lд+json ленты (`Organization.review[]`) есть name/datePublished/reviewBody/itemReviewed.name (банк) — текст отзыва и банк доступны прямо из ленты; id/url берутся из HTML-блоков `<h3 ...ldecc766d>` (порядок совпадает 1:1, проверено).
 - ⚠️ Ссылки `?keyword=/q=/search=/keywords=` ИГНОРИРУЮТСЯ (возвращается дефолт). Фильтра по ключу у банка нет.
 - banki.ru: лента `/services/responses/list/?page=N` (25 отзывов/стр., пагинация до N=13 = ~7 дней), карточки `/services/responses/bank/response/<id>/`
@@ -73,6 +74,7 @@ Things like:
 - Дата карточки: `itemprop="datePublished" content=...` (в старом скрипте был неверный regex → date=None)
 - Запасной egress: Феникс (`ssh -i ~/.ssh/fenix user1@213.171.25.85`) — curl там отдаёт полные карточки banki
 - pravoved.ru: после ~30 запросов отдаёт 429 (rate-limit), лента без пагинации
+- ✅ (01.10.2026) pravoved.ru — Next.js: полный JSON вопроса в `<script id="__NEXT_DATA__">`. Лента `/questions/`: `props.pageProps.reduxState.page.questions.questions.items` (id, title, text, url, datePublish — unix). Карточка `/question/<id>/`: `...page.question.question` (тот же набор). Поиск `/search/?q=` отдаёт СТАРОЕ (2016–2022), релевантность слабая (по «наследство банк» лезет кредит/комиссии) — фильтровать стемами и по дате.
 
 ### Поиск (внешние API — выведены из схемы)
 - XMLRiver (Яндекс.XML) и SearXNG **выведены из схемы** (23–28.08.2026): ключ XMLRiver невалиден (code 42), SearXNG погашен. Сбор полностью автономный — curl по белым доменам (rss/sitemap/html), без внешних поисковых API.
