@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1400" viewBox="0 0 1080 1400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9fe0ff"/>
+      <stop offset="0.55" stop-color="#56c4ff"/>
+      <stop offset="1" stop-color="#1e9bf0"/>
+    </linearGradient>
+    <linearGradient id="yellow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe45e"/>
+      <stop offset="1" stop-color="#ffb300"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff6b5e"/>
+      <stop offset="1" stop-color="#ff2d20"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4aa8ff"/>
+      <stop offset="1" stop-color="#1565d8"/>
+    </linearGradient>
+
+    <clipPath id="robotClip">
+      <path d="M 360 205 L 690 205 L 726 241 L 726 565 L 690 601 L 360 601 L 324 565 L 324 241 Z"/>
+    </clipPath>
+    <clipPath id="photoClip">
+      <circle cx="540" cy="880" r="185"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1080" height="1400" fill="url(#bg)"/>
+
+  <!-- sun rays -->
+  <g opacity="0.28" fill="#ffffff">
+    <path d="M0 0 L120 0 L0 120 Z"/>
+    <path d="M1080 0 L960 0 L1080 120 Z"/>
+  </g>
+
+  <!-- clouds -->
+  <g fill="#ffffff" opacity="0.9">
+    <ellipse cx="150" cy="150" rx="80" ry="34"/>
+    <ellipse cx="210" cy="140" rx="60" ry="28"/>
+    <ellipse cx="950" cy="120" rx="90" ry="36"/>
+    <ellipse cx="880" cy="112" rx="60" ry="26"/>
+    <ellipse cx="120" cy="620" rx="70" ry="26" opacity="0.6"/>
+    <ellipse cx="970" cy="560" rx="70" ry="26" opacity="0.6"/>
+  </g>
+
+  <!-- confetti -->
+  <g>
+    <circle cx="90" cy="300" r="12" fill="#ff2d20"/>
+    <circle cx="180" cy="220" r="9" fill="#ffb300"/>
+    <circle cx="300" cy="130" r="11" fill="#00c853"/>
+    <circle cx="420" cy="90" r="9" fill="#e040fb"/>
+    <circle cx="700" cy="100" r="10" fill="#ff2d20"/>
+    <circle cx="820" cy="200" r="9" fill="#ffb300"/>
+    <circle cx="990" cy="300" r="12" fill="#00c853"/>
+    <circle cx="60" cy="980" r="11" fill="#ffb300"/>
+    <circle cx="160" cy="1080" r="9" fill="#e040fb"/>
+    <circle cx="990" cy="1010" r="11" fill="#ff2d20"/>
+    <circle cx="930" cy="1150" r="9" fill="#ffb300"/>
+    <circle cx="1020" cy="1320" r="10" fill="#00c853"/>
+    <circle cx="70" cy="1320" r="10" fill="#e040fb"/>
+    <rect x="250" y="1120" width="18" height="18" rx="4" fill="#ff2d20" transform="rotate(20 259 1129)"/>
+    <rect x="860" y="130" width="16" height="16" rx="4" fill="#00c853" transform="rotate(-25 868 138)"/>
+    <rect x="120" y="420" width="15" height="15" rx="4" fill="#ffb300" transform="rotate(35 127 427)"/>
+    <rect x="960" y="420" width="15" height="15" rx="4" fill="#e040fb" transform="rotate(-30 967 427)"/>
+    <rect x="60" y="740" width="16" height="16" rx="4" fill="#00c853" transform="rotate(15 68 748)"/>
+    <rect x="1000" y="720" width="16" height="16" rx="4" fill="#ff2d20" transform="rotate(-20 1008 728)"/>
+  </g>
+
+  <!-- sparkles -->
+  <g fill="#ffffff">
+    <path d="M520 60 L528 84 L552 92 L528 100 L520 124 L512 100 L488 92 L512 84 Z"/>
+    <path d="M320 320 L325 336 L341 341 L325 346 L320 362 L315 346 L299 341 L315 336 Z"/>
+    <path d="M790 340 L795 356 L811 361 L795 366 L790 382 L785 366 L769 361 L785 356 Z"/>
+  </g>
+
+  <!-- title -->
+  <text x="540" y="120" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="74" font-weight="bold" fill="url(#yellow)" stroke="#1565d8" stroke-width="10" stroke-linejoin="round" paint-order="stroke" letter-spacing="3">ДЕНЬ РОЖДЕНИЯ</text>
+  <text x="540" y="120" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="74" font-weight="bold" fill="#ffffff" stroke="#1565d8" stroke-width="3" stroke-linejoin="round" paint-order="stroke" letter-spacing="3">ДЕНЬ РОЖДЕНИЯ</text>
+
+  <!-- robot image panel (chamfered, bright) -->
+  <path d="M 300 160 L 750 160 L 790 200 L 790 650 L 750 690 L 300 690 L 260 650 L 260 200 Z" fill="#ffb300"/>
+  <path d="M 312 172 L 738 172 L 776 210 L 776 638 L 738 676 L 312 676 L 274 638 L 274 210 Z" fill="#ffffff"/>
+  <path d="M 324 184 L 726 184 L 762 220 L 762 626 L 726 662 L 324 662 L 286 626 L 286 220 Z" fill="#ff2d20"/>
+  <image x="286" y="220" width="476" height="442" xlink:href="/home/user1/.openclaw/workspace/media/inbound/openclaw-staged-b7069044-7b45-4192-be25-efa50f74448e/aaca98a5-2901-4336-ba84-64f79e34223e.jpg" clip-path="url(#robotClip)" preserveAspectRatio="xMidYMid slice"/>
+
+  <!-- birthday boy photo -->
+  <circle cx="540" cy="880" r="212" fill="#ffffff"/>
+  <circle cx="540" cy="880" r="204" fill="none" stroke="#ffb300" stroke-width="10"/>
+  <circle cx="540" cy="880" r="196" fill="none" stroke="#ff2d20" stroke-width="6"/>
+  <image x="355" y="695" width="370" height="370" xlink:href="/home/user1/.openclaw/workspace/boy_square.png" clip-path="url(#photoClip)" preserveAspectRatio="xMidYMid slice"/>
+
+  <!-- age badge -->
+  <circle cx="700" cy="1020" r="54" fill="url(#red)" stroke="#ffffff" stroke-width="7"/>
+  <circle cx="700" cy="1020" r="44" fill="none" stroke="#ffb300" stroke-width="4" stroke-dasharray="8 6"/>
+  <text x="700" y="1042" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="62" font-weight="bold" fill="#ffffff">5</text>
+  <text x="700" y="1096" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="30" font-weight="bold" fill="#ff2d20" stroke="#ffffff" stroke-width="4" paint-order="stroke">ЛЕТ</text>
+
+  <!-- bottom text -->
+  <text x="540" y="1195" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="58" font-weight="bold" fill="#ffffff" stroke="#1565d8" stroke-width="9" stroke-linejoin="round" paint-order="stroke">МНЕ <tspan fill="#ff2d20" stroke="#1565d8" stroke-width="9">5</tspan> ЛЕТ!</text>
+  <text x="540" y="1255" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="42" font-weight="bold" fill="#ffffff" stroke="#1565d8" stroke-width="4" paint-order="stroke">Приглашаю на праздник</text>
+  <text x="540" y="1310" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="40" font-weight="bold" fill="url(#yellow)" stroke="#ffffff" stroke-width="6" paint-order="stroke">в стиле ТРАНСФОРМЕРОВ</text>
+
+  <line x1="340" y1="1342" x2="740" y2="1342" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+
+  <text x="540" y="1385" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="34" font-weight="bold" fill="#ffffff" stroke="#1565d8" stroke-width="3" paint-order="stroke">24 октября (суббота) · 15:00</text>
+  <text x="540" y="1392" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="30" font-weight="bold" fill="#ffb300" stroke="#ffffff" stroke-width="3" paint-order="stroke">База Автоботов · [адрес]</text>
+</svg>
