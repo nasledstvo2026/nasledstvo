@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1080px; font-family: "DejaVu Sans", Arial, sans-serif; background: #eef3f8; padding: 40px 34px 34px; color: #1f2a37; }
+  .head { text-align: center; margin-bottom: 26px; }
+  .head h1 { font-size: 44px; color: #123a63; letter-spacing: .5px; }
+  .head p { font-size: 21px; color: #5b6b7d; margin-top: 8px; }
+  .grid { display: flex; gap: 20px; }
+  .card { flex: 1; background: #fff; border-radius: 22px; overflow: hidden; box-shadow: 0 8px 24px rgba(20,50,90,.12); display: flex; flex-direction: column; }
+  .top { padding: 20px 20px 16px; color: #fff; }
+  .c1 .top { background: #1f8a70; } .c2 .top { background: #2b6cb0; } .c3 .top { background: #b7791f; }
+  .num { font-size: 15px; opacity: .85; font-weight: bold; letter-spacing: 1px; }
+  .name { font-size: 26px; font-weight: bold; line-height: 1.15; margin-top: 4px; min-height: 90px; }
+  .stars { display: inline-block; margin-top: 8px; background: rgba(255,255,255,.22); border-radius: 20px; padding: 4px 14px; font-size: 18px; font-weight: bold; }
+  .body { padding: 18px 20px 22px; font-size: 18px; line-height: 1.45; flex: 1; display: flex; flex-direction: column; }
+  .row { margin-bottom: 12px; }
+  .lbl { font-size: 14px; text-transform: uppercase; letter-spacing: .8px; color: #8a99aa; font-weight: bold; }
+  .val { font-size: 18px; color: #22303f; }
+  .score { background: #f2f6fa; border-radius: 14px; padding: 12px 14px; margin: 6px 0 14px; }
+  .score .big { font-size: 30px; font-weight: bold; }
+  .c1 .score .big { color: #1f8a70; } .c2 .score .big { color: #2b6cb0; } .c3 .score .big { color: #b7791f; }
+  .score .sub { font-size: 15px; color: #5b6b7d; margin-top: 2px; }
+  .bar { height: 10px; border-radius: 6px; background: #dfe7ef; overflow: hidden; margin-top: 8px; }
+  .bar span { display: block; height: 100%; }
+  .c1 .bar span { background: #1f8a70; width: 88%; } .c2 .bar span { background: #2b6cb0; width: 79%; } .c3 .bar span { background: #b7791f; width: 83%; }
+  .pl { font-size: 17px; margin: 3px 0; padding-left: 22px; position: relative; }
+  .pl::before { content: "+"; position: absolute; left: 0; font-weight: bold; color: #1f8a70; }
+  .mn::before { content: "–"; color: #c05621; }
+  .divider { height: 1px; background: #e3eaf1; margin: 12px 0; }
+  .foot { margin-top: 24px; background: #123a63; color: #fff; border-radius: 20px; padding: 24px 28px; }
+  .foot h2 { font-size: 23px; margin-bottom: 12px; }
+  .foot .li { font-size: 19px; margin: 7px 0; padding-left: 30px; position: relative; }
+  .foot .li::before { content: "›"; position: absolute; left: 6px; color: #7ec8e3; font-weight: bold; }
+  .date { text-align: center; color: #8a99aa; font-size: 15px; margin-top: 16px; }
+</style></head>
+<body>
+  <div class="head">
+    <h1>Сравнение отелей в Турции</h1>
+    <p>Три варианта — простыми словами • 8 октября 2026</p>
+  </div>
+  <div class="grid">
+    <div class="card c1">
+      <div class="top"><div class="num">ВАРИАНТ 1</div><div class="name">Granada Luxury Okurcalar</div><div class="stars">5 звёзд</div></div>
+      <div class="body">
+        <div class="row"><div class="lbl">Где</div><div class="val">Аланья, первая линия, до моря &lt; 200 м</div></div>
+        <div class="row"><div class="lbl">Концепция</div><div class="val">«Ультра всё включено», 598 номеров</div></div>
+        <div class="score"><div class="big">88%</div><div class="sub">рекомендуют гости</div><div class="bar"><span></span></div></div>
+        <div class="lbl">Плюсы</div>
+        <div class="pl">у самого моря</div><div class="pl">много бассейнов и развлечений</div><div class="pl">хвалят питание — отлично для семьи</div>
+        <div class="divider"></div>
+        <div class="lbl">Минусы</div>
+        <div class="pl mn">«крепкая пятёрка без изысков»</div><div class="pl mn">иногда жалобы на чистоту бассейна</div>
+      </div>
+    </div>
+    <div class="card c2">
+      <div class="top"><div class="num">ВАРИАНТ 2</div><div class="name">Meder Resort</div><div class="stars">5 звёзд</div></div>
+      <div class="body">
+        <div class="row"><div class="lbl">Где</div><div class="val">Кемер, вторая линия — до моря 200–1000 м</div></div>
+        <div class="row"><div class="lbl">Концепция</div><div class="val">всё включено, 228 номеров</div></div>
+        <div class="score"><div class="big">79%</div><div class="sub">рекомендуют гости</div><div class="bar"><span></span></div></div>
+        <div class="lbl">Плюсы</div>
+        <div class="pl">тихо и спокойно, зелено</div><div class="pl">хорошая еда</div><div class="pl">обычно дешевле остальных</div>
+        <div class="divider"></div>
+        <div class="lbl">Минусы</div>
+        <div class="pl mn">до пляжа надо идти (2-я линия)</div><div class="pl mn">дальний край Кемера</div>
+      </div>
+    </div>
+    <div class="card c3">
+      <div class="top"><div class="num">ВАРИАНТ 3</div><div class="name">Marvida Club Palmeras Pascha</div><div class="stars">4 звезды</div></div>
+      <div class="body">
+        <div class="row"><div class="lbl">Где</div><div class="val">Аланья, Конаклы, первая линия, до моря &lt; 200 м</div></div>
+        <div class="row"><div class="lbl">Концепция</div><div class="val">клубный отдых, 306 номеров (обновлены)</div></div>
+        <div class="score"><div class="big">83%</div><div class="sub">рекомендуют гости</div><div class="bar"><span></span></div></div>
+        <div class="lbl">Плюсы</div>
+        <div class="pl">у самого моря</div><div class="pl">атмосфера «клуба»</div><div class="pl">свежие номера</div>
+        <div class="divider"></div>
+        <div class="lbl">Минусы</div>
+        <div class="pl mn">это 4*, а не 5*</div><div class="pl mn">уровень проще, чем у Granada</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <h2>Что выбрать?</h2>
+    <div class="li">Хочется «вау», у моря и лучшие оценки — Granada Luxury Okurcalar</div>
+    <div class="li">Важнее тишина и цена — Meder Resort (но до пляжа идти)</div>
+    <div class="li">Бюджетно и у самого моря — Marvida Club Palmeras Pascha</div>
+  </div>
+  <div class="date">Данные: TopHotels, Tripadvisor • для подбора по датам напишите мне</div>
+</body></html>
