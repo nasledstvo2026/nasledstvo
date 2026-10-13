@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Опорный конспект §9. Нидерланды: путь к расцвету</title>
+<style>
+  @page { size: A4; margin: 14mm 13mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "DejaVu Sans", "Liberation Sans", Arial, sans-serif;
+    color: #22303a; font-size: 11.2px; line-height: 1.45; margin: 0;
+    background: #fdfbf7;
+  }
+  h1, h2, h3 { font-family: "DejaVu Serif", "Liberation Serif", Georgia, serif; }
+  .wrap { padding: 4px 8px 20px; }
+
+  /* ---------- Шапка ---------- */
+  .cover {
+    background: linear-gradient(135deg,#123a5c 0%,#1f4e79 55%,#2c6690 100%);
+    color:#fff; border-radius: 12px; padding: 16px 20px 14px;
+    border-bottom: 5px solid #ef8b2c; margin-bottom: 14px;
+  }
+  .cover .k { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color:#ffd9a8; }
+  .cover h1 { font-size: 24px; margin: 4px 0 6px; line-height:1.15; }
+  .cover .sub { font-size: 11.5px; color:#d7e6f2; }
+  .qbox {
+    margin-top: 10px; background: rgba(255,255,255,.12); border-left: 4px solid #ef8b2c;
+    border-radius: 6px; padding: 8px 12px; font-size: 11.5px; color:#fff;
+  }
+  .qbox b { color:#ffd9a8; }
+
+  /* ---------- Секции ---------- */
+  section { margin: 0 0 14px; page-break-inside: avoid; }
+  .sectitle {
+    display:flex; align-items:center; gap:9px; margin: 0 0 9px;
+    font-size: 15px; color:#123a5c; border-bottom: 2px solid #ef8b2c; padding-bottom: 4px;
+  }
+  .num {
+    background:#ef8b2c; color:#fff; border-radius: 7px; width: 24px; height:24px;
+    display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:bold;
+    font-family:"DejaVu Sans",sans-serif; flex:0 0 auto;
+  }
+  h3 { font-size: 12.5px; color:#1f4e79; margin: 10px 0 6px; }
+
+  /* ---------- Ключевые слова ---------- */
+  .terms { display:flex; flex-wrap: wrap; gap:7px; }
+  .term {
+    background:#eef4fa; border:1px solid #bcd4e6; border-radius: 7px;
+    padding: 6px 9px; font-size: 10.5px; flex: 1 1 30%; min-width: 150px;
+  }
+  .term b { color:#1f4e79; display:block; font-size: 11px; }
+
+  /* ---------- Таблицы ---------- */
+  table { width:100%; border-collapse: collapse; margin: 6px 0 2px; font-size: 10.6px; }
+  th, td { border: 1px solid #b9cddd; padding: 5px 7px; vertical-align: top; text-align: left; }
+  thead th { background:#1f4e79; color:#fff; font-weight:600; }
+  tbody tr:nth-child(even) { background:#f2f7fb; }
+  td.c, th.c { text-align:center; }
+  .yr { font-weight:bold; color:#b5511f; white-space:nowrap; }
+
+  /* ---------- Схема-лучи (mind map) ---------- */
+  .mind { display:flex; align-items:center; gap:10px; }
+  .center {
+    flex:0 0 150px; background:#1f4e79; color:#fff; border-radius:50%;
+    width:150px; height:150px; display:flex; align-items:center; justify-content:center;
+    text-align:center; font-size:12px; font-weight:600; line-height:1.25; padding:14px;
+    box-shadow: 0 0 0 6px #dbe9f4;
+  }
+  .branches { flex:1; display:flex; flex-direction:column; gap:6px; }
+  .branch {
+    background:#fdf3e7; border:1px solid #f0c48a; border-left:5px solid #ef8b2c;
+    border-radius:7px; padding:6px 9px; font-size:10.6px;
+  }
+  .branch b { color:#b5511f; }
+
+  /* ---------- Карточки причин ---------- */
+  .cards { display:flex; flex-wrap:wrap; gap:8px; }
+  .card {
+    flex:1 1 30%; min-width:160px; background:#fff; border:1px solid #d6e2ec;
+    border-radius:9px; padding:8px 10px; box-shadow: 0 1px 0 #e7eef4;
+  }
+  .card .ic { font-size:15px; }
+  .card h4 { margin:3px 0 3px; font-size:11px; color:#1f4e79; }
+  .card p { margin:0; font-size:10.2px; color:#41525e; }
+
+  /* ---------- Таймлайн ---------- */
+  .tl { position:relative; margin: 6px 0 2px; padding-left: 6px; }
+  .tl .row { display:flex; gap:10px; margin-bottom:7px; align-items:stretch; }
+  .tl .date {
+    flex:0 0 92px; background:#1f4e79; color:#fff; border-radius:7px; text-align:center;
+    font-weight:bold; font-size:11px; display:flex; align-items:center; justify-content:center; padding:6px 4px;
+  }
+  .tl .ev {
+    flex:1; border:1px solid #cfe0ee; border-left:5px solid #2c6690; border-radius:7px;
+    padding:6px 9px; font-size:10.5px; background:#fff;
+  }
+  .tl .ev b { color:#1f4e79; }
+  .tl .row.war .date { background:#b5511f; }
+  .tl .row.war .ev { border-left-color:#b5511f; }
+  .tl .row.win .date { background:#2f7d4f; }
+  .tl .row.win .ev { border-left-color:#2f7d4f; }
+
+  /* ---------- Схема управления ---------- */
+  .gov { width:100%; }
+  .note { font-size:10px; color:#5a7a94; font-style:italic; margin-top:3px; }
+  .figcap { font-size:10px; color:#5a7a94; text-align:center; margin-top:3px; }
+  .pill { display:inline-block; background:#eef4fa; border:1px solid #bcd4e6; border-radius:20px;
+          padding:2px 9px; font-size:10px; margin:2px 3px 2px 0; color:#1f4e79; }
+  .footer { margin-top:14px; border-top:2px solid #ef8b2c; padding-top:7px; font-size:9.6px; color:#6b7c88; display:flex; justify-content:space-between; }
+  .lead { font-size:11px; color:#3a4a56; margin: 0 0 7px; }
+  .hl { background:#fff2cc; padding:0 3px; border-radius:3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ШАПКА -->
+  <div class="cover">
+    <div class="k">Всеобщая история · 7 класс · Мединский, Чубарьян</div>
+    <h1>§9. Нидерланды: путь к расцвету</h1>
+    <div class="sub">Борьба против Испании и рождение первой буржуазной республики Европы</div>
+    <div class="qbox"><b>Главный вопрос параграфа:</b> что позволило Нидерландам стать одной из самых экономически развитых стран Европы?</div>
+  </div>
+
+  <!-- КЛЮЧЕВЫЕ ПОНЯТИЯ -->
+  <section>
+    <div class="sectitle"><span class="num">К</span> Ключевые понятия и имена</div>
+    <div class="terms">
+      <div class="term"><b>Польдер</b>осушенный у моря участок земли за дамбами</div>
+      <div class="term"><b>Дамба</b>насыпь, защищающая землю от моря</div>
+      <div class="term"><b>Флейт</b>дешёвый и вместительный голландский корабль</div>
+      <div class="term"><b>Гёзы</b>участники восстания против испанцев (морские и лесные)</div>
+      <div class="term"><b>Инквизиция</b>церковный суд против «еретиков»-протестантов</div>
+      <div class="term"><b>Утрехтская уния</b>военный союз 7 северных провинций (1579)</div>
+      <div class="term"><b>Генеральные штаты</b>высший орган власти республики</div>
+      <div class="term"><b>Статхаудер</b>наместник-главнокомандующий (род Оранских)</div>
+      <div class="term"><b>Великий пенсионарий</b>главный гражданский чиновник Голландии</div>
+    </div>
+    <p class="lead" style="margin-top:8px">
+      <span class="pill">Карл V Габсбург</span><span class="pill">Филипп II</span>
+      <span class="pill">герцог Альба</span><span class="pill">Вильгельм Оранский</span>
+      <span class="pill">Абель Тасман</span><span class="pill">Ян де Витт</span>
+    </p>
+  </section>
+
+  <!-- РИСУНОК 1 -->
+  <section>
+    <div class="sectitle"><span class="num">1</span> Природа и труд: «Господь создал мир, а голландец — Голландию»</div>
+    <svg viewBox="0 0 800 300" width="100%" height="215" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#9cc4e0"/><stop offset="0.6" stop-color="#d9e8f2"/>
+          <stop offset="1" stop-color="#f6e3c8"/>
+        </linearGradient>
+        <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#a7cf87"/><stop offset="1" stop-color="#6fa95c"/>
+        </linearGradient>
+        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#8fbcd6"/><stop offset="1" stop-color="#5f93b7"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="800" height="190" fill="url(#sky)"/>
+      <circle cx="648" cy="66" r="26" fill="#ffd27f" opacity="0.95"/>
+      <ellipse cx="180" cy="60" rx="70" ry="20" fill="#ffffff" opacity="0.75"/>
+      <ellipse cx="260" cy="72" rx="50" ry="15" fill="#ffffff" opacity="0.6"/>
+      <ellipse cx="470" cy="46" rx="60" ry="17" fill="#ffffff" opacity="0.55"/>
+      <!-- дальняя вода -->
+      <rect x="0" y="168" width="800" height="26" fill="url(#water)" opacity="0.85"/>
+      <!-- земля -->
+      <rect x="0" y="188" width="800" height="112" fill="url(#land)"/>
+      <!-- канал -->
+      <path d="M330 190 L120 300 L470 300 L410 190 Z" fill="url(#water)"/>
+      <!-- поля-полосы -->
+      <path d="M0 214 L300 214 L300 223 L0 223 Z" fill="#7fb56a" opacity="0.5"/>
+      <path d="M520 214 L800 214 L800 224 L520 224 Z" fill="#7fb56a" opacity="0.5"/>
+      <!-- мельница -->
+      <g transform="translate(150,120)">
+        <polygon points="0,68 -22,68 -13,0 13,0 22,68" fill="#e8dcc6" stroke="#b9a887"/>
+        <rect x="-16" y="-8" width="32" height="12" rx="4" fill="#8a5a3b"/>
+        <g stroke="#6b4527" stroke-width="3" fill="#d9c9a8" stroke-linejoin="round">
+          <g transform="rotate(20)"><polygon points="0,0 8,-52 -8,-52" fill="#d9c9a8" stroke="#6b4527"/></g>
+          <g transform="rotate(110)"><polygon points="0,0 8,-52 -8,-52" fill="#d9c9a8" stroke="#6b4527"/></g>
+          <g transform="rotate(200)"><polygon points="0,0 8,-52 -8,-52" fill="#d9c9a8" stroke="#6b4527"/></g>
+          <g transform="rotate(290)"><polygon points="0,0 8,-52 -8,-52" fill="#d9c9a8" stroke="#6b4527"/></g>
+        </g>
+        <circle cx="0" cy="0" r="5" fill="#6b4527"/>
+      </g>
+      <!-- коровы -->
+      <g fill="#f4f1ea" stroke="#cbb79a">
+        <ellipse cx="600" cy="232" rx="22" ry="13"/>
+        <rect x="586" y="240" width="4" height="12"/><rect x="610" y="240" width="4" height="12"/>
+        <ellipse cx="600" cy="226" rx="9" ry="8"/>
+      </g>
+      <g fill="#e9e4d8" stroke="#cbb79a">
+        <ellipse cx="662" cy="246" rx="18" ry="11"/>
+        <rect x="650" y="253" width="3.5" height="10"/><rect x="670" y="253" width="3.5" height="10"/>
+      </g>
+      <!-- лодка с парусом -->
+      <g transform="translate(300,238)">
+        <path d="M-26 0 L26 0 L18 12 L-18 12 Z" fill="#8a5a3b"/>
+        <path d="M2 -46 L2 -4 L26 -4 Z" fill="#f7f3e8" stroke="#c9bfa6"/>
+        <line x1="2" y1="-48" x2="2" y2="-2" stroke="#6b4527" stroke-width="2.5"/>
+      </g>
+      <!-- подпись -->
+      <text x="24" y="285" font-family="DejaVu Sans" font-size="13" fill="#2f4f3a" font-weight="bold">Польдеры, дамбы, каналы, мельницы</text>
+    </svg>
+    <div class="figcap">Рис. 1. Нидерландский пейзаж: землю отвоёвывали у моря — отсюда трудолюбие, инженерная смекалка и богатство.</div>
+  </section>
+
+  <!-- СХЕМА 1 -->
+  <section>
+    <div class="sectitle"><span class="num">2</span> Схема 1. Почему Нидерланды разбогатели (5 причин)</div>
+    <div class="mind">
+      <div class="center">Богатство<br>Нидерландов</div>
+      <div class="branches">
+        <div class="branch"><b>1. Выгодное положение.</b> Устья рек Рейн, Маас, Шельда + Северное море → «ворота» в Европу и к океану. Порты Амстердам и Антверпен.</div>
+        <div class="branch"><b>2. Труд и борьба с морем.</b> Дамбы, каналы, польдеры; товарное хозяйство (молочное животноводство, овощеводство).</div>
+        <div class="branch"><b>3. Торговля и флот.</b> Корабль <i>флейт</i> → самые дешёвые перевозки; голландцы — «извозчики морей».</div>
+        <div class="branch"><b>4. Финансы.</b> Банки, биржа, низкий процент по кредиту → деньги вкладывали в дело.</div>
+        <div class="branch"><b>5. Веротерпимость.</b> После победы над Испанией — приток переселенцев (сефарды, гугеноты) с капиталами и ремёслами.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТАБЛИЦА 1 -->
+  <section>
+    <div class="sectitle"><span class="num">3</span> Таблица 1. Север и Юг: два лица Нидерландов</div>
+    <table>
+      <thead>
+        <tr><th style="width:16%">Пример</th><th style="width:28%">Провинции</th><th style="width:28%">Хозяйство</th><th style="width:28%">Главные города / судьба</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="c"><b>СЕВЕР</b></td>
+          <td>Голландия, Зеландия, Утрехт и др. (7 провинций)</td>
+          <td>Судостроение, рыболовство, молочное животноводство, морская торговля</td>
+          <td>Амстердам. <b>Стал независимой Республикой</b> (совр. Нидерланды)</td>
+        </tr>
+        <tr>
+          <td class="c"><b>ЮГ</b></td>
+          <td>Фландрия, Брабант и др.</td>
+          <td>Производство тканей (шерсть), финансовые операции, портовая торговля</td>
+          <td>Антверпен, Брюгге. <b>Остался под властью Испании</b> (совр. Бельгия)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Запомни: север — торговля и море, юг — ткани и финансы; расколотая страна шла к разным судьбам.</p>
+  </section>
+
+  <!-- СХЕМА 2 -->
+  <section>
+    <div class="sectitle"><span class="num">4</span> Схема 2. Причины недовольства властью Габсбургов</div>
+    <div class="cards">
+      <div class="card"><div class="ic">⚖️</div><h4>Урезали вольности</h4><p>Габсбурги ломали старинные права и самоуправление провинций и городов.</p></div>
+      <div class="card"><div class="ic">✝️</div><h4>Инквизиция</h4><p>Преследование протестантов раздражало даже католиков.</p></div>
+      <div class="card"><div class="ic">💰</div><h4>Налоги и пошлины</h4><p>Высокие налоги, пошлины на шерсть, «выкачивание» денег из страны.</p></div>
+      <div class="card"><div class="ic">🚢</div><h4>Гнёт торговли</h4><p>Отняли торговые льготы и перекрыли купцам доступ в колонии.</p></div>
+      <div class="card"><div class="ic">🪖</div><h4>Испанские войска</h4><p>Постоянное присутствие чужих солдат на своей земле.</p></div>
+    </div>
+    <p class="note">Общая причина: <span class="hl">Мадрид пытался править Нидерландами жёстко и централизованно, не считаясь с их выгодами</span>.</p>
+  </section>
+
+  <!-- ТАЙМЛАЙН -->
+  <section>
+    <div class="sectitle"><span class="num">5</span> Схема 3. Лента времени: путь к независимости</div>
+    <div class="tl">
+      <div class="row war"><div class="date">1566</div><div class="ev"><b>Иконоборческое восстание</b> — начало борьбы против Испании.</div></div>
+      <div class="row war"><div class="date">1567–68</div><div class="ev"><b>Герцог Альба</b> с карательной армией; «Кровавый совет». Начало войны за освобождение во главе с <b>Вильгельмом Оранским</b>.</div></div>
+      <div class="row war"><div class="date">1572</div><div class="ev"><b>Морские гёзы</b> берут Брил — восстание охватывает север.</div></div>
+      <div class="row"><div class="date">1579</div><div class="ev"><b>Утрехтская уния</b> — военный союз 7 северных провинций.</div></div>
+      <div class="row"><div class="date">1581</div><div class="ev">Низложение Филиппа II (Акт о клятвенном отречении).</div></div>
+      <div class="row win"><div class="date">1588</div><div class="ev">Провозглашение <b>Республики Соединённых провинций</b> (Голландии).</div></div>
+      <div class="row"><div class="date">1602</div><div class="ev">Основание <b>Ост-Индской компании</b> (1621 — Вест-Индской).</div></div>
+      <div class="row win"><div class="date">1648</div><div class="ev"><b>Вестфальский мир</b> — независимость Нидерландов признана Испанией. Начало «золотого века».</div></div>
+    </div>
+  </section>
+
+  <!-- ТАБЛИЦА 2 -->
+  <section>
+    <div class="sectitle"><span class="num">6</span> Таблица 2. Хронология — шпаргалка для ответа</div>
+    <table>
+      <thead>
+        <tr><th class="c" style="width:14%">Дата</th><th style="width:46%">Событие</th><th style="width:40%">Значение</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="c yr">1566</td><td>Иконоборческое восстание</td><td>Начало революции</td></tr>
+        <tr><td class="c yr">1579</td><td>Утрехтская уния</td><td>Союз северных провинций</td></tr>
+        <tr><td class="c yr">1588</td><td>Республика Соединённых провинций</td><td>Рождение республики</td></tr>
+        <tr><td class="c yr">1602</td><td>Ост-Индская компания</td><td>Мировая торговля и колонии</td></tr>
+        <tr><td class="c yr">1648</td><td>Вестфальский мир</td><td>Признание независимости</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Правильный порядок для задания: 1) начало войны → 2) Утрехтская уния → 3) Ост-Индская компания → 4) окончание войны → 5) правление Яна де Витта.</p>
+  </section>
+
+  <!-- РИСУНОК 2 -->
+  <section>
+    <div class="sectitle"><span class="num">7</span> Торговый флот: почему голландцы стали «извозчиками морей»</div>
+    <svg viewBox="0 0 800 260" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#cfe3ee"/><stop offset="1" stop-color="#6f9fbe"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="800" height="150" fill="#eaf3f8"/>
+      <circle cx="120" cy="52" r="22" fill="#ffe9b8"/>
+      <!-- город на горизонте -->
+      <g fill="#9fb6c6" opacity="0.9">
+        <rect x="560" y="112" width="26" height="34"/><rect x="592" y="100" width="20" height="46"/>
+        <rect x="616" y="118" width="30" height="28"/><polygon points="602,100 610,84 618,100" fill="#8ca7ba"/>
+        <rect x="650" y="108" width="18" height="38"/><rect x="672" y="120" width="26" height="26"/>
+        <!-- мельница -->
+        <polygon points="536,146 556,146 550,120 542,120" fill="#b7c9d6"/>
+        <line x1="546" y1="120" x2="546" y2="104" stroke="#8ca7ba" stroke-width="3"/>
+        <line x1="534" y1="110" x2="558" y2="110" stroke="#8ca7ba" stroke-width="3"/>
+      </g>
+      <rect x="0" y="146" width="800" height="114" fill="url(#sea)"/>
+      <!-- волны -->
+      <path d="M0 175 Q40 165 80 175 T160 175 T240 175 T320 175 T400 175 T480 175 T560 175 T640 175 T720 175 T800 175" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+      <path d="M0 210 Q40 200 80 210 T160 210 T240 210 T320 210 T400 210 T480 210 T560 210 T640 210 T720 210 T800 210" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.35"/>
+      <!-- корабль-флейт -->
+      <g transform="translate(380,150)">
+        <path d="M-120 0 Q0 34 120 0 L96 26 Q0 52 -96 26 Z" fill="#7a4a2b"/>
+        <path d="M-120 0 Q0 30 120 0 L118 -8 Q0 20 -118 -8 Z" fill="#a06840"/>
+        <!-- мачты -->
+        <line x1="-46" y1="0" x2="-46" y2="-120" stroke="#5c3a22" stroke-width="4"/>
+        <line x1="10" y1="0" x2="10" y2="-150" stroke="#5c3a22" stroke-width="5"/>
+        <line x1="62" y1="0" x2="62" y2="-110" stroke="#5c3a22" stroke-width="3.5"/>
+        <!-- паруса -->
+        <path d="M-46 -110 L-92 -60 L-46 -40 Z" fill="#fbf7ee" stroke="#d8cdb8"/>
+        <path d="M10 -142 L-40 -84 L10 -58 L64 -84 Z" fill="#ffffff" stroke="#d8cdb8"/>
+        <path d="M62 -100 L34 -56 L62 -40 Z" fill="#fbf7ee" stroke="#d8cdb8"/>
+        <!-- флаг Оранских -->
+        <line x1="10" y1="-150" x2="10" y2="-170" stroke="#5c3a22" stroke-width="3"/>
+        <rect x="10" y="-170" width="42" height="8" fill="#e8791e"/>
+        <rect x="10" y="-162" width="42" height="8" fill="#ffffff"/>
+        <rect x="10" y="-154" width="42" height="8" fill="#1f4e79"/>
+      </g>
+      <text x="24" y="238" font-family="DejaVu Sans" font-size="13" fill="#2a4c66" font-weight="bold">Флейт: дёшево, вместительно, малая команда</text>
+    </svg>
+    <div class="figcap">Рис. 2. Голландский флейт у берегов Амстердама: дешёвое судно сделало перевозки по миру самыми выгодными.</div>
+  </section>
+
+  <!-- СХЕМА 4 -->
+  <section>
+    <div class="sectitle"><span class="num">8</span> Схема 4. Управление Республикой Соединённых провинций</div>
+    <svg viewBox="0 0 800 250" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="box" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2c6690"/><stop offset="1" stop-color="#1f4e79"/>
+        </linearGradient>
+      </defs>
+      <!-- Генеральные штаты (верх) -->
+      <rect x="250" y="14" width="300" height="52" rx="10" fill="url(#box)"/>
+      <text x="400" y="36" text-anchor="middle" fill="#fff" font-family="DejaVu Sans" font-size="14" font-weight="bold">ГЕНЕРАЛЬНЫЕ ШТАТЫ</text>
+      <text x="400" y="54" text-anchor="middle" fill="#cfe0ee" font-family="DejaVu Sans" font-size="10.5">высший орган · 1 провинция = 1 голос</text>
+      <!-- 7 провинций -->
+      <g font-family="DejaVu Sans" font-size="10" fill="#1f4e79">
+        <rect x="30" y="96" width="740" height="34" rx="8" fill="#eef4fa" stroke="#bcd4e6"/>
+        <text x="400" y="117" text-anchor="middle">7 провинций-участниц Утрехтской унии: Голландия · Зеландия · Утрехт · Фрисландия · Гронинген · Оверэйссел · Гелдерн</text>
+      </g>
+      <!-- связи -->
+      <line x1="400" y1="66" x2="400" y2="96" stroke="#ef8b2c" stroke-width="3"/>
+      <!-- две должности -->
+      <rect x="80" y="150" width="290" height="80" rx="10" fill="#fdf3e7" stroke="#f0c48a"/>
+      <text x="225" y="174" text-anchor="middle" fill="#b5511f" font-family="DejaVu Sans" font-size="13" font-weight="bold">СТАТХАУДЕР</text>
+      <text x="225" y="196" text-anchor="middle" fill="#5a4a3a" font-family="DejaVu Sans" font-size="10.5">наместник и главнокомандующий</text>
+      <text x="225" y="213" text-anchor="middle" fill="#5a4a3a" font-family="DejaVu Sans" font-size="10.5">обычно из рода Оранских</text>
+      <rect x="430" y="150" width="290" height="80" rx="10" fill="#eaf4ee" stroke="#a9d0b6"/>
+      <text x="575" y="174" text-anchor="middle" fill="#2f7d4f" font-family="DejaVu Sans" font-size="13" font-weight="bold">ВЕЛИКИЙ ПЕНСИОНАРИЙ</text>
+      <text x="575" y="196" text-anchor="middle" fill="#3a5a44" font-family="DejaVu Sans" font-size="10.5">гражданская власть Голландии</text>
+      <text x="575" y="213" text-anchor="middle" fill="#3a5a44" font-family="DejaVu Sans" font-size="10.5">фактически «премьер-министр»</text>
+      <line x1="225" y1="130" x2="225" y2="150" stroke="#bcd4e6" stroke-width="2"/>
+      <line x1="575" y1="130" x2="575" y2="150" stroke="#bcd4e6" stroke-width="2"/>
+    </svg>
+    <p class="note">Республика — конфедерация: провинции сохраняли самоуправление и соперничали друг с другом.</p>
+  </section>
+
+  <!-- ТАБЛИЦА 3 -->
+  <section>
+    <div class="sectitle"><span class="num">9</span> Таблица 3. Причины и последствия борьбы за независимость</div>
+    <table>
+      <thead>
+        <tr><th style="width:50%">Причины борьбы</th><th style="width:50%">Последствия</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            • Преследование протестантов, инквизиция<br>
+            • Уничтожение вольностей и самоуправления провинций<br>
+            • Высокие налоги и пошлины<br>
+            • Ограничения для купцов, потеря доступа в колонии<br>
+            • Присутствие испанских войск
+          </td>
+          <td>
+            • Образование независимой <b>Республики Соединённых провинций</b> на севере<br>
+            • Южные Нидерланды остались под властью Испании<br>
+            • Начало <b>«золотого века»</b> Голландии<br>
+            • Республика как пример для Европы (уникальная политическая система)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ВЫВОД -->
+  <section>
+    <div class="sectitle"><span class="num">✓</span> Мини-вывод (для ответа на главный вопрос)</div>
+    <p class="lead" style="margin:0">
+      Нидерланды стали богатейшей страной не из-за природных богатств — их почти не было. Богатство дали
+      <span class="hl">выгодное положение на торговых путях</span>, <span class="hl">труд и смекалка в борьбе с морем</span>,
+      <span class="hl">дешёвый флот и торговля по всему миру</span>, <span class="hl">развитые финансы</span> и
+      <span class="hl">веротерпимость</span>, привлёкшая капиталы и мастеров. А освобождение от Испании открыло путь к «золотому веку».
+    </p>
+  </section>
+
+  <div class="footer">
+    <span>Опорный конспект · Всеобщая история, 7 класс · §9 «Нидерланды: путь к расцвету»</span>
+    <span>Мединский, Чубарьян</span>
+  </div>
+</div>
+</body>
+</html>
