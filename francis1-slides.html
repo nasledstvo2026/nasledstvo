@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: 297mm 167mm; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "DejaVu Sans", Arial, sans-serif; color: #23262e; }
+
+  .slide {
+    width: 297mm; height: 167mm; page-break-after: always;
+    position: relative; overflow: hidden; background: #f7f3ea;
+  }
+  .slide:last-child { page-break-after: auto; }
+
+  .band { background: #1b2a5b; color: #fff; padding: 9mm 13mm 6mm; position: relative; }
+  .band .kicker { font-size: 9.5pt; color: #e7c66b; text-transform: uppercase; letter-spacing: 3px; }
+  .band h2 { margin: 1.5mm 0 0; font-size: 21pt; line-height: 1.1; }
+  .goldline { height: 3px; background: #c9a227; }
+  .body { padding: 7mm 13mm; }
+  .narrow { width: 176mm; }
+
+  /* картинки */
+  .medal    { position: absolute; left: 199mm; top: 37mm; width: 86mm; height: 86mm; }
+  .sideimg  { position: absolute; left: 204mm; top: 38mm; width: 76mm; height: 118mm; }
+  .banner   { position: absolute; left: 16mm; top: 122mm; width: 266mm; height: 33.4mm; }
+
+  .title { background: radial-gradient(circle at 78% 26%, #2b3f7d 0%, #1b2a5b 45%, #101a3a 100%); color: #fff; }
+  .title .wrap { padding: 30mm 12mm 0; width: 190mm; }
+  .title h1 { font-size: 40pt; margin: 0; line-height: 1.02; letter-spacing: .5px; }
+  .title h1 .y { color: #e7c66b; }
+  .title .sub { font-size: 13.5pt; margin-top: 6mm; color: #dfe3f2; }
+  .title .tag { display: inline-block; margin-top: 9mm; border: 1.6px solid #c9a227; color: #e7c66b;
+                padding: 2mm 5mm; border-radius: 30px; font-size: 11pt; }
+
+  .cols { display: table; width: 100%; table-layout: fixed; }
+  .col { display: table-cell; vertical-align: top; }
+  .col.l { padding-right: 5mm; }
+  .col.r { padding-left: 5mm; }
+
+  .tl { width: 100%; border-collapse: collapse; }
+  .tl td { vertical-align: top; padding: 1.6mm 0; }
+  .tl td.y { width: 28mm; }
+  .pill { display: inline-block; background: #1b2a5b; color: #fff; font-weight: bold;
+          border-radius: 20px; padding: 1.2mm 3mm; font-size: 10pt; text-align: center; min-width: 21mm; }
+  .pill.neg { background: #8c2b2b; }
+  .pill.pos { background: #2f6b46; }
+  .tl .ev { font-size: 10.5pt; line-height: 1.32; }
+  .tl .ev b { color: #1b2a5b; }
+
+  .card { background: #fff; border: 1px solid #e3dcc9; border-left: 4px solid #c9a227;
+          border-radius: 6px; padding: 3mm 4.5mm; margin-bottom: 3.5mm; }
+  .card h3 { margin: 0 0 1.2mm; font-size: 12.5pt; color: #1b2a5b; }
+  .card p { margin: 0; font-size: 10.5pt; line-height: 1.35; }
+
+  ul.clean { margin: 1mm 0 0; padding-left: 6mm; }
+  ul.clean li { font-size: 11pt; line-height: 1.4; margin-bottom: 2.6mm; }
+  ul.clean li b { color: #1b2a5b; }
+  ul.plus li::marker { color: #2f6b46; }
+  ul.minus li::marker { color: #8c2b2b; }
+
+  .lead { font-size: 11.5pt; line-height: 1.45; color: #333a48; }
+  .note { font-size: 9pt; color: #7a7160; }
+  .quote { font-size: 14.5pt; line-height: 1.4; font-style: italic; color: #1b2a5b; }
+  .factbox { background: #101a3a; color: #fff; border-radius: 8px; padding: 6mm 7mm; width: 176mm; }
+  .factbox h3 { margin: 0 0 2.5mm; color: #e7c66b; font-size: 14pt; }
+  .factbox p { margin: 0 0 2.5mm; font-size: 11.5pt; line-height: 1.45; }
+  .factbox .big { font-size: 16pt; color: #e7c66b; font-style: italic; }
+  .verdict { display: inline-block; background: #c9a227; color: #1b2a5b; font-weight: bold;
+             padding: 2mm 5mm; border-radius: 6px; font-size: 11.5pt; }
+  .foot { position: absolute; bottom: 3.5mm; right: 13mm; font-size: 8.5pt; color: #9a927f; }
+</style>
+</head>
+<body>
+
+<!-- 1. TITLE -->
+<section class="slide title">
+  <img class="medal" src="/home/user1/.openclaw/workspace/francis1-assets/f1-medallion.png">
+  <div class="wrap">
+    <h1>Франциск I<br><span class="y">1515–1547</span></h1>
+    <div class="sub">Король Франции из династии Валуа. «Король-рыцарь», покровитель искусств, полководец и вечный соперник императора Карла V.</div>
+    <div class="tag">Презентация по истории · 7 класс</div>
+  </div>
+</section>
+
+<!-- 2. КТО ОН -->
+<section class="slide">
+  <div class="band"><div class="kicker">Карточка героя</div><h2>Кто такой Франциск I</h2></div>
+  <div class="goldline"></div>
+  <div class="body">
+    <div class="cols">
+      <div class="col l">
+        <div class="card"><h3>Основные данные</h3>
+          <p>Родился <b>12 сентября 1494</b> в Коньяке, умер <b>31 марта 1547</b> в Рамбуйе. Династия <b>Валуа</b>. На троне — <b>с 1515 по 1547 год</b> (32 года).</p>
+        </div>
+        <div class="card"><h3>Как получил власть</h3>
+          <p>Наследовал Людовику XII, женившись на его дочери <b>Клод Французской</b>. Коронация прошла в Реймсе в январе 1515 года.</p>
+        </div>
+      </div>
+      <div class="col r">
+        <div class="card"><h3>Прозвища и образ</h3>
+          <p>«Король-рыцарь» и «Отец и восстановитель словесности» (Père et restaurateur des lettres) — за любовь к наукам и искусствам.</p>
+        </div>
+        <div class="card"><h3>Главный враг</h3>
+          <p>Император Священной Римской империи <b>Карл V Габсбург</b>. Их борьба за первенство в Европе длилась почти всё правление Франциска.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img class="banner" src="/home/user1/.openclaw/workspace/francis1-assets/f1-banner.png">
+  <div class="foot">Франциск I · 1515–1547</div>
+</section>
+
+<!-- 3. ХРОНОЛОГИЯ Ч.1 -->
+<section class="slide">
+  <div class="band"><div class="kicker">Хронология · часть 1</div><h2>Годы и события: взлёт и плен (1515–1529)</h2></div>
+  <div class="goldline"></div>
+  <div class="body">
+    <div class="narrow">
+    <table class="tl">
+      <tr><td class="y"><span class="pill pos">1515</span></td><td class="ev"><b>Битва при Мариньяно.</b> Разгром швейцарцев, Франция возвращает Милан — блестящее начало правления.</td></tr>
+      <tr><td class="y"><span class="pill">1519</span></td><td class="ev"><b>Выборы императора.</b> Франциск проигрывает борьбу за корону Священной Римской империи Карлу V.</td></tr>
+      <tr><td class="y"><span class="pill">1520</span></td><td class="ev"><b>«Поле золотой парчи».</b> Роскошная встреча с королём Англии Генрихом VIII — попытка найти союзника.</td></tr>
+      <tr><td class="y"><span class="pill neg">1525</span></td><td class="ev"><b>Битва при Павии.</b> Тяжёлое поражение; Франциск попадает в плен к Карлу V.</td></tr>
+      <tr><td class="y"><span class="pill neg">1526</span></td><td class="ev"><b>Мадридский договор.</b> В плену отрекается от Италии и Бургундии, потом отказывается от обещаний.</td></tr>
+      <tr><td class="y"><span class="pill pos">1529</span></td><td class="ev"><b>Камбрейский мир.</b> Мирный договор («мир дам»), который готовили матери обеих сторон.</td></tr>
+    </table>
+    </div>
+  </div>
+  <img class="sideimg" src="/home/user1/.openclaw/workspace/francis1-assets/f1-battle.png">
+  <div class="foot">Франциск I · 1515–1547</div>
+</section>
+
+<!-- 4. ХРОНОЛОГИЯ Ч.2 -->
+<section class="slide">
+  <div class="band"><div class="kicker">Хронология · часть 2</div><h2>Годы и события: реформатор и «отец словесности» (1530–1547)</h2></div>
+  <div class="goldline"></div>
+  <div class="body">
+    <div class="narrow">
+    <table class="tl">
+      <tr><td class="y"><span class="pill pos">1530</span></td><td class="ev"><b>Коллеж де Франс.</b> Основан как «Коллеж королевских лекторов» — центр новых наук.</td></tr>
+      <tr><td class="y"><span class="pill neg">1534</span></td><td class="ev"><b>«Дело плакатов».</b> Прокламации против католической мессы → волна казней протестантов.</td></tr>
+      <tr><td class="y"><span class="pill pos">1539</span></td><td class="ev"><b>Ордонанс Виллер-Котре.</b> Французский язык вместо латыни в судах и документах.</td></tr>
+      <tr><td class="y"><span class="pill">1544</span></td><td class="ev"><b>Крепийский мир.</b> Очередной мир с Карлом V; войны за Италию так и не принесли победы.</td></tr>
+      <tr><td class="y"><span class="pill">1547</span></td><td class="ev"><b>Смерть короля.</b> Умер 31 марта; трон наследует его сын Генрих II.</td></tr>
+    </table>
+    </div>
+  </div>
+  <img class="sideimg" src="/home/user1/.openclaw/workspace/francis1-assets/f1-culture.png">
+  <div class="foot">Франциск I · 1515–1547</div>
+</section>
+
+<!-- 5. ПЛЮСЫ -->
+<section class="slide">
+  <div class="band"><div class="kicker">Оценка · плюсы</div><h2>Что Франциск I сделал хорошо</h2></div>
+  <div class="goldline"></div>
+  <div class="body">
+    <div class="narrow">
+    <ul class="clean plus">
+      <li><b>Покровитель искусств.</b> В 1516 году пригласил во Францию Леонардо да Винчи; приобрёл «Мону Лизу».</li>
+      <li><b>Расцвет Ренессанса.</b> Строил и перестраивал замки Шамбор и Фонтенбло, собрал коллекции итальянских мастеров.</li>
+      <li><b>Наука и образование.</b> Основал Коллеж де Франс (1530), развивал книгопечатание и королевскую библиотеку.</li>
+      <li><b>Язык.</b> Ордонанс 1539 года сделал французский официальным языком делопроизводства.</li>
+      <li><b>Сильная власть.</b> Укрепил королевскую армию и центральную власть, ослабил сепаратизм знати.</li>
+    </ul>
+    </div>
+  </div>
+  <img class="sideimg" src="/home/user1/.openclaw/workspace/francis1-assets/f1-vitruvian.png">
+  <div class="foot">Франциск I · 1515–1547</div>
+</section>
+
+<!-- 6. МИНУСЫ -->
+<section class="slide">
+  <div class="band"><div class="kicker">Оценка · минусы</div><h2>В чём Франциск I ошибался</h2></div>
+  <div class="goldline"></div>
+  <div class="body">
+    <div class="narrow">
+    <ul class="clean minus">
+      <li><b>Бесконечные войны.</b> Соперничество с Карлом V истощило казну и разорило страну.</li>
+      <li><b>Плен и позор.</b> В 1525 году попал в плен при Павии, подписал унизительный Мадридский договор и нарушил слово.</li>
+      <li><b>Италия потеряна.</b> Милан, добытый в 1515 году, в итоге вернуть не удалось.</li>
+      <li><b>Религиозные репрессии.</b> После «дела плакатов» (1534) начались казни протестантов.</li>
+      <li><b>Расточительность.</b> Роскошь двора и дорогие войны требовали всё новых налогов.</li>
+    </ul>
+    </div>
+  </div>
+  <img class="sideimg" src="/home/user1/.openclaw/workspace/francis1-assets/f1-minus.png">
+  <div class="foot">Франциск I · 1515–1547</div>
+</section>
+
+<!-- 7. МОЁ МНЕНИЕ -->
+<section class="slide">
+  <div class="band"><div class="kicker">Субъективно</div><h2>Моё мнение</h2></div>
+  <div class="goldline"></div>
+  <div class="body">
+    <div class="narrow">
+      <p class="quote">«Франциск I — двойственный король: блестящий меценат и заурядный полководец».</p>
+      <p class="lead" style="margin-top:4mm">Он больше выиграл на поприще культуры, чем на поле боя. Именно при нём Франция стала центром Северного Ренессанса, а французский язык получил статус государственного. Военные же амбиции почти всегда заканчивались пленом, разорением казны или невыгодным миром.</p>
+      <p class="lead" style="margin-top:3.5mm">Если бы Франциск направил часть военных расходов на просвещение и экономику, страна могла бы окрепнуть быстрее. Но и без его меценатства не было бы ни Шамбора, ни Коллеж де Франс.</p>
+      <div style="margin-top:5mm"><span class="verdict">Итог: великий культурный король и средний полководец</span></div>
+    </div>
+  </div>
+  <img class="sideimg" src="/home/user1/.openclaw/workspace/francis1-assets/f1-balance.png">
+  <div class="foot">Франциск I · 1515–1547</div>
+</section>
+
+<!-- 8. ШОКИРУЮЩИЙ ФАКТ -->
+<section class="slide">
+  <div class="band"><div class="kicker">Шокирующий факт</div><h2>«Всё потеряно, кроме чести»</h2></div>
+  <div class="goldline"></div>
+  <div class="body">
+    <div class="factbox">
+      <h3>Король в плену</h3>
+      <p>В 1525 году под Павией армия Франции была разбита, а сам король попал в плен и провёл больше года в испанском плену. Узнав о разгроме, он написал матери знаменитую фразу:</p>
+      <p class="big">«Мадам, всё потеряно, кроме чести».</p>
+      <p>Чтобы выйти на свободу, Франциск подписал Мадридский договор с отказом от Италии и Бургундии — а оказавшись на воле, объявил, что подписал его по принуждению, и продолжил войну.</p>
+    </div>
+    <p class="note" style="margin-top:4mm; width:176mm">Бонус-факты: по преданию, Леонардо да Винчи умер в 1519 году на руках у Франциска. А купленную «Мону Лизу» король держал… в своей ванной комнате во дворце Фонтенбло.</p>
+  </div>
+  <img class="sideimg" src="/home/user1/.openclaw/workspace/francis1-assets/f1-tower.png">
+  <div class="foot">Франциск I · 1515–1547</div>
+</section>
+
+</body>
+</html>
