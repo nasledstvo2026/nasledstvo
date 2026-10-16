@@ -63,6 +63,12 @@ Things like:
 - ⚠️ `publish-report.sh` делает `git add -A` — любые мусорные файлы в workspace (напр. `advg.out`/`advg.err` от 18.09.2026) уезжают в коммит Pages. Проверять `git status` перед публикацией
 
 ### Сбор жалоб по наследству (search-agent / katya)
+- ✅ (16.10.2026) Сборщик `scripts/katya_collect.py`: banki (`?type=all&page=1..12`), pravoved (лента Next.js JSON + поиск SSR-HTML), pikabu (тег, cp1251, `data-story-id`/`data-timestamp`), advgazeta (HTML). Пишет `/tmp/raw_complaints.txt` + `/tmp/filtered.json`, считает счётчики и блокировки. Кэш в `req()` (файл <15 мин — без нового запроса).
+- ⚠️ У банка в ленте `?type=all` встроенный JSON `data-module-options` → `responses.data[]` содержит полный `title`/`text`/`company.name`/`dateCreate`. Карточки качать НЕ нужно.
+- Урожайность banki ~0,3% (1 наследственная на ~270 отзывов полного потока). За прогон 12 стр. (~300 отзывов ≈ 5 ч потока) — обычно 0–1 кейс.
+- pravoved `/search/?q=` — SSR-страница (БЕЗ `__NEXT_DATA__`), результаты в `<article class="questionBody">` / `divH3 a` — но выдача архивная (2016–2021), почти всё уже в seen.
+
+### Сбор жалоб по наследству (search-agent / katya) — старое
 - ⚠️ banki.ru: дефолтная лента `/services/responses/list/?page=N` — ЭТО КУРИРУЕМАЯ ВЫБОРКА ~25 отзывов/СУТКИ (свежайший имеет задержку ~15ч). За 7 дней (N=1..18, 450 отзывов) наследственных тем — 0.
 - ✅ ПОЛНЫЙ поток — `/services/responses/list/?type=all&page=N` (25 отзывов за ~25 мин ≈ 1400/сутки; неизвестный type тоже падает в all). Наследственных ≈0,3% (1 на ~300). За 7 дней это ~10 000 отзывов / ~400 страниц → полный обход нереален под лимитом IP.
 - ✅ (01.10.2026) В HTML ленты banki есть `data-module-options='{...}'` (HTML-escaped JSON, ключ `responses.data[]`) с ПОЛНЫМ текстом отзыва (`title`, `text`), `company.name` (банк) и `dateCreate`. Карточки качать НЕ нужно — экономит десятки запросов и снимает риск бана IP. Парсер: `max(re.findall(r"data-module-options='(.*?)'\s", h, re.S), key=len)` → `json.loads(html.unescape(blob))['responses']['data']`.
