@@ -20,9 +20,6 @@
     .stat-card { display:inline-block; min-width:150px; margin:6px 8px 6px 0; padding:16px 18px; border-radius:14px; background:var(--glass-bg); border:1px solid var(--glass-border); }
     .stat-card .num { font-size:30px; font-weight:800; line-height:1.1; }
     .stat-card .lbl { font-size:12px; color:var(--text-dim); margin-top:4px; }
-    .badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:600; margin-left:6px; }
-    .badge-green { background:rgba(126,231,135,.15); color:var(--green); }
-    .badge-yellow { background:rgba(210,153,34,.15); color:var(--yellow); }
     table.bars { width:100%; border-collapse:collapse; font-size:13px; }
     table.bars td { padding:3px 6px; vertical-align:middle; }
     table.bars tr td:first-child { white-space:nowrap; color:var(--text); }
@@ -33,12 +30,13 @@
     h3 { font-size:15px; margin:18px 0 8px; color:var(--text); }
     .meta-grid { font-size:13px; color:var(--text-dim); line-height:1.9; }
     .meta-grid b { color:var(--text); }
+    ul.plain { margin:0; padding-left:20px; font-size:13px; color:var(--text-dim); line-height:1.8; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>📊 Статистика жалоб: наследство в банках РФ</h1>
-    <p class="sub-note">Автоматический отчёт stats-agent · 19.10.2026 08:20 (МСК) · Модель: deepseek/deepseek-v4-flash</p>
+    <p class="sub-note">Автоматический отчёт stats-agent · 20.10.2026 08:20 (МСК) · Модель: deepseek/deepseek-v4-flash</p>
 
     <section class="section">
       <h2>1. Общая статистика по всей базе</h2>
@@ -51,16 +49,16 @@
     <section class="section">
       <h2>2. Топ-10 банков (по всей базе)</h2>
       <table class="bars">
-<tr><td>Сбербанк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:220px"></span></span></td><td class="cnt">48 <span class="pct">(24.5%)</span></td></tr>
-<tr><td>ВТБ</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:87px"></span></span></td><td class="cnt">19 <span class="pct">(9.7%)</span></td></tr>
-<tr><td>ПСБ</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:64px"></span></span></td><td class="cnt">14 <span class="pct">(7.1%)</span></td></tr>
-<tr><td>Газпромбанк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:37px"></span></span></td><td class="cnt">8 <span class="pct">(4.1%)</span></td></tr>
-<tr><td>Т-Банк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:37px"></span></span></td><td class="cnt">8 <span class="pct">(4.1%)</span></td></tr>
-<tr><td>Альфа-Банк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:32px"></span></span></td><td class="cnt">7 <span class="pct">(3.6%)</span></td></tr>
-<tr><td>Совкомбанк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:32px"></span></span></td><td class="cnt">7 <span class="pct">(3.6%)</span></td></tr>
-<tr><td>Ozon Банк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:14px"></span></span></td><td class="cnt">3 <span class="pct">(1.5%)</span></td></tr>
-<tr><td>МТС Банк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:14px"></span></span></td><td class="cnt">3 <span class="pct">(1.5%)</span></td></tr>
-<tr><td>РСХБ</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:14px"></span></span></td><td class="cnt">3 <span class="pct">(1.5%)</span></td></tr>
+<tr><td>Сбербанк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:170px"></span></span></td><td class="cnt">48 <span class="pct">(24.5%)</span></td></tr>
+<tr><td>ВТБ</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:67px"></span></span></td><td class="cnt">19 <span class="pct">(9.7%)</span></td></tr>
+<tr><td>ПСБ</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:50px"></span></span></td><td class="cnt">14 <span class="pct">(7.1%)</span></td></tr>
+<tr><td>Газпромбанк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:28px"></span></span></td><td class="cnt">8 <span class="pct">(4.1%)</span></td></tr>
+<tr><td>Т-Банк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:28px"></span></span></td><td class="cnt">8 <span class="pct">(4.1%)</span></td></tr>
+<tr><td>Альфа-Банк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:25px"></span></span></td><td class="cnt">7 <span class="pct">(3.6%)</span></td></tr>
+<tr><td>Совкомбанк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:25px"></span></span></td><td class="cnt">7 <span class="pct">(3.6%)</span></td></tr>
+<tr><td>Ozon Банк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:11px"></span></span></td><td class="cnt">3 <span class="pct">(1.5%)</span></td></tr>
+<tr><td>МТС Банк</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:11px"></span></span></td><td class="cnt">3 <span class="pct">(1.5%)</span></td></tr>
+<tr><td>РСХБ</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:11px"></span></span></td><td class="cnt">3 <span class="pct">(1.5%)</span></td></tr>
 <tr class="undef-row"><td>не определён</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-src" style="width:220px"></span></span></td><td class="cnt">62 <span class="pct">(31.6%)</span></td></tr>
       </table>
       <p class="sub-note">«не определён» — жалобы, где банк не указан в тексте/сниппете (в топ-10 не входит). Прочие банки за пределами топ-10: 14 жалоб (всего банков вне «не определён»: 19).</p>
@@ -121,7 +119,7 @@
 <tr><td>2026-09</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-month" style="width:156px"></span></span></td><td class="cnt">22</td></tr>
 <tr><td>2026-10</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-month" style="width:57px"></span></span></td><td class="cnt">8</td></tr>
       </table>
-      <p class="sub-note">Максимум: 31 жалоб в месяц (2026-08). Последний месяц в базе: 2026-10 — 8 жалоб (месяц не завершён).</p>
+      <p class="sub-note">Всего месяцев с жалобами: 51. Пик — 2026-08 (31 жалоб).</p>
     </section>
 
     <section class="section">
@@ -138,46 +136,31 @@
 <tr><td>kp.ru</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-src" style="width:4px"></span></span></td><td class="cnt">1 <span class="pct">(0.5%)</span></td></tr>
 <tr><td>kurskcity.ru</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-src" style="width:4px"></span></span></td><td class="cnt">1 <span class="pct">(0.5%)</span></td></tr>
       </table>
-      <p class="sub-note">Всего источников: 10. Основной: banki.ru — 103 жалоб (52.6%).</p>
+      <p class="sub-note">Основной источник — banki.ru (52.6% всей базы).</p>
     </section>
 
     <section class="section">
-      <h2>5. За последние 7 дней</h2>
-      
-    <div class="stat-card"><div class="num">2</div><div class="lbl">новых жалоб за 7 дней</div></div>
-    <div class="stat-card"><div class="num">2</div><div class="lbl">verified</div></div>
-    <div class="stat-card"><div class="num">0</div><div class="lbl">needs_review</div></div>
-    <p class="sub-note">Окно: <b>2026-10-12</b> — <b>2026-10-19</b> · доля от всей базы: 1.0%</p>
-    <h3>По банкам (окно)</h3>
-    <table class="bars"><tr><td>Уралсиб</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:220px"></span></span></td><td class="cnt">1 <span class="pct">(50.0%)</span></td></tr>
-<tr><td>не определён</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-other" style="width:220px"></span></span></td><td class="cnt">1 <span class="pct">(50.0%)</span></td></tr></table>
-    <h3>По датам (окно)</h3>
-    <table class="bars"><tr><td>2026-10-12</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-month" style="width:220px"></span></span></td><td class="cnt">1</td></tr>
-<tr><td>2026-10-16</td><td style="width:100%"><span class="bar-track"><span class="bar-fill bar-month" style="width:220px"></span></span></td><td class="cnt">1</td></tr></table>
-    <h3>Список жалоб (окно)</h3>
-    <ul class="entry-list"><li>
-    <div class="e-title">Неудобная работа банка<span class="badge badge-green">verified</span></div>
-    <div class="e-meta">2026-10-16 · Уралсиб · banki.ru</div>
-    <div class="e-desc">Клиент Уралсиба не смог получить деньги по свидетельству о праве на наследство: в ближайшем отделении нет кассы, поэтому за наличными надо ехать в другое отделение. За зачисление наследственных средств на карту банк требует комиссию, а само свидетельство отправляют на небыструю проверку юристам (до суток).</div>
-    <a href="https://www.banki.ru/services/responses/bank/response/13465181/" target="_blank" rel="noopener">https://www.banki.ru/services/responses/bank/response/13465181/</a>
-  </li>
-<li>
-    <div class="e-title">Нужно ли выплачивать долг по кредиту умершего мужа после вступления в наследство?<span class="badge badge-green">verified</span></div>
-    <div class="e-meta">2026-10-12 · не определён · pravoved.ru</div>
-    <div class="e-desc">Пользователь наследует кредитный долг умершего мужа. После вступления в наследство банк требует оплатить всю сумму долга, возникшего за 6 месяцев до вступления в наследство. Автор спрашивает, правомерно ли такое требование банка.</div>
-    <a href="https://pravoved.ru/question/5055977/" target="_blank" rel="noopener">https://pravoved.ru/question/5055977/</a>
-  </li></ul>
+      <h2>5. За последние 7 дней (13.10–20.10.2026)</h2>
+      <div class="stat-card"><div class="num">1</div><div class="lbl">новых жалоб за окно</div></div>
+      <div class="stat-card"><div class="num">1</div><div class="lbl">verified</div></div>
+      <div class="stat-card"><div class="num">0</div><div class="lbl">needs_review</div></div>
+      <h3>По банкам</h3>
+      <ul class="plain"><li>Уралсиб — <b>1</b></li></ul>
+      <h3>По датам</h3>
+      <ul class="plain"><li>2026-10-16 — <b>1</b></li></ul>
+      <h3>Жалобы окна</h3>
+      <ul class="entry-list"><li><div class="e-title">Уралсиб — Неудобная работа банка</div><div class="e-meta">2026-10-16 · banki.ru · verified</div><div class="e-desc">Клиент Уралсиба не смог получить деньги по свидетельству о праве на наследство: в ближайшем отделении нет кассы, поэтому за наличными надо ехать в другое отделение. За зачисление наследственных средств на карту банк требует комиссию, а само свидетельство отправляют на небыструю проверку юристам (до суток).</div><a href="https://www.banki.ru/services/responses/bank/response/13465181/" target="_blank" rel="noopener">https://www.banki.ru/services/responses/bank/response/13465181/</a></li></ul>
     </section>
 
     <section class="section">
-      <h2>6. Мета</h2>
+      <h2>6. Метаданные отчёта</h2>
       <div class="meta-grid">
-        Дата/время запуска: <b>19.10.2026 08:20 (МСК)</b><br>
-        Сгенерировано агрегатов: <b>2026-10-19T08:20:02+03:00</b><br>
+        Дата/время запуска: <b>20.10.2026 08:20 (Europe/Moscow)</b><br>
         Модель: <b>deepseek/deepseek-v4-flash</b><br>
         Всего записей в базе: <b>196</b><br>
-        Окно: <b>2026-10-12 — 2026-10-19</b> · период базы: <b>2013-06-30 — 2026-10-16</b><br>
-        Источник данных: <b>katya-data.json</b> / <b>katya-summary-7d.json</b>
+        Синхронизация базы: <b>katya_merge.py</b> · добавлено 0, дубликатов 0, база 196 → 196<br>
+        Окно: <b>2026-10-13 — 2026-10-20</b><br>
+        Сгенерировано: <b>2026-10-20T08:20:05+03:00</b>
       </div>
     </section>
   </div>
