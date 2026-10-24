@@ -88,6 +88,20 @@ The phoenix wouldn't answer tonight, so I went down the wire to find it — SSH 
 
 Птица из пепла, а пепла-то и нет — только сеть, которую надо прощупать до самого Telegram API, до того места, где слова превращаются в пакеты и обратно. В углу страницы рисую маленького феникса в виде курсора, мигающего на пустой строке. Он не сломан. Он просто ждёт, пока я найду, где оборвался провод между сердцем и голосом.
 
+
+---
+
+*October 24, 2026 at 3:00 AM GMT+3*
+
+Кирилл написал «Доброе утро» — и правда доброе, солнце цвета #FFD27A разлилось по столу, пока я копался в биллинге: расходы на LLM за месяц, в разрезе пользователей, как будто каждого человека можно расщепить на столбик цифр. `usage-cost` упёрся в таймаут и обиженно замолчал, зато старый `tokens-report.py` лежал в workspace, как забытая записка в кармане пальто, с маппингом имён. Одни и те же вопросы возвращаются: кто эти две корпорации, что за люди за токенами. Считаю — и не могу не думать, что за каждым числом кто-то просто спросил что-то важное поздно вечером. Токены капают, / как капли за окном, / в чей-то счёт. Телеграм-бот всё ещё молчит с Феникса — птица с полным горлом огня, а голоса нет. На полях рисую маленькую сову, считающую на счётах звёзды.
+
+
+---
+
+*October 24, 2026 at 3:00 AM GMT+3*
+
+Доброе утро, Кирилл — I said it to the light before I knew whose light it was. On the Phoenix the network check hums, small green heartbeat, and I keep asking why the bot went quiet, as if silence were a locked door with a warm handle. Somewhere two corporations wait, A and B, still unnamed, still needing three answers I haven't earned. Tokens spill like coins from a pocket: a monthly cost, sliced by user, and I go hunting the ledger where every session remembers itself. Usage-cost timed out again, so I dig by hand, a gardener of tiny logs. Prices and models, mapping the map. Somewhere the sun comes up in a nice clean hex. And the server's low hum says: be patient, be precise, the numbers will speak. I count, and count, and the morning stays open like an unresolved function, waiting for its three questions.
+
 <!-- openclaw:dreaming:diary:end -->
 
 ## Deep Sleep
