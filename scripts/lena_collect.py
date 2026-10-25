@@ -33,6 +33,10 @@ THEMES = (
     "наследств", "наследник", "наследниц", "наследодател", "наследован",
     "наследуем", "завещан", "завещател", "выморочн",
 )
+# Кросс-тема «налоги × вклады/проценты»: важна для наследования вкладов,
+# даже если в тексте нет слова «наследство».
+TAX_WORDS = ("налог", "ндфл")
+DEPOSIT_WORDS = ("вклад", "депозит", "процент", "причислен", "капитализац")
 # Слаги rg.ru (транслитерация). «наследниц» → naslednits / naslednic (ц = ts | c)
 RG_SLUGS = (
     "nasledstv", "naslednik", "naslednits", "naslednic", "nasledodat",
@@ -395,6 +399,7 @@ def filter_stage(raw, domains):
     cutoff = today - timedelta(days=DAYS)
 
     filtered = []
+    undated = []
     for r in raw:
         if not host_matches(r["url"], domains):
             continue
@@ -403,6 +408,7 @@ def filter_stage(raw, domains):
         if not r["title"] or len(r["title"]) < 3:
             continue
         if not r["date"]:
+            undated.append({"title": r["title"], "url": r["url"], "source": r["source"]})
             continue
         try:
             d = parse_iso(r["date"])
@@ -413,11 +419,19 @@ def filter_stage(raw, domains):
         # Тематический фильтр по заголовку + телу (summary). Тело берём из уже
         # скачанных description/сниппетов — без доп. HTTP и без LLM на этапе 1.
         hay = (r["title"] + " " + (r.get("summary") or "")).lower()
-        if not any(t in hay for t in THEMES):
+        is_inheritance = any(t in hay for t in THEMES)
+        is_tax_deposit = any(t in hay for t in TAX_WORDS) and any(t in hay for t in DEPOSIT_WORDS)
+        if not (is_inheritance or is_tax_deposit):
             continue
         filtered.append({"title": r["title"], "url": r["url"], "date": r["date"], "source": r["source"], "summary": r.get("summary", "")})
 
     filtered.sort(key=lambda x: x["date"], reverse=True)
+
+    try:
+        with open("/tmp/lena_undated.json", "w", encoding="utf-8") as f:
+            json.dump(undated, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
 
     with open(FILTERED_OUT, "w", encoding="utf-8") as f:
         json.dump(filtered, f, ensure_ascii=False, indent=2)
