@@ -17,104 +17,176 @@ a.back{color:var(--mut);text-decoration:none;font-size:14px}
 .hero .date{color:var(--acc);font-size:13px;margin-top:10px}
 .section{margin:26px 0;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
 .section h2{margin:0 0 16px;font-size:19px}
-.section h3{margin:18px 0 8px;font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.section h3{margin:20px 0 8px;font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
 .stat-box{padding:14px;border:1px solid var(--line);border-radius:12px;background:#12161d}
 .stat-box .label{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
 .stat-box .num{font-size:28px;font-weight:700;margin-top:4px}
+.stat-box .num.ok{color:var(--ok)}.stat-box .num.rev{color:var(--rev)}
 .note{margin-top:14px;color:var(--mut);font-size:13px}
 table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
 th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
 td.num-cell{font-weight:700;white-space:nowrap}
 td.rank{color:var(--mut);width:26px}
-td.pct{color:var(--mut);white-space:nowrap;width:64px}
-td.barcell{width:38%;padding-right:0}
-.bar{height:8px;border-radius:4px;background:linear-gradient(90deg,#5aa9ff,#3ecf8e);min-width:3px}
-.chart{display:flex;align-items:flex-end;gap:3px;height:190px;padding:12px 0 0;overflow-x:auto;border-bottom:1px solid var(--line)}
-.mcol{flex:0 0 22px;display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative}
-.mbar{background:linear-gradient(180deg,#5aa9ff,#2f6fb5);border-radius:3px 3px 0 0;position:relative;min-height:2px}
-.mbar span{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--mut)}
-.mlabel{font-size:8px;color:var(--mut);transform:rotate(-60deg);transform-origin:center;white-space:nowrap;height:34px;margin-top:4px}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-ul.plain{margin:0;padding-left:18px;font-size:14px}
-ul.plain li{margin:3px 0}
-.entry{border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0;background:#12161d}
-.entry-head{font-size:13px;color:var(--mut);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.entry-head b{color:var(--tx)}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--rev)}
-.dot.ok{background:var(--ok)}
-.tag{font-size:11px;border:1px solid var(--line);padding:1px 7px;border-radius:20px;color:var(--mut)}
-.tag.v{color:var(--rev)}
-.entry-title{font-weight:600;margin:7px 0 4px}
-.entry-desc{font-size:13px;color:var(--mut)}
-.entry-link{font-size:12px;color:var(--acc);word-break:break-all}
-.empty{padding:18px;border:1px dashed var(--line);border-radius:12px;color:var(--mut)}
-.meta{font-size:12px;color:var(--mut);display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+td.mut{color:var(--mut);font-weight:400}
+td.bar-cell{width:34%}
+.bar{display:block;height:8px;border-radius:4px;background:linear-gradient(90deg,#3d7fd8,#5aa9ff);min-width:2px}
+.bar.sm{height:6px;background:linear-gradient(90deg,#2f6f4f,#3ecf8e)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.badge{display:inline-block;padding:1px 8px;border-radius:20px;font-size:11px;font-weight:600;margin-right:8px}
+.badge.ok{background:rgba(62,207,142,.14);color:var(--ok)}
+.badge.rev{background:rgba(245,166,35,.14);color:var(--rev)}
+.entry{padding:14px 0;border-bottom:1px solid var(--line)}
+.entry:last-child{border-bottom:none}
+.entry-top{font-size:12px;margin-bottom:4px}
+.entry-title a{color:var(--acc);text-decoration:none;font-weight:600}
+.entry-desc{color:var(--mut);font-size:13px;margin-top:4px}
+.meta{font-size:13px;color:var(--mut)}
 .meta b{color:var(--tx);font-weight:600}
-.foot{margin-top:24px;color:var(--mut);font-size:12px;text-align:center}
-@media(max-width:680px){.cols{grid-template-columns:1fr}td.barcell{display:none}}
+.zero{padding:16px;border:1px dashed var(--line);border-radius:12px;color:var(--mut);font-size:14px}
+@media(max-width:720px){.two-col{grid-template-columns:1fr}td.bar-cell{display:none}}
 </style>
-<style>.meta-list{display:grid;gap:8px}.meta-list>div{display:flex;justify-content:space-between;gap:16px;padding:9px 12px;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:14px}.meta-list>div span{color:var(--mut)}</style>
 </head>
 <body>
 <div class="container">
 <a class="back" href="index.html">← На главную</a>
+
 <div class="hero">
-<h1>Статистика жалоб — наследство в банках РФ</h1>
-<div class="sub">Накопительная база жалоб наследников на банки: суды по кредитам умерших, блокировки счетов, отказы в выдаче вкладов.</div>
-<div class="date">Отчёт сформирован: 14.11.2026, 08:20 (МСК)</div>
+  <h1>Статистика жалоб: наследство в банках РФ</h1>
+  <div class="sub">Накопительная база обращений и кейсов по наследственным спорам с банками</div>
+  <div class="date">Отчёт сформирован 15.11.2026, 08:20 (МСК)</div>
 </div>
 
 <div class="section">
-<h2>Общая статистика по всей базе</h2>
-<div class="stats-row">
-<div class="stat-box"><div class="label">Всего жалоб</div><div class="num">204</div></div>
-<div class="stat-box"><div class="label">Verified</div><div class="num" style="color:var(--ok)">182</div></div>
-<div class="stat-box"><div class="label">Needs review</div><div class="num" style="color:var(--rev)">22</div></div>
-<div class="stat-box"><div class="label">Банков в базе</div><div class="num">19</div></div>
-</div>
-<div class="note">Период наблюдений: <b>2013-06-30</b> — <b>2026-11-11</b> · без даты: 1 · источников: 10</div>
-</div>
-
-<div class="section">
-<h2>Топ-10 банков по числу жалоб</h2>
-<table>
-<thead><tr><th>#</th><th>Банк</th><th>Жалоб</th><th>Доля</th><th>%</th></tr></thead>
-<tbody><tr><td class="rank">1</td><td>Сбербанк</td><td class="num-cell">48</td><td class="barcell"><div class="bar" style="width:100%"></div></td><td class="pct">23.5%</td></tr><tr><td class="rank">2</td><td>ВТБ</td><td class="num-cell">20</td><td class="barcell"><div class="bar" style="width:42%"></div></td><td class="pct">9.8%</td></tr><tr><td class="rank">3</td><td>ПСБ</td><td class="num-cell">15</td><td class="barcell"><div class="bar" style="width:31%"></div></td><td class="pct">7.4%</td></tr><tr><td class="rank">4</td><td>Т-Банк</td><td class="num-cell">9</td><td class="barcell"><div class="bar" style="width:19%"></div></td><td class="pct">4.4%</td></tr><tr><td class="rank">5</td><td>Альфа-Банк</td><td class="num-cell">8</td><td class="barcell"><div class="bar" style="width:17%"></div></td><td class="pct">3.9%</td></tr><tr><td class="rank">6</td><td>Газпромбанк</td><td class="num-cell">8</td><td class="barcell"><div class="bar" style="width:17%"></div></td><td class="pct">3.9%</td></tr><tr><td class="rank">7</td><td>Совкомбанк</td><td class="num-cell">7</td><td class="barcell"><div class="bar" style="width:15%"></div></td><td class="pct">3.4%</td></tr><tr><td class="rank">8</td><td>Ozon Банк</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:6%"></div></td><td class="pct">1.5%</td></tr><tr><td class="rank">9</td><td>МТС Банк</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:6%"></div></td><td class="pct">1.5%</td></tr><tr><td class="rank">10</td><td>РСХБ</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:6%"></div></td><td class="pct">1.5%</td></tr></tbody></table>
-<div class="note">Банк не определён: <b>66</b> жалоб (32.4%) — в топ не включён.</div>
+  <h2>1. Общая статистика по всей базе</h2>
+  <div class="stats-row">
+    <div class="stat-box"><div class="label">Всего жалоб</div><div class="num">204</div></div>
+    <div class="stat-box"><div class="label">Проверено</div><div class="num ok">182</div></div>
+    <div class="stat-box"><div class="label">Требует проверки</div><div class="num rev">22</div></div>
+    <div class="stat-box"><div class="label">Банков в топ-10</div><div class="num">10</div></div>
+  </div>
+  <div class="note">Период наблюдений: <b>2013-06-30</b> — <b>2026-11-11</b>.
+  Доля подтверждённых записей — 89,2%.
+  Записей без даты: 1.</div>
 </div>
 
 <div class="section">
-<h2>Динамика по месяцам</h2>
-<table>
-<thead><tr><th>Месяц</th><th>Жалоб</th><th>Доля</th></tr></thead>
-<tbody><tr><td>июн 2013</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>дек 2013</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>фев 2016</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>апр 2016</td><td class="num-cell">2</td><td class="barcell"><div class="bar" style="width:6%"></div></td></tr><tr><td>июн 2016</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>сен 2016</td><td class="num-cell">2</td><td class="barcell"><div class="bar" style="width:6%"></div></td></tr><tr><td>май 2017</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>авг 2017</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>сен 2017</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>дек 2017</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>окт 2018</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>дек 2018</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>мар 2019</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>май 2019</td><td class="num-cell">2</td><td class="barcell"><div class="bar" style="width:6%"></div></td></tr><tr><td>мар 2020</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>апр 2020</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>июл 2020</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>окт 2020</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>ноя 2020</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>янв 2021</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>мар 2021</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>дек 2021</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>мар 2022</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>июн 2022</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>июл 2022</td><td class="num-cell">2</td><td class="barcell"><div class="bar" style="width:6%"></div></td></tr><tr><td>окт 2022</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>янв 2023</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>фев 2023</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>май 2023</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>дек 2024</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>янв 2025</td><td class="num-cell">8</td><td class="barcell"><div class="bar" style="width:26%"></div></td></tr><tr><td>фев 2025</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:10%"></div></td></tr><tr><td>мар 2025</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:10%"></div></td></tr><tr><td>апр 2025</td><td class="num-cell">8</td><td class="barcell"><div class="bar" style="width:26%"></div></td></tr><tr><td>май 2025</td><td class="num-cell">7</td><td class="barcell"><div class="bar" style="width:23%"></div></td></tr><tr><td>июн 2025</td><td class="num-cell">4</td><td class="barcell"><div class="bar" style="width:13%"></div></td></tr><tr><td>июл 2025</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:10%"></div></td></tr><tr><td>авг 2025</td><td class="num-cell">5</td><td class="barcell"><div class="bar" style="width:16%"></div></td></tr><tr><td>сен 2025</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:10%"></div></td></tr><tr><td>ноя 2025</td><td class="num-cell">2</td><td class="barcell"><div class="bar" style="width:6%"></div></td></tr><tr><td>дек 2025</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:10%"></div></td></tr><tr><td>янв 2026</td><td class="num-cell">5</td><td class="barcell"><div class="bar" style="width:16%"></div></td></tr><tr><td>фев 2026</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>мар 2026</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>апр 2026</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>май 2026</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:3%"></div></td></tr><tr><td>июн 2026</td><td class="num-cell">26</td><td class="barcell"><div class="bar" style="width:84%"></div></td></tr><tr><td>июл 2026</td><td class="num-cell">17</td><td class="barcell"><div class="bar" style="width:55%"></div></td></tr><tr><td>авг 2026</td><td class="num-cell">31</td><td class="barcell"><div class="bar" style="width:100%"></div></td></tr><tr><td>сен 2026</td><td class="num-cell">22</td><td class="barcell"><div class="bar" style="width:71%"></div></td></tr><tr><td>окт 2026</td><td class="num-cell">13</td><td class="barcell"><div class="bar" style="width:42%"></div></td></tr><tr><td>ноя 2026</td><td class="num-cell">2</td><td class="barcell"><div class="bar" style="width:6%"></div></td></tr></tbody></table>
-<div class="note">Всего месяцев с записями: 52 · сумма по месяцам: 203 · без даты: 1</div>
+  <h2>2. Топ-10 банков</h2>
+  <table>
+    <thead><tr><th>#</th><th>Банк</th><th>Жалоб</th><th>Распределение</th><th>Доля</th></tr></thead>
+    <tbody><tr>
+<td class="rank">1</td><td>Сбербанк</td><td class="num-cell">48</td>
+<td class="bar-cell"><span class="bar" style="width:100.0%"></span></td>
+<td class="num-cell mut">23,5%</td></tr><tr>
+<td class="rank">2</td><td>ВТБ</td><td class="num-cell">20</td>
+<td class="bar-cell"><span class="bar" style="width:41.7%"></span></td>
+<td class="num-cell mut">9,8%</td></tr><tr>
+<td class="rank">3</td><td>ПСБ</td><td class="num-cell">15</td>
+<td class="bar-cell"><span class="bar" style="width:31.3%"></span></td>
+<td class="num-cell mut">7,4%</td></tr><tr>
+<td class="rank">4</td><td>Т-Банк</td><td class="num-cell">9</td>
+<td class="bar-cell"><span class="bar" style="width:18.8%"></span></td>
+<td class="num-cell mut">4,4%</td></tr><tr>
+<td class="rank">5</td><td>Альфа-Банк</td><td class="num-cell">8</td>
+<td class="bar-cell"><span class="bar" style="width:16.7%"></span></td>
+<td class="num-cell mut">3,9%</td></tr><tr>
+<td class="rank">6</td><td>Газпромбанк</td><td class="num-cell">8</td>
+<td class="bar-cell"><span class="bar" style="width:16.7%"></span></td>
+<td class="num-cell mut">3,9%</td></tr><tr>
+<td class="rank">7</td><td>Совкомбанк</td><td class="num-cell">7</td>
+<td class="bar-cell"><span class="bar" style="width:14.6%"></span></td>
+<td class="num-cell mut">3,4%</td></tr><tr>
+<td class="rank">8</td><td>МТС Банк</td><td class="num-cell">3</td>
+<td class="bar-cell"><span class="bar" style="width:6.3%"></span></td>
+<td class="num-cell mut">1,5%</td></tr><tr>
+<td class="rank">9</td><td>РСХБ</td><td class="num-cell">3</td>
+<td class="bar-cell"><span class="bar" style="width:6.3%"></span></td>
+<td class="num-cell mut">1,5%</td></tr><tr>
+<td class="rank">10</td><td>Уралсиб</td><td class="num-cell">3</td>
+<td class="bar-cell"><span class="bar" style="width:6.3%"></span></td>
+<td class="num-cell mut">1,5%</td></tr></tbody>
+  </table>
+  <div class="note">Отдельной строкой: <b>«не определён» — 66</b> жалоб (32,4%). В топ не включён; это записи, где банк не назван в тексте источника.</div>
 </div>
 
 <div class="section">
-<h2>Источники</h2>
-<table>
-<thead><tr><th>Источник</th><th>Жалоб</th><th>Доля</th><th>%</th></tr></thead>
-<tbody><tr><td>banki.ru</td><td class="num-cell">107</td><td class="barcell"><div class="bar" style="width:100%"></div></td><td class="pct">52.5%</td></tr><tr><td>pravoved.ru</td><td class="num-cell">54</td><td class="barcell"><div class="bar" style="width:50%"></div></td><td class="pct">26.5%</td></tr><tr><td>pikabu.ru</td><td class="num-cell">32</td><td class="barcell"><div class="bar" style="width:30%"></div></td><td class="pct">15.7%</td></tr><tr><td>otzovik.com</td><td class="num-cell">3</td><td class="barcell"><div class="bar" style="width:3%"></div></td><td class="pct">1.5%</td></tr><tr><td>2gis.ru</td><td class="num-cell">2</td><td class="barcell"><div class="bar" style="width:2%"></div></td><td class="pct">1.0%</td></tr><tr><td>advgazeta.ru</td><td class="num-cell">2</td><td class="barcell"><div class="bar" style="width:2%"></div></td><td class="pct">1.0%</td></tr><tr><td>argumenti.ru</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:1%"></div></td><td class="pct">0.5%</td></tr><tr><td>findozor.net</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:1%"></div></td><td class="pct">0.5%</td></tr><tr><td>kp.ru</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:1%"></div></td><td class="pct">0.5%</td></tr><tr><td>kurskcity.ru</td><td class="num-cell">1</td><td class="barcell"><div class="bar" style="width:1%"></div></td><td class="pct">0.5%</td></tr></tbody></table>
+  <h2>3. Динамика по месяцам</h2>
+  <div class="two-col">
+    <div>
+      <h3>2026 — по месяцам</h3>
+      <table><tbody><tr><td>янв 2026</td><td class="num-cell">5</td><td class="bar-cell"><span class="bar sm" style="width:16.1%"></span></td></tr><tr><td>фев 2026</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>мар 2026</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>апр 2026</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>май 2026</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>июн 2026</td><td class="num-cell">26</td><td class="bar-cell"><span class="bar sm" style="width:83.9%"></span></td></tr><tr><td>июл 2026</td><td class="num-cell">17</td><td class="bar-cell"><span class="bar sm" style="width:54.8%"></span></td></tr><tr><td>авг 2026</td><td class="num-cell">31</td><td class="bar-cell"><span class="bar sm" style="width:100.0%"></span></td></tr><tr><td>сен 2026</td><td class="num-cell">22</td><td class="bar-cell"><span class="bar sm" style="width:71.0%"></span></td></tr><tr><td>окт 2026</td><td class="num-cell">13</td><td class="bar-cell"><span class="bar sm" style="width:41.9%"></span></td></tr><tr><td>ноя 2026</td><td class="num-cell">2</td><td class="bar-cell"><span class="bar sm" style="width:6.5%"></span></td></tr></tbody></table>
+    </div>
+    <div>
+      <h3>2025 — по месяцам</h3>
+      <table><tbody><tr><td>янв 2025</td><td class="num-cell">8</td><td class="bar-cell"><span class="bar sm" style="width:25.8%"></span></td></tr><tr><td>фев 2025</td><td class="num-cell">3</td><td class="bar-cell"><span class="bar sm" style="width:9.7%"></span></td></tr><tr><td>мар 2025</td><td class="num-cell">3</td><td class="bar-cell"><span class="bar sm" style="width:9.7%"></span></td></tr><tr><td>апр 2025</td><td class="num-cell">8</td><td class="bar-cell"><span class="bar sm" style="width:25.8%"></span></td></tr><tr><td>май 2025</td><td class="num-cell">7</td><td class="bar-cell"><span class="bar sm" style="width:22.6%"></span></td></tr><tr><td>июн 2025</td><td class="num-cell">4</td><td class="bar-cell"><span class="bar sm" style="width:12.9%"></span></td></tr><tr><td>июл 2025</td><td class="num-cell">3</td><td class="bar-cell"><span class="bar sm" style="width:9.7%"></span></td></tr><tr><td>авг 2025</td><td class="num-cell">5</td><td class="bar-cell"><span class="bar sm" style="width:16.1%"></span></td></tr><tr><td>сен 2025</td><td class="num-cell">3</td><td class="bar-cell"><span class="bar sm" style="width:9.7%"></span></td></tr><tr><td>ноя 2025</td><td class="num-cell">2</td><td class="bar-cell"><span class="bar sm" style="width:6.5%"></span></td></tr><tr><td>дек 2025</td><td class="num-cell">3</td><td class="bar-cell"><span class="bar sm" style="width:9.7%"></span></td></tr></tbody></table>
+    </div>
+  </div>
+  <h3>2013–2024 — по месяцам</h3>
+  <table><tbody><tr><td>июн 2013</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>дек 2013</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>фев 2016</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>апр 2016</td><td class="num-cell">2</td><td class="bar-cell"><span class="bar sm" style="width:6.5%"></span></td></tr><tr><td>июн 2016</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>сен 2016</td><td class="num-cell">2</td><td class="bar-cell"><span class="bar sm" style="width:6.5%"></span></td></tr><tr><td>май 2017</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>авг 2017</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>сен 2017</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>дек 2017</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>окт 2018</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>дек 2018</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>мар 2019</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>май 2019</td><td class="num-cell">2</td><td class="bar-cell"><span class="bar sm" style="width:6.5%"></span></td></tr><tr><td>мар 2020</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>апр 2020</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>июл 2020</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>окт 2020</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>ноя 2020</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>янв 2021</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>мар 2021</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>дек 2021</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>мар 2022</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>июн 2022</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>июл 2022</td><td class="num-cell">2</td><td class="bar-cell"><span class="bar sm" style="width:6.5%"></span></td></tr><tr><td>окт 2022</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>янв 2023</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>фев 2023</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>май 2023</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr><tr><td>дек 2024</td><td class="num-cell">1</td><td class="bar-cell"><span class="bar sm" style="width:3.2%"></span></td></tr></tbody></table>
+  <div class="note">Максимум за месяц: 31 жалоб. Всего месяцев с записями: 52.</div>
 </div>
 
 <div class="section">
-<h2>За последние 7 дней</h2>
-<div class="stats-row"><div class="stat-box"><div class="label">Жалоб за 7 дней</div><div class="num">1</div></div><div class="stat-box"><div class="label">Verified</div><div class="num" style="color:var(--ok)">1</div></div><div class="stat-box"><div class="label">Needs review</div><div class="num" style="color:var(--rev)">0</div></div></div><div class="note">Окно: 2026-11-07 — 2026-11-14 · по банкам: <span class="chip">Т-Банк — 1</span></div><table><thead><tr><th>Дата</th><th>Жалоб</th></tr></thead><tbody><tr><td>2026-11-11</td><td class="num-cell">1</td></tr></tbody></table><h3 style="font-size:16px;margin:22px 0 10px">Поступившие жалобы</h3><div class="entry"><div class="entry-head"><span class="tag">Т-Банк</span><span class="tag src">banki.ru</span><span class="ver verified">verified</span><span class="entry-date">2026-11-11</span></div><div class="entry-title"><a href="https://www.banki.ru/services/responses/bank/response/13561298/" target="_blank" rel="noopener">Т-Банк подал в суд за уже оплаченный долг наследника. Сплошная путаница, бюрократия и убытки по вине банка</a></div><div class="entry-desc">После смерти матери единственный наследник через заочные решения получил переоформленные на него кредиты Т-Банка; банк взыскал через суд долг по договору, который был полностью погашен ещё в апреле 2025 (51 500 ₽) и подтверждён банком как закрытый, передал лист приставам, из-за чего начислен исполнительский сбор. По второму кредиту суммы взыскания (44 886 / 48 886 ₽) не бьются с данными чата (−33 790 ₽), выписки по счетам не выдают.</div></div>
+  <h2>4. Источники</h2>
+  <table>
+    <thead><tr><th>Источник</th><th>Жалоб</th><th>Распределение</th><th>Доля</th></tr></thead>
+    <tbody><tr><td>banki.ru</td><td class="num-cell">107</td>
+<td class="bar-cell"><span class="bar" style="width:100.0%"></span></td>
+<td class="num-cell mut">52,5%</td></tr><tr><td>pravoved.ru</td><td class="num-cell">54</td>
+<td class="bar-cell"><span class="bar" style="width:50.5%"></span></td>
+<td class="num-cell mut">26,5%</td></tr><tr><td>pikabu.ru</td><td class="num-cell">32</td>
+<td class="bar-cell"><span class="bar" style="width:29.9%"></span></td>
+<td class="num-cell mut">15,7%</td></tr><tr><td>otzovik.com</td><td class="num-cell">3</td>
+<td class="bar-cell"><span class="bar" style="width:2.8%"></span></td>
+<td class="num-cell mut">1,5%</td></tr><tr><td>2gis.ru</td><td class="num-cell">2</td>
+<td class="bar-cell"><span class="bar" style="width:1.9%"></span></td>
+<td class="num-cell mut">1,0%</td></tr><tr><td>advgazeta.ru</td><td class="num-cell">2</td>
+<td class="bar-cell"><span class="bar" style="width:1.9%"></span></td>
+<td class="num-cell mut">1,0%</td></tr><tr><td>argumenti.ru</td><td class="num-cell">1</td>
+<td class="bar-cell"><span class="bar" style="width:0.9%"></span></td>
+<td class="num-cell mut">0,5%</td></tr><tr><td>findozor.net</td><td class="num-cell">1</td>
+<td class="bar-cell"><span class="bar" style="width:0.9%"></span></td>
+<td class="num-cell mut">0,5%</td></tr><tr><td>kp.ru</td><td class="num-cell">1</td>
+<td class="bar-cell"><span class="bar" style="width:0.9%"></span></td>
+<td class="num-cell mut">0,5%</td></tr><tr><td>kurskcity.ru</td><td class="num-cell">1</td>
+<td class="bar-cell"><span class="bar" style="width:0.9%"></span></td>
+<td class="num-cell mut">0,5%</td></tr></tbody>
+  </table>
 </div>
 
 <div class="section">
-<h2>Meta</h2>
-<div class="meta-list">
-<div><span>Дата и время запуска</span><b>14.11.2026, 08:20 (МСК)</b></div>
-<div><span>Модель</span><b>deepseek/deepseek-v4-flash</b></div>
-<div><span>Всего записей в базе</span><b>204</b></div>
-<div><span>Агрегаты сформированы</span><b>2026-11-14T08:20:08+03:00</b></div>
-<div><span>Окно</span><b>2026-11-07 — 2026-11-14</b></div>
+  <h2>5. За последние 7 дней</h2>
+  <div class="stats-row">
+    <div class="stat-box"><div class="label">Новых жалоб</div><div class="num">1</div></div>
+    <div class="stat-box"><div class="label">Проверено</div><div class="num ok">1</div></div>
+    <div class="stat-box"><div class="label">Требует проверки</div><div class="num rev">0</div></div>
+    <div class="stat-box"><div class="label">Окно</div><div class="num" style="font-size:16px;padding-top:8px">2026-11-08 — 2026-11-15</div></div>
+  </div>
+  
+  <div class="two-col" style="margin-top:18px">
+    <div><h3>По банкам</h3><table><tbody><tr><td>Т-Банк</td><td class="num-cell">1</td></tr></tbody></table></div>
+    <div><h3>По датам</h3><table><tbody><tr><td>2026-11-11</td><td class="num-cell">1</td></tr></tbody></table></div>
+  </div>
+  <h3>Записи окна</h3>
+  <div class="entry">
+<div class="entry-top"><span class="badge ok">verified</span>
+<span class="mut">2026-11-11 · Т-Банк · banki.ru</span></div>
+<div class="entry-title"><a href="https://www.banki.ru/services/responses/bank/response/13561298/" target="_blank" rel="noopener">Т-Банк подал в суд за уже оплаченный долг наследника. Сплошная путаница, бюрократия и убытки по вине банка</a></div>
+<div class="entry-desc">После смерти матери единственный наследник через заочные решения получил переоформленные на него кредиты Т-Банка; банк взыскал через суд долг по договору, который был полностью погашен ещё в апреле 2025 (51 500 ₽) и подтверждён банком как закрытый, передал лист приставам, из-за чего начислен исполнительский сбор. По второму кредиту суммы взыскания (44 886 / 48 886 ₽) не бьются с данными чата (−33 790 ₽), выписки по счетам не выдают.</div></div>
 </div>
+
+<div class="section">
+  <h2>6. Мета</h2>
+  <div class="meta">
+    <div>Дата и время запуска: <b>15.11.2026, 08:20 (Europe/Moscow)</b></div>
+    <div>Модель: <b>deepseek/deepseek-v4-flash</b></div>
+    <div>Всего записей в базе: <b>204</b></div>
+    <div>Синхронизация: <b>katya_merge.py</b> — добавлено 0, дубликатов 2, отклонено 1</div>
+    <div>Источник агрегатов: <b>katya-summary-7d.json</b> (2026-11-15T08:20:09+03:00)</div>
+  </div>
 </div>
+
 </div>
 </body>
 </html>
