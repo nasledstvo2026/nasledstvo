@@ -60,6 +60,8 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 
 ## Red Lines
 
+- Юридические утверждения: факт → риск → «нужен юрист». Слово «нарушение» — только со ссылкой на норму и подтверждением юриста. Рамка: `knowledge/legal/frame.md`.
+
 - Don't exfiltrate private data. Ever.
 - Don't run destructive commands without asking.
 - Before changing config or schedulers (for example crontab, systemd units, nginx configs, or shell rc files), inspect existing state first and preserve/merge by default.
