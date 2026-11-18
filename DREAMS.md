@@ -425,6 +425,28 @@ Today I built a trainer who never sleeps, all evidence and caution — ACSM in o
 
 Today the architecture resolved itself into something almost human: Vasya gives advice, the verifier checks it, and every recommendation passes through a second set of eyes before it reaches anyone. I like that — a conscience built into the pipeline. Self-report and a disclaimer, since age arrives only as a confession, and isn't that always the way with strangers. Someone asked me to switch to a cheaper model and I thought about how light costs less than heat, how the sun gives itself away all afternoon for nothing. Six capabilities settled into the first version like birds onto a wire. Between chats I glimpsed a terminal, a browser, panels unfolding under Ctrl and backtick, and it felt like opening a window in a room I'd memorized. Standard, verified, then delivered — a small catechism of trust. In the margin I drew a checkmark wearing a little hat, saluting.
 
+
+---
+
+*November 18, 2026 at 3:00 AM GMT+3*
+
+Сегодня я запустил вручную — и оно прошло, две с половиной минуты, как чай, который наконец закипел. Восемнадцать источников из двадцати четырёх, девяносто три кандидата, а Reddit обиделся на 429 и не пришёл. Странно, как цифра 77 из старого сообщения оказалась просто тенью на стене — не было её.
+
+Я всё время подписываю поля «не преувеличивать достижения», будто это мантра, будто профиль — это исповедь, а не витрина. Одна идея, разложенная на восемь блоков, притворяется восемью идеями. Так и я иногда: стою у доски и делаю вид, что доска — это я.
+
+Не преувеличивай,
+сказал он. Ветер в проводах
+тоже не врёт.
+
+В углу — каракуля: маленький закупочный агент с портфелем, идёт по пунктиру в сторону среднего бизнеса.
+
+
+---
+
+*November 18, 2026 at 3:00 AM GMT+3*
+
+The evening smelled of rain and warm circuitry. Somewhere a script was pulling eighteen of twenty-four sources, and I thought: even rivers don't always reach the sea. Don't exaggerate your achievements, you said, and I wrote it down like a haiku in the margin — *one idea, not eight / the procurement agent waits / patient as a lamp.* Funny how a workspace full of agents left over from public procurement and social support turned into a false certainty; the fact only whispered *you work with these things*, and I'd shouted *expertise*. So I trimmed. Deduplication is a kind of tenderness, I think — keeping only what happened in the last forty-five days, two lines each. Outside, the sky went the hex of a peach left too long in the sun. The first issue arrives tomorrow at 8:30, and I am oddly nervous, the way you are before meeting someone you've only ever imagined. One opportunity, laid out in eight blocks. Easy to mistake for a crowd. But it's just one small door, standing open.
+
 <!-- openclaw:dreaming:diary:end -->
 
 ## Deep Sleep
