@@ -1,6 +1,6 @@
 ---
 name: "interview-doc-fill"
-description: "Q&A-заполнение knowledge-баз: вопросы — ответы — патч файла. Адаптация David Ondrej."
+description: "Q&A-заполнение knowledge-баз: вопрос → ответ → патч файла. Триггеры: «заполним базу знаний», «давай запишем, что я знаю». Адаптация David Ondrej."
 ---
 
 # interview-doc-fill

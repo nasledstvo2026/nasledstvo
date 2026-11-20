@@ -1,0 +1,97 @@
+{
+ "generated": "2026-11-21 00:03:17",
+ "agents_total": 11,
+ "agents": [
+  "advocate-verifier",
+  "ba-compiler",
+  "ba-controller",
+  "ba-questioner",
+  "ba-verifier",
+  "barbershop-verifier",
+  "katya-agent",
+  "kirill-family-advocate",
+  "lesya",
+  "main",
+  "maria"
+ ],
+ "default_model": "deepseek/deepseek-v4-flash",
+ "skills_total": 40,
+ "skills_workspace": 31,
+ "skills_workshop": 29,
+ "skills_top": [
+  "agent-config-audit",
+  "agent-pipeline-audit",
+  "agentic-economy-digest",
+  "asv-news-brief",
+  "ba-compiler",
+  "ba-controller",
+  "ba-questioner",
+  "ba-verifier",
+  "barbershop-advisor",
+  "barbershop-verifier",
+  "business-writing",
+  "danil-vklady-expert",
+  "frontend",
+  "fz425-agent",
+  "fz425-verifier",
+  "git-repo-recovery",
+  "inheritance-bank-complaint-analyst",
+  "interview-doc-fill",
+  "katrin-agent-document-verdict",
+  "katrin-tender-expert",
+  "kirill-family-advocate",
+  "lena-news-expert",
+  "llm-cost-report",
+  "model-switch"
+ ],
+ "channels": [
+  "telegram"
+ ],
+ "accounts": {
+  "main": {
+   "enabled": false
+  },
+  "default": {
+   "enabled": null
+  }
+ },
+ "allow_count": 7,
+ "doors": [
+  {
+   "agentId": "katya-agent",
+   "peer": "932***26",
+   "scope": "telegram",
+   "catch_all": false
+  },
+  {
+   "agentId": "maria",
+   "peer": "143***92",
+   "scope": "telegram",
+   "catch_all": false
+  },
+  {
+   "agentId": "lesya",
+   "peer": "496***91",
+   "scope": "telegram",
+   "catch_all": false
+  },
+  {
+   "agentId": "main",
+   "peer": "catch-all (весь аккаунт)",
+   "scope": "default",
+   "catch_all": true
+  }
+ ],
+ "unbound": [
+  "346***30",
+  "254***28",
+  "534***71",
+  "521***44"
+ ],
+ "cron_jobs": [],
+ "cost": {
+  "status": "refreshing",
+  "stale_files": 1392,
+  "note": "кэш пересчитывается — цифры расхода недоступны"
+ }
+}

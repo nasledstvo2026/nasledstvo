@@ -1,6 +1,6 @@
 ---
 name: "ba-verifier"
-description: "BRD Verifier — логический аудитор, RCA Integrity + SMART + лингвистический комплаенс"
+description: "BRD Verifier: проверка RCA, SMART и лингвистической формулы BRD; вызывается Controller-ом после Compiler."
 ---
 
 # ba-verifier — Аудитор BRD
@@ -79,4 +79,4 @@ description: "BRD Verifier — логический аудитор, RCA Integrit
 - Любой ❌ → Verdict=REVISION_NEEDED
 - Controller передаёт этот md_log обратно Compiler-у с iteration+1
 - Макс 2 итерации
-- На 3-й раз → APPROVED_FORCED (Controller ставит сам, Verifier не вызывается)
+- После 2-й ревизии Controller ставит APPROVED_FORCED сам, Verifier не вызывается

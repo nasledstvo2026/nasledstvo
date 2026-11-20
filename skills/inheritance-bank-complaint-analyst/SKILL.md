@@ -1,6 +1,6 @@
 ---
 name: "inheritance-bank-complaint-analyst"
-description: "Анализ жалоб по наследству в банках РФ: поиск, верификация, сводка, статистика"
+description: "Анализ жалоб по наследству в банках РФ: поиск, верификация, сводка Кате, статистика и публикация отчёта. Триггеры: «покажи статистику жалоб», «проверь жалобу/URL», ежедневная сводка ~11:00."
 ---
 
 # inheritance-bank-complaint-analyst
@@ -19,7 +19,7 @@ description: "Анализ жалоб по наследству в банках 
 
 **Состав источников — утверждён 28.08.2026 (FR-01), проверено живыми пробами.**
 Отчёт: `docs/complaints-monitoring/source-parsing-2026-08-27.md`.
-Перепроверить источники: `python3 scripts/katya_source_probe.py`.
+Перепроверить источники: `python3 /home/user1/.openclaw/workspace/scripts/katya_source_probe.py`.
 
 ❗ **Правило темпа:** не быстрее **1 запроса в 2 секунды** к одному домену.
 Пачка запросов (78 за 9 с) → banki.ru банит IP на ~1,5 часа (`http=000`).
@@ -57,29 +57,10 @@ advgazeta.ru: https://www.advgazeta.ru/novosti/                    — HTML (RSS
 - pikabu: текст поста без JS **недоступен** (201 КБ / ~350 слов, `og:description` нет) → классификация по заголовку и сниппету из ленты
 
 #### ❌ Не использовать (проверено 27–28.08.2026)
-| Домен | Причина |
-|---|---|
-| 9111.ru | `http 447` — блок IP VPS на ленте и поиске |
-| otzovik.com | лента — JS-заглушка (6 КБ/145 слов), поиск 404; карточки читаются, но списка свежих нет |
-| sravni.ru | тег 404, поиск — 1 упоминание на 471 КБ, `/novosti/` → `/mag/` |
-| asn-news.ru | лента живая, наследственных тем нет |
-| kp.ru | поиск и RSS 404 |
-| SearXNG / web_search | погашен 23.08.2026 / провайдер отключён |
+9111.ru, otzovik.com, sravni.ru, asn-news.ru, kp.ru, SearXNG/web_search — причины отказа, слаги банков и исторические способы сбора: `references/sources-not-working.md`. Читать перед добавлением нового источника или когда живой источник перестал отдавать данные.
 
 **Тематический фильтр (python, без LLM):** стемы `наследств`, `наследник`, `наследодател`,
 `завещан`, `вклад умерш`, `смерти вкладчика` + отсев всего, что есть в `katya-extra-seen.json`.
-
-<details>
-<summary>Исторические способы сбора (не работают, оставлены для контекста)</summary>
-
-- Banki.ru AJAX API `/services/responses/list/ajax/` — с августа 2026 отдаёт 167 КБ без ссылок и текста
-- Страницы топ-15 банков `/services/responses/bank/{slug}/` — слаги: `sberbank`, `vtb`, `alfabank`,
-  `tcs`, `gazprombank`, `sovcombank`, `psb`, `rshb`, `pochtabank`, `uralsib`, `raiffeisen`, `ozon`,
-  `yandex`, `mts`, `rencredit` (можно использовать точечно, пауза 3–5 с)
-- SearXNG `http://localhost:8888/search?q=<query>&format=json` — погашен 23.08.2026
-- Запросы вида `site:banki.ru наследство отказ` — требуют внешнего поисковика
-
-</details>
 
 **Формат результата (katya-raw.json):**
 ```json
@@ -90,7 +71,7 @@ advgazeta.ru: https://www.advgazeta.ru/novosti/                    — HTML (RSS
     "title": "заголовок",
     "text": "текст (первые 300 символов)",
     "url": "полный URL",
-    "source": "banki.ru / otzovik.com / pikabu.ru"
+    "source": "banki.ru / pravoved.ru / pikabu.ru / advgazeta.ru"
   }
 ]
 ```
@@ -98,7 +79,7 @@ advgazeta.ru: https://www.advgazeta.ru/novosti/                    — HTML (RSS
 ### Этап 2. Верификация (verify)
 
 Для каждой записи с URL:
-1. `web_fetch(url)` — проверить, что открывается
+1. Запросить URL тем же curl-запросом с браузерным UA и паузой ≥2 с на домен (см. «Правило темпа»). `web_fetch` на banki.ru отдаёт только баннер — проверка через него даёт ложный «не открывается».
 2. Проверить контекст:
 
 **verified** — всё подтверждено:
@@ -110,9 +91,10 @@ advgazeta.ru: https://www.advgazeta.ru/novosti/                    — HTML (RSS
 - URL открывается, но тема наследства неочевидна
 - ИЛИ это вопрос, а не жалоба
 - ИЛИ отзыв короткий/шаблонный
+- ИЛИ URL не открылся по таймауту или сетевой ошибке (не 404) — повторить в следующем прогоне
 
 **rejected** — не подходит:
-- URL не открывается (404, таймаут)
+- URL не открывается: 404 / страница удалена
 - Это статья юриста / новость / реклама
 - Тема не про наследство (115-ФЗ, антиотмывочное, кредиты)
 - Дубль (такой URL уже был в истории)
@@ -140,7 +122,7 @@ advgazeta.ru: https://www.advgazeta.ru/novosti/                    — HTML (RSS
 banki.ru — N:
 • [Банк] — суть проблемы (url)
 
-otzovik.com — N:
+другие источники (pravoved.ru, pikabu.ru, advgazeta.ru) — N:
 • ...
 
 Итого: N жалоб (из них verified: N, needs_review: N)
@@ -170,6 +152,7 @@ otzovik.com — N:
    ```bash
    cd /home/user1/.openclaw/workspace && bash publish-report.sh reports/stats-inheritance.html stats-inheritance.html
    ```
+   После публикации: `git show --stat HEAD` — в коммите не должно быть посторонних удалений/файлов. Если появились — восстановление по скиллу `git-repo-recovery`.
 
 ### Правила накопления базы (FR-17) — ЖЕЛЕЗНОЕ
 `katya-data.json` — накопительная база ВСЕХ жалоб за всё время. Единственный разрешённый способ записи:
@@ -192,13 +175,6 @@ python3 /home/user1/.openclaw/workspace/scripts/katya_merge.py --dry-run   # п�
   7 дней» превратила базу из 82 записей в 2. Восстановлено 27.08.2026 (124 записи), правило
   зафиксировано скриптом.
 
-### Ключевые слова для поиска
-- наследство + банк + отказ
-- наследство + банк + жалоба
-- умер + банк + не отдают + деньги
-- отказ + наследство + банк + выплата
-- наследство + банк + проблемы
-
 ## Источники
 - `/home/user1/.openclaw/agents/shared/katya-raw.json` — сырые результаты поиска
 - `/home/user1/.openclaw/agents/shared/katya-verified.json` — верифицированные (окно прогона)
@@ -210,5 +186,4 @@ python3 /home/user1/.openclaw/workspace/scripts/katya_merge.py --dry-run   # п�
 
 ## Ошибки
 - Если search не вернул результатов — пропустить verify, сразу написать «нет жалоб»
-- Если verify-agent не отвечает >30 сек — считать результатом needs_review
 - Если публикация не удалась — сохранить HTML локально, сообщить об ошибке

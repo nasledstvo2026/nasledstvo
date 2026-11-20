@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Штаб флота — агентная экономика</title>
+<style>
+:root{--bg:#0b0f14;--card:#131a22;--line:#223041;--txt:#e6edf5;--dim:#8ba0b6;--ok:#4ade80;--warn:#fbbf24;--bad:#f87171;--acc:#7dd3fc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#16324a 0%,transparent 60%),var(--bg);color:var(--txt);font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;padding:28px}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:.5px}h1 span{color:var(--acc)}
+.sub{color:var(--dim);font-size:13px;margin-bottom:22px;font-family:ui-monospace,monospace}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi b{display:block;font-size:30px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi small{color:var(--dim);font-size:12px}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:1.4px;color:var(--dim);margin:26px 0 10px;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.pipe{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-family:ui-monospace,monospace;font-size:13px}
+.node{background:#0e1620;border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+.node.v{border-color:#2c4a3a;color:var(--ok)}
+.arrow{color:var(--dim)}
+.door{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed #1d2836;font-family:ui-monospace,monospace;font-size:13px}
+.door:last-child{border-bottom:0}
+.tag{font-size:11px;padding:2px 7px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+.person{color:var(--acc)}.catch{color:var(--warn)}
+.hole{border-color:#4a2028;background:linear-gradient(180deg,#1c1116,#131a22)}
+.hole b{color:var(--bad)}
+ul{margin:6px 0 0;padding-left:18px}li{margin:3px 0}
+.bar{height:8px;background:#0e1620;border-radius:99px;overflow:hidden;margin-top:8px;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--warn),var(--bad))}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:11px;font-family:ui-monospace,monospace;background:#0e1620;border:1px solid var(--line);border-radius:6px;padding:3px 7px;color:var(--dim)}
+footer{margin-top:28px;color:#5b7186;font-size:11px;font-family:ui-monospace,monospace}
+</style></head><body>
+<h1>ШТАБ <span>ФЛОТА</span></h1>
+<div class="sub" id="sub">загрузка…</div>
+<div class="grid" id="kpi"></div>
+
+<h2>Конвейеры «исполнитель → контролёр»</h2>
+<div class="card"><div class="pipe">
+  <span class="node">ba-controller</span><span class="arrow">→</span><span class="node">ba-questioner</span><span class="arrow">→</span><span class="node">ba-compiler</span><span class="arrow">→</span><span class="node v">ba-verifier</span>
+</div><div class="sub" style="margin:8px 0 0">BRD: интервью → сборка → проверка норм</div></div>
+<div class="card"><div class="pipe">
+  <span class="node">kirill-family-advocate</span><span class="arrow">→</span><span class="node v">advocate-verifier</span>
+</div><div class="sub" style="margin:8px 0 0">Семейное право: ответ → юридическая проверка</div></div>
+<div class="card"><div class="pipe">
+  <span class="node">main + skill barbershop-advisor</span><span class="arrow">→</span><span class="node v">barbershop-verifier</span>
+</div><div class="sub" style="margin:8px 0 0">Барбершоп: совет → проверка цифр и норм</div></div>
+
+<h2>Двери</h2>
+<div class="card" id="doors"></div>
+
+<h2>Долг архитектуры</h2>
+<div class="card hole" id="hole"></div>
+
+<h2>Экономика</h2>
+<div class="card" id="econ"></div>
+
+<h2>Скиллы</h2>
+<div class="card"><div class="sub" id="skillsLine"></div><div class="chips" id="chips"></div></div>
+
+<footer id="foot"></footer>
+<script>
+fetch('data.json?t='+Date.now()).then(r=>r.json()).then(d=>{
+  document.getElementById('sub').textContent = 'снимок '+d.generated+' · источник: ~/.openclaw/openclaw.json + скиллы';
+  const kpis=[[d.agents_total,'агентов'],[d.skills_total,'уникальных скиллов'],[d.doors.length,'дверей'],[d.allow_count,'ID в allowlist'],[d.unbound.length,'без своего агента'],[d.cron_jobs.length,'cron-задач']];
+  document.getElementById('kpi').innerHTML = kpis.map(([n,t])=>'<div class="kpi"><b>'+n+'</b><small>'+t+'</small></div>').join('');
+  document.getElementById('doors').innerHTML = d.doors.map(x=>
+    '<div class="door"><span class="'+(x.catch_all?'catch':'person')+'">'+x.agentId+'</span><span>'+x.peer+(x.catch_all?' <span class="tag">catch-all</span>':'')+'</span></div>').join('');
+  document.getElementById('hole').innerHTML = '<b>'+d.unbound.length+' ID попадают в main</b><ul>'+
+    d.unbound.map(u=>'<li><span class="person">'+u+'</span> — нет своего агента, нет своего воркспейса</li>').join('')+
+    '</ul><div class="sub" style="margin-top:8px">main — самый привилегированный агент: воркспейс, MEMORY.md, полный набор инструментов. Ролевые правила в AGENTS.md — инструкция, а не песочница.</div>';
+  document.getElementById('econ').innerHTML = '<div>модель по умолчанию: <b>'+(d.default_model||'—')+'</b></div>'+
+    '<div class="sub" style="margin-top:6px">'+d.cost.note+'</div><div class="bar"><i style="width:100%"></i></div>'+
+    '<div class="sub" style="margin-top:6px">'+d.cost.stale_files+' файлов stale · статус: '+d.cost.status+'</div>';
+  document.getElementById('skillsLine').textContent = d.skills_total+' уникальных · '+d.skills_workspace+' в workspace · '+d.skills_workshop+' в workshop-скиллах агентов';
+  document.getElementById('chips').innerHTML = d.skills_top.map(s=>'<span class="chip">'+s+'</span>').join('');
+  document.getElementById('foot').textContent = 'сгенерировано агентом main · collect.py → data.json · обновить: python3 collect.py';
+}).catch(e=>{document.getElementById('sub').textContent='ошибка загрузки data.json: '+e});
+</script></body></html>

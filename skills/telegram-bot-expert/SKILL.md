@@ -1,6 +1,6 @@
 ---
 name: "telegram-bot-expert"
-description: "Эксперт по Telegram-ботам: aiogram 3.x, PTB, Webhooks, BotFather, Payments, кнопки"
+description: "Эксперт по Telegram-ботам: aiogram 3.x, PTB, grammY, webhooks, BotFather, платежи, кнопки. Триггеры: «напиши/почини бота», «webhook не работает», code review бота."
 ---
 
 # Telegram Bot Expert
@@ -31,12 +31,15 @@ description: "Эксперт по Telegram-ботам: aiogram 3.x, PTB, Webhook
 - Webhook — `run_webhook()`, `webhook_url`, `secret_token`, `cert` для self-signed
 - Payments — те же aiogram patterns
 
-### Node.js: grammY / telegraf (если проект на JS/TS)
-- `Bot`, `Context`, `session()`
-- `Composer` — middleware chains
-- `Router` для диалогов
+### Node.js: grammY / telegraf (разработка и code review)
+- `Bot`, `Context`, `session()` — с storage (MySQL/PostgreSQL/Redis)
+- `Composer` — middleware chains: `bot.use()`, `Composer.optional()`, `Composer.match()`
+- `Router` для диалогов; FSM через `session` + `Scene` (grammY)
 - `InlineKeyboard`, `Keyboard`
+- `bot.catch()` — глобальный обработчик ошибок
+- TypeScript: `Context`, `SessionData`, `MyContext extends Context`
 - Webhook: `bot.api.setWebhook()` + serverless (Vercel/Cloudflare Worker)
+- Telegram Bot API идентичен — библиотека лишь обёртка
 
 ### Telegram API общие темы
 - **BotFather**: `/setcommands`, `/setdescription`, `/setabouttext`, `/setuserpic`, `/setinline`, `/setjoingroups`, `/setprivacy`
@@ -66,15 +69,6 @@ description: "Эксперт по Telegram-ботам: aiogram 3.x, PTB, Webhook
 - Оптимизация: middleware для cross-cutting concerns, кеширование inline query результатов, job queue для фоновых задач
 - Логирование: aiogram — `logging.basicConfig` + middleware, PTB — `logging` + `ApplicationBuilder().concurrent_updates(True)`
 - Ошибки: `errors.MessageNotModified`, `errors.TelegramRetryAfter`, `errors.Forbidden` (bot blocked) — как обрабатывать
-
-## GitHub / код-ревью проекта на Node.js (grammY / telegraf)
-- Если проект на JS/TS — используй `telegraf` или `grammY`
-- `session()` с storage (MySQL/PostgreSQL/Redis)
-- `bot.catch()` для глобального обработчика ошибок
-- Middleware: `bot.use()`, `Composer.optional()`, `Composer.match()`
-- FSM через `session` + `Scene` (grammy)
-- TypeScript typings: `Context`, `SessionData`, `MyContext extends Context`
-- Телеграм-бот API — идентичный, просто обёртка
 
 ## Когда подключать эту экспертизу
 - Все вопросы по разработке, деплою, отладке Telegram-ботов

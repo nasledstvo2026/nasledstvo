@@ -1,6 +1,6 @@
 ---
 name: "sdd-openspec-workflow"
-description: "Spec-driven разработка по OpenSpec: propose → specs → tasks → validate → archive. Проверено на @fission-ai/openspec v1.13.2."
+description: "Spec-driven разработка по OpenSpec: propose → specs → tasks → validate → archive. Триггеры: «работаем по SDD/OpenSpec», «создай change/спеку». Проверено на @fission-ai/openspec v1.13.2."
 ---
 
 # SDD / OpenSpec Workflow

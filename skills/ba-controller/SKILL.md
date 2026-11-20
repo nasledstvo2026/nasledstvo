@@ -1,6 +1,6 @@
 ---
 name: "ba-controller"
-description: "BRD Controller — оркестратор мультиагентной системы генерации BRD"
+description: "Оркестратор BRD: сессия, интервью через Questioner, сборка, верификация, экспорт .docx. Триггер: «Создать БТ»."
 ---
 
 # ba-controller — Оркестратор BRD
@@ -36,8 +36,8 @@ description: "BRD Controller — оркестратор мультиагентн
   3. Лунт пересылает вопрос пользователю в Telegram
   4. Пользователь отвечает → Лунт присылает ответ Controller-у → Controller передаёт Questioner-у
   5. Повторять шаги 2-4 пока Questioner не завершит интервью и не вернёт md_log с QuestionLog
-- Таймаут на всё интервью: 600 секунд
-- Если Questioner не уложился → сохранить частичный QuestionLog
+- Таймаут простоя: 600 секунд без ответа пользователя (интервью рассчитано на 10–15 минут; глобальный лимит — 30 минут, см. таблицу)
+- Если таймаут или глобальный лимит истёк → сохранить частичный QuestionLog
 - Флаг завершения интервью: поле status=interview_complete в md_log
 
 ### Шаг 3: Запустить Compiler
@@ -59,7 +59,7 @@ description: "BRD Controller — оркестратор мультиагентн
   - Перейти к Шагу 6
 
 ### Шаг 6: Экспорт .docx
-- Запустить скрипт: `scripts/brd-to-docx.py`
+- Запустить скрипт: `python3 /home/user1/.openclaw/workspace/scripts/brd-to-docx.py`
 - Вход: md_log
 - Выход: `bt_<дата>_<UUID>.docx`
 
@@ -76,8 +76,8 @@ description: "BRD Controller — оркестратор мультиагентн
 ## Таймауты
 | Агент | Max time | Fallback |
 |-------|----------|----------|
-| Questioner | 600 сек | Сохранить частичные данные |
-| Compiler | 120 сек | RCA без web_search |
+| Questioner | 600 сек простоя | Сохранить частичные данные |
+| Compiler | 120 сек | RCA без поиска |
 | Verifier | 90 сек | APPROVED_FORCED без верификации |
 | Глобальный | 30 мин | Abort, пользователю «начните заново» |
 
