@@ -5,198 +5,188 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Статистика жалоб — наследство в банках РФ</title>
 <link rel="stylesheet" href="theme.css">
-<style>
-:root{--bg:#0f1115;--card:#171a21;--line:#2a2f3a;--tx:#e8eaed;--mut:#9aa3b2;--acc:#5aa9ff;--ok:#3ecf8e;--rev:#f5a623}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
 .container{max-width:1040px;margin:0 auto;padding:28px 18px 60px}
-a.back{color:var(--mut);text-decoration:none;font-size:14px}
-.hero{margin:18px 0 26px;padding:26px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(150deg,#1b2130,#141821)}
+a.back{color:#9aa3b2;text-decoration:none;font-size:14px}
+.hero{margin:18px 0 26px;padding:26px;border:1px solid #2a2f3a;border-radius:16px;background:linear-gradient(150deg,#1b2130,#141821)}
 .hero h1{margin:0 0 8px;font-size:26px;letter-spacing:-.3px}
-.hero .sub{color:var(--mut);font-size:14px}
-.hero .date{color:var(--acc);font-size:13px;margin-top:10px}
-.section{margin:26px 0;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.hero .sub{color:#9aa3b2;font-size:14px}
+.hero .date{color:#5aa9ff;font-size:13px;margin-top:10px}
+.section{margin:26px 0;padding:20px;border:1px solid #2a2f3a;border-radius:16px;background:#171a21}
 .section h2{margin:0 0 16px;font-size:19px}
+.h3{margin:22px 0 10px;font-size:15px;color:#cfd6e2;font-weight:600}
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
-.stat-box{padding:14px;border:1px solid var(--line);border-radius:12px;background:#12161d}
-.stat-box .label{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.stat-box{padding:14px;border:1px solid #2a2f3a;border-radius:12px;background:#12161d}
+.stat-box .label{font-size:12px;color:#9aa3b2;text-transform:uppercase;letter-spacing:.05em}
 .stat-box .num{font-size:28px;font-weight:700;margin-top:4px}
-.stat-box .num.ok{color:var(--ok)}.stat-box .num.rev{color:var(--rev)}
+.stat-box .num.ok{color:#3ecf8e}.stat-box .num.rev{color:#f5a623}
 .bar-row{display:grid;grid-template-columns:200px 1fr 118px;gap:12px;align-items:center;margin:7px 0;font-size:14px}
 .bar-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bar-label.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut)}
-.bar-track{height:10px;background:#0d1015;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.bar-track{height:10px;background:#0d1015;border:1px solid #2a2f3a;border-radius:6px;overflow:hidden}
 .bar-fill{height:100%;background:linear-gradient(90deg,#2f6fbf,#5aa9ff);border-radius:5px}
 .bar-fill.m{background:linear-gradient(90deg,#1f7a5c,#3ecf8e)}
 .bar-fill.s{background:linear-gradient(90deg,#7a5c1f,#f5a623)}
 .bar-fill.w{background:linear-gradient(90deg,#8a3fa0,#c77dff)}
 .bar-val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
-.muted{color:var(--mut);font-weight:400;font-size:12.5px}
-.chip{display:inline-block;padding:4px 10px;margin:4px 6px 4px 0;border:1px solid var(--line);border-radius:999px;background:#12161d;font-size:13px;color:var(--mut)}
-.note-line{margin-top:12px;padding:10px 14px;border-left:3px solid #f5a623;background:#1c1a14;border-radius:8px;color:var(--mut);font-size:13px}
-.entry{padding:16px;border:1px solid var(--line);border-radius:12px;background:#12161d;margin:12px 0}
-.entry-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-bottom:8px}
-.entry-bank{color:var(--acc)}
-.entry-title{font-size:15.5px;font-weight:600;margin-bottom:6px}
-.entry-title a{color:var(--tx);text-decoration:none;border-bottom:1px solid #2f3947}
-.entry-title a:hover{color:var(--acc);border-color:var(--acc)}
-.entry-desc{font-size:14px;color:#c3c9d4}
-.entry-src{margin-top:8px;font-size:12px;color:var(--mut)}
-.note{margin-top:10px;font-size:12.5px;color:var(--mut);border-top:1px dashed var(--line);padding-top:8px}
-.badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
-.badge.ok{color:var(--ok);border-color:#205c42}
-.badge.rev{color:var(--rev);border-color:#5c4620}
-.empty{padding:16px;border:1px dashed var(--line);border-radius:12px;color:var(--mut);font-size:14px}
-.footer{margin-top:30px;text-align:center;color:var(--mut);font-size:12px}
-table.meta{width:100%;border-collapse:collapse;font-size:14px}
-table.meta td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
-table.meta td:first-child{color:var(--mut);width:46%}
-details{margin-top:14px}
-summary{cursor:pointer;color:var(--acc);font-size:14px}
-@media(max-width:640px){.bar-row{grid-template-columns:130px 1fr 92px;font-size:13px}}
+.muted{color:#9aa3b2;font-weight:400;font-size:12.5px}
+.chip{display:inline-block;padding:4px 10px;margin:4px 6px 4px 0;border:1px solid #2a2f3a;border-radius:999px;font-size:13px}
+.empty{padding:14px;border:1px dashed #2a2f3a;border-radius:12px;color:#9aa3b2}
+.entry{padding:14px 0;border-top:1px solid #2a2f3a}
+.entry:first-of-type{border-top:0}
+.entry-head a{color:#8cc4ff;text-decoration:none;font-weight:600;font-size:15px}
+.entry-head a:hover{text-decoration:underline}
+.entry-meta{color:#9aa3b2;font-size:12.5px;margin:6px 0}
+.entry-desc{font-size:14px;color:#d5dae3}
+.note{margin-top:8px;font-size:12.5px;color:#9aa3b2;background:#12161d;border-left:2px solid #2a2f3a;padding:8px 10px;border-radius:0 8px 8px 0}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11.5px;border:1px solid}
+.badge.ok{color:#3ecf8e;border-color:#235c45}
+.badge.rev{color:#f5a623;border-color:#5c4a23}
+.note-unknown{color:#9aa3b2;font-size:13px;margin-top:12px}
+.footer{margin-top:26px;color:#9aa3b2;font-size:12.5px;text-align:center}
+.wrap-scroll{overflow-x:auto}
 </style>
 </head>
 <body>
 <div class="container">
-<a class="back" href="index.html">&larr; На главную</a>
+<a class="back" href="index.html">← На главную</a>
 <div class="hero">
 <h1>Статистика жалоб: наследство в банках РФ</h1>
-<div class="sub">Накопительная база жалоб наследников на банки и связанные с наследством процедуры</div>
-<div class="date">Отчёт сформирован: 19.11.2026 08:20 (МСК) · модель deepseek/deepseek-v4-flash</div>
+<div class="sub">Накопительная база жалоб наследников на банки и агрегированное окно последних 7 дней</div>
+<div class="date">Отчёт собран 20.11.2026 08:20 · окно: 2026-11-13 — 2026-11-20</div>
 </div>
-<div class="section"><h2>1. Общая статистика по всей базе</h2><div class="stats-row">
+
+<div class="section">
+<h2>1. Общая статистика по всей базе</h2>
+<div class="stats-row">
 <div class="stat-box"><div class="label">Всего жалоб</div><div class="num">206</div></div>
 <div class="stat-box"><div class="label">Проверено</div><div class="num ok">183</div></div>
-<div class="stat-box"><div class="label">Требует проверки</div><div class="num rev">23</div></div>
-<div class="stat-box"><div class="label">Банк не определён</div><div class="num">68</div></div>
+<div class="stat-box"><div class="label">Нужна проверка</div><div class="num rev">23</div></div>
 </div>
-<div class="note-line">Период наблюдений: <b>2013-06-30</b> — <b>2026-11-17</b>. Записей без даты: 1. Доля подтверждённых записей: <b>88,8%</b>.</div>
+<div class="note-unknown">Период: <b>2013-06-30</b> — <b>2026-11-17</b> · без даты: 1</div>
 </div>
-<div class="section"><h2>2. Топ-10 банков по числу жалоб</h2>
-<div class="bar-row"><div class="bar-label">1. Сбербанк</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">48 <span class="muted">(23,3%)</span></div></div>
-<div class="bar-row"><div class="bar-label">2. ВТБ</div><div class="bar-track"><div class="bar-fill" style="width:42%"></div></div><div class="bar-val">20 <span class="muted">(9,7%)</span></div></div>
-<div class="bar-row"><div class="bar-label">3. ПСБ</div><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><div class="bar-val">15 <span class="muted">(7,3%)</span></div></div>
-<div class="bar-row"><div class="bar-label">4. Т-Банк</div><div class="bar-track"><div class="bar-fill" style="width:19%"></div></div><div class="bar-val">9 <span class="muted">(4,4%)</span></div></div>
-<div class="bar-row"><div class="bar-label">5. Альфа-Банк</div><div class="bar-track"><div class="bar-fill" style="width:17%"></div></div><div class="bar-val">8 <span class="muted">(3,9%)</span></div></div>
-<div class="bar-row"><div class="bar-label">6. Газпромбанк</div><div class="bar-track"><div class="bar-fill" style="width:17%"></div></div><div class="bar-val">8 <span class="muted">(3,9%)</span></div></div>
-<div class="bar-row"><div class="bar-label">7. Совкомбанк</div><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div><div class="bar-val">7 <span class="muted">(3,4%)</span></div></div>
-<div class="bar-row"><div class="bar-label">8. Ozon Банк</div><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><div class="bar-val">3 <span class="muted">(1,5%)</span></div></div>
-<div class="bar-row"><div class="bar-label">9. МТС Банк</div><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><div class="bar-val">3 <span class="muted">(1,5%)</span></div></div>
-<div class="bar-row"><div class="bar-label">10. РСХБ</div><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><div class="bar-val">3 <span class="muted">(1,5%)</span></div></div>
-<div class="note-line">Отдельно: банк <b>не определён</b> — <b>68</b> жалоб (33,0% от всей базы). В топе не участвует.</div>
-<div class="note">За пределами топ-10: Уралсиб — 3, Банк Санкт-Петербург — 2, Почта Банк — 2, Яндекс Банк — 2, Банк России — 1, Дальневосточный Банк — 1, Райффайзенбанк — 1, Ренессанс Банк — 1, Русский Стандарт — 1.</div>
+
+<div class="section">
+<h2>2. Топ-10 банков</h2>
+<div class="bar-row"><div class="bar-label" title="Сбербанк">Сбербанк</div><div class="bar-track"><div class="bar-fill " style="width:100.0%"></div></div><div class="bar-val">48</div></div>
+<div class="bar-row"><div class="bar-label" title="ВТБ">ВТБ</div><div class="bar-track"><div class="bar-fill " style="width:41.7%"></div></div><div class="bar-val">20</div></div>
+<div class="bar-row"><div class="bar-label" title="ПСБ">ПСБ</div><div class="bar-track"><div class="bar-fill " style="width:31.2%"></div></div><div class="bar-val">15</div></div>
+<div class="bar-row"><div class="bar-label" title="Т-Банк">Т-Банк</div><div class="bar-track"><div class="bar-fill " style="width:18.8%"></div></div><div class="bar-val">9</div></div>
+<div class="bar-row"><div class="bar-label" title="Альфа-Банк">Альфа-Банк</div><div class="bar-track"><div class="bar-fill " style="width:16.7%"></div></div><div class="bar-val">8</div></div>
+<div class="bar-row"><div class="bar-label" title="Газпромбанк">Газпромбанк</div><div class="bar-track"><div class="bar-fill " style="width:16.7%"></div></div><div class="bar-val">8</div></div>
+<div class="bar-row"><div class="bar-label" title="Совкомбанк">Совкомбанк</div><div class="bar-track"><div class="bar-fill " style="width:14.6%"></div></div><div class="bar-val">7</div></div>
+<div class="bar-row"><div class="bar-label" title="Ozon Банк">Ozon Банк</div><div class="bar-track"><div class="bar-fill " style="width:6.2%"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="МТС Банк">МТС Банк</div><div class="bar-track"><div class="bar-fill " style="width:6.2%"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="РСХБ">РСХБ</div><div class="bar-track"><div class="bar-fill " style="width:6.2%"></div></div><div class="bar-val">3</div></div>
+<div class="note-unknown">Банк не определён: <b>68</b> жалоб (отдельной строкой, в топ не включён).</div>
 </div>
-<div class="section"><h2>3. Динамика по месяцам</h2>
-<div class="note" style="margin:0 0 12px;border:0;padding:0">Месяцы с 2025-01 по 2026-11 (основной массив базы):</div>
-<div class="bar-row"><div class="bar-label mono">2025-01</div><div class="bar-track"><div class="bar-fill m" style="width:26%"></div></div><div class="bar-val">8</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-02</div><div class="bar-track"><div class="bar-fill m" style="width:10%"></div></div><div class="bar-val">3</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-03</div><div class="bar-track"><div class="bar-fill m" style="width:10%"></div></div><div class="bar-val">3</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-04</div><div class="bar-track"><div class="bar-fill m" style="width:26%"></div></div><div class="bar-val">8</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-05</div><div class="bar-track"><div class="bar-fill m" style="width:23%"></div></div><div class="bar-val">7</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-06</div><div class="bar-track"><div class="bar-fill m" style="width:13%"></div></div><div class="bar-val">4</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-07</div><div class="bar-track"><div class="bar-fill m" style="width:10%"></div></div><div class="bar-val">3</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-08</div><div class="bar-track"><div class="bar-fill m" style="width:16%"></div></div><div class="bar-val">5</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-09</div><div class="bar-track"><div class="bar-fill m" style="width:10%"></div></div><div class="bar-val">3</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-11</div><div class="bar-track"><div class="bar-fill m" style="width:6%"></div></div><div class="bar-val">2</div></div>
-<div class="bar-row"><div class="bar-label mono">2025-12</div><div class="bar-track"><div class="bar-fill m" style="width:10%"></div></div><div class="bar-val">3</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-01</div><div class="bar-track"><div class="bar-fill m" style="width:16%"></div></div><div class="bar-val">5</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-02</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-03</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-04</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-05</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-06</div><div class="bar-track"><div class="bar-fill m" style="width:84%"></div></div><div class="bar-val">26</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-07</div><div class="bar-track"><div class="bar-fill m" style="width:55%"></div></div><div class="bar-val">17</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-08</div><div class="bar-track"><div class="bar-fill m" style="width:100%"></div></div><div class="bar-val">31</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-09</div><div class="bar-track"><div class="bar-fill m" style="width:71%"></div></div><div class="bar-val">22</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-10</div><div class="bar-track"><div class="bar-fill m" style="width:42%"></div></div><div class="bar-val">13</div></div>
-<div class="bar-row"><div class="bar-label mono">2026-11</div><div class="bar-track"><div class="bar-fill m" style="width:13%"></div></div><div class="bar-val">4</div></div>
-<details><summary>Ранний период 2013–2024 (30 мес., 34 жалоб)</summary>
-<div class="bar-row"><div class="bar-label mono">2013-06</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2013-12</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2016-02</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2016-04</div><div class="bar-track"><div class="bar-fill m" style="width:6%"></div></div><div class="bar-val">2</div></div>
-<div class="bar-row"><div class="bar-label mono">2016-06</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2016-09</div><div class="bar-track"><div class="bar-fill m" style="width:6%"></div></div><div class="bar-val">2</div></div>
-<div class="bar-row"><div class="bar-label mono">2017-05</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2017-08</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2017-09</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2017-12</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2018-10</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2018-12</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2019-03</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2019-05</div><div class="bar-track"><div class="bar-fill m" style="width:6%"></div></div><div class="bar-val">2</div></div>
-<div class="bar-row"><div class="bar-label mono">2020-03</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2020-04</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2020-07</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2020-10</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2020-11</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2021-01</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2021-03</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2021-12</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2022-03</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2022-06</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2022-07</div><div class="bar-track"><div class="bar-fill m" style="width:6%"></div></div><div class="bar-val">2</div></div>
-<div class="bar-row"><div class="bar-label mono">2022-10</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2023-01</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2023-02</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2023-05</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-<div class="bar-row"><div class="bar-label mono">2024-12</div><div class="bar-track"><div class="bar-fill m" style="width:3%"></div></div><div class="bar-val">1</div></div>
-</details>
+
+<div class="section">
+<h2>3. Динамика по месяцам</h2>
+<div class="wrap-scroll">
+<div class="bar-row"><div class="bar-label" title="2013-06">2013-06</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2013-12">2013-12</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2016-02">2016-02</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2016-04">2016-04</div><div class="bar-track"><div class="bar-fill m" style="width:6.5%"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="2016-06">2016-06</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2016-09">2016-09</div><div class="bar-track"><div class="bar-fill m" style="width:6.5%"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="2017-05">2017-05</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2017-08">2017-08</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2017-09">2017-09</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2017-12">2017-12</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2018-10">2018-10</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2018-12">2018-12</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2019-03">2019-03</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2019-05">2019-05</div><div class="bar-track"><div class="bar-fill m" style="width:6.5%"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="2020-03">2020-03</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2020-04">2020-04</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2020-07">2020-07</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2020-10">2020-10</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2020-11">2020-11</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2021-01">2021-01</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2021-03">2021-03</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2021-12">2021-12</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2022-03">2022-03</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2022-06">2022-06</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2022-07">2022-07</div><div class="bar-track"><div class="bar-fill m" style="width:6.5%"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="2022-10">2022-10</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2023-01">2023-01</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2023-02">2023-02</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2023-05">2023-05</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2024-12">2024-12</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-01">2025-01</div><div class="bar-track"><div class="bar-fill m" style="width:25.8%"></div></div><div class="bar-val">8</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-02">2025-02</div><div class="bar-track"><div class="bar-fill m" style="width:9.7%"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-03">2025-03</div><div class="bar-track"><div class="bar-fill m" style="width:9.7%"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-04">2025-04</div><div class="bar-track"><div class="bar-fill m" style="width:25.8%"></div></div><div class="bar-val">8</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-05">2025-05</div><div class="bar-track"><div class="bar-fill m" style="width:22.6%"></div></div><div class="bar-val">7</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-06">2025-06</div><div class="bar-track"><div class="bar-fill m" style="width:12.9%"></div></div><div class="bar-val">4</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-07">2025-07</div><div class="bar-track"><div class="bar-fill m" style="width:9.7%"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-08">2025-08</div><div class="bar-track"><div class="bar-fill m" style="width:16.1%"></div></div><div class="bar-val">5</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-09">2025-09</div><div class="bar-track"><div class="bar-fill m" style="width:9.7%"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-11">2025-11</div><div class="bar-track"><div class="bar-fill m" style="width:6.5%"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="2025-12">2025-12</div><div class="bar-track"><div class="bar-fill m" style="width:9.7%"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-01">2026-01</div><div class="bar-track"><div class="bar-fill m" style="width:16.1%"></div></div><div class="bar-val">5</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-02">2026-02</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-03">2026-03</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-04">2026-04</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-05">2026-05</div><div class="bar-track"><div class="bar-fill m" style="width:3.2%"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-06">2026-06</div><div class="bar-track"><div class="bar-fill m" style="width:83.9%"></div></div><div class="bar-val">26</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-07">2026-07</div><div class="bar-track"><div class="bar-fill m" style="width:54.8%"></div></div><div class="bar-val">17</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-08">2026-08</div><div class="bar-track"><div class="bar-fill m" style="width:100.0%"></div></div><div class="bar-val">31</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-09">2026-09</div><div class="bar-track"><div class="bar-fill m" style="width:71.0%"></div></div><div class="bar-val">22</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-10">2026-10</div><div class="bar-track"><div class="bar-fill m" style="width:41.9%"></div></div><div class="bar-val">13</div></div>
+<div class="bar-row"><div class="bar-label" title="2026-11">2026-11</div><div class="bar-track"><div class="bar-fill m" style="width:12.9%"></div></div><div class="bar-val">4</div></div>
 </div>
-<div class="section"><h2>4. Источники</h2>
-<div class="bar-row"><div class="bar-label">banki.ru</div><div class="bar-track"><div class="bar-fill s" style="width:100%"></div></div><div class="bar-val">107 <span class="muted">(51,9%)</span></div></div>
-<div class="bar-row"><div class="bar-label">pravoved.ru</div><div class="bar-track"><div class="bar-fill s" style="width:51%"></div></div><div class="bar-val">55 <span class="muted">(26,7%)</span></div></div>
-<div class="bar-row"><div class="bar-label">pikabu.ru</div><div class="bar-track"><div class="bar-fill s" style="width:31%"></div></div><div class="bar-val">33 <span class="muted">(16,0%)</span></div></div>
-<div class="bar-row"><div class="bar-label">otzovik.com</div><div class="bar-track"><div class="bar-fill s" style="width:3%"></div></div><div class="bar-val">3 <span class="muted">(1,5%)</span></div></div>
-<div class="bar-row"><div class="bar-label">2gis.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div class="bar-val">2 <span class="muted">(1,0%)</span></div></div>
-<div class="bar-row"><div class="bar-label">advgazeta.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div class="bar-val">2 <span class="muted">(1,0%)</span></div></div>
-<div class="bar-row"><div class="bar-label">argumenti.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div class="bar-val">1 <span class="muted">(0,5%)</span></div></div>
-<div class="bar-row"><div class="bar-label">findozor.net</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div class="bar-val">1 <span class="muted">(0,5%)</span></div></div>
-<div class="bar-row"><div class="bar-label">kp.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div class="bar-val">1 <span class="muted">(0,5%)</span></div></div>
-<div class="bar-row"><div class="bar-label">kurskcity.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div class="bar-val">1 <span class="muted">(0,5%)</span></div></div>
-<div class="note-line">Всего источников: <b>10</b>. Основные три дают <b>94,7%</b> всех записей базы.</div>
 </div>
-<div class="section"><h2>5. За последние 7 дней</h2>
-<div class="note" style="margin:0 0 12px;border:0;padding:0">Окно: <b>2026-11-12</b> — <b>2026-11-19</b></div>
+
+<div class="section">
+<h2>4. Источники</h2>
+<div class="bar-row"><div class="bar-label" title="banki.ru">banki.ru</div><div class="bar-track"><div class="bar-fill s" style="width:100.0%"></div></div><div class="bar-val">107 <span class="muted">· 51.9%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="pravoved.ru">pravoved.ru</div><div class="bar-track"><div class="bar-fill s" style="width:51.4%"></div></div><div class="bar-val">55 <span class="muted">· 26.7%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="pikabu.ru">pikabu.ru</div><div class="bar-track"><div class="bar-fill s" style="width:30.8%"></div></div><div class="bar-val">33 <span class="muted">· 16.0%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="otzovik.com">otzovik.com</div><div class="bar-track"><div class="bar-fill s" style="width:2.8%"></div></div><div class="bar-val">3 <span class="muted">· 1.5%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="2gis.ru">2gis.ru</div><div class="bar-track"><div class="bar-fill s" style="width:1.9%"></div></div><div class="bar-val">2 <span class="muted">· 1.0%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="advgazeta.ru">advgazeta.ru</div><div class="bar-track"><div class="bar-fill s" style="width:1.9%"></div></div><div class="bar-val">2 <span class="muted">· 1.0%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="argumenti.ru">argumenti.ru</div><div class="bar-track"><div class="bar-fill s" style="width:0.9%"></div></div><div class="bar-val">1 <span class="muted">· 0.5%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="findozor.net">findozor.net</div><div class="bar-track"><div class="bar-fill s" style="width:0.9%"></div></div><div class="bar-val">1 <span class="muted">· 0.5%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="kp.ru">kp.ru</div><div class="bar-track"><div class="bar-fill s" style="width:0.9%"></div></div><div class="bar-val">1 <span class="muted">· 0.5%</span></div></div>
+<div class="bar-row"><div class="bar-label" title="kurskcity.ru">kurskcity.ru</div><div class="bar-track"><div class="bar-fill s" style="width:0.9%"></div></div><div class="bar-val">1 <span class="muted">· 0.5%</span></div></div>
+</div>
+
+<div class="section">
+<h2>5. За последние 7 дней</h2>
 <div class="stats-row">
-<div class="stat-box"><div class="label">Новых жалоб</div><div class="num">2</div></div>
+<div class="stat-box"><div class="label">Новых за 7 дней</div><div class="num">2</div></div>
 <div class="stat-box"><div class="label">Проверено</div><div class="num ok">1</div></div>
-<div class="stat-box"><div class="label">Требует проверки</div><div class="num rev">1</div></div>
+<div class="stat-box"><div class="label">Нужна проверка</div><div class="num rev">1</div></div>
 </div>
-<div class="note" style="margin-top:14px">По банкам: 
-<span class="chip">не определён — 2</span>
-</div>
-<div class="note">По датам: 
-<span class="chip">2026-11-17 — 2</span>
-</div>
-<div class="note" style="margin-top:16px;border-top:1px solid var(--line);padding-top:14px"><b>Записи окна</b></div>
+<h3 class="h3">По банкам</h3>
+<div class="bar-row"><div class="bar-label" title="не определён">не определён</div><div class="bar-track"><div class="bar-fill w" style="width:100.0%"></div></div><div class="bar-val">2</div></div>
+<h3 class="h3">По датам</h3>
+<div><span class="chip">2026-11-17 — <b>2</b></span></div>
+<h3 class="h3">Записи окна</h3>
 <div class="entry">
-<div class="entry-top"><span>2026-11-17</span><span class="entry-bank">не определён</span><span class="badge ok">verified</span></div>
-<div class="entry-title"><a href="https://pravoved.ru/question/5074869/" target="_blank" rel="noopener">Как узнать, где находятся выплаты погибшего на СВО, если деньги приходили после его смерти?</a></div>
+<div class="entry-head"><a href="https://pravoved.ru/question/5074869/" target="_blank" rel="noopener">Как узнать, где находятся выплаты погибшего на СВО, если деньги приходили после его смерти?</a></div>
+<div class="entry-meta">2026-11-17 · банк не определён · pravoved.ru · <span class="badge ok">проверено</span></div>
 <div class="entry-desc">Наследники не могут найти деньги умершего: нотариус заявил, что сведений о средствах нет, хотя выплаты приходили ему ещё год после смерти. Спрашивают, как узнать, где деньги и кто их получил.</div>
-<div class="entry-src">Источник: pravoved.ru · <a href="https://pravoved.ru/question/5074869/" target="_blank" rel="noopener" style="color:#5aa9ff">https://pravoved.ru/question/5074869/</a></div>
-<div class="note">Реальный вопрос наследника (Надежда, 17.11.2026): розыск денежных средств умершего военнослужащего в банках и ЕРЦ МО РФ, включение в наследственную массу, ст. 1171 ГК РФ. Тема: наследство + банки.</div>
-</div>
-<div class="entry">
-<div class="entry-top"><span>2026-11-17</span><span class="entry-bank">не определён</span><span class="badge rev">needs_review</span></div>
-<div class="entry-title"><a href="https://pikabu.ru/story/vkladyi_umershikh_zaberet_gosudarstvo_chto_delat_naslednikam_14531075" target="_blank" rel="noopener">Вклады умерших заберет государство: что делать наследникам</a></div>
+<div class="note"><span class="muted">Заметка:</span> Реальный вопрос наследника (Надежда, 17.11.2026): розыск денежных средств умершего военнослужащего в банках и ЕРЦ МО РФ, включение в наследственную массу, ст. 1171 ГК РФ. Тема: наследство + банки.</div>
+</div><div class="entry">
+<div class="entry-head"><a href="https://pikabu.ru/story/vkladyi_umershikh_zaberet_gosudarstvo_chto_delat_naslednikam_14531075" target="_blank" rel="noopener">Вклады умерших заберет государство: что делать наследникам</a></div>
+<div class="entry-meta">2026-11-17 · банк не определён · pikabu.ru · <span class="badge rev">нужна проверка</span></div>
 <div class="entry-desc">Пост о том, что вклады умерших может забрать государство, и что делать наследникам.</div>
-<div class="entry-src">Источник: pikabu.ru · <a href="https://pikabu.ru/story/vkladyi_umershikh_zaberet_gosudarstvo_chto_delat_naslednikam_14531075" target="_blank" rel="noopener" style="color:#5aa9ff">https://pikabu.ru/story/vkladyi_umershikh_zaberet_gosudarstvo_chto_delat_naslednikam_14531075</a></div>
-<div class="note">Не личная жалоба, а разъяснительная статья о Указе № 801 от 02.11.2026 (передача выморочных вкладов и драгметаллов государству, срок 5 лет, восстановление срока принятия наследства). Тема наследство + банки подтверждена, но формат — новость/объяснение, а не жалоба.</div>
+<div class="note"><span class="muted">Заметка:</span> Не личная жалоба, а разъяснительная статья о Указе № 801 от 02.11.2026 (передача выморочных вкладов и драгметаллов государству, срок 5 лет, восстановление срока принятия наследства). Тема наследство + банки подтверждена, но формат — новость/объяснение, а не жалоба.</div>
 </div>
 </div>
-<div class="section"><h2>6. Метаданные отчёта</h2>
-<table class="meta">
-<tr><td>Дата и время запуска</td><td>19.11.2026 08:20 (МСК)</td></tr>
-<tr><td>Модель</td><td>deepseek/deepseek-v4-flash</td></tr>
-<tr><td>Всего записей в базе</td><td>206</td></tr>
-<tr><td>Подтверждено / требует проверки</td><td>183 / 23</td></tr>
-<tr><td>Период базы</td><td>2013-06-30 — 2026-11-17</td></tr>
-<tr><td>Окно отчёта</td><td>7 дней: 2026-11-12 — 2026-11-19 (2 записей)</td></tr>
-<tr><td>Скрипт синхронизации</td><td>scripts/katya_merge.py (идемпотентно, добавлено 0)</td></tr>
-</table>
+
+<div class="section">
+<h2>6. Meta</h2>
+<div class="kv"><b>Дата/время запуска:</b> 20.11.2026 08:20 (Europe/Moscow)</div>
+<div class="kv"><b>Модель:</b> deepseek/deepseek-v4-flash</div>
+<div class="kv"><b>Всего записей в базе:</b> 206</div>
+<div class="kv"><b>Источник данных:</b> katya-summary-7d.json, окно 2026-11-13 — 2026-11-20</div>
 </div>
-<div class="footer">Отчёт собран автоматически · stats-agent · база жалоб наследников</div>
+
+<div class="footer">Сгенерировано автоматически stats-agent · данные: katya-data.json / katya-summary-7d.json</div>
 </div>
 </body>
 </html>
