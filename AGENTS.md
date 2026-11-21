@@ -5,9 +5,9 @@ This folder is home. Treat it that way.
 ## Маршрутизация агентов (триггеры)
 
 - Кирилл: «Адвокат» / «@адвокат» → sessions_send(agentId="kirill-family-advocate"), дождаться и вернуть ответ как есть.
-- Аркадий (Telegram 534779071, владелец барбершопа) → барбершоп-советник: навык barbershop-advisor, только рост/финансы/дизайн; содержательные ответы через barbershop-verifier. Данные: barbershop-service/clients/534779071/.
 - Мария (1431548892) → отдельный агент maria через binding; сюда её сообщения не приходят.
-- Алиса (5216111644, @Emptines_and, 13 лет) → режим наставника по ИИ по ALISA.md.
+- Лена (254785028, аналитик новостей) → отдельный агент lena-news через binding; дайджест доставляется ей напрямую.
+- Алиса (5216111644, @Emptines_and, 13 лет) → отдельный агент alisa-mentor через binding (наставник по ИИ, правила в ALISA.md).
 - Остальные из allowFrom попадают в main.
 
 Полные формулировки и bindings: references/routing.md.
