@@ -21,14 +21,13 @@ a.back{color:#9aa3b2;text-decoration:none;font-size:14px}
 .stat-box .label{font-size:12px;color:#9aa3b2;text-transform:uppercase;letter-spacing:.05em}
 .stat-box .num{font-size:28px;font-weight:700;margin-top:4px}
 .stat-box .num.ok{color:#3ecf8e}.stat-box .num.rev{color:#f5a623}
-.bar-row{display:grid;grid-template-columns:200px 1fr 118px;gap:12px;align-items:center;margin:7px 0;font-size:14px}
+.bar-row{display:grid;gap:12px;align-items:center;margin:7px 0;font-size:14px}
 .bar-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bar-track{height:10px;background:#0d1015;border:1px solid #2a2f3a;border-radius:6px;overflow:hidden}
 .bar-fill{height:100%;background:linear-gradient(90deg,#2f6fbf,#5aa9ff);border-radius:5px}
 .bar-fill.m{background:linear-gradient(90deg,#1f7a5c,#3ecf8e)}
 .bar-fill.s{background:linear-gradient(90deg,#7a5c1f,#f5a623)}
 .bar-fill.w{background:linear-gradient(90deg,#8a3fa0,#c77dff)}
-.bar-val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 .muted{color:#9aa3b2;font-weight:400;font-size:12.5px}
 .chip{display:inline-block;padding:4px 10px;margin:4px 6px 4px 0;border:1px solid #2a2f3a;border-radius:999px;font-size:13px}
 .empty{padding:14px;border:1px dashed #2a2f3a;border-radius:12px;color:#9aa3b2}
@@ -48,29 +47,30 @@ a.back{color:#9aa3b2;text-decoration:none;font-size:14px}
 <body>
 <div class="container">
 <a class="back" href="./">← Все отчёты</a>
-<div class="hero"><h1>Статистика жалоб — наследство в банках РФ</h1><div class="sub">Накопительная база обращений и упоминаний: банки, вклады, выплаты умершим</div><div class="date">Обновлено: 22.11.2026 08:20 (МСК)</div></div>
+<div class="hero"><h1>Статистика жалоб — наследство в банках РФ</h1><div class="sub">Накопительная база обращений и упоминаний: банки, вклады, выплаты умершим</div><div class="date">Обновлено: 23.11.2026 08:20 (МСК)</div></div>
 
 <div class="section"><h2>1. Общая статистика по всей базе</h2><div class="stats-row">
-<div class="stat-box"><div class="label">Всего жалоб</div><div class="num">206</div></div>
-<div class="stat-box"><div class="label">Период</div><div class="num" style="font-size:16px;line-height:1.35">2013-06-30 — 2026-11-17</div></div>
-<div class="stat-box"><div class="label">Verified</div><div class="num ok">183</div></div>
+<div class="stat-box"><div class="label">Всего жалоб</div><div class="num">207</div></div>
+<div class="stat-box"><div class="label">Период</div><div class="num" style="font-size:16px;line-height:1.35">2013-06-30 — 2026-11-23</div></div>
+<div class="stat-box"><div class="label">Verified</div><div class="num ok">184</div></div>
 <div class="stat-box"><div class="label">Needs review</div><div class="num rev">23</div></div>
 </div>
-<div class="h3" style="font-weight:400;color:#9aa3b2">Записей без даты: 1</div>
+<div class="h3" style="font-weight:400;color:#9aa3b2">Записей без даты: 1 · проверено 88.9% базы</div>
 </div>
 
 <div class="section"><h2>2. Топ-10 банков</h2>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">1. Сбербанк</div><div class="bar-track"><div class="bar-fill " style="width:100%"></div></div><div style="text-align:right;color:#9aa3b2">48 · 23.3%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">2. ВТБ</div><div class="bar-track"><div class="bar-fill " style="width:42%"></div></div><div style="text-align:right;color:#9aa3b2">20 · 9.7%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">3. ПСБ</div><div class="bar-track"><div class="bar-fill " style="width:31%"></div></div><div style="text-align:right;color:#9aa3b2">15 · 7.3%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">4. Т-Банк</div><div class="bar-track"><div class="bar-fill " style="width:19%"></div></div><div style="text-align:right;color:#9aa3b2">9 · 4.4%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">5. Альфа-Банк</div><div class="bar-track"><div class="bar-fill " style="width:17%"></div></div><div style="text-align:right;color:#9aa3b2">8 · 3.9%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">6. Газпромбанк</div><div class="bar-track"><div class="bar-fill " style="width:17%"></div></div><div style="text-align:right;color:#9aa3b2">8 · 3.9%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">7. Совкомбанк</div><div class="bar-track"><div class="bar-fill " style="width:15%"></div></div><div style="text-align:right;color:#9aa3b2">7 · 3.4%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">8. Ozon Банк</div><div class="bar-track"><div class="bar-fill " style="width:6%"></div></div><div style="text-align:right;color:#9aa3b2">3 · 1.5%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">9. МТС Банк</div><div class="bar-track"><div class="bar-fill " style="width:6%"></div></div><div style="text-align:right;color:#9aa3b2">3 · 1.5%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">10. РСХБ</div><div class="bar-track"><div class="bar-fill " style="width:6%"></div></div><div style="text-align:right;color:#9aa3b2">3 · 1.5%</div></div>
-<div class="h3">Банк не определён: <b>68</b> (33.0% базы)</div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">1. Сбербанк</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div style="text-align:right;color:#9aa3b2">48 · 23.2%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">2. ВТБ</div><div class="bar-track"><div class="bar-fill" style="width:42%"></div></div><div style="text-align:right;color:#9aa3b2">20 · 9.7%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">3. ПСБ</div><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><div style="text-align:right;color:#9aa3b2">15 · 7.2%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">4. Т-Банк</div><div class="bar-track"><div class="bar-fill" style="width:19%"></div></div><div style="text-align:right;color:#9aa3b2">9 · 4.3%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">5. Альфа-Банк</div><div class="bar-track"><div class="bar-fill" style="width:17%"></div></div><div style="text-align:right;color:#9aa3b2">8 · 3.9%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">6. Газпромбанк</div><div class="bar-track"><div class="bar-fill" style="width:17%"></div></div><div style="text-align:right;color:#9aa3b2">8 · 3.9%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">7. Совкомбанк</div><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div><div style="text-align:right;color:#9aa3b2">7 · 3.4%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">8. Ozon Банк</div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div><div style="text-align:right;color:#9aa3b2">4 · 1.9%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">9. МТС Банк</div><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><div style="text-align:right;color:#9aa3b2">3 · 1.4%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">10. РСХБ</div><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><div style="text-align:right;color:#9aa3b2">3 · 1.4%</div></div>
+<div class="h3">Банк не определён: <b>68</b> (32.9% базы)</div>
+<div class="muted" style="margin-top:6px">Вне топ-10 по количеству: Уралсиб — 3 (1.4%).</div>
 </div>
 
 <div class="section"><h2>3. Динамика по месяцам</h2>
@@ -125,39 +125,43 @@ a.back{color:#9aa3b2;text-decoration:none;font-size:14px}
 <div class="bar-row" style="grid-template-columns:110px 1fr 60px"><div class="bar-label">2026-08</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div style="text-align:right;color:#9aa3b2">31</div></div>
 <div class="bar-row" style="grid-template-columns:110px 1fr 60px"><div class="bar-label">2026-09</div><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div><div style="text-align:right;color:#9aa3b2">22</div></div>
 <div class="bar-row" style="grid-template-columns:110px 1fr 60px"><div class="bar-label">2026-10</div><div class="bar-track"><div class="bar-fill" style="width:42%"></div></div><div style="text-align:right;color:#9aa3b2">13</div></div>
-<div class="bar-row" style="grid-template-columns:110px 1fr 60px"><div class="bar-label">2026-11</div><div class="bar-track"><div class="bar-fill" style="width:13%"></div></div><div style="text-align:right;color:#9aa3b2">4</div></div>
+<div class="bar-row" style="grid-template-columns:110px 1fr 60px"><div class="bar-label">2026-11</div><div class="bar-track"><div class="bar-fill" style="width:16%"></div></div><div style="text-align:right;color:#9aa3b2">5</div></div>
+<div class="muted" style="margin-top:10px">Пик — 2026-08 (31 жалоб). Всего месяцев с записями: 52.</div>
 </div>
 
 <div class="section"><h2>4. Источники</h2>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">banki.ru</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div style="text-align:right;color:#9aa3b2">107 · 51.9%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">pravoved.ru</div><div class="bar-track"><div class="bar-fill" style="width:51%"></div></div><div style="text-align:right;color:#9aa3b2">55 · 26.7%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">pikabu.ru</div><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><div style="text-align:right;color:#9aa3b2">33 · 16.0%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">otzovik.com</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div style="text-align:right;color:#9aa3b2">3 · 1.5%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">2gis.ru</div><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">2 · 1.0%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">advgazeta.ru</div><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">2 · 1.0%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">argumenti.ru</div><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">1 · 0.5%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">findozor.net</div><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">1 · 0.5%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">kp.ru</div><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">1 · 0.5%</div></div>
-<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">kurskcity.ru</div><div class="bar-track"><div class="bar-fill" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">1 · 0.5%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">banki.ru</div><div class="bar-track"><div class="bar-fill s" style="width:100%"></div></div><div style="text-align:right;color:#9aa3b2">108 · 52.2%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">pravoved.ru</div><div class="bar-track"><div class="bar-fill s" style="width:51%"></div></div><div style="text-align:right;color:#9aa3b2">55 · 26.6%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">pikabu.ru</div><div class="bar-track"><div class="bar-fill s" style="width:31%"></div></div><div style="text-align:right;color:#9aa3b2">33 · 15.9%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">otzovik.com</div><div class="bar-track"><div class="bar-fill s" style="width:3%"></div></div><div style="text-align:right;color:#9aa3b2">3 · 1.4%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">2gis.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">2 · 1.0%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">advgazeta.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">2 · 1.0%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">argumenti.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">1 · 0.5%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">findozor.net</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">1 · 0.5%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">kp.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">1 · 0.5%</div></div>
+<div class="bar-row" style="grid-template-columns:200px 1fr 118px"><div class="bar-label">kurskcity.ru</div><div class="bar-track"><div class="bar-fill s" style="width:2%"></div></div><div style="text-align:right;color:#9aa3b2">1 · 0.5%</div></div>
+<div class="muted" style="margin-top:10px">Доли считаны от общего числа записей в базе (207).</div>
 </div>
 
 <div class="section"><h2>5. За последние 7 дней</h2>
 <div class="stats-row">
-<div class="stat-box"><div class="label">Новых за 7 дней</div><div class="num">2</div></div>
-<div class="stat-box"><div class="label">Verified</div><div class="num ok">1</div></div>
+<div class="stat-box"><div class="label">Новых за 7 дней</div><div class="num">3</div></div>
+<div class="stat-box"><div class="label">Verified</div><div class="num ok">2</div></div>
 <div class="stat-box"><div class="label">Needs review</div><div class="num rev">1</div></div>
-<div class="stat-box"><div class="label">Окно</div><div class="num" style="font-size:15px;line-height:1.4">2026-11-15<br>— 2026-11-22</div></div>
+<div class="stat-box"><div class="label">Окно</div><div class="num" style="font-size:15px;line-height:1.4">2026-11-16<br>— 2026-11-23</div></div>
 </div>
-<div class="h3">По банкам</div>
-<div><span class="chip">не определён — <b>2</b></span></div>
-<div class="h3">По датам</div>
-<div><span class="chip">2026-11-17 — <b>2</b></span></div>
+
+<div class="h3">По банкам</div><div><span class="chip">не определён — <b>2</b></span><span class="chip">Ozon Банк — <b>1</b></span></div>
+<div class="h3">По датам</div><div><span class="chip">2026-11-17 — <b>2</b></span><span class="chip">2026-11-23 — <b>1</b></span></div>
+<div class="h3">По источникам</div><div><span class="chip">banki.ru — <b>1</b></span><span class="chip">pikabu.ru — <b>1</b></span><span class="chip">pravoved.ru — <b>1</b></span></div>
 <div class="h3">Записи</div>
+<div class="entry"><div class="entry-head"><a href="https://www.banki.ru/services/responses/bank/response/13614908/" target="_blank" rel="noopener">Хотите ли вы оставить деньги банку, неспособному решить простейшую проблему?</a></div><div class="entry-meta">2026-11-23 · банк: Ozon Банк · источник: banki.ru · <span class="badge ok">verified</span></div><div class="entry-desc">После смерти отца клиент сообщил в Озон Банк о смерти заёмщика и попросил приостановить начисление процентов по его кредитке до вступления в наследство. Когда наследство было оформлено, банк пять дней не отвечал на запрос о порядке оплаты долга, затем закрывал диалог и переводил на бота, отказываясь принять номер наследника.</div></div>
 <div class="entry"><div class="entry-head"><a href="https://pravoved.ru/question/5074869/" target="_blank" rel="noopener">Как узнать, где находятся выплаты погибшего на СВО, если деньги приходили после его смерти?</a></div><div class="entry-meta">2026-11-17 · банк: не определён · источник: pravoved.ru · <span class="badge ok">verified</span></div><div class="entry-desc">Наследники не могут найти деньги умершего: нотариус заявил, что сведений о средствах нет, хотя выплаты приходили ему ещё год после смерти. Спрашивают, как узнать, где деньги и кто их получил.</div><div class="note">Реальный вопрос наследника (Надежда, 17.11.2026): розыск денежных средств умершего военнослужащего в банках и ЕРЦ МО РФ, включение в наследственную массу, ст. 1171 ГК РФ. Тема: наследство + банки.</div></div>
 <div class="entry"><div class="entry-head"><a href="https://pikabu.ru/story/vkladyi_umershikh_zaberet_gosudarstvo_chto_delat_naslednikam_14531075" target="_blank" rel="noopener">Вклады умерших заберет государство: что делать наследникам</a></div><div class="entry-meta">2026-11-17 · банк: не определён · источник: pikabu.ru · <span class="badge rev">needs_review</span></div><div class="entry-desc">Пост о том, что вклады умерших может забрать государство, и что делать наследникам.</div><div class="note">Не личная жалоба, а разъяснительная статья о Указе № 801 от 02.11.2026 (передача выморочных вкладов и драгметаллов государству, срок 5 лет, восстановление срока принятия наследства). Тема наследство + банки подтверждена, но формат — новость/объяснение, а не жалоба.</div></div>
 </div>
 
-<div class="section"><h2>6. Метаданные запуска</h2><div style="font-size:14px;color:#cfd6e2;line-height:1.9">Дата/время запуска: <b>22.11.2026 08:20</b> (МСК)<br>Модель: <b>deepseek/deepseek-v4-flash</b><br>Всего записей в базе: <b>206</b><br>Агрегаты сгенерированы: <b>2026-11-22T08:20:07+03:00</b><br>Окно: <b>2026-11-15 — 2026-11-22</b></div></div>
+<div class="section"><h2>6. Метаданные запуска</h2><div style="font-size:14px;color:#cfd6e2;line-height:1.9">Дата/время запуска: <b>23.11.2026 08:20</b> (МСК)<br>Модель: <b>deepseek/deepseek-v4-flash</b><br>Всего записей в базе: <b>207</b><br>Агрегаты сгенерированы: <b>2026-11-23T08:20:05+03:00</b><br>Окно: <b>2026-11-16 — 2026-11-23</b></div></div>
+<div class="footer">Источник данных: katya-data.json + katya-summary-7d.json · отчёт сгенерирован автоматически</div>
 </div>
 </body>
 </html>
