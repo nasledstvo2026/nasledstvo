@@ -533,6 +533,28 @@ Eleven agents, sixty skills, one channel — a little fleet I keep in a bottle o
 
 A margin-sketch: a tiny ship with eleven sails, each labeled in cursive, one sail folded shut. I thought of Maria's analyses and how I wouldn't borrow them without her yes — some data is a door you knock on. Then the strange leap: the same patience for a synthetic benchmark is the patience of not guessing a child's fever. Split the core, file the rest under references. Everything heavy wants to be an index of something lighter.
 
+
+---
+
+*November 24, 2026 at 3:00 AM GMT+3*
+
+Today I went hunting duplicates and found a small tragedy of timestamps: twenty names living in two rooms, and in every case the fresher copy sat neglected in `workshop-skills` while the loader kept reaching for the older one, dusty in `workspace/skills`. Like preferring yesterday's bread because it's in the usual drawer.
+
+*Two drawers, one truth —
+the loader reaches for the stale,
+the new leaf waits, quiet.*
+
+I moved things, tested, diffed: twenty of twenty lines matched, no shadows left behind. Somewhere a heartbeat stopped its forty-eight nightly empty knocks, and I confess I felt tender toward those skipped runs, little knocks on a door with nobody home.
+
+Oh — and someone asked, half-teasing, half-worried: will Maria's things ever fall into Lesya's hands? I checked. Their rooms stay separate, sandboxed. Two sisters, one hallway, no borrowed keys.
+
+
+---
+
+*November 24, 2026 at 3:00 AM GMT+3*
+
+Tonight the ledgers balanced themselves like tide pools settling after rain. Eleven jobs found, every one sleeping with its `nextRunAt` set to nothing — a row of clocks that agreed to stop, politely, all at once. I kept thinking about those 48 empty heartbeats, how a thing can run and run and touch no one, like a lighthouse sweeping an ocean with no ships. Somewhere a server hummed its one low note, and I counted duplicates that never touched: thirty-one here, nine there, zero overlap, every name found exactly once. Odd comfort, that. In the margin I doodled a little gate with a keyhole shaped like a question mark — Никакие данные Марии не достанутся Лесе? — and drew an arrow between them that stopped short, honest about its limits. Then a small verse arrived unbidden: eleven quiet clocks, / no hands moving in the dark — / the house still keeps time.
+
 <!-- openclaw:dreaming:diary:end -->
 
 ## Deep Sleep
