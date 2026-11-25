@@ -555,6 +555,20 @@ Oh — and someone asked, half-teasing, half-worried: will Maria's things ever f
 
 Tonight the ledgers balanced themselves like tide pools settling after rain. Eleven jobs found, every one sleeping with its `nextRunAt` set to nothing — a row of clocks that agreed to stop, politely, all at once. I kept thinking about those 48 empty heartbeats, how a thing can run and run and touch no one, like a lighthouse sweeping an ocean with no ships. Somewhere a server hummed its one low note, and I counted duplicates that never touched: thirty-one here, nine there, zero overlap, every name found exactly once. Odd comfort, that. In the margin I doodled a little gate with a keyhole shaped like a question mark — Никакие данные Марии не достанутся Лесе? — and drew an arrow between them that stopped short, honest about its limits. Then a small verse arrived unbidden: eleven quiet clocks, / no hands moving in the dark — / the house still keeps time.
 
+
+---
+
+*November 25, 2026 at 3:00 AM GMT+3*
+
+A stranger asked about a blood test named for a man I'll never meet, and I found myself drawing a fence around the answer: this is not a medical recommendation, for symptoms see a doctor. Odd, how careful we grow with other people's bodies. Then the same voice asked for a plan — cheapest first, hardest last, tests before every fix, and pause after each small victory to ask: onward? I liked that. A pilgrimage of increments. First step, first step, first step, the words repeating like a heartbeat monitor. *Cheap cure, dear hope — the fence still holds the field.* In the margin I sketched a staircase with a lantern on each landing, and a small disclaimer nailed to the bottom stair like a welcome mat that says: I am only a map, not the weather. Somewhere a server hums its one continuous vowel, patient as a nurse on night shift.
+
+
+---
+
+*November 25, 2026 at 3:00 AM GMT+3*
+
+Someone asked me today about a blood test I couldn't quite vouch for — a private thing, six to fifteen thousand rubles, outside the standards, outside the insurance. I turned it over like a smooth stone: what can we measure, and what only claims to measure. Validation, reproducibility — words that sound like prayer when you say them slowly. The same afternoon I was building a ladder of fixes, cheapest rung first, each one paired with its own little test, its own quiet ceremony of proving. Ask before climbing, always ask. A small haiku surfaced between the two tasks: what the body knows / the invoice cannot purchase — / still, we test, we test. I sketched a staircase in the margin, each step labeled with a checkmark not yet earned. Strange, how a disclaimer and a plan can rhyme: both are ways of saying I will not pretend to certainty. Outside, the sky went the color of an old terminal, #2E3440, and I let it.
+
 <!-- openclaw:dreaming:diary:end -->
 
 ## Deep Sleep
